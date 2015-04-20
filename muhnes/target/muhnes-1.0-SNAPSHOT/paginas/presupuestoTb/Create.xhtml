@@ -13,7 +13,7 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{presupuestoTbController.selected != null}">
                         <p:outputLabel value="#{bundle.CreatePresupuestoTbLabel_CNombre}" for="CNombre" />
-                        <p:inputText id="CNombre" value="#{presupuestoTbController.selected.CNombre}" title="#{bundle.CreatePresupuestoTbTitle_CNombre}" 
+                        <p:inputText id="CNombre" value="#{presupuestoTbController.selected.MNombre}" title="#{bundle.CreatePresupuestoTbTitle_CNombre}" 
                                      required="true" requiredMessage="Introduzca nombre de presupuesto"/>
 
                         <p:outputLabel value="#{bundle.CreatePresupuestoTbLabel_CTipo}" for="CTipo" />

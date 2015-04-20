@@ -32,11 +32,13 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "ProcesoejemplarTb.findAll", query = "SELECT p FROM ProcesoejemplarTb p"),
     @NamedQuery(name = "ProcesoejemplarTb.findByEIdproceso", query = "SELECT p FROM ProcesoejemplarTb p WHERE p.eIdproceso = :eIdproceso"),
     @NamedQuery(name = "ProcesoejemplarTb.findByMDescripcion", query = "SELECT p FROM ProcesoejemplarTb p WHERE p.mDescripcion = :mDescripcion"),
-    @NamedQuery(name = "ProcesoejemplarTb.findByDCantidad", query = "SELECT p FROM ProcesoejemplarTb p WHERE p.dCantidad = :dCantidad"),
+    @NamedQuery(name = "ProcesoejemplarTb.findByECantidad", query = "SELECT p FROM ProcesoejemplarTb p WHERE p.eCantidad = :eCantidad"),
     @NamedQuery(name = "ProcesoejemplarTb.findByCTiempo", query = "SELECT p FROM ProcesoejemplarTb p WHERE p.cTiempo = :cTiempo"),
     @NamedQuery(name = "ProcesoejemplarTb.findByCTipo", query = "SELECT p FROM ProcesoejemplarTb p WHERE p.cTipo = :cTipo"),
     @NamedQuery(name = "ProcesoejemplarTb.findByFFecha", query = "SELECT p FROM ProcesoejemplarTb p WHERE p.fFecha = :fFecha")})
 public class ProcesoejemplarTb implements Serializable {
+    @Column(name = "e_cantidad")
+    private Integer eCantidad;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,8 +49,7 @@ public class ProcesoejemplarTb implements Serializable {
     @Column(name = "m_descripcion")
     private String mDescripcion;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "d_cantidad")
-    private Double dCantidad;
+   
     @Size(max = 20)
     @Column(name = "c_tiempo")
     private String cTiempo;
@@ -85,13 +86,6 @@ public class ProcesoejemplarTb implements Serializable {
         this.mDescripcion = mDescripcion;
     }
 
-    public Double getDCantidad() {
-        return dCantidad;
-    }
-
-    public void setDCantidad(Double dCantidad) {
-        this.dCantidad = dCantidad;
-    }
 
     public String getCTiempo() {
         return cTiempo;
@@ -148,6 +142,14 @@ public class ProcesoejemplarTb implements Serializable {
     @Override
     public String toString() {
         return "modelo.ProcesoejemplarTb[ eIdproceso=" + eIdproceso + " ]";
+    }
+
+    public Integer getECantidad() {
+        return eCantidad;
+    }
+
+    public void setECantidad(Integer eCantidad) {
+        this.eCantidad = eCantidad;
     }
     
 }

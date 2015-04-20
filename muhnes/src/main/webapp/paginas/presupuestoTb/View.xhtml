@@ -13,14 +13,14 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{presupuestoTbController.selected != null}">
                        <h:outputText value="#{bundle.ViewPresupuestoTbLabel_CNombre}"/>
-                        <h:outputText value="#{presupuestoTbController.selected.CNombre}" title="#{bundle.ViewPresupuestoTbTitle_CNombre}"/>
+                        <h:outputText value="#{presupuestoTbController.selected.MNombre}" title="#{bundle.ViewPresupuestoTbTitle_CNombre}"/>
                         
                         <h:outputText value="#{bundle.ViewPresupuestoTbLabel_CTipo}"/>
                         <h:outputText value="#{presupuestoTbController.selected.CTipo}" title="#{bundle.ViewPresupuestoTbTitle_CTipo}"/>
                         <h:outputText value="#{bundle.ViewPresupuestoTbLabel_MDescripcion}"/>
                         <h:outputText value="#{presupuestoTbController.selected.MDescripcion}" title="#{bundle.ViewPresupuestoTbTitle_MDescripcion}"/>
                         <h:outputText value="#{bundle.ViewPresupuestoTbLabel_EIdproyecto}"/>
-                        <h:outputText value="#{presupuestoTbController.selected.EIdproyecto.CNombre}" title="#{bundle.ViewPresupuestoTbTitle_EIdproyecto}"/>
+                        <h:outputText value="#{presupuestoTbController.selected.EIdproyecto.MNombre}" title="#{bundle.ViewPresupuestoTbTitle_EIdproyecto}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="PresupuestoTbViewDialog.hide()"/>
                 </h:panelGroup>

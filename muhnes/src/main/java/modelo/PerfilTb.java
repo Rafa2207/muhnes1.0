@@ -37,7 +37,7 @@ public class PerfilTb implements Serializable {
     @Basic(optional = false)
     @Column(name = "e_idperfil")
     private Integer eIdperfil;
-    @Size(max = 50)
+    @Size(max = 150)
     @Column(name = "c_nombre")
     private String cNombre;
     @Size(max = 2147483647)

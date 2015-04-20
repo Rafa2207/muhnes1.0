@@ -25,13 +25,13 @@ import javax.persistence.Table;
     @NamedQuery(name = "EjemplarParticipaExhibicionTb.findAll", query = "SELECT e FROM EjemplarParticipaExhibicionTb e"),
     @NamedQuery(name = "EjemplarParticipaExhibicionTb.findByEIdejemplar", query = "SELECT e FROM EjemplarParticipaExhibicionTb e WHERE e.ejemplarParticipaExhibicionTbPK.eIdejemplar = :eIdejemplar"),
     @NamedQuery(name = "EjemplarParticipaExhibicionTb.findByEIdexhibicion", query = "SELECT e FROM EjemplarParticipaExhibicionTb e WHERE e.ejemplarParticipaExhibicionTbPK.eIdexhibicion = :eIdexhibicion"),
-    @NamedQuery(name = "EjemplarParticipaExhibicionTb.findByCatidad", query = "SELECT e FROM EjemplarParticipaExhibicionTb e WHERE e.catidad = :catidad")})
+    @NamedQuery(name = "EjemplarParticipaExhibicionTb.findByECantidad", query = "SELECT e FROM EjemplarParticipaExhibicionTb e WHERE e.eCantidad = :eCantidad")})
 public class EjemplarParticipaExhibicionTb implements Serializable {
+    @Column(name = "e_cantidad")
+    private Integer eCantidad;
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected EjemplarParticipaExhibicionTbPK ejemplarParticipaExhibicionTbPK;
-    @Column(name = "catidad")
-    private Integer catidad;
     @JoinColumn(name = "e_idexhibicion", referencedColumnName = "e_idexhibicion", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private ExhibicionTb exhibicionTb;
@@ -58,13 +58,6 @@ public class EjemplarParticipaExhibicionTb implements Serializable {
         this.ejemplarParticipaExhibicionTbPK = ejemplarParticipaExhibicionTbPK;
     }
 
-    public Integer getCatidad() {
-        return catidad;
-    }
-
-    public void setCatidad(Integer catidad) {
-        this.catidad = catidad;
-    }
 
     public ExhibicionTb getExhibicionTb() {
         return exhibicionTb;
@@ -105,6 +98,14 @@ public class EjemplarParticipaExhibicionTb implements Serializable {
     @Override
     public String toString() {
         return "modelo.EjemplarParticipaExhibicionTb[ ejemplarParticipaExhibicionTbPK=" + ejemplarParticipaExhibicionTbPK + " ]";
+    }
+
+    public Integer getECantidad() {
+        return eCantidad;
+    }
+
+    public void setECantidad(Integer eCantidad) {
+        this.eCantidad = eCantidad;
     }
     
 }

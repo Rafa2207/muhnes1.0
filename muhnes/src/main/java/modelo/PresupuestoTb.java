@@ -31,9 +31,12 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "PresupuestoTb.findAll", query = "SELECT p FROM PresupuestoTb p"),
     @NamedQuery(name = "PresupuestoTb.findByEIdpresupuesto", query = "SELECT p FROM PresupuestoTb p WHERE p.eIdpresupuesto = :eIdpresupuesto"),
     @NamedQuery(name = "PresupuestoTb.findByCTipo", query = "SELECT p FROM PresupuestoTb p WHERE p.cTipo = :cTipo"),
-    @NamedQuery(name = "PresupuestoTb.findByCNombre", query = "SELECT p FROM PresupuestoTb p WHERE p.cNombre = :cNombre"),
+    @NamedQuery(name = "PresupuestoTb.findByMNombre", query = "SELECT p FROM PresupuestoTb p WHERE p.mNombre = :mNombre"),
     @NamedQuery(name = "PresupuestoTb.findByMDescripcion", query = "SELECT p FROM PresupuestoTb p WHERE p.mDescripcion = :mDescripcion")})
 public class PresupuestoTb implements Serializable {
+    @Size(max = 2147483647)
+    @Column(name = "m_nombre")
+    private String mNombre;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,9 +46,6 @@ public class PresupuestoTb implements Serializable {
     @Size(max = 10)
     @Column(name = "c_tipo")
     private String cTipo;
-    @Size(max = 50)
-    @Column(name = "c_nombre")
-    private String cNombre;
     @Size(max = 2147483647)
     @Column(name = "m_descripcion")
     private String mDescripcion;
@@ -78,13 +78,6 @@ public class PresupuestoTb implements Serializable {
         this.cTipo = cTipo;
     }
 
-    public String getCNombre() {
-        return cNombre;
-    }
-
-    public void setCNombre(String cNombre) {
-        this.cNombre = cNombre;
-    }
 
     public String getMDescripcion() {
         return mDescripcion;
@@ -133,6 +126,14 @@ public class PresupuestoTb implements Serializable {
     @Override
     public String toString() {
         return "modelo.PresupuestoTb[ eIdpresupuesto=" + eIdpresupuesto + " ]";
+    }
+
+    public String getMNombre() {
+        return mNombre;
+    }
+
+    public void setMNombre(String mNombre) {
+        this.mNombre = mNombre;
     }
     
 }

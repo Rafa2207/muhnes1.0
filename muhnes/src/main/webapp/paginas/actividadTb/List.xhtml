@@ -15,12 +15,12 @@
 
         <ui:define name="body">
             <h:form id="ActividadTbListForm">
-                <p:panel header="#{bundle.ListActividadTbTitle} de #{controladorSesion.proyecto.CNombre}">
+                <p:panel header="#{bundle.ListActividadTbTitle} de #{controladorSesion.proyecto.MNombre}">
                     <p:breadCrumb>
                         <p:menuitem value="casita"/>
                         <p:menuitem value="Proyectos" outcome="/paginas/proyectoTb/List.xhtml" />
 
-                        <p:menuitem value="Actvidades"  />
+                        <p:menuitem value="Actvidades" outcome="/paginas/actividadTb/List.xhtml"  />
 
                     </p:breadCrumb>
 
@@ -48,7 +48,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListActividadTbTitle_CNombre}"/>
                             </f:facet>
-                            <h:outputText value="#{item.CNombre}"/>
+                            <h:outputText value="#{item.MNombre}"/>
                         </p:column>
 
                         <p:column>
@@ -76,7 +76,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListActividadTbTitle_EIdproyecto}"/>
                             </f:facet>
-                            <h:outputText value="#{item.EIdproyecto.CNombre}"/>
+                            <h:outputText value="#{item.EIdproyecto.MNombre}"/>
                         </p:column>
                         <f:facet name="footer">
                         </f:facet>

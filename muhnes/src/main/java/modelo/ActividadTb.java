@@ -36,8 +36,11 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "ActividadTb.findByFFecha", query = "SELECT a FROM ActividadTb a WHERE a.fFecha = :fFecha"),
     @NamedQuery(name = "ActividadTb.findByCDuracion", query = "SELECT a FROM ActividadTb a WHERE a.cDuracion = :cDuracion"),
     @NamedQuery(name = "ActividadTb.findByMDescripcion", query = "SELECT a FROM ActividadTb a WHERE a.mDescripcion = :mDescripcion"),
-    @NamedQuery(name = "ActividadTb.findByCNombre", query = "SELECT a FROM ActividadTb a WHERE a.cNombre = :cNombre")})
+    @NamedQuery(name = "ActividadTb.findByMNombre", query = "SELECT a FROM ActividadTb a WHERE a.mNombre = :mNombre")})
 public class ActividadTb implements Serializable {
+    @Size(max = 2147483647)
+    @Column(name = "m_nombre")
+    private String mNombre;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,9 +56,7 @@ public class ActividadTb implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "m_descripcion")
     private String mDescripcion;
-    @Size(max = 50)
-    @Column(name = "c_nombre")
-    private String cNombre;
+    
     @JoinColumn(name = "e_idproyecto", referencedColumnName = "e_idproyecto")
     @ManyToOne
     private ProyectoTb eIdproyecto;
@@ -101,13 +102,6 @@ public class ActividadTb implements Serializable {
         this.mDescripcion = mDescripcion;
     }
 
-    public String getCNombre() {
-        return cNombre;
-    }
-
-    public void setCNombre(String cNombre) {
-        this.cNombre = cNombre;
-    }
 
     public ProyectoTb getEIdproyecto() {
         return eIdproyecto;
@@ -148,6 +142,14 @@ public class ActividadTb implements Serializable {
     @Override
     public String toString() {
         return "modelo.ActividadTb[ eIdactividad=" + eIdactividad + " ]";
+    }
+
+    public String getMNombre() {
+        return mNombre;
+    }
+
+    public void setMNombre(String mNombre) {
+        this.mNombre = mNombre;
     }
     
 }

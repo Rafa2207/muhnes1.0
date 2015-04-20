@@ -14,7 +14,7 @@
                     <p:panelGrid columns="2" rendered="#{actividadTbController.selected != null}">
                         
                         <h:outputText value="#{bundle.ViewActividadTbLabel_CNombre}"/>
-                        <h:outputText value="#{actividadTbController.selected.CNombre}" title="#{bundle.ViewActividadTbTitle_CNombre}"/>
+                        <h:outputText value="#{actividadTbController.selected.MNombre}" title="#{bundle.ViewActividadTbTitle_CNombre}"/>
                         
                         <h:outputText value="#{bundle.ViewActividadTbLabel_FFecha}"/>
                         <h:outputText value="#{actividadTbController.selected.FFecha}" title="#{bundle.ViewActividadTbTitle_FFecha}">
@@ -29,7 +29,7 @@
                         
                         
                         <h:outputText value="#{bundle.ViewActividadTbLabel_EIdproyecto}"/>
-                        <h:outputText value="#{actividadTbController.selected.EIdproyecto.CNombre}" title="#{bundle.ViewActividadTbTitle_EIdproyecto}"/>
+                        <h:outputText value="#{actividadTbController.selected.EIdproyecto.MNombre}" title="#{bundle.ViewActividadTbTitle_EIdproyecto}"/>
                    
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="ActividadTbViewDialog.hide()"/>

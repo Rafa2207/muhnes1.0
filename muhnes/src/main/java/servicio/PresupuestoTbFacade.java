@@ -31,10 +31,10 @@ public class PresupuestoTbFacade extends AbstractFacade<PresupuestoTb> {
         super(PresupuestoTb.class);
     }
     
-    public List<PresupuestoTb> buscarPresupuestoAsc(ProyectoTb proyectos) {
+    public List<PresupuestoTb> buscarPresupuestoAsc(ProyectoTb proyecto) {
         
-        TypedQuery<PresupuestoTb> query = em.createQuery("SELECT p FROM PresupuestoTb p WHERE p.eIdproyecto=:h ORDER BY p.cNombre ASC ", PresupuestoTb.class);
-       query.setParameter("h", proyectos);
+        TypedQuery<PresupuestoTb> query = em.createQuery("SELECT p FROM PresupuestoTb p WHERE p.eIdproyecto=:h ORDER BY p.mNombre ASC", PresupuestoTb.class);
+       query.setParameter("h", proyecto);
         return query.getResultList();
          }
 }

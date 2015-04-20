@@ -30,14 +30,17 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "proyecto_tb")
 @NamedQueries({
-    @NamedQuery(name = "ProyectoTb.findAll", query = "SELECT p FROM ProyectoTb p"),
+    @NamedQuery(name = "ProyectoTb.findAll", query = "SELECT p FROM ProyectoTb p ORDER BY p.mNombre"),
     @NamedQuery(name = "ProyectoTb.findByEIdproyecto", query = "SELECT p FROM ProyectoTb p WHERE p.eIdproyecto = :eIdproyecto"),
     @NamedQuery(name = "ProyectoTb.findByMDescripcion", query = "SELECT p FROM ProyectoTb p WHERE p.mDescripcion = :mDescripcion"),
-    @NamedQuery(name = "ProyectoTb.findByCNombre", query = "SELECT p FROM ProyectoTb p WHERE p.cNombre = :cNombre"),
+    @NamedQuery(name = "ProyectoTb.findByMNombre", query = "SELECT p FROM ProyectoTb p WHERE p.mNombre=:mNombre"),
     @NamedQuery(name = "ProyectoTb.findByCResponsable", query = "SELECT p FROM ProyectoTb p WHERE p.cResponsable = :cResponsable"),
     @NamedQuery(name = "ProyectoTb.findByFFechaInicio", query = "SELECT p FROM ProyectoTb p WHERE p.fFechaInicio = :fFechaInicio"),
     @NamedQuery(name = "ProyectoTb.findByFFechaFin", query = "SELECT p FROM ProyectoTb p WHERE p.fFechaFin = :fFechaFin")})
 public class ProyectoTb implements Serializable {
+    @Size(max = 2147483647)
+    @Column(name = "m_nombre")
+    private String mNombre;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,9 +50,6 @@ public class ProyectoTb implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "m_descripcion")
     private String mDescripcion;
-    @Size(max = 50)
-    @Column(name = "c_nombre")
-    private String cNombre;
     @Size(max = 50)
     @Column(name = "c_responsable")
     private String cResponsable;
@@ -78,6 +78,15 @@ public class ProyectoTb implements Serializable {
     public Integer getEIdproyecto() {
         return eIdproyecto;
     }
+    
+    
+   public String getMNombre() {
+        return mNombre;
+    }
+
+    public void setMNombre(String mNombre) {
+        this.mNombre = mNombre;
+    }
 
     public void setEIdproyecto(Integer eIdproyecto) {
         this.eIdproyecto = eIdproyecto;
@@ -91,13 +100,7 @@ public class ProyectoTb implements Serializable {
         this.mDescripcion = mDescripcion;
     }
 
-    public String getCNombre() {
-        return cNombre;
-    }
-
-    public void setCNombre(String cNombre) {
-        this.cNombre = cNombre;
-    }
+    
 
     public String getCResponsable() {
         return cResponsable;
@@ -179,5 +182,7 @@ public class ProyectoTb implements Serializable {
     public String toString() {
         return "modelo.ProyectoTb[ eIdproyecto=" + eIdproyecto + " ]";
     }
+
+    
     
 }

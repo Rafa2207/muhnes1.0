@@ -13,7 +13,7 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{ejemplarParticipaExhibicionTbController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateEjemplarParticipaExhibicionTbLabel_catidad}" for="catidad" />
-                        <p:inputText id="catidad" value="#{ejemplarParticipaExhibicionTbController.selected.catidad}" title="#{bundle.CreateEjemplarParticipaExhibicionTbTitle_catidad}" />
+                        <p:inputText id="catidad" value="#{ejemplarParticipaExhibicionTbController.selected.ECantidad}" title="#{bundle.CreateEjemplarParticipaExhibicionTbTitle_catidad}" />
                         <p:outputLabel value="#{bundle.CreateEjemplarParticipaExhibicionTbLabel_exhibicionTb}" for="exhibicionTb" />
                         <p:selectOneMenu id="exhibicionTb" value="#{ejemplarParticipaExhibicionTbController.selected.exhibicionTb}" required="true" requiredMessage="#{bundle.EditEjemplarParticipaExhibicionTbRequiredMessage_exhibicionTb}">
                             <f:selectItems value="#{exhibicionTbController.itemsAvailableSelectOne}"

@@ -40,8 +40,12 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "ExhibicionTb.findByFFechaSalida", query = "SELECT e FROM ExhibicionTb e WHERE e.fFechaSalida = :fFechaSalida"),
     @NamedQuery(name = "ExhibicionTb.findByFFechaReingreso", query = "SELECT e FROM ExhibicionTb e WHERE e.fFechaReingreso = :fFechaReingreso"),
     @NamedQuery(name = "ExhibicionTb.findByMDireccion", query = "SELECT e FROM ExhibicionTb e WHERE e.mDireccion = :mDireccion"),
+    @NamedQuery(name = "ExhibicionTb.findByMNombre", query = "SELECT e FROM ExhibicionTb e WHERE e.mNombre = :mNombre"),
     @NamedQuery(name = "ExhibicionTb.findByCResponsable", query = "SELECT e FROM ExhibicionTb e WHERE e.cResponsable = :cResponsable")})
 public class ExhibicionTb implements Serializable {
+    @Size(max = 2147483647)
+    @Column(name = "m_nombre")
+    private String mNombre;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -185,6 +189,14 @@ public class ExhibicionTb implements Serializable {
     @Override
     public String toString() {
         return "modelo.ExhibicionTb[ eIdexhibicion=" + eIdexhibicion + " ]";
+    }
+
+    public String getMNombre() {
+        return mNombre;
+    }
+
+    public void setMNombre(String mNombre) {
+        this.mNombre = mNombre;
     }
     
 }

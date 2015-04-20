@@ -33,7 +33,7 @@ public class ActividadTbFacade extends AbstractFacade<ActividadTb> {
 
     public List<ActividadTb> buscarAsc(ProyectoTb proyectos) {
         
-        TypedQuery<ActividadTb> query = em.createQuery("SELECT p FROM ActividadTb p WHERE p.eIdproyecto=:h ORDER BY p.cNombre ASC ", ActividadTb.class);
+        TypedQuery<ActividadTb> query = em.createQuery("SELECT p FROM ActividadTb p WHERE p.eIdproyecto=:h ORDER BY p.mNombre ASC ", ActividadTb.class);
        query.setParameter("h", proyectos);
         return query.getResultList();
          }

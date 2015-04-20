@@ -31,8 +31,11 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "InsumoTb.findByMNombre", query = "SELECT i FROM InsumoTb i WHERE i.mNombre = :mNombre"),
     @NamedQuery(name = "InsumoTb.findByMTiempo", query = "SELECT i FROM InsumoTb i WHERE i.mTiempo = :mTiempo"),
     @NamedQuery(name = "InsumoTb.findByDGasto", query = "SELECT i FROM InsumoTb i WHERE i.dGasto = :dGasto"),
-    @NamedQuery(name = "InsumoTb.findByDCantidad", query = "SELECT i FROM InsumoTb i WHERE i.dCantidad = :dCantidad")})
+    @NamedQuery(name = "InsumoTb.findByDCantidad", query = "SELECT i FROM InsumoTb i WHERE i.mCantidad = :mCantidad")})
 public class InsumoTb implements Serializable {
+    @Size(max = 2147483647)
+    @Column(name = "m_cantidad")
+    private String mCantidad;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,8 +51,7 @@ public class InsumoTb implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "d_gasto")
     private Double dGasto;
-    @Column(name = "d_cantidad")
-    private Double dCantidad;
+    
     @JoinColumn(name = "e_idpresupuesto", referencedColumnName = "e_idpresupuesto")
     @ManyToOne
     private PresupuestoTb eIdpresupuesto;
@@ -93,13 +95,6 @@ public class InsumoTb implements Serializable {
         this.dGasto = dGasto;
     }
 
-    public Double getDCantidad() {
-        return dCantidad;
-    }
-
-    public void setDCantidad(Double dCantidad) {
-        this.dCantidad = dCantidad;
-    }
 
     public PresupuestoTb getEIdpresupuesto() {
         return eIdpresupuesto;
@@ -132,6 +127,14 @@ public class InsumoTb implements Serializable {
     @Override
     public String toString() {
         return "modelo.InsumoTb[ eIdinsumo=" + eIdinsumo + " ]";
+    }
+
+    public String getMCantidad() {
+        return mCantidad;
+    }
+
+    public void setMCantidad(String mCantidad) {
+        this.mCantidad = mCantidad;
     }
     
 }
