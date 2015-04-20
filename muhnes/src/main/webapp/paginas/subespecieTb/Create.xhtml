@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SubespecieTbCreateDlg" widgetVar="SubespecieTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateSubespecieTbTitle}">
+            <h:form id="SubespecieTbCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{subespecieTbController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateSubespecieTbLabel_EIdsubespecie}" for="EIdsubespecie" />
+                        <p:inputText id="EIdsubespecie" value="#{subespecieTbController.selected.EIdsubespecie}" title="#{bundle.CreateSubespecieTbTitle_EIdsubespecie}" required="true" requiredMessage="#{bundle.CreateSubespecieTbRequiredMessage_EIdsubespecie}"/>
+                        <p:outputLabel value="#{bundle.CreateSubespecieTbLabel_CNombre}" for="CNombre" />
+                        <p:inputText id="CNombre" value="#{subespecieTbController.selected.CNombre}" title="#{bundle.CreateSubespecieTbTitle_CNombre}" />
+                        <p:outputLabel value="#{bundle.CreateSubespecieTbLabel_CEstado}" for="CEstado" />
+                        <p:inputText id="CEstado" value="#{subespecieTbController.selected.CEstado}" title="#{bundle.CreateSubespecieTbTitle_CEstado}" />
+                        <p:outputLabel value="#{bundle.CreateSubespecieTbLabel_EIdespecie}" for="EIdespecie" />
+                        <p:inputText id="EIdespecie" value="#{subespecieTbController.selected.EIdespecie}" title="#{bundle.CreateSubespecieTbTitle_EIdespecie}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{subespecieTbController.create}" value="#{bundle.Save}" update="display,:SubespecieTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'SubespecieTbCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="SubespecieTbCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SubespecieTbViewDlg" widgetVar="SubespecieTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewSubespecieTbTitle}">
+            <h:form id="SubespecieTbViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{subespecieTbController.selected != null}">
+                        <h:outputText value="#{bundle.ViewSubespecieTbLabel_EIdsubespecie}"/>
+                        <h:outputText value="#{subespecieTbController.selected.EIdsubespecie}" title="#{bundle.ViewSubespecieTbTitle_EIdsubespecie}"/>
+                        <h:outputText value="#{bundle.ViewSubespecieTbLabel_CNombre}"/>
+                        <h:outputText value="#{subespecieTbController.selected.CNombre}" title="#{bundle.ViewSubespecieTbTitle_CNombre}"/>
+                        <h:outputText value="#{bundle.ViewSubespecieTbLabel_CEstado}"/>
+                        <h:outputText value="#{subespecieTbController.selected.CEstado}" title="#{bundle.ViewSubespecieTbTitle_CEstado}"/>
+                        <h:outputText value="#{bundle.ViewSubespecieTbLabel_EIdespecie}"/>
+                        <h:outputText value="#{subespecieTbController.selected.EIdespecie}" title="#{bundle.ViewSubespecieTbTitle_EIdespecie}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="SubespecieTbViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

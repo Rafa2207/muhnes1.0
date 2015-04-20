@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListDepartamentoTbTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="DepartamentoTbListForm">
+                <p:panel header="#{bundle.ListDepartamentoTbTitle}">
+                    
+                     <p:panelGrid columns="2">
+                     <p:outputLabel value="País: " />
+                     <p:selectOneMenu id="pais" value="#{departamentoTbController.pais}" filter="true" filterMatchMode="contains">
+                        <f:selectItem itemValue="" itemLabel="Seleccione país"/>
+                        <f:selectItems value="#{paisTbController.itemsAvailableSelectOne}"
+                                       var="pa"
+                                       itemLabel="#{pa.CNombre}"
+                                       itemValue="#{pa}"/>
+                        <p:ajax process="pais" update="datalist createButton viewButton editButton deleteButton" event="change"/><!-- sirve para actualizar la tabla -->
+                    </p:selectOneMenu>
+                     </p:panelGrid>
+                    
+                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{departamentoTbController.prepareCreate}" update=":DepartamentoTbCreateForm" oncomplete="PF('DepartamentoTbCreateDialog').show()" disabled="#{departamentoTbController.pais eq null}"/>
+                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DepartamentoTbViewForm" oncomplete="PF('DepartamentoTbViewDialog').show()" disabled="#{empty departamentoTbController.selected || departamentoTbController.pais eq null}"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":DepartamentoTbEditForm" oncomplete="PF('DepartamentoTbEditDialog').show()" disabled="#{empty departamentoTbController.selected || departamentoTbController.pais eq null}"/>
+                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{departamentoTbController.destroy}" update=":growl,datalist" disabled="#{empty departamentoTbController.selected || departamentoTbController.pais eq null}"/>
+
+                    <p:dataTable id="datalist" value="#{departamentoTbController.items}" var="item"
+                                 selectionMode="single" selection="#{departamentoTbController.selected}"
+                                 paginator="true"
+                                 paginatorPosition="bottom"
+                                 rowKey="#{item.EIddepto}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 emptyMessage="No se encontraron departamentos."
+                                 >
+
+                        <p:ajax event="rowSelect"   update=":DepartamentoTbListForm:createButton :DepartamentoTbListForm:viewButton :DepartamentoTbListForm:editButton :DepartamentoTbListForm:deleteButton"/>
+                        <p:ajax event="rowUnselect" update=":DepartamentoTbListForm:createButton :DepartamentoTbListForm:viewButton :DepartamentoTbListForm:editButton :DepartamentoTbListForm:deleteButton"/>
+
+                        
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDepartamentoTbTitle_CNombre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.CNombre}"/>
+                        </p:column>
+                        
+                        <f:facet name="footer">
+                            
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

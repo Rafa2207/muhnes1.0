@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EjemplarTbViewDlg" widgetVar="EjemplarTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewEjemplarTbTitle}">
+            <h:form id="EjemplarTbViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{ejemplarTbController.selected != null}">
+                        <h:outputText value="#{bundle.ViewEjemplarTbLabel_EIdejemplar}"/>
+                        <h:outputText value="#{ejemplarTbController.selected.EIdejemplar}" title="#{bundle.ViewEjemplarTbTitle_EIdejemplar}"/>
+                        <h:outputText value="#{bundle.ViewEjemplarTbLabel_MDescripcion}"/>
+                        <h:outputText value="#{ejemplarTbController.selected.MDescripcion}" title="#{bundle.ViewEjemplarTbTitle_MDescripcion}"/>
+                        <h:outputText value="#{bundle.ViewEjemplarTbLabel_ECantDuplicado}"/>
+                        <h:outputText value="#{ejemplarTbController.selected.ECantDuplicado}" title="#{bundle.ViewEjemplarTbTitle_ECantDuplicado}"/>
+                        <h:outputText value="#{bundle.ViewEjemplarTbLabel_CCalificativo}"/>
+                        <h:outputText value="#{ejemplarTbController.selected.CCalificativo}" title="#{bundle.ViewEjemplarTbTitle_CCalificativo}"/>
+                        <h:outputText value="#{bundle.ViewEjemplarTbLabel_ECorrelativo}"/>
+                        <h:outputText value="#{ejemplarTbController.selected.ECorrelativo}" title="#{bundle.ViewEjemplarTbTitle_ECorrelativo}"/>
+                        <h:outputText value="#{bundle.ViewEjemplarTbLabel_FFechaInicioIdent}"/>
+                        <h:outputText value="#{ejemplarTbController.selected.FFechaInicioIdent}" title="#{bundle.ViewEjemplarTbTitle_FFechaInicioIdent}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewEjemplarTbLabel_FFechaFinIdent}"/>
+                        <h:outputText value="#{ejemplarTbController.selected.FFechaFinIdent}" title="#{bundle.ViewEjemplarTbTitle_FFechaFinIdent}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewEjemplarTbLabel_EVariedad}"/>
+                        <h:outputText value="#{ejemplarTbController.selected.EVariedad}" title="#{bundle.ViewEjemplarTbTitle_EVariedad}"/>
+                        <h:outputText value="#{bundle.ViewEjemplarTbLabel_EIdsubespecie}"/>
+                        <h:outputText value="#{ejemplarTbController.selected.EIdsubespecie}" title="#{bundle.ViewEjemplarTbTitle_EIdsubespecie}"/>
+                        <h:outputText value="#{bundle.ViewEjemplarTbLabel_EIdproyecto}"/>
+                        <h:outputText value="#{ejemplarTbController.selected.EIdproyecto}" title="#{bundle.ViewEjemplarTbTitle_EIdproyecto}"/>
+                        <h:outputText value="#{bundle.ViewEjemplarTbLabel_EIdgenero}"/>
+                        <h:outputText value="#{ejemplarTbController.selected.EIdgenero}" title="#{bundle.ViewEjemplarTbTitle_EIdgenero}"/>
+                        <h:outputText value="#{bundle.ViewEjemplarTbLabel_EIdfamilia}"/>
+                        <h:outputText value="#{ejemplarTbController.selected.EIdfamilia}" title="#{bundle.ViewEjemplarTbTitle_EIdfamilia}"/>
+                        <h:outputText value="#{bundle.ViewEjemplarTbLabel_EIdespecie}"/>
+                        <h:outputText value="#{ejemplarTbController.selected.EIdespecie}" title="#{bundle.ViewEjemplarTbTitle_EIdespecie}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="EjemplarTbViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

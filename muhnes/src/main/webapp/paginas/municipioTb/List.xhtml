@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListMunicipioTbTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="MunicipioTbListForm">
+                <p:panel header="#{bundle.ListMunicipioTbTitle}">
+                    
+                    <p:panelGrid columns="4">
+                        <p:outputLabel value="País: " />
+                     <p:selectOneMenu id="pais" value="#{departamentoTbController.pais}" filter="true" filterMatchMode="contains">
+                        <f:selectItem itemValue="" itemLabel="Seleccione país"/>
+                        <f:selectItems value="#{paisTbController.itemsAvailableSelectOne}"
+                                       var="pa"
+                                       itemLabel="#{pa.CNombre}"
+                                       itemValue="#{pa}"/>
+                        <p:ajax process="pais" update=":MunicipioTbListForm:departamento" event="change"/><!-- sirve para actualizar el combobo -->
+                    </p:selectOneMenu>
+                        
+                        
+                        
+                     <p:outputLabel value="Departamento: " />
+                     <p:selectOneMenu id="departamento" value="#{municipioTbController.departamento}" filter="true" filterMatchMode="contains">
+                        <f:selectItem itemValue="" itemLabel="Seleccione departamento"/>
+                        <f:selectItems value="#{departamentoTbController.itemsAvailableSelectOne}"
+                                       var="depto"
+                                       itemLabel="#{depto.CNombre}"
+                                       itemValue="#{depto}"/>
+                        <p:ajax process="departamento" update="datalist createButton viewButton editButton deleteButton" event="change"/><!-- sirve para actualizar la tabla -->
+                    </p:selectOneMenu>
+                     </p:panelGrid>
+                    
+                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{municipioTbController.prepareCreate}" update=":MunicipioTbCreateForm" oncomplete="PF('MunicipioTbCreateDialog').show()" disabled="#{municipioTbController.departamento eq null}" />
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":MunicipioTbViewForm" oncomplete="PF('MunicipioTbViewDialog').show()" disabled="#{empty municipioTbController.selected || municipioTbController.departamento eq null}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":MunicipioTbEditForm" oncomplete="PF('MunicipioTbEditDialog').show()" disabled="#{empty municipioTbController.selected || municipioTbController.departamento eq null}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{municipioTbController.destroy}" update=":growl,datalist" disabled="#{empty municipioTbController.selected || municipioTbController.departamento eq null}"/>
+                       
+                    
+                    <p:dataTable id="datalist" value="#{municipioTbController.items}" var="item"
+                                 selectionMode="single" selection="#{municipioTbController.selected}"
+                                 paginator="true"
+                                 paginatorPosition="bottom"
+                                 rowKey="#{item.EIdmunicipio}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 emptyMessage="No se encontraron municipios."
+                                 >
+
+                        <p:ajax event="rowSelect"   update=":MunicipioTbListForm:createButton :MunicipioTbListForm:viewButton :MunicipioTbListForm:editButton :MunicipioTbListForm:deleteButton"/>
+                        <p:ajax event="rowUnselect" update=":MunicipioTbListForm:createButton :MunicipioTbListForm:viewButton :MunicipioTbListForm:editButton :MunicipioTbListForm:deleteButton"/>
+
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMunicipioTbTitle_CNombre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.CNombre}"/>
+                        </p:column>
+                        
+                        <f:facet name="footer">
+                             </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

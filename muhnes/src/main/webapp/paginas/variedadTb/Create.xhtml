@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="VariedadTbCreateDlg" widgetVar="VariedadTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateVariedadTbTitle}">
+            <h:form id="VariedadTbCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{variedadTbController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateVariedadTbLabel_EIdvariedad}" for="EIdvariedad" />
+                        <p:inputText id="EIdvariedad" value="#{variedadTbController.selected.EIdvariedad}" title="#{bundle.CreateVariedadTbTitle_EIdvariedad}" required="true" requiredMessage="#{bundle.CreateVariedadTbRequiredMessage_EIdvariedad}"/>
+                        <p:outputLabel value="#{bundle.CreateVariedadTbLabel_CNombre}" for="CNombre" />
+                        <p:inputText id="CNombre" value="#{variedadTbController.selected.CNombre}" title="#{bundle.CreateVariedadTbTitle_CNombre}" />
+                        <p:outputLabel value="#{bundle.CreateVariedadTbLabel_CEstado}" for="CEstado" />
+                        <p:inputText id="CEstado" value="#{variedadTbController.selected.CEstado}" title="#{bundle.CreateVariedadTbTitle_CEstado}" />
+                        <p:outputLabel value="#{bundle.CreateVariedadTbLabel_EIdsubespecie}" for="EIdsubespecie" />
+                        <p:inputText id="EIdsubespecie" value="#{variedadTbController.selected.EIdsubespecie}" title="#{bundle.CreateVariedadTbTitle_EIdsubespecie}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{variedadTbController.create}" value="#{bundle.Save}" update="display,:VariedadTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'VariedadTbCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="VariedadTbCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

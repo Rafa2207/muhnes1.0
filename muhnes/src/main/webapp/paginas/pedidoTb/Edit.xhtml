@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PedidoTbEditDlg" widgetVar="PedidoTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPedidoTbTitle}">
+            <h:form id="PedidoTbEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{pedidoTbController.selected != null}">
+                        
+                        <p:outputLabel value="#{bundle.EditPedidoTbLabel_EIdmaterial}" for="EIdmaterial" />
+                        <p:selectOneMenu id="EIdmaterial" value="#{pedidoTbController.selected.EIdmaterial}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{materialTbController.itemsAvailableSelectOne}"
+                                           var="EIdmaterialItem"
+                                           itemLabel="#{EIdmaterialItem.CNombre}"
+                                           itemValue="#{EIdmaterialItem}"/>
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel value="#{bundle.EditPedidoTbLabel_MDescripcion}" for="MDescripcion" />
+                        <p:inputTextarea autoResize="" id="MDescripcion" value="#{pedidoTbController.selected.MDescripcion}" title="#{bundle.EditPedidoTbTitle_MDescripcion}" 
+                                         required="true"
+                                         requiredMessage="Introduzca descripcion"/>
+                        
+                        <p:outputLabel value="#{bundle.EditPedidoTbLabel_FFecha}" for="FFecha" />
+                        <p:calendar id="FFecha" pattern="MM/dd/yyyy" value="#{pedidoTbController.selected.FFecha}" title="#{bundle.EditPedidoTbTitle_FFecha}"  showOn="button"
+                                    requiredMessage="Introduzca fecha del pedido"
+                                    locale="es"/>
+                        
+                       
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{pedidoTbController.update}" value="#{bundle.Save}" update="display,:PedidoTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PedidoTbEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PedidoTbEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

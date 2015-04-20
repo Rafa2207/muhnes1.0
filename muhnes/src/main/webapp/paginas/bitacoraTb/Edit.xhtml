@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BitacoraTbEditDlg" widgetVar="BitacoraTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditBitacoraTbTitle}">
+            <h:form id="BitacoraTbEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{bitacoraTbController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditBitacoraTbLabel_EIdbitacora}" for="EIdbitacora" />
+                        <p:inputText id="EIdbitacora" value="#{bitacoraTbController.selected.EIdbitacora}" title="#{bundle.EditBitacoraTbTitle_EIdbitacora}" required="true" requiredMessage="#{bundle.EditBitacoraTbRequiredMessage_EIdbitacora}"/>
+                        <p:outputLabel value="#{bundle.EditBitacoraTbLabel_MDescripcion}" for="MDescripcion" />
+                        <p:inputText id="MDescripcion" value="#{bitacoraTbController.selected.MDescripcion}" title="#{bundle.EditBitacoraTbTitle_MDescripcion}" />
+                        <p:outputLabel value="#{bundle.EditBitacoraTbLabel_FFecha}" for="FFecha" />
+                        <p:calendar id="FFecha" pattern="MM/dd/yyyy" value="#{bitacoraTbController.selected.FFecha}" title="#{bundle.EditBitacoraTbTitle_FFecha}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditBitacoraTbLabel_EIdusuario}" for="EIdusuario" />
+                        <p:selectOneMenu id="EIdusuario" value="#{bitacoraTbController.selected.EIdusuario}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuarioTbController.itemsAvailableSelectOne}"
+                                           var="EIdusuarioItem"
+                                           itemValue="#{EIdusuarioItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{bitacoraTbController.update}" value="#{bundle.Save}" update="display,:BitacoraTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'BitacoraTbEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="BitacoraTbEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

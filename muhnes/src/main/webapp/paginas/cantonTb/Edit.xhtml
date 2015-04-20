@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CantonTbEditDlg" widgetVar="CantonTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditCantonTbTitle}">
+            <h:form id="CantonTbEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{cantonTbController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditCantonTbLabel_EIdcanton}" for="EIdcanton" />
+                        <p:inputText id="EIdcanton" value="#{cantonTbController.selected.EIdcanton}" title="#{bundle.EditCantonTbTitle_EIdcanton}" required="true" requiredMessage="#{bundle.EditCantonTbRequiredMessage_EIdcanton}"/>
+                        <p:outputLabel value="#{bundle.EditCantonTbLabel_CNombre}" for="CNombre" />
+                        <p:inputText id="CNombre" value="#{cantonTbController.selected.CNombre}" title="#{bundle.EditCantonTbTitle_CNombre}" />
+                        <p:outputLabel value="#{bundle.EditCantonTbLabel_EIdmunicipio}" for="EIdmunicipio" />
+                        <p:selectOneMenu id="EIdmunicipio" value="#{cantonTbController.selected.EIdmunicipio}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{municipioTbController.itemsAvailableSelectOne}"
+                                           var="EIdmunicipioItem"
+                                           itemValue="#{EIdmunicipioItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{cantonTbController.update}" value="#{bundle.Save}" update="display,:CantonTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CantonTbEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CantonTbEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

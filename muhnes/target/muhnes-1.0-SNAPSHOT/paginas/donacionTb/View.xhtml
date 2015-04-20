@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DonacionTbViewDlg" widgetVar="DonacionTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewDonacionTbTitle}">
+            <h:form id="DonacionTbViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{donacionTbController.selected != null}">
+                        <h:outputText value="#{bundle.ViewDonacionTbLabel_EIddonacion}"/>
+                        <h:outputText value="#{donacionTbController.selected.EIddonacion}" title="#{bundle.ViewDonacionTbTitle_EIddonacion}"/>
+                        <h:outputText value="#{bundle.ViewDonacionTbLabel_CResponsable}"/>
+                        <h:outputText value="#{donacionTbController.selected.CResponsable}" title="#{bundle.ViewDonacionTbTitle_CResponsable}"/>
+                        <h:outputText value="#{bundle.ViewDonacionTbLabel_CCalificativo}"/>
+                        <h:outputText value="#{donacionTbController.selected.CCalificativo}" title="#{bundle.ViewDonacionTbTitle_CCalificativo}"/>
+                        <h:outputText value="#{bundle.ViewDonacionTbLabel_CTipo}"/>
+                        <h:outputText value="#{donacionTbController.selected.CTipo}" title="#{bundle.ViewDonacionTbTitle_CTipo}"/>
+                        <h:outputText value="#{bundle.ViewDonacionTbLabel_MDescripcion}"/>
+                        <h:outputText value="#{donacionTbController.selected.MDescripcion}" title="#{bundle.ViewDonacionTbTitle_MDescripcion}"/>
+                        <h:outputText value="#{bundle.ViewDonacionTbLabel_ECantduplicados}"/>
+                        <h:outputText value="#{donacionTbController.selected.ECantduplicados}" title="#{bundle.ViewDonacionTbTitle_ECantduplicados}"/>
+                        <h:outputText value="#{bundle.ViewDonacionTbLabel_FFecha}"/>
+                        <h:outputText value="#{donacionTbController.selected.FFecha}" title="#{bundle.ViewDonacionTbTitle_FFecha}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewDonacionTbLabel_EIdinstitucion}"/>
+                        <h:outputText value="#{donacionTbController.selected.EIdinstitucion}" title="#{bundle.ViewDonacionTbTitle_EIdinstitucion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="DonacionTbViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

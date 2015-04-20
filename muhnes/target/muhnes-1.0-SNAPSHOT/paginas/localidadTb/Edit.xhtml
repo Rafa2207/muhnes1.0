@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LocalidadTbEditDlg" widgetVar="LocalidadTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditLocalidadTbTitle}">
+            <h:form id="LocalidadTbEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{localidadTbController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditLocalidadTbLabel_EIdlocalidad}" for="EIdlocalidad" />
+                        <p:inputText id="EIdlocalidad" value="#{localidadTbController.selected.EIdlocalidad}" title="#{bundle.EditLocalidadTbTitle_EIdlocalidad}" required="true" requiredMessage="#{bundle.EditLocalidadTbRequiredMessage_EIdlocalidad}"/>
+                        <p:outputLabel value="#{bundle.EditLocalidadTbLabel_CNombre}" for="CNombre" />
+                        <p:inputText id="CNombre" value="#{localidadTbController.selected.CNombre}" title="#{bundle.EditLocalidadTbTitle_CNombre}" />
+                        <p:outputLabel value="#{bundle.EditLocalidadTbLabel_MDescripcion}" for="MDescripcion" />
+                        <p:inputText id="MDescripcion" value="#{localidadTbController.selected.MDescripcion}" title="#{bundle.EditLocalidadTbTitle_MDescripcion}" />
+                        <p:outputLabel value="#{bundle.EditLocalidadTbLabel_CLatitud}" for="CLatitud" />
+                        <p:inputText id="CLatitud" value="#{localidadTbController.selected.CLatitud}" title="#{bundle.EditLocalidadTbTitle_CLatitud}" />
+                        <p:outputLabel value="#{bundle.EditLocalidadTbLabel_CLongitud}" for="CLongitud" />
+                        <p:inputText id="CLongitud" value="#{localidadTbController.selected.CLongitud}" title="#{bundle.EditLocalidadTbTitle_CLongitud}" />
+                        <p:outputLabel value="#{bundle.EditLocalidadTbLabel_DLatitudDecimal}" for="DLatitudDecimal" />
+                        <p:inputText id="DLatitudDecimal" value="#{localidadTbController.selected.DLatitudDecimal}" title="#{bundle.EditLocalidadTbTitle_DLatitudDecimal}" />
+                        <p:outputLabel value="#{bundle.EditLocalidadTbLabel_DLongitudDecimal}" for="DLongitudDecimal" />
+                        <p:inputText id="DLongitudDecimal" value="#{localidadTbController.selected.DLongitudDecimal}" title="#{bundle.EditLocalidadTbTitle_DLongitudDecimal}" />
+                        <p:outputLabel value="#{bundle.EditLocalidadTbLabel_EAltitudMin}" for="EAltitudMin" />
+                        <p:inputText id="EAltitudMin" value="#{localidadTbController.selected.EAltitudMin}" title="#{bundle.EditLocalidadTbTitle_EAltitudMin}" />
+                        <p:outputLabel value="#{bundle.EditLocalidadTbLabel_EAltitudMax}" for="EAltitudMax" />
+                        <p:inputText id="EAltitudMax" value="#{localidadTbController.selected.EAltitudMax}" title="#{bundle.EditLocalidadTbTitle_EAltitudMax}" />
+                        <p:outputLabel value="#{bundle.EditLocalidadTbLabel_EIdcanton}" for="EIdcanton" />
+                        <p:selectOneMenu id="EIdcanton" value="#{localidadTbController.selected.EIdcanton}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{cantonTbController.itemsAvailableSelectOne}"
+                                           var="EIdcantonItem"
+                                           itemValue="#{EIdcantonItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{localidadTbController.update}" value="#{bundle.Save}" update="display,:LocalidadTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'LocalidadTbEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="LocalidadTbEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

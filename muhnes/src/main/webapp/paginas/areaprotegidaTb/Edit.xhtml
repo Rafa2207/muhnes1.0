@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AreaprotegidaTbEditDlg" widgetVar="AreaprotegidaTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditAreaprotegidaTbTitle}">
+            <h:form id="AreaprotegidaTbEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{areaprotegidaTbController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditAreaprotegidaTbLabel_EIdarea}" for="EIdarea" />
+                        <p:inputText id="EIdarea" value="#{areaprotegidaTbController.selected.EIdarea}" title="#{bundle.EditAreaprotegidaTbTitle_EIdarea}" required="true" requiredMessage="#{bundle.EditAreaprotegidaTbRequiredMessage_EIdarea}"/>
+                        <p:outputLabel value="#{bundle.EditAreaprotegidaTbLabel_CNombre}" for="CNombre" />
+                        <p:inputText id="CNombre" value="#{areaprotegidaTbController.selected.CNombre}" title="#{bundle.EditAreaprotegidaTbTitle_CNombre}" />
+                        <p:outputLabel value="#{bundle.EditAreaprotegidaTbLabel_MDescripcion}" for="MDescripcion" />
+                        <p:inputText id="MDescripcion" value="#{areaprotegidaTbController.selected.MDescripcion}" title="#{bundle.EditAreaprotegidaTbTitle_MDescripcion}" />
+                        <p:outputLabel value="#{bundle.EditAreaprotegidaTbLabel_EIdmunicipio}" for="EIdmunicipio" />
+                        <p:selectOneMenu id="EIdmunicipio" value="#{areaprotegidaTbController.selected.EIdmunicipio}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{municipioTbController.itemsAvailableSelectOne}"
+                                           var="EIdmunicipioItem"
+                                           itemValue="#{EIdmunicipioItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{areaprotegidaTbController.update}" value="#{bundle.Save}" update="display,:AreaprotegidaTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AreaprotegidaTbEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="AreaprotegidaTbEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

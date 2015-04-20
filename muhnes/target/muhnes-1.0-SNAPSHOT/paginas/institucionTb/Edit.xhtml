@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="InstitucionTbEditDlg" widgetVar="InstitucionTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditInstitucionTbTitle}">
+            <h:form id="InstitucionTbEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{institucionTbController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditInstitucionTbLabel_CNombre}" for="CNombre" />
+                        <p:inputText id="CNombre" value="#{institucionTbController.selected.CNombre}" title="#{bundle.EditInstitucionTbTitle_CNombre}" />
+                        <p:outputLabel value="#{bundle.EditInstitucionTbLabel_CAcronimo}" for="CAcronimo" />
+                        <p:inputText id="CAcronimo" value="#{institucionTbController.selected.CAcronimo}" title="#{bundle.EditInstitucionTbTitle_CAcronimo}" />
+                        <p:outputLabel value="#{bundle.EditInstitucionTbLabel_MDireccion}" for="MDireccion" />
+                        <p:inputTextarea cols="25" rows="4" id="MDireccion" value="#{institucionTbController.selected.MDireccion}" title="#{bundle.EditInstitucionTbTitle_MDireccion}" />
+                        <p:outputLabel value="#{bundle.EditInstitucionTbLabel_EPostal}" for="EPostal" />
+                        <p:inputText id="EPostal" value="#{institucionTbController.selected.EPostal}" title="#{bundle.EditInstitucionTbTitle_EPostal}" />
+                        <p:outputLabel value="#{bundle.EditInstitucionTbLabel_CTelefono}" for="CTelefono" />
+                        <p:inputMask mask="9999-9999" id="CTelefono" value="#{institucionTbController.selected.CTelefono}" title="#{bundle.EditInstitucionTbTitle_CTelefono}" />
+                        <p:outputLabel value="#{bundle.EditInstitucionTbLabel_CFax}" for="CFax" />
+                        <p:inputMask mask="9999-9999" id="CFax" value="#{institucionTbController.selected.CFax}" title="#{bundle.EditInstitucionTbTitle_CFax}" />
+                        <p:outputLabel value="#{bundle.EditInstitucionTbLabel_CUrl}" for="CUrl" />
+                        <p:inputText id="CUrl" value="#{institucionTbController.selected.CUrl}" title="#{bundle.EditInstitucionTbTitle_CUrl}" />
+                        <p:outputLabel value="#{bundle.EditInstitucionTbLabel_EIdpais}" for="EIdpais" />
+                        <p:selectOneMenu id="EIdpais" value="#{institucionTbController.selected.EIdpais}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{paisTbController.itemsAvailableSelectOne}"
+                                           var="EIdpaisItem"
+                                           itemLabel="#{EIdpaisItem.CNombre}"
+                                           itemValue="#{EIdpaisItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <f:facet name="footer">
+                        <p:commandButton actionListener="#{institucionTbController.update}" value="#{bundle.Save}" update="display,:InstitucionTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'InstitucionTbEditDialog');"/>
+                    </f:facet>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

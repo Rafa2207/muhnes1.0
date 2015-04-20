@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AgenteTbCreateDlg" widgetVar="AgenteTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateAgenteTbTitle}">
+            <h:form id="AgenteTbCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{agenteTbController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateAgenteTbLabel_CNombre}" for="CNombre" />
+                        <p:inputText id="CNombre" value="#{agenteTbController.selected.CNombre}" title="#{bundle.CreateAgenteTbTitle_CNombre}"
+                                     required="true" requiredMessage="Introduzca nombre del agente"/>
+                        
+                        <p:outputLabel value="#{bundle.CreateAgenteTbLabel_CApellido}" for="CApellido" />
+                        <p:inputText id="CApellido" value="#{agenteTbController.selected.CApellido}" title="#{bundle.CreateAgenteTbTitle_CApellido}" 
+                                     required="true"
+                                     requiredMessage="Introduzca apellido del agente"/>
+                        
+                        <p:outputLabel value="#{bundle.CreateAgenteTbLabel_CIniciales}" for="CIniciales" />
+                        <p:inputText id="CIniciales" value="#{agenteTbController.selected.CIniciales}" title="#{bundle.CreateAgenteTbTitle_CIniciales}" 
+                                     required="true"
+                                     requiredMessage="Introduzca iniciales del agente"/>
+                        
+                        <p:outputLabel value="#{bundle.CreateAgenteTbLabel_COcupacion}" for="COcupacion" />
+                        <p:inputText id="COcupacion" value="#{agenteTbController.selected.COcupacion}" title="#{bundle.CreateAgenteTbTitle_COcupacion}" 
+                                     required="true"
+                                     requiredMessage="Introduzca ocupacion"/>
+                        
+                        <p:outputLabel value="#{bundle.CreateAgenteTbLabel_CEmail}" for="CEmail" />
+                        <p:inputText id="CEmail" value="#{agenteTbController.selected.CEmail}" title="#{bundle.CreateAgenteTbTitle_CEmail}" 
+                                     required="true"
+                                     requiredMessage="Introduzca email"/>
+                        
+                        <p:outputLabel value="#{bundle.CreateAgenteTbLabel_EPostal}" for="EPostal" />
+                        <p:inputText id="EPostal" value="#{agenteTbController.selected.EPostal}" title="#{bundle.CreateAgenteTbTitle_EPostal}" 
+                                     required="true" 
+                                     requiredMessage="Introduzca codigo postal"/>
+                        
+                        <p:outputLabel value="#{bundle.CreateAgenteTbLabel_CTelefono}" for="CTelefono" />
+                        <p:inputMask  mask="9999-9999" id="CTelefono" value="#{agenteTbController.selected.CTelefono}" title="#{bundle.CreateAgenteTbTitle_CTelefono}" 
+                                      required="true"
+                                     requiredMessage="Introduzca telefono"/>
+                        
+                        <p:outputLabel value="#{bundle.CreateAgenteTbLabel_CFax}" for="CFax" />
+                        <p:inputMask  mask="9999-9999" id="CFax" value="#{agenteTbController.selected.CFax}" title="#{bundle.CreateAgenteTbTitle_CFax}" 
+                                      required="true"
+                                     requiredMessage="Introduzca Fax"/>
+                        
+                        <p:outputLabel value="#{bundle.CreateAgenteTbLabel_MDireccion}" for="MDireccion" />
+                        <p:inputTextarea cols="25" rows="4" autoResize="" id="MDireccion" value="#{agenteTbController.selected.MDireccion}" title="#{bundle.CreateAgenteTbTitle_MDireccion}" 
+                                         required="true"
+                                         requiredMessage="Introduzca direccion del agente"/>
+                        
+                        <p:outputLabel value="#{bundle.CreateAgenteTbLabel_FFechanac}" for="FFechanac" />
+                        <p:calendar mindate="01/01/1920" navigator="true" id="FFechanac" mask="true" locale="es" pattern="dd/MM/yyyy" value="#{agenteTbController.selected.FFechanac}" title="#{bundle.EditAgenteTbTitle_FFechanac}"  showOn="button"
+                                    required="true"
+                                    requiredMessage="Introduzca fecha de nacimiento"/>
+                        
+                        <p:outputLabel value="#{bundle.CreateAgenteTbLabel_FFecham}" for="FFecham" />
+                        <p:calendar navigator="true" id="FFecham" mask="true" locale="es" pattern="dd/MM/yyyy" value="#{agenteTbController.selected.FFecham}" title="#{bundle.EditAgenteTbTitle_FFecham}"  showOn="button"
+                                    required="true"
+                                     requiredMessage="Introduzca fecha de fallecimiento"/>
+                       
+                        <p:outputLabel value="#{bundle.CreateAgenteTbLabel_EIdinstitucion}" for="EIdinstitucion" />
+                        <p:selectOneMenu id="EIdinstitucion" value="#{agenteTbController.selected.EIdinstitucion}" required="true"
+                                     requiredMessage="Seleccione una institucion" >
+                            <f:selectItem itemLabel="Seleccione uno..." itemValue=""  />
+                            <f:selectItems value="#{institucionTbController.itemsAvailableSelectOne}"
+                                           var="EIdinstitucionItem"
+                                           itemLabel="#{EIdinstitucionItem.CNombre}"
+                                           itemValue="#{EIdinstitucionItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{agenteTbController.create}" value="#{bundle.Save}" update="display,:AgenteTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'AgenteTbCreateDialog');"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

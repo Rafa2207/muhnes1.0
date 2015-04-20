@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PresupuestoTbEditDlg" widgetVar="PresupuestoTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPresupuestoTbTitle}">
+            <h:form id="PresupuestoTbEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{presupuestoTbController.selected != null}">
+                        
+                        
+                        
+                        <p:outputLabel value="#{bundle.EditPresupuestoTbLabel_CNombre}" for="CNombre" />
+                        <p:inputText id="CNombre" value="#{presupuestoTbController.selected.CNombre}" title="#{bundle.EditPresupuestoTbTitle_CNombre}" 
+                                     required="true" requiredMessage="Introduzca nombre de presupuesto"/>
+                        
+                        <p:outputLabel value="#{bundle.EditPresupuestoTbLabel_CTipo}" for="CTipo" />
+                       <p:selectOneMenu id="CTipo" value="#{presupuestoTbController.selected.CTipo}" required="true" requiredMessage="Seleccione tipo" >
+                            <f:selectItem itemLabel="Seleccione" itemValue="" />
+                            <f:selectItem itemLabel="Materiales" itemValue="Materiales" />
+                            <f:selectItem itemLabel="Viaje" itemValue="Viaje" />                            
+                        </p:selectOneMenu>
+                       
+                        <p:outputLabel value="#{bundle.EditPresupuestoTbLabel_MDescripcion}" for="MDescripcion" />
+                        <p:inputTextarea autoResize="" id="MDescripcion" value="#{presupuestoTbController.selected.MDescripcion}" title="#{bundle.EditPresupuestoTbTitle_MDescripcion}" />
+                        
+                        
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{presupuestoTbController.update}" value="#{bundle.Save}" update="display,:PresupuestoTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PresupuestoTbEditDialog');"/>
+                   
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

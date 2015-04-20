@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LocalidadTbViewDlg" widgetVar="LocalidadTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewLocalidadTbTitle}">
+            <h:form id="LocalidadTbViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{localidadTbController.selected != null}">
+                        <h:outputText value="#{bundle.ViewLocalidadTbLabel_EIdlocalidad}"/>
+                        <h:outputText value="#{localidadTbController.selected.EIdlocalidad}" title="#{bundle.ViewLocalidadTbTitle_EIdlocalidad}"/>
+                        <h:outputText value="#{bundle.ViewLocalidadTbLabel_CNombre}"/>
+                        <h:outputText value="#{localidadTbController.selected.CNombre}" title="#{bundle.ViewLocalidadTbTitle_CNombre}"/>
+                        <h:outputText value="#{bundle.ViewLocalidadTbLabel_MDescripcion}"/>
+                        <h:outputText value="#{localidadTbController.selected.MDescripcion}" title="#{bundle.ViewLocalidadTbTitle_MDescripcion}"/>
+                        <h:outputText value="#{bundle.ViewLocalidadTbLabel_CLatitud}"/>
+                        <h:outputText value="#{localidadTbController.selected.CLatitud}" title="#{bundle.ViewLocalidadTbTitle_CLatitud}"/>
+                        <h:outputText value="#{bundle.ViewLocalidadTbLabel_CLongitud}"/>
+                        <h:outputText value="#{localidadTbController.selected.CLongitud}" title="#{bundle.ViewLocalidadTbTitle_CLongitud}"/>
+                        <h:outputText value="#{bundle.ViewLocalidadTbLabel_DLatitudDecimal}"/>
+                        <h:outputText value="#{localidadTbController.selected.DLatitudDecimal}" title="#{bundle.ViewLocalidadTbTitle_DLatitudDecimal}"/>
+                        <h:outputText value="#{bundle.ViewLocalidadTbLabel_DLongitudDecimal}"/>
+                        <h:outputText value="#{localidadTbController.selected.DLongitudDecimal}" title="#{bundle.ViewLocalidadTbTitle_DLongitudDecimal}"/>
+                        <h:outputText value="#{bundle.ViewLocalidadTbLabel_EAltitudMin}"/>
+                        <h:outputText value="#{localidadTbController.selected.EAltitudMin}" title="#{bundle.ViewLocalidadTbTitle_EAltitudMin}"/>
+                        <h:outputText value="#{bundle.ViewLocalidadTbLabel_EAltitudMax}"/>
+                        <h:outputText value="#{localidadTbController.selected.EAltitudMax}" title="#{bundle.ViewLocalidadTbTitle_EAltitudMax}"/>
+                        <h:outputText value="#{bundle.ViewLocalidadTbLabel_EIdcanton}"/>
+                        <h:outputText value="#{localidadTbController.selected.EIdcanton}" title="#{bundle.ViewLocalidadTbTitle_EIdcanton}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="LocalidadTbViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListPedidoTbTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="PedidoTbListForm">
+                <p:panel header="#{bundle.ListPedidoTbTitle}">
+
+                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{pedidoTbController.prepareCreate}" update=":PedidoTbCreateForm" oncomplete="PF('PedidoTbCreateDialog').show()"/>
+                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PedidoTbViewForm" oncomplete="PF('PedidoTbViewDialog').show()" disabled="#{empty pedidoTbController.selected}"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":PedidoTbEditForm" oncomplete="PF('PedidoTbEditDialog').show()" disabled="#{empty pedidoTbController.selected}"/>
+                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{pedidoTbController.destroy}" update=":growl,datalist" disabled="#{empty pedidoTbController.selected}"/>
+                    
+                    <p:dataTable id="datalist" value="#{pedidoTbController.items}" var="item"
+                                 selectionMode="single" selection="#{pedidoTbController.selected}"
+                                 paginator="true"
+                                 paginatorPosition="bottom"
+                                 rowKey="#{item.EIdpedido}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 emptyMessage="No se encontraron pedidos."
+                                 >
+
+                        <p:ajax event="rowSelect"   update=":PedidoTbListForm:createButton :PedidoTbListForm:viewButton :PedidoTbListForm:editButton :PedidoTbListForm:deleteButton"/>
+                        <p:ajax event="rowUnselect" update=":PedidoTbListForm:createButton :PedidoTbListForm:viewButton :PedidoTbListForm:editButton :PedidoTbListForm:deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPedidoTbTitle_EIdmaterial}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.EIdmaterial.CNombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPedidoTbTitle_MDescripcion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.MDescripcion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPedidoTbTitle_FFecha}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.FFecha}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <f:facet name="footer">
+
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

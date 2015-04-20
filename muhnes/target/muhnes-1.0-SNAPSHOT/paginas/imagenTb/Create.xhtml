@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ImagenTbCreateDlg" widgetVar="ImagenTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateImagenTbTitle}">
+            <h:form id="ImagenTbCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{imagenTbController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateImagenTbLabel_EIdimagen}" for="EIdimagen" />
+                        <p:inputText id="EIdimagen" value="#{imagenTbController.selected.EIdimagen}" title="#{bundle.CreateImagenTbTitle_EIdimagen}" required="true" requiredMessage="#{bundle.CreateImagenTbRequiredMessage_EIdimagen}"/>
+                        <p:outputLabel value="#{bundle.CreateImagenTbLabel_CNombre}" for="CNombre" />
+                        <p:inputText id="CNombre" value="#{imagenTbController.selected.CNombre}" title="#{bundle.CreateImagenTbTitle_CNombre}" />
+                        <p:outputLabel value="#{bundle.CreateImagenTbLabel_IImagen}" for="IImagen" />
+                        <p:inputTextarea rows="4" cols="30" id="IImagen" value="#{imagenTbController.selected.IImagen}" title="#{bundle.CreateImagenTbTitle_IImagen}" />
+                        <p:outputLabel value="#{bundle.CreateImagenTbLabel_EIdejemplar}" for="EIdejemplar" />
+                        <p:selectOneMenu id="EIdejemplar" value="#{imagenTbController.selected.EIdejemplar}" >
+                            <f:selectItems value="#{ejemplarTbController.itemsAvailableSelectOne}"
+                                           var="EIdejemplarItem"
+                                           itemValue="#{EIdejemplarItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{imagenTbController.create}" value="#{bundle.Save}" update="display,:ImagenTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'ImagenTbCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ImagenTbCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

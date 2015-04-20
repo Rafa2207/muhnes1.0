@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListAgenteTbTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="AgenteTbListForm">
+                <p:panel header="#{bundle.ListAgenteTbTitle}">
+                    
+                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{agenteTbController.prepareCreate}" update=":AgenteTbCreateForm" oncomplete="PF('AgenteTbCreateDialog').show()"/>
+                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":AgenteTbViewForm" oncomplete="PF('AgenteTbViewDialog').show()" disabled="#{empty agenteTbController.selected}"/>
+                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":AgenteTbEditForm" oncomplete="PF('AgenteTbEditDialog').show()" disabled="#{empty agenteTbController.selected}"/>
+                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{agenteTbController.destroy}" update=":growl,datalist" disabled="#{empty agenteTbController.selected}"/>
+                
+                    <p:dataTable id="datalist" value="#{agenteTbController.items}" var="item"
+                                 selectionMode="single" selection="#{agenteTbController.selected}"
+                                 paginator="true"
+                                 paginatorPosition="bottom"
+                                 rowKey="#{item.EIdagente}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 filteredValue="#{agenteTbController.filtro}"
+                                 widgetVar="agenteTable"
+                                 emptyMessage="No se encontro agente"
+                                 >
+
+                        <p:ajax event="rowSelect"   update=":AgenteTbListForm:createButton :AgenteTbListForm:viewButton :AgenteTbListForm:editButton :AgenteTbListForm:deleteButton"/>
+                        <p:ajax event="rowUnselect" update=":AgenteTbListForm:createButton :AgenteTbListForm:viewButton :AgenteTbListForm:editButton :AgenteTbListForm:deleteButton"/>
+
+                        <p:column filterBy="#{item.CNombre}" filterStyle="display:none">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAgenteTbTitle_CNombre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.CNombre}"/>
+                        </p:column>
+                        <p:column filterBy="#{item.CApellido}" filterStyle="display:none">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAgenteTbTitle_CApellido}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.CApellido}"/>
+                        </p:column>
+                        <p:column filterBy="#{item.CIniciales}" filterStyle="display:none">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAgenteTbTitle_CIniciales}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.CIniciales}"/>
+                        </p:column>
+                        <p:column filterBy="#{item.COcupacion}" filterStyle="display:none">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAgenteTbTitle_COcupacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.COcupacion}"/>
+                        </p:column>
+                        <p:column filterBy="#{item.CEmail}" filterStyle="display:none">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAgenteTbTitle_CEmail}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.CEmail}"/>
+                        </p:column>
+                        <p:column filterBy="#{item.EPostal}" filterStyle="display:none">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAgenteTbTitle_EPostal}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.EPostal}"/>
+                        </p:column>
+                        <p:column filterBy="#{item.CTelefono}" filterStyle="display:none">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAgenteTbTitle_CTelefono}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.CTelefono}"/>
+                        </p:column>
+                        <p:column filterBy="#{item.CFax}" filterStyle="display:none">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAgenteTbTitle_CFax}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.CFax}"/>
+                        </p:column>
+                        <p:column filterBy="#{item.MDireccion}" filterStyle="display:none">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAgenteTbTitle_MDireccion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.MDireccion}"/>
+                        </p:column>
+                        <p:column filterBy="#{item.FFechanac}" filterStyle="display:none">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAgenteTbTitle_FFechanac}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.FFechanac}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column filterBy="#{item.FFecham}" filterStyle="display:none">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAgenteTbTitle_FFecham}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.FFecham}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column filterBy="#{item.EIdinstitucion.CNombre}" filterStyle="display:none">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAgenteTbTitle_EIdinstitucion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.EIdinstitucion.CNombre}"/>
+                        </p:column>
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Busqueda: " />
+                                <p:inputText id="globalFilter" onkeyup="PF('agenteTable').filter()" placeholder="Escriba aquí"/>
+                            </p:outputPanel>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

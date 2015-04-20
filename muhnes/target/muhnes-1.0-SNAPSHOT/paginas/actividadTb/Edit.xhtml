@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ActividadTbEditDlg" widgetVar="ActividadTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditActividadTbTitle}">
+            <h:form id="ActividadTbEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{actividadTbController.selected != null}">
+                        
+                        <p:outputLabel value="#{bundle.EditActividadTbLabel_CNombre}" for="CNombre" />
+                        <p:inputText id="CNombre" value="#{actividadTbController.selected.CNombre}" title="#{bundle.EditActividadTbTitle_CNombre}" 
+                                     required="true"
+                                     requiredMessage="Introduzca nombre de la actividad"/>
+                        
+                        <p:outputLabel value="#{bundle.EditActividadTbLabel_FFecha}" for="FFecha" />
+                        <p:calendar mindate="#{actividadTbController.selected.EIdproyecto.FFechaInicio}" maxdate="#{actividadTbController.selected.EIdproyecto.FFechaFin}" id="FFecha" pattern="dd/MM/yyyy" value="#{actividadTbController.selected.FFecha}" title="#{bundle.EditActividadTbTitle_FFecha}"  showOn="button"
+                                    required="true" locale="es"
+                                     requiredMessage="Introduzca fecha"/>
+                        
+                        <p:outputLabel value="#{bundle.EditActividadTbLabel_CDuracion}" for="CDuracion" />
+                        <p:inputText id="CDuracion" value="#{actividadTbController.selected.CDuracion}" title="#{bundle.EditActividadTbTitle_CDuracion}"
+                                     required="true"
+                                     requiredMessage="Introduzca duracion de la acividad"/>
+                        
+                        <p:outputLabel value="#{bundle.EditActividadTbLabel_MDescripcion}" for="MDescripcion" />
+                        <p:inputTextarea autoResize="" id="MDescripcion" value="#{actividadTbController.selected.MDescripcion}" title="#{bundle.EditActividadTbTitle_MDescripcion}" 
+                                     />
+                                
+                                          
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{actividadTbController.update}" value="#{bundle.Save}" update="display,:ActividadTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ActividadTbEditDialog');"/>
+                    
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

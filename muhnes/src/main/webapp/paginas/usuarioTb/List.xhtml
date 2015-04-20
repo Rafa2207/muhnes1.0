@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListUsuarioTbTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="UsuarioTbListForm">
+                <p:panel header="#{bundle.ListUsuarioTbTitle}">
+                    <p:dataTable id="datalist" value="#{usuarioTbController.items}" var="item"
+                                 selectionMode="single" selection="#{usuarioTbController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.EIdusuario}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUsuarioTbTitle_EIdusuario}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.EIdusuario}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUsuarioTbTitle_CNombre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.CNombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUsuarioTbTitle_CApellido}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.CApellido}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUsuarioTbTitle_CTelefono}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.CTelefono}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUsuarioTbTitle_CNick}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.CNick}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUsuarioTbTitle_CPassword}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.CPassword}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUsuarioTbTitle_CDui}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.CDui}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUsuarioTbTitle_CTipo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.CTipo}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{usuarioTbController.prepareCreate}" update=":UsuarioTbCreateForm" oncomplete="PF('UsuarioTbCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":UsuarioTbViewForm" oncomplete="PF('UsuarioTbViewDialog').show()" disabled="#{empty usuarioTbController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":UsuarioTbEditForm" oncomplete="PF('UsuarioTbEditDialog').show()" disabled="#{empty usuarioTbController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{usuarioTbController.destroy}" update=":growl,datalist" disabled="#{empty usuarioTbController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

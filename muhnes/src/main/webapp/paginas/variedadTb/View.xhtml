@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="VariedadTbViewDlg" widgetVar="VariedadTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewVariedadTbTitle}">
+            <h:form id="VariedadTbViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{variedadTbController.selected != null}">
+                        <h:outputText value="#{bundle.ViewVariedadTbLabel_EIdvariedad}"/>
+                        <h:outputText value="#{variedadTbController.selected.EIdvariedad}" title="#{bundle.ViewVariedadTbTitle_EIdvariedad}"/>
+                        <h:outputText value="#{bundle.ViewVariedadTbLabel_CNombre}"/>
+                        <h:outputText value="#{variedadTbController.selected.CNombre}" title="#{bundle.ViewVariedadTbTitle_CNombre}"/>
+                        <h:outputText value="#{bundle.ViewVariedadTbLabel_CEstado}"/>
+                        <h:outputText value="#{variedadTbController.selected.CEstado}" title="#{bundle.ViewVariedadTbTitle_CEstado}"/>
+                        <h:outputText value="#{bundle.ViewVariedadTbLabel_EIdsubespecie}"/>
+                        <h:outputText value="#{variedadTbController.selected.EIdsubespecie}" title="#{bundle.ViewVariedadTbTitle_EIdsubespecie}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="VariedadTbViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

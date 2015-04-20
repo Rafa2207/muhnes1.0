@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AgenteIdentificaEjemplarTbCreateDlg" widgetVar="AgenteIdentificaEjemplarTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateAgenteIdentificaEjemplarTbTitle}">
+            <h:form id="AgenteIdentificaEjemplarTbCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{agenteIdentificaEjemplarTbController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateAgenteIdentificaEjemplarTbLabel_ESecuencia}" for="ESecuencia" />
+                        <p:inputText id="ESecuencia" value="#{agenteIdentificaEjemplarTbController.selected.ESecuencia}" title="#{bundle.CreateAgenteIdentificaEjemplarTbTitle_ESecuencia}" />
+                        <p:outputLabel value="#{bundle.CreateAgenteIdentificaEjemplarTbLabel_ejemplarTb}" for="ejemplarTb" />
+                        <p:selectOneMenu id="ejemplarTb" value="#{agenteIdentificaEjemplarTbController.selected.ejemplarTb}" required="true" requiredMessage="#{bundle.EditAgenteIdentificaEjemplarTbRequiredMessage_ejemplarTb}">
+                            <f:selectItems value="#{ejemplarTbController.itemsAvailableSelectOne}"
+                                           var="ejemplarTbItem"
+                                           itemValue="#{ejemplarTbItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateAgenteIdentificaEjemplarTbLabel_agenteTb}" for="agenteTb" />
+                        <p:selectOneMenu id="agenteTb" value="#{agenteIdentificaEjemplarTbController.selected.agenteTb}" required="true" requiredMessage="#{bundle.EditAgenteIdentificaEjemplarTbRequiredMessage_agenteTb}">
+                            <f:selectItems value="#{agenteTbController.itemsAvailableSelectOne}"
+                                           var="agenteTbItem"
+                                           itemValue="#{agenteTbItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{agenteIdentificaEjemplarTbController.create}" value="#{bundle.Save}" update="display,:AgenteIdentificaEjemplarTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'AgenteIdentificaEjemplarTbCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="AgenteIdentificaEjemplarTbCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="InsumoTbCreateDlg" widgetVar="InsumoTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateInsumoTbTitle}">
+            <h:form id="InsumoTbCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{insumoTbController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateInsumoTbLabel_EIdinsumo}" for="EIdinsumo" />
+                        <p:inputText id="EIdinsumo" value="#{insumoTbController.selected.EIdinsumo}" title="#{bundle.CreateInsumoTbTitle_EIdinsumo}" required="true" requiredMessage="#{bundle.CreateInsumoTbRequiredMessage_EIdinsumo}"/>
+                        <p:outputLabel value="#{bundle.CreateInsumoTbLabel_MNombre}" for="MNombre" />
+                        <p:inputText id="MNombre" value="#{insumoTbController.selected.MNombre}" title="#{bundle.CreateInsumoTbTitle_MNombre}" />
+                        <p:outputLabel value="#{bundle.CreateInsumoTbLabel_MTiempo}" for="MTiempo" />
+                        <p:inputText id="MTiempo" value="#{insumoTbController.selected.MTiempo}" title="#{bundle.CreateInsumoTbTitle_MTiempo}" />
+                        <p:outputLabel value="#{bundle.CreateInsumoTbLabel_DGasto}" for="DGasto" />
+                        <p:inputText id="DGasto" value="#{insumoTbController.selected.DGasto}" title="#{bundle.CreateInsumoTbTitle_DGasto}" />
+                        <p:outputLabel value="#{bundle.CreateInsumoTbLabel_DCantidad}" for="DCantidad" />
+                        <p:inputText id="DCantidad" value="#{insumoTbController.selected.DCantidad}" title="#{bundle.CreateInsumoTbTitle_DCantidad}" />
+                        <p:outputLabel value="#{bundle.CreateInsumoTbLabel_EIdpresupuesto}" for="EIdpresupuesto" />
+                        <p:selectOneMenu id="EIdpresupuesto" value="#{insumoTbController.selected.EIdpresupuesto}" >
+                            <f:selectItems value="#{presupuestoTbController.itemsAvailableSelectOne}"
+                                           var="EIdpresupuestoItem"
+                                           itemValue="#{EIdpresupuestoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{insumoTbController.create}" value="#{bundle.Save}" update="display,:InsumoTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'InsumoTbCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="InsumoTbCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

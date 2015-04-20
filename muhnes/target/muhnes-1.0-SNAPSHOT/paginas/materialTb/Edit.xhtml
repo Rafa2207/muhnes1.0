@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MaterialTbEditDlg" widgetVar="MaterialTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditMaterialTbTitle}">
+            <h:form id="MaterialTbEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{materialTbController.selected != null}">
+                        
+                        <p:outputLabel value="#{bundle.EditMaterialTbLabel_CNombre}" for="CNombre" />
+                        <p:inputText id="CNombre" value="#{materialTbController.selected.CNombre}" title="#{bundle.EditMaterialTbTitle_CNombre}" 
+                                     required="true"
+                                     requiredMessage="Introduzca nombre del material"/>
+                        
+                        <p:outputLabel value="#{bundle.EditMaterialTbLabel_DCantidad}" for="DCantidad" />
+                        <p:inputText id="DCantidad" value="#{materialTbController.selected.DCantidad}" title="#{bundle.EditMaterialTbTitle_DCantidad}" 
+                                     required="true"
+                                     requiredMessage="Introduzca cantidad del material"/>
+                        
+                        <p:outputLabel value="#{bundle.EditMaterialTbLabel_MDescripcion}" for="MDescripcion" />
+                        <p:inputTextarea autoResize="" id="MDescripcion" value="#{materialTbController.selected.MDescripcion}" title="#{bundle.EditMaterialTbTitle_MDescripcion}"
+                                     required="true"
+                                     requiredMessage="Introduzca descripción"/>
+                        
+                        <p:outputLabel value="#{bundle.EditMaterialTbLabel_CEstado}" for="CEstado" />
+                        <p:inputText id="CEstado" value="#{materialTbController.selected.CEstado}" title="#{bundle.EditMaterialTbTitle_CEstado}" 
+                                     required="true"
+                                     requiredMessage="Introduzca estado"/>
+                        
+                        <p:outputLabel value="#{bundle.EditMaterialTbLabel_EIdactividad}" for="EIdactividad" />
+                        <p:selectOneMenu id="EIdactividad" value="#{materialTbController.selected.EIdactividad}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{actividadTbController.itemsAvailableSelectOne}"
+                                           var="EIdactividadItem"
+                                           itemLabel="#{EIdactividadItem.CNombre}"
+                                           itemValue="#{EIdactividadItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{materialTbController.update}" value="#{bundle.Save}" update="display,:MaterialTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MaterialTbEditDialog');"/>
+
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

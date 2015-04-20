@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ExhibicionTbEditDlg" widgetVar="ExhibicionTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditExhibicionTbTitle}">
+            <h:form id="ExhibicionTbEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{exhibicionTbController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditExhibicionTbLabel_EIdexhibicion}" for="EIdexhibicion" />
+                        <p:inputText id="EIdexhibicion" value="#{exhibicionTbController.selected.EIdexhibicion}" title="#{bundle.EditExhibicionTbTitle_EIdexhibicion}" required="true" requiredMessage="#{bundle.EditExhibicionTbRequiredMessage_EIdexhibicion}"/>
+                        <p:outputLabel value="#{bundle.EditExhibicionTbLabel_CTipo}" for="CTipo" />
+                        <p:inputText id="CTipo" value="#{exhibicionTbController.selected.CTipo}" title="#{bundle.EditExhibicionTbTitle_CTipo}" />
+                        <p:outputLabel value="#{bundle.EditExhibicionTbLabel_MDestino}" for="MDestino" />
+                        <p:inputText id="MDestino" value="#{exhibicionTbController.selected.MDestino}" title="#{bundle.EditExhibicionTbTitle_MDestino}" />
+                        <p:outputLabel value="#{bundle.EditExhibicionTbLabel_MObservaciones}" for="MObservaciones" />
+                        <p:inputText id="MObservaciones" value="#{exhibicionTbController.selected.MObservaciones}" title="#{bundle.EditExhibicionTbTitle_MObservaciones}" />
+                        <p:outputLabel value="#{bundle.EditExhibicionTbLabel_FFechaSalida}" for="FFechaSalida" />
+                        <p:calendar id="FFechaSalida" pattern="MM/dd/yyyy" value="#{exhibicionTbController.selected.FFechaSalida}" title="#{bundle.EditExhibicionTbTitle_FFechaSalida}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditExhibicionTbLabel_FFechaReingreso}" for="FFechaReingreso" />
+                        <p:calendar id="FFechaReingreso" pattern="MM/dd/yyyy" value="#{exhibicionTbController.selected.FFechaReingreso}" title="#{bundle.EditExhibicionTbTitle_FFechaReingreso}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditExhibicionTbLabel_MDireccion}" for="MDireccion" />
+                        <p:inputText id="MDireccion" value="#{exhibicionTbController.selected.MDireccion}" title="#{bundle.EditExhibicionTbTitle_MDireccion}" />
+                        <p:outputLabel value="#{bundle.EditExhibicionTbLabel_CResponsable}" for="CResponsable" />
+                        <p:inputText id="CResponsable" value="#{exhibicionTbController.selected.CResponsable}" title="#{bundle.EditExhibicionTbTitle_CResponsable}" />
+                        <p:outputLabel value="#{bundle.EditExhibicionTbLabel_idUsuario}" for="idUsuario" />
+                        <p:selectOneMenu id="idUsuario" value="#{exhibicionTbController.selected.idUsuario}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuarioTbController.itemsAvailableSelectOne}"
+                                           var="idUsuarioItem"
+                                           itemValue="#{idUsuarioItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{exhibicionTbController.update}" value="#{bundle.Save}" update="display,:ExhibicionTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ExhibicionTbEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ExhibicionTbEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

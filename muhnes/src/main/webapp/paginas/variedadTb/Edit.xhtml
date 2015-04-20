@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="VariedadTbEditDlg" widgetVar="VariedadTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditVariedadTbTitle}">
+            <h:form id="VariedadTbEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{variedadTbController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditVariedadTbLabel_EIdvariedad}" for="EIdvariedad" />
+                        <p:inputText id="EIdvariedad" value="#{variedadTbController.selected.EIdvariedad}" title="#{bundle.EditVariedadTbTitle_EIdvariedad}" required="true" requiredMessage="#{bundle.EditVariedadTbRequiredMessage_EIdvariedad}"/>
+                        <p:outputLabel value="#{bundle.EditVariedadTbLabel_CNombre}" for="CNombre" />
+                        <p:inputText id="CNombre" value="#{variedadTbController.selected.CNombre}" title="#{bundle.EditVariedadTbTitle_CNombre}" />
+                        <p:outputLabel value="#{bundle.EditVariedadTbLabel_CEstado}" for="CEstado" />
+                        <p:inputText id="CEstado" value="#{variedadTbController.selected.CEstado}" title="#{bundle.EditVariedadTbTitle_CEstado}" />
+                        <p:outputLabel value="#{bundle.EditVariedadTbLabel_EIdsubespecie}" for="EIdsubespecie" />
+                        <p:inputText id="EIdsubespecie" value="#{variedadTbController.selected.EIdsubespecie}" title="#{bundle.EditVariedadTbTitle_EIdsubespecie}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{variedadTbController.update}" value="#{bundle.Save}" update="display,:VariedadTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'VariedadTbEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="VariedadTbEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

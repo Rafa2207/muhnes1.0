@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListGeneroTbTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="GeneroTbListForm">
+                <p:panel header="#{bundle.ListGeneroTbTitle}: #{controladorSesion.familia.CNombre}">
+                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{generoTbController.prepareCreate}" update=":GeneroTbCreateForm" oncomplete="PF('GeneroTbCreateDialog').show()" disabled="#{generoTbController.familia eq null}"/>
+                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":GeneroTbViewForm" oncomplete="PF('GeneroTbViewDialog').show()" disabled="#{empty generoTbController.selected}"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":GeneroTbEditForm" oncomplete="PF('GeneroTbEditDialog').show()" disabled="#{empty generoTbController.selected}"/>
+                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{generoTbController.destroy}" update=":growl,datalist" disabled="#{empty generoTbController.selected}"/>
+                    <p:dataTable id="datalist" value="#{generoTbController.getItems(controladorSesion.familia.EIdfamilia)}" var="item"
+                                 selectionMode="single" selection="#{generoTbController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.EIdgenero}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 paginatorPosition="Bottom"
+                                 filteredValue="#{generoTbController.filtro}"
+                                 widgetVar="generoTable"
+                                 emptyMessage="No se encontro genero"
+                                 >
+
+                        <p:ajax event="rowSelect"   update=":GeneroTbListForm:createButton :GeneroTbListForm:viewButton :GeneroTbListForm:editButton :GeneroTbListForm:deleteButton"/>
+                        <p:ajax event="rowUnselect" update=":GeneroTbListForm:createButton :GeneroTbListForm:viewButton :GeneroTbListForm:editButton :GeneroTbListForm:deleteButton"/>
+
+                        <p:column filterBy="#{item.CNombre}" filterStyle="display:none">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGeneroTbTitle_CNombre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.CNombre}"/>
+                        </p:column>
+                        <p:column filterBy="#{item.CEstado}" filterStyle="display:none">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGeneroTbTitle_CEstado}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.CEstado}"/>
+                        </p:column>
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Busqueda: " />
+                                <p:inputText id="globalFilter" onkeyup="PF('generoTable').filter()" placeholder="Escriba aquí"/>
+                            </p:outputPanel>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

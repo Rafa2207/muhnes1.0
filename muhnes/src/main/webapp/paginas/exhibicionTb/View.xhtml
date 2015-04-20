@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ExhibicionTbViewDlg" widgetVar="ExhibicionTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewExhibicionTbTitle}">
+            <h:form id="ExhibicionTbViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{exhibicionTbController.selected != null}">
+                        <h:outputText value="#{bundle.ViewExhibicionTbLabel_EIdexhibicion}"/>
+                        <h:outputText value="#{exhibicionTbController.selected.EIdexhibicion}" title="#{bundle.ViewExhibicionTbTitle_EIdexhibicion}"/>
+                        <h:outputText value="#{bundle.ViewExhibicionTbLabel_CTipo}"/>
+                        <h:outputText value="#{exhibicionTbController.selected.CTipo}" title="#{bundle.ViewExhibicionTbTitle_CTipo}"/>
+                        <h:outputText value="#{bundle.ViewExhibicionTbLabel_MDestino}"/>
+                        <h:outputText value="#{exhibicionTbController.selected.MDestino}" title="#{bundle.ViewExhibicionTbTitle_MDestino}"/>
+                        <h:outputText value="#{bundle.ViewExhibicionTbLabel_MObservaciones}"/>
+                        <h:outputText value="#{exhibicionTbController.selected.MObservaciones}" title="#{bundle.ViewExhibicionTbTitle_MObservaciones}"/>
+                        <h:outputText value="#{bundle.ViewExhibicionTbLabel_FFechaSalida}"/>
+                        <h:outputText value="#{exhibicionTbController.selected.FFechaSalida}" title="#{bundle.ViewExhibicionTbTitle_FFechaSalida}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewExhibicionTbLabel_FFechaReingreso}"/>
+                        <h:outputText value="#{exhibicionTbController.selected.FFechaReingreso}" title="#{bundle.ViewExhibicionTbTitle_FFechaReingreso}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewExhibicionTbLabel_MDireccion}"/>
+                        <h:outputText value="#{exhibicionTbController.selected.MDireccion}" title="#{bundle.ViewExhibicionTbTitle_MDireccion}"/>
+                        <h:outputText value="#{bundle.ViewExhibicionTbLabel_CResponsable}"/>
+                        <h:outputText value="#{exhibicionTbController.selected.CResponsable}" title="#{bundle.ViewExhibicionTbTitle_CResponsable}"/>
+                        <h:outputText value="#{bundle.ViewExhibicionTbLabel_idUsuario}"/>
+                        <h:outputText value="#{exhibicionTbController.selected.idUsuario}" title="#{bundle.ViewExhibicionTbTitle_idUsuario}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ExhibicionTbViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProcesoejemplarTbEditDlg" widgetVar="ProcesoejemplarTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditProcesoejemplarTbTitle}">
+            <h:form id="ProcesoejemplarTbEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{procesoejemplarTbController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditProcesoejemplarTbLabel_EIdproceso}" for="EIdproceso" />
+                        <p:inputText id="EIdproceso" value="#{procesoejemplarTbController.selected.EIdproceso}" title="#{bundle.EditProcesoejemplarTbTitle_EIdproceso}" required="true" requiredMessage="#{bundle.EditProcesoejemplarTbRequiredMessage_EIdproceso}"/>
+                        <p:outputLabel value="#{bundle.EditProcesoejemplarTbLabel_MDescripcion}" for="MDescripcion" />
+                        <p:inputText id="MDescripcion" value="#{procesoejemplarTbController.selected.MDescripcion}" title="#{bundle.EditProcesoejemplarTbTitle_MDescripcion}" />
+                        <p:outputLabel value="#{bundle.EditProcesoejemplarTbLabel_DCantidad}" for="DCantidad" />
+                        <p:inputText id="DCantidad" value="#{procesoejemplarTbController.selected.DCantidad}" title="#{bundle.EditProcesoejemplarTbTitle_DCantidad}" />
+                        <p:outputLabel value="#{bundle.EditProcesoejemplarTbLabel_CTiempo}" for="CTiempo" />
+                        <p:inputText id="CTiempo" value="#{procesoejemplarTbController.selected.CTiempo}" title="#{bundle.EditProcesoejemplarTbTitle_CTiempo}" />
+                        <p:outputLabel value="#{bundle.EditProcesoejemplarTbLabel_CTipo}" for="CTipo" />
+                        <p:inputText id="CTipo" value="#{procesoejemplarTbController.selected.CTipo}" title="#{bundle.EditProcesoejemplarTbTitle_CTipo}" />
+                        <p:outputLabel value="#{bundle.EditProcesoejemplarTbLabel_FFecha}" for="FFecha" />
+                        <p:calendar id="FFecha" pattern="MM/dd/yyyy" value="#{procesoejemplarTbController.selected.FFecha}" title="#{bundle.EditProcesoejemplarTbTitle_FFecha}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditProcesoejemplarTbLabel_EIdproyecto}" for="EIdproyecto" />
+                        <p:selectOneMenu id="EIdproyecto" value="#{procesoejemplarTbController.selected.EIdproyecto}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{proyectoTbController.itemsAvailableSelectOne}"
+                                           var="EIdproyectoItem"
+                                           itemValue="#{EIdproyectoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{procesoejemplarTbController.update}" value="#{bundle.Save}" update="display,:ProcesoejemplarTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ProcesoejemplarTbEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ProcesoejemplarTbEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

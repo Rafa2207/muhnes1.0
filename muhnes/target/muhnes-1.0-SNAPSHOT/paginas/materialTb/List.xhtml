@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListMaterialTbTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="MaterialTbListForm">
+                <p:panel header="#{bundle.ListMaterialTbTitle}">
+
+                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{materialTbController.prepareCreate}" update=":MaterialTbCreateForm" oncomplete="PF('MaterialTbCreateDialog').show()"/>
+                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":MaterialTbViewForm" oncomplete="PF('MaterialTbViewDialog').show()" disabled="#{empty materialTbController.selected}"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":MaterialTbEditForm" oncomplete="PF('MaterialTbEditDialog').show()" disabled="#{empty materialTbController.selected}"/>
+                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{materialTbController.destroy}" update=":growl,datalist" disabled="#{empty materialTbController.selected}"/>
+
+                    <p:dataTable id="datalist" value="#{materialTbController.items}" var="item"
+                                 selectionMode="single" selection="#{materialTbController.selected}"
+                                 paginator="true"
+                                 paginatorPosition="bottom"
+                                 rowKey="#{item.EIdmaterial}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 emptyMessage="No se encontraron materiales."
+                                 >
+
+                        <p:ajax event="rowSelect"   update=":MaterialTbListForm:createButton :MaterialTbListForm:viewButton :MaterialTbListForm:editButton :MaterialTbListForm:deleteButton"/>
+                        <p:ajax event="rowUnselect" update=":MaterialTbListForm:createButton :MaterialTbListForm:viewButton :MaterialTbListForm:editButton :MaterialTbListForm:deleteButton"/>
+
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaterialTbTitle_CNombre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.CNombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaterialTbTitle_DCantidad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.DCantidad}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaterialTbTitle_MDescripcion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.MDescripcion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaterialTbTitle_CEstado}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.CEstado}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaterialTbTitle_EIdactividad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.EIdactividad.CNombre}"/>
+                        </p:column>
+                        <f:facet name="footer">
+
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListEspecieTbTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="EspecieTbListForm">
+                <p:panel header="#{bundle.ListEspecieTbTitle}">
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="Familia: " />
+                        <p:selectOneMenu id="familias" value="#{generoTbController.familia}" filter="true" filterMatchMode="contains">
+                            <f:selectItem itemValue="" itemLabel="Seleccione familia..."/>
+                            <f:selectItems value="#{familiaTbController.itemsAvailableSelectOne}"
+                                           var="fam"
+                                           itemLabel="#{fam.CNombre}"
+                                           itemValue="#{fam}"/>
+                            <p:ajax process="familias" update="datalist createButton viewButton editButton deleteButton" event="change"/><!-- sirve para actualizar la tabla -->
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{especieTbController.prepareCreate}" update=":EspecieTbCreateForm" oncomplete="PF('EspecieTbCreateDialog').show()" disabled="#{generoTbController.familia eq null}"/>
+                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":EspecieTbViewForm" oncomplete="PF('EspecieTbViewDialog').show()" disabled="#{empty especieTbController.selected}"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":EspecieTbEditForm" oncomplete="PF('EspecieTbEditDialog').show()" disabled="#{empty especieTbController.selected}"/>
+                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{especieTbController.destroy}" update=":growl,datalist" disabled="#{empty especieTbController.selected}"/>
+                    <p:dataTable id="datalist" value="#{especieTbController.items}" var="item"
+                                 selectionMode="single" selection="#{especieTbController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.EIdespecie}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update=":EspecieTbListForm:createButton :EspecieTbListForm:viewButton :EspecieTbListForm:editButton :EspecieTbListForm:deleteButton"/>
+                        <p:ajax event="rowUnselect" update=":EspecieTbListForm:createButton :EspecieTbListForm:viewButton :EspecieTbListForm:editButton :EspecieTbListForm:deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEspecieTbTitle_CNombre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.CNombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEspecieTbTitle_CEstado}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.CEstado}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEspecieTbTitle_EIdgenero}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.EIdgenero}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="InstitucionTbViewDlg" widgetVar="InstitucionTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewInstitucionTbTitle}">
+            <h:form id="InstitucionTbViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{institucionTbController.selected != null}">
+                        <h:outputText value="#{bundle.ViewInstitucionTbLabel_EIdinstitucion}"/>
+                        <h:outputText value="#{institucionTbController.selected.EIdinstitucion}" title="#{bundle.ViewInstitucionTbTitle_EIdinstitucion}"/>
+                        <h:outputText value="#{bundle.ViewInstitucionTbLabel_CNombre}"/>
+                        <h:outputText value="#{institucionTbController.selected.CNombre}" title="#{bundle.ViewInstitucionTbTitle_CNombre}"/>
+                        <h:outputText value="#{bundle.ViewInstitucionTbLabel_CAcronimo}"/>
+                        <h:outputText value="#{institucionTbController.selected.CAcronimo}" title="#{bundle.ViewInstitucionTbTitle_CAcronimo}"/>
+                        <h:outputText value="#{bundle.ViewInstitucionTbLabel_MDireccion}"/>
+                        <h:outputText value="#{institucionTbController.selected.MDireccion}" title="#{bundle.ViewInstitucionTbTitle_MDireccion}"/>
+                        <h:outputText value="#{bundle.ViewInstitucionTbLabel_EPostal}"/>
+                        <h:outputText value="#{institucionTbController.selected.EPostal}" title="#{bundle.ViewInstitucionTbTitle_EPostal}"/>
+                        <h:outputText value="#{bundle.ViewInstitucionTbLabel_CTelefono}"/>
+                        <h:outputText value="#{institucionTbController.selected.CTelefono}" title="#{bundle.ViewInstitucionTbTitle_CTelefono}"/>
+                        <h:outputText value="#{bundle.ViewInstitucionTbLabel_CFax}"/>
+                        <h:outputText value="#{institucionTbController.selected.CFax}" title="#{bundle.ViewInstitucionTbTitle_CFax}"/>
+                        <h:outputText value="#{bundle.ViewInstitucionTbLabel_CUrl}"/>
+                        <h:outputText value="#{institucionTbController.selected.CUrl}" title="#{bundle.ViewInstitucionTbTitle_CUrl}"/>
+                        <h:outputText value="#{bundle.ViewInstitucionTbLabel_EIdpais}"/>
+                        <h:outputText value="#{institucionTbController.selected.EIdpais.CNombre}" title="#{bundle.ViewInstitucionTbTitle_EIdpais}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="InstitucionTbViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EjemplarTbEditDlg" widgetVar="EjemplarTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditEjemplarTbTitle}">
+            <h:form id="EjemplarTbEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{ejemplarTbController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditEjemplarTbLabel_EIdejemplar}" for="EIdejemplar" />
+                        <p:inputText id="EIdejemplar" value="#{ejemplarTbController.selected.EIdejemplar}" title="#{bundle.EditEjemplarTbTitle_EIdejemplar}" required="true" requiredMessage="#{bundle.EditEjemplarTbRequiredMessage_EIdejemplar}"/>
+                        <p:outputLabel value="#{bundle.EditEjemplarTbLabel_MDescripcion}" for="MDescripcion" />
+                        <p:inputText id="MDescripcion" value="#{ejemplarTbController.selected.MDescripcion}" title="#{bundle.EditEjemplarTbTitle_MDescripcion}" />
+                        <p:outputLabel value="#{bundle.EditEjemplarTbLabel_ECantDuplicado}" for="ECantDuplicado" />
+                        <p:inputText id="ECantDuplicado" value="#{ejemplarTbController.selected.ECantDuplicado}" title="#{bundle.EditEjemplarTbTitle_ECantDuplicado}" />
+                        <p:outputLabel value="#{bundle.EditEjemplarTbLabel_CCalificativo}" for="CCalificativo" />
+                        <p:inputText id="CCalificativo" value="#{ejemplarTbController.selected.CCalificativo}" title="#{bundle.EditEjemplarTbTitle_CCalificativo}" />
+                        <p:outputLabel value="#{bundle.EditEjemplarTbLabel_ECorrelativo}" for="ECorrelativo" />
+                        <p:inputText id="ECorrelativo" value="#{ejemplarTbController.selected.ECorrelativo}" title="#{bundle.EditEjemplarTbTitle_ECorrelativo}" />
+                        <p:outputLabel value="#{bundle.EditEjemplarTbLabel_FFechaInicioIdent}" for="FFechaInicioIdent" />
+                        <p:calendar id="FFechaInicioIdent" pattern="MM/dd/yyyy" value="#{ejemplarTbController.selected.FFechaInicioIdent}" title="#{bundle.EditEjemplarTbTitle_FFechaInicioIdent}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditEjemplarTbLabel_FFechaFinIdent}" for="FFechaFinIdent" />
+                        <p:calendar id="FFechaFinIdent" pattern="MM/dd/yyyy" value="#{ejemplarTbController.selected.FFechaFinIdent}" title="#{bundle.EditEjemplarTbTitle_FFechaFinIdent}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditEjemplarTbLabel_EVariedad}" for="EVariedad" />
+                        <p:selectOneMenu id="EVariedad" value="#{ejemplarTbController.selected.EVariedad}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{variedadTbController.itemsAvailableSelectOne}"
+                                           var="EVariedadItem"
+                                           itemValue="#{EVariedadItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditEjemplarTbLabel_EIdsubespecie}" for="EIdsubespecie" />
+                        <p:selectOneMenu id="EIdsubespecie" value="#{ejemplarTbController.selected.EIdsubespecie}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{subespecieTbController.itemsAvailableSelectOne}"
+                                           var="EIdsubespecieItem"
+                                           itemValue="#{EIdsubespecieItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditEjemplarTbLabel_EIdproyecto}" for="EIdproyecto" />
+                        <p:selectOneMenu id="EIdproyecto" value="#{ejemplarTbController.selected.EIdproyecto}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{proyectoTbController.itemsAvailableSelectOne}"
+                                           var="EIdproyectoItem"
+                                           itemValue="#{EIdproyectoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditEjemplarTbLabel_EIdgenero}" for="EIdgenero" />
+                        <p:selectOneMenu id="EIdgenero" value="#{ejemplarTbController.selected.EIdgenero}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{generoTbController.itemsAvailableSelectOne}"
+                                           var="EIdgeneroItem"
+                                           itemValue="#{EIdgeneroItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditEjemplarTbLabel_EIdfamilia}" for="EIdfamilia" />
+                        <p:selectOneMenu id="EIdfamilia" value="#{ejemplarTbController.selected.EIdfamilia}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{familiaTbController.itemsAvailableSelectOne}"
+                                           var="EIdfamiliaItem"
+                                           itemValue="#{EIdfamiliaItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditEjemplarTbLabel_EIdespecie}" for="EIdespecie" />
+                        <p:selectOneMenu id="EIdespecie" value="#{ejemplarTbController.selected.EIdespecie}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{especieTbController.itemsAvailableSelectOne}"
+                                           var="EIdespecieItem"
+                                           itemValue="#{EIdespecieItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ejemplarTbController.update}" value="#{bundle.Save}" update="display,:EjemplarTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'EjemplarTbEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="EjemplarTbEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

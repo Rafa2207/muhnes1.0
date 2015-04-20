@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsuarioTbCreateDlg" widgetVar="UsuarioTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateUsuarioTbTitle}">
+            <h:form id="UsuarioTbCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{usuarioTbController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateUsuarioTbLabel_EIdusuario}" for="EIdusuario" />
+                        <p:inputText id="EIdusuario" value="#{usuarioTbController.selected.EIdusuario}" title="#{bundle.CreateUsuarioTbTitle_EIdusuario}" required="true" requiredMessage="#{bundle.CreateUsuarioTbRequiredMessage_EIdusuario}"/>
+                        <p:outputLabel value="#{bundle.CreateUsuarioTbLabel_CNombre}" for="CNombre" />
+                        <p:inputText id="CNombre" value="#{usuarioTbController.selected.CNombre}" title="#{bundle.CreateUsuarioTbTitle_CNombre}" />
+                        <p:outputLabel value="#{bundle.CreateUsuarioTbLabel_CApellido}" for="CApellido" />
+                        <p:inputText id="CApellido" value="#{usuarioTbController.selected.CApellido}" title="#{bundle.CreateUsuarioTbTitle_CApellido}" />
+                        <p:outputLabel value="#{bundle.CreateUsuarioTbLabel_CTelefono}" for="CTelefono" />
+                        <p:inputText id="CTelefono" value="#{usuarioTbController.selected.CTelefono}" title="#{bundle.CreateUsuarioTbTitle_CTelefono}" />
+                        <p:outputLabel value="#{bundle.CreateUsuarioTbLabel_CNick}" for="CNick" />
+                        <p:inputText id="CNick" value="#{usuarioTbController.selected.CNick}" title="#{bundle.CreateUsuarioTbTitle_CNick}" />
+                        <p:outputLabel value="#{bundle.CreateUsuarioTbLabel_CPassword}" for="CPassword" />
+                        <p:inputText id="CPassword" value="#{usuarioTbController.selected.CPassword}" title="#{bundle.CreateUsuarioTbTitle_CPassword}" />
+                        <p:outputLabel value="#{bundle.CreateUsuarioTbLabel_CDui}" for="CDui" />
+                        <p:inputText id="CDui" value="#{usuarioTbController.selected.CDui}" title="#{bundle.CreateUsuarioTbTitle_CDui}" />
+                        <p:outputLabel value="#{bundle.CreateUsuarioTbLabel_CTipo}" for="CTipo" />
+                        <p:inputText id="CTipo" value="#{usuarioTbController.selected.CTipo}" title="#{bundle.CreateUsuarioTbTitle_CTipo}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{usuarioTbController.create}" value="#{bundle.Save}" update="display,:UsuarioTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'UsuarioTbCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="UsuarioTbCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
