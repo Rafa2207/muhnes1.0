@@ -26,9 +26,18 @@ public class ProyectoTbController implements Serializable {
 
     @EJB
     private servicio.ProyectoTbFacade ejbFacade;
-    private List<ProyectoTb> items = null;
+    private List<ProyectoTb> items = null, filtro;
     private ProyectoTb selected;
 
+    public List<ProyectoTb> getFiltro() {
+        return filtro;
+    }
+
+    public void setFiltro(List<ProyectoTb> filtro) {
+        this.filtro = filtro;
+    }
+
+    
     public ProyectoTbController() {
     }
 

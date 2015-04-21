@@ -11,7 +11,7 @@
         <p:dialog id="AgenteTbEditDlg" widgetVar="AgenteTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditAgenteTbTitle}">
             <h:form id="AgenteTbEditForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{agenteTbController.selected != null}">
+                    <p:panelGrid columns="4" rendered="#{agenteTbController.selected != null}">
                        
                         <p:outputLabel value="#{bundle.EditAgenteTbLabel_CNombre}" for="CNombre" />
                         <p:inputText id="CNombre" value="#{agenteTbController.selected.CNombre}" title="#{bundle.EditAgenteTbTitle_CNombre}" 
@@ -31,11 +31,11 @@
                         
                         <p:outputLabel value="#{bundle.EditAgenteTbLabel_CEmail}" for="CEmail" />
                         <p:inputText id="CEmail" value="#{agenteTbController.selected.CEmail}" title="#{bundle.EditAgenteTbTitle_CEmail}"
-                                     required="true" requiredMessage="Introduzca email"/>
+                                     />
                         
                         <p:outputLabel value="#{bundle.EditAgenteTbLabel_EPostal}" for="EPostal" />
                         <p:inputText id="EPostal" value="#{agenteTbController.selected.EPostal}" title="#{bundle.EditAgenteTbTitle_EPostal}" 
-                                     required="true" requiredMessage="Introduzca postal"/>
+                                     />
                         
                         <p:outputLabel value="#{bundle.EditAgenteTbLabel_CTelefono}" for="CTelefono" />
                         <p:inputMask  mask="9999-9999" id="CTelefono" value="#{agenteTbController.selected.CTelefono}" title="#{bundle.EditAgenteTbTitle_CTelefono}" 
@@ -43,7 +43,7 @@
                         
                         <p:outputLabel value="#{bundle.EditAgenteTbLabel_CFax}" for="CFax" />
                         <p:inputMask  mask="9999-9999" id="CFax" value="#{agenteTbController.selected.CFax}" title="#{bundle.EditAgenteTbTitle_CFax}" 
-                                      required="true" requiredMessage="Introduzca fax"/>
+                                      />
                         
                         <p:outputLabel value="#{bundle.EditAgenteTbLabel_MDireccion}" for="MDireccion" />
                         <p:inputTextarea cols="25" rows="4" autoResize="" id="MDireccion" value="#{agenteTbController.selected.MDireccion}" title="#{bundle.EditAgenteTbTitle_MDireccion}" 
@@ -55,7 +55,7 @@
                         
                         <p:outputLabel value="#{bundle.EditAgenteTbLabel_FFecham}" for="FFecham" />
                         <p:calendar locale="es" navigator="true" id="FFecham" pattern="dd/MM/yyyy" value="#{agenteTbController.selected.FFecham}" title="#{bundle.EditAgenteTbTitle_FFecham}"  showOn="button"
-                                    required="true" requiredMessage="Introduzca fecha de fallecimiento"/>
+                                    />
                         
                         <p:outputLabel value="#{bundle.EditAgenteTbLabel_EIdinstitucion}" for="EIdinstitucion" />
                         <p:selectOneMenu id="EIdinstitucion" value="#{agenteTbController.selected.EIdinstitucion}" required="true" requiredMessage="Seleccione una institucion" >

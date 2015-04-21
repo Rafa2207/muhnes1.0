@@ -20,7 +20,7 @@
                         <p:menuitem value="casita"/>
                         <p:menuitem value="Proyectos" outcome="/paginas/proyectoTb/List.xhtml" />
 
-                        <p:menuitem value="Actvidades" outcome="/paginas/actividadTb/List.xhtml"  />
+                        <p:menuitem value="Actividades" outcome="/paginas/actividadTb/List.xhtml"  />
 
                     </p:breadCrumb>
 
@@ -28,7 +28,7 @@
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ActividadTbViewForm" oncomplete="PF('ActividadTbViewDialog').show()" disabled="#{empty actividadTbController.selected }"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ActividadTbEditForm :ActividadTbCreateForm" oncomplete="PF('ActividadTbEditDialog').show()" disabled="#{empty actividadTbController.selected }"/>
                     <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{actividadTbController.destroy}" update=":growl,datalist" disabled="#{empty actividadTbController.selected }">
-                        <p:confirm header="Confirmación" message="¿Esta seguro?" icon="ui-icon-alert" />
+                        <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
                     </p:commandButton>
 
                     <p:dataTable id="datalist" value="#{actividadTbController.getItems(controladorSesion.proyecto)}" var="item"
@@ -39,19 +39,21 @@
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  emptyMessage="No se encontraron actividades."
+                                 filteredValue="#{institucionTbController.filtro}"
+                                 widgetVar="actividadTable"
                                  >
 
                         <p:ajax event="rowSelect"   update=":ActividadTbListForm:createButton :ActividadTbListForm:viewButton :ActividadTbListForm:editButton :ActividadTbListForm:deleteButton"/>
                         <p:ajax event="rowUnselect" update=":ActividadTbListForm:createButton :ActividadTbListForm:viewButton :ActividadTbListForm:editButton :ActividadTbListForm:deleteButton"/>
 
-                        <p:column>
+                        <p:column filterBy="#{item.MNombre}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListActividadTbTitle_CNombre}"/>
                             </f:facet>
                             <h:outputText value="#{item.MNombre}"/>
                         </p:column>
 
-                        <p:column>
+                        <p:column filterBy="#{item.FFecha}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListActividadTbTitle_FFecha}"/>
                             </f:facet>
@@ -59,26 +61,27 @@
                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                             </h:outputText>
                         </p:column>
-                        <p:column>
+                        
+                        <p:column filterBy="#{item.CDuracion}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListActividadTbTitle_CDuracion}"/>
                             </f:facet>
                             <h:outputText value="#{item.CDuracion}"/>
                         </p:column>
-                        <p:column>
+                        
+                        <p:column filterBy="#{item.MDescripcion}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListActividadTbTitle_MDescripcion}"/>
                             </f:facet>
                             <h:outputText value="#{item.MDescripcion}"/>
                         </p:column>
 
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListActividadTbTitle_EIdproyecto}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.EIdproyecto.MNombre}"/>
-                        </p:column>
-                        <f:facet name="footer">
+                       
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Búsqueda: " />
+                                <p:inputText id="globalFilter" onkeyup="PF('actividadTable').filter()" placeholder="Escriba aquí"/>
+                            </p:outputPanel>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

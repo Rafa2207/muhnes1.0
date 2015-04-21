@@ -16,11 +16,18 @@
         <ui:define name="body">
             <h:form id="AgenteTbListForm">
                 <p:panel header="#{bundle.ListAgenteTbTitle}">
+                    <p:breadCrumb>
+                        <p:menuitem value="casita"/>
+                        <p:menuitem value="Agentes" outcome="/paginas/agenteTb/List.xhtml" />
+                    </p:breadCrumb>
+                    
                     
                 <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{agenteTbController.prepareCreate}" update=":AgenteTbCreateForm" oncomplete="PF('AgenteTbCreateDialog').show()"/>
                 <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":AgenteTbViewForm" oncomplete="PF('AgenteTbViewDialog').show()" disabled="#{empty agenteTbController.selected}"/>
                 <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":AgenteTbEditForm" oncomplete="PF('AgenteTbEditDialog').show()" disabled="#{empty agenteTbController.selected}"/>
-                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{agenteTbController.destroy}" update=":growl,datalist" disabled="#{empty agenteTbController.selected}"/>
+                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{agenteTbController.destroy}" update=":growl,datalist" disabled="#{empty agenteTbController.selected}">
+                <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
+                </p:commandButton>
                 
                     <p:dataTable id="datalist" value="#{agenteTbController.items}" var="item"
                                  selectionMode="single" selection="#{agenteTbController.selected}"
@@ -43,70 +50,31 @@
                             </f:facet>
                             <h:outputText value="#{item.CNombre}"/>
                         </p:column>
+                        
                         <p:column filterBy="#{item.CApellido}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAgenteTbTitle_CApellido}"/>
                             </f:facet>
                             <h:outputText value="#{item.CApellido}"/>
                         </p:column>
-                        <p:column filterBy="#{item.CIniciales}" filterStyle="display:none">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAgenteTbTitle_CIniciales}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.CIniciales}"/>
-                        </p:column>
+                        
+                        
                         <p:column filterBy="#{item.COcupacion}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAgenteTbTitle_COcupacion}"/>
                             </f:facet>
                             <h:outputText value="#{item.COcupacion}"/>
                         </p:column>
-                        <p:column filterBy="#{item.CEmail}" filterStyle="display:none">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAgenteTbTitle_CEmail}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.CEmail}"/>
-                        </p:column>
-                        <p:column filterBy="#{item.EPostal}" filterStyle="display:none">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAgenteTbTitle_EPostal}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.EPostal}"/>
-                        </p:column>
+                        
+          
                         <p:column filterBy="#{item.CTelefono}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAgenteTbTitle_CTelefono}"/>
                             </f:facet>
                             <h:outputText value="#{item.CTelefono}"/>
                         </p:column>
-                        <p:column filterBy="#{item.CFax}" filterStyle="display:none">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAgenteTbTitle_CFax}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.CFax}"/>
-                        </p:column>
-                        <p:column filterBy="#{item.MDireccion}" filterStyle="display:none">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAgenteTbTitle_MDireccion}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.MDireccion}"/>
-                        </p:column>
-                        <p:column filterBy="#{item.FFechanac}" filterStyle="display:none">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAgenteTbTitle_FFechanac}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.FFechanac}">
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column filterBy="#{item.FFecham}" filterStyle="display:none">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAgenteTbTitle_FFecham}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.FFecham}">
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                            </h:outputText>
-                        </p:column>
+                                                                     
+                                               
                         <p:column filterBy="#{item.EIdinstitucion.CNombre}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAgenteTbTitle_EIdinstitucion}"/>

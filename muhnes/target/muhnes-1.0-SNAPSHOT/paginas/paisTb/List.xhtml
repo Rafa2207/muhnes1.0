@@ -16,12 +16,22 @@
         <ui:define name="body">
             <h:form id="PaisTbListForm">
                 <p:panel header="#{bundle.ListPaisTbTitle}">
+                    <p:breadCrumb>
+                        <p:menuitem value="casita"/>
+                        <p:menuitem value="País" outcome="/paginas/paisTb/List.xhtml" />
+                    </p:breadCrumb>
                     
                                        
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{paisTbController.prepareCreate}" update=":PaisTbCreateForm" oncomplete="PF('PaisTbCreateDialog').show()"  />
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PaisTbViewForm" oncomplete="PF('PaisTbViewDialog').show()" disabled="#{empty paisTbController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":PaisTbEditForm" oncomplete="PF('PaisTbEditDialog').show()" disabled="#{empty paisTbController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{paisTbController.destroy}" update=":growl,datalist" disabled="#{empty paisTbController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{paisTbController.destroy}" update=":growl,datalist" disabled="#{empty paisTbController.selected}">
+                            <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
+                            </p:commandButton>
+                            
+                            <p:commandButton id="DeptoButton" icon="ui-icon-calendar"  value="Departamento" action="/paginas/departamentoTb/List.xhtml" disabled="#{empty paisTbController.selected}" >
+                                <f:setPropertyActionListener target="#{controladorSesion.pais}" value="#{paisTbController.selected}"/>
+                    </p:commandButton>
                    
                             <p:dataTable id="datalist" value="#{paisTbController.items}" var="item"
                                  selectionMode="single" selection="#{paisTbController.selected}"
@@ -31,34 +41,41 @@
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  emptyMessage="No se encontraron paises."
+                                 filteredValue="#{institucionTbController.filtro}"
+                                 widgetVar="paisTable"
                                  >
 
-                        <p:ajax event="rowSelect"   update=":PaisTbListForm:createButton :PaisTbListForm:viewButton :PaisTbListForm:editButton :PaisTbListForm:deleteButton"/>
-                        <p:ajax event="rowUnselect" update=":PaisTbListForm:createButton :PaisTbListForm:viewButton :PaisTbListForm:editButton :PaisTbListForm:deleteButton"/>
+                        <p:ajax event="rowSelect"   update=":PaisTbListForm:DeptoButton :PaisTbListForm:createButton :PaisTbListForm:viewButton :PaisTbListForm:editButton :PaisTbListForm:deleteButton"/>
+                        <p:ajax event="rowUnselect" update=":PaisTbListForm:DeptoButton :PaisTbListForm:createButton :PaisTbListForm:viewButton :PaisTbListForm:editButton :PaisTbListForm:deleteButton"/>
 
                        
-                        <p:column>
+                        <p:column filterBy="#{item.CNombre}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPaisTbTitle_CNombre}"/>
                             </f:facet>
                             <h:outputText value="#{item.CNombre}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.CGentilicio}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPaisTbTitle_CGentilicio}"/>
                             </f:facet>
                             <h:outputText value="#{item.CGentilicio}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.CIdioma}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPaisTbTitle_CIdioma}"/>
                             </f:facet>
                             <h:outputText value="#{item.CIdioma}"/>
                         </p:column>
-                        <f:facet name="footer">
+                       
                             
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Búsqueda: " />
+                                <p:inputText id="globalFilter" onkeyup="PF('paisTable').filter()" placeholder="Escriba aquí"/>
+                            </p:outputPanel>
                         </f:facet>
-                    </p:dataTable>
+                            </p:dataTable>
                 </p:panel>
             </h:form>
 

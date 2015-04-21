@@ -9,6 +9,7 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import modelo.FamiliaTb;
+import modelo.PaisTb;
 import modelo.PresupuestoTb;
 import modelo.ProyectoTb;
 
@@ -23,6 +24,17 @@ public class ControladorSesion implements Serializable {
 
     private ProyectoTb proyecto;
     private FamiliaTb familia;
+    private PaisTb pais;
+
+    public PaisTb getPais() {
+        return pais;
+    }
+
+    public void setPais(PaisTb pais) {
+        this.pais = pais;
+    }
+    
+    
 
     public FamiliaTb getFamilia() {
         return familia;

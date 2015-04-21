@@ -16,6 +16,12 @@
         <ui:define name="body">
             <h:form id="InstitucionTbListForm">
                 <p:panel header="#{bundle.ListInstitucionTbTitle}">
+                    
+                    <p:breadCrumb>
+                        <p:menuitem value="casita"/>
+                        <p:menuitem value="Instituciones" outcome="/paginas/institucionTb/List.xhtml" />
+                    </p:breadCrumb>
+                    
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{institucionTbController.prepareCreate}" update=":InstitucionTbCreateForm" oncomplete="PF('InstitucionTbCreateDialog').show()"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":InstitucionTbViewForm" oncomplete="PF('InstitucionTbViewDialog').show()" disabled="#{empty institucionTbController.selected}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":InstitucionTbEditForm" oncomplete="PF('InstitucionTbEditDialog').show()" disabled="#{empty institucionTbController.selected}"/>

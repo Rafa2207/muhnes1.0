@@ -16,6 +16,12 @@
         <ui:define name="body">
             <h:form id="PerfilTbListForm">
                 <p:panel header="#{bundle.ListPerfilTbTitle}">
+                    
+                    <p:breadCrumb>
+                        <p:menuitem value="casita"/>
+                        <p:menuitem value="Perfiles" outcome="/paginas/perfilTb/List.xhtml" />
+                    </p:breadCrumb>
+                    
                         <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{perfilTbController.prepareCreate}" update=":PerfilTbCreateForm" oncomplete="PF('PerfilTbCreateDialog').show()"/>
                         <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PerfilTbViewForm" oncomplete="PF('PerfilTbViewDialog').show()" disabled="#{empty perfilTbController.selected}"/>
                         <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":PerfilTbEditForm" oncomplete="PF('PerfilTbEditDialog').show()" disabled="#{empty perfilTbController.selected}"/>

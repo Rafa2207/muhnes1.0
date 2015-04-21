@@ -26,8 +26,17 @@ public class PaisTbController implements Serializable {
 
     @EJB
     private servicio.PaisTbFacade ejbFacade;
-    private List<PaisTb> items = null;
+    private List<PaisTb> items = null,filtro;
     private PaisTb selected;
+
+    public List<PaisTb> getFiltro() {
+        return filtro;
+    }
+
+    public void setFiltro(List<PaisTb> filtro) {
+        this.filtro = filtro;
+    }
+    
     
 
     public PaisTbController() {

@@ -27,18 +27,17 @@
                        
                          <p:outputLabel value="#{bundle.EditProyectoTbLabel_MDescripcion}" for="MDescripcion" />
                          <p:inputTextarea autoResize="" id="MDescripcion" value="#{proyectoTbController.selected.MDescripcion}" title="#{bundle.EditProyectoTbTitle_MDescripcion}" 
-                                          required="true"
-                                     requiredMessage="Introduzca descripcion del proyecto"/>
+                                          />
                         
                         
                         <p:outputLabel value="#{bundle.EditProyectoTbLabel_FFechaInicio}" for="FFechaInicio" />
-                        <p:calendar id="FFechaInicio" pattern="dd/MM/yyyy" value="#{proyectoTbController.selected.FFechaInicio}" title="#{bundle.EditProyectoTbTitle_FFechaInicio}"  showOn="button"
+                        <p:calendar id="FFechaInicio" mask="true" pattern="dd/MM/yyyy" value="#{proyectoTbController.selected.FFechaInicio}" title="#{bundle.EditProyectoTbTitle_FFechaInicio}"  showOn="button"
                                     required="true"
                                      requiredMessage="Introduzca fecha de inicio"
                                      locale="es"/>
                        
                         <p:outputLabel value="#{bundle.EditProyectoTbLabel_FFechaFin}" for="FFechaFin" />
-                        <p:calendar id="FFechaFin" pattern="dd/MM/yyyy" value="#{proyectoTbController.selected.FFechaFin}" title="#{bundle.EditProyectoTbTitle_FFechaFin}"  showOn="button"
+                        <p:calendar id="FFechaFin" mask="true" pattern="dd/MM/yyyy" value="#{proyectoTbController.selected.FFechaFin}" title="#{bundle.EditProyectoTbTitle_FFechaFin}"  showOn="button"
                                     required="true"
                                      requiredMessage="Introduzca fecha fin"
                                      locale="es"/>

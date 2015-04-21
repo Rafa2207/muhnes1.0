@@ -61,8 +61,9 @@ public class DepartamentoTbController implements Serializable {
         return ejbFacade;
     }
 
-    public DepartamentoTb prepareCreate() {
+    public DepartamentoTb prepareCreate(PaisTb paises) {
         selected = new DepartamentoTb();
+        pais=paises;
         selected.setEIdpais(pais);
         initializeEmbeddableKey();
         return selected;
@@ -87,7 +88,7 @@ public class DepartamentoTbController implements Serializable {
         }
     }
 
-    public List<DepartamentoTb> getItems() {
+    public List<DepartamentoTb> getItems(PaisTb pais) {
         
             items = getFacade().buscarPaisAsc(pais);
         
