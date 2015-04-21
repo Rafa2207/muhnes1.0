@@ -12,8 +12,6 @@
             <h:form id="InstitucionTbViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{institucionTbController.selected != null}">
-                        <h:outputText value="#{bundle.ViewInstitucionTbLabel_EIdinstitucion}"/>
-                        <h:outputText value="#{institucionTbController.selected.EIdinstitucion}" title="#{bundle.ViewInstitucionTbTitle_EIdinstitucion}"/>
                         <h:outputText value="#{bundle.ViewInstitucionTbLabel_CNombre}"/>
                         <h:outputText value="#{institucionTbController.selected.CNombre}" title="#{bundle.ViewInstitucionTbTitle_CNombre}"/>
                         <h:outputText value="#{bundle.ViewInstitucionTbLabel_CAcronimo}"/>

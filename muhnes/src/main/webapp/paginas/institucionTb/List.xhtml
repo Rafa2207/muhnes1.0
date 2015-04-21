@@ -25,10 +25,13 @@
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{institucionTbController.prepareCreate}" update=":InstitucionTbCreateForm" oncomplete="PF('InstitucionTbCreateDialog').show()"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":InstitucionTbViewForm" oncomplete="PF('InstitucionTbViewDialog').show()" disabled="#{empty institucionTbController.selected}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":InstitucionTbEditForm" oncomplete="PF('InstitucionTbEditDialog').show()" disabled="#{empty institucionTbController.selected}"/>
-                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{institucionTbController.destroy}" update=":growl,datalist" disabled="#{empty institucionTbController.selected}"/>
+                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{institucionTbController.destroy}" update=":growl,datalist" disabled="#{empty institucionTbController.selected}">
+                    <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
+                    </p:commandButton>
                     <p:dataTable id="datalist" value="#{institucionTbController.items}" var="item"
                                  selectionMode="single" selection="#{institucionTbController.selected}"
                                  paginator="true"
+                                 paginatorPosition="bottom"
                                  rowKey="#{item.EIdinstitucion}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
@@ -51,36 +54,15 @@
                             </f:facet>
                             <h:outputText value="#{item.CAcronimo}"/>
                         </p:column>
-                        <p:column filterBy="#{item.MDireccion}" filterStyle="display:none">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListInstitucionTbTitle_MDireccion}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.MDireccion}"/>
-                        </p:column>
-                        <p:column filterBy="#{item.EPostal}" filterStyle="display:none">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListInstitucionTbTitle_EPostal}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.EPostal}"/>
-                        </p:column>
+                        
+                        
                         <p:column filterBy="#{item.CTelefono}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListInstitucionTbTitle_CTelefono}"/>
                             </f:facet>
                             <h:outputText value="#{item.CTelefono}"/>
                         </p:column>
-                        <p:column filterBy="#{item.CFax}" filterStyle="display:none">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListInstitucionTbTitle_CFax}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.CFax}"/>
-                        </p:column>
-                        <p:column filterBy="#{item.CUrl}" filterStyle="display:none">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListInstitucionTbTitle_CUrl}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.CUrl}"/>
-                        </p:column>
+                                                
                         <p:column filterBy="#{item.EIdpais.CNombre}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListInstitucionTbTitle_EIdpais}"/>
@@ -89,7 +71,7 @@
                         </p:column>
                         <f:facet name="header">
                             <p:outputPanel>
-                                <h:outputText value="Busqueda: " />
+                                <h:outputText value="Búsqueda: " />
                                 <p:inputText id="globalFilter" onkeyup="PF('institucionTable').filter()" placeholder="Escriba aquí"/>
                             </p:outputPanel>
                         </f:facet>
