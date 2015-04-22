@@ -7,10 +7,11 @@ import modelo.AgenteIdentificaEjemplarTbPK;
 import modelo.AgenteTb;
 import modelo.EjemplarTb;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-04-20T14:42:16")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-04-21T16:10:53")
 @StaticMetamodel(AgenteIdentificaEjemplarTb.class)
 public class AgenteIdentificaEjemplarTb_ { 
 
+    public static volatile SingularAttribute<AgenteIdentificaEjemplarTb, String> cTipo;
     public static volatile SingularAttribute<AgenteIdentificaEjemplarTb, Integer> eSecuencia;
     public static volatile SingularAttribute<AgenteIdentificaEjemplarTb, AgenteIdentificaEjemplarTbPK> agenteIdentificaEjemplarTbPK;
     public static volatile SingularAttribute<AgenteIdentificaEjemplarTb, EjemplarTb> ejemplarTb;
