@@ -33,7 +33,7 @@
                     </p:commandButton>
                     
                     <p:commandButton id="municipioButton" icon="ui-icon-calendar"  value="Municipio" action="/paginas/municipioTb/List.xhtml" disabled="#{empty departamentoTbController.selected}" >
-                         <f:setPropertyActionListener target="#{controladorRequest.departamento}" value="#{departamentoTbController.selected}"/>
+                        <f:setPropertyActionListener target="#{controladorSesion.departamento}" value="#{departamentoTbController.selected}"/>
                     </p:commandButton>
 
                     <p:dataTable id="datalist" value="#{departamentoTbController.getItems(controladorSesion.pais)}" var="item"

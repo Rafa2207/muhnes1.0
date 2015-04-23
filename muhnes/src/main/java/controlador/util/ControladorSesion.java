@@ -8,6 +8,7 @@ package controlador.util;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import modelo.DepartamentoTb;
 import modelo.FamiliaTb;
 import modelo.PaisTb;
 import modelo.PresupuestoTb;
@@ -25,6 +26,17 @@ public class ControladorSesion implements Serializable {
     private ProyectoTb proyecto;
     private FamiliaTb familia;
     private PaisTb pais;
+    private DepartamentoTb departamento;
+
+    public DepartamentoTb getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(DepartamentoTb departamento) {
+        this.departamento = departamento;
+    }
+    
+    
 
     public PaisTb getPais() {
         return pais;
