@@ -19,6 +19,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
+import modelo.ProyectoTb;
 
 @Named("procesoejemplarTbController")
 @ViewScoped
@@ -28,6 +29,17 @@ public class ProcesoejemplarTbController implements Serializable {
     private servicio.ProcesoejemplarTbFacade ejbFacade;
     private List<ProcesoejemplarTb> items = null;
     private ProcesoejemplarTb selected;
+    private ProyectoTb proyectos;
+
+    public ProyectoTb getProyectos() {
+        return proyectos;
+    }
+
+    public void setProyectos(ProyectoTb proyectos) {
+        this.proyectos = proyectos;
+    }
+    
+    
 
     public ProcesoejemplarTbController() {
     }
@@ -75,10 +87,10 @@ public class ProcesoejemplarTbController implements Serializable {
         }
     }
 
-    public List<ProcesoejemplarTb> getItems() {
-        if (items == null) {
-            items = getFacade().findAll();
-        }
+    public List<ProcesoejemplarTb> getItems(ProyectoTb proyecto) {
+        
+            items = getFacade().buscarProcesoAsc(proyecto);
+        
         return items;
     }
 

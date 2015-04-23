@@ -51,12 +51,7 @@
                             </f:facet>
                             <h:outputText value="#{item.CNombre}"/>
                         </p:column>
-                        <p:column filterBy="#{item.CEstado}" filterStyle="display:none">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListFamiliaTbTitle_CEstado}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.CEstado}"/>
-                        </p:column>
+                        
                         <f:facet name="header">
                             <h:outputText value="Busqueda: " />
                             <p:inputText id="globalFilter" onkeyup="PF('familiaTable').filter()" placeholder="Escriba aquí"/>

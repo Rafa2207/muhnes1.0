@@ -38,7 +38,7 @@ public class DepartamentoTb implements Serializable {
     @Basic(optional = false)
     @Column(name = "e_iddepto")
     private Integer eIddepto;
-    @Size(max = 30)
+    @Size(max = 50)
     @Column(name = "c_nombre")
     private String cNombre;
     @JoinColumn(name = "e_idpais", referencedColumnName = "e_idpais")

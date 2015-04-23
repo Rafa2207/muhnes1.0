@@ -15,9 +15,7 @@
                         <p:outputLabel value="#{bundle.CreateFamiliaTbLabel_CNombre}" for="CNombre" />
                         <p:inputText id="CNombre" value="#{familiaTbController.selected.CNombre}" title="#{bundle.CreateFamiliaTbTitle_CNombre}" 
                                      required="true" requiredMessage="Introduzca un nombre"/>
-                        <p:outputLabel value="#{bundle.CreateFamiliaTbLabel_CEstado}" for="CEstado" />
-                        <p:inputText id="CEstado" value="#{familiaTbController.selected.CEstado}" title="#{bundle.CreateFamiliaTbTitle_CEstado}" 
-                                     required="true" requiredMessage="Introduzca un estado"/>
+                        
                     </p:panelGrid>
                     <p:commandButton actionListener="#{familiaTbController.create}" value="#{bundle.Save}" update="display,:FamiliaTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'FamiliaTbCreateDialog');"/>
                 </h:panelGroup>

@@ -32,7 +32,7 @@ public class GeneroTbFacade extends AbstractFacade<GeneroTb> {
     }
     public List<GeneroTb> buscarFamiliaAsc(Integer  familias){
         
-        TypedQuery<GeneroTb> query = em.createQuery("SELECT p FROM GeneroTb p WHERE p.eIdfamilia=:h ORDER BY p.cNombre ASC ", GeneroTb.class);
+        TypedQuery<GeneroTb> query = em.createQuery("SELECT p FROM GeneroTb p WHERE p.eIdfamilia:h ORDER BY p.cNombre ASC ", GeneroTb.class);
        query.setParameter("h", familias);
         return query.getResultList();
     }

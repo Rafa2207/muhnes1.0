@@ -19,17 +19,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
-/**
- *
- * @author Rafa
- */
+
 @Entity
 @Table(name = "familia_tb")
 @NamedQueries({
     @NamedQuery(name = "FamiliaTb.findAll", query = "SELECT f FROM FamiliaTb f"),
     @NamedQuery(name = "FamiliaTb.findByEIdfamilia", query = "SELECT f FROM FamiliaTb f WHERE f.eIdfamilia = :eIdfamilia"),
-    @NamedQuery(name = "FamiliaTb.findByCNombre", query = "SELECT f FROM FamiliaTb f WHERE f.cNombre = :cNombre"),
-    @NamedQuery(name = "FamiliaTb.findByCEstado", query = "SELECT f FROM FamiliaTb f WHERE f.cEstado = :cEstado")})
+    @NamedQuery(name = "FamiliaTb.findByCNombre", query = "SELECT f FROM FamiliaTb f WHERE f.cNombre = :cNombre")})
 public class FamiliaTb implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -40,9 +36,6 @@ public class FamiliaTb implements Serializable {
     @Size(max = 30)
     @Column(name = "c_nombre")
     private String cNombre;
-    @Size(max = 20)
-    @Column(name = "c_estado")
-    private String cEstado;
     @OneToMany(mappedBy = "eIdfamilia")
     private List<EjemplarTb> ejemplarTbList;
 
@@ -69,14 +62,7 @@ public class FamiliaTb implements Serializable {
         this.cNombre = cNombre;
     }
 
-    public String getCEstado() {
-        return cEstado;
-    }
-
-    public void setCEstado(String cEstado) {
-        this.cEstado = cEstado;
-    }
-
+    
     public List<EjemplarTb> getEjemplarTbList() {
         return ejemplarTbList;
     }

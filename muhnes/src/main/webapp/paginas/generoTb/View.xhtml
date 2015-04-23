@@ -14,8 +14,6 @@
                     <p:panelGrid columns="2" rendered="#{generoTbController.selected != null}">
                         <h:outputText value="#{bundle.ViewGeneroTbLabel_CNombre}"/>
                         <h:outputText value="#{generoTbController.selected.CNombre}" title="#{bundle.ViewGeneroTbTitle_CNombre}"/>
-                        <h:outputText value="#{bundle.ViewGeneroTbLabel_CEstado}"/>
-                        <h:outputText value="#{generoTbController.selected.CEstado}" title="#{bundle.ViewGeneroTbTitle_CEstado}"/>
                         <h:outputText value="#{bundle.ViewGeneroTbLabel_EIdfamilia}"/>
                         <h:outputText value="#{controladorSesion.familia.CNombre}" title="#{bundle.ViewGeneroTbTitle_EIdfamilia}"/>
                     </p:panelGrid>

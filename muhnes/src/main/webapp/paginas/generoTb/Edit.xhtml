@@ -15,10 +15,7 @@
                         <p:outputLabel value="#{bundle.EditGeneroTbLabel_CNombre}" for="CNombre" />
                         <p:inputText id="CNombre" value="#{generoTbController.selected.CNombre}" title="#{bundle.EditGeneroTbTitle_CNombre}" 
                                      required="true" requiredMessage="Introduzca un nombre"/>
-                        <p:outputLabel value="#{bundle.EditGeneroTbLabel_CEstado}" for="CEstado" />
-                        <p:inputText id="CEstado" value="#{generoTbController.selected.CEstado}" title="#{bundle.EditGeneroTbTitle_CEstado}" 
-                                     required="true" requiredMessage="Introduzca un nombre"/>
-                    </p:panelGrid>
+                        </p:panelGrid>
                     <p:commandButton actionListener="#{generoTbController.update}" value="#{bundle.Save}" update="display,:GeneroTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'GeneroTbEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="GeneroTbEditDialog.hide()"/>
                 </h:panelGroup>

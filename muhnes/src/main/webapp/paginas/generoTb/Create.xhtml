@@ -15,10 +15,7 @@
                         <p:outputLabel value="#{bundle.CreateGeneroTbLabel_CNombre}" for="CNombre" />
                         <p:inputText id="CNombre" value="#{generoTbController.selected.CNombre}" title="#{bundle.CreateGeneroTbTitle_CNombre}" 
                                      required="true" requiredMessage="Introduzca un nombre"/>
-                        <p:outputLabel value="#{bundle.CreateGeneroTbLabel_CEstado}" for="CEstado" />
-                        <p:inputText id="CEstado" value="#{generoTbController.selected.CEstado}" title="#{bundle.CreateGeneroTbTitle_CEstado}" 
-                                     required="true" requiredMessage="Introduzca un estado"/>
-                    </p:panelGrid>
+                        </p:panelGrid>
                     <p:commandButton actionListener="#{generoTbController.create}" value="#{bundle.Save}" update="display,:GeneroTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'GeneroTbCreateDialog');"/>
                 </h:panelGroup>
             </h:form>

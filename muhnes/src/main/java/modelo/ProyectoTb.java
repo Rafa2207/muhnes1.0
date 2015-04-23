@@ -50,7 +50,7 @@ public class ProyectoTb implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "m_descripcion")
     private String mDescripcion;
-    @Size(max = 50)
+    @Size(max = 150)
     @Column(name = "c_responsable")
     private String cResponsable;
     @Column(name = "f_fecha_inicio")

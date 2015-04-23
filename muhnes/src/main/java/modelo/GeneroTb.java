@@ -29,7 +29,6 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "GeneroTb.findAll", query = "SELECT g FROM GeneroTb g"),
     @NamedQuery(name = "GeneroTb.findByEIdgenero", query = "SELECT g FROM GeneroTb g WHERE g.eIdgenero = :eIdgenero"),
     @NamedQuery(name = "GeneroTb.findByCNombre", query = "SELECT g FROM GeneroTb g WHERE g.cNombre = :cNombre"),
-    @NamedQuery(name = "GeneroTb.findByCEstado", query = "SELECT g FROM GeneroTb g WHERE g.cEstado = :cEstado"),
     @NamedQuery(name = "GeneroTb.findByEIdfamilia", query = "SELECT g FROM GeneroTb g WHERE g.eIdfamilia = :eIdfamilia")})
 public class GeneroTb implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -41,9 +40,6 @@ public class GeneroTb implements Serializable {
     @Size(max = 30)
     @Column(name = "c_nombre")
     private String cNombre;
-    @Size(max = 20)
-    @Column(name = "c_estado")
-    private String cEstado;
     @Column(name = "e_idfamilia")
     private Integer eIdfamilia;
     @OneToMany(mappedBy = "eIdgenero")
@@ -72,13 +68,6 @@ public class GeneroTb implements Serializable {
         this.cNombre = cNombre;
     }
 
-    public String getCEstado() {
-        return cEstado;
-    }
-
-    public void setCEstado(String cEstado) {
-        this.cEstado = cEstado;
-    }
 
     public Integer getEIdfamilia() {
         return eIdfamilia;

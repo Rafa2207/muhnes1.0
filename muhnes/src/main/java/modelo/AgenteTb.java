@@ -54,13 +54,13 @@ public class AgenteTb implements Serializable {
     @Basic(optional = false)
     @Column(name = "e_idagente")
     private Integer eIdagente;
-    @Size(max = 50)
+    @Size(max = 150)
     @Column(name = "c_nombre")
     private String cNombre;
-    @Size(max = 50)
+    @Size(max = 150)
     @Column(name = "c_apellido")
     private String cApellido;
-    @Size(max = 10)
+    @Size(max = 50)
     @Column(name = "c_iniciales")
     private String cIniciales;
     @Size(max = 150)

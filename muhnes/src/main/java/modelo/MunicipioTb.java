@@ -38,7 +38,7 @@ public class MunicipioTb implements Serializable {
     @Basic(optional = false)
     @Column(name = "e_idmunicipio")
     private Integer eIdmunicipio;
-    @Size(max = 20)
+    @Size(max = 50)
     @Column(name = "c_nombre")
     private String cNombre;
     @OneToMany(mappedBy = "eIdmunicipio")

@@ -5,10 +5,13 @@
  */
 package servicio;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import modelo.ProcesoejemplarTb;
+import modelo.ProyectoTb;
 
 /**
  *
@@ -27,5 +30,12 @@ public class ProcesoejemplarTbFacade extends AbstractFacade<ProcesoejemplarTb> {
     public ProcesoejemplarTbFacade() {
         super(ProcesoejemplarTb.class);
     }
+    
+    public List<ProcesoejemplarTb> buscarProcesoAsc(ProyectoTb proyectos) {
+        
+        TypedQuery<ProcesoejemplarTb> query = em.createQuery("SELECT p FROM ProcesoejemplarTb p WHERE p.eIdproyecto=:h", ProcesoejemplarTb.class);
+       query.setParameter("h", proyectos);
+        return query.getResultList();
+         }
     
 }

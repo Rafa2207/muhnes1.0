@@ -29,7 +29,6 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "PaisTb.findAll", query = "SELECT p FROM PaisTb p ORDER BY p.cNombre"),
     @NamedQuery(name = "PaisTb.findByEIdpais", query = "SELECT p FROM PaisTb p WHERE p.eIdpais = :eIdpais"),
     @NamedQuery(name = "PaisTb.findByCNombre", query = "SELECT p FROM PaisTb p WHERE p.cNombre = :cNombre"),
-    @NamedQuery(name = "PaisTb.findByCGentilicio", query = "SELECT p FROM PaisTb p WHERE p.cGentilicio = :cGentilicio"),
     @NamedQuery(name = "PaisTb.findByCIdioma", query = "SELECT p FROM PaisTb p WHERE p.cIdioma = :cIdioma")})
 public class PaisTb implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -41,9 +40,6 @@ public class PaisTb implements Serializable {
     @Size(max = 50)
     @Column(name = "c_nombre")
     private String cNombre;
-    @Size(max = 80)
-    @Column(name = "c_gentilicio")
-    private String cGentilicio;
     @Size(max = 25)
     @Column(name = "c_idioma")
     private String cIdioma;
@@ -73,14 +69,6 @@ public class PaisTb implements Serializable {
 
     public void setCNombre(String cNombre) {
         this.cNombre = cNombre;
-    }
-
-    public String getCGentilicio() {
-        return cGentilicio;
-    }
-
-    public void setCGentilicio(String cGentilicio) {
-        this.cGentilicio = cGentilicio;
     }
 
     public String getCIdioma() {

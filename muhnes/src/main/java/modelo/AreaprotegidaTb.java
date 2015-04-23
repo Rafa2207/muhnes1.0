@@ -37,7 +37,7 @@ public class AreaprotegidaTb implements Serializable {
     @Basic(optional = false)
     @Column(name = "e_idarea")
     private Integer eIdarea;
-    @Size(max = 20)
+    @Size(max = 150)
     @Column(name = "c_nombre")
     private String cNombre;
     @Size(max = 2147483647)

@@ -20,7 +20,7 @@
                         <p:menuitem value="casita"/>
                         <p:menuitem value="Proyectos" outcome="/paginas/proyectoTb/List.xhtml" />
                     </p:breadCrumb>
-                    
+
 
 
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{proyectoTbController.prepareCreate}" update=":ProyectoTbCreateForm" oncomplete="PF('ProyectoTbCreateDialog').show()"/>
@@ -29,22 +29,24 @@
                     <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{proyectoTbController.destroy}" update=":growl,datalist" disabled="#{empty proyectoTbController.selected}">
                         <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
                     </p:commandButton>
-                    
+
                     <p:commandButton id="ActividadButton" icon="ui-icon-calendar"  value="Actividad" action="/paginas/actividadTb/List.xhtml" disabled="#{empty proyectoTbController.selected}" >
                         <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{proyectoTbController.selected}"/>
                     </p:commandButton>
-                    
+
                     <p:commandButton id="PresupuestoButton" icon="ui-icon-tag"  value="Presupuesto" action="/paginas/presupuestoTb/List.xhtml" disabled="#{empty proyectoTbController.selected}" >
-   <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{proyectoTbController.selected}" />
+                        <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{proyectoTbController.selected}" />
                     </p:commandButton>
-                    
-                    <p:commandButton id="ProcesoejemplarButton" icon="ui-icon-calculator"  value="Proceso ejemplar" disabled="#{empty proyectoTbController.selected}" />
-                    
-                    
-                   
-                    
-                    
-                    
+
+                    <p:commandButton id="ProcesoejemplarButton" icon="ui-icon-calculator"  value="Proceso ejemplar" action="/paginas/procesoejemplarTb/List.xhtml" disabled="#{empty proyectoTbController.selected}" >
+                        <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{proyectoTbController.selected}" />
+                    </p:commandButton>
+
+
+
+
+
+
                     <p:dataTable id="datalist" value="#{proyectoTbController.items}" var="item"
                                  selectionMode="single" selection="#{proyectoTbController.selected}"
                                  paginator="true"
@@ -67,7 +69,7 @@
                             </f:facet>
                             <h:outputText value="#{item.MNombre}"/>
                         </p:column>
-                        
+
                         <p:column filterBy="#{item.MDescripcion}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProyectoTbTitle_MDescripcion}"/>
@@ -81,7 +83,7 @@
                             </f:facet>
                             <h:outputText value="#{item.CResponsable}"/>
                         </p:column>
-                        
+
                         <p:column filterBy="#{item.FFechaInicio}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProyectoTbTitle_FFechaInicio}"/>
@@ -90,7 +92,7 @@
                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                             </h:outputText>
                         </p:column>
-                        
+
                         <p:column filterBy="#{item.FFechaFin}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProyectoTbTitle_FFechaFin}"/>
