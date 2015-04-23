@@ -25,7 +25,6 @@
                         
                         <p:outputLabel value="#{bundle.CreateMaterialTbLabel_MDescripcion}" for="MDescripcion" />
                         <p:inputTextarea autoResize="" id="MDescripcion" value="#{materialTbController.selected.MDescripcion}" title="#{bundle.CreateMaterialTbTitle_MDescripcion}" 
-                                     required="true"
                                      requiredMessage="Introduzca descripción"/>
                         
                         <p:outputLabel value="#{bundle.CreateMaterialTbLabel_CEstado}" for="CEstado" />
@@ -38,7 +37,7 @@
                             <f:selectItem itemLabel="Seleccione uno..." itemValue=""/>
                             <f:selectItems value="#{actividadTbController.itemsAvailableSelectOne}"
                                            var="EIdactividadItem"
-                                           itemLabel="#{EIdactividadItem.CNombre}"
+                                           itemLabel="#{EIdactividadItem.MNombre}"
                                            itemValue="#{EIdactividadItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>

@@ -26,7 +26,15 @@ public class PedidoTbController implements Serializable {
 
     @EJB
     private servicio.PedidoTbFacade ejbFacade;
-    private List<PedidoTb> items = null;
+    private List<PedidoTb> items = null, filtro;
+
+    public List<PedidoTb> getFiltro() {
+        return filtro;
+    }
+
+    public void setFiltro(List<PedidoTb> filtro) {
+        this.filtro = filtro;
+    }
     private PedidoTb selected;
 
     public PedidoTbController() {

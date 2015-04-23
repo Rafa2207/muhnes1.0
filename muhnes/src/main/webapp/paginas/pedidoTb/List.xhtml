@@ -20,7 +20,9 @@
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{pedidoTbController.prepareCreate}" update=":PedidoTbCreateForm" oncomplete="PF('PedidoTbCreateDialog').show()"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PedidoTbViewForm" oncomplete="PF('PedidoTbViewDialog').show()" disabled="#{empty pedidoTbController.selected}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":PedidoTbEditForm" oncomplete="PF('PedidoTbEditDialog').show()" disabled="#{empty pedidoTbController.selected}"/>
-                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{pedidoTbController.destroy}" update=":growl,datalist" disabled="#{empty pedidoTbController.selected}"/>
+                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{pedidoTbController.destroy}" update=":growl,datalist" disabled="#{empty pedidoTbController.selected}">
+                            <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
+                    </p:commandButton>
                     
                     <p:dataTable id="datalist" value="#{pedidoTbController.items}" var="item"
                                  selectionMode="single" selection="#{pedidoTbController.selected}"
@@ -30,24 +32,26 @@
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  emptyMessage="No se encontraron pedidos."
+                                 filteredValue="#{pedidoTbController.filtro}"
+                                 widgetVar="pedidosTable"
                                  >
 
                         <p:ajax event="rowSelect"   update=":PedidoTbListForm:createButton :PedidoTbListForm:viewButton :PedidoTbListForm:editButton :PedidoTbListForm:deleteButton"/>
                         <p:ajax event="rowUnselect" update=":PedidoTbListForm:createButton :PedidoTbListForm:viewButton :PedidoTbListForm:editButton :PedidoTbListForm:deleteButton"/>
 
-                        <p:column>
+                        <p:column filterBy="#{item.EIdmaterial.CNombre}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPedidoTbTitle_EIdmaterial}"/>
                             </f:facet>
                             <h:outputText value="#{item.EIdmaterial.CNombre}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.MDescripcion}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPedidoTbTitle_MDescripcion}"/>
                             </f:facet>
                             <h:outputText value="#{item.MDescripcion}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.FFecha}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPedidoTbTitle_FFecha}"/>
                             </f:facet>
@@ -55,8 +59,11 @@
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
                         </p:column>
-                        <f:facet name="footer">
-
+                        <f:facet name="header">
+                               <p:outputPanel>
+                                <h:outputText value="Búsqueda: " />
+                                <p:inputText id="globalFilter" onkeyup="PF('pedidosTable').filter()" placeholder="Escriba aquí"/>
+                            </p:outputPanel>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>
