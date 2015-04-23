@@ -6,14 +6,13 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import modelo.EjemplarTb;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-04-23T11:22:56")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-04-23T16:53:20")
 @StaticMetamodel(GeneroTb.class)
 public class GeneroTb_ { 
 
     public static volatile SingularAttribute<GeneroTb, Integer> eIdgenero;
     public static volatile ListAttribute<GeneroTb, EjemplarTb> ejemplarTbList;
     public static volatile SingularAttribute<GeneroTb, String> cNombre;
-    public static volatile SingularAttribute<GeneroTb, String> cEstado;
     public static volatile SingularAttribute<GeneroTb, Integer> eIdfamilia;
 
 }

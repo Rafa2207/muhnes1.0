@@ -70,8 +70,8 @@ public class GeneroTbController implements Serializable {
 
     public GeneroTb prepareCreate(FamiliaTb fam) {
         selected = new GeneroTb();
-        familia=fam;
-        selected.setEIdfamilia(familia.getEIdfamilia());
+        //familia=fam;
+        selected.setEIdfamilia(fam.getEIdfamilia());
         initializeEmbeddableKey();
         return selected;
     }
@@ -95,12 +95,12 @@ public class GeneroTbController implements Serializable {
         }
     }
 
-    public List<GeneroTb> getItems(FamiliaTb fam) {
+    public List<GeneroTb> getItems(Integer fam) {
         //if (items == null) {
         //items = getFacade().findAll();
        //familia = familias;
         
-        items = getFacade().buscarFamiliaAsc(fam.getEIdfamilia());
+        items = getFacade().buscarFamiliaAsc(fam);
         //}
         return items;
     }

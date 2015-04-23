@@ -23,7 +23,7 @@
                         <p:menuitem value="Género" outcome="/paginas/generoTb/List.xhtml"  />
                     </p:breadCrumb>
                     
-                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{generoTbController.prepareCreate}" update=":GeneroTbCreateForm" oncomplete="PF('GeneroTbCreateDialog').show()"/>
+                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{generoTbController.prepareCreate(controladorSesion.familia)}" update=":GeneroTbCreateForm" oncomplete="PF('GeneroTbCreateDialog').show()"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":GeneroTbViewForm" oncomplete="PF('GeneroTbViewDialog').show()" disabled="#{empty generoTbController.selected}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":GeneroTbEditForm" oncomplete="PF('GeneroTbEditDialog').show()" disabled="#{empty generoTbController.selected}"/>
                     <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{generoTbController.destroy}" update=":growl,datalist" disabled="#{empty generoTbController.selected}"/>
