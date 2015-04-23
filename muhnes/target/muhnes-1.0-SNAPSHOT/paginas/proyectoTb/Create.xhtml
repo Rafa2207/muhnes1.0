@@ -18,10 +18,9 @@
                                      required="true"
                                      requiredMessage="Introduzca el nombre del proyecto"/>
                         
-                        <p:outputLabel value="#{bundle.CreateProyectoTbLabel_CResponsable}" for="CResponsable" />
+                        <p:outputLabel value="#{bundle.CreateProyectoTbLabel_CResponsable}" for="CResponsable" />                                       
                         <p:inputText id="CResponsable" value="#{proyectoTbController.selected.CResponsable}" title="#{bundle.CreateProyectoTbTitle_CResponsable}" 
-                                     required="true"
-                                     requiredMessage="Introduzca responsable del proyecto"/>
+                                     required="true" requiredMessage="Introduzca responsable del proyecto"/>
                         
                         <p:outputLabel value="#{bundle.CreateProyectoTbLabel_MDescripcion}" for="MDescripcion" />
                         <p:inputTextarea  id="MDescripcion" value="#{proyectoTbController.selected.MDescripcion}" title="#{bundle.CreateProyectoTbTitle_MDescripcion}" 
@@ -40,6 +39,7 @@
                                     required="true"
                                      requiredMessage="Introduzca fecha fin"
                                      locale="es"/>
+                        
                     
                     </p:panelGrid>
                     <p:commandButton actionListener="#{proyectoTbController.create}" value="#{bundle.Save}" update="display,:ProyectoTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'ProyectoTbCreateDialog');"/>

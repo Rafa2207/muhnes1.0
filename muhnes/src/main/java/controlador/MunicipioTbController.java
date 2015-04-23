@@ -63,8 +63,9 @@ public class MunicipioTbController implements Serializable {
         return ejbFacade;
     }
 
-    public MunicipioTb prepareCreate() {
+    public MunicipioTb prepareCreate(DepartamentoTb depto) {
         selected = new MunicipioTb();
+        departamento=depto;
         selected.setEIddepto(departamento);
         initializeEmbeddableKey();
         return selected;
@@ -89,9 +90,9 @@ public class MunicipioTbController implements Serializable {
         }
     }
 
-    public List<MunicipioTb> getItems() {
+    public List<MunicipioTb> getItems(DepartamentoTb depto) {
         
-            items = getFacade().buscarDeptoAsc(departamento);
+            items = getFacade().buscarDeptoAsc(depto);
         
         return items;
     }
