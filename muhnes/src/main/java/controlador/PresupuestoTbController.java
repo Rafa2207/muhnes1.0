@@ -27,9 +27,19 @@ public class PresupuestoTbController implements Serializable {
 
     @EJB
     private servicio.PresupuestoTbFacade ejbFacade;
-    private List<PresupuestoTb> items = null;
+    private List<PresupuestoTb> items = null, filtro;
     private PresupuestoTb selected;
     private ProyectoTb proyectos;
+
+    public List<PresupuestoTb> getFiltro() {
+        return filtro;
+    }
+
+    public void setFiltro(List<PresupuestoTb> filtro) {
+        this.filtro = filtro;
+    }
+    
+    
 
     public ProyectoTb getProyectos() {
         return proyectos;
