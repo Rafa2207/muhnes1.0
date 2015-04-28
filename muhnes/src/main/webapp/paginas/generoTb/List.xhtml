@@ -27,7 +27,10 @@
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":GeneroTbViewForm" oncomplete="PF('GeneroTbViewDialog').show()" disabled="#{empty generoTbController.selected}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":GeneroTbEditForm" oncomplete="PF('GeneroTbEditDialog').show()" disabled="#{empty generoTbController.selected}"/>
                     <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{generoTbController.destroy}" update=":growl,datalist" disabled="#{empty generoTbController.selected}"/>
-                    
+                    <p:commandButton id="especieButton" icon="ui-icon-calendar"  value="Especie" action="/paginas/especieTb/List.xhtml" disabled="#{empty generoTbController.selected}">
+                        <f:setPropertyActionListener target="#{controladorSesion.genero}" value="#{generoTbController.selected}">
+                        </f:setPropertyActionListener> 
+                    </p:commandButton>
                     <p:dataTable id="datalist" value="#{generoTbController.getItems(controladorSesion.familia.EIdfamilia)}" var="item"
                                  selectionMode="single" selection="#{generoTbController.selected}"
                                  paginator="true"
@@ -37,11 +40,11 @@
                                  paginatorPosition="Bottom"
                                  filteredValue="#{generoTbController.filtro}"
                                  widgetVar="generoTable"
-                                 emptyMessage="No se encontro genero"
+                                 emptyMessage="No se encontro género"
                                  >
 
-                        <p:ajax event="rowSelect"   update=":GeneroTbListForm:createButton :GeneroTbListForm:viewButton :GeneroTbListForm:editButton :GeneroTbListForm:deleteButton"/>
-                        <p:ajax event="rowUnselect" update=":GeneroTbListForm:createButton :GeneroTbListForm:viewButton :GeneroTbListForm:editButton :GeneroTbListForm:deleteButton"/>
+                        <p:ajax event="rowSelect"   update=":GeneroTbListForm:createButton :GeneroTbListForm:viewButton :GeneroTbListForm:editButton :GeneroTbListForm:deleteButton :GeneroTbListForm:especieButton"/>
+                        <p:ajax event="rowUnselect" update=":GeneroTbListForm:createButton :GeneroTbListForm:viewButton :GeneroTbListForm:editButton :GeneroTbListForm:deleteButton :GeneroTbListForm:especieButton"/>
 
                         <p:column filterBy="#{item.CNombre}" filterStyle="display:none">
                             <f:facet name="header">
@@ -52,7 +55,7 @@
                         
                         <f:facet name="header">
                             <p:outputPanel>
-                                <h:outputText value="Busqueda: " />
+                                <h:outputText value="Búsqueda: " />
                                 <p:inputText id="globalFilter" onkeyup="PF('generoTable').filter()" placeholder="Escriba aquí"/>
                             </p:outputPanel>
                         </f:facet>

@@ -19,6 +19,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
+import modelo.GeneroTb;
 
 @Named("especieTbController")
 @ViewScoped
@@ -26,8 +27,16 @@ public class EspecieTbController implements Serializable {
 
     @EJB
     private servicio.EspecieTbFacade ejbFacade;
-    private List<EspecieTb> items = null;
+    private List<EspecieTb> items = null, filtro;
     private EspecieTb selected;
+
+    public List<EspecieTb> getFiltro() {
+        return filtro;
+    }
+
+    public void setFiltro(List<EspecieTb> filtro) {
+        this.filtro = filtro;
+    }
 
     public EspecieTbController() {
     }
@@ -50,9 +59,10 @@ public class EspecieTbController implements Serializable {
         return ejbFacade;
     }
 
-    public EspecieTb prepareCreate() {
+    public EspecieTb prepareCreate(GeneroTb genero) {
         selected = new EspecieTb();
         initializeEmbeddableKey();
+        selected.setEIdgenero(genero.getEIdfamilia());
         return selected;
     }
 
@@ -75,10 +85,11 @@ public class EspecieTbController implements Serializable {
         }
     }
 
-    public List<EspecieTb> getItems() {
-        if (items == null) {
+    public List<EspecieTb> getItems(Integer gen) {
+        /*if (items == null) {
             items = getFacade().findAll();
-        }
+        }*/
+        items = getFacade().buscarGeneroAsc(gen);
         return items;
     }
 

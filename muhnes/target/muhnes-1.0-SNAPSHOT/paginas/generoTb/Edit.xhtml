@@ -15,6 +15,14 @@
                         <p:outputLabel value="#{bundle.EditGeneroTbLabel_CNombre}" for="CNombre" />
                         <p:inputText id="CNombre" value="#{generoTbController.selected.CNombre}" title="#{bundle.EditGeneroTbTitle_CNombre}" 
                                      required="true" requiredMessage="Introduzca un nombre"/>
+                        <p:outputLabel value="#{bundle.EditGeneroTbLabel_EIdfamilia}" for="EIdfamilia" />
+                        <p:selectOneMenu id="EIdfamilia" value="#{generoTbController.selected.EIdfamilia}" required="true" requiredMessage="Seleccione un estado taxonomico" filter="true" filterMatchMode="contains">
+                            <f:selectItem itemValue="" itemLabel="Seleccione género"/>
+                            <f:selectItems value="#{familiaTbController.itemsAvailableSelectOne}"
+                                       var="familia"
+                                       itemLabel="#{familia.CNombre}"
+                                       itemValue="#{familia.EIdfamilia}"/>
+                        </p:selectOneMenu>
                         </p:panelGrid>
                     <p:commandButton actionListener="#{generoTbController.update}" value="#{bundle.Save}" update="display,:GeneroTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'GeneroTbEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="GeneroTbEditDialog.hide()"/>

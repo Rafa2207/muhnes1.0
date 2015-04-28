@@ -5,9 +5,11 @@
  */
 package servicio;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import modelo.EspecieTb;
 
 /**
@@ -27,5 +29,10 @@ public class EspecieTbFacade extends AbstractFacade<EspecieTb> {
     public EspecieTbFacade() {
         super(EspecieTb.class);
     }
-    
+    public List<EspecieTb> buscarGeneroAsc(Integer  genero){
+        
+        TypedQuery<EspecieTb> query = em.createQuery("SELECT p FROM EspecieTb p WHERE p.eIdgenero=:h ORDER BY p.cNombre ASC ", EspecieTb.class);
+       query.setParameter("h", genero);
+        return query.getResultList();
+    }
 }

@@ -12,14 +12,12 @@
             <h:form id="EspecieTbViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{especieTbController.selected != null}">
-                        <h:outputText value="#{bundle.ViewEspecieTbLabel_EIdespecie}"/>
-                        <h:outputText value="#{especieTbController.selected.EIdespecie}" title="#{bundle.ViewEspecieTbTitle_EIdespecie}"/>
                         <h:outputText value="#{bundle.ViewEspecieTbLabel_CNombre}"/>
                         <h:outputText value="#{especieTbController.selected.CNombre}" title="#{bundle.ViewEspecieTbTitle_CNombre}"/>
                         <h:outputText value="#{bundle.ViewEspecieTbLabel_CEstado}"/>
                         <h:outputText value="#{especieTbController.selected.CEstado}" title="#{bundle.ViewEspecieTbTitle_CEstado}"/>
                         <h:outputText value="#{bundle.ViewEspecieTbLabel_EIdgenero}"/>
-                        <h:outputText value="#{especieTbController.selected.EIdgenero}" title="#{bundle.ViewEspecieTbTitle_EIdgenero}"/>
+                        <h:outputText value="#{controladorSesion.genero.CNombre}" title="#{bundle.ViewEspecieTbTitle_EIdgenero}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="EspecieTbViewDialog.hide()"/>
                 </h:panelGroup>
