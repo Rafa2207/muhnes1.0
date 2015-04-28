@@ -16,7 +16,7 @@ import modelo.ProyectoTb;
 import modelo.SubespecieTb;
 import modelo.VariedadTb;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-04-23T16:53:20")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-04-27T11:18:17")
 @StaticMetamodel(EjemplarTb.class)
 public class EjemplarTb_ { 
 

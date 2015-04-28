@@ -10,6 +10,7 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import modelo.DepartamentoTb;
 import modelo.FamiliaTb;
+import modelo.MunicipioTb;
 import modelo.PaisTb;
 import modelo.PresupuestoTb;
 import modelo.ProyectoTb;
@@ -27,7 +28,17 @@ public class ControladorSesion implements Serializable {
     private FamiliaTb familia;
     private PaisTb pais;
     private DepartamentoTb departamento;
+    private MunicipioTb municipio;
 
+    public MunicipioTb getMunicipio() {
+        return municipio;
+    }
+
+    public void setMunicipio(MunicipioTb municipio) {
+        this.municipio = municipio;
+    }
+   
+       
     public DepartamentoTb getDepartamento() {
         return departamento;
     }

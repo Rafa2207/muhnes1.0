@@ -27,10 +27,20 @@ public class MunicipioTbController implements Serializable {
 
     @EJB
     private servicio.MunicipioTbFacade ejbFacade;
-    private List<MunicipioTb> items = null;
+    private List<MunicipioTb> items = null, filtro;
     private MunicipioTb selected;
     private DepartamentoTb departamento;
 
+    public List<MunicipioTb> getFiltro() {
+        return filtro;
+    }
+
+    public void setFiltro(List<MunicipioTb> filtro) {
+        this.filtro = filtro;
+    }
+
+    
+    
     public DepartamentoTb getDepartamento() {
         return departamento;
     }

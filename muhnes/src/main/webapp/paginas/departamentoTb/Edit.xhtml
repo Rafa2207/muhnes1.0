@@ -16,8 +16,17 @@
                         <p:inputText id="CNombre" 
                                      value="#{departamentoTbController.selected.CNombre}" 
                                      title="#{bundle.EditDepartamentoTbTitle_CNombre}"
-                                     required="true"
-                                     requiredMessage="Introduzca el departamento"/>
+                                     required="true" requiredMessage="Introduzca el departamento"/>
+                        
+                        <p:outputLabel value="País: " for="pais" />
+                        <p:selectOneMenu id="pais" value="#{departamentoTbController.selected.EIdpais}" filter="true" filterMatchMode="contains" required="true" requiredMessage="seleccione país">
+                        <f:selectItem itemValue="" itemLabel="Seleccione país"/>
+                        <f:selectItems value="#{paisTbController.itemsAvailableSelectOne}"
+                                       var="pa"
+                                       itemLabel="#{pa.CNombre}"
+                                       itemValue="#{pa}"/>
+                        
+                        </p:selectOneMenu>
                         
                     </p:panelGrid>
                     <p:commandButton actionListener="#{departamentoTbController.update}" value="#{bundle.Save}" update="display,:DepartamentoTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DepartamentoTbEditDialog');"/>

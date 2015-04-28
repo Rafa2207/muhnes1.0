@@ -12,16 +12,17 @@
             <h:form id="CantonTbEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{cantonTbController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditCantonTbLabel_EIdcanton}" for="EIdcanton" />
-                        <p:inputText id="EIdcanton" value="#{cantonTbController.selected.EIdcanton}" title="#{bundle.EditCantonTbTitle_EIdcanton}" required="true" requiredMessage="#{bundle.EditCantonTbRequiredMessage_EIdcanton}"/>
                         <p:outputLabel value="#{bundle.EditCantonTbLabel_CNombre}" for="CNombre" />
-                        <p:inputText id="CNombre" value="#{cantonTbController.selected.CNombre}" title="#{bundle.EditCantonTbTitle_CNombre}" />
+                        <p:inputText id="CNombre" value="#{cantonTbController.selected.CNombre}" title="#{bundle.EditCantonTbTitle_CNombre}" 
+                                     required="true"  requiredMessage="Introduzca nombre"/>
+                        
                         <p:outputLabel value="#{bundle.EditCantonTbLabel_EIdmunicipio}" for="EIdmunicipio" />
-                        <p:selectOneMenu id="EIdmunicipio" value="#{cantonTbController.selected.EIdmunicipio}" >
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{municipioTbController.itemsAvailableSelectOne}"
+                        <p:selectOneMenu id="EIdmunicipio" value="#{cantonTbController.selected.EIdmunicipio}" required="true"  requiredMessage="seleccione municipio" >
+                            <f:selectItem itemLabel="Seleccione un municipio"/>
+                            <f:selectItems value="#{municipioTbController.getItems(controladorSesion.departamento)}"
                                            var="EIdmunicipioItem"
-                                           itemValue="#{EIdmunicipioItem}"/>
+                                           itemValue="#{EIdmunicipioItem}"
+                                           itemLabel="#{EIdmunicipioItem.CNombre}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{cantonTbController.update}" value="#{bundle.Save}" update="display,:CantonTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CantonTbEditDialog');"/>

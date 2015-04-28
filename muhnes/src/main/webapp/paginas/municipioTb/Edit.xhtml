@@ -16,7 +16,17 @@
                         <p:inputText id="CNombre" value="#{municipioTbController.selected.CNombre}" title="#{bundle.EditMunicipioTbTitle_CNombre}" 
                                      required="true" requiredMessage="Introduzca el nombre del municipio"/>
                         
+                        <p:outputLabel value="Departamento: " for="depto" />
+                        <p:selectOneMenu id="depto" value="#{municipioTbController.selected.EIddepto}" 
+                                         filter="true" filterMatchMode="contains"
+                                         required="true" requiredMessage="Seleccione departamento">
+                        <f:selectItem itemValue="" itemLabel="Seleccione departamento"/>
+                        <f:selectItems value="#{departamentoTbController.getItems(controladorSesion.pais)}"
+                                       var="dep"
+                                       itemLabel="#{dep.CNombre}"
+                                       itemValue="#{dep}"/>
                         
+                        </p:selectOneMenu>
                         
                     </p:panelGrid>
                     <p:commandButton actionListener="#{municipioTbController.update}" value="#{bundle.Save}" update="display,:MunicipioTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MunicipioTbEditDialog');"/>

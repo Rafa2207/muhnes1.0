@@ -147,7 +147,6 @@ controlador\BitacoraTbController$BitacoraTbControllerConverter.class
 controlador\PaisTbController.class
 modelo\AreaprotegidaTb_.class
 servicio\SubespecieTbFacade.class
-controlador\util\ControladorRequest.class
 modelo\AgenteIdentificaEjemplarTbPK.class
 controlador\SubespecieTbController.class
 servicio\AreaprotegidaTbFacade.class

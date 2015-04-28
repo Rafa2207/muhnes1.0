@@ -63,8 +63,10 @@
                                     />
                        
                         <p:outputLabel value="#{bundle.CreateAgenteTbLabel_EIdinstitucion}" for="EIdinstitucion" />
-                        <p:selectOneMenu id="EIdinstitucion" value="#{agenteTbController.selected.EIdinstitucion}" required="true"
-                                     requiredMessage="Seleccione una institucion" >
+                        <p:selectOneMenu id="EIdinstitucion" value="#{agenteTbController.selected.EIdinstitucion}" 
+                                         filter="true" filterMatchMode="contains"
+                                         required="true"
+                                         requiredMessage="Seleccione una institucion" >
                             <f:selectItem itemLabel="Seleccione uno..." itemValue=""  />
                             <f:selectItems value="#{institucionTbController.itemsAvailableSelectOne}"
                                            var="EIdinstitucionItem"

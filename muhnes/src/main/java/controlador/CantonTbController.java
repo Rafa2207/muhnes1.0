@@ -27,19 +27,26 @@ public class CantonTbController implements Serializable {
 
     @EJB
     private servicio.CantonTbFacade ejbFacade;
-    private List<CantonTb> items = null;
+    private List<CantonTb> items = null,filtro;
     private CantonTb selected;
-    private MunicipioTb canton;
+    private MunicipioTb municipio;
 
-    public MunicipioTb getCanton() {
-        return canton;
+    public List<CantonTb> getFiltro() {
+        return filtro;
     }
 
-    public void setCanton(MunicipioTb canton) {
-        this.canton = canton;
+    public void setFiltro(List<CantonTb> filtro) {
+        this.filtro = filtro;
     }
-    
-    
+
+    public MunicipioTb getMunicipio() {
+        return municipio;
+    }
+
+    public void setMunicipio(MunicipioTb municipio) {
+        this.municipio = municipio;
+    }
+           
 
     public CantonTbController() {
     }
@@ -62,8 +69,10 @@ public class CantonTbController implements Serializable {
         return ejbFacade;
     }
 
-    public CantonTb prepareCreate() {
+    public CantonTb prepareCreate(MunicipioTb municipios) {
         selected = new CantonTb();
+        municipio=municipios;
+        selected.setEIdmunicipio(municipio);
         initializeEmbeddableKey();
         return selected;
     }
@@ -87,10 +96,10 @@ public class CantonTbController implements Serializable {
         }
     }
 
-    public List<CantonTb> getItems() {
-        if (items == null) {
-            items = getFacade().findAll();
-        }
+    public List<CantonTb> getItems(MunicipioTb muni ) {
+        
+            items = getFacade().buscarMuniAsc(muni);
+        
         return items;
     }
 

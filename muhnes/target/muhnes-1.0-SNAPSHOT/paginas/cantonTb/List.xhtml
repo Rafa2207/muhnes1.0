@@ -15,76 +15,52 @@
 
         <ui:define name="body">
             <h:form id="CantonTbListForm">
-                <p:panel header="#{bundle.ListCantonTbTitle}">
-                    
-                     <p:panelGrid columns="4" >
-                        <p:outputLabel value="País: " />
-                     <p:selectOneMenu id="pais" value="#{departamentoTbController.pais}" filter="true" filterMatchMode="contains">
-                        <f:selectItem itemValue="" itemLabel="Seleccione país"/>
-                        <f:selectItems value="#{paisTbController.itemsAvailableSelectOne}"
-                                       var="pa"
-                                       itemLabel="#{pa.CNombre}"
-                                       itemValue="#{pa}"/>
-                        <p:ajax process="pais" update="departamento" event="change"/><!-- sirve para actualizar el combobo -->
-                        </p:selectOneMenu>
-                        
-                        <p:outputLabel value="Departamento: " />
-                     <p:selectOneMenu id="departamento" value="#{municipioTbController.departamento}" filter="true" filterMatchMode="contains">
-                        <f:selectItem itemValue="" itemLabel="Seleccione departamento"/>
-                        <f:selectItems value="#{departamentoTbController.itemsAvailableSelectOne}"
-                                       var="depto"
-                                       itemLabel="#{depto.CNombre}"
-                                       itemValue="#{depto}"/>
-                        <p:ajax process="departamento" update="municipio" event="change"/><!-- sirve para actualizar la tabla -->
-                    </p:selectOneMenu>
-                        
-                        <p:outputLabel value="Cantón: " />
-                        <p:selectOneMenu id="municipio" value="#{cantonTbController.canton}" filter="true" filterMatchMode="contains">
-                        <f:selectItem itemValue="" itemLabel="Seleccione cantón"/>
-                        <f:selectItems value="#{cantonTbController.itemsAvailableSelectOne}"
-                                       var="mun"
-                                       itemLabel="#{mun.CNombre}"
-                                       itemValue="#{mun}"/>
-                        <p:ajax process="departamento" update="" event="change"/><!-- sirve para actualizar la tabla -->
-                    </p:selectOneMenu>
-                        
-                        
-                    
-                        
-                        
-                      
-                         </p:panelGrid>
-                    
-                    
-                    
-                      <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{cantonTbController.prepareCreate}" update=":CantonTbCreateForm" oncomplete="PF('CantonTbCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":CantonTbViewForm" oncomplete="PF('CantonTbViewDialog').show()" disabled="#{empty cantonTbController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":CantonTbEditForm" oncomplete="PF('CantonTbEditDialog').show()" disabled="#{empty cantonTbController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{cantonTbController.destroy}" update=":growl,datalist" disabled="#{empty cantonTbController.selected}"/>
-                        
-                    
-                    <p:dataTable id="datalist" value="#{cantonTbController.items}" var="item"
+                <p:panel header="#{bundle.ListCantonTbTitle}: #{controladorSesion.municipio.CNombre}">
+
+                    <p:breadCrumb>
+                        <p:menuitem value="casita"/>
+                        <p:menuitem value="País" outcome="/paginas/paisTb/List.xhtml" />
+                        <p:menuitem value="Departamentos" outcome="/paginas/departamentoTb/List.xhtml"  />
+                        <p:menuitem value="Municipios" outcome="/paginas/municipioTb/List.xhtml"  />
+                        <p:menuitem value="Cantón" outcome="/paginas/cantonTb/List.xhtml"  />
+                    </p:breadCrumb>
+
+                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{cantonTbController.prepareCreate(controladorSesion.municipio)}" update=":CantonTbCreateForm" oncomplete="PF('CantonTbCreateDialog').show()"/>
+                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":CantonTbViewForm" oncomplete="PF('CantonTbViewDialog').show()" disabled="#{empty cantonTbController.selected}"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":CantonTbEditForm" oncomplete="PF('CantonTbEditDialog').show()" disabled="#{empty cantonTbController.selected}"/>
+                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{cantonTbController.destroy}" update=":growl,datalist" disabled="#{empty cantonTbController.selected}">
+                        <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
+                    </p:commandButton>
+
+
+                    <p:dataTable id="datalist" value="#{cantonTbController.getItems(controladorSesion.municipio)}" var="item"
                                  selectionMode="single" selection="#{cantonTbController.selected}"
                                  paginator="true"
                                  paginatorPosition="bottom"
                                  rowKey="#{item.EIdcanton}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
-                                 emptyMessage="No se encontraron cantones.">
+                                 emptyMessage="No se encontraron cantones."
+                                 filteredValue="#{cantonTbController.filtro}"
+                                 widgetVar="cantonTable">
 
                         <p:ajax event="rowSelect"   update=":CantonTbListForm:createButton :CantonTbListForm:viewButton :CantonTbListForm:editButton :CantonTbListForm:deleteButton"/>
                         <p:ajax event="rowUnselect" update=":CantonTbListForm:createButton :CantonTbListForm:viewButton :CantonTbListForm:editButton :CantonTbListForm:deleteButton"/>
 
-                        
-                        <p:column>
+
+                        <p:column filterBy="#{item.CNombre}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListCantonTbTitle_CNombre}"/>
                             </f:facet>
                             <h:outputText value="#{item.CNombre}"/>
                         </p:column>
-                        
-                        <f:facet name="footer">
-                          </f:facet>
+
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Búsqueda: " />
+                                <p:inputText id="globalFilter" onkeyup="PF('cantonTable').filter()" placeholder="Escriba aquí"/>
+                            </p:outputPanel>
+                        </f:facet>
                     </p:dataTable>
                 </p:panel>
             </h:form>

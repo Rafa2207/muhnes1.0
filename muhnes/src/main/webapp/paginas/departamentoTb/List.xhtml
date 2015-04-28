@@ -15,7 +15,7 @@
 
         <ui:define name="body">
             <h:form id="DepartamentoTbListForm">
-                <p:panel header="#{bundle.ListDepartamentoTbTitle}">
+                <p:panel header="#{bundle.ListDepartamentoTbTitle}: #{controladorSesion.pais.CNombre}">
                     <p:breadCrumb>
                         <p:menuitem value="casita"/>
                         <p:menuitem value="País" outcome="/paginas/paisTb/List.xhtml" />

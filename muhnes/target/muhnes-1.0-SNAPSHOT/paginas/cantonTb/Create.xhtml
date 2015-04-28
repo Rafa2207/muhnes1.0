@@ -12,19 +12,13 @@
             <h:form id="CantonTbCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{cantonTbController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateCantonTbLabel_EIdcanton}" for="EIdcanton" />
-                        <p:inputText id="EIdcanton" value="#{cantonTbController.selected.EIdcanton}" title="#{bundle.CreateCantonTbTitle_EIdcanton}" required="true" requiredMessage="#{bundle.CreateCantonTbRequiredMessage_EIdcanton}"/>
                         <p:outputLabel value="#{bundle.CreateCantonTbLabel_CNombre}" for="CNombre" />
-                        <p:inputText id="CNombre" value="#{cantonTbController.selected.CNombre}" title="#{bundle.CreateCantonTbTitle_CNombre}" />
-                        <p:outputLabel value="#{bundle.CreateCantonTbLabel_EIdmunicipio}" for="EIdmunicipio" />
-                        <p:selectOneMenu id="EIdmunicipio" value="#{cantonTbController.selected.EIdmunicipio}" >
-                            <f:selectItems value="#{municipioTbController.itemsAvailableSelectOne}"
-                                           var="EIdmunicipioItem"
-                                           itemValue="#{EIdmunicipioItem}"/>
-                        </p:selectOneMenu>
+                        <p:inputText id="CNombre" value="#{cantonTbController.selected.CNombre}" title="#{bundle.CreateCantonTbTitle_CNombre}" 
+                                     required="true"  requiredMessage="Introduzca nombre"/>
+                  
                     </p:panelGrid>
                     <p:commandButton actionListener="#{cantonTbController.create}" value="#{bundle.Save}" update="display,:CantonTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'CantonTbCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="CantonTbCreateDialog.hide()"/>
+                    
                 </h:panelGroup>
             </h:form>
         </p:dialog>
