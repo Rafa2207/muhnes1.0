@@ -12,17 +12,18 @@
             <h:form id="SubespecieTbCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{subespecieTbController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateSubespecieTbLabel_EIdsubespecie}" for="EIdsubespecie" />
-                        <p:inputText id="EIdsubespecie" value="#{subespecieTbController.selected.EIdsubespecie}" title="#{bundle.CreateSubespecieTbTitle_EIdsubespecie}" required="true" requiredMessage="#{bundle.CreateSubespecieTbRequiredMessage_EIdsubespecie}"/>
                         <p:outputLabel value="#{bundle.CreateSubespecieTbLabel_CNombre}" for="CNombre" />
-                        <p:inputText id="CNombre" value="#{subespecieTbController.selected.CNombre}" title="#{bundle.CreateSubespecieTbTitle_CNombre}" />
+                        <p:inputText id="CNombre" value="#{subespecieTbController.selected.CNombre}" title="#{bundle.CreateSubespecieTbTitle_CNombre}" required="true" requiredMessage="Introduzca un nombre"/>
                         <p:outputLabel value="#{bundle.CreateSubespecieTbLabel_CEstado}" for="CEstado" />
-                        <p:inputText id="CEstado" value="#{subespecieTbController.selected.CEstado}" title="#{bundle.CreateSubespecieTbTitle_CEstado}" />
-                        <p:outputLabel value="#{bundle.CreateSubespecieTbLabel_EIdespecie}" for="EIdespecie" />
-                        <p:inputText id="EIdespecie" value="#{subespecieTbController.selected.EIdespecie}" title="#{bundle.CreateSubespecieTbTitle_EIdespecie}" />
+                       <p:selectOneMenu id="CEstado" value="#{subespecieTbController.selected.CEstado}" required="true" requiredMessage="Seleccione un estado taxonómico">
+                            <f:selectItem itemValue="" itemLabel="Seleccione estado taxonómico"/>
+                            <f:selectItem itemValue="Aceptado" itemLabel="Aceptado"/>
+                            <f:selectItem itemValue="Temporal" itemLabel="Temporal"/>
+                            <f:selectItem itemValue="Sinónimo" itemLabel="Sinónimo"/>
+                            <f:selectItem itemValue="En Desuso" itemLabel="En Desuso"/>
+                        </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{subespecieTbController.create}" value="#{bundle.Save}" update="display,:SubespecieTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'SubespecieTbCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="SubespecieTbCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

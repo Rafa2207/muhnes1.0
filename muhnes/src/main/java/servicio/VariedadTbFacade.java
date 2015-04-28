@@ -5,9 +5,11 @@
  */
 package servicio;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import modelo.VariedadTb;
 
 /**
@@ -26,6 +28,12 @@ public class VariedadTbFacade extends AbstractFacade<VariedadTb> {
 
     public VariedadTbFacade() {
         super(VariedadTb.class);
+    }
+    public List<VariedadTb> buscarSubEspecieAsc(Integer  subespecie){
+        
+        TypedQuery<VariedadTb> query = em.createQuery("SELECT p FROM VariedadTb p WHERE p.eIdsubespecie=:h ORDER BY p.cNombre ASC ", VariedadTb.class);
+       query.setParameter("h", subespecie);
+        return query.getResultList();
     }
     
 }

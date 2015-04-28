@@ -15,47 +15,57 @@
 
         <ui:define name="body">
             <h:form id="SubespecieTbListForm">
-                <p:panel header="#{bundle.ListSubespecieTbTitle}">
-                    <p:dataTable id="datalist" value="#{subespecieTbController.items}" var="item"
+                <p:panel header="#{bundle.ListSubespecieTbTitle} de: #{controladorSesion.especie.CNombre}">
+
+                    <p:breadCrumb>
+                        <p:menuitem value="casita"/>
+                        <p:menuitem value="Familia" outcome="/paginas/familiaTb/List.xhtml" />
+                        <p:menuitem value="Género" outcome="/paginas/generoTb/List.xhtml"  />
+                        <p:menuitem value="Especie" outcome="/paginas/especieTb/List.xhtml"  />
+                        <p:menuitem value="Subespecie" outcome="/paginas/subespecieTb/List.xhtml"  />
+                    </p:breadCrumb>
+
+                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{subespecieTbController.prepareCreate(controladorSesion.especie)}" update=":SubespecieTbCreateForm" oncomplete="PF('SubespecieTbCreateDialog').show()"/>
+                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":SubespecieTbViewForm" oncomplete="PF('SubespecieTbViewDialog').show()" disabled="#{empty subespecieTbController.selected}"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":SubespecieTbEditForm" oncomplete="PF('SubespecieTbEditDialog').show()" disabled="#{empty subespecieTbController.selected}"/>
+                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{subespecieTbController.destroy}" update=":growl,datalist" disabled="#{empty subespecieTbController.selected}"/>
+                    <p:commandButton id="variedadButton" icon="ui-icon-calendar"  value="Variedad" action="/paginas/variedadTb/List.xhtml" disabled="#{empty subespecieTbController.selected}">
+                        <f:setPropertyActionListener target="#{controladorSesion.subespecie}" value="#{subespecieTbController.selected}">
+                        </f:setPropertyActionListener> 
+                    </p:commandButton>
+
+                    <p:dataTable id="datalist" value="#{subespecieTbController.getItems(controladorSesion.especie.EIdespecie)}" var="item"
                                  selectionMode="single" selection="#{subespecieTbController.selected}"
                                  paginator="true"
                                  rowKey="#{item.EIdsubespecie}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
+                                 paginatorPosition="Bottom"
+                                 filteredValue="#{subespecieTbController.filtro}"
+                                 widgetVar="subespecieTable"
+                                 emptyMessage="No se encontro subespecie"
                                  >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowSelect"   update=":SubespecieTbListForm:variedadButton :SubespecieTbListForm:createButton :SubespecieTbListForm:viewButton :SubespecieTbListForm:editButton :SubespecieTbListForm:deleteButton"/>
+                        <p:ajax event="rowUnselect" update=":SubespecieTbListForm:variedadButton :SubespecieTbListForm:createButton :SubespecieTbListForm:viewButton :SubespecieTbListForm:editButton :SubespecieTbListForm:deleteButton"/>
 
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSubespecieTbTitle_EIdsubespecie}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.EIdsubespecie}"/>
-                        </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.CNombre}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSubespecieTbTitle_CNombre}"/>
                             </f:facet>
                             <h:outputText value="#{item.CNombre}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.CEstado}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSubespecieTbTitle_CEstado}"/>
                             </f:facet>
                             <h:outputText value="#{item.CEstado}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSubespecieTbTitle_EIdespecie}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.EIdespecie}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{subespecieTbController.prepareCreate}" update=":SubespecieTbCreateForm" oncomplete="PF('SubespecieTbCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":SubespecieTbViewForm" oncomplete="PF('SubespecieTbViewDialog').show()" disabled="#{empty subespecieTbController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":SubespecieTbEditForm" oncomplete="PF('SubespecieTbEditDialog').show()" disabled="#{empty subespecieTbController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{subespecieTbController.destroy}" update=":growl,datalist" disabled="#{empty subespecieTbController.selected}"/>
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Búsqueda: " />
+                                <p:inputText id="globalFilter" onkeyup="PF('subespecieTable').filter()" placeholder="Escriba aquí"/>
+                            </p:outputPanel>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

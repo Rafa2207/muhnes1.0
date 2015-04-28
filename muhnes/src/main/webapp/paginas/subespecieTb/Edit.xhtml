@@ -12,17 +12,26 @@
             <h:form id="SubespecieTbEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{subespecieTbController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditSubespecieTbLabel_EIdsubespecie}" for="EIdsubespecie" />
-                        <p:inputText id="EIdsubespecie" value="#{subespecieTbController.selected.EIdsubespecie}" title="#{bundle.EditSubespecieTbTitle_EIdsubespecie}" required="true" requiredMessage="#{bundle.EditSubespecieTbRequiredMessage_EIdsubespecie}"/>
                         <p:outputLabel value="#{bundle.EditSubespecieTbLabel_CNombre}" for="CNombre" />
-                        <p:inputText id="CNombre" value="#{subespecieTbController.selected.CNombre}" title="#{bundle.EditSubespecieTbTitle_CNombre}" />
+                        <p:inputText id="CNombre" value="#{subespecieTbController.selected.CNombre}" title="#{bundle.EditSubespecieTbTitle_CNombre}" required="true" requiredMessage="Introduzca un nombre"/>
                         <p:outputLabel value="#{bundle.EditSubespecieTbLabel_CEstado}" for="CEstado" />
-                        <p:inputText id="CEstado" value="#{subespecieTbController.selected.CEstado}" title="#{bundle.EditSubespecieTbTitle_CEstado}" />
+                        <p:selectOneMenu id="CEstado" value="#{subespecieTbController.selected.CEstado}" required="true" requiredMessage="Seleccione un estado taxonomico">
+                            <f:selectItem itemValue="" itemLabel="Seleccione estado taxonomico"/>
+                            <f:selectItem itemValue="Aceptado" itemLabel="Aceptado"/>
+                            <f:selectItem itemValue="Temporal" itemLabel="Temporal"/>
+                            <f:selectItem itemValue="Sinónimo" itemLabel="Sinónimo"/>
+                            <f:selectItem itemValue="En Desuso" itemLabel="En Desuso"/>
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditSubespecieTbLabel_EIdespecie}" for="EIdespecie" />
-                        <p:inputText id="EIdespecie" value="#{subespecieTbController.selected.EIdespecie}" title="#{bundle.EditSubespecieTbTitle_EIdespecie}" />
+                        <p:selectOneMenu id="EIdespecie" value="#{subespecieTbController.selected.EIdespecie}" required="true" requiredMessage="Seleccione un estado taxonomico" filter="true" filterMatchMode="contains">
+                            <f:selectItem itemValue="" itemLabel="Seleccione especie"/>
+                            <f:selectItems value="#{especieTbController.itemsAvailableSelectOne}"
+                                       var="especie"
+                                       itemLabel="#{especie.CNombre}"
+                                       itemValue="#{especie.EIdespecie}"/>
+                        </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{subespecieTbController.update}" value="#{bundle.Save}" update="display,:SubespecieTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'SubespecieTbEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="SubespecieTbEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

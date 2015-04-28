@@ -12,14 +12,12 @@
             <h:form id="VariedadTbViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{variedadTbController.selected != null}">
-                        <h:outputText value="#{bundle.ViewVariedadTbLabel_EIdvariedad}"/>
-                        <h:outputText value="#{variedadTbController.selected.EIdvariedad}" title="#{bundle.ViewVariedadTbTitle_EIdvariedad}"/>
                         <h:outputText value="#{bundle.ViewVariedadTbLabel_CNombre}"/>
                         <h:outputText value="#{variedadTbController.selected.CNombre}" title="#{bundle.ViewVariedadTbTitle_CNombre}"/>
                         <h:outputText value="#{bundle.ViewVariedadTbLabel_CEstado}"/>
                         <h:outputText value="#{variedadTbController.selected.CEstado}" title="#{bundle.ViewVariedadTbTitle_CEstado}"/>
                         <h:outputText value="#{bundle.ViewVariedadTbLabel_EIdsubespecie}"/>
-                        <h:outputText value="#{variedadTbController.selected.EIdsubespecie}" title="#{bundle.ViewVariedadTbTitle_EIdsubespecie}"/>
+                        <h:outputText value="#{controladorSesion.subespecie.CNombre}" title="#{bundle.ViewVariedadTbTitle_EIdsubespecie}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="VariedadTbViewDialog.hide()"/>
                 </h:panelGroup>

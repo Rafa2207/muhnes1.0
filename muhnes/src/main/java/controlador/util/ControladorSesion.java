@@ -9,12 +9,14 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import modelo.DepartamentoTb;
+import modelo.EspecieTb;
 import modelo.FamiliaTb;
 import modelo.GeneroTb;
 import modelo.MunicipioTb;
 import modelo.PaisTb;
 import modelo.PresupuestoTb;
 import modelo.ProyectoTb;
+import modelo.SubespecieTb;
 
 /**
  *
@@ -31,6 +33,24 @@ public class ControladorSesion implements Serializable {
     private DepartamentoTb departamento;
     private MunicipioTb municipio;
     private GeneroTb genero;
+    private EspecieTb especie;
+    private SubespecieTb subespecie;
+
+    public SubespecieTb getSubespecie() {
+        return subespecie;
+    }
+
+    public void setSubespecie(SubespecieTb subespecie) {
+        this.subespecie = subespecie;
+    }
+
+    public EspecieTb getEspecie() {
+        return especie;
+    }
+
+    public void setEspecie(EspecieTb especie) {
+        this.especie = especie;
+    }
 
     public GeneroTb getGenero() {
         return genero;

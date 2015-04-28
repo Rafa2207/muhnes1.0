@@ -62,7 +62,7 @@ public class EspecieTbController implements Serializable {
     public EspecieTb prepareCreate(GeneroTb genero) {
         selected = new EspecieTb();
         initializeEmbeddableKey();
-        selected.setEIdgenero(genero.getEIdfamilia());
+        selected.setEIdgenero(genero.getEIdgenero());
         return selected;
     }
 

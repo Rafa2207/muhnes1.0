@@ -19,6 +19,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
+import modelo.SubespecieTb;
 
 @Named("variedadTbController")
 @ViewScoped
@@ -26,8 +27,16 @@ public class VariedadTbController implements Serializable {
 
     @EJB
     private servicio.VariedadTbFacade ejbFacade;
-    private List<VariedadTb> items = null;
+    private List<VariedadTb> items = null, filtro;
     private VariedadTb selected;
+
+    public List<VariedadTb> getFiltro() {
+        return filtro;
+    }
+
+    public void setFiltro(List<VariedadTb> filtro) {
+        this.filtro = filtro;
+    }
 
     public VariedadTbController() {
     }
@@ -50,9 +59,10 @@ public class VariedadTbController implements Serializable {
         return ejbFacade;
     }
 
-    public VariedadTb prepareCreate() {
+    public VariedadTb prepareCreate(SubespecieTb subespecie) {
         selected = new VariedadTb();
         initializeEmbeddableKey();
+        selected.setEIdsubespecie(subespecie.getEIdsubespecie());
         return selected;
     }
 
@@ -75,10 +85,11 @@ public class VariedadTbController implements Serializable {
         }
     }
 
-    public List<VariedadTb> getItems() {
-        if (items == null) {
+    public List<VariedadTb> getItems(Integer subesp) {
+        /*if (items == null) {
             items = getFacade().findAll();
-        }
+        }*/
+        items = getFacade().buscarSubEspecieAsc(subesp);
         return items;
     }
 
