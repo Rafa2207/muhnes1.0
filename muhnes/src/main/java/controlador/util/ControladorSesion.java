@@ -10,6 +10,7 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import modelo.DepartamentoTb;
 import modelo.FamiliaTb;
+import modelo.GeneroTb;
 import modelo.MunicipioTb;
 import modelo.PaisTb;
 import modelo.PresupuestoTb;
@@ -29,6 +30,15 @@ public class ControladorSesion implements Serializable {
     private PaisTb pais;
     private DepartamentoTb departamento;
     private MunicipioTb municipio;
+    private GeneroTb genero;
+
+    public GeneroTb getGenero() {
+        return genero;
+    }
+
+    public void setGenero(GeneroTb genero) {
+        this.genero = genero;
+    }
 
     public MunicipioTb getMunicipio() {
         return municipio;
