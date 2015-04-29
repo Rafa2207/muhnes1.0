@@ -6,6 +6,7 @@ import controlador.util.JsfUtil.PersistAction;
 import servicio.ProyectoTbFacade;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -19,6 +20,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
+import org.primefaces.context.RequestContext;
 
 @Named("proyectoTbController")
 @ViewScoped
@@ -28,6 +30,17 @@ public class ProyectoTbController implements Serializable {
     private servicio.ProyectoTbFacade ejbFacade;
     private List<ProyectoTb> items = null, filtro;
     private ProyectoTb selected;
+    private Date fechatemporal;
+
+    public Date getFechatemporal() {
+        return fechatemporal;
+    }
+
+    public void setFechatemporal(Date fechatemporal) {
+        this.fechatemporal = fechatemporal;
+    }
+    
+    
 
     public List<ProyectoTb> getFiltro() {
         return filtro;
@@ -73,6 +86,7 @@ public class ProyectoTbController implements Serializable {
     }
 
     public void update() {
+        selected.setFFechaFin(fechatemporal);
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ProyectoTbUpdated"));
     }
 
@@ -170,6 +184,13 @@ public class ProyectoTbController implements Serializable {
             }
         }
 
+    }
+    public void prepareEdit(){
+        fechatemporal=selected.getFFechaFin();
+        
+    }
+    public void limpiarFecha(){
+        fechatemporal=null;
     }
 
 }

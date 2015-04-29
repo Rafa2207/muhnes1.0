@@ -45,7 +45,8 @@
                                     required="true"
                                     requiredMessage="Introduzca fecha fin"
                                     locale="es" readonlyInput="true"
-                                    mindate="#{proyectoTbController.selected.FFechaInicio}">
+                                    mindate="#{proyectoTbController.selected.FFechaInicio}"
+                                    disabled="#{proyectoTbController.selected.FFechaInicio eq null}">
                         
                         </p:calendar>
                         

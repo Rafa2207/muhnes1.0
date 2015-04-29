@@ -9,7 +9,7 @@
     <ui:composition>
 
         <p:dialog id="ProyectoTbEditDlg" widgetVar="ProyectoTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditProyectoTbTitle}">
-            <h:form id="ProyectoTbEditForm">
+            <h:form id="ProyectoTbEditForm" prependId="false">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{proyectoTbController.selected != null}">
                         
@@ -38,12 +38,12 @@
                                     requiredMessage="Introduzca fecha de inicio"
                                     readonlyInput="true"
                                     locale="es">
-                            <p:ajax event="dateSelect" update="FFechaFin" />
+                            <p:ajax event="dateSelect" update="FFechaFin" listener="#{proyectoTbController.limpiarFecha()}" />
                         </p:calendar>
                        
                         <p:outputLabel value="#{bundle.EditProyectoTbLabel_FFechaFin}" for="FFechaFin" />
                         <p:calendar id="FFechaFin" 
-                                    pattern="dd/MM/yyyy" value="#{proyectoTbController.selected.FFechaFin}" 
+                                    pattern="dd/MM/yyyy" value="#{proyectoTbController.fechatemporal}" 
                                     title="#{bundle.EditProyectoTbTitle_FFechaFin}"  showOn="button"
                                     required="true"
                                     requiredMessage="Introduzca fecha fin" 

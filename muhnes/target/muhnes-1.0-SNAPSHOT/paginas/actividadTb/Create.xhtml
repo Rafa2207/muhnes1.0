@@ -20,7 +20,7 @@
                         
                         <p:outputLabel value="#{bundle.CreateActividadTbLabel_FFecha}" for="FFecha" />
                         <p:calendar mask="true" mindate="#{actividadTbController.proyectos.FFechaInicio}" maxdate="#{actividadTbController.proyectos.FFechaFin}" id="FFecha" pattern="dd/MM/yyyy" value="#{actividadTbController.selected.FFecha}" title="#{bundle.EditActividadTbTitle_FFecha}"  showOn="button" 
-                                    required="true"
+                                    required="true" readonlyInput="true"
                                      requiredMessage="Introduzca fecha" locale="es"/>
                         
                         <p:outputLabel value="#{bundle.CreateActividadTbLabel_CDuracion}" for="CDuracion" />
