@@ -16,70 +16,59 @@
         <ui:define name="body">
             <h:form id="UsuarioTbListForm">
                 <p:panel header="#{bundle.ListUsuarioTbTitle}">
+
+                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{usuarioTbController.prepareCreate}" update=":UsuarioTbCreateForm" oncomplete="PF('UsuarioTbCreateDialog').show()"/>
+                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":UsuarioTbViewForm" oncomplete="PF('UsuarioTbViewDialog').show()" disabled="#{empty usuarioTbController.selected}"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":UsuarioTbEditForm" oncomplete="PF('UsuarioTbEditDialog').show()" disabled="#{empty usuarioTbController.selected}"/>
+                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{usuarioTbController.destroy}" update=":growl,datalist" disabled="#{empty usuarioTbController.selected}">
+                        <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
+                    </p:commandButton>
+
+
                     <p:dataTable id="datalist" value="#{usuarioTbController.items}" var="item"
                                  selectionMode="single" selection="#{usuarioTbController.selected}"
                                  paginator="true"
+                                 paginatorPosition="bottom"
                                  rowKey="#{item.EIdusuario}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
+                                 emptyMessage="No se encontraron Usuarios del Sistema."
+                                 filteredValue="#{usuarioTbController.filtro}"
+                                 widgetVar="usuariosTable"
                                  >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowSelect"   update=":UsuarioTbListForm:createButton :UsuarioTbListForm:viewButton :UsuarioTbListForm:editButton :UsuarioTbListForm:deleteButton"/>
+                        <p:ajax event="rowUnselect" update=":UsuarioTbListForm:createButton :UsuarioTbListForm:viewButton :UsuarioTbListForm:editButton :UsuarioTbListForm:deleteButton"/>
 
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUsuarioTbTitle_EIdusuario}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.EIdusuario}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
+                        <p:column filterBy="#{item.CNombre}" filterStyle="display:none">
+                            <f:facet name="header" >
                                 <h:outputText value="#{bundle.ListUsuarioTbTitle_CNombre}"/>
                             </f:facet>
                             <h:outputText value="#{item.CNombre}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.CApellido}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUsuarioTbTitle_CApellido}"/>
                             </f:facet>
                             <h:outputText value="#{item.CApellido}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUsuarioTbTitle_CTelefono}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.CTelefono}"/>
-                        </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.CNick}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUsuarioTbTitle_CNick}"/>
                             </f:facet>
                             <h:outputText value="#{item.CNick}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUsuarioTbTitle_CPassword}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.CPassword}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUsuarioTbTitle_CDui}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.CDui}"/>
-                        </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.CTipo}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUsuarioTbTitle_CTipo}"/>
                             </f:facet>
                             <h:outputText value="#{item.CTipo}"/>
                         </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{usuarioTbController.prepareCreate}" update=":UsuarioTbCreateForm" oncomplete="PF('UsuarioTbCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":UsuarioTbViewForm" oncomplete="PF('UsuarioTbViewDialog').show()" disabled="#{empty usuarioTbController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":UsuarioTbEditForm" oncomplete="PF('UsuarioTbEditDialog').show()" disabled="#{empty usuarioTbController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{usuarioTbController.destroy}" update=":growl,datalist" disabled="#{empty usuarioTbController.selected}"/>
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Búsqueda: " />
+                                <p:inputText id="globalFilter" onkeyup="PF('usuariosTable').filter()" placeholder="Escriba aquí"/>                            
+                            </p:outputPanel>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

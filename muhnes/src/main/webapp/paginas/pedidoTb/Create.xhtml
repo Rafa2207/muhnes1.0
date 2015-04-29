@@ -14,8 +14,8 @@
                     <p:panelGrid columns="2" rendered="#{pedidoTbController.selected != null}">
 
                         <p:outputLabel value="#{bundle.CreatePedidoTbLabel_EIdmaterial}" for="EIdmaterial" />
-                        <p:selectOneMenu id="EIdmaterial" value="#{pedidoTbController.selected.EIdmaterial}" >
-                            <f:selectItem itemLabel="Seleccione uno..." itemValue=""/>
+                        <p:selectOneMenu id="EIdmaterial" value="#{pedidoTbController.selected.EIdmaterial}" required="true">
+                            <f:selectItem itemLabel="Seleccione uno..." itemValue="" />
                             <f:selectItems value="#{materialTbController.itemsAvailableSelectOne}"
                                            var="EIdmaterialItem"
                                            itemLabel="#{EIdmaterialItem.CNombre}"
@@ -24,12 +24,13 @@
 
                         <p:outputLabel value="#{bundle.CreatePedidoTbLabel_MDescripcion}" for="MDescripcion" />
                         <p:inputTextarea autoResize="" id="MDescripcion" value="#{pedidoTbController.selected.MDescripcion}" title="#{bundle.CreatePedidoTbTitle_MDescripcion}" 
-                                         requiredMessage="Introduzca descripcion"/>
+                                         />
 
                         <p:outputLabel value="#{bundle.CreatePedidoTbLabel_FFecha}" for="FFecha" />
                         <p:calendar id="FFecha" pattern="MM/dd/yyyy" value="#{pedidoTbController.selected.FFecha}" title="#{bundle.EditPedidoTbTitle_FFecha}"  showOn="button"
                                     requiredMessage="Introduzca fecha del pedido"
-                                    locale="es"                                    />
+                                    locale="es"
+                                    required="true"/>
 
 
                     </p:panelGrid>

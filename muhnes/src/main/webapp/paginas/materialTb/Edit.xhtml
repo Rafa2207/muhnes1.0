@@ -24,14 +24,17 @@
                                      requiredMessage="Introduzca cantidad del material"/>
                         
                         <p:outputLabel value="#{bundle.EditMaterialTbLabel_MDescripcion}" for="MDescripcion" />
-                        <p:inputTextarea autoResize="" id="MDescripcion" value="#{materialTbController.selected.MDescripcion}" title="#{bundle.EditMaterialTbTitle_MDescripcion}"
-                                     required="true"
-                                     requiredMessage="Introduzca descripción"/>
+                        <p:inputTextarea autoResize="" id="MDescripcion" value="#{materialTbController.selected.MDescripcion}" title="#{bundle.EditMaterialTbTitle_MDescripcion}"/>
                         
                         <p:outputLabel value="#{bundle.EditMaterialTbLabel_CEstado}" for="CEstado" />
-                        <p:inputText id="CEstado" value="#{materialTbController.selected.CEstado}" title="#{bundle.EditMaterialTbTitle_CEstado}" 
-                                     required="true"
-                                     requiredMessage="Introduzca estado"/>
+                        <p:selectOneMenu id="CEstado" value="#{materialTbController.selected.CEstado}" 
+                                         required="true" 
+                                         requiredMessage="Seleccione el estado del material.">
+                            <f:selectItem itemValue="" itemLabel="Seleccione estado de material."/>
+                            <f:selectItem itemValue="Nuevo" itemLabel="Nuevo"/>
+                            <f:selectItem itemValue="Usado" itemLabel="Usado"/>
+                            <f:selectItem itemValue="Dañado" itemLabel="Dañado"/>
+                        </p:selectOneMenu>
                         
                         <p:outputLabel value="#{bundle.EditMaterialTbLabel_EIdactividad}" for="EIdactividad" />
                         <p:selectOneMenu id="EIdactividad" value="#{materialTbController.selected.EIdactividad}" >

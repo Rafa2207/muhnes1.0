@@ -26,9 +26,10 @@ public class UsuarioTbController implements Serializable {
 
     @EJB
     private servicio.UsuarioTbFacade ejbFacade;
-    private List<UsuarioTb> items = null;
+    private List<UsuarioTb> items = null, filtro;
     private UsuarioTb selected;
-
+    private String pass1;
+    
     public UsuarioTbController() {
     }
 
@@ -46,6 +47,22 @@ public class UsuarioTbController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
+    public List<UsuarioTb> getFiltro() {
+        return filtro;
+    }
+
+    public void setFiltro(List<UsuarioTb> filtro) {
+        this.filtro = filtro;
+    }
+
+    public String getPass1() {
+        return pass1;
+    }
+
+    public void setPass1(String pass1) {
+        this.pass1 = pass1;
+    }
+    
     private UsuarioTbFacade getFacade() {
         return ejbFacade;
     }

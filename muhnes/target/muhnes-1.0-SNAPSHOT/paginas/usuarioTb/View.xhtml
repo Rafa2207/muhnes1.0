@@ -12,8 +12,7 @@
             <h:form id="UsuarioTbViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{usuarioTbController.selected != null}">
-                        <h:outputText value="#{bundle.ViewUsuarioTbLabel_EIdusuario}"/>
-                        <h:outputText value="#{usuarioTbController.selected.EIdusuario}" title="#{bundle.ViewUsuarioTbTitle_EIdusuario}"/>
+                        
                         <h:outputText value="#{bundle.ViewUsuarioTbLabel_CNombre}"/>
                         <h:outputText value="#{usuarioTbController.selected.CNombre}" title="#{bundle.ViewUsuarioTbTitle_CNombre}"/>
                         <h:outputText value="#{bundle.ViewUsuarioTbLabel_CApellido}"/>

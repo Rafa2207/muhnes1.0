@@ -12,25 +12,51 @@
             <h:form id="UsuarioTbCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{usuarioTbController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateUsuarioTbLabel_EIdusuario}" for="EIdusuario" />
-                        <p:inputText id="EIdusuario" value="#{usuarioTbController.selected.EIdusuario}" title="#{bundle.CreateUsuarioTbTitle_EIdusuario}" required="true" requiredMessage="#{bundle.CreateUsuarioTbRequiredMessage_EIdusuario}"/>
+
                         <p:outputLabel value="#{bundle.CreateUsuarioTbLabel_CNombre}" for="CNombre" />
-                        <p:inputText id="CNombre" value="#{usuarioTbController.selected.CNombre}" title="#{bundle.CreateUsuarioTbTitle_CNombre}" />
+                        <p:inputText id="CNombre" value="#{usuarioTbController.selected.CNombre}" title="#{bundle.CreateUsuarioTbTitle_CNombre}" 
+                                     required="true"
+                                     requiredMessage="Introduzca nombre del usuario." size="25" maxlength="50"/>
+
                         <p:outputLabel value="#{bundle.CreateUsuarioTbLabel_CApellido}" for="CApellido" />
-                        <p:inputText id="CApellido" value="#{usuarioTbController.selected.CApellido}" title="#{bundle.CreateUsuarioTbTitle_CApellido}" />
+                        <p:inputText id="CApellido" value="#{usuarioTbController.selected.CApellido}" title="#{bundle.CreateUsuarioTbTitle_CApellido}" 
+                                     required="true"
+                                     requiredMessage="Introduzca apellido del usuario." size="25" maxlength="50"/>
+
                         <p:outputLabel value="#{bundle.CreateUsuarioTbLabel_CTelefono}" for="CTelefono" />
-                        <p:inputText id="CTelefono" value="#{usuarioTbController.selected.CTelefono}" title="#{bundle.CreateUsuarioTbTitle_CTelefono}" />
+                        <p:inputMask id="CTelefono" value="#{usuarioTbController.selected.CTelefono}" title="#{bundle.CreateUsuarioTbTitle_CTelefono}" 
+                                     required="true"
+                                     requiredMessage="Introduzca el teléfono del usuario." mask="9999-9999" size="9"/>
+
                         <p:outputLabel value="#{bundle.CreateUsuarioTbLabel_CNick}" for="CNick" />
-                        <p:inputText id="CNick" value="#{usuarioTbController.selected.CNick}" title="#{bundle.CreateUsuarioTbTitle_CNick}" />
-                        <p:outputLabel value="#{bundle.CreateUsuarioTbLabel_CPassword}" for="CPassword" />
-                        <p:inputText id="CPassword" value="#{usuarioTbController.selected.CPassword}" title="#{bundle.CreateUsuarioTbTitle_CPassword}" />
+                        <p:inputText id="CNick" value="#{usuarioTbController.selected.CNick}" title="#{bundle.CreateUsuarioTbTitle_CNick}" 
+                                     required="true"
+                                     requiredMessage="Introduzca nombre de usuario." size="15" maxlength="15"/>
+
+                        <h:outputLabel value="#{bundle.CreateUsuarioTbLabel_CPassword}*" for="CPassword"/>
+                        <p:password id="CPassword" value="#{usuarioTbController.selected.CPassword}" title="#{bundle.CreateUsuarioTbTitle_CPassword}"
+                                    required="true" 
+                                    requiredMessage="Introduzca contraseña del usuario."
+                                    feedback="true" inline="false"
+                                    promptLabel="Por favor introduzca una contraseña." weakLabel="Corta."
+                                    goodLabel="Buena." strongLabel="Segura." size="15" maxlength="15" />
+
                         <p:outputLabel value="#{bundle.CreateUsuarioTbLabel_CDui}" for="CDui" />
-                        <p:inputText id="CDui" value="#{usuarioTbController.selected.CDui}" title="#{bundle.CreateUsuarioTbTitle_CDui}" />
+                        <p:inputMask id="CDui" value="#{usuarioTbController.selected.CDui}" title="#{bundle.CreateUsuarioTbTitle_CDui}" 
+                                     required="true"
+                                     requiredMessage="Introduzca el numero de DUI del usuario." mask="99999999-9" size="10"/>                       
+
                         <p:outputLabel value="#{bundle.CreateUsuarioTbLabel_CTipo}" for="CTipo" />
-                        <p:inputText id="CTipo" value="#{usuarioTbController.selected.CTipo}" title="#{bundle.CreateUsuarioTbTitle_CTipo}" />
+                        <p:selectOneMenu id="CTipo" value="#{usuarioTbController.selected.CTipo}" 
+                                         required="true" 
+                                         requiredMessage="Seleccione el tipo de usuario.">
+                            <f:selectItem itemValue="" itemLabel="Seleccione tipo de usuario."/>
+                            <f:selectItem itemValue="Administrador" itemLabel="Administrador"/>
+                            <f:selectItem itemValue="Digitador" itemLabel="Digitador"/>
+                        </p:selectOneMenu>
+
                     </p:panelGrid>
                     <p:commandButton actionListener="#{usuarioTbController.create}" value="#{bundle.Save}" update="display,:UsuarioTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'UsuarioTbCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="UsuarioTbCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
