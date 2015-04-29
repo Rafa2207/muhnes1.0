@@ -27,9 +27,19 @@ public class DepartamentoTbController implements Serializable {
 
     @EJB
     private servicio.DepartamentoTbFacade ejbFacade;
-    private List<DepartamentoTb> items = null;
+    private List<DepartamentoTb> items = null, filtro;
     private DepartamentoTb selected;
     private PaisTb pais;
+
+    public List<DepartamentoTb> getFiltro() {
+        return filtro;
+    }
+
+    public void setFiltro(List<DepartamentoTb> filtro) {
+        this.filtro = filtro;
+    }
+    
+    
 
     public PaisTb getPais() {
         return pais;

@@ -7,11 +7,12 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
+        <link type="images/png" href="/images/android.png" rel="shortcut icon"/>
         <title><ui:insert name="title">MUHNES</ui:insert></title>
         <h:outputStylesheet library="css" name="jsfcrud.css"/>
         <h:outputScript library="js" name="jsfcrud.js"/>
         <h:outputScript library="js" name="locale_es.js"/>
-        <link rel="shortcut icon" type="image/x-icon" href="logo_muhnes.ico" />
+        
     </h:head>
 
     <h:body>
@@ -29,7 +30,6 @@
                 <h:form>                      
                             <p:themeSwitcher style="width:165px" id="defaultSwitcher" 
                                              value="#{themeSwitcherBean.theme}">
-                                <f:selectItem itemLabel="Eliga un tema" itemValue="" />
                                 <f:selectItems value="#{themeSwitcherBean.themes}" />
                                 <p:ajax listener="#{themeSwitcherBean.saveUserTheme()}" />
                             </p:themeSwitcher>
@@ -41,8 +41,6 @@
                         <p:menuitem value="#{bundle.Home}" outcome="/index" icon="ui-icon-home"/>
                         <p:submenu label="Proyectos">
                             <p:menuitem value="Proyecto" outcome="/paginas/proyectoTb/List.xhtml" />
-                           
-                            <p:menuitem value="Proceso Ejemplar" outcome="/paginas/procesoejemplarTb/List.xhtml" />
                         </p:submenu>
                         <p:submenu label="Materiales">
                             <p:menuitem value="Materiales" outcome="/paginas/materialTb/List.xhtml" />

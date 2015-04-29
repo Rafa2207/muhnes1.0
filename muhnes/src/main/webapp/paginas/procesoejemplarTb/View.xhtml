@@ -12,8 +12,6 @@
             <h:form id="ProcesoejemplarTbViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{procesoejemplarTbController.selected != null}">
-                        <h:outputText value="#{bundle.ViewProcesoejemplarTbLabel_EIdproceso}"/>
-                        <h:outputText value="#{procesoejemplarTbController.selected.EIdproceso}" title="#{bundle.ViewProcesoejemplarTbTitle_EIdproceso}"/>
                         <h:outputText value="#{bundle.ViewProcesoejemplarTbLabel_MDescripcion}"/>
                         <h:outputText value="#{procesoejemplarTbController.selected.MDescripcion}" title="#{bundle.ViewProcesoejemplarTbTitle_MDescripcion}"/>
                         <h:outputText value="#{bundle.ViewProcesoejemplarTbLabel_DCantidad}"/>
@@ -24,10 +22,10 @@
                         <h:outputText value="#{procesoejemplarTbController.selected.CTipo}" title="#{bundle.ViewProcesoejemplarTbTitle_CTipo}"/>
                         <h:outputText value="#{bundle.ViewProcesoejemplarTbLabel_FFecha}"/>
                         <h:outputText value="#{procesoejemplarTbController.selected.FFecha}" title="#{bundle.ViewProcesoejemplarTbTitle_FFecha}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                            <f:convertDateTime pattern="dd MMMM yyyy" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewProcesoejemplarTbLabel_EIdproyecto}"/>
-                        <h:outputText value="#{procesoejemplarTbController.selected.EIdproyecto}" title="#{bundle.ViewProcesoejemplarTbTitle_EIdproyecto}"/>
+                        <h:outputText value="#{procesoejemplarTbController.selected.EIdproyecto.MNombre}" title="#{bundle.ViewProcesoejemplarTbTitle_EIdproyecto}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="ProcesoejemplarTbViewDialog.hide()"/>
                 </h:panelGroup>

@@ -18,9 +18,12 @@
                                      required="true" requiredMessage="Introduzca nombre de la actividad"/>
                         
                         <p:outputLabel value="#{bundle.EditActividadTbLabel_FFecha}" for="FFecha" />
-                        <p:calendar mask="true" mindate="#{actividadTbController.selected.EIdproyecto.FFechaInicio}" maxdate="#{actividadTbController.selected.EIdproyecto.FFechaFin}" id="FFecha" pattern="dd/MM/yyyy" value="#{actividadTbController.selected.FFecha}" title="#{bundle.EditActividadTbTitle_FFecha}"  showOn="button"
+                        <p:calendar pattern="dd MMMM yyyy" mindate="#{actividadTbController.selected.EIdproyecto.FFechaInicio}" 
+                                    maxdate="#{actividadTbController.selected.EIdproyecto.FFechaFin}" 
+                                    id="FFecha" value="#{actividadTbController.selected.FFecha}" 
+                                    title="#{bundle.EditActividadTbTitle_FFecha}"  showOn="button"
                                     required="true" locale="es" readonlyInput="true"
-                                     requiredMessage="Introduzca fecha"/>
+                                    requiredMessage="Introduzca fecha"/>
                         
                         <p:outputLabel value="#{bundle.EditActividadTbLabel_CDuracion}" for="CDuracion" />
                         <p:inputText id="CDuracion" value="#{actividadTbController.selected.CDuracion}" title="#{bundle.EditActividadTbTitle_CDuracion}"

@@ -62,8 +62,10 @@ public class ProcesoejemplarTbController implements Serializable {
         return ejbFacade;
     }
 
-    public ProcesoejemplarTb prepareCreate() {
+    public ProcesoejemplarTb prepareCreate(ProyectoTb proyecto) {
         selected = new ProcesoejemplarTb();
+        proyectos=proyecto;
+        selected.setEIdproyecto(proyectos);
         initializeEmbeddableKey();
         return selected;
     }

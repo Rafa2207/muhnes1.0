@@ -35,7 +35,7 @@
                      <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
                     </p:commandButton>
                     
-                    <p:commandButton id="cantonButton" icon="ui-icon-calendar"  value="Cantón" action="/paginas/cantonTb/List.xhtml" disabled="#{empty municipioTbController.selected}" >
+                    <p:commandButton id="cantonButton" icon="ui-icon-arrowthick-1-e"  value="Cantón" action="/paginas/cantonTb/List.xhtml" disabled="#{empty municipioTbController.selected}" >
                         <f:setPropertyActionListener target="#{controladorSesion.municipio}" value="#{municipioTbController.selected}"/>
                     </p:commandButton>
 

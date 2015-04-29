@@ -32,7 +32,7 @@
                     <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
                     </p:commandButton>
                     
-                    <p:commandButton id="municipioButton" icon="ui-icon-calendar"  value="Municipio" action="/paginas/municipioTb/List.xhtml" disabled="#{empty departamentoTbController.selected}" >
+                    <p:commandButton id="municipioButton" icon="ui-icon-arrowthick-1-e"  value="Municipio" action="/paginas/municipioTb/List.xhtml" disabled="#{empty departamentoTbController.selected}" >
                         <f:setPropertyActionListener target="#{controladorSesion.departamento}" value="#{departamentoTbController.selected}"/>
                     </p:commandButton>
 
@@ -45,7 +45,7 @@
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  emptyMessage="No se encontraron departamentos."
                                  filteredValue="#{departamentoTbController.filtro}"
-                                 widgetVar="paisTable"
+                                 widgetVar="departamentoTable"
                                  >
 
                         <p:ajax event="rowSelect"   update=":DepartamentoTbListForm:municipioButton :DepartamentoTbListForm:createButton :DepartamentoTbListForm:viewButton :DepartamentoTbListForm:editButton :DepartamentoTbListForm:deleteButton"/>
@@ -63,7 +63,7 @@
                         <f:facet name="header">
                             <p:outputPanel>
                                 <h:outputText value="Búsqueda: " />
-                                <p:inputText id="globalFilter" onkeyup="PF('paisTable').filter()" placeholder="Escriba aquí"/>
+                                <p:inputText id="globalFilter" onkeyup="PF('departamentoTable').filter()" placeholder="Escriba aquí"/>
                             </p:outputPanel>
                         </f:facet>
                     </p:dataTable>
