@@ -23,11 +23,11 @@
                         </p:selectOneMenu>
                         
                         <p:outputLabel value="#{bundle.EditPedidoTbLabel_MDescripcion}" for="MDescripcion" />
-                        <p:inputTextarea autoResize="" id="MDescripcion" value="#{pedidoTbController.selected.MDescripcion}" title="#{bundle.EditPedidoTbTitle_MDescripcion}" 
+                        <p:inputTextarea autoResize="" id="MDescripcion" cols="30" value="#{pedidoTbController.selected.MDescripcion}" title="#{bundle.EditPedidoTbTitle_MDescripcion}" 
                                          />
                         
                         <p:outputLabel value="#{bundle.EditPedidoTbLabel_FFecha}" for="FFecha" />
-                        <p:calendar id="FFecha" pattern="MM/dd/yyyy" value="#{pedidoTbController.selected.FFecha}" title="#{bundle.EditPedidoTbTitle_FFecha}"  showOn="button"
+                        <p:calendar id="FFecha" pattern="dd MMMM yyyy" value="#{pedidoTbController.selected.FFecha}" title="#{bundle.EditPedidoTbTitle_FFecha}"  showOn="button"
                                     requiredMessage="Introduzca fecha del pedido"
                                     locale="es" 
                                     required="true"/>

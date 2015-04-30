@@ -16,15 +16,15 @@
                         <p:outputLabel value="#{bundle.CreateMaterialTbLabel_CNombre}" for="CNombre" />
                         <p:inputText id="CNombre" value="#{materialTbController.selected.CNombre}" title="#{bundle.CreateMaterialTbTitle_CNombre}"
                                      required="true"
-                                     requiredMessage="Introduzca nombre del material"/>
+                                     requiredMessage="Introduzca nombre del material" size="25" maxlength="50"/>
                         
                         <p:outputLabel value="#{bundle.CreateMaterialTbLabel_DCantidad}" for="DCantidad" />
                         <p:inputText id="DCantidad" value="#{materialTbController.selected.DCantidad}" title="#{bundle.CreateMaterialTbTitle_DCantidad}" 
                                      required="true"
-                                     requiredMessage="Introduzca cantidad del material"/>
+                                     requiredMessage="Introduzca cantidad del material" size="10" maxlength="10"/>
                         
                         <p:outputLabel value="#{bundle.CreateMaterialTbLabel_MDescripcion}" for="MDescripcion" />
-                        <p:inputTextarea autoResize="" id="MDescripcion" value="#{materialTbController.selected.MDescripcion}" title="#{bundle.CreateMaterialTbTitle_MDescripcion}" 
+                        <p:inputTextarea autoResize=""  cols="30" id="MDescripcion" value="#{materialTbController.selected.MDescripcion}" title="#{bundle.CreateMaterialTbTitle_MDescripcion}" 
                                      requiredMessage="Introduzca descripción"/>
                         
                         <p:outputLabel value="#{bundle.CreateMaterialTbLabel_CEstado}" for="CEstado" />
@@ -36,15 +36,7 @@
                             <f:selectItem itemValue="Usado" itemLabel="Usado"/>
                             <f:selectItem itemValue="Dañado" itemLabel="Dañado"/>
                         </p:selectOneMenu>
-                        
-                        <p:outputLabel value="#{bundle.CreateMaterialTbLabel_EIdactividad}" for="EIdactividad" />
-                        <p:selectOneMenu id="EIdactividad" value="#{materialTbController.selected.EIdactividad}" required="true">
-                            <f:selectItem itemLabel="Seleccione uno..." itemValue=""/>
-                            <f:selectItems value="#{actividadTbController.itemsAvailableSelectOne}"
-                                           var="EIdactividadItem"
-                                           itemLabel="#{EIdactividadItem.MNombre}"
-                                           itemValue="#{EIdactividadItem}"/>
-                        </p:selectOneMenu>
+
                     </p:panelGrid>
                     <p:commandButton actionListener="#{materialTbController.create}" value="#{bundle.Save}" update="display,:MaterialTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'MaterialTbCreateDialog');"/>
                     
