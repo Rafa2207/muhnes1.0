@@ -5,10 +5,13 @@
  */
 package servicio;
 
+import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import modelo.PresupuestoTb;
 import modelo.ProyectoTb;
@@ -37,4 +40,14 @@ public class PresupuestoTbFacade extends AbstractFacade<PresupuestoTb> {
        query.setParameter("h", proyecto);
         return query.getResultList();
          }
+    public int siguienteId(){
+        Query query = em.createNativeQuery("select nextval('secuencia_insumo_id')");
+        try{
+            BigInteger id = (BigInteger) query.getSingleResult();
+            return id.intValue();
+        }
+        catch(NoResultException nre){
+            return 0;
+        }
+    }
 }

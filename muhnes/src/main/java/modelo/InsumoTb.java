@@ -95,11 +95,11 @@ public class InsumoTb implements Serializable {
         this.dGasto = dGasto;
     }
 
-    public Double getmCantidad() {
+    public Double getMCantidad() {
         return mCantidad;
     }
 
-    public void setmCantidad(Double mCantidad) {
+    public void setMCantidad(Double mCantidad) {
         this.mCantidad = mCantidad;
     }
     

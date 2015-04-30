@@ -19,6 +19,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
+import modelo.InsumoTb;
 import modelo.ProyectoTb;
 
 @Named("presupuestoTbController")
@@ -28,8 +29,51 @@ public class PresupuestoTbController implements Serializable {
     @EJB
     private servicio.PresupuestoTbFacade ejbFacade;
     private List<PresupuestoTb> items = null, filtro;
-    private PresupuestoTb selected;
+    private PresupuestoTb selected, presupuesto;
     private ProyectoTb proyectos;
+    private double cantidad, costo;
+    private String nombre, tiempo;
+
+    public PresupuestoTb getPresupuesto() {
+        return presupuesto;
+    }
+
+    public void setPresupuesto(PresupuestoTb presupuesto) {
+        this.presupuesto = presupuesto;
+    }
+
+    public double getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(double cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public double getCosto() {
+        return costo;
+    }
+
+    public void setCosto(double costo) {
+        this.costo = costo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getTiempo() {
+        return tiempo;
+    }
+
+    public void setTiempo(String tiempo) {
+        this.tiempo = tiempo;
+    }
+    
 
     public List<PresupuestoTb> getFiltro() {
         return filtro;
@@ -183,6 +227,17 @@ public class PresupuestoTbController implements Serializable {
             }
         }
 
+    }
+    public void agregar(){
+        InsumoTb insumo = new InsumoTb();
+        presupuesto = new PresupuestoTb();
+        //presupuesto.setEIdpresupuesto(getFacade().siguienteId());
+        insumo.setMNombre(nombre);
+        insumo.setMCantidad(cantidad);
+        
+        selected.getInsumoTbList().add(insumo);
+        
+        
     }
 
 }
