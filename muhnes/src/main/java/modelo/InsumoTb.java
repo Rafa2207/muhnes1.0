@@ -33,9 +33,9 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "InsumoTb.findByDGasto", query = "SELECT i FROM InsumoTb i WHERE i.dGasto = :dGasto"),
     @NamedQuery(name = "InsumoTb.findByDCantidad", query = "SELECT i FROM InsumoTb i WHERE i.mCantidad = :mCantidad")})
 public class InsumoTb implements Serializable {
-    @Size(max = 2147483647)
+    
     @Column(name = "m_cantidad")
-    private String mCantidad;
+    private Double mCantidad;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -95,6 +95,16 @@ public class InsumoTb implements Serializable {
         this.dGasto = dGasto;
     }
 
+    public Double getmCantidad() {
+        return mCantidad;
+    }
+
+    public void setmCantidad(Double mCantidad) {
+        this.mCantidad = mCantidad;
+    }
+    
+    
+
 
     public PresupuestoTb getEIdpresupuesto() {
         return eIdpresupuesto;
@@ -129,12 +139,6 @@ public class InsumoTb implements Serializable {
         return "modelo.InsumoTb[ eIdinsumo=" + eIdinsumo + " ]";
     }
 
-    public String getMCantidad() {
-        return mCantidad;
-    }
-
-    public void setMCantidad(String mCantidad) {
-        this.mCantidad = mCantidad;
-    }
+    
     
 }
