@@ -23,11 +23,11 @@
                         
                         <p:outputLabel value="#{bundle.EditAgenteTbLabel_CIniciales}" for="CIniciales" />
                         <p:inputText id="CIniciales" value="#{agenteTbController.selected.CIniciales}" title="#{bundle.EditAgenteTbTitle_CIniciales}" 
-                                     required="true" requiredMessage="Introduzca iniciales del agente"/>
+                                     required="true" requiredMessage="Introduzca nombre corto del agente"/>
                         
                         <p:outputLabel value="#{bundle.EditAgenteTbLabel_COcupacion}" for="COcupacion" />
                         <p:inputText id="COcupacion" value="#{agenteTbController.selected.COcupacion}" title="#{bundle.EditAgenteTbTitle_COcupacion}" 
-                                     required="true" requiredMessage="Introduzca ocupacion"/>
+                                     />
                         
                         <p:outputLabel value="#{bundle.EditAgenteTbLabel_CEmail}" for="CEmail" />
                         <p:inputText id="CEmail" value="#{agenteTbController.selected.CEmail}" title="#{bundle.EditAgenteTbTitle_CEmail}"
@@ -38,24 +38,24 @@
                                      />
                         
                         <p:outputLabel value="#{bundle.EditAgenteTbLabel_CTelefono}" for="CTelefono" />
-                        <p:inputMask  mask="9999-9999" id="CTelefono" value="#{agenteTbController.selected.CTelefono}" title="#{bundle.EditAgenteTbTitle_CTelefono}" 
-                                      required="true" requiredMessage="Introduzca telefono"/>
+                        <p:inputText  id="CTelefono" value="#{agenteTbController.selected.CTelefono}" title="#{bundle.EditAgenteTbTitle_CTelefono}" 
+                                     />
                         
                         <p:outputLabel value="#{bundle.EditAgenteTbLabel_CFax}" for="CFax" />
-                        <p:inputMask  mask="9999-9999" id="CFax" value="#{agenteTbController.selected.CFax}" title="#{bundle.EditAgenteTbTitle_CFax}" 
+                        <p:inputText  id="CFax" value="#{agenteTbController.selected.CFax}" title="#{bundle.EditAgenteTbTitle_CFax}" 
                                       />
                         
                         <p:outputLabel value="#{bundle.EditAgenteTbLabel_MDireccion}" for="MDireccion" />
                         <p:inputTextarea cols="25" rows="4" autoResize="" id="MDireccion" value="#{agenteTbController.selected.MDireccion}" title="#{bundle.EditAgenteTbTitle_MDireccion}" 
-                                         required="true" requiredMessage="Introduzca direccion"/>
+                                         />
                         
                         <p:outputLabel value="#{bundle.EditAgenteTbLabel_FFechanac}" for="FFechanac" />
-                        <p:calendar locale="es" navigator="true" id="FFechanac" pattern="dd/MM/yyyy" value="#{agenteTbController.selected.FFechanac}" title="#{bundle.EditAgenteTbTitle_FFechanac}"  showOn="button"
-                                    required="true" requiredMessage="Introduzca fecha de nacimiento"/>
+                        <p:calendar locale="es" navigator="true" id="FFechanac" pattern="dd MMMM yyyy" value="#{agenteTbController.selected.FFechanac}" title="#{bundle.EditAgenteTbTitle_FFechanac}"  showOn="button"
+                                    readonlyInput="true"/>
                         
                         <p:outputLabel value="#{bundle.EditAgenteTbLabel_FFecham}" for="FFecham" />
-                        <p:calendar locale="es" navigator="true" id="FFecham" pattern="dd/MM/yyyy" value="#{agenteTbController.selected.FFecham}" title="#{bundle.EditAgenteTbTitle_FFecham}"  showOn="button"
-                                    />
+                        <p:calendar locale="es" navigator="true" id="FFecham" pattern="dd MMMM yyyy" value="#{agenteTbController.selected.FFecham}" title="#{bundle.EditAgenteTbTitle_FFecham}"  showOn="button"
+                                    readonlyInput="true"/>
                         
                         <p:outputLabel value="#{bundle.EditAgenteTbLabel_EIdinstitucion}" for="EIdinstitucion" />
                         <p:selectOneMenu id="EIdinstitucion" value="#{agenteTbController.selected.EIdinstitucion}" required="true" requiredMessage="Seleccione una institucion" >

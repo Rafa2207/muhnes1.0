@@ -29,7 +29,7 @@
                         <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
                     </p:commandButton>
 
-                    <p:commandButton id="DeptoButton" icon="ui-icon-arrowthick-1-e"  value="Departamento" action="/paginas/departamentoTb/List.xhtml" disabled="#{empty paisTbController.selected}" >
+                    <p:commandButton id="DeptoButton" icon="ui-icon-arrowthick-1-e"  value="Departamento/Estados" action="/paginas/departamentoTb/List.xhtml" disabled="#{empty paisTbController.selected}" >
                         <f:setPropertyActionListener target="#{controladorSesion.pais}" value="#{paisTbController.selected}"/>
                     </p:commandButton>
 

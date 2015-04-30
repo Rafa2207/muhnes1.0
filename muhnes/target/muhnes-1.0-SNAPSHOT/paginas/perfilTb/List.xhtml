@@ -16,18 +16,20 @@
         <ui:define name="body">
             <h:form id="PerfilTbListForm">
                 <p:panel header="#{bundle.ListPerfilTbTitle}">
-                    
+
                     <p:breadCrumb>
                         <p:menuitem value="casita"/>
                         <p:menuitem value="Perfiles" outcome="/paginas/perfilTb/List.xhtml" />
                     </p:breadCrumb>
-                    
-                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{perfilTbController.prepareCreate}" update=":PerfilTbCreateForm" oncomplete="PF('PerfilTbCreateDialog').show()"/>
-                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PerfilTbViewForm" oncomplete="PF('PerfilTbViewDialog').show()" disabled="#{empty perfilTbController.selected}"/>
-                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":PerfilTbEditForm" oncomplete="PF('PerfilTbEditDialog').show()" disabled="#{empty perfilTbController.selected}"/>
-                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{perfilTbController.destroy}" update=":growl,datalist" disabled="#{empty perfilTbController.selected}"/>
-                    
-                        <p:dataTable id="datalist" value="#{perfilTbController.items}" var="item"
+
+                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{perfilTbController.prepareCreate}" update=":PerfilTbCreateForm" oncomplete="PF('PerfilTbCreateDialog').show()"/>
+                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PerfilTbViewForm" oncomplete="PF('PerfilTbViewDialog').show()" disabled="#{empty perfilTbController.selected}"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":PerfilTbEditForm" oncomplete="PF('PerfilTbEditDialog').show()" disabled="#{empty perfilTbController.selected}"/>
+                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{perfilTbController.destroy}" update=":growl,datalist" disabled="#{empty perfilTbController.selected}">
+                        <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
+                    </p:commandButton>
+
+                    <p:dataTable id="datalist" value="#{perfilTbController.items}" var="item"
                                  selectionMode="single" selection="#{perfilTbController.selected}"
                                  paginator="true"
                                  paginatorPosition="bottom"
@@ -42,8 +44,8 @@
 
                         <p:ajax event="rowSelect"   update=":PerfilTbListForm:createButton :PerfilTbListForm:viewButton :PerfilTbListForm:editButton :PerfilTbListForm:deleteButton"/>
                         <p:ajax event="rowUnselect" update=":PerfilTbListForm:createButton :PerfilTbListForm:viewButton :PerfilTbListForm:editButton :PerfilTbListForm:deleteButton"/>
-                        
-                        
+
+
                         <p:column filterBy="#{item.CNombre}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPerfilTbTitle_CNombre}"/>

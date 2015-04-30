@@ -28,7 +28,9 @@
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{subespecieTbController.prepareCreate(controladorSesion.especie)}" update=":SubespecieTbCreateForm" oncomplete="PF('SubespecieTbCreateDialog').show()"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":SubespecieTbViewForm" oncomplete="PF('SubespecieTbViewDialog').show()" disabled="#{empty subespecieTbController.selected}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":SubespecieTbEditForm" oncomplete="PF('SubespecieTbEditDialog').show()" disabled="#{empty subespecieTbController.selected}"/>
-                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{subespecieTbController.destroy}" update=":growl,datalist" disabled="#{empty subespecieTbController.selected}"/>
+                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{subespecieTbController.destroy}" update=":growl,datalist" disabled="#{empty subespecieTbController.selected}">
+                        <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
+                    </p:commandButton>
                     <p:commandButton id="variedadButton" icon="ui-icon-calendar"  value="Variedad" action="/paginas/variedadTb/List.xhtml" disabled="#{empty subespecieTbController.selected}">
                         <f:setPropertyActionListener target="#{controladorSesion.subespecie}" value="#{subespecieTbController.selected}">
                         </f:setPropertyActionListener> 

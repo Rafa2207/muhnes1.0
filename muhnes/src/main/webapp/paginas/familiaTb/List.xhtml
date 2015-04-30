@@ -16,16 +16,18 @@
         <ui:define name="body">
             <h:form id="FamiliaTbListForm">
                 <p:panel header="#{bundle.ListFamiliaTbTitle}">
-                    
+
                     <p:breadCrumb>
                         <p:menuitem value="casita"/>
                         <p:menuitem value="Familia" outcome="/paginas/familiaTb/List.xhtml" />
                     </p:breadCrumb>
-                    
+
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{familiaTbController.prepareCreate}" update=":FamiliaTbCreateForm" oncomplete="PF('FamiliaTbCreateDialog').show()"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":FamiliaTbViewForm" oncomplete="PF('FamiliaTbViewDialog').show()" disabled="#{empty familiaTbController.selected}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":FamiliaTbEditForm" oncomplete="PF('FamiliaTbEditDialog').show()" disabled="#{empty familiaTbController.selected}"/>
-                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{familiaTbController.destroy}" update=":growl,datalist" disabled="#{empty familiaTbController.selected}"/>
+                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{familiaTbController.destroy}" update=":growl,datalist" disabled="#{empty familiaTbController.selected}">
+                        <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
+                    </p:commandButton>
                     <p:commandButton id="generoButton" icon="ui-icon-calendar"  value="Genero" action="/paginas/generoTb/List.xhtml" disabled="#{empty familiaTbController.selected}" >
                         <f:setPropertyActionListener target="#{controladorSesion.familia}" value="#{familiaTbController.selected}">
                         </f:setPropertyActionListener> 
@@ -51,7 +53,7 @@
                             </f:facet>
                             <h:outputText value="#{item.CNombre}"/>
                         </p:column>
-                        
+
                         <f:facet name="header">
                             <h:outputText value="Busqueda: " />
                             <p:inputText id="globalFilter" onkeyup="PF('familiaTable').filter()" placeholder="Escriba aquí"/>

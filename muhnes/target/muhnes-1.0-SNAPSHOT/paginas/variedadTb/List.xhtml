@@ -27,7 +27,9 @@
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{variedadTbController.prepareCreate(controladorSesion.subespecie)}" update=":VariedadTbCreateForm" oncomplete="PF('VariedadTbCreateDialog').show()"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":VariedadTbViewForm" oncomplete="PF('VariedadTbViewDialog').show()" disabled="#{empty variedadTbController.selected}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":VariedadTbEditForm" oncomplete="PF('VariedadTbEditDialog').show()" disabled="#{empty variedadTbController.selected}"/>
-                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{variedadTbController.destroy}" update=":growl,datalist" disabled="#{empty variedadTbController.selected}"/>
+                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{variedadTbController.destroy}" update=":growl,datalist" disabled="#{empty variedadTbController.selected}">
+                        <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
+                    </p:commandButton>
 
                     <p:dataTable id="datalist" value="#{variedadTbController.getItems(controladorSesion.subespecie.EIdsubespecie)}" var="item"
                                  selectionMode="single" selection="#{variedadTbController.selected}"
