@@ -12,14 +12,14 @@
             <h:form id="AreaprotegidaTbViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{areaprotegidaTbController.selected != null}">
-                        <h:outputText value="#{bundle.ViewAreaprotegidaTbLabel_EIdarea}"/>
-                        <h:outputText value="#{areaprotegidaTbController.selected.EIdarea}" title="#{bundle.ViewAreaprotegidaTbTitle_EIdarea}"/>
                         <h:outputText value="#{bundle.ViewAreaprotegidaTbLabel_CNombre}"/>
                         <h:outputText value="#{areaprotegidaTbController.selected.CNombre}" title="#{bundle.ViewAreaprotegidaTbTitle_CNombre}"/>
+                        
                         <h:outputText value="#{bundle.ViewAreaprotegidaTbLabel_MDescripcion}"/>
                         <h:outputText value="#{areaprotegidaTbController.selected.MDescripcion}" title="#{bundle.ViewAreaprotegidaTbTitle_MDescripcion}"/>
+                        
                         <h:outputText value="#{bundle.ViewAreaprotegidaTbLabel_EIdmunicipio}"/>
-                        <h:outputText value="#{areaprotegidaTbController.selected.EIdmunicipio}" title="#{bundle.ViewAreaprotegidaTbTitle_EIdmunicipio}"/>
+                        <h:outputText value="#{areaprotegidaTbController.selected.EIdmunicipio.CNombre}" title="#{bundle.ViewAreaprotegidaTbTitle_EIdmunicipio}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="AreaprotegidaTbViewDialog.hide()"/>
                 </h:panelGroup>

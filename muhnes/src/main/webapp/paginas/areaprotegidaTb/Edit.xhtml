@@ -12,18 +12,20 @@
             <h:form id="AreaprotegidaTbEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{areaprotegidaTbController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditAreaprotegidaTbLabel_EIdarea}" for="EIdarea" />
-                        <p:inputText id="EIdarea" value="#{areaprotegidaTbController.selected.EIdarea}" title="#{bundle.EditAreaprotegidaTbTitle_EIdarea}" required="true" requiredMessage="#{bundle.EditAreaprotegidaTbRequiredMessage_EIdarea}"/>
-                        <p:outputLabel value="#{bundle.EditAreaprotegidaTbLabel_CNombre}" for="CNombre" />
-                        <p:inputText id="CNombre" value="#{areaprotegidaTbController.selected.CNombre}" title="#{bundle.EditAreaprotegidaTbTitle_CNombre}" />
+                       <p:outputLabel value="#{bundle.EditAreaprotegidaTbLabel_CNombre}" for="CNombre" />
+                        <p:inputText id="CNombre" value="#{areaprotegidaTbController.selected.CNombre}" title="#{bundle.EditAreaprotegidaTbTitle_CNombre}" 
+                                     required="true" requiredMessage="Introduzca nombre del área protegida"/>
+                        
                         <p:outputLabel value="#{bundle.EditAreaprotegidaTbLabel_MDescripcion}" for="MDescripcion" />
-                        <p:inputText id="MDescripcion" value="#{areaprotegidaTbController.selected.MDescripcion}" title="#{bundle.EditAreaprotegidaTbTitle_MDescripcion}" />
+                        <p:inputTextarea autoResize="" id="MDescripcion" value="#{areaprotegidaTbController.selected.MDescripcion}" title="#{bundle.EditAreaprotegidaTbTitle_MDescripcion}" />
+                        
                         <p:outputLabel value="#{bundle.EditAreaprotegidaTbLabel_EIdmunicipio}" for="EIdmunicipio" />
-                        <p:selectOneMenu id="EIdmunicipio" value="#{areaprotegidaTbController.selected.EIdmunicipio}" >
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                        <p:selectOneMenu id="EIdmunicipio" value="#{areaprotegidaTbController.selected.EIdmunicipio}" required="true" requiredMessage="Seleccione municipio" >
+                            <f:selectItem itemValue="" itemLabel="Seleccione.."/>
                             <f:selectItems value="#{municipioTbController.itemsAvailableSelectOne}"
                                            var="EIdmunicipioItem"
-                                           itemValue="#{EIdmunicipioItem}"/>
+                                           itemValue="#{EIdmunicipioItem}"
+                                           itemLabel="#{EIdmunicipioItem.CNombre}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{areaprotegidaTbController.update}" value="#{bundle.Save}" update="display,:AreaprotegidaTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AreaprotegidaTbEditDialog');"/>

@@ -26,9 +26,18 @@ public class AreaprotegidaTbController implements Serializable {
 
     @EJB
     private servicio.AreaprotegidaTbFacade ejbFacade;
-    private List<AreaprotegidaTb> items = null;
+    private List<AreaprotegidaTb> items = null, filtro;
     private AreaprotegidaTb selected;
 
+    public List<AreaprotegidaTb> getFiltro() {
+        return filtro;
+    }
+
+    public void setFiltro(List<AreaprotegidaTb> filtro) {
+        this.filtro = filtro;
+    }
+
+    
     public AreaprotegidaTbController() {
     }
 
