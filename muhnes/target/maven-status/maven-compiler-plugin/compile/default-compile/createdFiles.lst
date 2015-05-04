@@ -81,6 +81,7 @@ controlador\VariedadTbController$VariedadTbControllerConverter.class
 controlador\InsumoTbController.class
 modelo\ProyectoTb_.class
 modelo\EjemplarTb_.class
+controlador\util\MapaAreasProtegidas.class
 servicio\PerfilTbFacade.class
 controlador\PerfilTbController.class
 modelo\CantonTb.class
