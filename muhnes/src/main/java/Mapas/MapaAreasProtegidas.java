@@ -1,8 +1,10 @@
 
 package Mapas;
 import java.io.Serializable;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import modelo.AreaprotegidaTb;
  
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
@@ -39,6 +41,24 @@ public class MapaAreasProtegidas implements Serializable {
         this.puntos = puntos;
     }
     
+    public MapModel localidades(double lat, double lon,String nombre){
+        MapModel punto;
+        punto = new DefaultMapModel();
+        LatLng coord1 = new LatLng(lat,lon);
+        punto.addOverlay(new Marker(coord1, nombre)); 
+        return punto;
+    }
+    
+    public MapModel localidades(List<AreaprotegidaTb> area ){
+        int i=0;
+        MapModel punto;
+        punto = new DefaultMapModel();
+        for(AreaprotegidaTb areapunto:area){      
+        LatLng coord1 = new LatLng(12,90);
+        punto.addOverlay(new Marker(coord1,areapunto.getCNombre()));    
+        }      
+        return punto; 
+    }
   
     
 }

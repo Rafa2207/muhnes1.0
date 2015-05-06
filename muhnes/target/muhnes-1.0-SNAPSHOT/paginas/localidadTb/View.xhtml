@@ -12,26 +12,23 @@
             <h:form id="LocalidadTbViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{localidadTbController.selected != null}">
-                        <h:outputText value="#{bundle.ViewLocalidadTbLabel_EIdlocalidad}"/>
-                        <h:outputText value="#{localidadTbController.selected.EIdlocalidad}" title="#{bundle.ViewLocalidadTbTitle_EIdlocalidad}"/>
                         <h:outputText value="#{bundle.ViewLocalidadTbLabel_CNombre}"/>
                         <h:outputText value="#{localidadTbController.selected.CNombre}" title="#{bundle.ViewLocalidadTbTitle_CNombre}"/>
                         <h:outputText value="#{bundle.ViewLocalidadTbLabel_MDescripcion}"/>
                         <h:outputText value="#{localidadTbController.selected.MDescripcion}" title="#{bundle.ViewLocalidadTbTitle_MDescripcion}"/>
-                        <h:outputText value="#{bundle.ViewLocalidadTbLabel_CLatitud}"/>
-                        <h:outputText value="#{localidadTbController.selected.CLatitud}" title="#{bundle.ViewLocalidadTbTitle_CLatitud}"/>
-                        <h:outputText value="#{bundle.ViewLocalidadTbLabel_CLongitud}"/>
-                        <h:outputText value="#{localidadTbController.selected.CLongitud}" title="#{bundle.ViewLocalidadTbTitle_CLongitud}"/>
-                        <h:outputText value="#{bundle.ViewLocalidadTbLabel_DLatitudDecimal}"/>
-                        <h:outputText value="#{localidadTbController.selected.DLatitudDecimal}" title="#{bundle.ViewLocalidadTbTitle_DLatitudDecimal}"/>
-                        <h:outputText value="#{bundle.ViewLocalidadTbLabel_DLongitudDecimal}"/>
-                        <h:outputText value="#{localidadTbController.selected.DLongitudDecimal}" title="#{bundle.ViewLocalidadTbTitle_DLongitudDecimal}"/>
-                        <h:outputText value="#{bundle.ViewLocalidadTbLabel_EAltitudMin}"/>
-                        <h:outputText value="#{localidadTbController.selected.EAltitudMin}" title="#{bundle.ViewLocalidadTbTitle_EAltitudMin}"/>
-                        <h:outputText value="#{bundle.ViewLocalidadTbLabel_EAltitudMax}"/>
-                        <h:outputText value="#{localidadTbController.selected.EAltitudMax}" title="#{bundle.ViewLocalidadTbTitle_EAltitudMax}"/>
                         <h:outputText value="#{bundle.ViewLocalidadTbLabel_EIdcanton}"/>
-                        <h:outputText value="#{localidadTbController.selected.EIdcanton}" title="#{bundle.ViewLocalidadTbTitle_EIdcanton}"/>
+                        <h:outputText value="#{localidadTbController.selected.EIdcanton.EIdmunicipio.EIddepto.EIdpais.CNombre},
+                                      #{localidadTbController.selected.EIdcanton.EIdmunicipio.EIddepto.CNombre},
+                                      #{localidadTbController.selected.EIdcanton.EIdmunicipio.CNombre},
+                                      #{localidadTbController.selected.EIdcanton.CNombre}" 
+                                           title="#{bundle.ViewLocalidadTbTitle_EIdcanton}"/>
+                    </p:panelGrid>
+                    <p:panelGrid columns="1" rendered="#{localidadTbController.selected != null}">
+                        <p:gmap center="#{localidadTbController.selected.DLatitudDecimal}, #{localidadTbController.selected.DLongitudDecimal}"  zoom="18" type="hybrid" style="width:430px;height:430px" 
+                                model="#{mapaAreasProtegidas.localidades(localidadTbController.selected.DLatitudDecimal, 
+                                         localidadTbController.selected.DLongitudDecimal, 
+                                         localidadTbController.selected.CNombre)}" />
+                
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="LocalidadTbViewDialog.hide()"/>
                 </h:panelGroup>
