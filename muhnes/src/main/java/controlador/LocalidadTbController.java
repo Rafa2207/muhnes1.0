@@ -170,5 +170,15 @@ public class LocalidadTbController implements Serializable {
         }
 
     }
+    public void latitudDecimal(int grado, int minuto, double segundo){
+        double resultado,min,seg,gra;
+        
+        min= minuto/60;
+        seg= segundo/360;
+        resultado= grado + min + seg ;
+        
+        selected.setDLatitudDecimal(seg);
+        
+    }
 
 }

@@ -14,8 +14,8 @@
         </ui:define>
 
         <ui:define name="body">
-            <h:form id="LocalidadTbListForm">
-                <p:panel header="#{bundle.ListLocalidadTbTitle}">
+            <h:form id="LocalidadTbListForm"  >
+                <p:panel header="#{bundle.ListLocalidadTbTitle}" >
                     
                     <p:breadCrumb>
                         <p:menuitem value="casita"/>
@@ -44,12 +44,7 @@
                         <p:ajax event="rowSelect"   update=":LocalidadTbListForm:createButton :LocalidadTbListForm:viewButton :LocalidadTbListForm:editButton :LocalidadTbListForm:deleteButton"/>
                         <p:ajax event="rowUnselect" update=":LocalidadTbListForm:createButton :LocalidadTbListForm:viewButton :LocalidadTbListForm:editButton :LocalidadTbListForm:deleteButton"/>
 
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListLocalidadTbTitle_EIdlocalidad}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.EIdlocalidad}"/>
-                        </p:column>
+                        
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListLocalidadTbTitle_CNombre}"/>
@@ -66,13 +61,13 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListLocalidadTbTitle_CLatitud}"/>
                             </f:facet>
-                            <h:outputText value="probando"/>
+                            <h:outputText value="#{item.ELatitudgrados}°#{item.ELatitudminutos}'#{item.DLatitudsegundos}''"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListLocalidadTbTitle_CLongitud}"/>
                             </f:facet>
-                            <h:outputText value="probando"/>
+                            <h:outputText value="#{item.ELongitudgrados}°#{item.ELongitudminutos}'#{item.DLongitudsegundos}''"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -86,23 +81,12 @@
                             </f:facet>
                             <h:outputText value="#{item.DLongitudDecimal}"/>
                         </p:column>
+                        
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListLocalidadTbTitle_EAltitudMin}"/>
+                                <h:outputText value="Lugar"/>
                             </f:facet>
-                            <h:outputText value="#{item.EAltitudMin}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListLocalidadTbTitle_EAltitudMax}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.EAltitudMax}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListLocalidadTbTitle_EIdcanton}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.EIdcanton}"/>
+                            <h:outputText value="#{item.EIdcanton.CNombre}"/>
                         </p:column>
                         <f:facet name="header">
                             <p:outputPanel>

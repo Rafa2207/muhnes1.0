@@ -8,8 +8,8 @@
 
     <ui:composition>
 
-        <p:dialog id="LocalidadTbCreateDlg" widgetVar="LocalidadTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateLocalidadTbTitle}">
-            <h:form id="LocalidadTbCreateForm">
+        <p:dialog id="LocalidadTbCreateDlg" widgetVar="LocalidadTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateLocalidadTbTitle}" >
+            <h:form id="LocalidadTbCreateForm" >
                 <h:panelGroup id="display">
                     <p:panelGrid columns="4" rendered="#{localidadTbController.selected != null}">  
                         <p:outputLabel value="#{bundle.CreateLocalidadTbLabel_CNombre}" for="CNombre" />
@@ -20,36 +20,41 @@
                     </p:panelGrid >
                     
                     <p:panelGrid columns="8" rendered="#{localidadTbController.selected != null}" >
-                        <p:outputLabel value="Grados" for="Grados" />
-                        <p:inputMask id="Grados" value="#{localidadTbController.selected.ELatitudgrados}" title="Grados" mask="99" maxlength="2" size="2"/>
-                        
-                        <p:outputLabel value="Minutos" for="Minutos" />
+                        <p:outputLabel value="Grados:" for="Grados" />
+                        <p:inputText id="Grados" value="#{localidadTbController.selected.ELatitudgrados}" title="Grados" maxlength="4" size="4"/>
+                                                
+                        <p:outputLabel value="Minutos:" for="Minutos" />
                         <p:inputMask id="Minutos" value="#{localidadTbController.selected.ELatitudminutos}" title="Minutos" mask="99" maxlength="2" size="2" />
                         
-                        <p:outputLabel value="Segundos" for="Segundos" />
-                        <p:inputMask id="Segundos" value="#{localidadTbController.selected.DLatitudsegundos}" title="Grados" mask="99.9999" maxlength="7" size="7" />
+                        <p:outputLabel value="Segundos:" for="Segundos" />
+                        <p:inputMask id="Segundos" value="#{localidadTbController.selected.DLatitudsegundos}" title="Grados" mask="99.9999" maxlength="7" size="7" >
+                            <p:ajax event="change" update="Latitud" 
+                                    listener="#{localidadTbController.latitudDecimal(localidadTbController.selected.ELatitudgrados, 
+                                                localidadTbController.selected.ELatitudminutos, 
+                                                localidadTbController.selected.DLatitudsegundos)}" />
+                        </p:inputMask>
                         
-                        <p:outputLabel value="Latitud" for="Latitud" />
-                        <p:inputText readonly="true" id="Latitud" value="#{localidadTbController.selected.DLatitudDecimal}" title="Latitud" />
+                        <p:outputLabel value="Latitud:" for="Latitud" />
+                        <p:inputText readonly="true" id="Latitud" value="#{localidadTbController.selected.DLatitudDecimal}" title="Latitud" maxlength="8" size="14" />
                         
-                        <p:outputLabel value="Grados" for="Grados2" />
-                        <p:inputMask id="Grados2" value="#{localidadTbController.selected.ELongitudgrados}" title="Grados" mask="99" maxlength="2" size="2"/>
+                        <p:outputLabel value="Grados:" for="Grados2" />
+                        <p:inputText id="Grados2" value="#{localidadTbController.selected.ELongitudgrados}" title="Grados"  maxlength="4" size="4"/>
                         
-                        <p:outputLabel value="Minutos" for="Minutos2" />
+                        <p:outputLabel value="Minutos:" for="Minutos2" />
                         <p:inputMask id="Minutos2" value="#{localidadTbController.selected.ELongitudminutos}" title="Minutos" mask="99" maxlength="2" size="2" />
                         
-                        <p:outputLabel value="Segundos" for="Segundos2" />
+                        <p:outputLabel value="Segundos:" for="Segundos2" />
                         <p:inputMask id="Segundos2" value="#{localidadTbController.selected.DLongitudsegundos}" title="Grados" mask="99.9999" maxlength="7" size="7" />
                         
-                        <p:outputLabel value="Longitud" for="Longitud2" />
+                        <p:outputLabel value="Longitud:" for="Longitud2" />
                         <p:inputText readonly="true" id="Longitud2" value="#{localidadTbController.selected.DLongitudDecimal}" title="Longitud" />
                     </p:panelGrid>
                     
                     <p:panelGrid columns="4" rendered="#{localidadTbController.selected != null}">   
-                        <p:outputLabel value="Altitud máxima" for="AltitudMax" />
+                        <p:outputLabel value="Altitud máxima:" for="AltitudMax" />
                         <p:inputText id="AltitudMax" value="#{localidadTbController.selected.EAltitudMax}" title="Altitud máxima" />
                         
-                        <p:outputLabel value="Altitud mínima" for="AltitudMin" />
+                        <p:outputLabel value="Altitud mínima:" for="AltitudMin" />
                         <p:inputText id="AltitudMin" value="#{localidadTbController.selected.EAltitudMin}" title="Altitud mínima" />                       
                     </p:panelGrid>
                     
@@ -67,7 +72,7 @@
                                            #{EIdcantonItem.CNombre}"/>
                         </p:selectOneMenu>
                         
-                        <p:outputLabel value="Área protegida" for="EIdarea" />
+                        <p:outputLabel value="Área protegida:" for="EIdarea" />
                         <p:selectOneMenu id="EIdarea" value="#{localidadTbController.selected.EIdarea}"
                                          required="true" requiredMessage="Seleccione área protegida" filter="true" filterMatchMode="contains">
                             <f:selectItem itemValue="" itemLabel="Seleccione.."/>

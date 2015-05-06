@@ -39,19 +39,21 @@
                                  filteredValue="#{agenteTbController.filtro}"
                                  widgetVar="agenteTable"
                                  emptyMessage="No se encontro agente"
+                                 draggableColumns="true"
+                                 
                                  >
 
                         <p:ajax event="rowSelect"   update=":AgenteTbListForm:createButton :AgenteTbListForm:viewButton :AgenteTbListForm:editButton :AgenteTbListForm:deleteButton"/>
                         <p:ajax event="rowUnselect" update=":AgenteTbListForm:createButton :AgenteTbListForm:viewButton :AgenteTbListForm:editButton :AgenteTbListForm:deleteButton"/>
 
-                        <p:column filterBy="#{item.CNombre}" filterStyle="display:none">
+                        <p:column filterBy="#{item.CNombre}" filterStyle="display:none" width="150" >
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAgenteTbTitle_CNombre}"/>
                             </f:facet>
                             <h:outputText value="#{item.CNombre}"/>
                         </p:column>
                         
-                        <p:column filterBy="#{item.CApellido}" filterStyle="display:none">
+                        <p:column filterBy="#{item.CApellido}" filterStyle="display:none" width="150">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAgenteTbTitle_CApellido}"/>
                             </f:facet>
@@ -59,7 +61,7 @@
                         </p:column>
                         
                         
-                        <p:column filterBy="#{item.COcupacion}" filterStyle="display:none">
+                        <p:column filterBy="#{item.COcupacion}" filterStyle="display:none" width="150">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAgenteTbTitle_COcupacion}"/>
                             </f:facet>
@@ -67,7 +69,7 @@
                         </p:column>
                         
           
-                        <p:column filterBy="#{item.CTelefono}" filterStyle="display:none">
+                        <p:column filterBy="#{item.CTelefono}" filterStyle="display:none" width="120">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAgenteTbTitle_CTelefono}"/>
                             </f:facet>

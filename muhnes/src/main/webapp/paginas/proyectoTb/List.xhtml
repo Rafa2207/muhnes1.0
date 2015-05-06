@@ -57,6 +57,7 @@
                                  emptyMessage="No se encontraron proyectos"
                                  filteredValue="#{proyectoTbController.filtro}"
                                  widgetVar="proyectoTable"
+                                 
                                  >
 
                         <p:ajax event="rowSelect"   update=":ProyectoTbListForm:ProcesoejemplarButton :ProyectoTbListForm:PresupuestoButton :ProyectoTbListForm:ActividadButton :ProyectoTbListForm:createButton :ProyectoTbListForm:viewButton :ProyectoTbListForm:editButton :ProyectoTbListForm:deleteButton"/>
@@ -70,21 +71,21 @@
                             <h:outputText value="#{item.MNombre}"/>
                         </p:column>
 
-                        <p:column filterBy="#{item.MDescripcion}" filterStyle="display:none">
+                        <p:column filterBy="#{item.MDescripcion}" filterStyle="display:none" width="200">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProyectoTbTitle_MDescripcion}"/>
                             </f:facet>
                             <h:outputText value="#{item.MDescripcion}"/>
                         </p:column>
 
-                        <p:column filterBy="#{item.CResponsable}" filterStyle="display:none">
+                        <p:column filterBy="#{item.CResponsable}" filterStyle="display:none" width="150">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProyectoTbTitle_CResponsable}"/>
                             </f:facet>
                             <h:outputText value="#{item.CResponsable}"/>
                         </p:column>
 
-                        <p:column filterBy="#{item.FFechaInicio}" filterStyle="display:none">
+                        <p:column filterBy="#{item.FFechaInicio}" filterStyle="display:none" width="100">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProyectoTbTitle_FFechaInicio}"/>
                             </f:facet>
@@ -93,7 +94,7 @@
                             </h:outputText>
                         </p:column>
 
-                        <p:column filterBy="#{item.FFechaFin}" filterStyle="display:none">
+                        <p:column filterBy="#{item.FFechaFin}" filterStyle="display:none" width="150">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProyectoTbTitle_FFechaFin}"/>
                             </f:facet>
