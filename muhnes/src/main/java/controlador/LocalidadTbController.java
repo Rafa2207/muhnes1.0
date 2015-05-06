@@ -172,12 +172,23 @@ public class LocalidadTbController implements Serializable {
     }
     public void latitudDecimal(int grado, int minuto, double segundo){
         double resultado,min,seg,gra;
-        
+        gra=grado;
         min= minuto/60;
         seg= segundo/360;
-        resultado= grado + min + seg ;
+        resultado= gra + min + seg ;
         
-        selected.setDLatitudDecimal(seg);
+        selected.setDLatitudDecimal(resultado);
+        
+    }
+    
+    public void longitudDecimal(int grado, int minuto, double segundo){
+        double resultado,min,seg,gra;
+        gra=grado;
+        min= minuto/60;
+        seg= segundo/360;
+        resultado= gra + min + seg;
+        
+        selected.setDLongitudDecimal(resultado);
         
     }
 

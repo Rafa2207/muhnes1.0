@@ -80,6 +80,9 @@ public class LocalidadTb implements Serializable {
     @JoinColumn(name = "e_idarea", referencedColumnName = "e_idarea")
     @ManyToOne
     private AreaprotegidaTb eIdarea;
+    
+    
+    
 
     public LocalidadTb() {
     }
