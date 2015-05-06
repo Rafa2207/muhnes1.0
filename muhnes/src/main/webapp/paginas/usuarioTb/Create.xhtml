@@ -33,7 +33,7 @@
                                      required="true"
                                      requiredMessage="Introduzca nombre de usuario." size="15" maxlength="15"/>
 
-                        <h:outputLabel value="#{bundle.CreateUsuarioTbLabel_CPassword}*" for="CPassword"/>
+                        <h:outputLabel value="#{bundle.CreateUsuarioTbLabel_CPassword} *" for="CPassword"/>
                         <p:password id="CPassword" value="#{usuarioTbController.selected.CPassword}" title="#{bundle.CreateUsuarioTbTitle_CPassword}"
                                     required="true" 
                                     requiredMessage="Introduzca contraseña del usuario."
@@ -43,8 +43,7 @@
 
                         <p:outputLabel value="#{bundle.CreateUsuarioTbLabel_CDui}" for="CDui" />
                         <p:inputMask id="CDui" value="#{usuarioTbController.selected.CDui}" title="#{bundle.CreateUsuarioTbTitle_CDui}" 
-                                     required="true"
-                                     requiredMessage="Introduzca el numero de DUI del usuario." mask="99999999-9" size="10"/>                       
+                                     mask="99999999-9" size="10"/>                       
 
                         <p:outputLabel value="#{bundle.CreateUsuarioTbLabel_CTipo}" for="CTipo" />
                         <p:selectOneMenu id="CTipo" value="#{usuarioTbController.selected.CTipo}" 

@@ -59,7 +59,7 @@ public class ThemeSwitcherBean {
       themes.put("Rocket", "rocket");
       //themes.put("Sam", "sam");
       //themes.put("Smoothness", "smoothness");
-      themes.put("South-Street", "south-street");
+      themes.put("Verde", "south-street");
       //themes.put("Start", "start");
       //themes.put("Sunny", "sunny");
       //themes.put("Swanky-Purse", "swanky-purse");
