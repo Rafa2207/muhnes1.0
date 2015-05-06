@@ -39,6 +39,7 @@ modelo\EspecieTb_.class
 modelo\ExhibicionTb.class
 modelo\ProcesoejemplarTb_.class
 controlador\LocalidadTbController.class
+Mapas\MapaAreasProtegidas.class
 servicio\EspecieTbFacade.class
 modelo\SubespecieTb.class
 modelo\PedidoTb.class
@@ -81,7 +82,6 @@ controlador\VariedadTbController$VariedadTbControllerConverter.class
 controlador\InsumoTbController.class
 modelo\ProyectoTb_.class
 modelo\EjemplarTb_.class
-controlador\util\MapaAreasProtegidas.class
 servicio\PerfilTbFacade.class
 controlador\PerfilTbController.class
 modelo\CantonTb.class

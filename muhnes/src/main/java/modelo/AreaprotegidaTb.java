@@ -6,6 +6,7 @@
 package modelo;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -31,6 +33,8 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "AreaprotegidaTb.findByCNombre", query = "SELECT a FROM AreaprotegidaTb a WHERE a.cNombre = :cNombre"),
     @NamedQuery(name = "AreaprotegidaTb.findByMDescripcion", query = "SELECT a FROM AreaprotegidaTb a WHERE a.mDescripcion = :mDescripcion")})
 public class AreaprotegidaTb implements Serializable {
+    @OneToMany(mappedBy = "eIdarea")
+    private List<LocalidadTb> localidadTbList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -109,6 +113,14 @@ public class AreaprotegidaTb implements Serializable {
     @Override
     public String toString() {
         return "modelo.AreaprotegidaTb[ eIdarea=" + eIdarea + " ]";
+    }
+
+    public List<LocalidadTb> getLocalidadTbList() {
+        return localidadTbList;
+    }
+
+    public void setLocalidadTbList(List<LocalidadTb> localidadTbList) {
+        this.localidadTbList = localidadTbList;
     }
     
 }

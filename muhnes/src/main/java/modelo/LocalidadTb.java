@@ -21,7 +21,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author Rafa
+ * @author Endy
  */
 @Entity
 @Table(name = "localidad_tb")
@@ -30,12 +30,16 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "LocalidadTb.findByEIdlocalidad", query = "SELECT l FROM LocalidadTb l WHERE l.eIdlocalidad = :eIdlocalidad"),
     @NamedQuery(name = "LocalidadTb.findByCNombre", query = "SELECT l FROM LocalidadTb l WHERE l.cNombre = :cNombre"),
     @NamedQuery(name = "LocalidadTb.findByMDescripcion", query = "SELECT l FROM LocalidadTb l WHERE l.mDescripcion = :mDescripcion"),
-    @NamedQuery(name = "LocalidadTb.findByCLatitud", query = "SELECT l FROM LocalidadTb l WHERE l.cLatitud = :cLatitud"),
-    @NamedQuery(name = "LocalidadTb.findByCLongitud", query = "SELECT l FROM LocalidadTb l WHERE l.cLongitud = :cLongitud"),
     @NamedQuery(name = "LocalidadTb.findByDLatitudDecimal", query = "SELECT l FROM LocalidadTb l WHERE l.dLatitudDecimal = :dLatitudDecimal"),
     @NamedQuery(name = "LocalidadTb.findByDLongitudDecimal", query = "SELECT l FROM LocalidadTb l WHERE l.dLongitudDecimal = :dLongitudDecimal"),
     @NamedQuery(name = "LocalidadTb.findByEAltitudMin", query = "SELECT l FROM LocalidadTb l WHERE l.eAltitudMin = :eAltitudMin"),
-    @NamedQuery(name = "LocalidadTb.findByEAltitudMax", query = "SELECT l FROM LocalidadTb l WHERE l.eAltitudMax = :eAltitudMax")})
+    @NamedQuery(name = "LocalidadTb.findByEAltitudMax", query = "SELECT l FROM LocalidadTb l WHERE l.eAltitudMax = :eAltitudMax"),
+    @NamedQuery(name = "LocalidadTb.findByELatitudgrados", query = "SELECT l FROM LocalidadTb l WHERE l.eLatitudgrados = :eLatitudgrados"),
+    @NamedQuery(name = "LocalidadTb.findByELatitudminutos", query = "SELECT l FROM LocalidadTb l WHERE l.eLatitudminutos = :eLatitudminutos"),
+    @NamedQuery(name = "LocalidadTb.findByDLatitudsegundos", query = "SELECT l FROM LocalidadTb l WHERE l.dLatitudsegundos = :dLatitudsegundos"),
+    @NamedQuery(name = "LocalidadTb.findByELongitudgrados", query = "SELECT l FROM LocalidadTb l WHERE l.eLongitudgrados = :eLongitudgrados"),
+    @NamedQuery(name = "LocalidadTb.findByELongitudminutos", query = "SELECT l FROM LocalidadTb l WHERE l.eLongitudminutos = :eLongitudminutos"),
+    @NamedQuery(name = "LocalidadTb.findByDLongitudsegundos", query = "SELECT l FROM LocalidadTb l WHERE l.dLongitudsegundos = :dLongitudsegundos")})
 public class LocalidadTb implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -43,18 +47,12 @@ public class LocalidadTb implements Serializable {
     @Basic(optional = false)
     @Column(name = "e_idlocalidad")
     private Integer eIdlocalidad;
-    @Size(max = 70)
+    @Size(max = 150)
     @Column(name = "c_nombre")
     private String cNombre;
     @Size(max = 2147483647)
     @Column(name = "m_descripcion")
     private String mDescripcion;
-    @Size(max = 15)
-    @Column(name = "c_latitud")
-    private String cLatitud;
-    @Size(max = 15)
-    @Column(name = "c_longitud")
-    private String cLongitud;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "d_latitud_decimal")
     private Double dLatitudDecimal;
@@ -64,9 +62,24 @@ public class LocalidadTb implements Serializable {
     private Integer eAltitudMin;
     @Column(name = "e_altitud_max")
     private Integer eAltitudMax;
+    @Column(name = "e_latitudgrados")
+    private Integer eLatitudgrados;
+    @Column(name = "e_latitudminutos")
+    private Integer eLatitudminutos;
+    @Column(name = "d_latitudsegundos")
+    private Double dLatitudsegundos;
+    @Column(name = "e_longitudgrados")
+    private Integer eLongitudgrados;
+    @Column(name = "e_longitudminutos")
+    private Integer eLongitudminutos;
+    @Column(name = "d_longitudsegundos")
+    private Double dLongitudsegundos;
     @JoinColumn(name = "e_idcanton", referencedColumnName = "e_idcanton")
     @ManyToOne
     private CantonTb eIdcanton;
+    @JoinColumn(name = "e_idarea", referencedColumnName = "e_idarea")
+    @ManyToOne
+    private AreaprotegidaTb eIdarea;
 
     public LocalidadTb() {
     }
@@ -97,22 +110,6 @@ public class LocalidadTb implements Serializable {
 
     public void setMDescripcion(String mDescripcion) {
         this.mDescripcion = mDescripcion;
-    }
-
-    public String getCLatitud() {
-        return cLatitud;
-    }
-
-    public void setCLatitud(String cLatitud) {
-        this.cLatitud = cLatitud;
-    }
-
-    public String getCLongitud() {
-        return cLongitud;
-    }
-
-    public void setCLongitud(String cLongitud) {
-        this.cLongitud = cLongitud;
     }
 
     public Double getDLatitudDecimal() {
@@ -147,12 +144,68 @@ public class LocalidadTb implements Serializable {
         this.eAltitudMax = eAltitudMax;
     }
 
+    public Integer getELatitudgrados() {
+        return eLatitudgrados;
+    }
+
+    public void setELatitudgrados(Integer eLatitudgrados) {
+        this.eLatitudgrados = eLatitudgrados;
+    }
+
+    public Integer getELatitudminutos() {
+        return eLatitudminutos;
+    }
+
+    public void setELatitudminutos(Integer eLatitudminutos) {
+        this.eLatitudminutos = eLatitudminutos;
+    }
+
+    public Double getDLatitudsegundos() {
+        return dLatitudsegundos;
+    }
+
+    public void setDLatitudsegundos(Double dLatitudsegundos) {
+        this.dLatitudsegundos = dLatitudsegundos;
+    }
+
+    public Integer getELongitudgrados() {
+        return eLongitudgrados;
+    }
+
+    public void setELongitudgrados(Integer eLongitudgrados) {
+        this.eLongitudgrados = eLongitudgrados;
+    }
+
+    public Integer getELongitudminutos() {
+        return eLongitudminutos;
+    }
+
+    public void setELongitudminutos(Integer eLongitudminutos) {
+        this.eLongitudminutos = eLongitudminutos;
+    }
+
+    public Double getDLongitudsegundos() {
+        return dLongitudsegundos;
+    }
+
+    public void setDLongitudsegundos(Double dLongitudsegundos) {
+        this.dLongitudsegundos = dLongitudsegundos;
+    }
+
     public CantonTb getEIdcanton() {
         return eIdcanton;
     }
 
     public void setEIdcanton(CantonTb eIdcanton) {
         this.eIdcanton = eIdcanton;
+    }
+
+    public AreaprotegidaTb getEIdarea() {
+        return eIdarea;
+    }
+
+    public void setEIdarea(AreaprotegidaTb eIdarea) {
+        this.eIdarea = eIdarea;
     }
 
     @Override

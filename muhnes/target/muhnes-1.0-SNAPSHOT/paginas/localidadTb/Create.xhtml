@@ -11,34 +11,76 @@
         <p:dialog id="LocalidadTbCreateDlg" widgetVar="LocalidadTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateLocalidadTbTitle}">
             <h:form id="LocalidadTbCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{localidadTbController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateLocalidadTbLabel_EIdlocalidad}" for="EIdlocalidad" />
-                        <p:inputText id="EIdlocalidad" value="#{localidadTbController.selected.EIdlocalidad}" title="#{bundle.CreateLocalidadTbTitle_EIdlocalidad}" required="true" requiredMessage="#{bundle.CreateLocalidadTbRequiredMessage_EIdlocalidad}"/>
+                    <p:panelGrid columns="4" rendered="#{localidadTbController.selected != null}">  
                         <p:outputLabel value="#{bundle.CreateLocalidadTbLabel_CNombre}" for="CNombre" />
                         <p:inputText id="CNombre" value="#{localidadTbController.selected.CNombre}" title="#{bundle.CreateLocalidadTbTitle_CNombre}" />
+                        
                         <p:outputLabel value="#{bundle.CreateLocalidadTbLabel_MDescripcion}" for="MDescripcion" />
-                        <p:inputText id="MDescripcion" value="#{localidadTbController.selected.MDescripcion}" title="#{bundle.CreateLocalidadTbTitle_MDescripcion}" />
-                        <p:outputLabel value="#{bundle.CreateLocalidadTbLabel_CLatitud}" for="CLatitud" />
-                        <p:inputText id="CLatitud" value="#{localidadTbController.selected.CLatitud}" title="#{bundle.CreateLocalidadTbTitle_CLatitud}" />
-                        <p:outputLabel value="#{bundle.CreateLocalidadTbLabel_CLongitud}" for="CLongitud" />
-                        <p:inputText id="CLongitud" value="#{localidadTbController.selected.CLongitud}" title="#{bundle.CreateLocalidadTbTitle_CLongitud}" />
-                        <p:outputLabel value="#{bundle.CreateLocalidadTbLabel_DLatitudDecimal}" for="DLatitudDecimal" />
-                        <p:inputText id="DLatitudDecimal" value="#{localidadTbController.selected.DLatitudDecimal}" title="#{bundle.CreateLocalidadTbTitle_DLatitudDecimal}" />
-                        <p:outputLabel value="#{bundle.CreateLocalidadTbLabel_DLongitudDecimal}" for="DLongitudDecimal" />
-                        <p:inputText id="DLongitudDecimal" value="#{localidadTbController.selected.DLongitudDecimal}" title="#{bundle.CreateLocalidadTbTitle_DLongitudDecimal}" />
-                        <p:outputLabel value="#{bundle.CreateLocalidadTbLabel_EAltitudMin}" for="EAltitudMin" />
-                        <p:inputText id="EAltitudMin" value="#{localidadTbController.selected.EAltitudMin}" title="#{bundle.CreateLocalidadTbTitle_EAltitudMin}" />
-                        <p:outputLabel value="#{bundle.CreateLocalidadTbLabel_EAltitudMax}" for="EAltitudMax" />
-                        <p:inputText id="EAltitudMax" value="#{localidadTbController.selected.EAltitudMax}" title="#{bundle.CreateLocalidadTbTitle_EAltitudMax}" />
+                        <p:inputTextarea autoResize="" id="MDescripcion" value="#{localidadTbController.selected.MDescripcion}" title="#{bundle.CreateLocalidadTbTitle_MDescripcion}" />
+                    </p:panelGrid >
+                    
+                    <p:panelGrid columns="8" rendered="#{localidadTbController.selected != null}" >
+                        <p:outputLabel value="Grados" for="Grados" />
+                        <p:inputMask id="Grados" value="#{localidadTbController.selected.ELatitudgrados}" title="Grados" mask="99" maxlength="2" size="2"/>
+                        
+                        <p:outputLabel value="Minutos" for="Minutos" />
+                        <p:inputMask id="Minutos" value="#{localidadTbController.selected.ELatitudminutos}" title="Minutos" mask="99" maxlength="2" size="2" />
+                        
+                        <p:outputLabel value="Segundos" for="Segundos" />
+                        <p:inputMask id="Segundos" value="#{localidadTbController.selected.DLatitudsegundos}" title="Grados" mask="99.9999" maxlength="7" size="7" />
+                        
+                        <p:outputLabel value="Latitud" for="Latitud" />
+                        <p:inputText readonly="true" id="Latitud" value="#{localidadTbController.selected.DLatitudDecimal}" title="Latitud" />
+                        
+                        <p:outputLabel value="Grados" for="Grados2" />
+                        <p:inputMask id="Grados2" value="#{localidadTbController.selected.ELongitudgrados}" title="Grados" mask="99" maxlength="2" size="2"/>
+                        
+                        <p:outputLabel value="Minutos" for="Minutos2" />
+                        <p:inputMask id="Minutos2" value="#{localidadTbController.selected.ELongitudminutos}" title="Minutos" mask="99" maxlength="2" size="2" />
+                        
+                        <p:outputLabel value="Segundos" for="Segundos2" />
+                        <p:inputMask id="Segundos2" value="#{localidadTbController.selected.DLongitudsegundos}" title="Grados" mask="99.9999" maxlength="7" size="7" />
+                        
+                        <p:outputLabel value="Longitud" for="Longitud2" />
+                        <p:inputText readonly="true" id="Longitud2" value="#{localidadTbController.selected.DLongitudDecimal}" title="Longitud" />
+                    </p:panelGrid>
+                    
+                    <p:panelGrid columns="4" rendered="#{localidadTbController.selected != null}">   
+                        <p:outputLabel value="Altitud máxima" for="AltitudMax" />
+                        <p:inputText id="AltitudMax" value="#{localidadTbController.selected.EAltitudMax}" title="Altitud máxima" />
+                        
+                        <p:outputLabel value="Altitud mínima" for="AltitudMin" />
+                        <p:inputText id="AltitudMin" value="#{localidadTbController.selected.EAltitudMin}" title="Altitud mínima" />                       
+                    </p:panelGrid>
+                    
+                    <p:panelGrid columns="2" rendered="#{localidadTbController.selected != null}"> 
                         <p:outputLabel value="#{bundle.CreateLocalidadTbLabel_EIdcanton}" for="EIdcanton" />
-                        <p:selectOneMenu id="EIdcanton" value="#{localidadTbController.selected.EIdcanton}" >
+                        <p:selectOneMenu id="EIdcanton" value="#{localidadTbController.selected.EIdcanton}" 
+                                         required="true" requiredMessage="Seleccione cantón" filter="true" filterMatchMode="contains">
+                            <f:selectItem itemValue="" itemLabel="Seleccione.."/>
                             <f:selectItems value="#{cantonTbController.itemsAvailableSelectOne}"
                                            var="EIdcantonItem"
-                                           itemValue="#{EIdcantonItem}"/>
+                                           itemValue="#{EIdcantonItem}"
+                                           itemLabel="#{EIdcantonItem.EIdmunicipio.EIddepto.EIdpais.CNombre},
+                                           #{EIdcantonItem.EIdmunicipio.EIddepto.CNombre}, 
+                                           #{EIdcantonItem.EIdmunicipio.CNombre}, 
+                                           #{EIdcantonItem.CNombre}"/>
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel value="Área protegida" for="EIdarea" />
+                        <p:selectOneMenu id="EIdarea" value="#{localidadTbController.selected.EIdarea}"
+                                         required="true" requiredMessage="Seleccione área protegida" filter="true" filterMatchMode="contains">
+                            <f:selectItem itemValue="" itemLabel="Seleccione.."/>
+                            <f:selectItem itemValue="0" itemLabel="Área no protegida"/>
+                            <f:selectItems value="#{areaprotegidaTbController.itemsAvailableSelectOne}"
+                                           var="EIdareaItem"
+                                           itemValue="#{EIdareaItem}"
+                                           itemLabel="#{EIdareaItem.CNombre}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
+                    
                     <p:commandButton actionListener="#{localidadTbController.create}" value="#{bundle.Save}" update="display,:LocalidadTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'LocalidadTbCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="LocalidadTbCreateDialog.hide()"/>
+                    
                 </h:panelGroup>
             </h:form>
         </p:dialog>

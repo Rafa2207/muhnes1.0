@@ -21,6 +21,7 @@ C:\Users\Endy\Documents\muhnes1.0\muhnes\src\main\java\modelo\NombrecomunTb.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes\src\main\java\modelo\ProyectoTb.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes\src\main\java\controlador\SubespecieTbController.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes\src\main\java\modelo\ImagenTb.java
+C:\Users\Endy\Documents\muhnes1.0\muhnes\src\main\java\Mapas\MapaAreasProtegidas.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes\src\main\java\servicio\AbstractFacade.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes\src\main\java\modelo\EjemplarParticipaExhibicionTb.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes\src\main\java\modelo\GeneroTb.java
@@ -44,8 +45,8 @@ C:\Users\Endy\Documents\muhnes1.0\muhnes\src\main\java\controlador\DepartamentoT
 C:\Users\Endy\Documents\muhnes1.0\muhnes\src\main\java\modelo\PresupuestoTb.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes\src\main\java\servicio\LocalidadTbFacade.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes\src\main\java\controlador\LocalidadTbController.java
-C:\Users\Endy\Documents\muhnes1.0\muhnes\src\main\java\modelo\VariedadTb.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes\src\main\java\controlador\ExhibicionTbController.java
+C:\Users\Endy\Documents\muhnes1.0\muhnes\src\main\java\modelo\VariedadTb.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes\src\main\java\modelo\EjemplarTb.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes\src\main\java\servicio\PaisTbFacade.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes\src\main\java\servicio\FamiliaTbFacade.java
@@ -80,7 +81,6 @@ C:\Users\Endy\Documents\muhnes1.0\muhnes\src\main\java\servicio\InsumoTbFacade.j
 C:\Users\Endy\Documents\muhnes1.0\muhnes\src\main\java\servicio\PedidoTbFacade.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes\src\main\java\controlador\AgenteIdentificaEjemplarTbController.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes\src\main\java\controlador\util\JsfUtil.java
-C:\Users\Endy\Documents\muhnes1.0\muhnes\src\main\java\controlador\util\MapaAreasProtegidas.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes\src\main\java\servicio\PerfilTbFacade.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes\src\main\java\controlador\ProyectoTbController.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes\src\main\java\servicio\ImagenTbFacade.java

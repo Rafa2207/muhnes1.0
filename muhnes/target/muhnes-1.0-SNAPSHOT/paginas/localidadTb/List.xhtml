@@ -16,16 +16,33 @@
         <ui:define name="body">
             <h:form id="LocalidadTbListForm">
                 <p:panel header="#{bundle.ListLocalidadTbTitle}">
+                    
+                    <p:breadCrumb>
+                        <p:menuitem value="casita"/>
+                        <p:menuitem value="Localidades" outcome="/paginas/localidadTb/List.xhtml" />
+                        
+                    </p:breadCrumb>
+
+                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{localidadTbController.prepareCreate}" update=":LocalidadTbCreateForm" oncomplete="PF('LocalidadTbCreateDialog').show()"/>
+                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":LocalidadTbViewForm" oncomplete="PF('LocalidadTbViewDialog').show()" disabled="#{empty localidadTbController.selected}"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":LocalidadTbEditForm" oncomplete="PF('LocalidadTbEditDialog').show()" disabled="#{empty localidadTbController.selected}"/>
+                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{localidadTbController.destroy}" update=":growl,datalist" disabled="#{empty localidadTbController.selected}"/>
+
+
                     <p:dataTable id="datalist" value="#{localidadTbController.items}" var="item"
                                  selectionMode="single" selection="#{localidadTbController.selected}"
                                  paginator="true"
+                                 paginatorPosition="bottom"
                                  rowKey="#{item.EIdlocalidad}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
+                                 emptyMessage="No se encontraron localidades"
+                                 filteredValue="#{localidadTbController.filtro}"
+                                 widgetVar="localidadTable"
                                  >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowSelect"   update=":LocalidadTbListForm:createButton :LocalidadTbListForm:viewButton :LocalidadTbListForm:editButton :LocalidadTbListForm:deleteButton"/>
+                        <p:ajax event="rowUnselect" update=":LocalidadTbListForm:createButton :LocalidadTbListForm:viewButton :LocalidadTbListForm:editButton :LocalidadTbListForm:deleteButton"/>
 
                         <p:column>
                             <f:facet name="header">
@@ -49,13 +66,13 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListLocalidadTbTitle_CLatitud}"/>
                             </f:facet>
-                            <h:outputText value="#{item.CLatitud}"/>
+                            <h:outputText value="probando"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListLocalidadTbTitle_CLongitud}"/>
                             </f:facet>
-                            <h:outputText value="#{item.CLongitud}"/>
+                            <h:outputText value="probando"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -87,11 +104,11 @@
                             </f:facet>
                             <h:outputText value="#{item.EIdcanton}"/>
                         </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{localidadTbController.prepareCreate}" update=":LocalidadTbCreateForm" oncomplete="PF('LocalidadTbCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":LocalidadTbViewForm" oncomplete="PF('LocalidadTbViewDialog').show()" disabled="#{empty localidadTbController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":LocalidadTbEditForm" oncomplete="PF('LocalidadTbEditDialog').show()" disabled="#{empty localidadTbController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{localidadTbController.destroy}" update=":growl,datalist" disabled="#{empty localidadTbController.selected}"/>
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Búsqueda: " />
+                                <p:inputText id="globalFilter" onkeyup="PF('localidadTable').filter()" placeholder="Escriba aquí"/>
+                            </p:outputPanel>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

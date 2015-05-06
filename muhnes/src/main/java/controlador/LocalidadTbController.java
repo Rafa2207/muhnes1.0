@@ -26,8 +26,16 @@ public class LocalidadTbController implements Serializable {
 
     @EJB
     private servicio.LocalidadTbFacade ejbFacade;
-    private List<LocalidadTb> items = null;
+    private List<LocalidadTb> items = null, filtro;
     private LocalidadTb selected;
+
+    public List<LocalidadTb> getFiltro() {
+        return filtro;
+    }
+
+    public void setFiltro(List<LocalidadTb> filtro) {
+        this.filtro = filtro;
+    }
 
     public LocalidadTbController() {
     }
