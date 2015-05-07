@@ -47,6 +47,7 @@ public class ThemeSwitcherBean {
       themes.put("Lazo azul", "dot-luv");
       themes.put("Lazo negro", "black-tie");
       themes.put("Menta chocolate", "mint-choc");
+      themes.put("Naranja", "ui-lightness");
       themes.put("Película", "flick");
       themes.put("Pimienta", "pepper-grinder");
       themes.put("Rojo", "blitzer");
@@ -66,7 +67,7 @@ public class ThemeSwitcherBean {
       //themes.put("Swanky-Purse", "swanky-purse");
       //themes.put("Trontastic", "trontastic");
       //themes.put("UI-Darkness", "ui-darkness");
-      themes.put("UI-Lightness", "ui-lightness");
+      
       //themes.put("Vader", "vader");
    }
 public void saveUserTheme()

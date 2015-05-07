@@ -51,7 +51,9 @@
                         <p:dataTable id="insumos"
                                      editable="true"
                                      value="#{presupuestoTbController.selected.insumoTbList}"
-                                     var="insumo">
+                                     var="insumo"
+                                     scrollable="true"
+                                     scrollHeight="150">
                             <p:column headerText="Insumo">
                                 <p:cellEditor>
                                     <f:facet name="output">

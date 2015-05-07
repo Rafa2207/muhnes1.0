@@ -22,7 +22,8 @@
 
                     <p:panelGrid columns="8" rendered="#{areaprotegidaTbController.selected != null}" >
                         <p:outputLabel value="Grados:" for="Grados" />
-                        <p:inputText id="Grados" value="#{areaprotegidaTbController.selected.ELatitudgrados}" title="Grados" maxlength="4" size="4">
+                        <p:inputText id="Grados" value="#{areaprotegidaTbController.selected.ELatitudgrados}" title="Rangos válidos: -360 a 360" maxlength="4" size="4"
+                                     required="true" requiredMessage="Introduzca grados de latitud">
                             <f:validateLongRange minimum="-360" maximum="360"/>                         
                             <p:ajax event="change" update="Latitud"
                                     listener="#{areaprotegidaTbController.latitudDecimal(areaprotegidaTbController.selected.ELatitudgrados,
@@ -31,7 +32,8 @@
                         </p:inputText>
 
                         <p:outputLabel value="Minutos:" for="Minutos" />
-                        <p:inputText  id="Minutos" value="#{areaprotegidaTbController.selected.ELatitudminutos}" title="Minutos"  maxlength="2" size="2" >
+                        <p:inputText  id="Minutos" value="#{areaprotegidaTbController.selected.ELatitudminutos}" title="Rangos válidos: 0 a 60"  maxlength="2" size="2" 
+                                      required="true" requiredMessage="Introduzca minutos de latitud">
                             <f:validateLongRange minimum="0" maximum="60"/>
                             <p:ajax event="change" update="Latitud"
                                     listener="#{areaprotegidaTbController.latitudDecimal(areaprotegidaTbController.selected.ELatitudgrados,
@@ -40,7 +42,8 @@
                         </p:inputText>
 
                         <p:outputLabel value="Segundos:" for="Segundos" />
-                        <p:inputText id="Segundos" value="#{areaprotegidaTbController.selected.DLatitudsegundos}" title="Segundos" maxlength="7" size="7" >
+                        <p:inputText id="Segundos" value="#{areaprotegidaTbController.selected.DLatitudsegundos}" title="Rangos válidos: 0 a 59.9999" maxlength="7" size="7" 
+                                     required="true" requiredMessage="Introduzca segundos de latitud">
                             <f:validateDoubleRange minimum="0" maximum="59.9999"/>    
                             <p:ajax event="change" update="Latitud" 
                                     listener="#{areaprotegidaTbController.latitudDecimal(areaprotegidaTbController.selected.ELatitudgrados,
@@ -49,10 +52,12 @@
                         </p:inputText>
 
                         <p:outputLabel value="Latitud:" for="Latitud" />
-                        <p:inputText readonly="true" id="Latitud" value="#{areaprotegidaTbController.selected.DLatituddecimal}" title="Latitud" />
+                        <p:inputText readonly="true" id="Latitud" value="#{areaprotegidaTbController.selected.DLatituddecimal}" title="Latitud" 
+                                     required="true" requiredMessage="Introduzca latitud decimal"/>
 
                         <p:outputLabel value="Grados:" for="Grados2" />
-                        <p:inputText id="Grados2" value="#{areaprotegidaTbController.selected.ELongitudgrados}" title="Grados"  maxlength="4" size="4">
+                        <p:inputText id="Grados2" value="#{areaprotegidaTbController.selected.ELongitudgrados}" title="Rangos válidos: -360 a 360"  maxlength="4" size="4"
+                                     required="true" requiredMessage="Introduzca grados de longitud">
                             <f:validateLongRange minimum="-360" maximum="360"/>    
                             <p:ajax event="change" update="Longitud" 
                                     listener="#{areaprotegidaTbController.longitudDecimal(
@@ -62,7 +67,8 @@
                         </p:inputText>
 
                         <p:outputLabel value="Minutos:" for="Minutos2" />
-                        <p:inputText id="Minutos2" value="#{areaprotegidaTbController.selected.ELongitudminutos}" title="Minutos" maxlength="2" size="2" >
+                        <p:inputText id="Minutos2" value="#{areaprotegidaTbController.selected.ELongitudminutos}" title="Rangos válidos: 0 a 60" maxlength="2" size="2" 
+                                     required="true" requiredMessage="Introduzca minutos de longitud">
                             <f:validateLongRange minimum="0" maximum="60"/>    
                             <p:ajax event="change" update="Longitud" 
                                     listener="#{areaprotegidaTbController.longitudDecimal(
@@ -72,7 +78,8 @@
                         </p:inputText>
 
                         <p:outputLabel value="Segundos:" for="Segundos2" />
-                        <p:inputText id="Segundos2" value="#{areaprotegidaTbController.selected.DLongitudsegundos}" title="Grados" maxlength="7" size="7" >
+                        <p:inputText id="Segundos2" value="#{areaprotegidaTbController.selected.DLongitudsegundos}" title="Rangos válidos: 0 a 59.9999" maxlength="7" size="7" 
+                                     required="true" requiredMessage="Introduzca segundos de longitud">
                             <f:validateDoubleRange minimum="0" maximum="59.9999"/>    
                             <p:ajax event="change" update="Longitud" 
                                     listener="#{areaprotegidaTbController.longitudDecimal(
@@ -82,7 +89,8 @@
                         </p:inputText>
 
                         <p:outputLabel value="Longitud:" for="Longitud" />
-                        <p:inputText readonly="true" id="Longitud" value="#{areaprotegidaTbController.selected.DLongituddecimal}" title="Longitud" />
+                        <p:inputText readonly="true" id="Longitud" value="#{areaprotegidaTbController.selected.DLongituddecimal}" title="Longitud" 
+                                     required="true" requiredMessage="Introduzca longitud decimal"/>
                     </p:panelGrid>
 
                     <p:panelGrid columns="2" rendered="#{areaprotegidaTbController.selected != null}"> 
@@ -94,11 +102,12 @@
                                            var="EIdmunItem"
                                            itemValue="#{EIdmunItem}"
                                            itemLabel="#{EIdmunItem.EIddepto.EIdpais.CNombre},
-                                           #{EIdmunItem.EIddepto.CNombre},#{EIdmunItem.EIddepto.CNombre},
+                                           #{EIdmunItem.EIddepto.CNombre},
                                            #{EIdmunItem.CNombre}"/>
                         </p:selectOneMenu>
-                    </p:panelGrid><p:commandButton actionListener="#{areaprotegidaTbController.update}" value="#{bundle.Save}" update="display,:AreaprotegidaTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AreaprotegidaTbEditDialog');"/>
-                    
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{areaprotegidaTbController.update}" value="#{bundle.Save}" update="display,:AreaprotegidaTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AreaprotegidaTbEditDialog');"/>
+
                 </h:panelGroup>
             </h:form>
         </p:dialog>
