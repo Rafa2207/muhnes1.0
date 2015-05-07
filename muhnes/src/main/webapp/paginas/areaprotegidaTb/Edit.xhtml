@@ -11,25 +11,94 @@
         <p:dialog id="AreaprotegidaTbEditDlg" widgetVar="AreaprotegidaTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditAreaprotegidaTbTitle}">
             <h:form id="AreaprotegidaTbEditForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{areaprotegidaTbController.selected != null}">
-                       <p:outputLabel value="#{bundle.EditAreaprotegidaTbLabel_CNombre}" for="CNombre" />
-                        <p:inputText id="CNombre" value="#{areaprotegidaTbController.selected.CNombre}" title="#{bundle.EditAreaprotegidaTbTitle_CNombre}" 
+                    <p:panelGrid columns="4" rendered="#{areaprotegidaTbController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateAreaprotegidaTbLabel_CNombre}" for="CNombre" />
+                        <p:inputText id="CNombre" value="#{areaprotegidaTbController.selected.CNombre}" title="#{bundle.CreateAreaprotegidaTbTitle_CNombre}" 
                                      required="true" requiredMessage="Introduzca nombre del área protegida"/>
-                        
-                        <p:outputLabel value="#{bundle.EditAreaprotegidaTbLabel_MDescripcion}" for="MDescripcion" />
-                        <p:inputTextarea autoResize="" id="MDescripcion" value="#{areaprotegidaTbController.selected.MDescripcion}" title="#{bundle.EditAreaprotegidaTbTitle_MDescripcion}" />
-                        
-                        <p:outputLabel value="#{bundle.EditAreaprotegidaTbLabel_EIdmunicipio}" for="EIdmunicipio" />
-                        <p:selectOneMenu id="EIdmunicipio" value="#{areaprotegidaTbController.selected.EIdmunicipio}" required="true" requiredMessage="Seleccione municipio" >
+
+                        <p:outputLabel value="#{bundle.CreateAreaprotegidaTbLabel_MDescripcion}" for="MDescripcion" />
+                        <p:inputTextarea autoResize="" id="MDescripcion" value="#{areaprotegidaTbController.selected.MDescripcion}" title="#{bundle.CreateAreaprotegidaTbTitle_MDescripcion}" />
+                    </p:panelGrid>
+
+                    <p:panelGrid columns="8" rendered="#{areaprotegidaTbController.selected != null}" >
+                        <p:outputLabel value="Grados:" for="Grados" />
+                        <p:inputText id="Grados" value="#{areaprotegidaTbController.selected.ELatitudgrados}" title="Grados" maxlength="4" size="4">
+                            <f:validateLongRange minimum="-360" maximum="360"/>                         
+                            <p:ajax event="change" update="Latitud"
+                                    listener="#{areaprotegidaTbController.latitudDecimal(areaprotegidaTbController.selected.ELatitudgrados,
+                                                areaprotegidaTbController.selected.ELatitudminutos, 
+                                                areaprotegidaTbController.selected.DLatitudsegundos)}"/>
+                        </p:inputText>
+
+                        <p:outputLabel value="Minutos:" for="Minutos" />
+                        <p:inputText  id="Minutos" value="#{areaprotegidaTbController.selected.ELatitudminutos}" title="Minutos"  maxlength="2" size="2" >
+                            <f:validateLongRange minimum="0" maximum="60"/>
+                            <p:ajax event="change" update="Latitud"
+                                    listener="#{areaprotegidaTbController.latitudDecimal(areaprotegidaTbController.selected.ELatitudgrados,
+                                                areaprotegidaTbController.selected.ELatitudminutos, 
+                                                areaprotegidaTbController.selected.DLatitudsegundos)}"/>
+                        </p:inputText>
+
+                        <p:outputLabel value="Segundos:" for="Segundos" />
+                        <p:inputText id="Segundos" value="#{areaprotegidaTbController.selected.DLatitudsegundos}" title="Segundos" maxlength="7" size="7" >
+                            <f:validateDoubleRange minimum="0" maximum="59.9999"/>    
+                            <p:ajax event="change" update="Latitud" 
+                                    listener="#{areaprotegidaTbController.latitudDecimal(areaprotegidaTbController.selected.ELatitudgrados,
+                                                areaprotegidaTbController.selected.ELatitudminutos, 
+                                                areaprotegidaTbController.selected.DLatitudsegundos)}" />
+                        </p:inputText>
+
+                        <p:outputLabel value="Latitud:" for="Latitud" />
+                        <p:inputText readonly="true" id="Latitud" value="#{areaprotegidaTbController.selected.DLatituddecimal}" title="Latitud" />
+
+                        <p:outputLabel value="Grados:" for="Grados2" />
+                        <p:inputText id="Grados2" value="#{areaprotegidaTbController.selected.ELongitudgrados}" title="Grados"  maxlength="4" size="4">
+                            <f:validateLongRange minimum="-360" maximum="360"/>    
+                            <p:ajax event="change" update="Longitud" 
+                                    listener="#{areaprotegidaTbController.longitudDecimal(
+                                                areaprotegidaTbController.selected.ELongitudgrados,
+                                                areaprotegidaTbController.selected.ELongitudminutos,
+                                                areaprotegidaTbController.selected.DLongitudsegundos)}"/>
+                        </p:inputText>
+
+                        <p:outputLabel value="Minutos:" for="Minutos2" />
+                        <p:inputText id="Minutos2" value="#{areaprotegidaTbController.selected.ELongitudminutos}" title="Minutos" maxlength="2" size="2" >
+                            <f:validateLongRange minimum="0" maximum="60"/>    
+                            <p:ajax event="change" update="Longitud" 
+                                    listener="#{areaprotegidaTbController.longitudDecimal(
+                                                areaprotegidaTbController.selected.ELongitudgrados,
+                                                areaprotegidaTbController.selected.ELongitudminutos,
+                                                areaprotegidaTbController.selected.DLongitudsegundos)}"/>
+                        </p:inputText>
+
+                        <p:outputLabel value="Segundos:" for="Segundos2" />
+                        <p:inputText id="Segundos2" value="#{areaprotegidaTbController.selected.DLongitudsegundos}" title="Grados" maxlength="7" size="7" >
+                            <f:validateDoubleRange minimum="0" maximum="59.9999"/>    
+                            <p:ajax event="change" update="Longitud" 
+                                    listener="#{areaprotegidaTbController.longitudDecimal(
+                                                areaprotegidaTbController.selected.ELongitudgrados,
+                                                areaprotegidaTbController.selected.ELongitudminutos,
+                                                areaprotegidaTbController.selected.DLongitudsegundos)}" />
+                        </p:inputText>
+
+                        <p:outputLabel value="Longitud:" for="Longitud" />
+                        <p:inputText readonly="true" id="Longitud" value="#{areaprotegidaTbController.selected.DLongituddecimal}" title="Longitud" />
+                    </p:panelGrid>
+
+                    <p:panelGrid columns="2" rendered="#{areaprotegidaTbController.selected != null}"> 
+                        <p:outputLabel value="Municipio" for="EIdmun" />
+                        <p:selectOneMenu id="EIdmun" value="#{areaprotegidaTbController.selected.EIdmunicipio}" 
+                                         required="true" requiredMessage="Seleccione municipio" filter="true" filterMatchMode="contains">
                             <f:selectItem itemValue="" itemLabel="Seleccione.."/>
                             <f:selectItems value="#{municipioTbController.itemsAvailableSelectOne}"
-                                           var="EIdmunicipioItem"
-                                           itemValue="#{EIdmunicipioItem}"
-                                           itemLabel="#{EIdmunicipioItem.CNombre}"/>
+                                           var="EIdmunItem"
+                                           itemValue="#{EIdmunItem}"
+                                           itemLabel="#{EIdmunItem.EIddepto.EIdpais.CNombre},
+                                           #{EIdmunItem.EIddepto.CNombre},#{EIdmunItem.EIddepto.CNombre},
+                                           #{EIdmunItem.CNombre}"/>
                         </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{areaprotegidaTbController.update}" value="#{bundle.Save}" update="display,:AreaprotegidaTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AreaprotegidaTbEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="AreaprotegidaTbEditDialog.hide()"/>
+                    </p:panelGrid><p:commandButton actionListener="#{areaprotegidaTbController.update}" value="#{bundle.Save}" update="display,:AreaprotegidaTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AreaprotegidaTbEditDialog');"/>
+                    
                 </h:panelGroup>
             </h:form>
         </p:dialog>

@@ -170,57 +170,52 @@ public class LocalidadTbController implements Serializable {
         }
 
     }
-    public void latitudDecimal(int grado, int minuto, double segundo){
-        if(grado<0){
-            
-        double resultado,min,seg,gra;
-        gra=grado*-1;
-        min= (double) minuto;
-        min= min/60;
-        seg= segundo/3600;
-        resultado= (gra + min + seg)*-1; 
-        
-        selected.setDLatitudDecimal(resultado);
+
+    public void latitudDecimal(int grado, int minuto, double segundo) {
+        if (grado < 0) {
+
+            double resultado, min, seg, gra;
+            gra = grado * -1;
+            min = (double) minuto;
+            min = min / 60;
+            seg = segundo / 3600;
+            resultado = (gra + min + seg) * -1;
+
+            selected.setDLatitudDecimal(resultado);
+        } else {
+            double resultado, min, seg, gra;
+            gra = grado;
+            min = (double) minuto;
+            min = min / 60;
+            seg = segundo / 3600;
+            resultado = gra + min + seg;
+
+            selected.setDLatitudDecimal(resultado);
         }
-        else{
-        double resultado,min,seg,gra;
-        gra=grado;
-        min= (double) minuto;
-        min= min/60;
-        seg= segundo/3600;
-        resultado= gra + min + seg; 
-        
-        selected.setDLatitudDecimal(resultado);
-        }
-        
-        
+
     }
-    
-    public void longitudDecimal(int grado, int minuto, double segundo){
-        if(grado<0){
-        double resultado,min,seg,gra;
-        gra=grado*-1;
-        min= (double) minuto;
-        min= min/60;
-        seg= segundo/3600;
-        resultado= (gra + min + seg)*-1; 
-          
-        selected.setDLongitudDecimal(resultado);
+
+    public void longitudDecimal(int grado, int minuto, double segundo) {
+        if (grado < 0) {
+            double resultado, min, seg, gra;
+            gra = grado * -1;
+            min = (double) minuto;
+            min = min / 60;
+            seg = segundo / 3600;
+            resultado = (gra + min + seg) * -1;
+
+            selected.setDLongitudDecimal(resultado);
+        } else {
+            double resultado, min, seg, gra;
+            gra = grado;
+            min = (double) minuto;
+            min = min / 60;
+            seg = segundo / 3600;
+            resultado = gra + min + seg;
+
+            selected.setDLongitudDecimal(resultado);
         }
-        else{
-        double resultado,min,seg,gra;
-        gra=grado;
-        min= (double) minuto;
-        min= min/60;
-        seg= segundo/3600;
-       resultado= gra + min + seg;  
-        
-        selected.setDLongitudDecimal(resultado);
-        }
-        
-        
+
     }
-    
-    
 
 }

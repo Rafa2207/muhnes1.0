@@ -37,7 +37,6 @@ public class AreaprotegidaTbController implements Serializable {
         this.filtro = filtro;
     }
 
-    
     public AreaprotegidaTbController() {
     }
 
@@ -168,6 +167,53 @@ public class AreaprotegidaTbController implements Serializable {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), AreaprotegidaTb.class.getName()});
                 return null;
             }
+        }
+
+    }
+
+    public void latitudDecimal(int grado, int minuto, double segundo) {
+        if (grado < 0) {
+
+            double resultado, min, seg, gra;
+            gra = grado * -1;
+            min = (double) minuto;
+            min = min / 60;
+            seg = segundo / 3600;
+            resultado = (gra + min + seg) * -1;
+
+            selected.setDLatituddecimal(resultado);
+        } else {
+            double resultado, min, seg, gra;
+            gra = grado;
+            min = (double) minuto;
+            min = min / 60;
+            seg = segundo / 3600;
+            resultado = gra + min + seg;
+
+            selected.setDLatituddecimal(resultado);
+        }
+
+    }
+
+    public void longitudDecimal(int grado, int minuto, double segundo) {
+        if (grado < 0) {
+            double resultado, min, seg, gra;
+            gra = grado * -1;
+            min = (double) minuto;
+            min = min / 60;
+            seg = segundo / 3600;
+            resultado = (gra + min + seg) * -1;
+
+            selected.setDLongituddecimal(resultado);
+        } else {
+            double resultado, min, seg, gra;
+            gra = grado;
+            min = (double) minuto;
+            min = min / 60;
+            seg = segundo / 3600;
+            resultado = gra + min + seg;
+
+            selected.setDLongituddecimal(resultado);
         }
 
     }

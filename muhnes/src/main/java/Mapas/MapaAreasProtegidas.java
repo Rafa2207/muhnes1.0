@@ -49,12 +49,11 @@ public class MapaAreasProtegidas implements Serializable {
         return punto;
     }
     
-    public MapModel localidades(List<AreaprotegidaTb> area ){
-        int i=0;
+    public MapModel localidadesAreaprotegida(List<AreaprotegidaTb> area ){
         MapModel punto;
         punto = new DefaultMapModel();
         for(AreaprotegidaTb areapunto:area){      
-        LatLng coord1 = new LatLng(12,90);
+        LatLng coord1 = new LatLng(areapunto.getDLatituddecimal(),areapunto.getDLongituddecimal());
         punto.addOverlay(new Marker(coord1,areapunto.getCNombre()));    
         }      
         return punto; 
