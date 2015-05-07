@@ -41,10 +41,10 @@ public class PresupuestoTbFacade extends AbstractFacade<PresupuestoTb> {
         return query.getResultList();
          }
     public int siguienteId(){
-        Query query = em.createNativeQuery("select nextval('secuencia_insumo_id')");
+        Query query = em.createNativeQuery("SELECT last_value from secuencia_presupuesto_id");
         try{
-            BigInteger id = (BigInteger) query.getSingleResult();
-            return id.intValue();
+            Long id =  (Long) query.getSingleResult();
+            return id.intValue()+1;
         }
         catch(NoResultException nre){
             return 0;

@@ -6,6 +6,7 @@ import controlador.util.JsfUtil.PersistAction;
 import servicio.PresupuestoTbFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -21,6 +22,7 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
 import modelo.InsumoTb;
 import modelo.ProyectoTb;
+import org.primefaces.context.RequestContext;
 
 @Named("presupuestoTbController")
 @ViewScoped
@@ -33,6 +35,7 @@ public class PresupuestoTbController implements Serializable {
     private ProyectoTb proyectos;
     private double cantidad, costo;
     private String nombre, tiempo;
+    int id = 0;
 
     public PresupuestoTb getPresupuesto() {
         return presupuesto;
@@ -73,7 +76,6 @@ public class PresupuestoTbController implements Serializable {
     public void setTiempo(String tiempo) {
         this.tiempo = tiempo;
     }
-    
 
     public List<PresupuestoTb> getFiltro() {
         return filtro;
@@ -82,8 +84,6 @@ public class PresupuestoTbController implements Serializable {
     public void setFiltro(List<PresupuestoTb> filtro) {
         this.filtro = filtro;
     }
-    
-    
 
     public ProyectoTb getProyectos() {
         return proyectos;
@@ -92,7 +92,7 @@ public class PresupuestoTbController implements Serializable {
     public void setProyectos(ProyectoTb proyectos) {
         this.proyectos = proyectos;
     }
-    
+
     public PresupuestoTbController() {
     }
 
@@ -116,16 +116,23 @@ public class PresupuestoTbController implements Serializable {
 
     public PresupuestoTb prepareCreate(ProyectoTb proyecto) {
         selected = new PresupuestoTb();
-        proyectos= proyecto;
+        proyectos = proyecto;
         selected.setEIdproyecto(proyectos);
+        selected.setInsumoTbList(new ArrayList<InsumoTb>());
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PresupuestoTbCreated"));
-        if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
+        if (selected.getInsumoTbList().isEmpty()) {
+            JsfUtil.addErrorMessage("Debe agregar insumos");
+        } else {
+            persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PresupuestoTbCreated"));
+            RequestContext context = RequestContext.getCurrentInstance(); 
+            context.execute("PF('PresupuestoTbCreateDialog').hide()");
+            if (!JsfUtil.isValidationFailed()) {
+                items = null;    // Invalidate list of items to trigger re-query.
+            }
         }
     }
 
@@ -142,9 +149,9 @@ public class PresupuestoTbController implements Serializable {
     }
 
     public List<PresupuestoTb> getItems(ProyectoTb proyecto) {
-        
-            items = getFacade().buscarPresupuestoAsc(proyecto);
-        
+
+        items = getFacade().buscarPresupuestoAsc(proyecto);
+
         return items;
     }
 
@@ -228,16 +235,25 @@ public class PresupuestoTbController implements Serializable {
         }
 
     }
-    public void agregar(){
+
+    public void agregar() {
         InsumoTb insumo = new InsumoTb();
-        presupuesto = new PresupuestoTb();
+        //presupuesto = new PresupuestoTb();
+
         //presupuesto.setEIdpresupuesto(getFacade().siguienteId());
         insumo.setMNombre(nombre);
-        insumo.setMCantidad(cantidad);
-        
+        insumo.setDCantidad(cantidad);
+        insumo.setDGasto(costo);
+        insumo.setMTiempo(tiempo);
+        //presupuesto.setEIdpresupuesto();
         selected.getInsumoTbList().add(insumo);
-        
-        
+        insumo.setEIdpresupuesto(selected);
+
+        cantidad = 0;
+        costo = 0;
+        nombre = "";
+        tiempo = "";
+
     }
 
 }

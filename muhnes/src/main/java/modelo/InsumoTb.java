@@ -31,11 +31,11 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "InsumoTb.findByMNombre", query = "SELECT i FROM InsumoTb i WHERE i.mNombre = :mNombre"),
     @NamedQuery(name = "InsumoTb.findByMTiempo", query = "SELECT i FROM InsumoTb i WHERE i.mTiempo = :mTiempo"),
     @NamedQuery(name = "InsumoTb.findByDGasto", query = "SELECT i FROM InsumoTb i WHERE i.dGasto = :dGasto"),
-    @NamedQuery(name = "InsumoTb.findByDCantidad", query = "SELECT i FROM InsumoTb i WHERE i.mCantidad = :mCantidad")})
+    @NamedQuery(name = "InsumoTb.findByDCantidad", query = "SELECT i FROM InsumoTb i WHERE i.dCantidad = :dCantidad")})
 public class InsumoTb implements Serializable {
     
-    @Column(name = "m_cantidad")
-    private Double mCantidad;
+    @Column(name = "d_cantidad")
+    private Double dCantidad;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -95,12 +95,12 @@ public class InsumoTb implements Serializable {
         this.dGasto = dGasto;
     }
 
-    public Double getMCantidad() {
-        return mCantidad;
+    public Double getDCantidad() {
+        return dCantidad;
     }
 
-    public void setMCantidad(Double mCantidad) {
-        this.mCantidad = mCantidad;
+    public void setDCantidad(Double dCantidad) {
+        this.dCantidad = dCantidad;
     }
     
     
