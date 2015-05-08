@@ -5,15 +5,15 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import modelo.PresupuestoTb;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-05-06T12:02:27")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-05-08T16:00:49")
 @StaticMetamodel(InsumoTb.class)
 public class InsumoTb_ { 
 
     public static volatile SingularAttribute<InsumoTb, Integer> eIdinsumo;
     public static volatile SingularAttribute<InsumoTb, Double> dGasto;
     public static volatile SingularAttribute<InsumoTb, String> mTiempo;
+    public static volatile SingularAttribute<InsumoTb, Double> dCantidad;
     public static volatile SingularAttribute<InsumoTb, PresupuestoTb> eIdpresupuesto;
-    public static volatile SingularAttribute<InsumoTb, Double> mCantidad;
     public static volatile SingularAttribute<InsumoTb, String> mNombre;
 
 }

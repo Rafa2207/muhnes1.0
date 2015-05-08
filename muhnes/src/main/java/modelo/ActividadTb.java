@@ -7,7 +7,6 @@ package modelo;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,7 +17,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,7 +24,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author Rafa
+ * @author Endy
  */
 @Entity
 @Table(name = "actividad_tb")
@@ -34,13 +32,10 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "ActividadTb.findAll", query = "SELECT a FROM ActividadTb a"),
     @NamedQuery(name = "ActividadTb.findByEIdactividad", query = "SELECT a FROM ActividadTb a WHERE a.eIdactividad = :eIdactividad"),
     @NamedQuery(name = "ActividadTb.findByFFecha", query = "SELECT a FROM ActividadTb a WHERE a.fFecha = :fFecha"),
-    @NamedQuery(name = "ActividadTb.findByCDuracion", query = "SELECT a FROM ActividadTb a WHERE a.cDuracion = :cDuracion"),
     @NamedQuery(name = "ActividadTb.findByMDescripcion", query = "SELECT a FROM ActividadTb a WHERE a.mDescripcion = :mDescripcion"),
-    @NamedQuery(name = "ActividadTb.findByMNombre", query = "SELECT a FROM ActividadTb a WHERE a.mNombre = :mNombre")})
+    @NamedQuery(name = "ActividadTb.findByMNombre", query = "SELECT a FROM ActividadTb a WHERE a.mNombre = :mNombre"),
+    @NamedQuery(name = "ActividadTb.findByFFechafin", query = "SELECT a FROM ActividadTb a WHERE a.fFechafin = :fFechafin")})
 public class ActividadTb implements Serializable {
-    @Size(max = 2147483647)
-    @Column(name = "m_nombre")
-    private String mNombre;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,18 +45,18 @@ public class ActividadTb implements Serializable {
     @Column(name = "f_fecha")
     @Temporal(TemporalType.DATE)
     private Date fFecha;
-    @Size(max = 15)
-    @Column(name = "c_duracion")
-    private String cDuracion;
     @Size(max = 2147483647)
     @Column(name = "m_descripcion")
     private String mDescripcion;
-    
+    @Size(max = 2147483647)
+    @Column(name = "m_nombre")
+    private String mNombre;
+    @Column(name = "f_fechafin")
+    @Temporal(TemporalType.DATE)
+    private Date fFechafin;
     @JoinColumn(name = "e_idproyecto", referencedColumnName = "e_idproyecto")
     @ManyToOne
     private ProyectoTb eIdproyecto;
-    @OneToMany(mappedBy = "eIdactividad")
-    private List<MaterialTb> materialTbList;
 
     public ActividadTb() {
     }
@@ -86,14 +81,6 @@ public class ActividadTb implements Serializable {
         this.fFecha = fFecha;
     }
 
-    public String getCDuracion() {
-        return cDuracion;
-    }
-
-    public void setCDuracion(String cDuracion) {
-        this.cDuracion = cDuracion;
-    }
-
     public String getMDescripcion() {
         return mDescripcion;
     }
@@ -102,6 +89,21 @@ public class ActividadTb implements Serializable {
         this.mDescripcion = mDescripcion;
     }
 
+    public String getMNombre() {
+        return mNombre;
+    }
+
+    public void setMNombre(String mNombre) {
+        this.mNombre = mNombre;
+    }
+
+    public Date getFFechafin() {
+        return fFechafin;
+    }
+
+    public void setFFechafin(Date fFechafin) {
+        this.fFechafin = fFechafin;
+    }
 
     public ProyectoTb getEIdproyecto() {
         return eIdproyecto;
@@ -109,14 +111,6 @@ public class ActividadTb implements Serializable {
 
     public void setEIdproyecto(ProyectoTb eIdproyecto) {
         this.eIdproyecto = eIdproyecto;
-    }
-
-    public List<MaterialTb> getMaterialTbList() {
-        return materialTbList;
-    }
-
-    public void setMaterialTbList(List<MaterialTb> materialTbList) {
-        this.materialTbList = materialTbList;
     }
 
     @Override
@@ -142,14 +136,6 @@ public class ActividadTb implements Serializable {
     @Override
     public String toString() {
         return "modelo.ActividadTb[ eIdactividad=" + eIdactividad + " ]";
-    }
-
-    public String getMNombre() {
-        return mNombre;
-    }
-
-    public void setMNombre(String mNombre) {
-        this.mNombre = mNombre;
     }
     
 }

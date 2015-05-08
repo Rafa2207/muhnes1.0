@@ -12,32 +12,42 @@
             <h:form id="ActividadTbEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{actividadTbController.selected != null}">
-                        
-                        <p:outputLabel value="#{bundle.EditActividadTbLabel_CNombre}" for="CNombre" />
-                        <p:inputText id="CNombre" value="#{actividadTbController.selected.MNombre}" title="#{bundle.EditActividadTbTitle_CNombre}" 
-                                     required="true" requiredMessage="Introduzca nombre de la actividad"/>
-                        
-                        <p:outputLabel value="#{bundle.EditActividadTbLabel_FFecha}" for="FFecha" />
-                        <p:calendar pattern="dd MMMM yyyy" mindate="#{actividadTbController.selected.EIdproyecto.FFechaInicio}" 
-                                    maxdate="#{actividadTbController.selected.EIdproyecto.FFechaFin}" 
-                                    id="FFecha" value="#{actividadTbController.selected.FFecha}" 
-                                    title="#{bundle.EditActividadTbTitle_FFecha}"  showOn="button"
-                                    required="true" locale="es" readonlyInput="true"
-                                    requiredMessage="Introduzca fecha"/>
-                        
-                        <p:outputLabel value="#{bundle.EditActividadTbLabel_CDuracion}" for="CDuracion" />
-                        <p:inputText id="CDuracion" value="#{actividadTbController.selected.CDuracion}" title="#{bundle.EditActividadTbTitle_CDuracion}"
+
+                        <p:outputLabel value="#{bundle.CreateActividadTbLabel_CNombre}" for="CNombre" />
+                        <p:inputText id="CNombre" value="#{actividadTbController.selected.MNombre}" title="#{bundle.CreateActividadTbTitle_CNombre}" 
                                      required="true"
-                                     requiredMessage="Introduzca duracion de la acividad"/>
-                        
-                        <p:outputLabel value="#{bundle.EditActividadTbLabel_MDescripcion}" for="MDescripcion" />
-                        <p:inputTextarea autoResize="" id="MDescripcion" value="#{actividadTbController.selected.MDescripcion}" title="#{bundle.EditActividadTbTitle_MDescripcion}" 
-                                     />
-                                
-                                          
+                                     requiredMessage="Introduzca nombre de actividad"/>
+
+                        <p:outputLabel value="#{bundle.CreateActividadTbLabel_FFecha}" for="FFecha" />
+
+                        <p:calendar id="FFecha" value="#{actividadTbController.selected.FFecha}"
+                                    pattern="dd MMMM yyyy" 
+                                    mindate="#{actividadTbController.selected.EIdproyecto.FFechaInicio}" 
+                                    maxdate="#{actividadTbController.selected.EIdproyecto.FFechaFin}"                                      
+                                    title="#{bundle.EditActividadTbTitle_FFecha}"  showOn="button" 
+                                    required="true" readonlyInput="true"
+                                    requiredMessage="Introduzca fecha" locale="es">
+                            <p:ajax event="dateSelect" update="FFechafin" listener="#{actividadTbController.limpiarFecha()}"/>
+                        </p:calendar>
+
+                        <p:outputLabel value="Fecha finalización:" for="FFechafin" />
+                        <p:calendar mindate="#{actividadTbController.selected.FFecha}" maxdate="#{actividadTbController.selected.EIdproyecto.FFechaFin}" 
+                                    id="FFechafin" 
+                                    pattern="dd MMMM yyyy" 
+                                    value="#{actividadTbController.fechatemporal}" title="Fecha fin"  showOn="button" 
+                                    required="true" readonlyInput="true"
+                                    requiredMessage="Introduzca fecha" locale="es"
+                                    disabled="#{actividadTbController.selected.FFecha eq null}"/>
+
+                        <p:outputLabel value="#{bundle.CreateActividadTbLabel_MDescripcion}" for="MDescripcion" />
+                        <p:inputTextarea autoResize="" id="MDescripcion" value="#{actividadTbController.selected.MDescripcion}" title="#{bundle.CreateActividadTbTitle_MDescripcion}" 
+                                         />
+
+
+
                     </p:panelGrid>
                     <p:commandButton actionListener="#{actividadTbController.update}" value="#{bundle.Save}" update="display,:ActividadTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ActividadTbEditDialog');"/>
-                    
+
                 </h:panelGroup>
             </h:form>
         </p:dialog>

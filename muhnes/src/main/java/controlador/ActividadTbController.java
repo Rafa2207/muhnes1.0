@@ -6,6 +6,7 @@ import controlador.util.JsfUtil.PersistAction;
 import servicio.ActividadTbFacade;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -30,6 +31,17 @@ public class ActividadTbController implements Serializable {
     private List<ActividadTb> items = null,filtro;
     private ActividadTb selected;
     private ProyectoTb proyectos;
+    private Date fechatemporal;
+
+    public Date getFechatemporal() {
+        return fechatemporal;
+    }
+
+    public void setFechatemporal(Date fechatemporal) {
+        this.fechatemporal = fechatemporal;
+    }
+    
+    
 
     public List<ActividadTb> getFiltro() {
         return filtro;
@@ -88,6 +100,7 @@ public class ActividadTbController implements Serializable {
     }
 
     public void update() {
+        selected.setFFechafin(fechatemporal);
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ActividadTbUpdated"));
     }
 
@@ -185,6 +198,14 @@ public class ActividadTbController implements Serializable {
             }
         }
 
+    }
+    
+     public void prepareEdit(){
+        fechatemporal=selected.getFFechafin();
+        
+    }
+    public void limpiarFecha(){
+        fechatemporal=null;
     }
 
 }

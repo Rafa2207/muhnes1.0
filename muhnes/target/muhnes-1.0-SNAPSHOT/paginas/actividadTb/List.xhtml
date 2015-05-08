@@ -27,7 +27,7 @@
 
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{actividadTbController.prepareCreate(controladorSesion.proyecto)}" update=":ActividadTbCreateForm" oncomplete="PF('ActividadTbCreateDialog').show()" />
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ActividadTbViewForm" oncomplete="PF('ActividadTbViewDialog').show()" disabled="#{empty actividadTbController.selected }"/>
-                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ActividadTbEditForm :ActividadTbCreateForm" oncomplete="PF('ActividadTbEditDialog').show()" disabled="#{empty actividadTbController.selected }"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" actionListener="#{actividadTbController.prepareEdit()}" update=":ActividadTbEditForm :ActividadTbCreateForm" oncomplete="PF('ActividadTbEditDialog').show()" disabled="#{empty actividadTbController.selected }"/>
                     <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{actividadTbController.destroy}" update=":growl,datalist" disabled="#{empty actividadTbController.selected }">
                         <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
                     </p:commandButton>
@@ -63,11 +63,13 @@
                             </h:outputText>
                         </p:column>
 
-                        <p:column filterBy="#{item.CDuracion}" filterStyle="display:none">
+                        <p:column filterBy="#{item.FFechafin}" filterStyle="display:none">
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListActividadTbTitle_CDuracion}"/>
+                                <h:outputText value="Fecha de finalización"/>
                             </f:facet>
-                            <h:outputText value="#{item.CDuracion}"/>
+                            <h:outputText value="#{item.FFechafin}">
+                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                            </h:outputText>
                         </p:column>
 
                         <p:column filterBy="#{item.MDescripcion}" filterStyle="display:none">
