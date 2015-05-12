@@ -5,8 +5,9 @@
  */
 package modelo;
 
+import controlador.util.JsfUtil;
 import java.io.Serializable;
-import java.util.List;
+import java.security.NoSuchAlgorithmException;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,13 +16,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 /**
  *
- * @author Rafa
+ * @author Frank Martinez
  */
 @Entity
 @Table(name = "usuario_tb")
@@ -32,10 +32,11 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "UsuarioTb.findByCApellido", query = "SELECT u FROM UsuarioTb u WHERE u.cApellido = :cApellido"),
     @NamedQuery(name = "UsuarioTb.findByCTelefono", query = "SELECT u FROM UsuarioTb u WHERE u.cTelefono = :cTelefono"),
     @NamedQuery(name = "UsuarioTb.findByCNick", query = "SELECT u FROM UsuarioTb u WHERE u.cNick = :cNick"),
-    @NamedQuery(name = "UsuarioTb.findByCPassword", query = "SELECT u FROM UsuarioTb u WHERE u.cPassword = :cPassword"),
+    @NamedQuery(name = "UsuarioTb.findByMPassword", query = "SELECT u FROM UsuarioTb u WHERE u.mPassword = :mPassword"),
     @NamedQuery(name = "UsuarioTb.findByCDui", query = "SELECT u FROM UsuarioTb u WHERE u.cDui = :cDui"),
     @NamedQuery(name = "UsuarioTb.findByCTipo", query = "SELECT u FROM UsuarioTb u WHERE u.cTipo = :cTipo")})
 public class UsuarioTb implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,19 +55,15 @@ public class UsuarioTb implements Serializable {
     @Size(max = 15)
     @Column(name = "c_nick")
     private String cNick;
-    @Size(max = 15)
-    @Column(name = "c_password")
-    private String cPassword;
+    @Size(max = 2147483647)
+    @Column(name = "m_password")
+    private String mPassword;
     @Size(max = 10)
     @Column(name = "c_dui")
     private String cDui;
     @Size(max = 15)
     @Column(name = "c_tipo")
     private String cTipo;
-    @OneToMany(mappedBy = "eIdusuario")
-    private List<BitacoraTb> bitacoraTbList;
-    @OneToMany(mappedBy = "idUsuario")
-    private List<ExhibicionTb> exhibicionTbList;
 
     public UsuarioTb() {
     }
@@ -115,12 +112,17 @@ public class UsuarioTb implements Serializable {
         this.cNick = cNick;
     }
 
-    public String getCPassword() {
-        return cPassword;
+    public String getMPassword() {
+        return mPassword;
     }
 
-    public void setCPassword(String cPassword) {
-        this.cPassword = cPassword;
+    public void setMPassword(String mPassword) {
+        try {
+            this.mPassword = JsfUtil.cifrar(mPassword);
+        } catch (NoSuchAlgorithmException ex) {
+            this.mPassword = mPassword;
+        }
+
     }
 
     public String getCDui() {
@@ -137,22 +139,6 @@ public class UsuarioTb implements Serializable {
 
     public void setCTipo(String cTipo) {
         this.cTipo = cTipo;
-    }
-
-    public List<BitacoraTb> getBitacoraTbList() {
-        return bitacoraTbList;
-    }
-
-    public void setBitacoraTbList(List<BitacoraTb> bitacoraTbList) {
-        this.bitacoraTbList = bitacoraTbList;
-    }
-
-    public List<ExhibicionTb> getExhibicionTbList() {
-        return exhibicionTbList;
-    }
-
-    public void setExhibicionTbList(List<ExhibicionTb> exhibicionTbList) {
-        this.exhibicionTbList = exhibicionTbList;
     }
 
     @Override
@@ -179,5 +165,5 @@ public class UsuarioTb implements Serializable {
     public String toString() {
         return "modelo.UsuarioTb[ eIdusuario=" + eIdusuario + " ]";
     }
-    
+
 }
