@@ -24,7 +24,7 @@
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditVariedadTbLabel_EIdsubespecie}" for="EIdsubespecie" />
                         <p:selectOneMenu id="EIdsubespecie" value="#{variedadTbController.selected.EIdsubespecie}" required="true" requiredMessage="Seleccione un estado taxonomico" filter="true" filterMatchMode="contains">
-                            <f:selectItem itemValue="" itemLabel="Seleccione especie"/>
+                            <f:selectItem itemValue="" itemLabel="Seleccione subespecie"/>
                             <f:selectItems value="#{subespecieTbController.itemsAvailableSelectOne}"
                                        var="subespecie"
                                        itemLabel="#{subespecie.CNombre}"

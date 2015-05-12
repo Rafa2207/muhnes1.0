@@ -28,7 +28,7 @@
                     <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{familiaTbController.destroy}" update=":growl,datalist" disabled="#{empty familiaTbController.selected}">
                         <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
                     </p:commandButton>
-                    <p:commandButton id="generoButton" icon="ui-icon-calendar"  value="Genero" action="/paginas/generoTb/List.xhtml" disabled="#{empty familiaTbController.selected}" >
+                    <p:commandButton id="generoButton" icon="ui-icon-arrowthick-1-e"  value="Genero" action="/paginas/generoTb/List.xhtml" disabled="#{empty familiaTbController.selected}" >
                         <f:setPropertyActionListener target="#{controladorSesion.familia}" value="#{familiaTbController.selected}">
                         </f:setPropertyActionListener> 
                     </p:commandButton>

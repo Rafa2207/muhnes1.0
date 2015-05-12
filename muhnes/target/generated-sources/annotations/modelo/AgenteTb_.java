@@ -9,7 +9,7 @@ import modelo.AgenteIdentificaEjemplarTb;
 import modelo.InstitucionTb;
 import modelo.PerfilTb;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-05-08T16:00:49")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-05-12T12:04:47")
 @StaticMetamodel(AgenteTb.class)
 public class AgenteTb_ { 
 

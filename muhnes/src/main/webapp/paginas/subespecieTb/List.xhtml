@@ -31,7 +31,7 @@
                     <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{subespecieTbController.destroy}" update=":growl,datalist" disabled="#{empty subespecieTbController.selected}">
                         <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
                     </p:commandButton>
-                    <p:commandButton id="variedadButton" icon="ui-icon-calendar"  value="Variedad" action="/paginas/variedadTb/List.xhtml" disabled="#{empty subespecieTbController.selected}">
+                    <p:commandButton id="variedadButton" icon="ui-icon-arrowthick-1-e"  value="Variedad" action="/paginas/variedadTb/List.xhtml" disabled="#{empty subespecieTbController.selected}">
                         <f:setPropertyActionListener target="#{controladorSesion.subespecie}" value="#{subespecieTbController.selected}">
                         </f:setPropertyActionListener> 
                     </p:commandButton>
