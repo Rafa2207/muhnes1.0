@@ -36,6 +36,7 @@ public class PresupuestoTbController implements Serializable {
     private double cantidad, costo;
     private String nombre, tiempo;
     int id = 0;
+    InsumoTb insumo = new InsumoTb();
 
     public PresupuestoTb getPresupuesto() {
         return presupuesto;
@@ -128,7 +129,7 @@ public class PresupuestoTbController implements Serializable {
             JsfUtil.addErrorMessage("Debe agregar insumos");
         } else {
             persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PresupuestoTbCreated"));
-            RequestContext context = RequestContext.getCurrentInstance(); 
+            RequestContext context = RequestContext.getCurrentInstance();
             context.execute("PF('PresupuestoTbCreateDialog').hide()");
             if (!JsfUtil.isValidationFailed()) {
                 items = null;    // Invalidate list of items to trigger re-query.
@@ -237,16 +238,15 @@ public class PresupuestoTbController implements Serializable {
     }
 
     public void agregar() {
-        InsumoTb insumo = new InsumoTb();
+        InsumoTb ins = new InsumoTb();
         //presupuesto = new PresupuestoTb();
-
         //presupuesto.setEIdpresupuesto(getFacade().siguienteId());
-        insumo.setMNombre(nombre);
-        insumo.setDCantidad(cantidad);
-        insumo.setDGasto(costo);
-        insumo.setMTiempo(tiempo);
+        ins.setMNombre(nombre);
+        ins.setDCantidad(cantidad);
+        ins.setDGasto(costo);
+        ins.setMTiempo(tiempo);
         //presupuesto.setEIdpresupuesto();
-        selected.getInsumoTbList().add(insumo);
+        selected.getInsumoTbList().add(ins);
         insumo.setEIdpresupuesto(selected);
 
         cantidad = 0;
@@ -254,6 +254,16 @@ public class PresupuestoTbController implements Serializable {
         nombre = "";
         tiempo = "";
 
+    }
+
+    public Double costoTotal() {
+        Double tot = 0.0;
+
+        for (InsumoTb i : selected.getInsumoTbList()) {
+            tot = tot + (i.getDCantidad() * i.getDGasto());
+        }
+
+        return tot;
     }
 
 }

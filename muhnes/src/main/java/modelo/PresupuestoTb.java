@@ -32,8 +32,10 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "PresupuestoTb.findByEIdpresupuesto", query = "SELECT p FROM PresupuestoTb p WHERE p.eIdpresupuesto = :eIdpresupuesto"),
     @NamedQuery(name = "PresupuestoTb.findByCTipo", query = "SELECT p FROM PresupuestoTb p WHERE p.cTipo = :cTipo"),
     @NamedQuery(name = "PresupuestoTb.findByMNombre", query = "SELECT p FROM PresupuestoTb p WHERE p.mNombre = :mNombre"),
-    @NamedQuery(name = "PresupuestoTb.findByMDescripcion", query = "SELECT p FROM PresupuestoTb p WHERE p.mDescripcion = :mDescripcion")})
+    @NamedQuery(name = "PresupuestoTb.findByMDescripcion", query = "SELECT p FROM PresupuestoTb p WHERE p.mDescripcion = :mDescripcion"),
+    @NamedQuery(name = "PresupuestoTb.findByDTotal", query = "SELECT p FROM PresupuestoTb p WHERE p.dTotal = :dTotal")})
 public class PresupuestoTb implements Serializable {
+
     @Size(max = 2147483647)
     @Column(name = "m_nombre")
     private String mNombre;
@@ -49,6 +51,8 @@ public class PresupuestoTb implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "m_descripcion")
     private String mDescripcion;
+    @Column(name = "d_total")
+    private Double dTotal;
     @OneToMany(mappedBy = "eIdpresupuesto")
     private List<InsumoTb> insumoTbList;
     @JoinColumn(name = "e_idproyecto", referencedColumnName = "e_idproyecto")
@@ -78,13 +82,20 @@ public class PresupuestoTb implements Serializable {
         this.cTipo = cTipo;
     }
 
-
     public String getMDescripcion() {
         return mDescripcion;
     }
 
     public void setMDescripcion(String mDescripcion) {
         this.mDescripcion = mDescripcion;
+    }
+
+    public Double getDTotal() {
+        return dTotal;
+    }
+
+    public void setDTotal(Double dTotal) {
+        this.dTotal = dTotal;
     }
 
     public List<InsumoTb> getInsumoTbList() {
@@ -135,5 +146,5 @@ public class PresupuestoTb implements Serializable {
     public void setMNombre(String mNombre) {
         this.mNombre = mNombre;
     }
-    
+
 }

@@ -37,15 +37,15 @@
                             <p:inputText id="insumo" value="#{presupuestoTbController.nombre}"/>
                             <p:outputLabel value="Cantidad:" for="cant"/>
                             <p:inputText id="cant" size="4" value="#{presupuestoTbController.cantidad}"/>
-                            <p:outputLabel value="Costo ($):" for="costo" />
+                            <p:outputLabel value="Unidades:" for="unidad" />
+                            <p:inputText id="unidad" value="#{presupuestoTbController.tiempo}"/>
+                            <p:outputLabel value="Costo Unitario($):" for="costo" />
                             <p:inputText id="costo" size="4" value="#{presupuestoTbController.costo}"/>
-                            <p:outputLabel value="Tiempo:" for="tiempo" />
-                            <p:inputText id="tiempo" value="#{presupuestoTbController.tiempo}"/>
                             <p:commandButton id="agregar"
                                              value="Agregar"
                                              actionListener="#{presupuestoTbController.agregar()}"
-                                             process="insumo cant costo tiempo agregar"
-                                             update="insumos insumo cant costo tiempo"
+                                             process="insumo cant costo unidad agregar"
+                                             update="insumos insumo cant costo unidad total"
                                              />
                         </p:panelGrid>
                         <p:dataTable id="insumos"
@@ -53,7 +53,10 @@
                                      value="#{presupuestoTbController.selected.insumoTbList}"
                                      var="insumo"
                                      scrollable="true"
-                                     scrollHeight="150">
+                                     scrollHeight="140"
+                                     emptyMessage="No ha agregado insumos"
+                                     tableStyle="width:900px">
+                            <p:ajax event="rowEdit" update=":PresupuestoTbCreateForm:total"/>
                             <p:column headerText="Insumo">
                                 <p:cellEditor>
                                     <f:facet name="output">
@@ -74,10 +77,18 @@
                                     </f:facet>
                                 </p:cellEditor>
                             </p:column>
+                            <p:column headerText="Unidades"><p:cellEditor>
+                                    <f:facet name="output">
+                                        #{insumo.MTiempo}
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{insumo.MTiempo}"/>
+                                    </f:facet>
+                                </p:cellEditor></p:column>
                             <p:column headerText="Costo">
                                 <p:cellEditor>
                                     <f:facet name="output">
-                                        #{insumo.DGasto}
+                                        $#{insumo.DGasto}
                                     </f:facet>
                                     <f:facet name="input">
                                         <p:inputText value="#{insumo.DGasto}"/>
@@ -87,22 +98,14 @@
                             <p:column headerText="Costo Total">
                                 <h:outputText value="$#{insumo.DCantidad*insumo.DGasto}"/>
                             </p:column>
-                            <p:column headerText="Tiempo"><p:cellEditor>
-                                    <f:facet name="output">
-                                        #{insumo.MTiempo}
-                                    </f:facet>
-                                    <f:facet name="input">
-                                        <p:inputText value="#{insumo.MTiempo}"/>
-                                    </f:facet>
-                                </p:cellEditor></p:column>
                             <p:column headerText="Acciones">
                                 <p:rowEditor/>
                             </p:column>
                         </p:dataTable>
-                        <h:outputText/>
+                        <h:outputText value="Total ($): "/>
+                        <h:outputText id="total" value="#{presupuestoTbController.costoTotal()}" rendered="#{presupuestoTbController.selected != null}"/>
                     </p:fieldset>
                     <p:commandButton actionListener="#{presupuestoTbController.create}" value="#{bundle.Save}" update="display,:PresupuestoTbListForm:datalist,:growl"/>
-
                 </h:panelGroup>
             </h:form>
         </p:dialog>
