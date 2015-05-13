@@ -36,6 +36,7 @@ modelo\MaterialTb.class
 controlador\NombrecomunTbController.class
 modelo\MunicipioTb_.class
 modelo\EspecieTb_.class
+controlador\AgentePerfilTbController$AgentePerfilTbControllerConverter.class
 modelo\ExhibicionTb.class
 modelo\ProcesoejemplarTb_.class
 controlador\LocalidadTbController.class
@@ -75,6 +76,7 @@ controlador\FamiliaTbController.class
 modelo\AreaprotegidaTb.class
 modelo\FamiliaTb.class
 controlador\util\JsfUtil$PersistAction.class
+controlador\AgentePerfilTbController.class
 controlador\ExhibicionTbController.class
 modelo\BitacoraTb.class
 servicio\PresupuestoTbFacade.class
@@ -96,12 +98,14 @@ controlador\MaterialTbController$MaterialTbControllerConverter.class
 modelo\UsuarioTb.class
 controlador\FamiliaTbController$FamiliaTbControllerConverter.class
 modelo\LocalidadTb.class
+servicio\AgentePerfilTbFacade.class
 modelo\AgenteIdentificaEjemplarTb_.class
 servicio\UsuarioTbFacade.class
 controlador\util\JsfUtil.class
 servicio\BitacoraTbFacade.class
 controlador\ExhibicionTbController$ExhibicionTbControllerConverter.class
 modelo\InsumoTb.class
+modelo\AgentePerfilTbPK_.class
 controlador\MunicipioTbController$MunicipioTbControllerConverter.class
 modelo\DepartamentoTb.class
 modelo\EjemplarTb.class
@@ -123,6 +127,7 @@ servicio\CantonTbFacade.class
 modelo\PaisTb_.class
 controlador\GeneroTbController.class
 modelo\GeneroTb_.class
+modelo\AgentePerfilTbPK.class
 controlador\ImagenTbController$ImagenTbControllerConverter.class
 controlador\EspecieTbController$EspecieTbControllerConverter.class
 servicio\InsumoTbFacade.class
@@ -152,7 +157,9 @@ modelo\AgenteIdentificaEjemplarTbPK.class
 controlador\SubespecieTbController.class
 servicio\AreaprotegidaTbFacade.class
 modelo\PresupuestoTb_.class
+modelo\AgentePerfilTb_.class
 servicio\LocalidadTbFacade.class
+modelo\AgentePerfilTb.class
 servicio\ExhibicionTbFacade.class
 servicio\InstitucionTbFacade.class
 servicio\DonacionTbFacade.class

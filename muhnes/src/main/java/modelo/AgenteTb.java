@@ -16,8 +16,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -29,7 +27,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author Rafa
+ * @author Endy
  */
 @Entity
 @Table(name = "agente_tb")
@@ -60,7 +58,7 @@ public class AgenteTb implements Serializable {
     @Size(max = 150)
     @Column(name = "c_apellido")
     private String cApellido;
-    @Size(max = 50)
+    @Size(max = 20)
     @Column(name = "c_iniciales")
     private String cIniciales;
     @Size(max = 150)
@@ -86,13 +84,8 @@ public class AgenteTb implements Serializable {
     @Column(name = "f_fecham")
     @Temporal(TemporalType.DATE)
     private Date fFecham;
-    @JoinTable(name = "agente_perfil_tb", joinColumns = {
-        @JoinColumn(name = "e_idagente", referencedColumnName = "e_idagente")}, inverseJoinColumns = {
-        @JoinColumn(name = "e_idperfil", referencedColumnName = "e_idperfil")})
-    @ManyToMany
-    private List<PerfilTb> perfilTbList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "agenteTb")
-    private List<AgenteIdentificaEjemplarTb> agenteIdentificaEjemplarTbList;
+    private List<AgentePerfilTb> agentePerfilTbList;
     @JoinColumn(name = "e_idinstitucion", referencedColumnName = "e_idinstitucion")
     @ManyToOne
     private InstitucionTb eIdinstitucion;
@@ -200,20 +193,12 @@ public class AgenteTb implements Serializable {
         this.fFecham = fFecham;
     }
 
-    public List<PerfilTb> getPerfilTbList() {
-        return perfilTbList;
+    public List<AgentePerfilTb> getAgentePerfilTbList() {
+        return agentePerfilTbList;
     }
 
-    public void setPerfilTbList(List<PerfilTb> perfilTbList) {
-        this.perfilTbList = perfilTbList;
-    }
-
-    public List<AgenteIdentificaEjemplarTb> getAgenteIdentificaEjemplarTbList() {
-        return agenteIdentificaEjemplarTbList;
-    }
-
-    public void setAgenteIdentificaEjemplarTbList(List<AgenteIdentificaEjemplarTb> agenteIdentificaEjemplarTbList) {
-        this.agenteIdentificaEjemplarTbList = agenteIdentificaEjemplarTbList;
+    public void setAgentePerfilTbList(List<AgentePerfilTb> agentePerfilTbList) {
+        this.agentePerfilTbList = agentePerfilTbList;
     }
 
     public InstitucionTb getEIdinstitucion() {

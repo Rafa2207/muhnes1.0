@@ -5,9 +5,13 @@
  */
 package servicio;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import modelo.PerfilTb;
 
 /**
@@ -27,5 +31,11 @@ public class PerfilTbFacade extends AbstractFacade<PerfilTb> {
     public PerfilTbFacade() {
         super(PerfilTb.class);
     }
+    
+    public List<PerfilTb> buscarTodosAZ(){
+        TypedQuery<PerfilTb> query = em.createQuery("SELECT p FROM PerfilTb p ORDER BY p.cNombre ASC", PerfilTb.class);
+        return query.getResultList();
+    }
+    
     
 }

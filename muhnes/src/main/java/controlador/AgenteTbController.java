@@ -6,6 +6,7 @@ import controlador.util.JsfUtil.PersistAction;
 import servicio.AgenteTbFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -19,6 +20,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
+import modelo.AgentePerfilTb;
+import modelo.AgentePerfilTbPK;
+import modelo.PerfilTb;
+
 
 @Named("agenteTbController")
 @ViewScoped
@@ -26,8 +31,33 @@ public class AgenteTbController implements Serializable {
 
     @EJB
     private servicio.AgenteTbFacade ejbFacade;
+    @EJB
+    private servicio.PerfilTbFacade perfilFacade;
     private List<AgenteTb> items = null, filtro;
     private AgenteTb selected;
+    private PerfilTb perfil;
+    private List<PerfilTb> perfiles;
+
+    public List<PerfilTb> getPerfiles() {
+        return perfiles;
+    }
+
+    public void setPerfiles(List<PerfilTb> perfiles) {
+        this.perfiles = perfiles;
+    }
+    
+    
+
+    public PerfilTb getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(PerfilTb perfil) {
+        this.perfil = perfil;
+    }
+    
+       
+    
 
     public List<AgenteTb> getFiltro() {
         return filtro;
@@ -60,9 +90,25 @@ public class AgenteTbController implements Serializable {
 
     public AgenteTb prepareCreate() {
         selected = new AgenteTb();
+        //Hay que inicializar la lista
+        selected.setAgentePerfilTbList(new ArrayList<AgentePerfilTb>());
+        perfiles = perfilFacade.buscarTodosAZ();
         initializeEmbeddableKey();
         return selected;
     }
+    
+    public AgenteTb prepareEdit(){
+        perfiles = perfilFacade.buscarTodosAZ();
+        
+        for(AgentePerfilTb b : selected.getAgentePerfilTbList()){
+            perfiles.remove(b.getPerfilTb());
+        }  
+        
+        initializeEmbeddableKey();
+        return selected;
+    }
+    
+    
 
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AgenteTbCreated"));
@@ -169,6 +215,25 @@ public class AgenteTbController implements Serializable {
             }
         }
 
+    }
+    
+    public void anadir(){
+        AgentePerfilTb nuevo= new AgentePerfilTb();
+        nuevo.setPerfilTb(perfil);
+        nuevo.setAgenteTb(selected);
+        
+        AgentePerfilTbPK agentepk= new AgentePerfilTbPK();
+        
+        agentepk.setEIdperfil(perfil.getEIdperfil());
+        agentepk.setEIdagente(getFacade().siguienteId());
+        
+        nuevo.setAgentePerfilTbPK(agentepk);
+        
+        selected.getAgentePerfilTbList().add(nuevo);
+        
+        perfiles.remove(perfil);
+        
+        
     }
 
 }

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AgentePerfilTbCreateDlg" widgetVar="AgentePerfilTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundlePerfilAgente.CreateAgentePerfilTbTitle}">
+            <h:form id="AgentePerfilTbCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{agentePerfilTbController.selected != null}">
+                        <p:outputLabel value="#{bundlePerfilAgente.CreateAgentePerfilTbLabel_EEntero}" for="EEntero" />
+                        <p:inputText id="EEntero" value="#{agentePerfilTbController.selected.EEntero}" title="#{bundlePerfilAgente.CreateAgentePerfilTbTitle_EEntero}" />
+                        <p:outputLabel value="#{bundlePerfilAgente.CreateAgentePerfilTbLabel_perfilTb}" for="perfilTb" />
+                        <p:selectOneMenu id="perfilTb" value="#{agentePerfilTbController.selected.perfilTb}" required="true" requiredMessage="#{bundlePerfilAgente.EditAgentePerfilTbRequiredMessage_perfilTb}">
+                            <f:selectItems value="#{perfilTbController.itemsAvailableSelectOne}"
+                                           var="perfilTbItem"
+                                           itemValue="#{perfilTbItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundlePerfilAgente.CreateAgentePerfilTbLabel_agenteTb}" for="agenteTb" />
+                        <p:selectOneMenu id="agenteTb" value="#{agentePerfilTbController.selected.agenteTb}" required="true" requiredMessage="#{bundlePerfilAgente.EditAgentePerfilTbRequiredMessage_agenteTb}">
+                            <f:selectItems value="#{agenteTbController.itemsAvailableSelectOne}"
+                                           var="agenteTbItem"
+                                           itemValue="#{agenteTbItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{agentePerfilTbController.create}" value="#{bundlePerfilAgente.Save}" update="display,:AgentePerfilTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'AgentePerfilTbCreateDialog');"/>
+                    <p:commandButton value="#{bundlePerfilAgente.Cancel}" onclick="AgentePerfilTbCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

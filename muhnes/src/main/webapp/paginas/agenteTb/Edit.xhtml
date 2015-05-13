@@ -12,60 +12,104 @@
             <h:form id="AgenteTbEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="4" rendered="#{agenteTbController.selected != null}">
-                       
-                        <p:outputLabel value="#{bundle.EditAgenteTbLabel_CNombre}" for="CNombre" />
-                        <p:inputText id="CNombre" value="#{agenteTbController.selected.CNombre}" title="#{bundle.EditAgenteTbTitle_CNombre}" 
+                        <p:outputLabel value="#{bundle.CreateAgenteTbLabel_CNombre}" for="CNombre" />
+                        <p:inputText id="CNombre" value="#{agenteTbController.selected.CNombre}" title="#{bundle.CreateAgenteTbTitle_CNombre}"
                                      required="true" requiredMessage="Introduzca nombre del agente"/>
-                        
-                        <p:outputLabel value="#{bundle.EditAgenteTbLabel_CApellido}" for="CApellido" />
-                        <p:inputText id="CApellido" value="#{agenteTbController.selected.CApellido}" title="#{bundle.EditAgenteTbTitle_CApellido}" 
-                                     required="true" requiredMessage="Introduzca apellido del agente"/>
-                        
-                        <p:outputLabel value="#{bundle.EditAgenteTbLabel_CIniciales}" for="CIniciales" />
-                        <p:inputText id="CIniciales" value="#{agenteTbController.selected.CIniciales}" title="#{bundle.EditAgenteTbTitle_CIniciales}" 
-                                     required="true" requiredMessage="Introduzca nombre corto del agente"/>
-                        
-                        <p:outputLabel value="#{bundle.EditAgenteTbLabel_COcupacion}" for="COcupacion" />
-                        <p:inputText id="COcupacion" value="#{agenteTbController.selected.COcupacion}" title="#{bundle.EditAgenteTbTitle_COcupacion}" 
+
+                        <p:outputLabel value="#{bundle.CreateAgenteTbLabel_CApellido}" for="CApellido" />
+                        <p:inputText id="CApellido" value="#{agenteTbController.selected.CApellido}" title="#{bundle.CreateAgenteTbTitle_CApellido}" 
+                                     required="true"
+                                     requiredMessage="Introduzca apellido del agente"/>
+
+                        <p:outputLabel value="#{bundle.CreateAgenteTbLabel_CIniciales}" for="CIniciales" />
+                        <p:inputText id="CIniciales" value="#{agenteTbController.selected.CIniciales}" title="#{bundle.CreateAgenteTbTitle_CIniciales}" 
+                                     required="true"
+                                     requiredMessage="Introduzca nombre corto del agente"/>
+
+                        <p:outputLabel value="#{bundle.CreateAgenteTbLabel_COcupacion}" for="COcupacion" />
+                        <p:inputText id="COcupacion" value="#{agenteTbController.selected.COcupacion}" title="#{bundle.CreateAgenteTbTitle_COcupacion}" 
                                      />
-                        
-                        <p:outputLabel value="#{bundle.EditAgenteTbLabel_CEmail}" for="CEmail" />
-                        <p:inputText id="CEmail" value="#{agenteTbController.selected.CEmail}" title="#{bundle.EditAgenteTbTitle_CEmail}"
+
+                        <p:outputLabel value="#{bundle.CreateAgenteTbLabel_CEmail}" for="CEmail" />
+                        <p:inputText id="CEmail" value="#{agenteTbController.selected.CEmail}" title="#{bundle.CreateAgenteTbTitle_CEmail}" 
                                      />
-                        
-                        <p:outputLabel value="#{bundle.EditAgenteTbLabel_EPostal}" for="EPostal" />
-                        <p:inputText id="EPostal" value="#{agenteTbController.selected.EPostal}" title="#{bundle.EditAgenteTbTitle_EPostal}" 
+
+                        <p:outputLabel value="#{bundle.CreateAgenteTbLabel_EPostal}" for="EPostal" />
+                        <p:inputText id="EPostal" value="#{agenteTbController.selected.EPostal}" title="#{bundle.CreateAgenteTbTitle_EPostal}" 
                                      />
-                        
-                        <p:outputLabel value="#{bundle.EditAgenteTbLabel_CTelefono}" for="CTelefono" />
-                        <p:inputText  id="CTelefono" value="#{agenteTbController.selected.CTelefono}" title="#{bundle.EditAgenteTbTitle_CTelefono}" 
-                                     />
-                        
-                        <p:outputLabel value="#{bundle.EditAgenteTbLabel_CFax}" for="CFax" />
-                        <p:inputText  id="CFax" value="#{agenteTbController.selected.CFax}" title="#{bundle.EditAgenteTbTitle_CFax}" 
+
+                        <p:outputLabel value="#{bundle.CreateAgenteTbLabel_CTelefono}" for="CTelefono" />
+                        <p:inputText  id="CTelefono" value="#{agenteTbController.selected.CTelefono}" title="#{bundle.CreateAgenteTbTitle_CTelefono}" 
                                       />
-                        
-                        <p:outputLabel value="#{bundle.EditAgenteTbLabel_MDireccion}" for="MDireccion" />
-                        <p:inputTextarea cols="25" rows="4" autoResize="" id="MDireccion" value="#{agenteTbController.selected.MDireccion}" title="#{bundle.EditAgenteTbTitle_MDireccion}" 
+
+                        <p:outputLabel value="#{bundle.CreateAgenteTbLabel_CFax}" for="CFax" />
+                        <p:inputText  id="CFax" value="#{agenteTbController.selected.CFax}" title="#{bundle.CreateAgenteTbTitle_CFax}" 
+                                      />
+
+                        <p:outputLabel value="#{bundle.CreateAgenteTbLabel_MDireccion}" for="MDireccion" />
+                        <p:inputTextarea cols="22" rows="4" autoResize="" id="MDireccion" value="#{agenteTbController.selected.MDireccion}" title="#{bundle.CreateAgenteTbTitle_MDireccion}" 
                                          />
-                        
-                        <p:outputLabel value="#{bundle.EditAgenteTbLabel_FFechanac}" for="FFechanac" />
-                        <p:calendar locale="es" navigator="true" id="FFechanac" pattern="dd MMMM yyyy" value="#{agenteTbController.selected.FFechanac}" title="#{bundle.EditAgenteTbTitle_FFechanac}"  showOn="button"
+
+                        <p:outputLabel value="#{bundle.CreateAgenteTbLabel_FFechanac}" for="FFechanac" />
+                        <p:calendar size="15" navigator="true" id="FFechanac" locale="es" pattern="dd MMMM yyyy" value="#{agenteTbController.selected.FFechanac}" title="#{bundle.EditAgenteTbTitle_FFechanac}"  showOn="button"
+                                    readonlyInput="true" />
+
+                        <p:outputLabel value="#{bundle.CreateAgenteTbLabel_FFecham}" for="FFecham" />
+                        <p:calendar size="15" navigator="true" id="FFecham" locale="es" pattern="dd MMMM yyyy" value="#{agenteTbController.selected.FFecham}" title="#{bundle.EditAgenteTbTitle_FFecham}"  showOn="button"
                                     readonlyInput="true"/>
-                        
-                        <p:outputLabel value="#{bundle.EditAgenteTbLabel_FFecham}" for="FFecham" />
-                        <p:calendar locale="es" navigator="true" id="FFecham" pattern="dd MMMM yyyy" value="#{agenteTbController.selected.FFecham}" title="#{bundle.EditAgenteTbTitle_FFecham}"  showOn="button"
-                                    readonlyInput="true"/>
-                        
-                        <p:outputLabel value="#{bundle.EditAgenteTbLabel_EIdinstitucion}" for="EIdinstitucion" />
-                        <p:selectOneMenu id="EIdinstitucion" value="#{agenteTbController.selected.EIdinstitucion}" required="true" requiredMessage="Seleccione una institucion" >
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+
+                        <p:outputLabel value="#{bundle.CreateAgenteTbLabel_EIdinstitucion}" for="EIdinstitucion" />
+                        <p:selectOneMenu id="EIdinstitucion" value="#{agenteTbController.selected.EIdinstitucion}" 
+                                         filter="true" filterMatchMode="contains">
+                            <f:selectItem itemLabel="Sin Institución" itemValue=""  />
                             <f:selectItems value="#{institucionTbController.itemsAvailableSelectOne}"
                                            var="EIdinstitucionItem"
                                            itemLabel="#{EIdinstitucionItem.CNombre}"
                                            itemValue="#{EIdinstitucionItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
+                    <p:panelGrid columns="3">
+                        <p:outputLabel value="Perfiles: " for="perfil" />
+                        <p:selectOneMenu id="perfil" value="#{agenteTbController.perfil}" 
+                                         filter="true" filterMatchMode="contains">
+                            <f:selectItem  itemLabel="Seleccione perfil" itemValue=""  />
+                            <f:selectItems value="#{agenteTbController.perfiles}"
+                                           var="PerfilItem"
+                                           itemLabel="#{PerfilItem.CNombre}"
+                                           itemValue="#{Perfil}"/>
+                        </p:selectOneMenu>
+                        <p:commandButton id="agregar"
+                                         value="Agregar"
+                                         actionListener="#{agenteTbController.anadir()}"
+                                         process="perfil agregar"
+                                         update="perfil perfilesAgentes"/>
+
+
+
+                    </p:panelGrid>
+                    
+                    <p:dataTable id="perfilesAgentes"
+                                 value="#{agenteTbController.selected.agentePerfilTbList}"
+                                 var="vp"
+                                 editable="true"
+                                 tableStyle="width: 600px"
+                                 scrollable="true"
+                                 scrollHeight="80"
+                                 >
+                        
+                        <p:column headerText="Perfiles">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    #{vp.perfilTb.CNombre}
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:inputText value="#{vp.perfilTb.CNombre}"/>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        
+                    </p:dataTable>
+                    
                     <p:commandButton actionListener="#{agenteTbController.update}" value="#{bundle.Save}" update="display,:AgenteTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AgenteTbEditDialog');"/>
                 </h:panelGroup>
             </h:form>

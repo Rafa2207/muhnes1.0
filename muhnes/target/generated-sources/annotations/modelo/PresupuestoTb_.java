@@ -7,12 +7,13 @@ import javax.persistence.metamodel.StaticMetamodel;
 import modelo.InsumoTb;
 import modelo.ProyectoTb;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-05-12T12:04:47")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-05-12T18:26:46")
 @StaticMetamodel(PresupuestoTb.class)
 public class PresupuestoTb_ { 
 
     public static volatile SingularAttribute<PresupuestoTb, String> cTipo;
     public static volatile SingularAttribute<PresupuestoTb, ProyectoTb> eIdproyecto;
+    public static volatile SingularAttribute<PresupuestoTb, Double> dTotal;
     public static volatile ListAttribute<PresupuestoTb, InsumoTb> insumoTbList;
     public static volatile SingularAttribute<PresupuestoTb, Integer> eIdpresupuesto;
     public static volatile SingularAttribute<PresupuestoTb, String> mDescripcion;

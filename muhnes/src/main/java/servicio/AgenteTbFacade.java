@@ -7,7 +7,9 @@ package servicio;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import modelo.AgenteTb;
 
 /**
@@ -26,6 +28,16 @@ public class AgenteTbFacade extends AbstractFacade<AgenteTb> {
 
     public AgenteTbFacade() {
         super(AgenteTb.class);
+    }
+    public int siguienteId(){
+        Query query = em.createNativeQuery("SELECT last_value from secuencia_agente_id");
+        try{
+            Long id =  (Long) query.getSingleResult();
+            return id.intValue()+1;
+        }
+        catch(NoResultException nre){
+            return 0;
+        }
     }
     
 }
