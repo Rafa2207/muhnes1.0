@@ -11,7 +11,7 @@
         <p:dialog id="AgenteTbCreateDlg" widgetVar="AgenteTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateAgenteTbTitle}">
             <h:form id="AgenteTbCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="4" rendered="#{agenteTbController.selected != null}">
+                    <p:panelGrid columns="4" rendered="#{agenteTbController.selected != null}" style="width: 550px">
                         <p:outputLabel value="#{bundle.CreateAgenteTbLabel_CNombre}" for="CNombre" />
                         <p:inputText id="CNombre" value="#{agenteTbController.selected.CNombre}" title="#{bundle.CreateAgenteTbTitle_CNombre}"
                                      required="true" requiredMessage="Introduzca nombre del agente"/>
@@ -90,23 +90,36 @@
                     
                     <p:dataTable id="perfilesAgentes"
                                  value="#{agenteTbController.selected.agentePerfilTbList}"
-                                 var="vp"
+                                 var="per"
                                  editable="true"
                                  tableStyle="width: 550px"
                                  scrollable="true"
                                  scrollHeight="80"
+                                 emptyMessage="No se han seleccionado perfiles"
                                  >
                         
                         <p:column headerText="Perfiles">
                             <p:cellEditor>
                                 <f:facet name="output">
-                                    #{vp.perfilTb.CNombre}
+                                    #{per.perfilTb.CNombre}
                                 </f:facet>
                                 <f:facet name="input">
-                                    <p:inputText value="#{vp.perfilTb.CNombre}"/>
+                                    <p:inputText value="#{per.perfilTb.CNombre}"/>
                                 </f:facet>
                             </p:cellEditor>
                         </p:column>
+                        
+                        <p:column headerText="Acciones" width="60">
+                                
+                                <p:commandLink style="display: inline-block"
+                                               styleClass="ui-icon ui-icon-trash"
+                                               action="#{agenteTbController.remover()}"
+                                               process="perfilesAgentes"
+                                               update=":AgenteTbCreateForm:perfil :AgenteTbCreateForm:perfilesAgentes">
+                                    <f:setPropertyActionListener value="#{per}" 
+                                                                 target="#{agenteTbController.perfilAgente}"/>
+                                </p:commandLink>
+                            </p:column>
                         
                     </p:dataTable>
                     

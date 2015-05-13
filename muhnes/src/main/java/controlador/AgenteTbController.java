@@ -37,6 +37,19 @@ public class AgenteTbController implements Serializable {
     private AgenteTb selected;
     private PerfilTb perfil;
     private List<PerfilTb> perfiles;
+    private AgentePerfilTb perfilAgente;
+
+    public AgentePerfilTb getPerfilAgente() {
+        return perfilAgente;
+    }
+
+    public void setPerfilAgente(AgentePerfilTb perfilAgente) {
+        this.perfilAgente = perfilAgente;
+    }
+    
+    
+    
+    
 
     public List<PerfilTb> getPerfiles() {
         return perfiles;
@@ -45,8 +58,6 @@ public class AgenteTbController implements Serializable {
     public void setPerfiles(List<PerfilTb> perfiles) {
         this.perfiles = perfiles;
     }
-    
-    
 
     public PerfilTb getPerfil() {
         return perfil;
@@ -55,9 +66,6 @@ public class AgenteTbController implements Serializable {
     public void setPerfil(PerfilTb perfil) {
         this.perfil = perfil;
     }
-    
-       
-    
 
     public List<AgenteTb> getFiltro() {
         return filtro;
@@ -96,19 +104,17 @@ public class AgenteTbController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
-    
-    public AgenteTb prepareEdit(){
+
+    public AgenteTb prepareEdit() {
         perfiles = perfilFacade.buscarTodosAZ();
-        
-        for(AgentePerfilTb b : selected.getAgentePerfilTbList()){
+
+        for (AgentePerfilTb b : selected.getAgentePerfilTbList()) {
             perfiles.remove(b.getPerfilTb());
-        }  
-        
+        }
+
         initializeEmbeddableKey();
         return selected;
     }
-    
-    
 
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AgenteTbCreated"));
@@ -216,24 +222,47 @@ public class AgenteTbController implements Serializable {
         }
 
     }
-    
-    public void anadir(){
-        AgentePerfilTb nuevo= new AgentePerfilTb();
+
+    public void anadir() {
+        AgentePerfilTb nuevo = new AgentePerfilTb();
         nuevo.setPerfilTb(perfil);
         nuevo.setAgenteTb(selected);
-        
-        AgentePerfilTbPK agentepk= new AgentePerfilTbPK();
-        
+
+        AgentePerfilTbPK agentepk = new AgentePerfilTbPK();
+
         agentepk.setEIdperfil(perfil.getEIdperfil());
         agentepk.setEIdagente(getFacade().siguienteId());
-        
+
         nuevo.setAgentePerfilTbPK(agentepk);
-        
+
         selected.getAgentePerfilTbList().add(nuevo);
-        
+
         perfiles.remove(perfil);
-        
-        
+
     }
+    public void anadirEdit() {
+        AgentePerfilTb nuevo = new AgentePerfilTb();
+        nuevo.setPerfilTb(perfil);
+        nuevo.setAgenteTb(selected);
+
+        AgentePerfilTbPK agentepk = new AgentePerfilTbPK();
+
+        agentepk.setEIdperfil(perfil.getEIdperfil());
+        agentepk.setEIdagente(selected.getEIdagente());
+
+        nuevo.setAgentePerfilTbPK(agentepk);
+
+        selected.getAgentePerfilTbList().add(nuevo);
+
+        perfiles.remove(perfil);
+
+    }
+
+    public void remover() {
+        selected.getAgentePerfilTbList().remove(perfilAgente);
+        perfiles.add(perfilAgente.getPerfilTb());
+
+    }
+    
 
 }

@@ -11,7 +11,7 @@
         <p:dialog id="AgenteTbViewDlg" widgetVar="AgenteTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewAgenteTbTitle}">
             <h:form id="AgenteTbViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{agenteTbController.selected != null}">
+                    <p:panelGrid columns="4" rendered="#{agenteTbController.selected != null}" style="width: 500px">
                         <h:outputText value="#{bundle.ViewAgenteTbLabel_CNombre}"/>
                         <h:outputText value="#{agenteTbController.selected.CNombre}" title="#{bundle.ViewAgenteTbTitle_CNombre}"/>
                         <h:outputText value="#{bundle.ViewAgenteTbLabel_CApellido}"/>
@@ -32,14 +32,39 @@
                         <h:outputText value="#{agenteTbController.selected.MDireccion}" title="#{bundle.ViewAgenteTbTitle_MDireccion}"/>
                         <h:outputText value="#{bundle.ViewAgenteTbLabel_FFechanac}"/>
                         <h:outputText value="#{agenteTbController.selected.FFechanac}" title="#{bundle.ViewAgenteTbTitle_FFechanac}">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                            <f:convertDateTime pattern="dd MMMM yyyy" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewAgenteTbLabel_FFecham}"/>
                         <h:outputText value="#{agenteTbController.selected.FFecham}" title="#{bundle.ViewAgenteTbTitle_FFecham}">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                            <f:convertDateTime pattern="dd MMMM yyyy" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewAgenteTbLabel_EIdinstitucion}"/>
-                        <h:outputText value="#{agenteTbController.selected.EIdinstitucion.CNombre}" title="#{bundle.ViewAgenteTbTitle_EIdinstitucion}"/>
+                        <h:outputText value="#{agenteTbController.selected.EIdinstitucion.CAcronimo}" title="#{bundle.ViewAgenteTbTitle_EIdinstitucion}"/>
+                    </p:panelGrid>
+                    <p:panelGrid columns="1">
+                        <p:dataTable id="perfilesAgentes"
+                                 value="#{agenteTbController.selected.agentePerfilTbList}"
+                                 var="per"
+                                 editable="true"
+                                 tableStyle="width: 450px"
+                                 scrollable="true"
+                                 scrollHeight="80"
+                                 emptyMessage="No se han seleccionado perfiles"
+                                 >
+                        
+                        <p:column headerText="Perfiles">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    #{per.perfilTb.CNombre}
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:inputText value="#{per.perfilTb.CNombre}"/>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        </p:dataTable>
+                        
+                       
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="AgenteTbViewDialog.hide()"/>
                 </h:panelGroup>

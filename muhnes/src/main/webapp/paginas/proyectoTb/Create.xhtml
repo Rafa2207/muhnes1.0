@@ -11,7 +11,7 @@
         <p:dialog id="ProyectoTbCreateDlg" widgetVar="ProyectoTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateProyectoTbTitle}">
             <h:form id="ProyectoTbCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{proyectoTbController.selected != null}">
+                    <p:panelGrid columns="2" rendered="#{proyectoTbController.selected != null}" >
                        
                         <p:outputLabel value="#{bundle.CreateProyectoTbLabel_CNombre}" for="MNombre" />
                         <p:inputTextarea rows="5" cols="22" autoResize="false" id="MNombre" value="#{proyectoTbController.selected.MNombre}" title="#{bundle.CreateProyectoTbTitle_CNombre}" 
@@ -23,12 +23,12 @@
                                      required="true" requiredMessage="Introduzca responsable del proyecto"/>
                         
                         <p:outputLabel value="#{bundle.CreateProyectoTbLabel_MDescripcion}" for="MDescripcion" />
-                        <p:inputTextarea  id="MDescripcion" value="#{proyectoTbController.selected.MDescripcion}" title="#{bundle.CreateProyectoTbTitle_MDescripcion}" 
+                        <p:inputTextarea cols="22" id="MDescripcion" value="#{proyectoTbController.selected.MDescripcion}" title="#{bundle.CreateProyectoTbTitle_MDescripcion}" 
                                      />
                                                 
                         
                         <p:outputLabel value="#{bundle.CreateProyectoTbLabel_FFechaInicio}" for="FFechaInicio" />
-                        <p:calendar id="FFechaInicio"
+                        <p:calendar id="FFechaInicio" size="15"
                                     pattern="dd MMMM yyyy" value="#{proyectoTbController.selected.FFechaInicio}" 
                                     title="#{bundle.EditProyectoTbTitle_FFechaInicio}"  
                                     showOn="button" required="true"
@@ -39,7 +39,7 @@
                         
                         
                         <p:outputLabel value="#{bundle.CreateProyectoTbLabel_FFechaFin}" for="FFechaFin" />
-                        <p:calendar id="FFechaFin" 
+                        <p:calendar id="FFechaFin"  size="15"
                                     pattern="dd MMMM yyyy" value="#{proyectoTbController.selected.FFechaFin}" 
                                     title="#{bundle.EditProyectoTbTitle_FFechaFin}"  showOn="button"
                                     required="true"

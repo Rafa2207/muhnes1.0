@@ -26,12 +26,12 @@
                                      requiredMessage="Introduzca el responsable"/>
                        
                          <p:outputLabel value="#{bundle.EditProyectoTbLabel_MDescripcion}" for="MDescripcion" />
-                         <p:inputTextarea autoResize="" id="MDescripcion" value="#{proyectoTbController.selected.MDescripcion}" title="#{bundle.EditProyectoTbTitle_MDescripcion}" 
+                         <p:inputTextarea cols="22" autoResize="" id="MDescripcion" value="#{proyectoTbController.selected.MDescripcion}" title="#{bundle.EditProyectoTbTitle_MDescripcion}" 
                                           />
                         
                         
                         <p:outputLabel value="#{bundle.EditProyectoTbLabel_FFechaInicio}" for="FFechaInicio" />
-                        <p:calendar id="FFechaInicio" pattern="dd MMMM yyyy" 
+                        <p:calendar id="FFechaInicio" pattern="dd MMMM yyyy" size="15" 
                                     value="#{proyectoTbController.selected.FFechaInicio}" 
                                     title="#{bundle.EditProyectoTbTitle_FFechaInicio}"  showOn="button"
                                     required="true"
@@ -42,7 +42,7 @@
                         </p:calendar>
                        
                         <p:outputLabel value="#{bundle.EditProyectoTbLabel_FFechaFin}" for="FFechaFin" />
-                        <p:calendar id="FFechaFin" 
+                        <p:calendar id="FFechaFin" size="15"
                                     pattern="dd MMMM yyyy" value="#{proyectoTbController.fechatemporal}" 
                                     title="#{bundle.EditProyectoTbTitle_FFechaFin}"  showOn="button"
                                     required="true"
