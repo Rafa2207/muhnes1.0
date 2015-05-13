@@ -20,7 +20,6 @@
                      <p:breadCrumb>
                         <p:menuitem value="casita"/>
                         <p:menuitem value="Proyectos" outcome="/paginas/proyectoTb/List.xhtml" />
-
                         <p:menuitem value="Presupuestos" outcome="/paginas/presupuestoTb/List.xhtml"  />
 
                     </p:breadCrumb>
@@ -42,6 +41,7 @@
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  filteredValue="#{presupuestoTbController.filtro}"
                                  widgetVar="presupuestoTable"
+                                 emptyMessage="No se han agregado presupuestos"
                                  >
 
                         <p:ajax event="rowSelect"   update=":PresupuestoTbListForm:createButton :PresupuestoTbListForm:viewButton :PresupuestoTbListForm:editButton :PresupuestoTbListForm:deleteButton"/>
@@ -66,6 +66,12 @@
                                 <h:outputText value="#{bundle.ListPresupuestoTbTitle_MDescripcion}"/>
                             </f:facet>
                             <h:outputText value="#{item.MDescripcion}"/>
+                        </p:column>
+                        <p:column filterBy="#{item.DTotal}" filterStyle="display:none">
+                            <f:facet name="header">
+                                <h:outputText value="Total ($)"/>
+                            </f:facet>
+                            <h:outputText value="#{item.DTotal}"/>
                         </p:column>
                         
                         

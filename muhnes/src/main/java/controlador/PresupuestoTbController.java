@@ -36,7 +36,15 @@ public class PresupuestoTbController implements Serializable {
     private double cantidad, costo;
     private String nombre, tiempo;
     int id = 0;
-    InsumoTb insumo = new InsumoTb();
+    InsumoTb insumo;
+
+    public InsumoTb getInsumo() {
+        return insumo;
+    }
+
+    public void setInsumo(InsumoTb insumo) {
+        this.insumo = insumo;
+    }
 
     public PresupuestoTb getPresupuesto() {
         return presupuesto;
@@ -246,8 +254,8 @@ public class PresupuestoTbController implements Serializable {
         ins.setDGasto(costo);
         ins.setMTiempo(tiempo);
         //presupuesto.setEIdpresupuesto();
+        ins.setEIdpresupuesto(selected);
         selected.getInsumoTbList().add(ins);
-        insumo.setEIdpresupuesto(selected);
 
         cantidad = 0;
         costo = 0;
@@ -262,8 +270,13 @@ public class PresupuestoTbController implements Serializable {
         for (InsumoTb i : selected.getInsumoTbList()) {
             tot = tot + (i.getDCantidad() * i.getDGasto());
         }
+        selected.setDTotal(tot);
 
         return tot;
     }
-
+    
+    public void removerInsumo(){
+        selected.getInsumoTbList().remove(insumo);
+    }
+    
 }

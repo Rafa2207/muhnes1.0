@@ -20,4 +20,9 @@
     //background-color: white;
     
 }
+.ui-row-editor{ display: inline-block; }
+.ui-datatable .ui-panelgrid td,.ui-datatable .ui-panelgrid tr{
+    border: none;
+    vertical-align: top;
+}
 

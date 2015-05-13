@@ -11,10 +11,10 @@
         <p:dialog id="PresupuestoTbViewDlg" widgetVar="PresupuestoTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPresupuestoTbTitle}">
             <h:form id="PresupuestoTbViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{presupuestoTbController.selected != null}">
-                       <h:outputText value="#{bundle.ViewPresupuestoTbLabel_CNombre}"/>
+                    <p:panelGrid columns="2" rendered="#{presupuestoTbController.selected != null}" style="width: 600px">
+                        <h:outputText value="#{bundle.ViewPresupuestoTbLabel_CNombre}"/>
                         <h:outputText value="#{presupuestoTbController.selected.MNombre}" title="#{bundle.ViewPresupuestoTbTitle_CNombre}"/>
-                        
+
                         <h:outputText value="#{bundle.ViewPresupuestoTbLabel_CTipo}"/>
                         <h:outputText value="#{presupuestoTbController.selected.CTipo}" title="#{bundle.ViewPresupuestoTbTitle_CTipo}"/>
                         <h:outputText value="#{bundle.ViewPresupuestoTbLabel_MDescripcion}"/>
@@ -22,6 +22,34 @@
                         <h:outputText value="#{bundle.ViewPresupuestoTbLabel_EIdproyecto}"/>
                         <h:outputText value="#{presupuestoTbController.selected.EIdproyecto.MNombre}" title="#{bundle.ViewPresupuestoTbTitle_EIdproyecto}"/>
                     </p:panelGrid>
+                    <p:dataTable id="insumos"
+                                 editable="true"
+                                 value="#{presupuestoTbController.selected.insumoTbList}"
+                                 var="insumo"
+                                 scrollable="true"
+                                 scrollHeight="140"
+                                 emptyMessage="No ha agregado insumos"
+                                 tableStyle="width:600px">
+                        <p:column headerText="Insumo" style="width: 200px">
+                            #{insumo.MNombre}
+                        </p:column>
+                        <p:column headerText="Cantidad">
+                            #{insumo.DCantidad}
+                        </p:column>
+                        <p:column headerText="Unidades">
+                            #{insumo.MTiempo}
+                        </p:column>
+                        <p:column headerText="Costo Unitario">
+                            $#{insumo.DGasto}
+                        </p:column>
+                        <p:column headerText="Costo Total">
+                            <h:outputText value="$#{insumo.DCantidad*insumo.DGasto}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <div style="text-align: right">
+                        <h:outputText style="font-weight: bold" value="Total ($): "/>
+                        <h:outputText id="total" style="font-weight: bold"  value="#{presupuestoTbController.selected.DTotal}"/>
+                    </div>
                     <p:commandButton value="#{bundle.Close}" onclick="PresupuestoTbViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

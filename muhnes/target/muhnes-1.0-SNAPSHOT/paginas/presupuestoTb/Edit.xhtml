@@ -11,26 +11,108 @@
         <p:dialog id="PresupuestoTbEditDlg" widgetVar="PresupuestoTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPresupuestoTbTitle}">
             <h:form id="PresupuestoTbEditForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{presupuestoTbController.selected != null}">
-                        
-                        
-                        
-                        <p:outputLabel value="#{bundle.EditPresupuestoTbLabel_CNombre}" for="CNombre" />
-                        <p:inputText id="CNombre" value="#{presupuestoTbController.selected.MNombre}" title="#{bundle.EditPresupuestoTbTitle_CNombre}" 
-                                     required="true" requiredMessage="Introduzca nombre de presupuesto"/>
-                        
-                        <p:outputLabel value="#{bundle.EditPresupuestoTbLabel_CTipo}" for="CTipo" />
-                       <p:selectOneMenu id="CTipo" value="#{presupuestoTbController.selected.CTipo}" required="true" requiredMessage="Seleccione tipo" >
-                            <f:selectItem itemLabel="Seleccione" itemValue="" />
-                            <f:selectItem itemLabel="Materiales" itemValue="Materiales" />
-                            <f:selectItem itemLabel="Viaje" itemValue="Viaje" />                            
-                        </p:selectOneMenu>
-                       
-                        <p:outputLabel value="#{bundle.EditPresupuestoTbLabel_MDescripcion}" for="MDescripcion" />
-                        <p:inputTextarea autoResize="" id="MDescripcion" value="#{presupuestoTbController.selected.MDescripcion}" title="#{bundle.EditPresupuestoTbTitle_MDescripcion}" />
-                        
-                        
-                    </p:panelGrid>
+                    <p:fieldset legend="Datos del generales">
+                        <p:panelGrid columns="4" rendered="#{presupuestoTbController.selected != null}">
+                            <p:outputLabel value="#{bundle.CreatePresupuestoTbLabel_CNombre}" for="CNombre" />
+                            <p:inputText id="CNombre" value="#{presupuestoTbController.selected.MNombre}" title="#{bundle.CreatePresupuestoTbTitle_CNombre}" 
+                                         required="true" requiredMessage="Introduzca nombre de presupuesto"/>
+
+                            <p:outputLabel value="#{bundle.CreatePresupuestoTbLabel_CTipo}" for="CTipo" />
+                            <p:selectOneMenu id="CTipo" value="#{presupuestoTbController.selected.CTipo}" required="true" requiredMessage="Seleccione tipo" >
+                                <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                <f:selectItem itemLabel="Materiales" itemValue="Materiales" />
+                                <f:selectItem itemLabel="Viaje" itemValue="Viaje" />                            
+                            </p:selectOneMenu>
+
+
+                            <p:outputLabel value="#{bundle.CreatePresupuestoTbLabel_MDescripcion}" for="MDescripcion" />
+                            <p:inputTextarea  cols="40" rows="2" autoResize="" id="MDescripcion" value="#{presupuestoTbController.selected.MDescripcion}" title="#{bundle.CreatePresupuestoTbTitle_MDescripcion}" />
+
+
+                        </p:panelGrid>
+                    </p:fieldset>
+                    <p:fieldset legend="Insumos">
+                        <p:panelGrid columns="9">
+                            <p:outputLabel value="Insumo:" for="insumo" />
+                            <p:inputText id="insumo" value="#{presupuestoTbController.nombre}"/>
+                            <p:outputLabel value="Cantidad:" for="cant"/>
+                            <p:inputText id="cant" size="4" value="#{presupuestoTbController.cantidad}"/>
+                            <p:outputLabel value="Unidades:" for="unidad" />
+                            <p:inputText id="unidad" value="#{presupuestoTbController.tiempo}"/>
+                            <p:outputLabel value="Costo Unitario($):" for="costo" />
+                            <p:inputText id="costo" size="4" value="#{presupuestoTbController.costo}"/>
+                            <p:commandButton id="agregar"
+                                             value="Agregar"
+                                             actionListener="#{presupuestoTbController.agregar()}"
+                                             process="insumo cant costo unidad agregar"
+                                             update="insumos insumo cant costo unidad total"
+                                             />
+                        </p:panelGrid>
+                        <p:dataTable id="insumos"
+                                     editable="true"
+                                     value="#{presupuestoTbController.selected.insumoTbList}"
+                                     var="insumo"
+                                     scrollable="true"
+                                     scrollHeight="140"
+                                     emptyMessage="No ha agregado insumos"
+                                     tableStyle="width:900px">
+                            <p:ajax event="rowEdit" update=":PresupuestoTbEditForm:total"/>
+                            <p:column headerText="Insumo">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        #{insumo.MNombre}
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{insumo.MNombre}"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="Cantidad">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        #{insumo.DCantidad}
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{insumo.DCantidad}"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="Unidades"><p:cellEditor>
+                                    <f:facet name="output">
+                                        #{insumo.MTiempo}
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{insumo.MTiempo}"/>
+                                    </f:facet>
+                                </p:cellEditor></p:column>
+                            <p:column headerText="Costo Unitario">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        $#{insumo.DGasto}
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{insumo.DGasto}"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="Costo Total">
+                                <h:outputText value="$#{insumo.DCantidad*insumo.DGasto}"/>
+                            </p:column>
+                            <p:column headerText="Acciones">
+                                <p:rowEditor/>
+                                <p:commandLink style="display: inline-block"
+                                               styleClass="ui-icon ui-icon-trash"
+                                               action="#{presupuestoTbController.removerInsumo()}"
+                                               process="insumos"
+                                               update="insumos, :PresupuestoTbEditForm:total">
+                                    <f:setPropertyActionListener value="#{insumo}" 
+                                                                 target="#{presupuestoTbController.insumo}"/>
+                                </p:commandLink>
+                            </p:column>
+                        </p:dataTable>
+                        <h:outputText style="font-weight: bold" value="Total ($): "/>
+                        <h:outputText id="total" style="font-weight: bold" value="#{presupuestoTbController.costoTotal()}" rendered="#{presupuestoTbController.selected != null}"/>
+                    </p:fieldset>
                     <p:commandButton actionListener="#{presupuestoTbController.update}" value="#{bundle.Save}" update="display,:PresupuestoTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PresupuestoTbEditDialog');"/>
                    
                 </h:panelGroup>

@@ -85,7 +85,7 @@
                                         <p:inputText value="#{insumo.MTiempo}"/>
                                     </f:facet>
                                 </p:cellEditor></p:column>
-                            <p:column headerText="Costo">
+                            <p:column headerText="Costo Unitario">
                                 <p:cellEditor>
                                     <f:facet name="output">
                                         $#{insumo.DGasto}
@@ -100,10 +100,18 @@
                             </p:column>
                             <p:column headerText="Acciones">
                                 <p:rowEditor/>
+                                <p:commandLink style="display: inline-block"
+                                               styleClass="ui-icon ui-icon-trash"
+                                               action="#{presupuestoTbController.removerInsumo()}"
+                                               process="insumos"
+                                               update="insumos, :PresupuestoTbCreateForm:total">
+                                    <f:setPropertyActionListener value="#{insumo}" 
+                                                                 target="#{presupuestoTbController.insumo}"/>
+                                </p:commandLink>
                             </p:column>
                         </p:dataTable>
-                        <h:outputText value="Total ($): "/>
-                        <h:outputText id="total" value="#{presupuestoTbController.costoTotal()}" rendered="#{presupuestoTbController.selected != null}"/>
+                            <h:outputText style="font-weight: bold" value="Total ($): "/>
+                        <h:outputText id="total" style="font-weight: bold" value="#{presupuestoTbController.costoTotal()}" rendered="#{presupuestoTbController.selected != null}"/>
                     </p:fieldset>
                     <p:commandButton actionListener="#{presupuestoTbController.create}" value="#{bundle.Save}" update="display,:PresupuestoTbListForm:datalist,:growl"/>
                 </h:panelGroup>
