@@ -8,6 +8,7 @@ package modelo;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -53,7 +54,7 @@ public class PresupuestoTb implements Serializable {
     private String mDescripcion;
     @Column(name = "d_total")
     private Double dTotal;
-    @OneToMany(mappedBy = "eIdpresupuesto")
+    @OneToMany(mappedBy = "eIdpresupuesto", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<InsumoTb> insumoTbList;
     @JoinColumn(name = "e_idproyecto", referencedColumnName = "e_idproyecto")
     @ManyToOne(optional = false)

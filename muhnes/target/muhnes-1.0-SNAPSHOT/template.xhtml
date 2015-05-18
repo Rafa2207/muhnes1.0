@@ -38,9 +38,9 @@
                             </p:themeSwitcher>
                 </h:form>
             </p:layoutUnit>
-            <p:layoutUnit position="west" size="200" header="#{bundle.AppName}" style="border: 0" gutter="0" collapsible="true" >
+            <p:layoutUnit position="west" size="250" header="#{bundle.AppName}" style="border: 0" gutter="0" collapsible="true" >
                 <h:form id="menuForm">
-                    <p:panelMenu>
+                    <p:menu toggleable="true" style="width: 210px">
                         <p:menuitem value="#{bundle.Home}" outcome="/index" icon="ui-icon-home"/>
                         <p:submenu label="Proyectos">
                             <p:menuitem value="Proyecto" outcome="/paginas/proyectoTb/List.xhtml" />
@@ -79,7 +79,7 @@
                             <p:menuitem value="Usuario" outcome="/paginas/usuarioTb/List.xhtml" />
                             <p:menuitem value="Bitácora" outcome="/paginas/bitacoraTb/List.xhtml" />
                         </p:submenu>
-                    </p:panelMenu>
+                    </p:menu>
                 </h:form>
             </p:layoutUnit>
 

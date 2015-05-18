@@ -84,7 +84,7 @@ public class AgenteTb implements Serializable {
     @Column(name = "f_fecham")
     @Temporal(TemporalType.DATE)
     private Date fFecham;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "agenteTb")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "agenteTb", orphanRemoval = true)
     private List<AgentePerfilTb> agentePerfilTbList;
     @JoinColumn(name = "e_idinstitucion", referencedColumnName = "e_idinstitucion")
     @ManyToOne

@@ -10,7 +10,7 @@ import modelo.EjemplarTb;
 import modelo.PresupuestoTb;
 import modelo.ProcesoejemplarTb;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-05-13T15:05:20")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-05-15T15:40:41")
 @StaticMetamodel(ProyectoTb.class)
 public class ProyectoTb_ { 
 
