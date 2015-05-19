@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundleMateriales.ListMaterialPedidoTbTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="MaterialPedidoTbListForm">
+                <p:panel header="#{bundleMateriales.ListMaterialPedidoTbTitle}">
+                    <p:dataTable id="datalist" value="#{materialPedidoTbController.items}" var="item"
+                                 selectionMode="single" selection="#{materialPedidoTbController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.materialPedidoTbPK}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleMateriales.ListMaterialPedidoTbTitle_ECantidad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ECantidad}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleMateriales.ListMaterialPedidoTbTitle_pedidoTb}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pedidoTb}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleMateriales.ListMaterialPedidoTbTitle_materialTb}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.materialTb}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundleMateriales.Create}" actionListener="#{materialPedidoTbController.prepareCreate}" update=":MaterialPedidoTbCreateForm" oncomplete="PF('MaterialPedidoTbCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundleMateriales.View}" update=":MaterialPedidoTbViewForm" oncomplete="PF('MaterialPedidoTbViewDialog').show()" disabled="#{empty materialPedidoTbController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundleMateriales.Edit}" update=":MaterialPedidoTbEditForm" oncomplete="PF('MaterialPedidoTbEditDialog').show()" disabled="#{empty materialPedidoTbController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundleMateriales.Delete}" actionListener="#{materialPedidoTbController.destroy}" update=":growl,datalist" disabled="#{empty materialPedidoTbController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

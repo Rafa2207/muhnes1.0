@@ -6,18 +6,14 @@
 package modelo;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -33,7 +29,9 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "MaterialTb.findByCNombre", query = "SELECT m FROM MaterialTb m WHERE m.cNombre = :cNombre"),
     @NamedQuery(name = "MaterialTb.findByDCantidad", query = "SELECT m FROM MaterialTb m WHERE m.dCantidad = :dCantidad"),
     @NamedQuery(name = "MaterialTb.findByMDescripcion", query = "SELECT m FROM MaterialTb m WHERE m.mDescripcion = :mDescripcion"),
-    @NamedQuery(name = "MaterialTb.findByCEstado", query = "SELECT m FROM MaterialTb m WHERE m.cEstado = :cEstado")})
+    @NamedQuery(name = "MaterialTb.findByCEstado", query = "SELECT m FROM MaterialTb m WHERE m.cEstado = :cEstado"),
+    @NamedQuery(name = "MaterialTb.findByMCodigobarras", query = "SELECT m FROM MaterialTb m WHERE m.mCodigobarras = :mCodigobarras"),
+    @NamedQuery(name = "MaterialTb.findByMMarca", query = "SELECT m FROM MaterialTb m WHERE m.mMarca = :mMarca")})
 public class MaterialTb implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -53,11 +51,12 @@ public class MaterialTb implements Serializable {
     @Size(max = 20)
     @Column(name = "c_estado")
     private String cEstado;
-    @JoinColumn(name = "e_idactividad", referencedColumnName = "e_idactividad")
-    @ManyToOne
-    private ActividadTb eIdactividad;
-    @OneToMany(mappedBy = "eIdmaterial")
-    private List<PedidoTb> pedidoTbList;
+    @Size(max = 2147483647)
+    @Column(name = "m_codigobarras")
+    private String mCodigobarras;
+    @Size(max = 2147483647)
+    @Column(name = "m_marca")
+    private String mMarca;
 
     public MaterialTb() {
     }
@@ -106,20 +105,20 @@ public class MaterialTb implements Serializable {
         this.cEstado = cEstado;
     }
 
-    public ActividadTb getEIdactividad() {
-        return eIdactividad;
+    public String getMCodigobarras() {
+        return mCodigobarras;
     }
 
-    public void setEIdactividad(ActividadTb eIdactividad) {
-        this.eIdactividad = eIdactividad;
+    public void setMCodigobarras(String mCodigobarras) {
+        this.mCodigobarras = mCodigobarras;
     }
 
-    public List<PedidoTb> getPedidoTbList() {
-        return pedidoTbList;
+    public String getMMarca() {
+        return mMarca;
     }
 
-    public void setPedidoTbList(List<PedidoTb> pedidoTbList) {
-        this.pedidoTbList = pedidoTbList;
+    public void setMMarca(String mMarca) {
+        this.mMarca = mMarca;
     }
 
     @Override

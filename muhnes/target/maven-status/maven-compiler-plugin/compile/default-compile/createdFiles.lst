@@ -11,6 +11,7 @@ modelo\MunicipioTb.class
 modelo\InstitucionTb.class
 modelo\ProcesoejemplarTb.class
 modelo\EspecieTb.class
+controlador\MaterialPedidoTbController$MaterialPedidoTbControllerConverter.class
 modelo\ProyectoTb.class
 controlador\ProyectoTbController.class
 controlador\CantonTbController.class
@@ -51,6 +52,7 @@ servicio\NombrecomunTbFacade.class
 modelo\EjemplarParticipaExhibicionTb_.class
 controlador\PaisTbController$PaisTbControllerConverter.class
 modelo\AgenteTb.class
+modelo\MaterialPedidoTbPK_.class
 controlador\PresupuestoTbController.class
 controlador\CantonTbController$CantonTbControllerConverter.class
 servicio\VariedadTbFacade.class
@@ -61,8 +63,10 @@ controlador\EjemplarTbController$EjemplarTbControllerConverter.class
 servicio\FamiliaTbFacade.class
 modelo\EjemplarParticipaExhibicionTbPK_.class
 servicio\PaisTbFacade.class
+servicio\MaterialPedidoTbFacade.class
 modelo\CantonTb_.class
 modelo\ActividadTb_.class
+modelo\MaterialPedidoTb.class
 controlador\NombrecomunTbController$NombrecomunTbControllerConverter.class
 controlador\PresupuestoTbController$PresupuestoTbControllerConverter.class
 controlador\util\ThemeSwitcherBean.class
@@ -89,6 +93,7 @@ controlador\PerfilTbController.class
 modelo\CantonTb.class
 controlador\EjemplarParticipaExhibicionTbController.class
 modelo\DepartamentoTb_.class
+controlador\MaterialPedidoTbController.class
 controlador\AgenteTbController$AgenteTbControllerConverter.class
 modelo\MaterialTb_.class
 controlador\VariedadTbController.class
@@ -107,9 +112,11 @@ controlador\ExhibicionTbController$ExhibicionTbControllerConverter.class
 modelo\InsumoTb.class
 modelo\AgentePerfilTbPK_.class
 controlador\MunicipioTbController$MunicipioTbControllerConverter.class
+modelo\MaterialPedidoTbPK.class
 modelo\DepartamentoTb.class
 modelo\EjemplarTb.class
 controlador\EspecieTbController.class
+modelo\MaterialPedidoTb_.class
 modelo\NombrecomunTb.class
 controlador\InsumoTbController$InsumoTbControllerConverter.class
 controlador\AgenteIdentificaEjemplarTbController$AgenteIdentificaEjemplarTbControllerConverter.class

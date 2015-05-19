@@ -2,17 +2,18 @@ package modelo;
 
 import java.util.Date;
 import javax.annotation.Generated;
+import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
-import modelo.MaterialTb;
+import modelo.MaterialPedidoTb;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-05-15T15:40:41")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-05-18T16:27:54")
 @StaticMetamodel(PedidoTb.class)
 public class PedidoTb_ { 
 
+    public static volatile ListAttribute<PedidoTb, MaterialPedidoTb> materialPedidoTbList;
     public static volatile SingularAttribute<PedidoTb, Integer> eIdpedido;
     public static volatile SingularAttribute<PedidoTb, Date> fFecha;
-    public static volatile SingularAttribute<PedidoTb, MaterialTb> eIdmaterial;
     public static volatile SingularAttribute<PedidoTb, String> mDescripcion;
 
 }

@@ -7,16 +7,17 @@ package modelo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -46,9 +47,8 @@ public class PedidoTb implements Serializable {
     @Column(name = "f_fecha")
     @Temporal(TemporalType.DATE)
     private Date fFecha;
-    @JoinColumn(name = "e_idmaterial", referencedColumnName = "e_idmaterial")
-    @ManyToOne
-    private MaterialTb eIdmaterial;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedidoTb")
+    private List<MaterialPedidoTb> materialPedidoTbList;
 
     public PedidoTb() {
     }
@@ -81,12 +81,12 @@ public class PedidoTb implements Serializable {
         this.fFecha = fFecha;
     }
 
-    public MaterialTb getEIdmaterial() {
-        return eIdmaterial;
+    public List<MaterialPedidoTb> getMaterialPedidoTbList() {
+        return materialPedidoTbList;
     }
 
-    public void setEIdmaterial(MaterialTb eIdmaterial) {
-        this.eIdmaterial = eIdmaterial;
+    public void setMaterialPedidoTbList(List<MaterialPedidoTb> materialPedidoTbList) {
+        this.materialPedidoTbList = materialPedidoTbList;
     }
 
     @Override

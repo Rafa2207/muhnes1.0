@@ -24,7 +24,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author Endy
+ * @author Rafa
  */
 @Entity
 @Table(name = "actividad_tb")

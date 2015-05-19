@@ -12,5 +12,9 @@
             <base-name>/BundlePerfilAgente</base-name>
             <var>bundlePerfilAgente</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>/BundleMateriales</base-name>
+            <var>bundleMateriales</var>
+        </resource-bundle>
     </application>
 </faces-config>

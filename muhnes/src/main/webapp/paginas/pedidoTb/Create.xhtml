@@ -13,15 +13,6 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{pedidoTbController.selected != null}">
 
-                        <p:outputLabel value="#{bundle.CreatePedidoTbLabel_EIdmaterial}" for="EIdmaterial" />
-                        <p:selectOneMenu id="EIdmaterial" value="#{pedidoTbController.selected.EIdmaterial}" required="true">
-                            <f:selectItem itemLabel="Seleccione uno..." itemValue="" />
-                            <f:selectItems value="#{materialTbController.itemsAvailableSelectOne}"
-                                           var="EIdmaterialItem"
-                                           itemLabel="#{EIdmaterialItem.CNombre}"
-                                           itemValue="#{EIdmaterialItem}"/>
-                        </p:selectOneMenu>
-
                         <p:outputLabel value="#{bundle.CreatePedidoTbLabel_MDescripcion}" for="MDescripcion" />
                         <p:inputTextarea autoResize="" id="MDescripcion" cols="30" value="#{pedidoTbController.selected.MDescripcion}" title="#{bundle.CreatePedidoTbTitle_MDescripcion}" 
                                          />

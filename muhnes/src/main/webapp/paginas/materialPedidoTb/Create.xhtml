@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MaterialPedidoTbCreateDlg" widgetVar="MaterialPedidoTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleMateriales.CreateMaterialPedidoTbTitle}">
+            <h:form id="MaterialPedidoTbCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{materialPedidoTbController.selected != null}">
+                        <p:outputLabel value="#{bundleMateriales.CreateMaterialPedidoTbLabel_ECantidad}" for="ECantidad" />
+                        <p:inputText id="ECantidad" value="#{materialPedidoTbController.selected.ECantidad}" title="#{bundleMateriales.CreateMaterialPedidoTbTitle_ECantidad}" />
+                        <p:outputLabel value="#{bundleMateriales.CreateMaterialPedidoTbLabel_pedidoTb}" for="pedidoTb" />
+                        <p:selectOneMenu id="pedidoTb" value="#{materialPedidoTbController.selected.pedidoTb}" required="true" requiredMessage="#{bundleMateriales.EditMaterialPedidoTbRequiredMessage_pedidoTb}">
+                            <f:selectItems value="#{pedidoTbController.itemsAvailableSelectOne}"
+                                           var="pedidoTbItem"
+                                           itemValue="#{pedidoTbItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundleMateriales.CreateMaterialPedidoTbLabel_materialTb}" for="materialTb" />
+                        <p:selectOneMenu id="materialTb" value="#{materialPedidoTbController.selected.materialTb}" required="true" requiredMessage="#{bundleMateriales.EditMaterialPedidoTbRequiredMessage_materialTb}">
+                            <f:selectItems value="#{materialTbController.itemsAvailableSelectOne}"
+                                           var="materialTbItem"
+                                           itemValue="#{materialTbItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{materialPedidoTbController.create}" value="#{bundleMateriales.Save}" update="display,:MaterialPedidoTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'MaterialPedidoTbCreateDialog');"/>
+                    <p:commandButton value="#{bundleMateriales.Cancel}" onclick="MaterialPedidoTbCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
