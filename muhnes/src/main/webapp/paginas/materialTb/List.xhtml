@@ -17,6 +17,11 @@
             <h:form id="MaterialTbListForm">
                 <p:panel header="#{bundle.ListMaterialTbTitle}">
 
+                    <p:breadCrumb>
+                        <p:menuitem value="casita"/>
+                        <p:menuitem value="Materiales" outcome="/paginas/materialTb/List.xhtml" />
+                    </p:breadCrumb>
+
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{materialTbController.prepareCreate}" update=":MaterialTbCreateForm" oncomplete="PF('MaterialTbCreateDialog').show()"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":MaterialTbViewForm" oncomplete="PF('MaterialTbViewDialog').show()" disabled="#{empty materialTbController.selected}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":MaterialTbEditForm" oncomplete="PF('MaterialTbEditDialog').show()" disabled="#{empty materialTbController.selected}"/>
@@ -39,6 +44,12 @@
                         <p:ajax event="rowSelect"   update=":MaterialTbListForm:createButton :MaterialTbListForm:viewButton :MaterialTbListForm:editButton :MaterialTbListForm:deleteButton"/>
                         <p:ajax event="rowUnselect" update=":MaterialTbListForm:createButton :MaterialTbListForm:viewButton :MaterialTbListForm:editButton :MaterialTbListForm:deleteButton"/>
 
+                        <p:column filterBy="#{item.MCodigobarras}" filterStyle="display:none">
+                            <f:facet name="header">
+                                <h:outputText value="Codigo"/>
+                            </f:facet>
+                            <h:outputText value="#{item.MCodigobarras}"/>
+                        </p:column>
 
                         <p:column filterBy="#{item.CNombre}" filterStyle="display:none">
                             <f:facet name="header">
@@ -52,12 +63,7 @@
                             </f:facet>
                             <h:outputText value="#{item.DCantidad}"/>
                         </p:column>
-                        <p:column filterStyle="#{item.CEstado}" filterStyleClass="display:none">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaterialTbTitle_CEstado}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.CEstado}"/>
-                        </p:column>
+
                         <f:facet name="header">
                             <p:outputPanel>
                                 <h:outputText value="Búsqueda: " />

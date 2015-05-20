@@ -12,15 +12,18 @@
             <h:form id="MaterialTbViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{materialTbController.selected != null}">
+                        
                         <h:outputText value="#{bundle.ViewMaterialTbLabel_CNombre}"/>
                         <h:outputText value="#{materialTbController.selected.CNombre}" title="#{bundle.ViewMaterialTbTitle_CNombre}"/>
                         <h:outputText value="#{bundle.ViewMaterialTbLabel_DCantidad}"/>
                         <h:outputText value="#{materialTbController.selected.DCantidad}" title="#{bundle.ViewMaterialTbTitle_DCantidad}"/>
                         <h:outputText value="#{bundle.ViewMaterialTbLabel_MDescripcion}"/>
                         <h:outputText value="#{materialTbController.selected.MDescripcion}" title="#{bundle.ViewMaterialTbTitle_MDescripcion}"/>
-                        <h:outputText value="#{bundle.ViewMaterialTbLabel_CEstado}"/>
-                        <h:outputText value="#{materialTbController.selected.CEstado}" title="#{bundle.ViewMaterialTbTitle_CEstado}"/>
-                       
+                                              
+                        <h:outputText  value="codigo: "/>
+                        <p:barcode value="#{materialTbController.selected.MCodigobarras}" width="110%" height="110%" type="code128"/>
+                        
+                        
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="MaterialTbViewDialog.hide()"/>
                 </h:panelGroup>

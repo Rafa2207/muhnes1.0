@@ -38,7 +38,8 @@
                                     requiredMessage="Introduzca contraseña 1."
                                     feedback="true" inline="false"
                                     promptLabel="Por favor introduzca una contraseña." weakLabel="Corta."
-                                    goodLabel="Buena." strongLabel="Segura." size="20" maxlength="15" />
+                                    goodLabel="Buena." strongLabel="Segura." size="20" maxlength="15"
+                                    validatorMessage="Contraseñas no coinciden"/>
 
                         <p:outputLabel for="pwd2" value="Repita Contraseña: " />
                         <p:password id="pwd2" value="#{usuarioTbController.selected.MPassword}" required="true" 

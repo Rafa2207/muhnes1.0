@@ -13,29 +13,31 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{materialTbController.selected != null}">
                         
-                        <p:outputLabel value="#{bundle.EditMaterialTbLabel_CNombre}" for="CNombre" />
-                        <p:inputText id="CNombre" value="#{materialTbController.selected.CNombre}" title="#{bundle.EditMaterialTbTitle_CNombre}" 
+                        <p:outputLabel value="Código: " />
+                        <p:outputLabel value="#{materialTbController.selected.MCodigobarras}" />  
+
+                        <p:outputLabel value="#{bundle.CreateMaterialTbLabel_CNombre}" for="CNombre" />
+                        <p:inputText id="CNombre" value="#{materialTbController.selected.CNombre}" title="#{bundle.CreateMaterialTbTitle_CNombre}"
                                      required="true"
                                      requiredMessage="Introduzca nombre del material" size="25" maxlength="50"/>
-                        
-                        <p:outputLabel value="#{bundle.EditMaterialTbLabel_DCantidad}" for="DCantidad" />
-                        <p:inputText id="DCantidad" value="#{materialTbController.selected.DCantidad}" title="#{bundle.EditMaterialTbTitle_DCantidad}" 
+
+                        <p:outputLabel value="Marca: " for="Marca" />
+                        <p:inputText id="Marca" value="#{materialTbController.selected.MMarca}" title="Marca" 
+                                     size="25" maxlength="50"/>
+
+                        <p:outputLabel value="#{bundle.CreateMaterialTbLabel_DCantidad}" for="DCantidad" />
+                        <p:inputText id="DCantidad" value="#{materialTbController.selected.DCantidad}" title="#{bundle.CreateMaterialTbTitle_DCantidad}" 
                                      required="true"
-                                     requiredMessage="Introduzca cantidad del material" size="10" maxlength="10"/>
-                        
-                        <p:outputLabel value="#{bundle.EditMaterialTbLabel_MDescripcion}" for="MDescripcion" />
-                        <p:inputTextarea autoResize="" id="MDescripcion" cols="30" value="#{materialTbController.selected.MDescripcion}" title="#{bundle.EditMaterialTbTitle_MDescripcion}"/>
-                        
-                        <p:outputLabel value="#{bundle.EditMaterialTbLabel_CEstado}" for="CEstado" />
-                        <p:selectOneMenu id="CEstado" value="#{materialTbController.selected.CEstado}" 
-                                         required="true" 
-                                         requiredMessage="Seleccione el estado del material.">
-                            <f:selectItem itemValue="" itemLabel="Seleccione estado de material."/>
-                            <f:selectItem itemValue="Nuevo" itemLabel="Nuevo"/>
-                            <f:selectItem itemValue="Usado" itemLabel="Usado"/>
-                            <f:selectItem itemValue="Dañado" itemLabel="Dañado"/>
-                        </p:selectOneMenu>
-                      </p:panelGrid>
+                                     requiredMessage="Introduzca cantidad del material" size="10" maxlength="10"/>              
+
+                      
+                        <p:outputLabel value="#{bundle.CreateMaterialTbLabel_MDescripcion}" for="MDescripcion" />
+                        <p:inputTextarea autoResize=""  cols="30" id="MDescripcion" value="#{materialTbController.selected.MDescripcion}" title="#{bundle.CreateMaterialTbTitle_MDescripcion}" 
+                                         requiredMessage="Introduzca descripción"/>
+
+
+
+                    </p:panelGrid>
                     <p:commandButton actionListener="#{materialTbController.update}" value="#{bundle.Save}" update="display,:MaterialTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MaterialTbEditDialog');"/>
 
                 </h:panelGroup>
