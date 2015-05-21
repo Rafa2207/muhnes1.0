@@ -16,5 +16,9 @@
             <base-name>/BundleMateriales</base-name>
             <var>bundleMateriales</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>/Bundlematerialproyecto</base-name>
+            <var>bundlematerialproyecto</var>
+        </resource-bundle>
     </application>
 </faces-config>

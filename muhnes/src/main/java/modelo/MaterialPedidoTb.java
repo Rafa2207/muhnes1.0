@@ -25,13 +25,17 @@ import javax.persistence.Table;
     @NamedQuery(name = "MaterialPedidoTb.findAll", query = "SELECT m FROM MaterialPedidoTb m"),
     @NamedQuery(name = "MaterialPedidoTb.findByEIdmaterial", query = "SELECT m FROM MaterialPedidoTb m WHERE m.materialPedidoTbPK.eIdmaterial = :eIdmaterial"),
     @NamedQuery(name = "MaterialPedidoTb.findByEIdpedido", query = "SELECT m FROM MaterialPedidoTb m WHERE m.materialPedidoTbPK.eIdpedido = :eIdpedido"),
-    @NamedQuery(name = "MaterialPedidoTb.findByECantidad", query = "SELECT m FROM MaterialPedidoTb m WHERE m.eCantidad = :eCantidad")})
+    @NamedQuery(name = "MaterialPedidoTb.findByDCantidad", query = "SELECT m FROM MaterialPedidoTb m WHERE m.dCantidad = :dCantidad"),
+    @NamedQuery(name = "MaterialPedidoTb.findByDEntrada", query = "SELECT m FROM MaterialPedidoTb m WHERE m.dEntrada = :dEntrada")})
 public class MaterialPedidoTb implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected MaterialPedidoTbPK materialPedidoTbPK;
-    @Column(name = "e_cantidad")
-    private Integer eCantidad;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "d_cantidad")
+    private Double dCantidad;
+    @Column(name = "d_entrada")
+    private Double dEntrada;
     @JoinColumn(name = "e_idpedido", referencedColumnName = "e_idpedido", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private PedidoTb pedidoTb;
@@ -58,12 +62,20 @@ public class MaterialPedidoTb implements Serializable {
         this.materialPedidoTbPK = materialPedidoTbPK;
     }
 
-    public Integer getECantidad() {
-        return eCantidad;
+    public Double getDCantidad() {
+        return dCantidad;
     }
 
-    public void setECantidad(Integer eCantidad) {
-        this.eCantidad = eCantidad;
+    public void setDCantidad(Double dCantidad) {
+        this.dCantidad = dCantidad;
+    }
+
+    public Double getDEntrada() {
+        return dEntrada;
+    }
+
+    public void setDEntrada(Double dEntrada) {
+        this.dEntrada = dEntrada;
     }
 
     public PedidoTb getPedidoTb() {

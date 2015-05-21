@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MaterialProyectoTbViewDlg" widgetVar="MaterialProyectoTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundlematerialproyecto.ViewMaterialProyectoTbTitle}">
+            <h:form id="MaterialProyectoTbViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{materialProyectoTbController.selected != null}">
+                        <h:outputText value="#{bundlematerialproyecto.ViewMaterialProyectoTbLabel_DCantidad}"/>
+                        <h:outputText value="#{materialProyectoTbController.selected.DCantidad}" title="#{bundlematerialproyecto.ViewMaterialProyectoTbTitle_DCantidad}"/>
+                        <h:outputText value="#{bundlematerialproyecto.ViewMaterialProyectoTbLabel_DRegreso}"/>
+                        <h:outputText value="#{materialProyectoTbController.selected.DRegreso}" title="#{bundlematerialproyecto.ViewMaterialProyectoTbTitle_DRegreso}"/>
+                        <h:outputText value="#{bundlematerialproyecto.ViewMaterialProyectoTbLabel_proyectoTb}"/>
+                        <h:outputText value="#{materialProyectoTbController.selected.proyectoTb}" title="#{bundlematerialproyecto.ViewMaterialProyectoTbTitle_proyectoTb}"/>
+                        <h:outputText value="#{bundlematerialproyecto.ViewMaterialProyectoTbLabel_materialTb}"/>
+                        <h:outputText value="#{materialProyectoTbController.selected.materialTb}" title="#{bundlematerialproyecto.ViewMaterialProyectoTbTitle_materialTb}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundlematerialproyecto.Close}" onclick="MaterialProyectoTbViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

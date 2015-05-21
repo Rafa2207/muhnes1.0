@@ -11,6 +11,7 @@ modelo\MunicipioTb.class
 modelo\InstitucionTb.class
 modelo\ProcesoejemplarTb.class
 modelo\EspecieTb.class
+modelo\MaterialProyectoTb.class
 controlador\MaterialPedidoTbController$MaterialPedidoTbControllerConverter.class
 modelo\ProyectoTb.class
 controlador\ProyectoTbController.class
@@ -29,6 +30,7 @@ modelo\EjemplarParticipaExhibicionTbPK.class
 controlador\AreaprotegidaTbController$AreaprotegidaTbControllerConverter.class
 controlador\AgenteTbController.class
 modelo\PerfilTb.class
+modelo\MaterialProyectoTbPK.class
 modelo\AgenteTb_.class
 servicio\ImagenTbFacade.class
 servicio\ActividadTbFacade.class
@@ -46,7 +48,10 @@ servicio\EspecieTbFacade.class
 modelo\SubespecieTb.class
 modelo\PedidoTb.class
 controlador\InstitucionTbController$InstitucionTbControllerConverter.class
+controlador\MaterialProyectoTbController$MaterialProyectoTbControllerConverter.class
+modelo\MaterialProyectoTb_.class
 controlador\ImagenTbController.class
+modelo\MaterialProyectoTbPK_.class
 servicio\ProcesoejemplarTbFacade.class
 servicio\NombrecomunTbFacade.class
 modelo\EjemplarParticipaExhibicionTb_.class
@@ -125,11 +130,13 @@ modelo\BitacoraTb_.class
 controlador\PerfilTbController$PerfilTbControllerConverter.class
 modelo\GeneroTb.class
 modelo\VariedadTb.class
+controlador\MaterialProyectoTbController.class
 servicio\AgenteIdentificaEjemplarTbFacade.class
 controlador\PedidoTbController.class
 servicio\ProyectoTbFacade.class
 servicio\PedidoTbFacade.class
 controlador\SubespecieTbController$SubespecieTbControllerConverter.class
+servicio\MaterialProyectoTbFacade.class
 servicio\CantonTbFacade.class
 modelo\PaisTb_.class
 controlador\GeneroTbController.class

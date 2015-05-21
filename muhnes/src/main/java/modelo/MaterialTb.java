@@ -6,7 +6,9 @@
 package modelo;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -31,7 +34,8 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "MaterialTb.findByMDescripcion", query = "SELECT m FROM MaterialTb m WHERE m.mDescripcion = :mDescripcion"),
     @NamedQuery(name = "MaterialTb.findByCEstado", query = "SELECT m FROM MaterialTb m WHERE m.cEstado = :cEstado"),
     @NamedQuery(name = "MaterialTb.findByMCodigobarras", query = "SELECT m FROM MaterialTb m WHERE m.mCodigobarras = :mCodigobarras"),
-    @NamedQuery(name = "MaterialTb.findByMMarca", query = "SELECT m FROM MaterialTb m WHERE m.mMarca = :mMarca")})
+    @NamedQuery(name = "MaterialTb.findByMMarca", query = "SELECT m FROM MaterialTb m WHERE m.mMarca = :mMarca"),
+    @NamedQuery(name = "MaterialTb.findByDCantidadmin", query = "SELECT m FROM MaterialTb m WHERE m.dCantidadmin = :dCantidadmin")})
 public class MaterialTb implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -57,6 +61,12 @@ public class MaterialTb implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "m_marca")
     private String mMarca;
+    @Column(name = "d_cantidadmin")
+    private Double dCantidadmin;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "materialTb")
+    private List<MaterialPedidoTb> materialPedidoTbList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "materialTb")
+    private List<MaterialProyectoTb> materialProyectoTbList;
 
     public MaterialTb() {
     }
@@ -119,6 +129,30 @@ public class MaterialTb implements Serializable {
 
     public void setMMarca(String mMarca) {
         this.mMarca = mMarca;
+    }
+
+    public Double getDCantidadmin() {
+        return dCantidadmin;
+    }
+
+    public void setDCantidadmin(Double dCantidadmin) {
+        this.dCantidadmin = dCantidadmin;
+    }
+
+    public List<MaterialPedidoTb> getMaterialPedidoTbList() {
+        return materialPedidoTbList;
+    }
+
+    public void setMaterialPedidoTbList(List<MaterialPedidoTb> materialPedidoTbList) {
+        this.materialPedidoTbList = materialPedidoTbList;
+    }
+
+    public List<MaterialProyectoTb> getMaterialProyectoTbList() {
+        return materialProyectoTbList;
+    }
+
+    public void setMaterialProyectoTbList(List<MaterialProyectoTb> materialProyectoTbList) {
+        this.materialProyectoTbList = materialProyectoTbList;
     }
 
     @Override

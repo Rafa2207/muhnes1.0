@@ -12,15 +12,7 @@
             <h:form id="PedidoTbEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{pedidoTbController.selected != null}">
-                        
-                        <p:outputLabel value="#{bundle.EditPedidoTbLabel_EIdmaterial}" for="EIdmaterial" />
-                        <p:selectOneMenu id="EIdmaterial" value="#{pedidoTbController.selected.EIdmaterial}" required="true">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{materialTbController.itemsAvailableSelectOne}"
-                                           var="EIdmaterialItem"
-                                           itemLabel="#{EIdmaterialItem.CNombre}"
-                                           itemValue="#{EIdmaterialItem}"/>
-                        </p:selectOneMenu>
+
                         
                         <p:outputLabel value="#{bundle.EditPedidoTbLabel_MDescripcion}" for="MDescripcion" />
                         <p:inputTextarea autoResize="" id="MDescripcion" cols="30" value="#{pedidoTbController.selected.MDescripcion}" title="#{bundle.EditPedidoTbTitle_MDescripcion}" 

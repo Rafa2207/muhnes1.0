@@ -39,12 +39,7 @@
                         <p:ajax event="rowSelect"   update=":PedidoTbListForm:createButton :PedidoTbListForm:viewButton :PedidoTbListForm:editButton :PedidoTbListForm:deleteButton"/>
                         <p:ajax event="rowUnselect" update=":PedidoTbListForm:createButton :PedidoTbListForm:viewButton :PedidoTbListForm:editButton :PedidoTbListForm:deleteButton"/>
 
-                        <p:column filterBy="#{item.EIdmaterial.CNombre}" filterStyle="display:none">
-                            <f:facet name="header">
-                                <h:outputText value="Material"/>
-                            </f:facet>
-                            <h:outputText value="#{item.EIdmaterial.CNombre}"/>
-                        </p:column>
+                        
                         <p:column filterBy="#{item.MDescripcion}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPedidoTbTitle_MDescripcion}"/>

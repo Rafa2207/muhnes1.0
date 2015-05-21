@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MaterialProyectoTbEditDlg" widgetVar="MaterialProyectoTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundlematerialproyecto.EditMaterialProyectoTbTitle}">
+            <h:form id="MaterialProyectoTbEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{materialProyectoTbController.selected != null}">
+                        <p:outputLabel value="#{bundlematerialproyecto.EditMaterialProyectoTbLabel_DCantidad}" for="DCantidad" />
+                        <p:inputText id="DCantidad" value="#{materialProyectoTbController.selected.DCantidad}" title="#{bundlematerialproyecto.EditMaterialProyectoTbTitle_DCantidad}" />
+                        <p:outputLabel value="#{bundlematerialproyecto.EditMaterialProyectoTbLabel_DRegreso}" for="DRegreso" />
+                        <p:inputText id="DRegreso" value="#{materialProyectoTbController.selected.DRegreso}" title="#{bundlematerialproyecto.EditMaterialProyectoTbTitle_DRegreso}" />
+                        <p:outputLabel value="#{bundlematerialproyecto.EditMaterialProyectoTbLabel_proyectoTb}" for="proyectoTb" />
+                        <p:selectOneMenu id="proyectoTb" value="#{materialProyectoTbController.selected.proyectoTb}" required="true" requiredMessage="#{bundlematerialproyecto.EditMaterialProyectoTbRequiredMessage_proyectoTb}">
+                            <f:selectItem itemLabel="#{bundlematerialproyecto.SelectOneMessage}"/>
+                            <f:selectItems value="#{proyectoTbController.itemsAvailableSelectOne}"
+                                           var="proyectoTbItem"
+                                           itemValue="#{proyectoTbItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundlematerialproyecto.EditMaterialProyectoTbLabel_materialTb}" for="materialTb" />
+                        <p:selectOneMenu id="materialTb" value="#{materialProyectoTbController.selected.materialTb}" required="true" requiredMessage="#{bundlematerialproyecto.EditMaterialProyectoTbRequiredMessage_materialTb}">
+                            <f:selectItem itemLabel="#{bundlematerialproyecto.SelectOneMessage}"/>
+                            <f:selectItems value="#{materialTbController.itemsAvailableSelectOne}"
+                                           var="materialTbItem"
+                                           itemValue="#{materialTbItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{materialProyectoTbController.update}" value="#{bundlematerialproyecto.Save}" update="display,:MaterialProyectoTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MaterialProyectoTbEditDialog');"/>
+                    <p:commandButton value="#{bundlematerialproyecto.Cancel}" onclick="MaterialProyectoTbEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

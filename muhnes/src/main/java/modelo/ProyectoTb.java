@@ -30,17 +30,14 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "proyecto_tb")
 @NamedQueries({
-    @NamedQuery(name = "ProyectoTb.findAll", query = "SELECT p FROM ProyectoTb p ORDER BY p.mNombre"),
+    @NamedQuery(name = "ProyectoTb.findAll", query = "SELECT p FROM ProyectoTb p"),
     @NamedQuery(name = "ProyectoTb.findByEIdproyecto", query = "SELECT p FROM ProyectoTb p WHERE p.eIdproyecto = :eIdproyecto"),
     @NamedQuery(name = "ProyectoTb.findByMDescripcion", query = "SELECT p FROM ProyectoTb p WHERE p.mDescripcion = :mDescripcion"),
-    @NamedQuery(name = "ProyectoTb.findByMNombre", query = "SELECT p FROM ProyectoTb p WHERE p.mNombre=:mNombre"),
+    @NamedQuery(name = "ProyectoTb.findByMNombre", query = "SELECT p FROM ProyectoTb p WHERE p.mNombre = :mNombre"),
     @NamedQuery(name = "ProyectoTb.findByCResponsable", query = "SELECT p FROM ProyectoTb p WHERE p.cResponsable = :cResponsable"),
     @NamedQuery(name = "ProyectoTb.findByFFechaInicio", query = "SELECT p FROM ProyectoTb p WHERE p.fFechaInicio = :fFechaInicio"),
     @NamedQuery(name = "ProyectoTb.findByFFechaFin", query = "SELECT p FROM ProyectoTb p WHERE p.fFechaFin = :fFechaFin")})
 public class ProyectoTb implements Serializable {
-    @Size(max = 2147483647)
-    @Column(name = "m_nombre")
-    private String mNombre;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,6 +47,9 @@ public class ProyectoTb implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "m_descripcion")
     private String mDescripcion;
+    @Size(max = 2147483647)
+    @Column(name = "m_nombre")
+    private String mNombre;
     @Size(max = 150)
     @Column(name = "c_responsable")
     private String cResponsable;
@@ -59,14 +59,8 @@ public class ProyectoTb implements Serializable {
     @Column(name = "f_fecha_fin")
     @Temporal(TemporalType.DATE)
     private Date fFechaFin;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "eIdproyecto")
-    private List<PresupuestoTb> presupuestoTbList;
-    @OneToMany(mappedBy = "eIdproyecto")
-    private List<ActividadTb> actividadTbList;
-    @OneToMany(mappedBy = "eIdproyecto")
-    private List<EjemplarTb> ejemplarTbList;
-    @OneToMany(mappedBy = "eIdproyecto")
-    private List<ProcesoejemplarTb> procesoejemplarTbList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "proyectoTb")
+    private List<MaterialProyectoTb> materialProyectoTbList;
 
     public ProyectoTb() {
     }
@@ -77,15 +71,6 @@ public class ProyectoTb implements Serializable {
 
     public Integer getEIdproyecto() {
         return eIdproyecto;
-    }
-    
-    
-   public String getMNombre() {
-        return mNombre;
-    }
-
-    public void setMNombre(String mNombre) {
-        this.mNombre = mNombre;
     }
 
     public void setEIdproyecto(Integer eIdproyecto) {
@@ -100,7 +85,13 @@ public class ProyectoTb implements Serializable {
         this.mDescripcion = mDescripcion;
     }
 
-    
+    public String getMNombre() {
+        return mNombre;
+    }
+
+    public void setMNombre(String mNombre) {
+        this.mNombre = mNombre;
+    }
 
     public String getCResponsable() {
         return cResponsable;
@@ -126,36 +117,12 @@ public class ProyectoTb implements Serializable {
         this.fFechaFin = fFechaFin;
     }
 
-    public List<PresupuestoTb> getPresupuestoTbList() {
-        return presupuestoTbList;
+    public List<MaterialProyectoTb> getMaterialProyectoTbList() {
+        return materialProyectoTbList;
     }
 
-    public void setPresupuestoTbList(List<PresupuestoTb> presupuestoTbList) {
-        this.presupuestoTbList = presupuestoTbList;
-    }
-
-    public List<ActividadTb> getActividadTbList() {
-        return actividadTbList;
-    }
-
-    public void setActividadTbList(List<ActividadTb> actividadTbList) {
-        this.actividadTbList = actividadTbList;
-    }
-
-    public List<EjemplarTb> getEjemplarTbList() {
-        return ejemplarTbList;
-    }
-
-    public void setEjemplarTbList(List<EjemplarTb> ejemplarTbList) {
-        this.ejemplarTbList = ejemplarTbList;
-    }
-
-    public List<ProcesoejemplarTb> getProcesoejemplarTbList() {
-        return procesoejemplarTbList;
-    }
-
-    public void setProcesoejemplarTbList(List<ProcesoejemplarTb> procesoejemplarTbList) {
-        this.procesoejemplarTbList = procesoejemplarTbList;
+    public void setMaterialProyectoTbList(List<MaterialProyectoTb> materialProyectoTbList) {
+        this.materialProyectoTbList = materialProyectoTbList;
     }
 
     @Override
@@ -182,7 +149,5 @@ public class ProyectoTb implements Serializable {
     public String toString() {
         return "modelo.ProyectoTb[ eIdproyecto=" + eIdproyecto + " ]";
     }
-
-    
     
 }
