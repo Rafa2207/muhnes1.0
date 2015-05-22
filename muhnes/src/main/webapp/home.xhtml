@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            Inicio de Sesión.
+        </ui:define>
+        <ui:define name="body">
+            <form action="j_security_check" method="POST">
+                Username:<input type="text" name="j_username"/><br/>
+                Password:<input type="password" name="j_password"/><br/>
+                <input type="submit" value="Iniciar Sesión"/>
+            </form>
+            <h:link value="¿Olvido su contraseña?" outcome=""/>
+        </ui:define>
+    </ui:composition>
+    
+</html>

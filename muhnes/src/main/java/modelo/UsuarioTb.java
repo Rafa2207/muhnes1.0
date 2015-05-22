@@ -30,13 +30,12 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "UsuarioTb.findByEIdusuario", query = "SELECT u FROM UsuarioTb u WHERE u.eIdusuario = :eIdusuario"),
     @NamedQuery(name = "UsuarioTb.findByCNombre", query = "SELECT u FROM UsuarioTb u WHERE u.cNombre = :cNombre"),
     @NamedQuery(name = "UsuarioTb.findByCApellido", query = "SELECT u FROM UsuarioTb u WHERE u.cApellido = :cApellido"),
-    @NamedQuery(name = "UsuarioTb.findByCTelefono", query = "SELECT u FROM UsuarioTb u WHERE u.cTelefono = :cTelefono"),
+    @NamedQuery(name = "UsuarioTb.findByMEmail", query = "SELECT u FROM UsuarioTb u WHERE u.mEmail = :mEmail"),
     @NamedQuery(name = "UsuarioTb.findByCNick", query = "SELECT u FROM UsuarioTb u WHERE u.cNick = :cNick"),
     @NamedQuery(name = "UsuarioTb.findByMPassword", query = "SELECT u FROM UsuarioTb u WHERE u.mPassword = :mPassword"),
     @NamedQuery(name = "UsuarioTb.findByCDui", query = "SELECT u FROM UsuarioTb u WHERE u.cDui = :cDui"),
     @NamedQuery(name = "UsuarioTb.findByCTipo", query = "SELECT u FROM UsuarioTb u WHERE u.cTipo = :cTipo")})
 public class UsuarioTb implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,9 +48,9 @@ public class UsuarioTb implements Serializable {
     @Size(max = 50)
     @Column(name = "c_apellido")
     private String cApellido;
-    @Size(max = 10)
-    @Column(name = "c_telefono")
-    private String cTelefono;
+    @Size(max = 2147483647)
+    @Column(name = "m_email")
+    private String mEmail;
     @Size(max = 15)
     @Column(name = "c_nick")
     private String cNick;
@@ -96,12 +95,12 @@ public class UsuarioTb implements Serializable {
         this.cApellido = cApellido;
     }
 
-    public String getCTelefono() {
-        return cTelefono;
+    public String getMEmail() {
+        return mEmail;
     }
 
-    public void setCTelefono(String cTelefono) {
-        this.cTelefono = cTelefono;
+    public void setMEmail(String mEmail) {
+        this.mEmail = mEmail;
     }
 
     public String getCNick() {
@@ -117,12 +116,12 @@ public class UsuarioTb implements Serializable {
     }
 
     public void setMPassword(String mPassword) {
-        try {
+           try {
             this.mPassword = JsfUtil.cifrar(mPassword);
         } catch (NoSuchAlgorithmException ex) {
             this.mPassword = mPassword;
         }
-
+        
     }
 
     public String getCDui() {
@@ -165,5 +164,5 @@ public class UsuarioTb implements Serializable {
     public String toString() {
         return "modelo.UsuarioTb[ eIdusuario=" + eIdusuario + " ]";
     }
-
+    
 }
