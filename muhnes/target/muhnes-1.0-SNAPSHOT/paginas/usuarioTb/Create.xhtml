@@ -23,10 +23,10 @@
                                      required="true"
                                      requiredMessage="Introduzca apellido del usuario." size="25" maxlength="50"/>
 
-                        <p:outputLabel value="#{bundle.CreateUsuarioTbLabel_CTelefono}" for="CTelefono" />
-                        <p:inputMask id="CTelefono" value="#{usuarioTbController.selected.CTelefono}" title="#{bundle.CreateUsuarioTbTitle_CTelefono}" 
+                        <p:outputLabel value="Email: " for="MEmail" />
+                        <p:inputText id="MEmail" value="#{usuarioTbController.selected.MEmail}" title="Email: " 
                                      required="true"
-                                     requiredMessage="Introduzca el teléfono del usuario." mask="9999-9999" size="9"/>
+                                     requiredMessage="Introduzca el email." size="25"/>
 
                         <p:outputLabel value="#{bundle.CreateUsuarioTbLabel_CNick}" for="CNick" />
                         <p:inputText id="CNick" value="#{usuarioTbController.selected.CNick}" title="#{bundle.CreateUsuarioTbTitle_CNick}" 
