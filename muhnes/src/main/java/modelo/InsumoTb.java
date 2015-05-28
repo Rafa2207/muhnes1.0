@@ -33,9 +33,6 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "InsumoTb.findByDGasto", query = "SELECT i FROM InsumoTb i WHERE i.dGasto = :dGasto"),
     @NamedQuery(name = "InsumoTb.findByDCantidad", query = "SELECT i FROM InsumoTb i WHERE i.dCantidad = :dCantidad")})
 public class InsumoTb implements Serializable {
-    
-    @Column(name = "d_cantidad")
-    private Double dCantidad;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,7 +48,11 @@ public class InsumoTb implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "d_gasto")
     private Double dGasto;
-    
+    @Column(name = "d_cantidad")
+    private Double dCantidad;
+    @JoinColumn(name = "e_idunidad", referencedColumnName = "e_idunidad")
+    @ManyToOne
+    private UnidadesTb eIdunidad;
     @JoinColumn(name = "e_idpresupuesto", referencedColumnName = "e_idpresupuesto")
     @ManyToOne
     private PresupuestoTb eIdpresupuesto;
@@ -102,9 +103,14 @@ public class InsumoTb implements Serializable {
     public void setDCantidad(Double dCantidad) {
         this.dCantidad = dCantidad;
     }
-    
-    
 
+    public UnidadesTb getEIdunidad() {
+        return eIdunidad;
+    }
+
+    public void setEIdunidad(UnidadesTb eIdunidad) {
+        this.eIdunidad = eIdunidad;
+    }
 
     public PresupuestoTb getEIdpresupuesto() {
         return eIdpresupuesto;
@@ -138,7 +144,5 @@ public class InsumoTb implements Serializable {
     public String toString() {
         return "modelo.InsumoTb[ eIdinsumo=" + eIdinsumo + " ]";
     }
-
-    
     
 }

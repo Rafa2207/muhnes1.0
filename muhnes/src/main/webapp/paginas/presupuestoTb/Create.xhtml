@@ -21,7 +21,8 @@
                             <p:selectOneMenu id="CTipo" value="#{presupuestoTbController.selected.CTipo}" required="true" requiredMessage="Seleccione tipo" >
                                 <f:selectItem itemLabel="Seleccione" itemValue="" />
                                 <f:selectItem itemLabel="Materiales" itemValue="Materiales" />
-                                <f:selectItem itemLabel="Viaje" itemValue="Viaje" />                            
+                                <f:selectItem itemLabel="Viaje" itemValue="Viaje" />
+                                <p:ajax event="change" update="unidad" process="CTipo"/>
                             </p:selectOneMenu>
 
 
@@ -38,7 +39,12 @@
                             <p:outputLabel value="Cantidad:" for="cant"/>
                             <p:inputText id="cant" size="4" value="#{presupuestoTbController.cantidad}"/>
                             <p:outputLabel value="Unidades:" for="unidad" />
-                            <p:inputText id="unidad" value="#{presupuestoTbController.tiempo}"/>
+                            <p:selectOneMenu id="unidad" value="#{presupuestoTbController.tiempo}">
+                                <f:selectItems value="#{unidadesTbController.unidades(presupuestoTbController.selected.CTipo)}" 
+                                               var="unidad" 
+                                               itemLabel="#{unidad.CNombre}" 
+                                               itemValue="#{unidad.CNombre}"/>
+                            </p:selectOneMenu>
                             <p:outputLabel value="Costo Unitario($):" for="costo" />
                             <p:inputText id="costo" size="4" value="#{presupuestoTbController.costo}"/>
                             <p:commandButton id="agregar"

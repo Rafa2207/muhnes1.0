@@ -15,6 +15,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import modelo.PresupuestoTb;
 import modelo.ProyectoTb;
+import modelo.UnidadesTb;
 
 /**
  *

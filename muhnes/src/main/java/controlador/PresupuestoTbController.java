@@ -22,6 +22,7 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
 import modelo.InsumoTb;
 import modelo.ProyectoTb;
+import modelo.UnidadesTb;
 import org.primefaces.context.RequestContext;
 
 @Named("presupuestoTbController")
@@ -278,5 +279,5 @@ public class PresupuestoTbController implements Serializable {
     public void removerInsumo(){
         selected.getInsumoTbList().remove(insumo);
     }
-    
+  
 }

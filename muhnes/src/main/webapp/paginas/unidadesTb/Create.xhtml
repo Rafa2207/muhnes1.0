@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UnidadesTbCreateDlg" widgetVar="UnidadesTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleUnidades.CreateUnidadesTbTitle}">
+            <h:form id="UnidadesTbCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{unidadesTbController.selected != null}">
+                        <p:outputLabel value="#{bundleUnidades.CreateUnidadesTbLabel_CNombre}" for="CNombre" />
+                        <p:inputText id="CNombre" value="#{unidadesTbController.selected.CNombre}" title="#{bundleUnidades.CreateUnidadesTbTitle_CNombre}" required="true" requiredMessage="introduzca un nombre" />
+                        <p:outputLabel value="#{bundleUnidades.CreateUnidadesTbLabel_CAbreviatura}" for="CAbreviatura" />
+                        <p:inputText id="CAbreviatura" value="#{unidadesTbController.selected.CAbreviatura}" title="#{bundleUnidades.CreateUnidadesTbTitle_CAbreviatura}" required="true" requiredMessage="Introduzca una abreviatura" />
+                        <p:outputLabel value="#{bundleUnidades.CreateUnidadesTbLabel_CTipo}" for="CTipo" />
+                        <p:selectOneMenu id="CTipo" value="#{unidadesTbController.selected.CTipo}" required="true" requiredMessage="Seleccione tipo" >
+                            <f:selectItem itemLabel="Seleccione" itemValue="" />
+                            <f:selectItem itemLabel="Materiales" itemValue="Materiales" />
+                            <f:selectItem itemLabel="Viaje" itemValue="Viaje" />                            
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{unidadesTbController.create}" value="#{bundleUnidades.Save}" update="display,:UnidadesTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'UnidadesTbCreateDialog');"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
