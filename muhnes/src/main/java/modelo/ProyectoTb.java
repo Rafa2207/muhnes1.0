@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,7 +24,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author Rafa
+ * @author Endy
  */
 @Entity
 @Table(name = "proyecto_tb")
@@ -34,9 +33,9 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "ProyectoTb.findByEIdproyecto", query = "SELECT p FROM ProyectoTb p WHERE p.eIdproyecto = :eIdproyecto"),
     @NamedQuery(name = "ProyectoTb.findByMDescripcion", query = "SELECT p FROM ProyectoTb p WHERE p.mDescripcion = :mDescripcion"),
     @NamedQuery(name = "ProyectoTb.findByMNombre", query = "SELECT p FROM ProyectoTb p WHERE p.mNombre = :mNombre"),
-    @NamedQuery(name = "ProyectoTb.findByCResponsable", query = "SELECT p FROM ProyectoTb p WHERE p.cResponsable = :cResponsable"),
     @NamedQuery(name = "ProyectoTb.findByFFechaInicio", query = "SELECT p FROM ProyectoTb p WHERE p.fFechaInicio = :fFechaInicio"),
-    @NamedQuery(name = "ProyectoTb.findByFFechaFin", query = "SELECT p FROM ProyectoTb p WHERE p.fFechaFin = :fFechaFin")})
+    @NamedQuery(name = "ProyectoTb.findByFFechaFin", query = "SELECT p FROM ProyectoTb p WHERE p.fFechaFin = :fFechaFin"),
+    @NamedQuery(name = "ProyectoTb.findByEResponsable", query = "SELECT p FROM ProyectoTb p WHERE p.eResponsable = :eResponsable")})
 public class ProyectoTb implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -50,17 +49,16 @@ public class ProyectoTb implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "m_nombre")
     private String mNombre;
-    @Size(max = 150)
-    @Column(name = "c_responsable")
-    private String cResponsable;
     @Column(name = "f_fecha_inicio")
     @Temporal(TemporalType.DATE)
     private Date fFechaInicio;
     @Column(name = "f_fecha_fin")
     @Temporal(TemporalType.DATE)
     private Date fFechaFin;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "proyectoTb")
-    private List<MaterialProyectoTb> materialProyectoTbList;
+    @Column(name = "e_responsable")
+    private Integer eResponsable;
+    @OneToMany(mappedBy = "eIdproyecto")
+    private List<ProrrogaProyectoTb> prorrogaProyectoTbList;
 
     public ProyectoTb() {
     }
@@ -93,14 +91,6 @@ public class ProyectoTb implements Serializable {
         this.mNombre = mNombre;
     }
 
-    public String getCResponsable() {
-        return cResponsable;
-    }
-
-    public void setCResponsable(String cResponsable) {
-        this.cResponsable = cResponsable;
-    }
-
     public Date getFFechaInicio() {
         return fFechaInicio;
     }
@@ -117,12 +107,20 @@ public class ProyectoTb implements Serializable {
         this.fFechaFin = fFechaFin;
     }
 
-    public List<MaterialProyectoTb> getMaterialProyectoTbList() {
-        return materialProyectoTbList;
+    public Integer getEResponsable() {
+        return eResponsable;
     }
 
-    public void setMaterialProyectoTbList(List<MaterialProyectoTb> materialProyectoTbList) {
-        this.materialProyectoTbList = materialProyectoTbList;
+    public void setEResponsable(Integer eResponsable) {
+        this.eResponsable = eResponsable;
+    }
+
+    public List<ProrrogaProyectoTb> getProrrogaProyectoTbList() {
+        return prorrogaProyectoTbList;
+    }
+
+    public void setProrrogaProyectoTbList(List<ProrrogaProyectoTb> prorrogaProyectoTbList) {
+        this.prorrogaProyectoTbList = prorrogaProyectoTbList;
     }
 
     @Override

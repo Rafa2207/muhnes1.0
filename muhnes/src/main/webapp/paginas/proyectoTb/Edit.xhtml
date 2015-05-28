@@ -20,10 +20,15 @@
                                      required="true"
                                      requiredMessage="Introduzca el nombre del proyecto"/>
                         
-                        <p:outputLabel value="#{bundle.EditProyectoTbLabel_CResponsable}" for="CResponsable" />
-                        <p:inputText id="CResponsable" value="#{proyectoTbController.selected.CResponsable}" title="#{bundle.EditProyectoTbTitle_CResponsable}" 
-                                     required="true"
-                                     requiredMessage="Introduzca el responsable"/>
+                        <p:outputLabel value="#{bundle.CreateProyectoTbLabel_CResponsable}" for="CResponsable" />   
+                        <p:selectOneMenu id="CResponsable" value="#{proyectoTbController.selected.EResponsable}" 
+                                         required="true" requiredMessage="Seleccione responsable" filter="true" filterMatchMode="contains">
+                            <f:selectItem itemValue="" itemLabel="Seleccione.."/>
+                            <f:selectItems value="#{agenteTbController.itemsAvailableSelectOne}"
+                                           var="EIdagenteItem"
+                                           itemValue="#{EIdagenteItem.EIdagente}"
+                                           itemLabel="#{EIdagenteItem.CNombre} #{EIdagenteItem.CApellido}"/>
+                        </p:selectOneMenu>
                        
                          <p:outputLabel value="#{bundle.EditProyectoTbLabel_MDescripcion}" for="MDescripcion" />
                          <p:inputTextarea cols="22" autoResize="" id="MDescripcion" value="#{proyectoTbController.selected.MDescripcion}" title="#{bundle.EditProyectoTbTitle_MDescripcion}" 

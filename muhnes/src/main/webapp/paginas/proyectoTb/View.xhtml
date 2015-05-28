@@ -17,7 +17,7 @@
                         <h:outputText value="#{proyectoTbController.selected.MNombre}" title="#{bundle.ViewProyectoTbTitle_CNombre}"/>
                         
                         <h:outputText value="#{bundle.ViewProyectoTbLabel_CResponsable}"/>
-                        <h:outputText value="#{proyectoTbController.selected.CResponsable}" title="#{bundle.ViewProyectoTbTitle_CResponsable}"/>
+                        <h:outputText value="#{proyectoTbController.calculaAgente(agenteTbController.items, proyectoTbController.selected.EResponsable)}" title="#{bundle.ViewProyectoTbTitle_CResponsable}"/>
                         
                         <h:outputText value="#{bundle.ViewProyectoTbLabel_MDescripcion}"/>
                         <h:outputText  value="#{proyectoTbController.selected.MDescripcion}" title="#{bundle.ViewProyectoTbTitle_MDescripcion}"/>

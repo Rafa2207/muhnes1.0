@@ -20,6 +20,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
+import modelo.AgenteTb;
 import org.primefaces.context.RequestContext;
 
 @Named("proyectoTbController")
@@ -31,6 +32,7 @@ public class ProyectoTbController implements Serializable {
     private List<ProyectoTb> items = null, filtro;
     private ProyectoTb selected;
     private Date fechatemporal;
+    String agente;
 
     public Date getFechatemporal() {
         return fechatemporal;
@@ -191,6 +193,19 @@ public class ProyectoTbController implements Serializable {
     }
     public void limpiarFecha(){
         fechatemporal=null;
+    }
+    
+    public String calculaAgente(List<AgenteTb> a, int b){
+        
+        for(AgenteTb agen:a){
+            if(agen.getEIdagente()==b){
+                agente=agen.getCNombre()+" "+ agen.getCApellido();
+            
+            }
+            
+        }
+        
+        return agente;   
     }
 
 }

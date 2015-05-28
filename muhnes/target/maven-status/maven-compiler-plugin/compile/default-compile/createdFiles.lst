@@ -52,6 +52,7 @@ controlador\InstitucionTbController$InstitucionTbControllerConverter.class
 controlador\MaterialProyectoTbController$MaterialProyectoTbControllerConverter.class
 modelo\MaterialProyectoTb_.class
 controlador\ImagenTbController.class
+controlador\ProrrogaProyectoTbController.class
 modelo\MaterialProyectoTbPK_.class
 servicio\ProcesoejemplarTbFacade.class
 servicio\NombrecomunTbFacade.class
@@ -87,6 +88,7 @@ modelo\AreaprotegidaTb.class
 modelo\FamiliaTb.class
 controlador\util\JsfUtil$PersistAction.class
 controlador\AgentePerfilTbController.class
+modelo\ProrrogaProyectoTb.class
 controlador\ExhibicionTbController.class
 modelo\BitacoraTb.class
 servicio\PresupuestoTbFacade.class
@@ -103,6 +105,7 @@ controlador\MaterialPedidoTbController.class
 controlador\AgenteTbController$AgenteTbControllerConverter.class
 modelo\MaterialTb_.class
 controlador\VariedadTbController.class
+controlador\ProrrogaProyectoTbController$ProrrogaProyectoTbControllerConverter.class
 controlador\DepartamentoTbController$DepartamentoTbControllerConverter.class
 modelo\AgenteIdentificaEjemplarTb.class
 controlador\MaterialTbController$MaterialTbControllerConverter.class
@@ -130,6 +133,7 @@ controlador\BitacoraTbController.class
 modelo\BitacoraTb_.class
 controlador\PerfilTbController$PerfilTbControllerConverter.class
 modelo\GeneroTb.class
+servicio\ProrrogaProyectoTbFacade.class
 modelo\VariedadTb.class
 controlador\MaterialProyectoTbController.class
 servicio\AgenteIdentificaEjemplarTbFacade.class
@@ -149,6 +153,7 @@ servicio\InsumoTbFacade.class
 modelo\AgenteIdentificaEjemplarTbPK_.class
 modelo\PerfilTb_.class
 controlador\MunicipioTbController.class
+modelo\ProrrogaProyectoTb_.class
 controlador\ProyectoTbController$ProyectoTbControllerConverter.class
 modelo\PaisTb.class
 servicio\AgenteTbFacade.class

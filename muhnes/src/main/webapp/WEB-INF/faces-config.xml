@@ -20,5 +20,9 @@
             <base-name>/Bundlematerialproyecto</base-name>
             <var>bundlematerialproyecto</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>/BundleProrrogaProy</base-name>
+            <var>bundleProrrogaProy</var>
+        </resource-bundle>
     </application>
 </faces-config>

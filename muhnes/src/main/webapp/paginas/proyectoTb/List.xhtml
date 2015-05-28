@@ -41,6 +41,10 @@
                     <p:commandButton id="ProcesoejemplarButton" icon="ui-icon-calculator"  value="Proceso ejemplar" action="/paginas/procesoejemplarTb/List.xhtml" disabled="#{empty proyectoTbController.selected}" >
                         <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{proyectoTbController.selected}" />
                     </p:commandButton>
+                    
+                    <p:commandButton id="ProrrogaProyectoButton" icon="ui-icon-alert"  value="Prórrogas" action="/paginas/prorrogaProyectoTb/List.xhtml" disabled="#{empty proyectoTbController.selected}" >
+                        <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{proyectoTbController.selected}" />
+                    </p:commandButton>
 
 
 
@@ -60,8 +64,8 @@
                                  
                                  >
 
-                        <p:ajax event="rowSelect"   update=":ProyectoTbListForm:ProcesoejemplarButton :ProyectoTbListForm:PresupuestoButton :ProyectoTbListForm:ActividadButton :ProyectoTbListForm:createButton :ProyectoTbListForm:viewButton :ProyectoTbListForm:editButton :ProyectoTbListForm:deleteButton"/>
-                        <p:ajax event="rowUnselect" update=":ProyectoTbListForm:ProcesoejemplarButton :ProyectoTbListForm:PresupuestoButton :ProyectoTbListForm:ActividadButton :ProyectoTbListForm:createButton :ProyectoTbListForm:viewButton :ProyectoTbListForm:editButton :ProyectoTbListForm:deleteButton"/>
+                        <p:ajax event="rowSelect"   update=":ProyectoTbListForm:ProcesoejemplarButton :ProyectoTbListForm:PresupuestoButton :ProyectoTbListForm:ActividadButton :ProyectoTbListForm:createButton :ProyectoTbListForm:viewButton :ProyectoTbListForm:editButton :ProyectoTbListForm:deleteButton :ProyectoTbListForm:ProrrogaProyectoButton"/>
+                        <p:ajax event="rowUnselect" update=":ProyectoTbListForm:ProcesoejemplarButton :ProyectoTbListForm:PresupuestoButton :ProyectoTbListForm:ActividadButton :ProyectoTbListForm:createButton :ProyectoTbListForm:viewButton :ProyectoTbListForm:editButton :ProyectoTbListForm:deleteButton :ProyectoTbListForm:ProrrogaProyectoButton"/>
 
 
                         <p:column filterBy="#{item.MNombre}" filterStyle="display:none">
@@ -78,11 +82,11 @@
                             <h:outputText value="#{item.MDescripcion}"/>
                         </p:column>
 
-                        <p:column filterBy="#{item.CResponsable}" filterStyle="display:none" width="150">
+                        <p:column filterBy="#{proyectoTbController.calculaAgente(agenteTbController.items, item.EResponsable)}" filterStyle="display:none" width="150">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProyectoTbTitle_CResponsable}"/>
                             </f:facet>
-                            <h:outputText value="#{item.CResponsable}"/>
+                            <h:outputText value="#{proyectoTbController.calculaAgente(agenteTbController.items, item.EResponsable)}"/>
                         </p:column>
 
                         <p:column filterBy="#{item.FFechaInicio}" filterStyle="display:none" width="100">
