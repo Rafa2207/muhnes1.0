@@ -16,7 +16,10 @@
                         <p:outputLabel value="#{bundle.CreateMaterialTbLabel_CNombre}" for="CNombre" />
                         <p:inputText id="CNombre" value="#{materialTbController.selected.CNombre}" title="#{bundle.CreateMaterialTbTitle_CNombre}"
                                      required="true"
-                                     requiredMessage="Introduzca nombre del material" size="25" maxlength="50"/>
+                                     requiredMessage="Introduzca nombre del material" size="25" maxlength="50">
+                            <p:ajax event="change" update="Codigo"
+                                    listener="#{materialTbController.generarCodigo()}"/>
+                        </p:inputText>
 
                         <p:outputLabel value="Marca: " for="Marca" />
                         <p:inputText id="Marca" value="#{materialTbController.selected.MMarca}" title="Marca" 
@@ -31,12 +34,9 @@
                         </p:inputText>
 
                         <p:outputLabel value="Código: " for="Codigo" />
-                        <h:panelGroup>
                             <p:inputText readonly="true" id="Codigo" value="#{materialTbController.selected.MCodigobarras}" title="Código" 
                                          required="true"
                                          requiredMessage="Introduzca código de material" size="10" maxlength="10"/>
-                            <p:commandButton value="Generar"/>
-                        </h:panelGroup>
 
 
                         <p:outputLabel value="#{bundle.CreateMaterialTbLabel_MDescripcion}" for="MDescripcion" />

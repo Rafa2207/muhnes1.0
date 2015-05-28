@@ -8,6 +8,7 @@ package servicio;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import modelo.MaterialTb;
 
 /**
@@ -28,4 +29,12 @@ public class MaterialTbFacade extends AbstractFacade<MaterialTb> {
         super(MaterialTb.class);
     }
     
+    public String obtenerCorrelativo(String pre){
+        Query query = em.createNativeQuery("SELECT COUNT(m_codigobarras) "
+                + "FROM material_tb "
+                + "WHERE SUBSTRING(m_codigobarras,1,3)='"+pre+"'");
+        query.setParameter("pre", pre);
+        Long count = (Long) query.getSingleResult();
+        return String.format("%03d", count+1);
+    }
 }

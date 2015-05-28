@@ -46,9 +46,12 @@
 
                         <p:column filterBy="#{item.MCodigobarras}" filterStyle="display:none">
                             <f:facet name="header">
-                                <h:outputText value="Codigo"/>
+                                <h:outputText  value="Codigo"/>
                             </f:facet>
-                            <h:outputText value="#{item.MCodigobarras}"/>
+                            <h:outputText id="c" value="#{item.MCodigobarras}"/>
+                            <p:tooltip for="c">
+                                <p:barcode value="#{item.MCodigobarras}" type="code39"/>
+                                </p:tooltip>
                         </p:column>
 
                         <p:column filterBy="#{item.CNombre}" filterStyle="display:none">

@@ -35,6 +35,7 @@ modelo\AgenteTb_.class
 servicio\ImagenTbFacade.class
 servicio\ActividadTbFacade.class
 modelo\DonacionTb_.class
+controlador\util\Sesion.class
 modelo\MaterialTb.class
 controlador\NombrecomunTbController.class
 modelo\MunicipioTb_.class

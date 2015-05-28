@@ -170,5 +170,11 @@ public class MaterialTbController implements Serializable {
         }
 
     }
+    
+    public void generarCodigo(){
+        String pre = selected.getCNombre().trim().toUpperCase().substring(0, 3);
+        String correlativo = getFacade().obtenerCorrelativo(pre);
+        selected.setMCodigobarras(pre + correlativo);
+    }
 
 }
