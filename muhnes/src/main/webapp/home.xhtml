@@ -3,20 +3,41 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:body>
+        <br/>
+        <br/>
+        <br/>
+        <h1 align="center">Inicio de Sesión</h1>
     
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            Inicio de Sesión.
-        </ui:define>
-        <ui:define name="body">
-            <form action="j_security_check" method="POST">
-                Username:<input type="text" name="j_username"/><br/>
-                Password:<input type="password" name="j_password"/><br/>
-                <input type="submit" value="Iniciar Sesión"/>
-            </form>
-            <h:link value="¿Olvido su contraseña?" outcome=""/>
-        </ui:define>
-    </ui:composition>
+            
+                 <p:panel style="width: 300px;
+                 margin: auto;
+                 //box-shadow: 2px 2px 2px #888;
+                 text-align: center;
+                 //margin-top: 200px;
+                 //border-width: 5px;
+                 font-size: 20px">
+            <h:panelGrid columns="2">
+                <h:panelGroup>
+                    <form action="j_security_check" method="POST">
+                        <table style="margin: auto" border="1" cellpadding="6" >
+                            <tr>
+                                <td><label  >Usuario:</label></td>
+                                <td><input type="text" name="j_username" required="true" ></input></td>
+                            </tr>
+                            <tr>
+                                <td><label>Clave:</label></td>
+                                <td><input type="password" name="j_password" required="true"></input></td>
+                            </tr>
+                        </table>
+                        <input type="submit" value="Iniciar Sesión"></input>
+                    </form>
+                </h:panelGroup>
+            </h:panelGrid>
+
+        </p:panel> 
+    </h:body>
     
 </html>

@@ -36,7 +36,7 @@
                                 <f:selectItems value="#{themeSwitcherBean.themes}" />
                                 <p:ajax listener="#{themeSwitcherBean.saveUserTheme()}" />
                             </p:themeSwitcher>
-                    <p:menubar style="float: right; margin-right: 65px;" >
+                    <p:menubar style="float: right; margin-right: 120px;" >
                         <p:submenu label="#{request.userPrincipal.name}">
                             <p:menuitem value="Cerrar sesión" action="#{sesion.logout()}" icon="ui-icon-extlink"/>
                         </p:submenu>
@@ -46,7 +46,7 @@
             <p:layoutUnit position="west" size="250" header="#{bundle.AppName}" style="border: 0" gutter="0" collapsible="true" >
                 <h:form id="menuForm">
                     <p:menu toggleable="true" style="width: 210px">
-                        <p:menuitem value="#{bundle.Home}" outcome="/index" icon="ui-icon-home"/>
+                        <p:menuitem value="#{bundle.Home}" outcome="/paginas/bienvenido.xhtml" icon="ui-icon-home"/>
                         <p:submenu label="Proyectos">
                             <p:menuitem value="Proyecto" outcome="/paginas/proyectoTb/List.xhtml" />
                         </p:submenu>
