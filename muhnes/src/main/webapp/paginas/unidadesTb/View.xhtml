@@ -8,18 +8,18 @@
 
     <ui:composition>
 
-        <p:dialog id="UnidadesTbViewDlg" widgetVar="UnidadesTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleUnidades.ViewUnidadesTbTitle}">
+        <p:dialog id="UnidadesTbViewDlg" widgetVar="UnidadesTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="Visualizar Unidad">
             <h:form id="UnidadesTbViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{unidadesTbController.selected != null}">
-                        <h:outputText value="#{bundleUnidades.ViewUnidadesTbLabel_CNombre}"/>
-                        <h:outputText value="#{unidadesTbController.selected.CNombre}" title="#{bundleUnidades.ViewUnidadesTbTitle_CNombre}"/>
-                        <h:outputText value="#{bundleUnidades.ViewUnidadesTbLabel_CAbreviatura}"/>
-                        <h:outputText value="#{unidadesTbController.selected.CAbreviatura}" title="#{bundleUnidades.ViewUnidadesTbTitle_CAbreviatura}"/>
-                        <h:outputText value="#{bundleUnidades.ViewUnidadesTbLabel_CTipo}"/>
-                        <h:outputText value="#{unidadesTbController.selected.CTipo}" title="#{bundleUnidades.ViewUnidadesTbTitle_CTipo}"/>
+                        <h:outputText value="Nombre: "/>
+                        <h:outputText value="#{unidadesTbController.selected.CNombre}" title="Nombre"/>
+                        <h:outputText value="Abreviatura: "/>
+                        <h:outputText value="#{unidadesTbController.selected.CAbreviatura}" title="Abreviatura"/>
+                        <h:outputText value="Tipo: "/>
+                        <h:outputText value="#{unidadesTbController.selected.CTipo}" title="Tipo"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundleUnidades.Close}" onclick="UnidadesTbViewDialog.hide()"/>
+                    <p:commandButton value="Cerrar" onclick="UnidadesTbViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

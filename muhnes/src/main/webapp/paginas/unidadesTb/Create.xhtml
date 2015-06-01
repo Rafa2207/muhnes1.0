@@ -8,22 +8,22 @@
 
     <ui:composition>
 
-        <p:dialog id="UnidadesTbCreateDlg" widgetVar="UnidadesTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleUnidades.CreateUnidadesTbTitle}">
+        <p:dialog id="UnidadesTbCreateDlg" widgetVar="UnidadesTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Nueva Unidad">
             <h:form id="UnidadesTbCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{unidadesTbController.selected != null}">
-                        <p:outputLabel value="#{bundleUnidades.CreateUnidadesTbLabel_CNombre}" for="CNombre" />
+                        <p:outputLabel value="Nombre: " for="CNombre" />
                         <p:inputText id="CNombre" value="#{unidadesTbController.selected.CNombre}" title="#{bundleUnidades.CreateUnidadesTbTitle_CNombre}" required="true" requiredMessage="introduzca un nombre" />
-                        <p:outputLabel value="#{bundleUnidades.CreateUnidadesTbLabel_CAbreviatura}" for="CAbreviatura" />
+                        <p:outputLabel value="Abreviatura: " for="CAbreviatura" />
                         <p:inputText id="CAbreviatura" value="#{unidadesTbController.selected.CAbreviatura}" title="#{bundleUnidades.CreateUnidadesTbTitle_CAbreviatura}" required="true" requiredMessage="Introduzca una abreviatura" />
-                        <p:outputLabel value="#{bundleUnidades.CreateUnidadesTbLabel_CTipo}" for="CTipo" />
+                        <p:outputLabel value="Tipo: " for="CTipo" />
                         <p:selectOneMenu id="CTipo" value="#{unidadesTbController.selected.CTipo}" required="true" requiredMessage="Seleccione tipo" >
                             <f:selectItem itemLabel="Seleccione" itemValue="" />
                             <f:selectItem itemLabel="Materiales" itemValue="Materiales" />
                             <f:selectItem itemLabel="Viaje" itemValue="Viaje" />                            
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{unidadesTbController.create}" value="#{bundleUnidades.Save}" update="display,:UnidadesTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'UnidadesTbCreateDialog');"/>
+                    <p:commandButton actionListener="#{unidadesTbController.create}" value="Guardar" update="display,:UnidadesTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'UnidadesTbCreateDialog');"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
