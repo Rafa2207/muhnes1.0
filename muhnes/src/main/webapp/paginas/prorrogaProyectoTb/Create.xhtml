@@ -13,19 +13,23 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{prorrogaProyectoTbController.selected != null}">
                         
-                        <p:outputLabel value="#{bundleProrrogaProy.CreateProrrogaProyectoTbLabel_ENumprorroga}" for="ENumprorroga" />
-                        <p:inputText id="ENumprorroga" value="#{prorrogaProyectoTbController.selected.ENumprorroga}" title="#{bundleProrrogaProy.CreateProrrogaProyectoTbTitle_ENumprorroga}" />
-                        
                         <p:outputLabel value="#{bundleProrrogaProy.CreateProrrogaProyectoTbLabel_MJustificacion}" for="MJustificacion" />
-                        <p:inputText id="MJustificacion" value="#{prorrogaProyectoTbController.selected.MJustificacion}" title="#{bundleProrrogaProy.CreateProrrogaProyectoTbTitle_MJustificacion}" />
+                        <p:inputTextarea autoResize="false" id="MJustificacion" value="#{prorrogaProyectoTbController.selected.MJustificacion}" title="#{bundleProrrogaProy.CreateProrrogaProyectoTbTitle_MJustificacion}" 
+                                         required="true" requiredMessage="Introduzca juestificación de la prórroga"/>
                         
                         <p:outputLabel value="#{bundleProrrogaProy.CreateProrrogaProyectoTbLabel_FFechaInicio}" for="FFechaInicio" />
                         <p:calendar id="FFechaInicio" pattern="dd MMMM yyyy" value="#{prorrogaProyectoTbController.selected.FFechaInicio}" title="#{bundleProrrogaProy.EditProrrogaProyectoTbTitle_FFechaInicio}"
-                                    showOn="button" size="15" locale="es" readonlyInput="true"/>
+                                    showOn="button" size="15" locale="es" readonlyInput="true"
+                                    mindate="#{prorrogaProyectoTbController.fechaMinimaTemporal}"
+                                    required="true" requiredMessage="introduzca fecha inicial de prórroga">
+                            <p:ajax event="dateSelect" update="FFechaFin"/>
+                        </p:calendar>
                         
                         <p:outputLabel value="#{bundleProrrogaProy.CreateProrrogaProyectoTbLabel_FFechaFin}" for="FFechaFin" />
                         <p:calendar id="FFechaFin" pattern="dd MMMM yyyy" value="#{prorrogaProyectoTbController.selected.FFechaFin}" title="#{bundleProrrogaProy.EditProrrogaProyectoTbTitle_FFechaFin}"
-                                    showOn="button" size="15" locale="es" readonlyInput="true"/>
+                                    showOn="button" size="15" locale="es" readonlyInput="true"
+                                    mindate="#{prorrogaProyectoTbController.selected.FFechaInicio}"
+                                    required="true" requiredMessage="Introduzca fecha fin de prórroga"/>
                         
                        
                     </p:panelGrid>

@@ -5,7 +5,7 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import modelo.MunicipioTb;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-06-01T10:07:31")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-06-02T11:20:39")
 @StaticMetamodel(AreaprotegidaTb.class)
 public class AreaprotegidaTb_ { 
 

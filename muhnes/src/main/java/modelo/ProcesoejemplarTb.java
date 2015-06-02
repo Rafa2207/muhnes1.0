@@ -10,8 +10,6 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,45 +18,45 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
  *
- * @author Rafa
+ * @author Endy
  */
 @Entity
 @Table(name = "procesoejemplar_tb")
 @NamedQueries({
     @NamedQuery(name = "ProcesoejemplarTb.findAll", query = "SELECT p FROM ProcesoejemplarTb p"),
-    @NamedQuery(name = "ProcesoejemplarTb.findByEIdproceso", query = "SELECT p FROM ProcesoejemplarTb p WHERE p.eIdproceso = :eIdproceso"),
     @NamedQuery(name = "ProcesoejemplarTb.findByMDescripcion", query = "SELECT p FROM ProcesoejemplarTb p WHERE p.mDescripcion = :mDescripcion"),
     @NamedQuery(name = "ProcesoejemplarTb.findByECantidad", query = "SELECT p FROM ProcesoejemplarTb p WHERE p.eCantidad = :eCantidad"),
     @NamedQuery(name = "ProcesoejemplarTb.findByCTiempo", query = "SELECT p FROM ProcesoejemplarTb p WHERE p.cTiempo = :cTiempo"),
     @NamedQuery(name = "ProcesoejemplarTb.findByCTipo", query = "SELECT p FROM ProcesoejemplarTb p WHERE p.cTipo = :cTipo"),
-    @NamedQuery(name = "ProcesoejemplarTb.findByFFecha", query = "SELECT p FROM ProcesoejemplarTb p WHERE p.fFecha = :fFecha")})
+    @NamedQuery(name = "ProcesoejemplarTb.findByFFecha", query = "SELECT p FROM ProcesoejemplarTb p WHERE p.fFecha = :fFecha"),
+    @NamedQuery(name = "ProcesoejemplarTb.findByMIdproceso", query = "SELECT p FROM ProcesoejemplarTb p WHERE p.mIdproceso = :mIdproceso")})
 public class ProcesoejemplarTb implements Serializable {
-    @Column(name = "e_cantidad")
-    private Integer eCantidad;
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "e_idproceso")
-    private Integer eIdproceso;
     @Size(max = 2147483647)
     @Column(name = "m_descripcion")
     private String mDescripcion;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-   
+    @Column(name = "e_cantidad")
+    private Integer eCantidad;
     @Size(max = 20)
     @Column(name = "c_tiempo")
     private String cTiempo;
-    @Size(max = 10)
+    @Size(max = 20)
     @Column(name = "c_tipo")
     private String cTipo;
     @Column(name = "f_fecha")
     @Temporal(TemporalType.DATE)
     private Date fFecha;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 2147483647)
+    @Column(name = "m_idproceso")
+    private String mIdproceso;
     @JoinColumn(name = "e_idproyecto", referencedColumnName = "e_idproyecto")
     @ManyToOne
     private ProyectoTb eIdproyecto;
@@ -66,16 +64,8 @@ public class ProcesoejemplarTb implements Serializable {
     public ProcesoejemplarTb() {
     }
 
-    public ProcesoejemplarTb(Integer eIdproceso) {
-        this.eIdproceso = eIdproceso;
-    }
-
-    public Integer getEIdproceso() {
-        return eIdproceso;
-    }
-
-    public void setEIdproceso(Integer eIdproceso) {
-        this.eIdproceso = eIdproceso;
+    public ProcesoejemplarTb(String mIdproceso) {
+        this.mIdproceso = mIdproceso;
     }
 
     public String getMDescripcion() {
@@ -86,6 +76,13 @@ public class ProcesoejemplarTb implements Serializable {
         this.mDescripcion = mDescripcion;
     }
 
+    public Integer getECantidad() {
+        return eCantidad;
+    }
+
+    public void setECantidad(Integer eCantidad) {
+        this.eCantidad = eCantidad;
+    }
 
     public String getCTiempo() {
         return cTiempo;
@@ -111,6 +108,14 @@ public class ProcesoejemplarTb implements Serializable {
         this.fFecha = fFecha;
     }
 
+    public String getMIdproceso() {
+        return mIdproceso;
+    }
+
+    public void setMIdproceso(String mIdproceso) {
+        this.mIdproceso = mIdproceso;
+    }
+
     public ProyectoTb getEIdproyecto() {
         return eIdproyecto;
     }
@@ -122,7 +127,7 @@ public class ProcesoejemplarTb implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (eIdproceso != null ? eIdproceso.hashCode() : 0);
+        hash += (mIdproceso != null ? mIdproceso.hashCode() : 0);
         return hash;
     }
 
@@ -133,7 +138,7 @@ public class ProcesoejemplarTb implements Serializable {
             return false;
         }
         ProcesoejemplarTb other = (ProcesoejemplarTb) object;
-        if ((this.eIdproceso == null && other.eIdproceso != null) || (this.eIdproceso != null && !this.eIdproceso.equals(other.eIdproceso))) {
+        if ((this.mIdproceso == null && other.mIdproceso != null) || (this.mIdproceso != null && !this.mIdproceso.equals(other.mIdproceso))) {
             return false;
         }
         return true;
@@ -141,15 +146,7 @@ public class ProcesoejemplarTb implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.ProcesoejemplarTb[ eIdproceso=" + eIdproceso + " ]";
-    }
-
-    public Integer getECantidad() {
-        return eCantidad;
-    }
-
-    public void setECantidad(Integer eCantidad) {
-        this.eCantidad = eCantidad;
+        return "modelo.ProcesoejemplarTb[ mIdproceso=" + mIdproceso + " ]";
     }
     
 }

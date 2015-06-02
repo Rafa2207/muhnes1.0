@@ -18,7 +18,7 @@
                 <p:panel header="#{bundle.ListProcesoejemplarTbTitle}: #{controladorSesion.proyecto.MNombre}">
                     <p:breadCrumb>
                         <p:menuitem value="casita"/>
-                        <p:menuitem value="Proyectos" outcome="/paginas/proyectoTb/List.xhtml" />
+                        <p:menuitem value="Selección de proyectos" outcome="/paginas/procesoejemplarTb/ProcesoEjemplar.xhtml" />
                         <p:menuitem value="Proceso ejemplar" outcome="/paginas/procesoejemplarTb/List.xhtml"  />
                     </p:breadCrumb>
                     
@@ -34,7 +34,7 @@
                                  selectionMode="single" selection="#{procesoejemplarTbController.selected}"
                                  paginator="true"
                                  paginatorPosition="bottom"
-                                 rowKey="#{item.EIdproceso}"
+                                 rowKey="#{item.MIdproceso}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  filteredValue="#{institucionTbController.filtro}"

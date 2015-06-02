@@ -37,10 +37,6 @@
                     <p:commandButton id="PresupuestoButton" icon="ui-icon-tag"  value="Presupuesto" action="/paginas/presupuestoTb/List.xhtml" disabled="#{empty proyectoTbController.selected}" >
                         <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{proyectoTbController.selected}" />
                     </p:commandButton>
-
-                    <p:commandButton id="ProcesoejemplarButton" icon="ui-icon-calculator"  value="Proceso ejemplar" action="/paginas/procesoejemplarTb/List.xhtml" disabled="#{empty proyectoTbController.selected}" >
-                        <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{proyectoTbController.selected}" />
-                    </p:commandButton>
                     
                     <p:commandButton id="ProrrogaProyectoButton" icon="ui-icon-alert"  value="Prórrogas" action="/paginas/prorrogaProyectoTb/List.xhtml" disabled="#{empty proyectoTbController.selected}" >
                         <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{proyectoTbController.selected}" />
@@ -64,8 +60,8 @@
                                  
                                  >
 
-                        <p:ajax event="rowSelect"   update=":ProyectoTbListForm:ProcesoejemplarButton :ProyectoTbListForm:PresupuestoButton :ProyectoTbListForm:ActividadButton :ProyectoTbListForm:createButton :ProyectoTbListForm:viewButton :ProyectoTbListForm:editButton :ProyectoTbListForm:deleteButton :ProyectoTbListForm:ProrrogaProyectoButton"/>
-                        <p:ajax event="rowUnselect" update=":ProyectoTbListForm:ProcesoejemplarButton :ProyectoTbListForm:PresupuestoButton :ProyectoTbListForm:ActividadButton :ProyectoTbListForm:createButton :ProyectoTbListForm:viewButton :ProyectoTbListForm:editButton :ProyectoTbListForm:deleteButton :ProyectoTbListForm:ProrrogaProyectoButton"/>
+                        <p:ajax event="rowSelect"   update=":ProyectoTbListForm:PresupuestoButton :ProyectoTbListForm:ActividadButton :ProyectoTbListForm:createButton :ProyectoTbListForm:viewButton :ProyectoTbListForm:editButton :ProyectoTbListForm:deleteButton :ProyectoTbListForm:ProrrogaProyectoButton"/>
+                        <p:ajax event="rowUnselect" update=":ProyectoTbListForm:PresupuestoButton :ProyectoTbListForm:ActividadButton :ProyectoTbListForm:createButton :ProyectoTbListForm:viewButton :ProyectoTbListForm:editButton :ProyectoTbListForm:deleteButton :ProyectoTbListForm:ProrrogaProyectoButton"/>
 
 
                         <p:column filterBy="#{item.MNombre}" filterStyle="display:none">

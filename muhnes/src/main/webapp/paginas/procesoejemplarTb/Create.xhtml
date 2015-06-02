@@ -12,6 +12,11 @@
             <h:form id="ProcesoejemplarTbCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{procesoejemplarTbController.selected != null}">
+                        
+                        <p:outputLabel value="ID:" for="ID" />
+                        <p:inputText id="ID" value="#{procesoejemplarTbController.selected.MIdproceso}" title="ID" />
+                        
+                        
                         <p:outputLabel value="#{bundle.CreateProcesoejemplarTbLabel_MDescripcion}" for="MDescripcion" />
                         <p:inputText id="MDescripcion" value="#{procesoejemplarTbController.selected.MDescripcion}" title="#{bundle.CreateProcesoejemplarTbTitle_MDescripcion}" />
                         

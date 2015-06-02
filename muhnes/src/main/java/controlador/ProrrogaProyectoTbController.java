@@ -6,6 +6,7 @@ import controlador.util.JsfUtil.PersistAction;
 import servicio.ProrrogaProyectoTbFacade;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -14,6 +15,7 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -30,6 +32,42 @@ public class ProrrogaProyectoTbController implements Serializable {
     private List<ProrrogaProyectoTb> items = null, filtro;
     private ProrrogaProyectoTb selected;
     private ProyectoTb proyectos;
+    private Date fechaMinimaTemporal, fechaMinimaTemporalEdit, fechaMaximaTemporalEdit;
+
+    public Date getFechaMaximaTemporalEdit() {
+        return fechaMaximaTemporalEdit;
+    }
+
+    public void setFechaMaximaTemporalEdit(Date fechaMaximaTemporalEdit) {
+        this.fechaMaximaTemporalEdit = fechaMaximaTemporalEdit;
+    }
+
+    public Date getFechaMinimaTemporalEdit() {
+        return fechaMinimaTemporalEdit;
+    }
+
+    public void setFechaMinimaTemporalEdit(Date fechaMinimaTemporalEdit) {
+        this.fechaMinimaTemporalEdit = fechaMinimaTemporalEdit;
+    }    
+
+    public Date getFechaMinimaTemporal() {
+        return fechaMinimaTemporal;
+    }
+
+    public void setFechaMinimaTemporal(Date fechaMinimaTemporal) {
+        this.fechaMinimaTemporal = fechaMinimaTemporal;
+    }
+
+    public List<ProrrogaProyectoTb> getItems() {
+        if (items == null) {
+            items = getFacade().findAll();
+        }
+        return items;
+    }
+
+    public void setItems(List<ProrrogaProyectoTb> items) {
+        this.items = items;
+    }
 
     public List<ProrrogaProyectoTb> getFiltro() {
         return filtro;
@@ -39,7 +77,6 @@ public class ProrrogaProyectoTbController implements Serializable {
         this.filtro = filtro;
     }
 
-    
     public ProrrogaProyectoTbController() {
     }
 
@@ -61,11 +98,13 @@ public class ProrrogaProyectoTbController implements Serializable {
         return ejbFacade;
     }
 
-    public ProrrogaProyectoTb prepareCreate(ProyectoTb proyecto) {
-        
+    public ProrrogaProyectoTb prepareCreate(List<ProrrogaProyectoTb> p, ProyectoTb proyecto) {
+
         selected = new ProrrogaProyectoTb();
-        proyectos=proyecto;
-        selected.setEIdproyecto(proyectos);
+        proyectos = proyecto;
+        selected.setEIdproyecto(proyectos); 
+        calcularNumeroProrroga(p, proyecto);
+        calcularFechaMinima(p, proyecto);
         initializeEmbeddableKey();
         return selected;
     }
@@ -171,6 +210,70 @@ public class ProrrogaProyectoTbController implements Serializable {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), ProrrogaProyectoTb.class.getName()});
                 return null;
             }
+        }
+
+    }
+
+    public void prepareEdit(List<ProrrogaProyectoTb> p, ProyectoTb proyecto, int numero) {
+        calcularFechaMinimaEdit(p, proyecto, numero);
+        
+    }
+
+    public void calcularNumeroProrroga(List<ProrrogaProyectoTb> p, ProyectoTb proy) {
+        int i = 1;
+        selected.setENumprorroga(i);
+        for (ProrrogaProyectoTb proProy : p) {
+
+            if (proProy.getEIdproyecto().getEIdproyecto() == proy.getEIdproyecto()) {
+                i++;
+                selected.setENumprorroga(i);
+            }
+        }
+
+    }
+
+    public void calcularFechaMinima(List<ProrrogaProyectoTb> p, ProyectoTb proy) {
+        int i = 1, numeroProrroga = selected.getENumprorroga();
+        fechaMinimaTemporal=proy.getFFechaFin();
+        for (ProrrogaProyectoTb proProy : p) {
+            if (proProy.getEIdproyecto().getEIdproyecto() == proy.getEIdproyecto()) {
+                i++;
+                if(numeroProrroga==i){
+                    fechaMinimaTemporal=proProy.getFFechaFin();    
+                }
+            }
+        }
+
+    }
+    
+    public void calcularFechaMinimaEdit(List<ProrrogaProyectoTb> p, ProyectoTb proy, int numeroProrroga) {
+        int i = 1;
+        fechaMinimaTemporalEdit=proy.getFFechaFin();
+        
+        for (ProrrogaProyectoTb proProy : p) {
+            if (proProy.getEIdproyecto().getEIdproyecto() == proy.getEIdproyecto()) {
+                i++;
+                if(numeroProrroga==i){
+                    fechaMinimaTemporalEdit=proProy.getFFechaFin();
+                }
+                
+            }
+        }
+
+    }
+
+    public void eliminarProrroga(List<ProrrogaProyectoTb> p, ProyectoTb proy, int pro) {
+        int i = 0;
+        for (ProrrogaProyectoTb proProy : p) {
+            if (proProy.getEIdproyecto().getEIdproyecto() == proy.getEIdproyecto()) {
+                i++;
+            }
+        }
+        if (pro >= i) {
+            destroy();
+        } else {
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error, elimine primero la última prórroga", "ERROR"));
         }
 
     }

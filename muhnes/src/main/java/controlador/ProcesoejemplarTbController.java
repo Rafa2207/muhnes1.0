@@ -168,7 +168,8 @@ public class ProcesoejemplarTbController implements Serializable {
             }
             if (object instanceof ProcesoejemplarTb) {
                 ProcesoejemplarTb o = (ProcesoejemplarTb) object;
-                return getStringKey(o.getEIdproceso());
+                //return getStringKey(o.getEIdproceso());
+                return o.getMIdproceso();
             } else {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), ProcesoejemplarTb.class.getName()});
                 return null;

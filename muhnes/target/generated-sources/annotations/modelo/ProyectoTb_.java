@@ -5,15 +5,17 @@ import javax.annotation.Generated;
 import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
+import modelo.ProcesoejemplarTb;
 import modelo.ProrrogaProyectoTb;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-06-01T10:07:31")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-06-02T11:20:39")
 @StaticMetamodel(ProyectoTb.class)
 public class ProyectoTb_ { 
 
     public static volatile SingularAttribute<ProyectoTb, Integer> eIdproyecto;
     public static volatile SingularAttribute<ProyectoTb, Date> fFechaFin;
     public static volatile SingularAttribute<ProyectoTb, Integer> eResponsable;
+    public static volatile ListAttribute<ProyectoTb, ProcesoejemplarTb> procesoejemplarTbList;
     public static volatile SingularAttribute<ProyectoTb, Date> fFechaInicio;
     public static volatile ListAttribute<ProyectoTb, ProrrogaProyectoTb> prorrogaProyectoTbList;
     public static volatile SingularAttribute<ProyectoTb, String> mDescripcion;
