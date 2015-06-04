@@ -33,7 +33,9 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "PedidoTb.findAll", query = "SELECT p FROM PedidoTb p"),
     @NamedQuery(name = "PedidoTb.findByEIdpedido", query = "SELECT p FROM PedidoTb p WHERE p.eIdpedido = :eIdpedido"),
     @NamedQuery(name = "PedidoTb.findByMDescripcion", query = "SELECT p FROM PedidoTb p WHERE p.mDescripcion = :mDescripcion"),
-    @NamedQuery(name = "PedidoTb.findByFFecha", query = "SELECT p FROM PedidoTb p WHERE p.fFecha = :fFecha")})
+    @NamedQuery(name = "PedidoTb.findByFFecha", query = "SELECT p FROM PedidoTb p WHERE p.fFecha = :fFecha"),
+    @NamedQuery(name = "PedidoTb.findByFFechaPosibleRecibir", query = "SELECT p FROM PedidoTb p WHERE p.fFechaPosibleRecibir = :fFechaPosibleRecibir"),
+    @NamedQuery(name = "PedidoTb.findByBEstado", query = "SELECT p FROM PedidoTb p WHERE p.bEstado = :bEstado")})
 public class PedidoTb implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -47,6 +49,11 @@ public class PedidoTb implements Serializable {
     @Column(name = "f_fecha")
     @Temporal(TemporalType.DATE)
     private Date fFecha;
+    @Column(name = "f_fecha_posible_recibir")
+    @Temporal(TemporalType.DATE)
+    private Date fFechaPosibleRecibir;
+    @Column(name = "b_estado")
+    private Boolean bEstado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedidoTb")
     private List<MaterialPedidoTb> materialPedidoTbList;
 
@@ -79,6 +86,22 @@ public class PedidoTb implements Serializable {
 
     public void setFFecha(Date fFecha) {
         this.fFecha = fFecha;
+    }
+
+    public Date getFFechaPosibleRecibir() {
+        return fFechaPosibleRecibir;
+    }
+
+    public void setFFechaPosibleRecibir(Date fFechaPosibleRecibir) {
+        this.fFechaPosibleRecibir = fFechaPosibleRecibir;
+    }
+
+    public Boolean getBEstado() {
+        return bEstado;
+    }
+
+    public void setBEstado(Boolean bEstado) {
+        this.bEstado = bEstado;
     }
 
     public List<MaterialPedidoTb> getMaterialPedidoTbList() {

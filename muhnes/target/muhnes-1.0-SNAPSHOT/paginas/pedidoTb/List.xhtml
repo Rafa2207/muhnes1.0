@@ -16,6 +16,10 @@
         <ui:define name="body">
             <h:form id="PedidoTbListForm">
                 <p:panel header="#{bundle.ListPedidoTbTitle}">
+                    <p:breadCrumb>
+                        <p:menuitem value="casita" outcome="/paginas/bienvenido.xhtml"/>
+                        <p:menuitem value="Pedidos" outcome="/paginas/pedidoTb/List.xhtml" />
+                    </p:breadCrumb>
 
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{pedidoTbController.prepareCreate}" update=":PedidoTbCreateForm" oncomplete="PF('PedidoTbCreateDialog').show()"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PedidoTbViewForm" oncomplete="PF('PedidoTbViewDialog').show()" disabled="#{empty pedidoTbController.selected}"/>

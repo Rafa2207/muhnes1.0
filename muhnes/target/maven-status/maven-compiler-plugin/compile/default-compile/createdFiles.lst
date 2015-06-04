@@ -101,10 +101,12 @@ modelo\ImagenTb.class
 controlador\EjemplarTbController.class
 modelo\PedidoTb_.class
 controlador\ActividadTbController.class
+controlador\util\Correo$1.class
 modelo\EspecieTb.class
 modelo\MaterialProyectoTb.class
 controlador\MaterialPedidoTbController$MaterialPedidoTbControllerConverter.class
 modelo\ImagenTb_.class
+controlador\util\Correo.class
 modelo\EjemplarParticipaExhibicionTbPK.class
 modelo\ExhibicionTb_.class
 controlador\AgenteTbController.class
@@ -138,8 +140,8 @@ modelo\AreaprotegidaTb.class
 modelo\FamiliaTb.class
 modelo\ProrrogaProyectoTb.class
 modelo\BitacoraTb.class
-controlador\UnidadesTbController.class
 servicio\PresupuestoTbFacade.class
+controlador\UnidadesTbController.class
 modelo\ProyectoTb_.class
 servicio\PerfilTbFacade.class
 controlador\EjemplarParticipaExhibicionTbController.class

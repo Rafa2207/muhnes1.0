@@ -19,14 +19,46 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
+import modelo.MaterialPedidoTb;
+import modelo.MaterialPedidoTbPK;
+import modelo.MaterialTb;
 
 @Named("pedidoTbController")
 @ViewScoped
 public class PedidoTbController implements Serializable {
 
     @EJB
+    private servicio.MaterialTbFacade materialFacade;
+    @EJB
     private servicio.PedidoTbFacade ejbFacade;
     private List<PedidoTb> items = null, filtro;
+    private MaterialTb material;
+    private List<MaterialTb> materialDisponible;
+    private double cantidad;
+
+    public double getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(double cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public List<MaterialTb> getMaterialDisponible() {
+        return materialDisponible;
+    }
+
+    public void setMaterialDisponible(List<MaterialTb> materialDisponible) {
+        this.materialDisponible = materialDisponible;
+    }
+    
+    public MaterialTb getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(MaterialTb material) {
+        this.material = material;
+    }
 
     public List<PedidoTb> getFiltro() {
         return filtro;
@@ -61,6 +93,7 @@ public class PedidoTbController implements Serializable {
     public PedidoTb prepareCreate() {
         selected = new PedidoTb();
         initializeEmbeddableKey();
+        materialDisponible = materialFacade.buscarTodosAZ();
         return selected;
     }
 
@@ -169,6 +202,25 @@ public class PedidoTbController implements Serializable {
             }
         }
 
+    }
+    public void agregar(){
+        MaterialPedidoTb nuevo = new MaterialPedidoTb();
+        nuevo.setDCantidad(cantidad);
+        nuevo.setMaterialTb(material);
+        nuevo.setPedidoTb(selected);
+        
+        MaterialPedidoTbPK mppk = new MaterialPedidoTbPK();
+        mppk.setEIdmaterial(material.getEIdmaterial());
+        //mppk.getEIdpedido(selected.getEIdpedido());
+        
+        nuevo.setMaterialPedidoTbPK(mppk);
+        
+        selected.getMaterialPedidoTbList().add(nuevo);
+        
+        materialDisponible.remove(material);
+        
+        cantidad = 0.0;
+        
     }
 
 }

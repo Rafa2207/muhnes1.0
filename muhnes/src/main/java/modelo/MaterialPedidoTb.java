@@ -6,6 +6,7 @@
 package modelo;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -14,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -26,7 +29,8 @@ import javax.persistence.Table;
     @NamedQuery(name = "MaterialPedidoTb.findByEIdmaterial", query = "SELECT m FROM MaterialPedidoTb m WHERE m.materialPedidoTbPK.eIdmaterial = :eIdmaterial"),
     @NamedQuery(name = "MaterialPedidoTb.findByEIdpedido", query = "SELECT m FROM MaterialPedidoTb m WHERE m.materialPedidoTbPK.eIdpedido = :eIdpedido"),
     @NamedQuery(name = "MaterialPedidoTb.findByDCantidad", query = "SELECT m FROM MaterialPedidoTb m WHERE m.dCantidad = :dCantidad"),
-    @NamedQuery(name = "MaterialPedidoTb.findByDEntrada", query = "SELECT m FROM MaterialPedidoTb m WHERE m.dEntrada = :dEntrada")})
+    @NamedQuery(name = "MaterialPedidoTb.findByDEntrada", query = "SELECT m FROM MaterialPedidoTb m WHERE m.dEntrada = :dEntrada"),
+    @NamedQuery(name = "MaterialPedidoTb.findByFFechaRecibido", query = "SELECT m FROM MaterialPedidoTb m WHERE m.fFechaRecibido = :fFechaRecibido")})
 public class MaterialPedidoTb implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -36,6 +40,9 @@ public class MaterialPedidoTb implements Serializable {
     private Double dCantidad;
     @Column(name = "d_entrada")
     private Double dEntrada;
+    @Column(name = "f_fecha_recibido")
+    @Temporal(TemporalType.DATE)
+    private Date fFechaRecibido;
     @JoinColumn(name = "e_idpedido", referencedColumnName = "e_idpedido", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private PedidoTb pedidoTb;
@@ -76,6 +83,14 @@ public class MaterialPedidoTb implements Serializable {
 
     public void setDEntrada(Double dEntrada) {
         this.dEntrada = dEntrada;
+    }
+
+    public Date getFFechaRecibido() {
+        return fFechaRecibido;
+    }
+
+    public void setFFechaRecibido(Date fFechaRecibido) {
+        this.fFechaRecibido = fFechaRecibido;
     }
 
     public PedidoTb getPedidoTb() {

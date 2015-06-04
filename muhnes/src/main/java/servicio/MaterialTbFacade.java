@@ -5,10 +5,12 @@
  */
 package servicio;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import modelo.MaterialTb;
 
 /**
@@ -36,5 +38,9 @@ public class MaterialTbFacade extends AbstractFacade<MaterialTb> {
         query.setParameter("pre", pre);
         Long count = (Long) query.getSingleResult();
         return String.format("%03d", count+1);
+    }
+     public List<MaterialTb> buscarTodosAZ(){
+        TypedQuery<MaterialTb> query = em.createQuery("SELECT p FROM MaterialTb p ORDER BY p.cNombre ASC", MaterialTb.class);
+        return query.getResultList();
     }
 }
