@@ -5,12 +5,17 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
+      <h:head>
+          <h:outputStylesheet library="css" name="jsfcrud.css"/>
+        <title>Iniciar Sesión</title>
+    </h:head>
     <h:body>
+        
         <br/>
         <br/>
         <br/>
         <h1 align="center">Inicio de Sesión</h1>
-    
+        
             
                  <p:panel style="width: 300px;
                  margin: auto;
@@ -18,22 +23,23 @@
                  text-align: center;
                  //margin-top: 200px;
                  //border-width: 5px;
-                 font-size: 20px">
+                 //font-size: 20px">
             <h:panelGrid columns="2">
                 <h:panelGroup>
                     <form action="j_security_check" method="POST">
-                        <table style="margin: auto" border="1" cellpadding="6" >
+                        <table style="margin: auto" cellpadding="6" >
                             <tr>
-                                <td><label  >Usuario:</label></td>
-                                <td><input type="text" name="j_username" required="true" ></input></td>
+                                <td><label>Usuario:</label></td>
+                                <td><input type="text" name="j_username" required="true" autofocus=""></input></td>
                             </tr>
                             <tr>
-                                <td><label>Clave:</label></td>
+                                <td><label>Contraseña:</label></td>
                                 <td><input type="password" name="j_password" required="true"></input></td>
                             </tr>
                         </table>
                         <input type="submit" value="Iniciar Sesión"></input>
                     </form>
+                    <h:link value="¿Olvido su contraseña?" outcome="/recuperacion.xhtml"/>
                 </h:panelGroup>
             </h:panelGrid>
 

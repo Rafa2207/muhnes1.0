@@ -7,7 +7,9 @@ package servicio;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import modelo.UsuarioTb;
 
 /**
@@ -28,4 +30,13 @@ public class UsuarioTbFacade extends AbstractFacade<UsuarioTb> {
         super(UsuarioTb.class);
     }
     
+    public UsuarioTb  usuarioByCorreo(String correo){
+        Query query = em.createQuery("SELECT u FROM UsuarioTb u WHERE u.mEmail=:correo", UsuarioTb.class);
+        query.setParameter("correo", correo);
+        try {
+            return (UsuarioTb) query.getSingleResult();
+        } catch (NoResultException e) {
+         return null;   
+        }
+    }
 }
