@@ -33,6 +33,15 @@ public class ProrrogaProyectoTbController implements Serializable {
     private ProrrogaProyectoTb selected;
     private ProyectoTb proyectos;
     private Date fechaMinimaTemporal, fechaMinimaTemporalEdit, fechaMaximaTemporalEdit;
+    private Date FechaActual = new Date();
+
+    public Date getFechaActual() {
+        return FechaActual;
+    }
+
+    public void setFechaActual(Date FechaActual) {
+        this.FechaActual = FechaActual;
+    }
 
     public Date getFechaMaximaTemporalEdit() {
         return fechaMaximaTemporalEdit;
@@ -48,7 +57,7 @@ public class ProrrogaProyectoTbController implements Serializable {
 
     public void setFechaMinimaTemporalEdit(Date fechaMinimaTemporalEdit) {
         this.fechaMinimaTemporalEdit = fechaMinimaTemporalEdit;
-    }    
+    }
 
     public Date getFechaMinimaTemporal() {
         return fechaMinimaTemporal;
@@ -102,7 +111,7 @@ public class ProrrogaProyectoTbController implements Serializable {
 
         selected = new ProrrogaProyectoTb();
         proyectos = proyecto;
-        selected.setEIdproyecto(proyectos); 
+        selected.setEIdproyecto(proyectos);
         calcularNumeroProrroga(p, proyecto);
         calcularFechaMinima(p, proyecto);
         initializeEmbeddableKey();
@@ -216,7 +225,7 @@ public class ProrrogaProyectoTbController implements Serializable {
 
     public void prepareEdit(List<ProrrogaProyectoTb> p, ProyectoTb proyecto, int numero) {
         calcularFechaMinimaEdit(p, proyecto, numero);
-        
+
     }
 
     public void calcularNumeroProrroga(List<ProrrogaProyectoTb> p, ProyectoTb proy) {
@@ -234,46 +243,54 @@ public class ProrrogaProyectoTbController implements Serializable {
 
     public void calcularFechaMinima(List<ProrrogaProyectoTb> p, ProyectoTb proy) {
         int i = 1, numeroProrroga = selected.getENumprorroga();
-        fechaMinimaTemporal=proy.getFFechaFin();
+        fechaMinimaTemporal = proy.getFFechaFin();
         for (ProrrogaProyectoTb proProy : p) {
             if (proProy.getEIdproyecto().getEIdproyecto() == proy.getEIdproyecto()) {
                 i++;
-                if(numeroProrroga==i){
-                    fechaMinimaTemporal=proProy.getFFechaFin();    
+                if (numeroProrroga == i) {
+                    fechaMinimaTemporal = proProy.getFFechaFin();
                 }
             }
         }
 
     }
-    
+
     public void calcularFechaMinimaEdit(List<ProrrogaProyectoTb> p, ProyectoTb proy, int numeroProrroga) {
         int i = 1;
-        fechaMinimaTemporalEdit=proy.getFFechaFin();
-        
+        fechaMinimaTemporalEdit = proy.getFFechaFin();
+
         for (ProrrogaProyectoTb proProy : p) {
             if (proProy.getEIdproyecto().getEIdproyecto() == proy.getEIdproyecto()) {
                 i++;
-                if(numeroProrroga==i){
-                    fechaMinimaTemporalEdit=proProy.getFFechaFin();
+                if (numeroProrroga == i) {
+                    fechaMinimaTemporalEdit = proProy.getFFechaFin();
                 }
-                
+
             }
         }
 
     }
 
-    public void eliminarProrroga(List<ProrrogaProyectoTb> p, ProyectoTb proy, int pro) {
+    public void eliminarProrroga(List<ProrrogaProyectoTb> p, ProyectoTb proy, int pro, Date fechaPro) {
         int i = 0;
+
         for (ProrrogaProyectoTb proProy : p) {
             if (proProy.getEIdproyecto().getEIdproyecto() == proy.getEIdproyecto()) {
                 i++;
             }
         }
-        if (pro >= i) {
+
+        //&& fechaPro.after(FechaActual)
+        if (pro >= i && fechaPro.after(FechaActual)) {
             destroy();
         } else {
             FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error, elimine primero la última prórroga", "ERROR"));
+            if (fechaPro.after(FechaActual)) {
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error, elimine primero la última prórroga ", "ERROR"));
+            } else {
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Prórroga está en ejecución o ya fue finalizada", "ERROR"));
+
+            }
         }
 
     }

@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="ProcesoejemplarTbCreateDlg" widgetVar="ProcesoejemplarTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateProcesoejemplarTbTitle}">
+        <p:dialog showEffect="explode" id="ProcesoejemplarTbCreateDlg" widgetVar="ProcesoejemplarTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateProcesoejemplarTbTitle}">
             <h:form id="ProcesoejemplarTbCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{procesoejemplarTbController.selected != null}">
