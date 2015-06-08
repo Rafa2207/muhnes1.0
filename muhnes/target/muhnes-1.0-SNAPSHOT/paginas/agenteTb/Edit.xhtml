@@ -11,7 +11,7 @@
         <p:dialog id="AgenteTbEditDlg" widgetVar="AgenteTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditAgenteTbTitle}">
             <h:form id="AgenteTbEditForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="4" rendered="#{agenteTbController.selected != null}" style="width: 550px">
+                    <p:panelGrid columns="4" rendered="#{agenteTbController.selected != null}" style="width: 570px">
                         <p:outputLabel value="#{bundle.CreateAgenteTbLabel_CNombre}" for="CNombre" />
                         <p:inputText id="CNombre" value="#{agenteTbController.selected.CNombre}" title="#{bundle.CreateAgenteTbTitle_CNombre}"
                                      required="true" requiredMessage="Introduzca nombre del agente"/>
@@ -92,7 +92,7 @@
                                  value="#{agenteTbController.selected.agentePerfilTbList}"
                                  var="per"
                                  editable="true"
-                                 tableStyle="width: 550px"
+                                 tableStyle="width: 570px"
                                  scrollable="true"
                                  scrollHeight="80"
                                  emptyMessage="No se han seleccionado perfiles"
