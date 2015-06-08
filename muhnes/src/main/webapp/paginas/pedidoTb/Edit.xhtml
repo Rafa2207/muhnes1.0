@@ -10,22 +10,77 @@
 
         <p:dialog id="PedidoTbEditDlg" widgetVar="PedidoTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPedidoTbTitle}">
             <h:form id="PedidoTbEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{pedidoTbController.selected != null}">
+                <h:panelGroup id="display"><p:fieldset legend="Datos generales">
+                        <p:panelGrid columns="2" rendered="#{pedidoTbController.selected != null}">
 
-                        
-                        <p:outputLabel value="#{bundle.EditPedidoTbLabel_MDescripcion}" for="MDescripcion" />
-                        <p:inputTextarea autoResize="" id="MDescripcion" cols="30" value="#{pedidoTbController.selected.MDescripcion}" title="#{bundle.EditPedidoTbTitle_MDescripcion}" 
-                                         />
-                        
-                        <p:outputLabel value="#{bundle.EditPedidoTbLabel_FFecha}" for="FFecha" />
-                        <p:calendar id="FFecha" pattern="dd MMMM yyyy" value="#{pedidoTbController.selected.FFecha}" title="#{bundle.EditPedidoTbTitle_FFecha}"  showOn="button"
-                                    requiredMessage="Introduzca fecha del pedido"
-                                    locale="es" 
-                                    required="true"/>
-                        
-                       
-                    </p:panelGrid>
+                            <p:outputLabel value="#{bundle.CreatePedidoTbLabel_MDescripcion}" for="MDescripcion" />
+                            <p:inputTextarea autoResize="" id="MDescripcion" cols="30" value="#{pedidoTbController.selected.MDescripcion}" title="#{bundle.CreatePedidoTbTitle_MDescripcion}" 
+                                             />
+
+                            <p:outputLabel value="Fecha a recibir: " for="FFecha" />
+                            <p:calendar id="FFecha" pattern="dd MMMM yyyy" value="#{pedidoTbController.selected.FFechaPosibleRecibir}" title="#{bundle.EditPedidoTbTitle_FFecha}"  showOn="button"
+                                        requiredMessage="Introduzca fecha del pedido"
+                                        locale="es" 
+                                        required="true" mindate="0"/>
+
+
+                        </p:panelGrid>
+                    </p:fieldset>
+                    <p:fieldset legend="Materiales">
+                        <p:panelGrid columns="9">
+                            <p:outputLabel value="Material:" for="material" />
+                            <p:selectOneMenu id="material"
+                                             value="#{pedidoTbController.material}" filter="true">
+                                <f:selectItem itemLabel="Seleccione uno..."
+                                              itemValue=""/>
+                                <f:selectItems value="#{pedidoTbController.materialDisponible}"
+                                               var="mt"
+                                               itemLabel="#{mt.CNombre}"
+                                               itemValue="#{mt}"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Cantidad:" for="cant"/>
+                            <p:inputText id="cant" size="4" value="#{pedidoTbController.cantidad}"/>
+                            <p:commandButton id="agregar"
+                                             value="Agregar"
+                                             actionListener="#{pedidoTbController.agregar()}"
+                                             process="cant material agregar"
+                                             update="cant material materiales"
+                                             />
+                        </p:panelGrid>
+                        <p:dataTable id="materiales"
+                                     editable="true"
+                                     value="#{pedidoTbController.selected.materialPedidoTbList}"
+                                     var="material"
+                                     scrollable="true"
+                                     scrollHeight="160"
+                                     emptyMessage="No ha agregado materiales"
+                                     tableStyle="width:600px">
+                            <p:column headerText="Material">
+                                #{material.materialTb.CNombre}
+                            </p:column>
+                            <p:column headerText="Cantidad">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        #{material.DCantidad}
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{material.DCantidad}"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="Acciones">
+                                <p:rowEditor/>
+                                <p:commandLink style="display: inline-block;"
+                                               styleClass="ui-icon ui-icon-trash"
+                                               action="#{pedidoTbController.remover()}"
+                                               process="materiales"
+                                               update="materiales, :PedidoTbEditForm:material">
+                                    <f:setPropertyActionListener value="#{material}" 
+                                                                 target="#{pedidoTbController.materialEL}"/>
+                                </p:commandLink>
+                            </p:column>
+                        </p:dataTable>
+                    </p:fieldset>
                     <p:commandButton actionListener="#{pedidoTbController.update}" value="#{bundle.Save}" update="display,:PedidoTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PedidoTbEditDialog');"/>
                 </h:panelGroup>
             </h:form>

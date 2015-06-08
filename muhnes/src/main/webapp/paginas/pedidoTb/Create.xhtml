@@ -32,13 +32,13 @@
                             <p:outputLabel value="Material:" for="material" />
                             <p:selectOneMenu id="material"
                                              value="#{pedidoTbController.material}" filter="true">
-                            <f:selectItem itemLabel="Seleccione uno..."
-                                          itemValue=""/>
-                            <f:selectItems value="#{pedidoTbController.materialDisponible}"
-                                           var="mt"
-                                           itemLabel="#{mt.CNombre}"
-                                           itemValue="#{mt}"/>
-                        </p:selectOneMenu>
+                                <f:selectItem itemLabel="Seleccione uno..."
+                                              itemValue=""/>
+                                <f:selectItems value="#{pedidoTbController.materialDisponible}"
+                                               var="mt"
+                                               itemLabel="#{mt.CNombre}"
+                                               itemValue="#{mt}"/>
+                            </p:selectOneMenu>
                             <p:outputLabel value="Cantidad:" for="cant"/>
                             <p:inputText id="cant" size="4" value="#{pedidoTbController.cantidad}"/>
                             <p:commandButton id="agregar"
@@ -57,19 +57,12 @@
                                      emptyMessage="No ha agregado materiales"
                                      tableStyle="width:600px">
                             <p:column headerText="Material">
-                                <p:cellEditor>
-                                    <f:facet name="output">
-                                        #{material.materialTb.CNombre};
-                                    </f:facet>
-                                    <f:facet name="input">
-                                        <p:inputText value="#{material.materialTb.CNombre}"/>
-                                    </f:facet>
-                                </p:cellEditor>
+                                #{material.materialTb.CNombre}
                             </p:column>
                             <p:column headerText="Cantidad">
                                 <p:cellEditor>
                                     <f:facet name="output">
-                                        #{material.DCantidad};
+                                        #{material.DCantidad}
                                     </f:facet>
                                     <f:facet name="input">
                                         <p:inputText value="#{material.DCantidad}"/>
@@ -78,6 +71,14 @@
                             </p:column>
                             <p:column headerText="Acciones">
                                 <p:rowEditor/>
+                                <p:commandLink style="display: inline-block;"
+                                               styleClass="ui-icon ui-icon-trash"
+                                               action="#{pedidoTbController.remover()}"
+                                               process="materiales"
+                                               update="materiales, :PedidoTbCreateForm:material">
+                                    <f:setPropertyActionListener value="#{material}" 
+                                                                 target="#{pedidoTbController.materialEL}"/>
+                                </p:commandLink>
                             </p:column>
                         </p:dataTable>
                     </p:fieldset>

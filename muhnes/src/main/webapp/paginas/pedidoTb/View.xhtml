@@ -11,15 +11,32 @@
         <p:dialog id="PedidoTbViewDlg" widgetVar="PedidoTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPedidoTbTitle}">
             <h:form id="PedidoTbViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{pedidoTbController.selected != null}">
+                    <p:panelGrid columns="2" rendered="#{pedidoTbController.selected != null}" style="width: 600px">
                         <h:outputText value="#{bundle.ViewPedidoTbLabel_MDescripcion}"/>
                         <h:outputText value="#{pedidoTbController.selected.MDescripcion}" title="#{bundle.ViewPedidoTbTitle_MDescripcion}"/>
                         <h:outputText value="#{bundle.ViewPedidoTbLabel_FFecha}"/>
-                        <h:outputText value="#{pedidoTbController.selected.FFecha}" title="#{bundle.ViewPedidoTbTitle_FFecha}">
+                        <h:outputText value="#{pedidoTbController.selected.FFechaPosibleRecibir}" title="#{bundle.ViewPedidoTbTitle_FFecha}">
                             <f:convertDateTime pattern="dd MMMM yyyy" />
                         </h:outputText>
-
                     </p:panelGrid>
+                    <p:dataTable id="materiales"
+                                 editable="true"
+                                 value="#{pedidoTbController.selected.materialPedidoTbList}"
+                                 var="material"
+                                 scrollable="true"
+                                 scrollHeight="160"
+                                 emptyMessage="No ha agregado materiales"
+                                 tableStyle="width:600px">
+                        <p:column headerText="Material">
+                            #{material.materialTb.CNombre}
+                        </p:column>
+                        <p:column headerText="Marca">
+                            #{material.materialTb.MMarca}
+                        </p:column>
+                        <p:column headerText="Cantidad">
+                            #{material.DCantidad}
+                        </p:column>
+                    </p:dataTable>
                     <p:commandButton value="#{bundle.Close}" onclick="PedidoTbViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

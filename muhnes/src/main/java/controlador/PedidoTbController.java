@@ -6,6 +6,7 @@ import controlador.util.JsfUtil.PersistAction;
 import servicio.PedidoTbFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -35,6 +36,15 @@ public class PedidoTbController implements Serializable {
     private MaterialTb material;
     private List<MaterialTb> materialDisponible;
     private double cantidad;
+    private MaterialPedidoTb materialEL;
+
+    public MaterialPedidoTb getMaterialEL() {
+        return materialEL;
+    }
+
+    public void setMaterialEL(MaterialPedidoTb materialEL) {
+        this.materialEL = materialEL;
+    }
 
     public double getCantidad() {
         return cantidad;
@@ -92,8 +102,18 @@ public class PedidoTbController implements Serializable {
 
     public PedidoTb prepareCreate() {
         selected = new PedidoTb();
+        selected.setMaterialPedidoTbList(new ArrayList<MaterialPedidoTb>());
         initializeEmbeddableKey();
         materialDisponible = materialFacade.buscarTodosAZ();
+        return selected;
+    }
+    
+    public PedidoTb prepareEdit() {
+        materialDisponible = materialFacade.buscarTodosAZ();
+        for(MaterialPedidoTb b : selected.getMaterialPedidoTbList()){
+            materialDisponible.remove(b.getMaterialTb());
+        }        
+        initializeEmbeddableKey();
         return selected;
     }
 
@@ -211,7 +231,7 @@ public class PedidoTbController implements Serializable {
         
         MaterialPedidoTbPK mppk = new MaterialPedidoTbPK();
         mppk.setEIdmaterial(material.getEIdmaterial());
-        //mppk.getEIdpedido(selected.getEIdpedido());
+        mppk.setEIdpedido(getFacade().siguienteId());
         
         nuevo.setMaterialPedidoTbPK(mppk);
         
@@ -221,6 +241,12 @@ public class PedidoTbController implements Serializable {
         
         cantidad = 0.0;
         
+    }
+    
+    public void remover(){
+    selected.getMaterialPedidoTbList().remove(materialEL);
+    materialDisponible.add(materialEL.getMaterialTb());
+    material=null;
     }
 
 }

@@ -54,7 +54,7 @@ public class PedidoTb implements Serializable {
     private Date fFechaPosibleRecibir;
     @Column(name = "b_estado")
     private Boolean bEstado;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedidoTb")
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, mappedBy = "pedidoTb")
     private List<MaterialPedidoTb> materialPedidoTbList;
 
     public PedidoTb() {

@@ -7,7 +7,9 @@ package servicio;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import modelo.PedidoTb;
 
 /**
@@ -27,5 +29,14 @@ public class PedidoTbFacade extends AbstractFacade<PedidoTb> {
     public PedidoTbFacade() {
         super(PedidoTb.class);
     }
-    
+    public int siguienteId(){
+        Query query = em.createNativeQuery("SELECT last_value from secuencia_pedido_id");
+        try{
+            Long id =  (Long) query.getSingleResult();
+            return id.intValue()+1;
+        }
+        catch(NoResultException nre){
+            return 0;
+        }
+    }
 }
