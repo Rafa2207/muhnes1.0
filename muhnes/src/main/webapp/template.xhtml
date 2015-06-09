@@ -51,10 +51,12 @@
 
                     <p:menubar style="float: right; margin-right: 120px;" >
                         <p:submenu label="#{request.userPrincipal.name}" icon="ui-icon-person" >
-                            <p:menuitem value="Cambiar clave"
+                            <p:menuitem value="Modificar información"
                                         actionListener="#{usuarioTbController.prepareCambiarContra(request.userPrincipal.name)}"
                                         update=":CambiarContraForm"
-                                        oncomplete="PF('ContraEditDialog').show()"/>
+                                        oncomplete="PF('ContraEditDialog').show()"
+                                        icon="ui-icon-contact"
+                                        />
                             <p:menuitem value="Cerrar sesión" action="#{sesion.logout()}" icon="ui-icon-extlink"/>
                         </p:submenu>
                     </p:menubar>

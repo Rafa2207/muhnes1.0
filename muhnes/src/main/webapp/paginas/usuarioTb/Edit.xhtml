@@ -26,28 +26,16 @@
                         <p:outputLabel value="Email: " for="MEmail" />
                         <p:inputText id="MEmail" value="#{usuarioTbController.selected.MEmail}" title="Email: " 
                                      required="true"
-                                     requiredMessage="Introduzca el email." size="25"/>
+                                     requiredMessage="Introduzca el email." size="30"
+                                     validatorMessage="Formato invalido del email."
+                                     >
+                        <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                        </p:inputText>
 
                         <p:outputLabel value="#{bundle.EditUsuarioTbLabel_CNick}" for="CNick" />
                         <p:inputText id="CNick" value="#{usuarioTbController.selected.CNick}" title="#{bundle.EditUsuarioTbTitle_CNick}" 
                                      required="true"
                                      requiredMessage="Introduzca nombre de usuario." size="15" maxlength="15"/>
-
-                        <p:outputLabel for="pwd1" value="Contraseña: " />
-                        <p:password id="pwd1" value="#{usuarioTbController.selected.MPassword}" match="pwd2"  required="true" 
-                                    requiredMessage="Introduzca contraseña 1."
-                                    feedback="true" inline="false"
-                                    promptLabel="Por favor introduzca una contraseña." weakLabel="Corta."
-                                    goodLabel="Buena." strongLabel="Segura." size="20" maxlength="15"
-                                    validatorMessage="Contraseñas no coinciden"/>
-
-                        <p:outputLabel for="pwd2" value="Repita Contraseña: " />
-                        <p:password id="pwd2" value="#{usuarioTbController.selected.MPassword}" required="true" 
-                                    requiredMessage="Introduzca contraseña 2."
-                                    feedback="true" inline="false"
-                                    promptLabel="Por favor repita la contraseña." weakLabel="Corta."
-                                    goodLabel="Buena." strongLabel="Segura." size="20" maxlength="25" />
-
 
                         <p:outputLabel value="#{bundle.EditUsuarioTbLabel_CDui}" for="CDui" />
                         <p:inputMask id="CDui" value="#{usuarioTbController.selected.CDui}" title="#{bundle.EditUsuarioTbTitle_CDui}" 
