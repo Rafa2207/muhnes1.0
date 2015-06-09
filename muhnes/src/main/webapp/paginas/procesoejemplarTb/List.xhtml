@@ -15,26 +15,26 @@
 
         <ui:define name="body">
             <h:form id="ProcesoejemplarTbListForm">
-                <p:panel header="#{bundle.ListProcesoejemplarTbTitle}: #{controladorSesion.proyecto.MNombre}">
+                <p:panel header="#{controladorSesion.proyecto.MNombre}">
                     <p:breadCrumb>
                         <p:menuitem value="casita"/>
                         <p:menuitem value="Selección de proyectos" outcome="/paginas/procesoejemplarTb/ProcesoEjemplar.xhtml" />
                         <p:menuitem value="Proceso ejemplar" outcome="/paginas/procesoejemplarTb/List.xhtml"  />
                     </p:breadCrumb>
-                    
+
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{procesoejemplarTbController.prepareCreate(controladorSesion.proyecto)}" update=":ProcesoejemplarTbCreateForm" oncomplete="PF('ProcesoejemplarTbCreateDialog').show()"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ProcesoejemplarTbViewForm" oncomplete="PF('ProcesoejemplarTbViewDialog').show()" disabled="#{empty procesoejemplarTbController.selected}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ProcesoejemplarTbEditForm" oncomplete="PF('ProcesoejemplarTbEditDialog').show()" disabled="#{empty procesoejemplarTbController.selected}"/>
                     <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{procesoejemplarTbController.destroy}" update=":growl,datalist" disabled="#{empty procesoejemplarTbController.selected}">
-                     <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
+                        <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
                     </p:commandButton>
-                       
-                    
+
+
                     <p:dataTable id="datalist" value="#{procesoejemplarTbController.getItems(controladorSesion.proyecto)}" var="item"
                                  selectionMode="single" selection="#{procesoejemplarTbController.selected}"
                                  paginator="true"
                                  paginatorPosition="bottom"
-                                 rowKey="#{item.MIdproceso}"
+                                 rowKey="#{item.EIdproceso}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  filteredValue="#{institucionTbController.filtro}"
@@ -45,46 +45,48 @@
                         <p:ajax event="rowSelect"   update=":ProcesoejemplarTbListForm:createButton :ProcesoejemplarTbListForm:viewButton :ProcesoejemplarTbListForm:editButton :ProcesoejemplarTbListForm:deleteButton"/>
                         <p:ajax event="rowUnselect" update=":ProcesoejemplarTbListForm:createButton :ProcesoejemplarTbListForm:viewButton :ProcesoejemplarTbListForm:editButton :ProcesoejemplarTbListForm:deleteButton"/>
 
-                        
+
                         <p:column filterBy="#{item.MDescripcion}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProcesoejemplarTbTitle_MDescripcion}"/>
                             </f:facet>
                             <h:outputText value="#{item.MDescripcion}"/>
                         </p:column>
-                        
+
                         <p:column filterBy="#{item.ECantidad}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProcesoejemplarTbTitle_DCantidad}"/>
                             </f:facet>
                             <h:outputText value="#{item.ECantidad}"/>
                         </p:column>
-                        
-                        <p:column filterBy="#{item.CTiempo}" filterStyle="display:none">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProcesoejemplarTbTitle_CTiempo}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.CTiempo}"/>
-                        </p:column>
-                        
+
                         <p:column filterBy="#{item.CTipo}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProcesoejemplarTbTitle_CTipo}"/>
                             </f:facet>
                             <h:outputText value="#{item.CTipo}"/>
                         </p:column>
-                        
+
                         <p:column filterBy="#{item.FFecha}" filterStyle="display:none">
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProcesoejemplarTbTitle_FFecha}"/>
+                                <h:outputText value="Fecha inicio"/>
                             </f:facet>
                             <h:outputText value="#{item.FFecha}">
                                 <f:convertDateTime pattern="dd MMMM yyyy" />
                             </h:outputText>
                         </p:column >
-                        
-                        
-                        
+
+                        <p:column filterBy="#{item.FFechafin}" filterStyle="display:none">
+                            <f:facet name="header">
+                                <h:outputText value="Fecha de finalización"/>
+                            </f:facet>
+                            <h:outputText value="#{item.FFechafin}">
+                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                            </h:outputText>
+                        </p:column>
+
+
+
                         <f:facet name="header">
                             <p:outputPanel>
                                 <h:outputText value="Búsqueda: " />

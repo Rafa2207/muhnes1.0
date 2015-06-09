@@ -65,6 +65,7 @@ public class ProcesoejemplarTbController implements Serializable {
     public ProcesoejemplarTb prepareCreate(ProyectoTb proyecto) {
         selected = new ProcesoejemplarTb();
         proyectos=proyecto;
+        selected.setCTipo("Secado");
         selected.setEIdproyecto(proyectos);
         initializeEmbeddableKey();
         return selected;
@@ -168,8 +169,8 @@ public class ProcesoejemplarTbController implements Serializable {
             }
             if (object instanceof ProcesoejemplarTb) {
                 ProcesoejemplarTb o = (ProcesoejemplarTb) object;
-                //return getStringKey(o.getEIdproceso());
-                return o.getMIdproceso();
+                return getStringKey(o.getEIdproceso());
+                
             } else {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), ProcesoejemplarTb.class.getName()});
                 return null;

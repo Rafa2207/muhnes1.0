@@ -22,7 +22,6 @@
                         <p:menuitem value="Proyectos" outcome="/paginas/proyectoTb/List.xhtml" />
                         <p:menuitem value="Prórrogas" outcome="/paginas/prorrogaProyectoTb/List.xhtml"  />
                     </p:breadCrumb>
-                    
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{prorrogaProyectoTbController.prepareCreate(prorrogaProyectoTbController.items,controladorSesion.proyecto)}" update=":ProrrogaProyectoTbCreateForm" oncomplete="PF('ProrrogaProyectoTbCreateDialog').show()"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ProrrogaProyectoTbViewForm" oncomplete="PF('ProrrogaProyectoTbViewDialog').show()" disabled="#{empty prorrogaProyectoTbController.selected}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" actionListener="#{prorrogaProyectoTbController.prepareEdit(prorrogaProyectoTbController.items,controladorSesion.proyecto , prorrogaProyectoTbController.selected.ENumprorroga)}" update=":ProrrogaProyectoTbEditForm" oncomplete="PF('ProrrogaProyectoTbEditDialog').show()" disabled="#{empty prorrogaProyectoTbController.selected}"/>
@@ -45,7 +44,7 @@
                         <p:ajax event="rowSelect"   update=":ProrrogaProyectoTbListForm:createButton :ProrrogaProyectoTbListForm:viewButton :ProrrogaProyectoTbListForm:editButton :ProrrogaProyectoTbListForm:deleteButton"/>
                         <p:ajax event="rowUnselect" update=":ProrrogaProyectoTbListForm:createButton :ProrrogaProyectoTbListForm:viewButton :ProrrogaProyectoTbListForm:editButton :ProrrogaProyectoTbListForm:deleteButton"/>
 
-                        <p:column filterBy="#{item.ENumprorroga}" filterStyle="display:none">
+                        <p:column filterBy="#{item.ENumprorroga}" filterStyle="display:none" width="8%" style="text-align: center">
                             <f:facet name="header">
                                 <h:outputText value="#{bundleProrrogaProy.ListProrrogaProyectoTbTitle_ENumprorroga}"/>
                             </f:facet>
@@ -59,7 +58,7 @@
                             <h:outputText value="#{item.MJustificacion}"/>
                         </p:column>
                         
-                        <p:column filterBy="#{item.FFechaInicio}" filterStyle="display:none">
+                        <p:column filterBy="#{item.FFechaInicio}" filterStyle="display:none" width="15%" style="text-align: center">
                             <f:facet name="header">
                                 <h:outputText value="#{bundleProrrogaProy.ListProrrogaProyectoTbTitle_FFechaInicio}"/>
                             </f:facet>
@@ -68,7 +67,7 @@
                             </h:outputText>
                         </p:column>
                         
-                        <p:column filterBy="#{item.FFechaFin}" filterStyle="display:none">
+                        <p:column filterBy="#{item.FFechaFin}" filterStyle="display:none" width="15%" style="text-align: center">
                             <f:facet name="header">
                                 <h:outputText value="#{bundleProrrogaProy.ListProrrogaProyectoTbTitle_FFechaFin}"/>
                             </f:facet>

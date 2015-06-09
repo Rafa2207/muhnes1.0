@@ -12,25 +12,27 @@
             <h:form id="ProcesoejemplarTbEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{procesoejemplarTbController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditProcesoejemplarTbLabel_MDescripcion}" for="MDescripcion" />
-                        <p:inputText id="MDescripcion" value="#{procesoejemplarTbController.selected.MDescripcion}" title="#{bundle.EditProcesoejemplarTbTitle_MDescripcion}" />
-                        <p:outputLabel value="#{bundle.EditProcesoejemplarTbLabel_DCantidad}" for="DCantidad" />
-                        <p:inputText id="DCantidad" value="#{procesoejemplarTbController.selected.ECantidad}" title="#{bundle.EditProcesoejemplarTbTitle_DCantidad}" />
-                        <p:outputLabel value="#{bundle.EditProcesoejemplarTbLabel_CTiempo}" for="CTiempo" />
-                        <p:inputText id="CTiempo" value="#{procesoejemplarTbController.selected.CTiempo}" title="#{bundle.EditProcesoejemplarTbTitle_CTiempo}" />
-                        <p:outputLabel value="#{bundle.EditProcesoejemplarTbLabel_CTipo}" for="CTipo" />
-                        <p:selectOneMenu id="CTipo" value="#{procesoejemplarTbController.selected.CTipo}" 
-                                         required="true" 
-                                         requiredMessage="Seleccione tipo de proceso.">
-                            <f:selectItem itemValue="" itemLabel="Seleccione.."/>
-                            <f:selectItem itemValue="Cuarentena" itemLabel="Cuarentena"/>
-                            <f:selectItem itemValue="Secado" itemLabel="Secado"/>
-                        </p:selectOneMenu>
-                        
-                        
-                        <p:outputLabel value="#{bundle.EditProcesoejemplarTbLabel_FFecha}" for="FFecha" />
-                        <p:calendar mindate="#{procesoejemplarTbController.selected.EIdproyecto.FFechaFin}" id="FFecha" readonlyInput="true" locale="es" pattern="dd MMMM yyyy" value="#{procesoejemplarTbController.selected.FFecha}" title="#{bundle.EditProcesoejemplarTbTitle_FFecha}"  showOn="button"/>
-                       
+                        <p:outputLabel value="#{bundle.CreateProcesoejemplarTbLabel_CTipo}"/>
+                        <b>#{procesoejemplarTbController.selected.CTipo}</b>
+
+                        <p:outputLabel value="#{bundle.CreateProcesoejemplarTbLabel_MDescripcion}" for="MDescripcion" />
+                        <p:inputText id="MDescripcion" value="#{procesoejemplarTbController.selected.MDescripcion}" title="#{bundle.CreateProcesoejemplarTbTitle_MDescripcion}" />
+
+                        <p:outputLabel value="#{bundle.CreateProcesoejemplarTbLabel_DCantidad}" for="DCantidad" />
+                        <p:inputText id="DCantidad" value="#{procesoejemplarTbController.selected.ECantidad}" title="#{bundle.CreateProcesoejemplarTbTitle_DCantidad}" />
+
+                        <p:outputLabel value="#{bundle.CreateProcesoejemplarTbLabel_FFecha}" for="FFecha" />
+                        <p:calendar locale="es" mindate="#{controladorSesion.proyecto.FFechaFin}" id="FFecha" 
+                                    readonlyInput="true" pattern="dd MMMM yyyy" value="#{procesoejemplarTbController.selected.FFecha}" 
+                                    title="#{bundle.EditProcesoejemplarTbTitle_FFecha}"  showOn="button">
+                            <p:ajax event="dateSelect" update="FFechafin"/>
+                        </p:calendar>
+
+                        <p:outputLabel value="Fecha finalización: " for="FFechafin" />
+                        <p:calendar locale="es" mindate="#{procesoejemplarTbController.selected.FFecha}" id="FFechafin" 
+                                    readonlyInput="true" pattern="dd MMMM yyyy" value="#{procesoejemplarTbController.selected.FFechafin}" 
+                                    title="Fecha fin" showOn="button"/>
+     
                     </p:panelGrid>
                     <p:commandButton actionListener="#{procesoejemplarTbController.update}" value="#{bundle.Save}" update="display,:ProcesoejemplarTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ProcesoejemplarTbEditDialog');"/>
                     

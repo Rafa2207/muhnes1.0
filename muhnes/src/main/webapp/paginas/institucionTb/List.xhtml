@@ -48,7 +48,7 @@
                             </f:facet>
                             <h:outputText value="#{item.CNombre}"/>
                         </p:column>
-                        <p:column filterBy="#{item.CAcronimo}" filterStyle="display:none">
+                        <p:column filterBy="#{item.CAcronimo}" filterStyle="display:none" width="15%" style="text-align: center">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListInstitucionTbTitle_CAcronimo}"/>
                             </f:facet>
@@ -56,14 +56,14 @@
                         </p:column>
 
 
-                        <p:column filterBy="#{item.CTelefono}" filterStyle="display:none">
+                        <p:column filterBy="#{item.CTelefono}" filterStyle="display:none" width="10%" style="text-align: center">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListInstitucionTbTitle_CTelefono}"/>
                             </f:facet>
                             <h:outputText value="#{item.CTelefono}"/>
                         </p:column>
 
-                        <p:column filterBy="#{item.EIdpais.CNombre}" filterStyle="display:none">
+                        <p:column filterBy="#{item.EIdpais.CNombre}" filterStyle="display:none" width="10%" style="text-align: center">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListInstitucionTbTitle_EIdpais}"/>
                             </f:facet>

@@ -25,7 +25,7 @@
                         <p:inputText id="Grados" value="#{areaprotegidaTbController.selected.ELatitudgrados}" title="Rangos válidos: -360 a 360" maxlength="4" size="4"
                                      required="true" requiredMessage="Introduzca grados de latitud">
                             <f:validateLongRange minimum="-360" maximum="360"/>                         
-                            <p:ajax event="change" update="Latitud"
+                            <p:ajax event="keyup" update="Latitud"
                                     listener="#{areaprotegidaTbController.latitudDecimal(areaprotegidaTbController.selected.ELatitudgrados,
                                                 areaprotegidaTbController.selected.ELatitudminutos, 
                                                 areaprotegidaTbController.selected.DLatitudsegundos)}"/>
@@ -35,7 +35,7 @@
                         <p:inputText  id="Minutos" value="#{areaprotegidaTbController.selected.ELatitudminutos}" title="Rangos válidos: 0 a 60"  maxlength="2" size="2" 
                                       required="true" requiredMessage="Introduzca minutos de latitud">
                             <f:validateLongRange minimum="0" maximum="60"/>
-                            <p:ajax event="change" update="Latitud"
+                            <p:ajax event="keyup" update="Latitud"
                                     listener="#{areaprotegidaTbController.latitudDecimal(areaprotegidaTbController.selected.ELatitudgrados,
                                                 areaprotegidaTbController.selected.ELatitudminutos, 
                                                 areaprotegidaTbController.selected.DLatitudsegundos)}"/>
@@ -45,7 +45,7 @@
                         <p:inputText id="Segundos" value="#{areaprotegidaTbController.selected.DLatitudsegundos}" title="Rangos válidos: 0 a 59.9999" maxlength="7" size="7" 
                                      required="true" requiredMessage="Introduzca segundos de latitud">
                             <f:validateDoubleRange minimum="0" maximum="59.9999"/>    
-                            <p:ajax event="change" update="Latitud" 
+                            <p:ajax event="keyup" update="Latitud" 
                                     listener="#{areaprotegidaTbController.latitudDecimal(areaprotegidaTbController.selected.ELatitudgrados,
                                                 areaprotegidaTbController.selected.ELatitudminutos, 
                                                 areaprotegidaTbController.selected.DLatitudsegundos)}" />
@@ -59,7 +59,7 @@
                         <p:inputText id="Grados2" value="#{areaprotegidaTbController.selected.ELongitudgrados}" title="Rangos válidos: -360 a 360"  maxlength="4" size="4"
                                      required="true" requiredMessage="Introduzca grados de longitud">
                             <f:validateLongRange minimum="-360" maximum="360"/>    
-                            <p:ajax event="change" update="Longitud" 
+                            <p:ajax event="keyup" update="Longitud" 
                                     listener="#{areaprotegidaTbController.longitudDecimal(
                                                 areaprotegidaTbController.selected.ELongitudgrados,
                                                 areaprotegidaTbController.selected.ELongitudminutos,
@@ -70,7 +70,7 @@
                         <p:inputText id="Minutos2" value="#{areaprotegidaTbController.selected.ELongitudminutos}" title="Rangos válidos: 0 a 60" maxlength="2" size="2" 
                                      required="true" requiredMessage="Introduzca minutos de longitud">
                             <f:validateLongRange minimum="0" maximum="60"/>    
-                            <p:ajax event="change" update="Longitud" 
+                            <p:ajax event="keyup" update="Longitud" 
                                     listener="#{areaprotegidaTbController.longitudDecimal(
                                                 areaprotegidaTbController.selected.ELongitudgrados,
                                                 areaprotegidaTbController.selected.ELongitudminutos,
@@ -81,7 +81,7 @@
                         <p:inputText id="Segundos2" value="#{areaprotegidaTbController.selected.DLongitudsegundos}" title="Rangos válidos: 0 a 59.9999" maxlength="7" size="7" 
                                      required="true" requiredMessage="Introduzca segundos de longitud">
                             <f:validateDoubleRange minimum="0" maximum="59.9999"/>    
-                            <p:ajax event="change" update="Longitud" 
+                            <p:ajax event="keyup" update="Longitud" 
                                     listener="#{areaprotegidaTbController.longitudDecimal(
                                                 areaprotegidaTbController.selected.ELongitudgrados,
                                                 areaprotegidaTbController.selected.ELongitudminutos,

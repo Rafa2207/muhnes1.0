@@ -10,6 +10,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,7 +20,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -31,10 +32,11 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "ProcesoejemplarTb.findAll", query = "SELECT p FROM ProcesoejemplarTb p"),
     @NamedQuery(name = "ProcesoejemplarTb.findByMDescripcion", query = "SELECT p FROM ProcesoejemplarTb p WHERE p.mDescripcion = :mDescripcion"),
     @NamedQuery(name = "ProcesoejemplarTb.findByECantidad", query = "SELECT p FROM ProcesoejemplarTb p WHERE p.eCantidad = :eCantidad"),
-    @NamedQuery(name = "ProcesoejemplarTb.findByCTiempo", query = "SELECT p FROM ProcesoejemplarTb p WHERE p.cTiempo = :cTiempo"),
     @NamedQuery(name = "ProcesoejemplarTb.findByCTipo", query = "SELECT p FROM ProcesoejemplarTb p WHERE p.cTipo = :cTipo"),
     @NamedQuery(name = "ProcesoejemplarTb.findByFFecha", query = "SELECT p FROM ProcesoejemplarTb p WHERE p.fFecha = :fFecha"),
-    @NamedQuery(name = "ProcesoejemplarTb.findByMIdproceso", query = "SELECT p FROM ProcesoejemplarTb p WHERE p.mIdproceso = :mIdproceso")})
+    @NamedQuery(name = "ProcesoejemplarTb.findByFFechafin", query = "SELECT p FROM ProcesoejemplarTb p WHERE p.fFechafin = :fFechafin"),
+    @NamedQuery(name = "ProcesoejemplarTb.findByEIdproceso", query = "SELECT p FROM ProcesoejemplarTb p WHERE p.eIdproceso = :eIdproceso"),
+    @NamedQuery(name = "ProcesoejemplarTb.findByERelacion", query = "SELECT p FROM ProcesoejemplarTb p WHERE p.eRelacion = :eRelacion")})
 public class ProcesoejemplarTb implements Serializable {
     private static final long serialVersionUID = 1L;
     @Size(max = 2147483647)
@@ -43,20 +45,21 @@ public class ProcesoejemplarTb implements Serializable {
     @Column(name = "e_cantidad")
     private Integer eCantidad;
     @Size(max = 20)
-    @Column(name = "c_tiempo")
-    private String cTiempo;
-    @Size(max = 20)
     @Column(name = "c_tipo")
     private String cTipo;
     @Column(name = "f_fecha")
     @Temporal(TemporalType.DATE)
     private Date fFecha;
+    @Column(name = "f_fechafin")
+    @Temporal(TemporalType.DATE)
+    private Date fFechafin;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 2147483647)
-    @Column(name = "m_idproceso")
-    private String mIdproceso;
+    @Column(name = "e_idproceso")
+    private Integer eIdproceso;
+    @Column(name = "e_relacion")
+    private Integer eRelacion;
     @JoinColumn(name = "e_idproyecto", referencedColumnName = "e_idproyecto")
     @ManyToOne
     private ProyectoTb eIdproyecto;
@@ -64,8 +67,8 @@ public class ProcesoejemplarTb implements Serializable {
     public ProcesoejemplarTb() {
     }
 
-    public ProcesoejemplarTb(String mIdproceso) {
-        this.mIdproceso = mIdproceso;
+    public ProcesoejemplarTb(Integer eIdproceso) {
+        this.eIdproceso = eIdproceso;
     }
 
     public String getMDescripcion() {
@@ -84,14 +87,6 @@ public class ProcesoejemplarTb implements Serializable {
         this.eCantidad = eCantidad;
     }
 
-    public String getCTiempo() {
-        return cTiempo;
-    }
-
-    public void setCTiempo(String cTiempo) {
-        this.cTiempo = cTiempo;
-    }
-
     public String getCTipo() {
         return cTipo;
     }
@@ -108,12 +103,28 @@ public class ProcesoejemplarTb implements Serializable {
         this.fFecha = fFecha;
     }
 
-    public String getMIdproceso() {
-        return mIdproceso;
+    public Date getFFechafin() {
+        return fFechafin;
     }
 
-    public void setMIdproceso(String mIdproceso) {
-        this.mIdproceso = mIdproceso;
+    public void setFFechafin(Date fFechafin) {
+        this.fFechafin = fFechafin;
+    }
+
+    public Integer getEIdproceso() {
+        return eIdproceso;
+    }
+
+    public void setEIdproceso(Integer eIdproceso) {
+        this.eIdproceso = eIdproceso;
+    }
+
+    public Integer getERelacion() {
+        return eRelacion;
+    }
+
+    public void setERelacion(Integer eRelacion) {
+        this.eRelacion = eRelacion;
     }
 
     public ProyectoTb getEIdproyecto() {
@@ -127,7 +138,7 @@ public class ProcesoejemplarTb implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (mIdproceso != null ? mIdproceso.hashCode() : 0);
+        hash += (eIdproceso != null ? eIdproceso.hashCode() : 0);
         return hash;
     }
 
@@ -138,7 +149,7 @@ public class ProcesoejemplarTb implements Serializable {
             return false;
         }
         ProcesoejemplarTb other = (ProcesoejemplarTb) object;
-        if ((this.mIdproceso == null && other.mIdproceso != null) || (this.mIdproceso != null && !this.mIdproceso.equals(other.mIdproceso))) {
+        if ((this.eIdproceso == null && other.eIdproceso != null) || (this.eIdproceso != null && !this.eIdproceso.equals(other.eIdproceso))) {
             return false;
         }
         return true;
@@ -146,7 +157,7 @@ public class ProcesoejemplarTb implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.ProcesoejemplarTb[ mIdproceso=" + mIdproceso + " ]";
+        return "modelo.ProcesoejemplarTb[ eIdproceso=" + eIdproceso + " ]";
     }
     
 }
