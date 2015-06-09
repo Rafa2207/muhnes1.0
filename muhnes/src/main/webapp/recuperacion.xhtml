@@ -9,21 +9,21 @@ and open the template in the editor.
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
-<h:head>
-    <h:outputStylesheet library="css" name="jsfcrud.css"/>
+    <h:head>
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
         <title>Recuperación de Contraseña</title>
     </h:head>
     <h:body>
-        
+
         <br/>
         <br/>
         <br/>
         <h1 align="center">Recuperación de contraseña</h1>
-        
-            
-                 <p:panel style="width: 500px;margin: auto;">
-            <h:panelGrid>
-                <h:panelGroup>
+
+
+        <p:panel style="width: 500px;margin: auto;">
+            <h:panelGroup>
+                <h:panelGrid>
                     <p:growl id="boton"/>
                     <h:form id="recuperar">
                         <table style="margin: auto" cellpadding="6" >
@@ -32,12 +32,12 @@ and open the template in the editor.
                                 <td><p:inputText value="#{correo.correo}"  required="true"  size="60"/></td>
                             </tr>
                         </table>
-                        <div style="text-align: center"><p:commandButton style="margin: auto" actionListener="#{correo.mandarcorreo()}" value="Recuperar contraseña" update=":boton"/>
+                        <div style="text-align: center"><p:commandButton style="margin: auto" actionListener="#{correo.mandarcorreo()}" value="Recuperar contraseña" update=":boton,:recuperar"/>
                         </div>    
                     </h:form>
                     <h:link value="Regresar" outcome="/paginas/bienvenido.xhtml"/>
-                </h:panelGroup>
-            </h:panelGrid>
+           </h:panelGrid>
+                 </h:panelGroup>
 
         </p:panel> 
     </h:body>

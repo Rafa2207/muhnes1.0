@@ -89,8 +89,8 @@ public class Correo implements Serializable{
                     new InternetAddress(to));
 
             // Asunto del mensaje
-            message.setSubject("Recuperacion de credenciales BOTANICA_MUHNES");
-            //ACA LA MAGIA PARA ASIGNAR EL PASSWORD
+            message.setSubject("Recuperación de usuario y contraseña para el Sistema BOTANICA_MUHNES");
+            //AAsignar el password
 
             this.usuario = usuarioFacade.usuarioByCorreo(this.correo);
 
@@ -100,11 +100,11 @@ public class Correo implements Serializable{
                 this.usuario.setMPassword(passnew);
                 message.setText("Su usuario es: " + this.usuario.getCNick()
                         + "\nSu nueva contraseña es: " + passnew
-                        + "\nFavor ir al sistema, inicie sesión y cambie la contraseña");
+                        + "\nPor favor dirijase al sistema, inicie sesión y cambie su contraseña");
                 // Send message
                 Transport.send(message);
-                System.out.println("Sent message successfully....");
-                JsfUtil.addSuccessMessage("El correo fue enviado. Revise su bandeja de entrada.");
+                System.out.println("Mensaje enviado correctamente.");
+                JsfUtil.addSuccessMessage("El correo fue enviado. Verifique su bandeja de entrada.");
                 this.usuarioFacade.edit(usuario);
             } else {
                 JsfUtil.addErrorMessage("Correo no encontrado en la base de datos del Sistema");

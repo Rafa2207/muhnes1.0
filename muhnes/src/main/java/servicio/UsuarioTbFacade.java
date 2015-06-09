@@ -5,11 +5,13 @@
  */
 package servicio;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import modelo.UsuarioTb;
 
 /**
@@ -39,4 +41,14 @@ public class UsuarioTbFacade extends AbstractFacade<UsuarioTb> {
          return null;   
         }
     }
+    
+       public UsuarioTb BuscarUsuario(String usuario){
+       TypedQuery q = em.createNamedQuery("UsuarioTb.findByCNick",UsuarioTb.class);
+       q.setParameter("cNick", usuario);
+       try{
+            return (UsuarioTb) q.getSingleResult();
+        }catch(NoResultException e){
+            return null;
+        }
+   }
 }
