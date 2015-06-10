@@ -33,8 +33,7 @@ public class UsuarioTbController implements Serializable {
     private String pass1;
     private String anterior;
     private String respaldo;
-   
-    
+
     public UsuarioTbController() {
     }
 
@@ -75,7 +74,7 @@ public class UsuarioTbController implements Serializable {
     public void setPass1(String pass1) {
         this.pass1 = pass1;
     }
-    
+
     private UsuarioTbFacade getFacade() {
         return ejbFacade;
     }
@@ -85,12 +84,12 @@ public class UsuarioTbController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
-    
-        public void prepareCambiarContra(String usuario){
-        selected=getFacade().BuscarUsuario(usuario);
-        respaldo=selected.getMPassword();
+
+    public void prepareCambiarContra(String usuario) {
+        selected = getFacade().BuscarUsuario(usuario);
+        respaldo = selected.getMPassword();
     }
-        
+
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioTbCreated"));
         if (!JsfUtil.isValidationFailed()) {
@@ -98,28 +97,29 @@ public class UsuarioTbController implements Serializable {
         }
     }
 
-        public void cambiarContra() {
-        try{
-            if(JsfUtil.cifrar(anterior).equals(respaldo)){
+    public void cambiarContra() {
+        try {
+            if (JsfUtil.cifrar(anterior).equals(respaldo)) {
                 //busca si existe un usuario que puso el mismo email
                 UsuarioTb usuario = ejbFacade.usuarioByCorreo(selected.getMEmail());
                 //Comprueba que no sea el mismo usuario
-                if(usuario!=null && usuario.equals(selected)) usuario = null;
-                if(usuario==null){
+                if (usuario != null && usuario.equals(selected)) {
+                    usuario = null;
+                }
+                if (usuario == null) {
                     persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioTbUpdated"));
-                }else{
+                } else {
                     JsfUtil.addErrorMessage("El email ingresado ya se encuentra en uso por otro usuario");
                 }
-                
-            }
-            else{
+
+            } else {
                 JsfUtil.addErrorMessage("La contraseña anterior es incorrecta");
             }
-        }
-        catch(NoSuchAlgorithmException e){
+        } catch (NoSuchAlgorithmException e) {
             JsfUtil.addErrorMessage("No se pudo cifrar la nueva contraseña. Intentelo más tarde");
         }
     }
+
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioTbUpdated"));
     }
@@ -219,17 +219,15 @@ public class UsuarioTbController implements Serializable {
         }
 
     }
-    
-    public void compararEmail(String correo){
-           FacesContext context = FacesContext.getCurrentInstance();
-        for(UsuarioTb u: items){
-        if(u.getMEmail().equals(correo)){
-           selected.setMEmail("");
-           context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El correo ya se encuentra utilizado por otro usuario, favor introducir otro correo.","advertencia"));
-        }else{
-        selected.setMEmail(correo);
+
+    public void compararEmail(String c) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        for (UsuarioTb u : items) {
+            if (u.getMEmail().equals(c)) {
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El correo ya se encuentra utilizado por otro usuario, favor introducir otro correo.", "advertencia"));
+                selected.setMEmail(null);
+            } 
         }
-    }
     }
 
 }
