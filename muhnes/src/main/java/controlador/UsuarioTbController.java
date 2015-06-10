@@ -15,6 +15,7 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -32,6 +33,7 @@ public class UsuarioTbController implements Serializable {
     private String pass1;
     private String anterior;
     private String respaldo;
+   
     
     public UsuarioTbController() {
     }
@@ -216,6 +218,18 @@ public class UsuarioTbController implements Serializable {
             }
         }
 
+    }
+    
+    public void compararEmail(String correo){
+           FacesContext context = FacesContext.getCurrentInstance();
+        for(UsuarioTb u: items){
+        if(u.getMEmail().equals(correo)){
+           selected.setMEmail("");
+           context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El correo ya se encuentra utilizado por otro usuario, favor introducir otro correo.","advertencia"));
+        }else{
+        selected.setMEmail(correo);
+        }
+    }
     }
 
 }

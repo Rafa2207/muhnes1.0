@@ -8,7 +8,8 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <h:outputStylesheet library="css" name="jsfcrud.css"/>
         <title>Recuperación de Contraseña</title>
@@ -29,15 +30,20 @@ and open the template in the editor.
                         <table style="margin: auto" cellpadding="6" >
                             <tr>
                                 <td><p:outputLabel value="Correo:"/></td>
-                                <td><p:inputText value="#{correo.correo}"  required="true"  size="60"/></td>
+                                <td><p:inputText value="#{correo.correo}"  required="true"  size="60"
+                                                 requiredMessage="Por favor introduzca su email."
+                                                 validatorMessage="Formato invalido del email.">
+                                        <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                    </p:inputText>
+                                </td>
                             </tr>
                         </table>
                         <div style="text-align: center"><p:commandButton style="margin: auto" actionListener="#{correo.mandarcorreo()}" value="Recuperar contraseña" update=":boton,:recuperar"/>
                         </div>    
                     </h:form>
                     <h:link value="Regresar" outcome="/paginas/bienvenido.xhtml"/>
-           </h:panelGrid>
-                 </h:panelGroup>
+                </h:panelGrid>
+            </h:panelGroup>
 
         </p:panel> 
     </h:body>
