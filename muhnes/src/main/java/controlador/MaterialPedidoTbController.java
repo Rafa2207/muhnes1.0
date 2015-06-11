@@ -25,8 +25,16 @@ public class MaterialPedidoTbController implements Serializable {
 
     @EJB
     private servicio.MaterialPedidoTbFacade ejbFacade;
-    private List<MaterialPedidoTb> items = null;
+    private List<MaterialPedidoTb> items = null, filtro;
     private MaterialPedidoTb selected;
+
+    public List<MaterialPedidoTb> getFiltro() {
+        return filtro;
+    }
+
+    public void setFiltro(List<MaterialPedidoTb> filtro) {
+        this.filtro = filtro;
+    }
 
     public MaterialPedidoTbController() {
     }

@@ -51,6 +51,12 @@
 
                     <p:menubar style="float: right; margin-right: 120px;" >
                         <p:submenu label="#{request.userPrincipal.name}" icon="ui-icon-person" >
+                            <p:menuitem value="Editar información"
+                                        actionListener="#{usuarioTbController.prepareCambiarContra(request.userPrincipal.name)}"
+                                        update=":CambiarContraForm"
+                                        oncomplete="PF('ContraEditDialog').show()"
+                                        icon="ui-icon-contact"
+                                        />
                             <p:menuitem value="Cerrar sesión" action="#{sesion.logout()}" icon="ui-icon-extlink"/>
                         </p:submenu>
                     </p:menubar>
@@ -66,7 +72,7 @@
             </p:layoutUnit>
 
 
-            <p:layoutUnit position="west" size="200" header="#{bundle.AppName}" style="border: 0" gutter="0" collapsible="true" >
+            <p:layoutUnit position="west" size="210" header="#{bundle.AppName}" style="border: 0" gutter="0" collapsible="true" >
                 <h:form id="menuForm">
                     <p:slideMenu backLabel="Regresar" style="width: 95%">
                         <p:menuitem value="#{bundle.Home}" outcome="/paginas/bienvenido.xhtml" icon="ui-icon-home"/>
@@ -77,6 +83,7 @@
                         <p:submenu label="Materiales">
                             <p:menuitem value="Materiales" outcome="/paginas/materialTb/List.xhtml" />
                             <p:menuitem value="Pedidos" outcome="/paginas/pedidoTb/List.xhtml" />
+                            <p:menuitem value="Control de Pedidos" outcome="/paginas/materialPedidoTb/List.xhtml" />
                         </p:submenu>
                         <p:submenu label="Ejemplar">
                             <p:menuitem value="Ejemplares" outcome="/paginas/ejemplarTb/List.xhtml" />
@@ -121,7 +128,7 @@
             </p:layoutUnit>
 
         </p:layout>
-
+        <ui:include src="/paginas/cambiarcontra.xhtml"/>
     </h:body>
 
 </html>

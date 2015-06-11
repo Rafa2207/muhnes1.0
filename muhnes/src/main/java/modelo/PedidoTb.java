@@ -35,7 +35,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "PedidoTb.findByMDescripcion", query = "SELECT p FROM PedidoTb p WHERE p.mDescripcion = :mDescripcion"),
     @NamedQuery(name = "PedidoTb.findByFFecha", query = "SELECT p FROM PedidoTb p WHERE p.fFecha = :fFecha"),
     @NamedQuery(name = "PedidoTb.findByFFechaPosibleRecibir", query = "SELECT p FROM PedidoTb p WHERE p.fFechaPosibleRecibir = :fFechaPosibleRecibir"),
-    @NamedQuery(name = "PedidoTb.findByBEstado", query = "SELECT p FROM PedidoTb p WHERE p.bEstado = :bEstado")})
+    @NamedQuery(name = "PedidoTb.findByEEstado", query = "SELECT p FROM PedidoTb p WHERE p.eEstado = :eEstado")})
 public class PedidoTb implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -52,8 +52,8 @@ public class PedidoTb implements Serializable {
     @Column(name = "f_fecha_posible_recibir")
     @Temporal(TemporalType.DATE)
     private Date fFechaPosibleRecibir;
-    @Column(name = "b_estado")
-    private Boolean bEstado;
+    @Column(name = "e_estado")
+    private Integer eEstado;
     @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, mappedBy = "pedidoTb")
     private List<MaterialPedidoTb> materialPedidoTbList;
 
@@ -96,12 +96,12 @@ public class PedidoTb implements Serializable {
         this.fFechaPosibleRecibir = fFechaPosibleRecibir;
     }
 
-    public Boolean getBEstado() {
-        return bEstado;
+    public Integer getEEstado() {
+        return eEstado;
     }
 
-    public void setBEstado(Boolean bEstado) {
-        this.bEstado = bEstado;
+    public void setEEstado(Integer eEstado) {
+        this.eEstado = eEstado;
     }
 
     public List<MaterialPedidoTb> getMaterialPedidoTbList() {

@@ -44,7 +44,7 @@
                         <p:ajax event="rowSelect"   update=":MaterialTbListForm:createButton :MaterialTbListForm:viewButton :MaterialTbListForm:editButton :MaterialTbListForm:deleteButton"/>
                         <p:ajax event="rowUnselect" update=":MaterialTbListForm:createButton :MaterialTbListForm:viewButton :MaterialTbListForm:editButton :MaterialTbListForm:deleteButton"/>
 
-                        <p:column filterBy="#{item.MCodigobarras}" filterStyle="display:none">
+                        <p:column width="10%" filterBy="#{item.MCodigobarras}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText  value="Codigo"/>
                             </f:facet>
@@ -53,18 +53,29 @@
                                 <p:barcode value="#{item.MCodigobarras}" type="code39"/>
                                 </p:tooltip>
                         </p:column>
-
-                        <p:column filterBy="#{item.CNombre}" filterStyle="display:none">
+                        <p:column width="20%" filterBy="#{item.CNombre}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaterialTbTitle_CNombre}"/>
                             </f:facet>
                             <h:outputText value="#{item.CNombre}"/>
                         </p:column>
-                        <p:column filterBy="#{item.DCantidad}" filterStyle="display:none">
+                        <p:column width="10%" filterBy="#{item.DCantidad}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaterialTbTitle_DCantidad}"/>
                             </f:facet>
                             <h:outputText value="#{item.DCantidad}"/>
+                        </p:column>
+                        <p:column width="15%" filterBy="#{item.DCantidadmin}" filterStyle="display:none">
+                            <f:facet name="header">
+                                <h:outputText value="Cantidad Mínima"/>
+                            </f:facet>
+                            <h:outputText value="#{item.DCantidadmin}"/>
+                        </p:column>
+                        <p:column filterBy="#{item.DCantidadmin}" filterStyle="display:none">
+                            <f:facet name="header">
+                                <h:outputText value="Descripción"/>
+                            </f:facet>
+                            <h:outputText value="#{item.MDescripcion}"/>
                         </p:column>
 
                         <f:facet name="header">

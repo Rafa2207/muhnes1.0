@@ -14,7 +14,11 @@
                     <p:panelGrid columns="2" rendered="#{pedidoTbController.selected != null}" style="width: 600px">
                         <h:outputText value="#{bundle.ViewPedidoTbLabel_MDescripcion}"/>
                         <h:outputText value="#{pedidoTbController.selected.MDescripcion}" title="#{bundle.ViewPedidoTbTitle_MDescripcion}"/>
-                        <h:outputText value="#{bundle.ViewPedidoTbLabel_FFecha}"/>
+                        <h:outputText value="Fecha de pedido: "/>
+                        <h:outputText value="#{pedidoTbController.selected.FFecha}" title="#{bundle.ViewPedidoTbTitle_FFecha}">
+                            <f:convertDateTime pattern="dd MMMM yyyy" />
+                        </h:outputText>
+                        <h:outputText value="Fecha a recibir: "/>
                         <h:outputText value="#{pedidoTbController.selected.FFechaPosibleRecibir}" title="#{bundle.ViewPedidoTbTitle_FFecha}">
                             <f:convertDateTime pattern="dd MMMM yyyy" />
                         </h:outputText>

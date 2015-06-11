@@ -8,7 +8,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 import modelo.EjemplarParticipaExhibicionTb;
 import modelo.UsuarioTb;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-06-09T11:07:03")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-06-11T11:34:03")
 @StaticMetamodel(ExhibicionTb.class)
 public class ExhibicionTb_ { 
 

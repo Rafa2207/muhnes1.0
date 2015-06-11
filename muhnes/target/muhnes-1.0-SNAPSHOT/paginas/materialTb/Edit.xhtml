@@ -25,8 +25,8 @@
                         <p:inputText id="Marca" value="#{materialTbController.selected.MMarca}" title="Marca" 
                                      size="25" maxlength="50"/>
 
-                        <p:outputLabel value="#{bundle.CreateMaterialTbLabel_DCantidad}" for="DCantidad" />
-                        <p:inputText id="DCantidad" value="#{materialTbController.selected.DCantidad}" title="#{bundle.CreateMaterialTbTitle_DCantidad}" 
+                        <p:outputLabel value="Cantidad Mínima: " for="DCantidad" />
+                        <p:inputText id="DCantidad" value="#{materialTbController.selected.DCantidadmin}" title="#{bundle.CreateMaterialTbTitle_DCantidad}" 
                                      required="true"
                                      requiredMessage="Introduzca cantidad del material" size="10" maxlength="10"/>              
 

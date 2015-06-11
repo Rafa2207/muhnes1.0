@@ -17,7 +17,10 @@
                             <p:outputLabel value="#{bundle.CreatePedidoTbLabel_MDescripcion}" for="MDescripcion" />
                             <p:inputTextarea autoResize="" id="MDescripcion" cols="30" value="#{pedidoTbController.selected.MDescripcion}" title="#{bundle.CreatePedidoTbTitle_MDescripcion}" 
                                              />
-
+                            <p:outputLabel value="Fecha de Pedido: " for="FechaActual"/>
+                            <h:outputText id="FechaActual" value="#{pedidoTbController.fechaActual()}">
+                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                            </h:outputText>
                             <p:outputLabel value="Fecha a recibir: " for="FFecha" />
                             <p:calendar id="FFecha" pattern="dd MMMM yyyy" value="#{pedidoTbController.selected.FFechaPosibleRecibir}" title="#{bundle.EditPedidoTbTitle_FFecha}"  showOn="button"
                                         requiredMessage="Introduzca fecha del pedido"

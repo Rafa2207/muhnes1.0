@@ -7,6 +7,7 @@ import servicio.PedidoTbFacade;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -242,11 +243,43 @@ public class PedidoTbController implements Serializable {
         cantidad = 0.0;
         
     }
+     public void agregarModificar(){
+        MaterialPedidoTb nuevo = new MaterialPedidoTb();
+        nuevo.setDCantidad(cantidad);
+        nuevo.setMaterialTb(material);
+        nuevo.setPedidoTb(selected);
+        
+        MaterialPedidoTbPK mppk = new MaterialPedidoTbPK();
+        mppk.setEIdmaterial(material.getEIdmaterial());
+        mppk.setEIdpedido(selected.getEIdpedido());
+        
+        nuevo.setMaterialPedidoTbPK(mppk);
+        
+        selected.getMaterialPedidoTbList().add(nuevo);
+        
+        materialDisponible.remove(material);
+        
+        cantidad = 0.0;
+        
+    }
     
     public void remover(){
     selected.getMaterialPedidoTbList().remove(materialEL);
     materialDisponible.add(materialEL.getMaterialTb());
     material=null;
+    }
+    
+    public String estadoPedido (Integer estado){
+        if(estado==0){return "En Proceso";}
+        if(estado==1){return "Recibido";}
+        if(estado==2){return "No Recibido";}
+        return "";
+    }
+    public Date fechaActual(){
+        Date fechaAct= new Date();
+        selected.setFFecha(fechaAct);
+        selected.setEEstado(0);
+        return fechaAct;
     }
 
 }

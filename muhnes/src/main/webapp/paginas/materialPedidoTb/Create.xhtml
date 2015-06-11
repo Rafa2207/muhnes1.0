@@ -13,7 +13,7 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{materialPedidoTbController.selected != null}">
                         <p:outputLabel value="#{bundleMateriales.CreateMaterialPedidoTbLabel_ECantidad}" for="ECantidad" />
-                        <p:inputText id="ECantidad" value="#{materialPedidoTbController.selected.ECantidad}" title="#{bundleMateriales.CreateMaterialPedidoTbTitle_ECantidad}" />
+                        <p:inputText id="ECantidad" value="#{materialPedidoTbController.selected.DCantidad}" title="#{bundleMateriales.CreateMaterialPedidoTbTitle_ECantidad}" />
                         <p:outputLabel value="#{bundleMateriales.CreateMaterialPedidoTbLabel_pedidoTb}" for="pedidoTb" />
                         <p:selectOneMenu id="pedidoTb" value="#{materialPedidoTbController.selected.pedidoTb}" required="true" requiredMessage="#{bundleMateriales.EditMaterialPedidoTbRequiredMessage_pedidoTb}">
                             <f:selectItems value="#{pedidoTbController.itemsAvailableSelectOne}"
