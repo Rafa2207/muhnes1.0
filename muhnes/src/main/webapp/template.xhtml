@@ -51,7 +51,7 @@
 
                     <p:menubar style="float: right; margin-right: 120px;" >
                         <p:submenu label="#{request.userPrincipal.name}" icon="ui-icon-person" >
-                            <p:menuitem value="Modificar información"
+                            <p:menuitem value="Editar información"
                                         actionListener="#{usuarioTbController.prepareCambiarContra(request.userPrincipal.name)}"
                                         update=":CambiarContraForm"
                                         oncomplete="PF('ContraEditDialog').show()"

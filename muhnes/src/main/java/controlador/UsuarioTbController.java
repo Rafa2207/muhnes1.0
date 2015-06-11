@@ -224,10 +224,19 @@ public class UsuarioTbController implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         for (UsuarioTb u : items) {
             if (u.getMEmail().equals(c)) {
-                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El correo ya se encuentra utilizado por otro usuario, favor introducir otro correo.", "advertencia"));
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El correo ya se encuentra utilizado por otro usuario.", "advertencia"));
                 selected.setMEmail(null);
             } 
         }
     }
-
+    
+        public void compararUsuario(String c) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        for (UsuarioTb u : items) {
+            if (u.getCNick().equals(c)) {
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El nombre de usuario ya existe en el Sistema.", "advertencia"));
+                selected.setCNick(null);
+            } 
+        }
+    }
 }

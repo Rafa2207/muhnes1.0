@@ -36,17 +36,12 @@ public class ThemeSwitcherBean {
    public void init() {
 
       themes = new TreeMap<String, String>();
-      //themes.put("Aristo", "aristo");
-      themes.put("Atardecer", "humanity");
       themes.put("Azul cielo", "bluesky");
       themes.put("Azul nuboso", "cupertino");
       themes.put("Azul vaquero", "hot-sneaks");
       themes.put("Cohete", "rocket");
       themes.put("Emotivo", "excite-bike");
       themes.put("Flora", "south-street");
-      themes.put("Lazo azul", "dot-luv");
-      themes.put("Lazo negro", "black-tie");
-      themes.put("Menta chocolate", "mint-choc");
       themes.put("Naranja", "ui-lightness");
       themes.put("Película", "flick");
       themes.put("Pimienta", "pepper-grinder");

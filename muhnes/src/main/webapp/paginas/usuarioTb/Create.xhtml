@@ -37,7 +37,10 @@
                         <p:outputLabel value="#{bundle.CreateUsuarioTbLabel_CNick}" for="CNick" />
                         <p:inputText id="CNick" value="#{usuarioTbController.selected.CNick}" title="#{bundle.CreateUsuarioTbTitle_CNick}" 
                                      required="true"
-                                     requiredMessage="Introduzca nombre de usuario." size="15" maxlength="15"/>
+                                     requiredMessage="Introduzca nombre de usuario." size="15" maxlength="15">
+                            <p:ajax event="change" listener="#{usuarioTbController.compararUsuario(usuarioTbController.selected.CNick)}"
+                                    update="CNick :growl"/>
+                        </p:inputText>
 
                         <p:outputLabel for="pwd1" value="Contraseña: " />
                         <p:password id="pwd1" value="#{usuarioTbController.selected.MPassword}" match="pwd2"  required="true" 
