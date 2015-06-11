@@ -7,7 +7,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 import modelo.InsumoTb;
 import modelo.ProyectoTb;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-06-11T11:34:03")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-06-11T11:53:40")
 @StaticMetamodel(PresupuestoTb.class)
 public class PresupuestoTb_ { 
 

@@ -6,6 +6,8 @@ import controlador.util.JsfUtil.PersistAction;
 import servicio.ProcesoejemplarTbFacade;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -14,6 +16,7 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -30,6 +33,35 @@ public class ProcesoejemplarTbController implements Serializable {
     private List<ProcesoejemplarTb> items = null;
     private ProcesoejemplarTb selected;
     private ProyectoTb proyectos;
+    private int cantidadSiguiente;
+    private Date fechaSiguiente = new Date();
+    private Date fechaInicioSiguiente = new Date();
+    boolean valor;
+
+
+    public Date getFechaInicioSiguiente() {
+        return fechaInicioSiguiente;
+    }
+
+    public void setFechaInicioSiguiente(Date fechaInicioSiguiente) {
+        this.fechaInicioSiguiente = fechaInicioSiguiente;
+    }
+
+    public int getCantidadSiguiente() {
+        return cantidadSiguiente;
+    }
+
+    public void setCantidadSiguiente(int cantidadSiguiente) {
+        this.cantidadSiguiente = cantidadSiguiente;
+    }
+
+    public Date getFechaSiguiente() {
+        return fechaSiguiente;
+    }
+
+    public void setFechaSiguiente(Date fechaSiguiente) {
+        this.fechaSiguiente = fechaSiguiente;
+    }
 
     public ProyectoTb getProyectos() {
         return proyectos;
@@ -38,8 +70,6 @@ public class ProcesoejemplarTbController implements Serializable {
     public void setProyectos(ProyectoTb proyectos) {
         this.proyectos = proyectos;
     }
-    
-    
 
     public ProcesoejemplarTbController() {
     }
@@ -64,7 +94,7 @@ public class ProcesoejemplarTbController implements Serializable {
 
     public ProcesoejemplarTb prepareCreate(ProyectoTb proyecto) {
         selected = new ProcesoejemplarTb();
-        proyectos=proyecto;
+        proyectos = proyecto;
         selected.setCTipo("Secado");
         selected.setEIdproyecto(proyectos);
         initializeEmbeddableKey();
@@ -91,9 +121,9 @@ public class ProcesoejemplarTbController implements Serializable {
     }
 
     public List<ProcesoejemplarTb> getItems(ProyectoTb proyecto) {
-        
-            items = getFacade().buscarProcesoAsc(proyecto);
-        
+
+        items = getFacade().buscarProcesoAsc(proyecto);
+
         return items;
     }
 
@@ -170,13 +200,55 @@ public class ProcesoejemplarTbController implements Serializable {
             if (object instanceof ProcesoejemplarTb) {
                 ProcesoejemplarTb o = (ProcesoejemplarTb) object;
                 return getStringKey(o.getEIdproceso());
-                
+
             } else {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), ProcesoejemplarTb.class.getName()});
                 return null;
             }
         }
 
+    }
+
+    public void prepareSiguiente(ProyectoTb proyecto) {
+        int id = selected.getEIdproceso();
+        cantidadSiguiente = selected.getECantidad();
+        fechaSiguiente = selected.getFFechafin();
+
+        selected = new ProcesoejemplarTb();
+        selected.setCTipo("Cuarentena");
+        proyectos = proyecto;
+        selected.setEIdproyecto(proyectos);
+        selected.setERelacion(id);
+
+    }
+
+    //para controlar el siguiente proceso ejemplar y no deje ponerlo nuevamente
+    public boolean corroborar(ProyectoTb proyecto) {
+        valor=false;
+        for (ProcesoejemplarTb pro : items) {
+
+            if (pro.getEIdproyecto().getEIdproyecto() == proyecto.getEIdproyecto()) {
+                if (pro.getERelacion()==selected.getEIdproceso()) {
+                    valor=true;
+                }
+            } 
+        }
+        if(valor){   
+            return true;
+        }
+        else{
+            return false;
+        }
+        
+
+    }
+
+    public void calcularFechaFinCuarentena(Date fechainicio) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fechainicio); // Configuramos la fecha que se recibe
+        calendar.add(Calendar.DAY_OF_YEAR, 3);  // numero de dias que se restan o suman
+        Date fecha = calendar.getTime(); //mandamos la fecha a una variable Date
+        selected.setFFechafin(fecha);
     }
 
 }

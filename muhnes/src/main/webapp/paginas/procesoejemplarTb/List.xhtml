@@ -28,6 +28,9 @@
                     <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{procesoejemplarTbController.destroy}" update=":growl,datalist" disabled="#{empty procesoejemplarTbController.selected}">
                         <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
                     </p:commandButton>
+                    <p:commandButton id="siguienteButton" icon="ui-icon-refresh" value="Siguiente proceso" 
+                                     actionListener="#{procesoejemplarTbController.prepareSiguiente(controladorSesion.proyecto)}" 
+                                     update=":ProcesoejemplarTbSiguienteForm" oncomplete="PF('siguienteDialog').show()" disabled="#{empty procesoejemplarTbController.selected || procesoejemplarTbController.corroborar(controladorSesion.proyecto) }"/>
 
 
                     <p:dataTable id="datalist" value="#{procesoejemplarTbController.getItems(controladorSesion.proyecto)}" var="item"
@@ -42,32 +45,32 @@
                                  emptyMessage="No se encontraron procesos de ejemplares"
                                  >
 
-                        <p:ajax event="rowSelect"   update=":ProcesoejemplarTbListForm:createButton :ProcesoejemplarTbListForm:viewButton :ProcesoejemplarTbListForm:editButton :ProcesoejemplarTbListForm:deleteButton"/>
-                        <p:ajax event="rowUnselect" update=":ProcesoejemplarTbListForm:createButton :ProcesoejemplarTbListForm:viewButton :ProcesoejemplarTbListForm:editButton :ProcesoejemplarTbListForm:deleteButton"/>
+                        <p:ajax event="rowSelect"   update=":ProcesoejemplarTbListForm:createButton :ProcesoejemplarTbListForm:viewButton :ProcesoejemplarTbListForm:editButton :ProcesoejemplarTbListForm:deleteButton :ProcesoejemplarTbListForm:siguienteButton "/>
+                        <p:ajax event="rowUnselect" update=":ProcesoejemplarTbListForm:createButton :ProcesoejemplarTbListForm:viewButton :ProcesoejemplarTbListForm:editButton :ProcesoejemplarTbListForm:deleteButton :ProcesoejemplarTbListForm:siguienteButton "/>
 
 
-                        <p:column filterBy="#{item.MDescripcion}" filterStyle="display:none">
+                        <p:column filterBy="#{item.MDescripcion}" filterStyle="display:none" >
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProcesoejemplarTbTitle_MDescripcion}"/>
                             </f:facet>
                             <h:outputText value="#{item.MDescripcion}"/>
                         </p:column>
 
-                        <p:column filterBy="#{item.ECantidad}" filterStyle="display:none">
+                        <p:column filterBy="#{item.ECantidad}" filterStyle="display:none" style="text-align: center" width="8%">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProcesoejemplarTbTitle_DCantidad}"/>
                             </f:facet>
                             <h:outputText value="#{item.ECantidad}"/>
                         </p:column>
 
-                        <p:column filterBy="#{item.CTipo}" filterStyle="display:none">
+                        <p:column filterBy="#{item.CTipo}" filterStyle="display:none" style="text-align: center" width="12%">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProcesoejemplarTbTitle_CTipo}"/>
                             </f:facet>
                             <h:outputText value="#{item.CTipo}"/>
                         </p:column>
 
-                        <p:column filterBy="#{item.FFecha}" filterStyle="display:none">
+                        <p:column filterBy="#{item.FFecha}" filterStyle="display:none" style="text-align: center" width="15%" >
                             <f:facet name="header">
                                 <h:outputText value="Fecha inicio"/>
                             </f:facet>
@@ -76,7 +79,7 @@
                             </h:outputText>
                         </p:column >
 
-                        <p:column filterBy="#{item.FFechafin}" filterStyle="display:none">
+                        <p:column filterBy="#{item.FFechafin}" filterStyle="display:none" style="text-align: center" width="15%">
                             <f:facet name="header">
                                 <h:outputText value="Fecha de finalización"/>
                             </f:facet>
@@ -100,6 +103,7 @@
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
+            <ui:include src="siguiente.xhtml"/>
         </ui:define>
     </ui:composition>
 
