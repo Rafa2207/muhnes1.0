@@ -22,7 +22,7 @@
                         <p:menuitem value="Control de pedidos" outcome="/paginas/materialPedidoTb/List.xhtml" />
                     </p:breadCrumb>
 
-                    <p:commandButton id="createButton" icon="ui-icon-tag"   value="Recibir Pedido" actionListener="#{materialPedidoTbController.prepareCreate}" update=":MaterialPedidoTbCreateForm" oncomplete="PF('MaterialPedidoTbCreateDialog').show()"/>
+                    <p:commandButton id="createButton" icon="ui-icon-tag"   value="Recibir Pedido"  update=":MaterialPedidoTbCreateForm" oncomplete="PF('MaterialPedidoTbCreateDialog').show()"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":MaterialPedidoTbViewForm" oncomplete="PF('MaterialPedidoTbViewDialog').show()" disabled="#{empty pedidoTbController.selected}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":MaterialPedidoTbEditForm" oncomplete="PF('MaterialPedidoTbEditDialog').show()" disabled="#{empty pedidoTbController.selected}"/>
                     <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{materialPedidoTbController.destroy}" update=":growl,datalist" disabled="#{empty pedidoTbController.selected}"/>

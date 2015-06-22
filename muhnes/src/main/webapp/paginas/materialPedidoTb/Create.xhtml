@@ -11,24 +11,42 @@
         <p:dialog id="MaterialPedidoTbCreateDlg" widgetVar="MaterialPedidoTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleMateriales.CreateMaterialPedidoTbTitle}">
             <h:form id="MaterialPedidoTbCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{materialPedidoTbController.selected != null}">
-                        <p:outputLabel value="#{bundleMateriales.CreateMaterialPedidoTbLabel_ECantidad}" for="ECantidad" />
-                        <p:inputText id="ECantidad" value="#{materialPedidoTbController.selected.DCantidad}" title="#{bundleMateriales.CreateMaterialPedidoTbTitle_ECantidad}" />
-                        <p:outputLabel value="#{bundleMateriales.CreateMaterialPedidoTbLabel_pedidoTb}" for="pedidoTb" />
-                        <p:selectOneMenu id="pedidoTb" value="#{materialPedidoTbController.selected.pedidoTb}" required="true" requiredMessage="#{bundleMateriales.EditMaterialPedidoTbRequiredMessage_pedidoTb}">
-                            <f:selectItems value="#{pedidoTbController.itemsAvailableSelectOne}"
-                                           var="pedidoTbItem"
-                                           itemValue="#{pedidoTbItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundleMateriales.CreateMaterialPedidoTbLabel_materialTb}" for="materialTb" />
-                        <p:selectOneMenu id="materialTb" value="#{materialPedidoTbController.selected.materialTb}" required="true" requiredMessage="#{bundleMateriales.EditMaterialPedidoTbRequiredMessage_materialTb}">
-                            <f:selectItems value="#{materialTbController.itemsAvailableSelectOne}"
-                                           var="materialTbItem"
-                                           itemValue="#{materialTbItem}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{materialPedidoTbController.create}" value="#{bundleMateriales.Save}" update="display,:MaterialPedidoTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'MaterialPedidoTbCreateDialog');"/>
-                    <p:commandButton value="#{bundleMateriales.Cancel}" onclick="MaterialPedidoTbCreateDialog.hide()"/>
+                    <p:fieldset legend="Pedido">
+                        <p:panelGrid columns="2" rendered="#{pedidoTbController.selected != null}">
+                            <p:outputLabel value="Descripción: " for="descrip" />
+                            <h:outputText id="descrip" value="#{pedidoTbController.selected.MDescripcion}"  />
+                            <p:outputLabel value="Fecha pedido: " for="fechap" />
+                            <h:outputText id="fechap" value="#{pedidoTbController.selected.FFecha}">
+                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                            </h:outputText>
+                            <p:outputLabel value="Fecha a recibir: " for="fechaf" />
+                            <h:outputText id="fechaf" value="#{pedidoTbController.selected.FFechaPosibleRecibir}">
+                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                            </h:outputText>
+                           
+                        </p:panelGrid>
+                    </p:fieldset>
+                    <p:fieldset legend="Materiales">
+                        <p:dataTable id="materiales"
+                                     editable="true"
+                                     value="#{pedidoTbController.selected.materialPedidoTbList}"
+                                     var="material"
+                                     scrollable="true"
+                                     scrollHeight="160"
+                                     emptyMessage="No ha agregado materiales"
+                                     tableStyle="width:400px">
+                            <p:column headerText="Material" >
+                                #{material.materialTb.CNombre}
+                            </p:column>
+                            <p:column headerText="Cantidad" >
+                                #{material.DCantidad}                                   
+                            </p:column>
+                            <p:column headerText="Entrada" >
+                                <p:inputText size="10" value="#{material.DEntrada}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:fieldset>
+                    <p:commandButton actionListener="#{pedidoTbController.recibirPedido()}" value="#{bundle.Save}" update="display,:MaterialPedidoTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'MaterialPedidoTbCreateDialog');"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

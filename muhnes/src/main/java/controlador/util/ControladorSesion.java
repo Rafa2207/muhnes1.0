@@ -14,7 +14,6 @@ import modelo.FamiliaTb;
 import modelo.GeneroTb;
 import modelo.MunicipioTb;
 import modelo.PaisTb;
-import modelo.PresupuestoTb;
 import modelo.ProyectoTb;
 import modelo.SubespecieTb;
 

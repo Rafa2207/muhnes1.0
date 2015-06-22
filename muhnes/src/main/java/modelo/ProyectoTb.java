@@ -24,7 +24,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author Endy
+ * @author Rafa
  */
 @Entity
 @Table(name = "proyecto_tb")
@@ -37,8 +37,6 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "ProyectoTb.findByFFechaFin", query = "SELECT p FROM ProyectoTb p WHERE p.fFechaFin = :fFechaFin"),
     @NamedQuery(name = "ProyectoTb.findByEResponsable", query = "SELECT p FROM ProyectoTb p WHERE p.eResponsable = :eResponsable")})
 public class ProyectoTb implements Serializable {
-    @OneToMany(mappedBy = "eIdproyecto")
-    private List<ProcesoejemplarTb> procesoejemplarTbList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,7 +58,9 @@ public class ProyectoTb implements Serializable {
     @Column(name = "e_responsable")
     private Integer eResponsable;
     @OneToMany(mappedBy = "eIdproyecto")
-    private List<ProrrogaProyectoTb> prorrogaProyectoTbList;
+    private List<ActividadTb> actividadTbList;
+    @OneToMany(mappedBy = "eIdproyecto")
+    private List<ProcesoejemplarTb> procesoejemplarTbList;
 
     public ProyectoTb() {
     }
@@ -117,12 +117,20 @@ public class ProyectoTb implements Serializable {
         this.eResponsable = eResponsable;
     }
 
-    public List<ProrrogaProyectoTb> getProrrogaProyectoTbList() {
-        return prorrogaProyectoTbList;
+    public List<ActividadTb> getActividadTbList() {
+        return actividadTbList;
     }
 
-    public void setProrrogaProyectoTbList(List<ProrrogaProyectoTb> prorrogaProyectoTbList) {
-        this.prorrogaProyectoTbList = prorrogaProyectoTbList;
+    public void setActividadTbList(List<ActividadTb> actividadTbList) {
+        this.actividadTbList = actividadTbList;
+    }
+
+    public List<ProcesoejemplarTb> getProcesoejemplarTbList() {
+        return procesoejemplarTbList;
+    }
+
+    public void setProcesoejemplarTbList(List<ProcesoejemplarTb> procesoejemplarTbList) {
+        this.procesoejemplarTbList = procesoejemplarTbList;
     }
 
     @Override
@@ -148,14 +156,6 @@ public class ProyectoTb implements Serializable {
     @Override
     public String toString() {
         return "modelo.ProyectoTb[ eIdproyecto=" + eIdproyecto + " ]";
-    }
-
-    public List<ProcesoejemplarTb> getProcesoejemplarTbList() {
-        return procesoejemplarTbList;
-    }
-
-    public void setProcesoejemplarTbList(List<ProcesoejemplarTb> procesoejemplarTbList) {
-        this.procesoejemplarTbList = procesoejemplarTbList;
     }
     
 }

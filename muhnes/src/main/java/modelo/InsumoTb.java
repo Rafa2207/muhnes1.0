@@ -53,9 +53,9 @@ public class InsumoTb implements Serializable {
     @JoinColumn(name = "e_idunidad", referencedColumnName = "e_idunidad")
     @ManyToOne
     private UnidadesTb eIdunidad;
-    @JoinColumn(name = "e_idpresupuesto", referencedColumnName = "e_idpresupuesto")
+    @JoinColumn(name = "e_idactividad", referencedColumnName = "e_idactividad")
     @ManyToOne
-    private PresupuestoTb eIdpresupuesto;
+    private ActividadTb eIdactividad;
 
     public InsumoTb() {
     }
@@ -112,12 +112,12 @@ public class InsumoTb implements Serializable {
         this.eIdunidad = eIdunidad;
     }
 
-    public PresupuestoTb getEIdpresupuesto() {
-        return eIdpresupuesto;
+    public ActividadTb getEIdactividad() {
+        return eIdactividad;
     }
 
-    public void setEIdpresupuesto(PresupuestoTb eIdpresupuesto) {
-        this.eIdpresupuesto = eIdpresupuesto;
+    public void setEIdactividad(ActividadTb eIdactividad) {
+        this.eIdactividad = eIdactividad;
     }
 
     @Override

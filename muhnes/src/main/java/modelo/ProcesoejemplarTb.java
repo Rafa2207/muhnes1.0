@@ -24,7 +24,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author Endy
+ * @author Rafa
  */
 @Entity
 @Table(name = "procesoejemplar_tb")
@@ -34,6 +34,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "ProcesoejemplarTb.findByECantidad", query = "SELECT p FROM ProcesoejemplarTb p WHERE p.eCantidad = :eCantidad"),
     @NamedQuery(name = "ProcesoejemplarTb.findByCTipo", query = "SELECT p FROM ProcesoejemplarTb p WHERE p.cTipo = :cTipo"),
     @NamedQuery(name = "ProcesoejemplarTb.findByFFecha", query = "SELECT p FROM ProcesoejemplarTb p WHERE p.fFecha = :fFecha"),
+    @NamedQuery(name = "ProcesoejemplarTb.findByMNombre", query = "SELECT p FROM ProcesoejemplarTb p WHERE p.mNombre = :mNombre"),
     @NamedQuery(name = "ProcesoejemplarTb.findByFFechafin", query = "SELECT p FROM ProcesoejemplarTb p WHERE p.fFechafin = :fFechafin"),
     @NamedQuery(name = "ProcesoejemplarTb.findByEIdproceso", query = "SELECT p FROM ProcesoejemplarTb p WHERE p.eIdproceso = :eIdproceso"),
     @NamedQuery(name = "ProcesoejemplarTb.findByERelacion", query = "SELECT p FROM ProcesoejemplarTb p WHERE p.eRelacion = :eRelacion")})
@@ -50,6 +51,9 @@ public class ProcesoejemplarTb implements Serializable {
     @Column(name = "f_fecha")
     @Temporal(TemporalType.DATE)
     private Date fFecha;
+    @Size(max = 2147483647)
+    @Column(name = "m_nombre")
+    private String mNombre;
     @Column(name = "f_fechafin")
     @Temporal(TemporalType.DATE)
     private Date fFechafin;
@@ -101,6 +105,14 @@ public class ProcesoejemplarTb implements Serializable {
 
     public void setFFecha(Date fFecha) {
         this.fFecha = fFecha;
+    }
+
+    public String getMNombre() {
+        return mNombre;
+    }
+
+    public void setMNombre(String mNombre) {
+        this.mNombre = mNombre;
     }
 
     public Date getFFechafin() {

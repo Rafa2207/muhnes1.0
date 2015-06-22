@@ -281,5 +281,9 @@ public class PedidoTbController implements Serializable {
         selected.setEEstado(0);
         return fechaAct;
     }
-
+    
+     public void recibirPedido() {
+        selected.setEEstado(1);
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("PedidoTbRecibido"));
+    }
 }

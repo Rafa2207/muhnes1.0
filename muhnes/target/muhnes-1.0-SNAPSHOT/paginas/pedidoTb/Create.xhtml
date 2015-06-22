@@ -58,7 +58,7 @@
                                      scrollable="true"
                                      scrollHeight="160"
                                      emptyMessage="No ha agregado materiales"
-                                     tableStyle="width:600px">
+                                     tableStyle="width:800px">
                             <p:column headerText="Material">
                                 #{material.materialTb.CNombre}
                             </p:column>
@@ -73,15 +73,17 @@
                                 </p:cellEditor>
                             </p:column>
                             <p:column headerText="Acciones">
-                                <p:rowEditor/>
-                                <p:commandLink style="display: inline-block;"
-                                               styleClass="ui-icon ui-icon-trash"
-                                               action="#{pedidoTbController.remover()}"
-                                               process="materiales"
-                                               update="materiales, :PedidoTbCreateForm:material">
-                                    <f:setPropertyActionListener value="#{material}" 
-                                                                 target="#{pedidoTbController.materialEL}"/>
-                                </p:commandLink>
+                                <h:panelGroup style="display: table-row-group;">
+                                    <p:rowEditor/>
+                                    <p:commandLink
+                                        style="display: inline-block; float: right"
+                                        styleClass="ui-icon ui-icon-trash"
+                                        action="#{pedidoTbController.remover()}"
+                                        process="materiales"
+                                        update="materiales, :PedidoTbCreateForm:material">
+                                        <f:setPropertyActionListener value="#{material}" 
+                                                                     target="#{pedidoTbController.materialEL}"/>
+                                    </p:commandLink></h:panelGroup>
                             </p:column>
                         </p:dataTable>
                     </p:fieldset>

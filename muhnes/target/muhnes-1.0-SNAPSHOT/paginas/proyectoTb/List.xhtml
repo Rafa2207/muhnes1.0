@@ -36,10 +36,6 @@
                         <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{proyectoTbController.selected}"/>
                     </p:commandButton>
 
-                    <p:commandButton id="PresupuestoButton" icon="ui-icon-tag"  value="Presupuesto" action="/paginas/presupuestoTb/List.xhtml" disabled="#{empty proyectoTbController.selected}" >
-                        <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{proyectoTbController.selected}" />
-                    </p:commandButton>
-                    
                     <p:commandButton id="ProrrogaProyectoButton" icon="ui-icon-alert"  value="Prórrogas" action="/paginas/prorrogaProyectoTb/List.xhtml" disabled="#{empty proyectoTbController.selected}" >
                         <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{proyectoTbController.selected}" />
                     </p:commandButton>

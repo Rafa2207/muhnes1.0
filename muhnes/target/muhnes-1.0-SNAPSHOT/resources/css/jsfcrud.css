@@ -20,7 +20,9 @@
     //background-color: white;
     
 }
-.ui-row-editor{ display: inline; }
+.ui-row-editor{
+    display: inline; 
+}
 
 .ui-datatable .ui-panelgrid td,.ui-datatable .ui-panelgrid tr{
     border: none;
