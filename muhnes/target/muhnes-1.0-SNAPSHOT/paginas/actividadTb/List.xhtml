@@ -79,6 +79,12 @@
                             <h:outputText value="#{item.MDescripcion}"/>
                         </p:column>
 
+                        <p:column filterBy="#{item.DTotal}" filterStyle="display:none" width="10%" style="text-align: right">
+                            <f:facet name="header">
+                                <h:outputText value="Presupuesto"/>
+                            </f:facet>
+                            <h:outputText value="$#{item.DTotal}"/>
+                        </p:column>
 
                         <f:facet name="header">
                             <p:outputPanel>

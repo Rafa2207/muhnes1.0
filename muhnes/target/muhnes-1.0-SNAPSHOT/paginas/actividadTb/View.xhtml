@@ -34,6 +34,34 @@
                         <h:outputText value="#{actividadTbController.selected.EIdproyecto.MNombre}" title="#{bundle.ViewActividadTbTitle_EIdproyecto}"/>
 
                     </p:panelGrid>
+                    <p:dataTable id="insumos"
+                                 editable="true"
+                                 value="#{actividadTbController.selected.insumoTbList}"
+                                 var="insumo"
+                                 scrollable="true"
+                                 scrollHeight="140"
+                                 emptyMessage="No ha agregado insumos"
+                                 tableStyle="width:600px">
+                        <p:column headerText="Insumo" style="width: 200px">
+                            #{insumo.MNombre}
+                        </p:column>
+                        <p:column headerText="Cantidad">
+                            #{insumo.DCantidad}
+                        </p:column>
+                        <p:column headerText="Unidades">
+                            #{insumo.MTiempo}
+                        </p:column>
+                        <p:column headerText="Costo Unitario">
+                            $#{insumo.DGasto}
+                        </p:column>
+                        <p:column headerText="Sub Total">
+                            <h:outputText value="$#{insumo.DCantidad*insumo.DGasto}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <div style="text-align: right">
+                        <h:outputText style="font-weight: bold" value="Total ($): "/>
+                        <h:outputText id="total" style="font-weight: bold"  value="#{actividadTbController.selected.DTotal}"/>
+                    </div>
                     <p:commandButton value="#{bundle.Close}" onclick="ActividadTbViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

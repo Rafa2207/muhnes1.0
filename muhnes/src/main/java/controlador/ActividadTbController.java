@@ -6,6 +6,7 @@ import controlador.util.JsfUtil.PersistAction;
 import servicio.ActividadTbFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -20,6 +21,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
+import modelo.InsumoTb;
 import modelo.ProyectoTb;
 
 @Named("actividadTbController")
@@ -28,10 +30,53 @@ public class ActividadTbController implements Serializable {
 
     @EJB
     private servicio.ActividadTbFacade ejbFacade;
-    private List<ActividadTb> items = null,filtro;
+    private List<ActividadTb> items = null, filtro;
     private ActividadTb selected;
     private ProyectoTb proyectos;
     private Date fechatemporal;
+    private double cantidad, costo;
+    private String nombre, tiempo;
+    private InsumoTb insumo;
+
+    public InsumoTb getInsumo() {
+        return insumo;
+    }
+
+    public void setInsumo(InsumoTb insumo) {
+        this.insumo = insumo;
+    }
+
+    public double getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(double cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public double getCosto() {
+        return costo;
+    }
+
+    public void setCosto(double costo) {
+        this.costo = costo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getTiempo() {
+        return tiempo;
+    }
+
+    public void setTiempo(String tiempo) {
+        this.tiempo = tiempo;
+    }
 
     public Date getFechatemporal() {
         return fechatemporal;
@@ -40,8 +85,6 @@ public class ActividadTbController implements Serializable {
     public void setFechatemporal(Date fechatemporal) {
         this.fechatemporal = fechatemporal;
     }
-    
-    
 
     public List<ActividadTb> getFiltro() {
         return filtro;
@@ -50,8 +93,6 @@ public class ActividadTbController implements Serializable {
     public void setFiltro(List<ActividadTb> filtro) {
         this.filtro = filtro;
     }
-    
-    
 
     public ProyectoTb getProyectos() {
         return proyectos;
@@ -60,8 +101,7 @@ public class ActividadTbController implements Serializable {
     public void setProyectos(ProyectoTb proyectos) {
         this.proyectos = proyectos;
     }
-    
-    
+
     public ActividadTbController() {
     }
 
@@ -84,18 +124,23 @@ public class ActividadTbController implements Serializable {
     }
 
     public ActividadTb prepareCreate(ProyectoTb proyecto) {
-        
+
         selected = new ActividadTb();
-        proyectos= proyecto;
+        proyectos = proyecto;
         selected.setEIdproyecto(proyectos);
+        selected.setInsumoTbList(new ArrayList<InsumoTb>());
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ActividadTbCreated"));
-        if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
+        if (selected.getInsumoTbList().isEmpty()) {
+            JsfUtil.addErrorMessage("Debe agregar insumos");
+        } else {
+            persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ActividadTbCreated"));
+            if (!JsfUtil.isValidationFailed()) {
+                items = null;    // Invalidate list of items to trigger re-query.
+            }
         }
     }
 
@@ -113,9 +158,9 @@ public class ActividadTbController implements Serializable {
     }
 
     public List<ActividadTb> getItems(ProyectoTb proyecto) { //modificando para que funcione por proyectos
-        
-            items = getFacade().buscarAsc(proyecto);
-        
+
+        items = getFacade().buscarAsc(proyecto);
+
         return items;
     }
 
@@ -199,13 +244,47 @@ public class ActividadTbController implements Serializable {
         }
 
     }
-    
-     public void prepareEdit(){
-        fechatemporal=selected.getFFechafin();
-        
+
+    public void prepareEdit() {
+        fechatemporal = selected.getFFechafin();
+
     }
-    public void limpiarFecha(){
-        fechatemporal=null;
+
+    public void limpiarFecha() {
+        fechatemporal = null;
+    }
+
+    public void agregar() {
+        InsumoTb ins = new InsumoTb();
+        //presupuesto = new PresupuestoTb();
+        //presupuesto.setEIdpresupuesto(getFacade().siguienteId());
+        ins.setMNombre(nombre);
+        ins.setDCantidad(cantidad);
+        ins.setDGasto(costo);
+        ins.setMTiempo(tiempo);
+        //presupuesto.setEIdpresupuesto();
+        ins.setEIdactividad(selected);
+        selected.getInsumoTbList().add(ins);
+
+        cantidad = 0;
+        costo = 0;
+        nombre = "";
+        tiempo = "";
+
+    }
+
+    public Double costoTotal() {
+        Double tot = 0.0;
+
+        for (InsumoTb i : selected.getInsumoTbList()) {
+            tot = tot + (i.getDCantidad() * i.getDGasto());
+        }
+        selected.setDTotal(tot);
+        return tot;
+    }
+
+    public void removerInsumo() {
+        selected.getInsumoTbList().remove(insumo);
     }
 
 }

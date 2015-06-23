@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,7 +37,9 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "ActividadTb.findByFFecha", query = "SELECT a FROM ActividadTb a WHERE a.fFecha = :fFecha"),
     @NamedQuery(name = "ActividadTb.findByMDescripcion", query = "SELECT a FROM ActividadTb a WHERE a.mDescripcion = :mDescripcion"),
     @NamedQuery(name = "ActividadTb.findByMNombre", query = "SELECT a FROM ActividadTb a WHERE a.mNombre = :mNombre"),
-    @NamedQuery(name = "ActividadTb.findByFFechafin", query = "SELECT a FROM ActividadTb a WHERE a.fFechafin = :fFechafin")})
+    @NamedQuery(name = "ActividadTb.findByFFechafin", query = "SELECT a FROM ActividadTb a WHERE a.fFechafin = :fFechafin"),
+    @NamedQuery(name = "ActividadTb.findByCTipo", query = "SELECT a FROM ActividadTb a WHERE a.cTipo = :cTipo"),
+@NamedQuery(name = "ActividadTb.findByDTotal", query = "SELECT a FROM ActividadTb a WHERE a.dTotal = :dTotal")})
 public class ActividadTb implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -56,10 +59,15 @@ public class ActividadTb implements Serializable {
     @Column(name = "f_fechafin")
     @Temporal(TemporalType.DATE)
     private Date fFechafin;
+    @Size(max = 20)
+    @Column(name = "c_tipo")
+    private String cTipo;
+    @Column(name = "d_total")
+    private Double dTotal;
     @JoinColumn(name = "e_idproyecto", referencedColumnName = "e_idproyecto")
     @ManyToOne
     private ProyectoTb eIdproyecto;
-    @OneToMany(mappedBy = "eIdactividad")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "eIdactividad")
     private List<InsumoTb> insumoTbList;
 
     public ActividadTb() {
@@ -107,6 +115,22 @@ public class ActividadTb implements Serializable {
 
     public void setFFechafin(Date fFechafin) {
         this.fFechafin = fFechafin;
+    }
+
+    public String getCTipo() {
+        return cTipo;
+    }
+
+    public void setCTipo(String cTipo) {
+        this.cTipo = cTipo;
+    }
+
+    public Double getDTotal() {
+        return dTotal;
+    }
+
+    public void setDTotal(Double dTotal) {
+        this.dTotal = dTotal;
     }
 
     public ProyectoTb getEIdproyecto() {

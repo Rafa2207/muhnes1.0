@@ -13,7 +13,6 @@ C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\Agente
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\util\Correo.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\EspecieTbController.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\VariedadTb.java
-C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\PresupuestoTbFacade.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\CantonTb.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\ProcesoejemplarTbFacade.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\AgenteTb.java
@@ -85,7 +84,6 @@ C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\Instit
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\AgentePerfilTb.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\PedidoTbFacade.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\util\ThemeSwitcherBean.java
-C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\PresupuestoTbController.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\MaterialTb.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\VariedadTbFacade.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\PaisTbFacade.java
@@ -103,7 +101,6 @@ C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\EjemplarT
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\Mapas\MapaAreasProtegidas.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\AgenteTbFacade.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\PedidoTb.java
-C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\PresupuestoTb.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\PaisTbController.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\PerfilTb.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\PerfilTbController.java

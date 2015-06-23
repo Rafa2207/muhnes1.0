@@ -29,11 +29,10 @@ modelo\PedidoTb.class
 controlador\MaterialProyectoTbController$MaterialProyectoTbControllerConverter.class
 controlador\ImagenTbController.class
 modelo\MaterialProyectoTb_.class
-servicio\ProcesoejemplarTbFacade.class
 servicio\NombrecomunTbFacade.class
+servicio\ProcesoejemplarTbFacade.class
 modelo\EjemplarParticipaExhibicionTb_.class
 modelo\MaterialPedidoTbPK_.class
-controlador\PresupuestoTbController.class
 controlador\CantonTbController$CantonTbControllerConverter.class
 modelo\InsumoTb_.class
 modelo\LocalidadTb_.class
@@ -42,7 +41,6 @@ modelo\UsuarioTb_.class
 servicio\FamiliaTbFacade.class
 servicio\MaterialPedidoTbFacade.class
 modelo\MaterialPedidoTb.class
-controlador\PresupuestoTbController$PresupuestoTbControllerConverter.class
 controlador\util\ThemeSwitcherBean.class
 controlador\PedidoTbController$PedidoTbControllerConverter.class
 controlador\AgentePerfilTbController.class
@@ -84,12 +82,10 @@ modelo\FamiliaTb_.class
 controlador\LocalidadTbController$LocalidadTbControllerConverter.class
 servicio\UnidadesTbFacade.class
 controlador\GeneroTbController$GeneroTbControllerConverter.class
-modelo\PresupuestoTb.class
 controlador\PaisTbController.class
 modelo\AreaprotegidaTb_.class
 servicio\SubespecieTbFacade.class
 controlador\SubespecieTbController.class
-modelo\PresupuestoTb_.class
 modelo\AgentePerfilTb.class
 servicio\DepartamentoTbFacade.class
 modelo\DonacionTb.class
@@ -140,7 +136,6 @@ modelo\AreaprotegidaTb.class
 modelo\FamiliaTb.class
 modelo\ProrrogaProyectoTb.class
 modelo\BitacoraTb.class
-servicio\PresupuestoTbFacade.class
 controlador\UnidadesTbController.class
 modelo\ProyectoTb_.class
 servicio\PerfilTbFacade.class
