@@ -30,14 +30,26 @@ public class ProcesoejemplarTbController implements Serializable {
 
     @EJB
     private servicio.ProcesoejemplarTbFacade ejbFacade;
-    private List<ProcesoejemplarTb> items = null;
+    private List<ProcesoejemplarTb> items = null, lista = null;
     private ProcesoejemplarTb selected;
     private ProyectoTb proyectos;
     private int cantidadSiguiente;
     private Date fechaSiguiente = new Date();
     private Date fechaInicioSiguiente = new Date();
-    boolean valor;
+    boolean valor, control;
 
+    public boolean isControl() {
+        return control;
+    }
+
+    public void setControl(boolean control) {
+        this.control = control;
+    }
+
+    public List<ProcesoejemplarTb> getLista() {
+        lista = getFacade().findAll();
+        return lista;
+    }
 
     public Date getFechaInicioSiguiente() {
         return fechaInicioSiguiente;
@@ -123,7 +135,6 @@ public class ProcesoejemplarTbController implements Serializable {
     public List<ProcesoejemplarTb> getItems(ProyectoTb proyecto) {
 
         items = getFacade().buscarProcesoAsc(proyecto);
-
         return items;
     }
 
@@ -209,7 +220,8 @@ public class ProcesoejemplarTbController implements Serializable {
 
     }
 
-    public void prepareSiguiente(ProyectoTb proyecto) {
+    public void prepareSiguiente(ProyectoTb proyecto, ProcesoejemplarTb pe) {
+        selected = pe;
         int id = selected.getEIdproceso();
         cantidadSiguiente = selected.getECantidad();
         fechaSiguiente = selected.getFFechafin();
@@ -222,25 +234,37 @@ public class ProcesoejemplarTbController implements Serializable {
 
     }
 
+    public void prepareViewSiguiente(ProyectoTb proyecto, ProcesoejemplarTb pe) {
+        getLista();
+        for (ProcesoejemplarTb pro : lista) {
+            if (pro.getEIdproyecto().getEIdproyecto() == proyecto.getEIdproyecto()) {
+                if (pro.getERelacion() == pe.getEIdproceso()) {
+                    selected = pro;
+                    break;
+                }
+            }
+        }
+        control = true;
+        fechaSiguiente = selected.getFFechafin();
+        cantidadSiguiente = selected.getECantidad();
+
+    }
+
     //para controlar el siguiente proceso ejemplar y no deje ponerlo nuevamente
-    public boolean corroborar(ProyectoTb proyecto) {
-        valor=false;
-        for (ProcesoejemplarTb pro : items) {
+    public boolean corroborar(ProyectoTb proyecto, ProcesoejemplarTb selec) {
+        getLista();
+
+        valor = false;
+        for (ProcesoejemplarTb pro : lista) {
 
             if (pro.getEIdproyecto().getEIdproyecto() == proyecto.getEIdproyecto()) {
-                if (pro.getERelacion()==selected.getEIdproceso()) {
-                    valor=true;
+                if (pro.getERelacion() == selec.getEIdproceso()) {
+                    valor = true;
                 }
-            } 
-        }
-        if(valor){   
-            return true;
-        }
-        else{
-            return false;
-        }
-        
+            }
 
+        }
+        return valor;
     }
 
     public void calcularFechaFinCuarentena(Date fechainicio) {
@@ -249,6 +273,10 @@ public class ProcesoejemplarTbController implements Serializable {
         calendar.add(Calendar.DAY_OF_YEAR, 3);  // numero de dias que se restan o suman
         Date fecha = calendar.getTime(); //mandamos la fecha a una variable Date
         selected.setFFechafin(fecha);
+    }
+
+    public void controlmodificar() {
+            control = false;        
     }
 
 }

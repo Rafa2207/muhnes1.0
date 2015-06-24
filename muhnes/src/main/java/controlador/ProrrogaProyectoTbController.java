@@ -253,6 +253,13 @@ public class ProrrogaProyectoTbController implements Serializable {
                 }
             }
         }
+        //calcular siguiente dia
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fechaMinimaTemporal);
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date fecha=calendar.getTime();
+        //fin calculo de siguiente dia
+        selected.setFFechaInicio(fecha);
 
     }
 
@@ -282,7 +289,7 @@ public class ProrrogaProyectoTbController implements Serializable {
         }
 
         //&& fechaPro.after(FechaActual)
-        if (pro >= i && fechaPro.after(FechaActual)) {
+        if (pro >= i) {
             destroy();
         } else {
             FacesContext context = FacesContext.getCurrentInstance();

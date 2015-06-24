@@ -15,13 +15,11 @@
                         
                         <p:outputLabel value="#{bundleProrrogaProy.CreateProrrogaProyectoTbLabel_MJustificacion}" for="MJustificacion" />
                         <p:inputTextarea autoResize="false" id="MJustificacion" value="#{prorrogaProyectoTbController.selected.MJustificacion}" title="#{bundleProrrogaProy.CreateProrrogaProyectoTbTitle_MJustificacion}" 
-                                         required="true" requiredMessage="Introduzca juestificación de la prórroga"/>
+                                         required="true" requiredMessage="Introduzca justificación de la prórroga"/>
                         
                         <p:outputLabel value="#{bundleProrrogaProy.CreateProrrogaProyectoTbLabel_FFechaInicio}" for="FFechaInicio" />
                         <p:calendar id="FFechaInicio" pattern="dd MMMM yyyy" value="#{prorrogaProyectoTbController.selected.FFechaInicio}" title="#{bundleProrrogaProy.EditProrrogaProyectoTbTitle_FFechaInicio}"
-                                    showOn="button" size="15" locale="es" readonlyInput="true"
-                                    mindate="#{prorrogaProyectoTbController.fechaMinimaTemporal}"
-                                    required="true" requiredMessage="introduzca fecha inicial de prórroga">
+                                    showOn="button" size="15" locale="es" readonlyInput="true" disabled="true">
                             <p:ajax event="dateSelect" update="FFechaFin"/>
                         </p:calendar>
                         

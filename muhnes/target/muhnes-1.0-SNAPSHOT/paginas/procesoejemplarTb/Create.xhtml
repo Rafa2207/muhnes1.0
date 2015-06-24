@@ -22,10 +22,10 @@
                         <p:outputLabel value="#{bundle.CreateProcesoejemplarTbLabel_DCantidad}" for="DCantidad" />
                         <p:inputText id="DCantidad" value="#{procesoejemplarTbController.selected.ECantidad}" title="#{bundle.CreateProcesoejemplarTbTitle_DCantidad}" />
 
-                        <p:outputLabel value="#{bundle.CreateProcesoejemplarTbLabel_FFecha}" for="FFecha" />
+                        <p:outputLabel value="Fecha de inicio:" for="FFecha" />
                         <p:calendar locale="es" mindate="#{controladorSesion.proyecto.FFechaFin}" id="FFecha" 
                                     readonlyInput="true" pattern="dd MMMM yyyy" value="#{procesoejemplarTbController.selected.FFecha}" 
-                                    title="#{bundle.EditProcesoejemplarTbTitle_FFecha}"  showOn="button">
+                                    title="Fecha de inicio"  showOn="button">
                             <p:ajax event="dateSelect" update="FFechafin"/>
                         </p:calendar>
 

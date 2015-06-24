@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog showEffect="explode" id="viewsiguienteDlg" widgetVar="viewsiguienteDialog" modal="true" resizable="false" appendTo="@(body)" header="Proceso cuarentena">
+            <h:form id="viewsiguienteForm">
+                <h:panelGroup id="display" rendered="#{procesoejemplarTbController.control}" >
+                    <p:panelGrid columns="2" style="width: 600px">
+                        <h:outputText value="#{bundle.ViewProcesoejemplarTbLabel_MDescripcion}"/>
+                        <h:outputText value="#{procesoejemplarTbController.selected.MDescripcion}" title="#{bundle.ViewProcesoejemplarTbTitle_MDescripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewProcesoejemplarTbLabel_DCantidad}"/>
+                        <h:outputText value="#{procesoejemplarTbController.selected.ECantidad}" title="#{bundle.ViewProcesoejemplarTbTitle_DCantidad}"/>
+
+                        <h:outputText value="#{bundle.ViewProcesoejemplarTbLabel_CTipo}"/>
+                        <h:outputText value="#{procesoejemplarTbController.selected.CTipo}" title="#{bundle.ViewProcesoejemplarTbTitle_CTipo}"/>
+
+                        <h:outputText value="Fecha de inicio:"/>
+                        <h:outputText value="#{procesoejemplarTbController.selected.FFecha}" title="Fecha de inicio">
+                            <f:convertDateTime pattern="dd MMMM yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="Fecha fin:"/>
+                        <h:outputText value="#{procesoejemplarTbController.selected.FFechafin}" title="fecha fin:">
+                            <f:convertDateTime pattern="dd MMMM yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewProcesoejemplarTbLabel_EIdproyecto}"/>
+                        <h:outputText value="#{procesoejemplarTbController.selected.EIdproyecto.MNombre}" title="#{bundle.ViewProcesoejemplarTbTitle_EIdproyecto}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" update="display, :growl" oncomplete="handleSubmit(args, 'viewsiguienteDialog');"/>
+                    <p:commandButton value="Modificar" actionListener="#{procesoejemplarTbController.controlmodificar()}" update="display, :viewsiguienteForm"/>
+                </h:panelGroup>
+
+                <h:panelGroup id="modificar" rendered="#{not procesoejemplarTbController.control}">
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="#{bundle.CreateProcesoejemplarTbLabel_CTipo}"/>
+                        <b>#{procesoejemplarTbController.selected.CTipo}</b>
+
+                        <p:outputLabel value="#{bundle.CreateProcesoejemplarTbLabel_MDescripcion}" for="MDescripcion" />
+                        <p:inputText id="MDescripcion" value="#{procesoejemplarTbController.selected.MDescripcion}" title="#{bundle.CreateProcesoejemplarTbTitle_MDescripcion}" />
+
+                        <p:outputLabel value="#{bundle.CreateProcesoejemplarTbLabel_DCantidad}" for="DCantidad" />
+                        <p:inputText id="DCantidad" value="#{procesoejemplarTbController.selected.ECantidad}" title="Introduzca valores entre 1 y #{procesoejemplarTbController.cantidadSiguiente} ">
+                            <f:validateLongRange minimum="1" maximum="#{procesoejemplarTbController.cantidadSiguiente}"/>
+                        </p:inputText>
+
+                        <p:outputLabel value="Fecha de inicio:" for="FFecha" />
+                        <p:calendar locale="es" id="FFecha" 
+                                    readonlyInput="true" pattern="dd MMMM yyyy" value="#{procesoejemplarTbController.selected.FFecha}" 
+                                    mindate="#{procesoejemplarTbController.fechaSiguiente}"
+                                    title="Fecha de inicio"  showOn="button">
+                            <p:ajax event="dateSelect" update="FFechafin" listener="#{procesoejemplarTbController.calcularFechaFinCuarentena(procesoejemplarTbController.selected.FFecha)}"/>
+                        </p:calendar>
+
+                        <p:outputLabel value="Fecha finalización: " for="FFechafin" />
+                        <p:calendar locale="es" mindate="#{procesoejemplarTbController.selected.FFecha}" id="FFechafin" 
+                                    readonlyInput="true" pattern="dd MMMM yyyy" value="#{procesoejemplarTbController.selected.FFechafin}" 
+                                    title="Fecha fin" showOn="button" disabled="true"/>
+
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{procesoejemplarTbController.update}" value="#{bundle.Save}" update="modificar, :growl" oncomplete="handleSubmit(args, 'viewsiguienteDialog');"/>
+
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

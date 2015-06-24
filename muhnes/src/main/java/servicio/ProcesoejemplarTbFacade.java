@@ -33,7 +33,7 @@ public class ProcesoejemplarTbFacade extends AbstractFacade<ProcesoejemplarTb> {
     
     public List<ProcesoejemplarTb> buscarProcesoAsc(ProyectoTb proyectos) {
         
-        TypedQuery<ProcesoejemplarTb> query = em.createQuery("SELECT p FROM ProcesoejemplarTb p WHERE p.eIdproyecto=:h", ProcesoejemplarTb.class);
+        TypedQuery<ProcesoejemplarTb> query = em.createQuery("SELECT p FROM ProcesoejemplarTb p WHERE p.eIdproyecto=:h and p.cTipo='Secado'", ProcesoejemplarTb.class);
        query.setParameter("h", proyectos);
         return query.getResultList();
          }

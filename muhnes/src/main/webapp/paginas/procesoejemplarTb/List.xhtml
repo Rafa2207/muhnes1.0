@@ -28,10 +28,6 @@
                     <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{procesoejemplarTbController.destroy}" update=":growl,datalist" disabled="#{empty procesoejemplarTbController.selected}">
                         <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
                     </p:commandButton>
-                    <p:commandButton id="siguienteButton" icon="ui-icon-refresh" value="Siguiente proceso" 
-                                     actionListener="#{procesoejemplarTbController.prepareSiguiente(controladorSesion.proyecto)}" 
-                                     update=":ProcesoejemplarTbSiguienteForm" oncomplete="PF('siguienteDialog').show()" disabled="#{empty procesoejemplarTbController.selected || procesoejemplarTbController.corroborar(controladorSesion.proyecto) }"/>
-
 
                     <p:dataTable id="datalist" value="#{procesoejemplarTbController.getItems(controladorSesion.proyecto)}" var="item"
                                  selectionMode="single" selection="#{procesoejemplarTbController.selected}"
@@ -45,8 +41,8 @@
                                  emptyMessage="No se encontraron procesos de ejemplares"
                                  >
 
-                        <p:ajax event="rowSelect"   update=":ProcesoejemplarTbListForm:createButton :ProcesoejemplarTbListForm:viewButton :ProcesoejemplarTbListForm:editButton :ProcesoejemplarTbListForm:deleteButton :ProcesoejemplarTbListForm:siguienteButton "/>
-                        <p:ajax event="rowUnselect" update=":ProcesoejemplarTbListForm:createButton :ProcesoejemplarTbListForm:viewButton :ProcesoejemplarTbListForm:editButton :ProcesoejemplarTbListForm:deleteButton :ProcesoejemplarTbListForm:siguienteButton "/>
+                        <p:ajax event="rowSelect"   update=":ProcesoejemplarTbListForm:createButton :ProcesoejemplarTbListForm:viewButton :ProcesoejemplarTbListForm:editButton :ProcesoejemplarTbListForm:deleteButton "/>
+                        <p:ajax event="rowUnselect" update=":ProcesoejemplarTbListForm:createButton :ProcesoejemplarTbListForm:viewButton :ProcesoejemplarTbListForm:editButton :ProcesoejemplarTbListForm:deleteButton "/>
 
 
                         <p:column filterBy="#{item.MDescripcion}" filterStyle="display:none" >
@@ -61,13 +57,6 @@
                                 <h:outputText value="#{bundle.ListProcesoejemplarTbTitle_DCantidad}"/>
                             </f:facet>
                             <h:outputText value="#{item.ECantidad}"/>
-                        </p:column>
-
-                        <p:column filterBy="#{item.CTipo}" filterStyle="display:none" style="text-align: center" width="12%">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProcesoejemplarTbTitle_CTipo}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.CTipo}"/>
                         </p:column>
 
                         <p:column filterBy="#{item.FFecha}" filterStyle="display:none" style="text-align: center" width="15%" >
@@ -88,6 +77,20 @@
                             </h:outputText>
                         </p:column>
 
+                        <p:column style="text-align: center" width="5%">
+                            <f:facet name="header">
+                                <h:outputText value="Accion"/>
+                            </f:facet>
+                            <p:commandLink styleClass="ui-icon ui-icon-refresh" rendered="#{not procesoejemplarTbController.corroborar(controladorSesion.proyecto,item)}"
+                                           actionListener="#{procesoejemplarTbController.prepareSiguiente(controladorSesion.proyecto,item)}" 
+                                           update=":ProcesoejemplarTbSiguienteForm" oncomplete="PF('siguienteDialog').show()" 
+                                           title="Siguiente proceso"/>
+                            <p:commandLink value="no ay" styleClass="ui-icon ui-icon-search" rendered="#{procesoejemplarTbController.corroborar(controladorSesion.proyecto,item)}"
+                                           actionListener="#{procesoejemplarTbController.prepareViewSiguiente(controladorSesion.proyecto,item)}"
+                                           update=":viewsiguienteForm" oncomplete="PF('viewsiguienteDialog').show()" 
+                                           title="Visualizar cuarentena"/>
+                        </p:column>
+
 
 
                         <f:facet name="header">
@@ -104,6 +107,7 @@
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
             <ui:include src="siguiente.xhtml"/>
+            <ui:include src="viewsiguiente.xhtml"/>
         </ui:define>
     </ui:composition>
 

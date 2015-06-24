@@ -11,17 +11,23 @@
         <p:dialog id="ProcesoejemplarTbViewDlg" widgetVar="ProcesoejemplarTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewProcesoejemplarTbTitle}">
             <h:form id="ProcesoejemplarTbViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{procesoejemplarTbController.selected != null}">
+                    <p:panelGrid columns="2" rendered="#{procesoejemplarTbController.selected != null}" style="width: 600px">
                         <h:outputText value="#{bundle.ViewProcesoejemplarTbLabel_MDescripcion}"/>
                         <h:outputText value="#{procesoejemplarTbController.selected.MDescripcion}" title="#{bundle.ViewProcesoejemplarTbTitle_MDescripcion}"/>
+
                         <h:outputText value="#{bundle.ViewProcesoejemplarTbLabel_DCantidad}"/>
                         <h:outputText value="#{procesoejemplarTbController.selected.ECantidad}" title="#{bundle.ViewProcesoejemplarTbTitle_DCantidad}"/>
-                        <h:outputText value="#{bundle.ViewProcesoejemplarTbLabel_CTiempo}"/>
-                        <h:outputText value="#{procesoejemplarTbController.selected.CTiempo}" title="#{bundle.ViewProcesoejemplarTbTitle_CTiempo}"/>
+
                         <h:outputText value="#{bundle.ViewProcesoejemplarTbLabel_CTipo}"/>
                         <h:outputText value="#{procesoejemplarTbController.selected.CTipo}" title="#{bundle.ViewProcesoejemplarTbTitle_CTipo}"/>
-                        <h:outputText value="#{bundle.ViewProcesoejemplarTbLabel_FFecha}"/>
-                        <h:outputText value="#{procesoejemplarTbController.selected.FFecha}" title="#{bundle.ViewProcesoejemplarTbTitle_FFecha}">
+
+                        <h:outputText value="Fecha de inicio:"/>
+                        <h:outputText value="#{procesoejemplarTbController.selected.FFecha}" title="Fecha de inicio">
+                            <f:convertDateTime pattern="dd MMMM yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="Fecha fin:"/>
+                        <h:outputText value="#{procesoejemplarTbController.selected.FFechafin}" title="Fecha fin">
                             <f:convertDateTime pattern="dd MMMM yyyy" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewProcesoejemplarTbLabel_EIdproyecto}"/>
