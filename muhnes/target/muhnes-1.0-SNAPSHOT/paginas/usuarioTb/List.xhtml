@@ -16,6 +16,11 @@
         <ui:define name="body">
             <h:form id="UsuarioTbListForm">
                 <p:panel header="#{bundle.ListUsuarioTbTitle}">
+                    
+                    <p:breadCrumb>
+                        <p:menuitem value="casita"/>
+                        <p:menuitem value="Usuarios" outcome="/paginas/usuarioTb/List.xhtml" />
+                    </p:breadCrumb>
 
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{usuarioTbController.prepareCreate}" update=":UsuarioTbCreateForm" oncomplete="PF('UsuarioTbCreateDialog').show()"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":UsuarioTbViewForm" oncomplete="PF('UsuarioTbViewDialog').show()" disabled="#{empty usuarioTbController.selected}"/>
