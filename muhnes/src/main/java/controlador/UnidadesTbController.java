@@ -176,5 +176,13 @@ public class UnidadesTbController implements Serializable {
         
         return items;
     }
+    public String abreviatura(){
+        String abrev;
+        if(selected==null){
+            abrev="";
+        }
+        else{abrev=selected.getCAbreviatura();}
+        return abrev;
+    }
 
 }

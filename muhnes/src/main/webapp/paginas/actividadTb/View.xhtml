@@ -60,7 +60,9 @@
                     </p:dataTable>
                     <div style="text-align: right">
                         <h:outputText style="font-weight: bold" value="Total ($): "/>
-                        <h:outputText id="total" style="font-weight: bold"  value="#{actividadTbController.selected.DTotal}"/>
+                        <h:outputText id="total" style="font-weight: bold"  value="#{actividadTbController.selected.DTotal}">
+                        <f:convertNumber type="number" groupingUsed="true" minFractionDigits="2" pattern="#0.00"/>
+                        </h:outputText>
                     </div>
                     <p:commandButton value="#{bundle.Close}" onclick="ActividadTbViewDialog.hide()"/>
                 </h:panelGroup>

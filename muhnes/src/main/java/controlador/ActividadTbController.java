@@ -124,7 +124,6 @@ public class ActividadTbController implements Serializable {
     }
 
     public ActividadTb prepareCreate(ProyectoTb proyecto) {
-
         selected = new ActividadTb();
         proyectos = proyecto;
         selected.setEIdproyecto(proyectos);
@@ -160,6 +159,11 @@ public class ActividadTbController implements Serializable {
     public List<ActividadTb> getItems(ProyectoTb proyecto) { //modificando para que funcione por proyectos
 
         items = getFacade().buscarAsc(proyecto);
+
+        return items;
+    }
+    
+    public List<ActividadTb> getItems() { //modificando para que funcione por proyectos
 
         return items;
     }
@@ -281,6 +285,15 @@ public class ActividadTbController implements Serializable {
         }
         selected.setDTotal(tot);
         return tot;
+    }
+    
+    public Double totalProyecto(List<ActividadTb> act){
+        Double totalProy = 0.0;
+
+        for (ActividadTb i : act) {
+            totalProy = totalProy + i.getDTotal();
+        }
+        return totalProy;
     }
 
     public void removerInsumo() {

@@ -137,9 +137,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputLabel for="total" style="font-weight: bold" value="Total ($): "/>
-                        <h:outputText id="total" style="font-weight: bold" value="#{actividadTbController.costoTotal()}" rendered="#{actividadTbController.selected != null}"/>
+                        <h:outputText id="total" style="font-weight: bold" value="#{actividadTbController.costoTotal()}" rendered="#{actividadTbController.selected != null}">
+                        <f:convertNumber type="number" groupingUsed="true" minFractionDigits="2" pattern="#0.00"/>
+                        </h:outputText>
                     </p:fieldset>
-                    <p:commandButton actionListener="#{actividadTbController.update}" value="#{bundle.Save}" update="display,:ActividadTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ActividadTbEditDialog');"/>
+                    <p:commandButton actionListener="#{actividadTbController.update}" value="#{bundle.Save}" update="display,:ActividadTbListForm,:growl" oncomplete="handleSubmit(args, 'ActividadTbEditDialog');"/>
 
                 </h:panelGroup>
             </h:form>

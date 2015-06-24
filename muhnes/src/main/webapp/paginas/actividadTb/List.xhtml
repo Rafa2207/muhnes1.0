@@ -54,7 +54,7 @@
                             <h:outputText value="#{item.MNombre}"/>
                         </p:column>
 
-                        <p:column filterBy="#{item.FFecha}" filterStyle="display:none">
+                        <p:column filterBy="#{item.FFecha}" width="15%" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="Fecha de inicio"/>
                             </f:facet>
@@ -63,7 +63,7 @@
                             </h:outputText>
                         </p:column>
 
-                        <p:column filterBy="#{item.FFechafin}" filterStyle="display:none">
+                        <p:column filterBy="#{item.FFechafin}" width="15%" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="Fecha de finalización"/>
                             </f:facet>
@@ -83,7 +83,9 @@
                             <f:facet name="header">
                                 <h:outputText value="Presupuesto"/>
                             </f:facet>
-                            <h:outputText value="$#{item.DTotal}"/>
+                            <h:outputText value="$"/><h:outputText value="#{item.DTotal}">
+                                <f:convertNumber groupingUsed="true" minFractionDigits="2"/>
+                            </h:outputText>
                         </p:column>
 
                         <f:facet name="header">
@@ -93,6 +95,12 @@
                             </p:outputPanel>
                         </f:facet>
                     </p:dataTable>
+                    <div style="text-align: right">
+                        <h:outputText style="font-weight: bold" value="Total del proyecto ($): "/>
+                        <h:outputText id="totalProy" style="font-weight: bold"  value="#{actividadTbController.totalProyecto(actividadTbController.getItems())}">
+                            <f:convertNumber type="number" groupingUsed="true" minFractionDigits="2" pattern="#0.00"/>
+                        </h:outputText>
+                    </div>
                 </p:panel>
             </h:form>
 
