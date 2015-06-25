@@ -15,26 +15,32 @@
 
                         <p:outputLabel value="#{bundle.CreateProcesoejemplarTbLabel_CTipo}"/>
                         <b>#{procesoejemplarTbController.selected.CTipo}</b>
+                        <p:outputLabel value="Nombre: "/>
+                        <b>#{procesoejemplarTbController.nombre}</b>
 
                         <p:outputLabel value="#{bundle.CreateProcesoejemplarTbLabel_MDescripcion}" for="MDescripcion" />
                         <p:inputText id="MDescripcion" value="#{procesoejemplarTbController.selected.MDescripcion}" title="#{bundle.CreateProcesoejemplarTbTitle_MDescripcion}" />
 
                         <p:outputLabel value="#{bundle.CreateProcesoejemplarTbLabel_DCantidad}" for="DCantidad" />
-                        <p:inputText id="DCantidad" value="#{procesoejemplarTbController.selected.ECantidad}" title="Introduzca valores entre 1 y #{procesoejemplarTbController.cantidadSiguiente} " >
+                        <p:inputText id="DCantidad" value="#{procesoejemplarTbController.selected.ECantidad}" title="Introduzca valores entre 1 y #{procesoejemplarTbController.cantidadSiguiente} " 
+                                     required="true" requiredMessage="Introduzca cantidad">
                             <f:validateLongRange minimum="1" maximum="#{procesoejemplarTbController.cantidadSiguiente}"/> 
                         </p:inputText>
 
                         <p:outputLabel value="#{bundle.CreateProcesoejemplarTbLabel_FFecha}" for="FFecha" />
                         <p:calendar locale="es" mindate="#{procesoejemplarTbController.fechaSiguiente}" id="FFecha" 
                                     readonlyInput="true" pattern="dd MMMM yyyy" value="#{procesoejemplarTbController.selected.FFecha}" 
-                                    title="#{bundle.EditProcesoejemplarTbTitle_FFecha}"  showOn="button">
-                            <p:ajax event="dateSelect" update="FFechafin" listener="#{procesoejemplarTbController.calcularFechaFinCuarentena(procesoejemplarTbController.selected.FFecha)}"/>
+                                    title="#{bundle.EditProcesoejemplarTbTitle_FFecha}"  showOn="button"
+                                    required="true" requiredMessage="Introduzca fecha inicio">
+                            <p:ajax event="dateSelect" update="textfecha" listener="#{procesoejemplarTbController.calcularFechaFinCuarentena(procesoejemplarTbController.selected.FFecha)}"/>
                         </p:calendar>
 
-                        <p:outputLabel value="Fecha finalización: " for="FFechafin" />
-                        <p:calendar locale="es" mindate="#{procesoejemplarTbController.selected.FFecha}" id="FFechafin" 
-                                    readonlyInput="true" pattern="dd MMMM yyyy" value="#{procesoejemplarTbController.selected.FFechafin}" 
-                                    title="Fecha fin" showOn="button" disabled="true"/>
+                        <p:outputLabel value="Fecha finalización: " />
+                        <p:outputLabel id="textfecha" value="#{procesoejemplarTbController.selected.FFechafin}">
+                            <f:convertDateTime pattern="dd MMMM yyyy" />
+                        </p:outputLabel>
+
+
 
                     </p:panelGrid>
                     <p:commandButton actionListener="#{procesoejemplarTbController.create()}" value="#{bundle.Save}" update="display,:ProcesoejemplarTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'siguienteDialog');"/>

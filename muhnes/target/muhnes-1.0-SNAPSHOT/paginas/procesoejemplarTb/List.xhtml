@@ -44,6 +44,12 @@
                         <p:ajax event="rowSelect"   update=":ProcesoejemplarTbListForm:createButton :ProcesoejemplarTbListForm:viewButton :ProcesoejemplarTbListForm:editButton :ProcesoejemplarTbListForm:deleteButton "/>
                         <p:ajax event="rowUnselect" update=":ProcesoejemplarTbListForm:createButton :ProcesoejemplarTbListForm:viewButton :ProcesoejemplarTbListForm:editButton :ProcesoejemplarTbListForm:deleteButton "/>
 
+                        <p:column filterBy="#{item.MNombre}" filterStyle="display:none" width="20%" >
+                            <f:facet name="header">
+                                <h:outputText value="Nombre"/>
+                            </f:facet>
+                            <h:outputText value="#{item.MNombre}"/>
+                        </p:column>
 
                         <p:column filterBy="#{item.MDescripcion}" filterStyle="display:none" >
                             <f:facet name="header">

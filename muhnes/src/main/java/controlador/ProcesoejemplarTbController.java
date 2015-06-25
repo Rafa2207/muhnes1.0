@@ -37,6 +37,15 @@ public class ProcesoejemplarTbController implements Serializable {
     private Date fechaSiguiente = new Date();
     private Date fechaInicioSiguiente = new Date();
     boolean valor, control;
+    private String nombre;
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
     public boolean isControl() {
         return control;
@@ -222,9 +231,10 @@ public class ProcesoejemplarTbController implements Serializable {
 
     public void prepareSiguiente(ProyectoTb proyecto, ProcesoejemplarTb pe) {
         selected = pe;
-        int id = selected.getEIdproceso();
-        cantidadSiguiente = selected.getECantidad();
-        fechaSiguiente = selected.getFFechafin();
+        nombre=pe.getMNombre();
+        int id = pe.getEIdproceso();
+        cantidadSiguiente = pe.getECantidad();
+        fechaSiguiente = pe.getFFechafin();
 
         selected = new ProcesoejemplarTb();
         selected.setCTipo("Cuarentena");
@@ -236,6 +246,7 @@ public class ProcesoejemplarTbController implements Serializable {
 
     public void prepareViewSiguiente(ProyectoTb proyecto, ProcesoejemplarTb pe) {
         getLista();
+        nombre = pe.getMNombre();
         for (ProcesoejemplarTb pro : lista) {
             if (pro.getEIdproyecto().getEIdproyecto() == proyecto.getEIdproyecto()) {
                 if (pro.getERelacion() == pe.getEIdproceso()) {

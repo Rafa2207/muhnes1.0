@@ -12,27 +12,34 @@
             <h:form id="ProcesoejemplarTbCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{procesoejemplarTbController.selected != null}">
-                        
+
                         <p:outputLabel value="#{bundle.CreateProcesoejemplarTbLabel_CTipo}"/>
                         <b>#{procesoejemplarTbController.selected.CTipo}</b>
+
+                        <p:outputLabel value="Nombre:" for="Nombre" />
+                        <p:inputText id="Nombre" value="#{procesoejemplarTbController.selected.MNombre}" title="Nombre" 
+                                     required="true" requiredMessage="Introduzca el nombre"/>
 
                         <p:outputLabel value="#{bundle.CreateProcesoejemplarTbLabel_MDescripcion}" for="MDescripcion" />
                         <p:inputText id="MDescripcion" value="#{procesoejemplarTbController.selected.MDescripcion}" title="#{bundle.CreateProcesoejemplarTbTitle_MDescripcion}" />
 
                         <p:outputLabel value="#{bundle.CreateProcesoejemplarTbLabel_DCantidad}" for="DCantidad" />
-                        <p:inputText id="DCantidad" value="#{procesoejemplarTbController.selected.ECantidad}" title="#{bundle.CreateProcesoejemplarTbTitle_DCantidad}" />
+                        <p:inputText id="DCantidad" value="#{procesoejemplarTbController.selected.ECantidad}" title="#{bundle.CreateProcesoejemplarTbTitle_DCantidad}" 
+                                     required="true" requiredMessage="Introduzca cantidad">
+                            <f:validateLongRange minimum="1"/> 
+                        </p:inputText>
 
                         <p:outputLabel value="Fecha de inicio:" for="FFecha" />
                         <p:calendar locale="es" mindate="#{controladorSesion.proyecto.FFechaFin}" id="FFecha" 
                                     readonlyInput="true" pattern="dd MMMM yyyy" value="#{procesoejemplarTbController.selected.FFecha}" 
-                                    title="Fecha de inicio"  showOn="button">
+                                    title="Fecha de inicio"  showOn="button" required="true" requiredMessage="Introduzca fecha inicio">
                             <p:ajax event="dateSelect" update="FFechafin"/>
                         </p:calendar>
 
                         <p:outputLabel value="Fecha finalización: " for="FFechafin" />
                         <p:calendar locale="es" mindate="#{procesoejemplarTbController.selected.FFecha}" id="FFechafin" 
                                     readonlyInput="true" pattern="dd MMMM yyyy" value="#{procesoejemplarTbController.selected.FFechafin}" 
-                                    title="Fecha fin" showOn="button"/>
+                                    title="Fecha fin" showOn="button" required="true" requiredMessage="Introduzca fecha fin"/>
 
                     </p:panelGrid>
                     <p:commandButton actionListener="#{procesoejemplarTbController.create}" value="#{bundle.Save}" update="display,:ProcesoejemplarTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'ProcesoejemplarTbCreateDialog');"/>
