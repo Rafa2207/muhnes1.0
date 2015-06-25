@@ -7,13 +7,31 @@
 
     <h:head>
         <title>Error al Iniciar Sesión</title>
+        <style>
+            body {
+                background-image: url("#{resource['images/hojas.jpg']}");
+                background-size: cover;
+                background-repeat: no-repeat; 
+                background-attachment:fixed;
+
+            }
+        </style>
     </h:head>
     <h:body>
-        <p:panel style="width: 500px;margin: auto">
+        <br/>
+        <br/>
+        <br/>
+        <div style="width: 500px;
+             background-color: #ffffff;
+             margin: auto;              
+             border-radius: 25px;
+             border: 2px solid #8AC007;
+             padding: 20px;"
+             >
             <p>Error, el usuario y contraseña son incorrectos.</p>
-            <p>Si esta pantalla aparece frecuentemente, favor comunicarse con el administrador del sistema.</p>
+            <p style="alignment-baseline: central">Si esta pantalla aparece frecuentemente, favor comunicarse con el administrador del sistema.</p>
             <h:link value="Regresar" outcome="/paginas/bienvenido.xhtml"/>
-        </p:panel>
+        </div>
     </h:body>
 
 </html>

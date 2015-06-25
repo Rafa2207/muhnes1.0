@@ -8,23 +8,37 @@
     <h:head>
         <h:outputStylesheet library="css" name="jsfcrud.css"/>
         <title>Iniciar Sesión</title>
+        <style>
+            body {
+                background-image: url("#{resource['images/hojas.jpg']}");
+                background-size: cover;
+                background-repeat: no-repeat; 
+                background-attachment:fixed;
+
+            }
+        </style>
+
     </h:head>
     <h:body>
-
         <br/>
         <br/>
         <br/>
-        <p:panel style="width: 275px;
-                 margin: auto;
-                 //box-shadow: 2px 2px 2px #888;
-                 text-align: center;
-                 //margin-top: 200px;
-                 //border-width: 5px;
-                 //font-size: 20px">
-            <h:panelGrid columns="2">
-                 <h:panelGroup>
-                     <div style="text-align: center"><h:graphicImage library="images" name="muhnes.png" height="200" width="150"/>
-                         </div>
+        <div style="width: 275px;
+             background-color: #ffffff;
+             margin: auto;
+             //box-shadow: 2px 2px 2px #888;
+             text-align: center;
+             //margin-top: 200px;
+             border-radius: 25px;
+             border: 2px solid #8AC007;
+             padding: 20px;
+             //font-size: 20px 
+             //background-image: url('/hojas.jpg');"
+             >
+            <div columns="2" >
+                <div>
+                    <div style="text-align: center"><h:graphicImage library="images" name="muhnes.png" height="200" width="150"/>
+                    </div>
                     <form action="j_security_check" method="POST">
                         <table style="margin: auto" cellpadding="6" >
                             <tr>
@@ -37,14 +51,21 @@
                             </tr>
                         </table>
                         <br/>
-                        <input type="submit" value="Iniciar Sesión"></input>
+                        <input type="submit" value="Iniciar Sesión" 
+                               style="background-color: #8AC007;
+                                      border-radius: 25px;
+                                      color: #ffffff;
+                                      padding: 5px
+                                       
+                                      "></input>
                     </form>
-                     <br/>
+                    <br/>
                     <h:link value="¿Olvido su contraseña?" outcome="/recuperacion.xhtml"/>
-                </h:panelGroup>
-            </h:panelGrid>
+                </div>
 
-        </p:panel> 
+            </div>
+
+        </div> 
     </h:body>
 
 </html>

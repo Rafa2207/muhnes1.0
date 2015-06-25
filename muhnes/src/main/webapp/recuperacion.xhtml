@@ -13,6 +13,15 @@ and open the template in the editor.
     <h:head>
         <h:outputStylesheet library="css" name="jsfcrud.css"/>
         <title>Recuperación de Contraseña</title>
+                <style>
+            body {
+                background-image: url("#{resource['images/hojas.jpg']}");
+                background-size: cover;
+                background-repeat: no-repeat; 
+                background-attachment:fixed;
+
+            }
+        </style>
     </h:head>
     <h:body>
 
@@ -22,10 +31,16 @@ and open the template in the editor.
 
 
 
-        <p:panel style="width: 550px;margin: auto;">
+        <div style="width: 550px;
+             margin: auto;
+             background-color: #ffffff;             
+             border-radius: 25px;
+             border: 2px solid #8AC007;
+             padding: 20px;"
+             >
             <div style="text-align: center; font-size: 18px; font-style: normal;"><b>Recuperación de contraseña.</b></div>
-            <h:panelGroup>
-                <h:panelGrid>
+            <div>
+                <div>
                     <p:growl id="boton"/>
                     <h:form id="recuperar">
                         <table style="margin: auto" cellpadding="6" >
@@ -43,9 +58,9 @@ and open the template in the editor.
                         </div>    
                     </h:form>
                     <h:link value="Regresar" outcome="/paginas/bienvenido.xhtml"/>
-                </h:panelGrid>
-            </h:panelGroup>
+                </div>
+            </div>
 
-        </p:panel> 
+        </div> 
     </h:body>
 </html>
