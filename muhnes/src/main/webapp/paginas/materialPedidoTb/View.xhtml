@@ -8,18 +8,47 @@
 
     <ui:composition>
 
-        <p:dialog id="MaterialPedidoTbViewDlg" widgetVar="MaterialPedidoTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleMateriales.ViewMaterialPedidoTbTitle}">
+        <p:dialog id="MaterialPedidoTbViewDlg" widgetVar="MaterialPedidoTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="Ver Pedido">
             <h:form id="MaterialPedidoTbViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{materialPedidoTbController.selected != null}">
-                        <h:outputText value="#{bundleMateriales.ViewMaterialPedidoTbLabel_ECantidad}"/>
-                        <h:outputText value="#{materialPedidoTbController.selected.DCantidad}" title="#{bundleMateriales.ViewMaterialPedidoTbTitle_ECantidad}"/>
-                        <h:outputText value="#{bundleMateriales.ViewMaterialPedidoTbLabel_pedidoTb}"/>
-                        <h:outputText value="#{materialPedidoTbController.selected.pedidoTb.EIdpedido}" title="#{bundleMateriales.ViewMaterialPedidoTbTitle_pedidoTb}"/>
-                        <h:outputText value="#{bundleMateriales.ViewMaterialPedidoTbLabel_materialTb}"/>
-                        <h:outputText value="#{materialPedidoTbController.selected.materialTb.CNombre}" title="#{bundleMateriales.ViewMaterialPedidoTbTitle_materialTb}"/>
+                    <p:panelGrid columns="2" rendered="#{pedidoTbController.selected != null}" style="width: 600px">
+                        <h:outputText value="#{bundle.ViewPedidoTbLabel_MDescripcion}"/>
+                        <h:outputText value="#{pedidoTbController.selected.MDescripcion}" title="#{bundle.ViewPedidoTbTitle_MDescripcion}"/>
+                        <h:outputText value="Fecha de pedido: "/>
+                        <h:outputText value="#{pedidoTbController.selected.FFecha}" title="#{bundle.ViewPedidoTbTitle_FFecha}">
+                            <f:convertDateTime pattern="dd MMMM yyyy" />
+                        </h:outputText>
+                        <h:outputText value="Fecha a recibir: "/>
+                        <h:outputText value="#{pedidoTbController.selected.FFechaPosibleRecibir}" title="#{bundle.ViewPedidoTbTitle_FFecha}">
+                            <f:convertDateTime pattern="dd MMMM yyyy" />
+                        </h:outputText>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundleMateriales.Close}" onclick="MaterialPedidoTbViewDialog.hide()"/>
+                    <p:fieldset legend="Materiales">
+                        <p:dataTable id="materiales"
+                                     editable="true"
+                                     value="#{pedidoTbController.selected.materialPedidoTbList}"
+                                     var="material"
+                                     scrollable="true"
+                                     scrollHeight="210px"
+                                     emptyMessage="No ha agregado materiales"
+                                     tableStyle="width:650px">
+                            <p:column headerText="Material" >
+                                #{material.materialTb.CNombre}
+                            </p:column>
+                            <p:column headerText="Cantidad" width="20%">
+                                #{material.DCantidad}                                   
+                            </p:column>
+                            <p:column headerText="Catidad Recibida" width="20%">
+                                #{material.DEntrada}
+                            </p:column>
+                            <p:column headerText="Fecha Recibido" width="25%">
+                                <h:outputText id="FechaRec" value="#{material.FFechaRecibido}">
+                                    <f:convertDateTime pattern="dd MMMM yyyy" />
+                                </h:outputText>
+                            </p:column>
+                        </p:dataTable>
+                    </p:fieldset>
+                    <p:commandButton value="#{bundle.Close}" onclick="MaterialPedidoTbViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

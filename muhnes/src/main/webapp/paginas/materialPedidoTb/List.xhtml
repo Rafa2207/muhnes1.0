@@ -22,11 +22,10 @@
                         <p:menuitem value="Control de pedidos" outcome="/paginas/materialPedidoTb/List.xhtml" />
                     </p:breadCrumb>
 
-                    <p:commandButton id="createButton" icon="ui-icon-tag"   value="Recibir Pedido"  update=":MaterialPedidoTbCreateForm" oncomplete="PF('MaterialPedidoTbCreateDialog').show()"/>
+                    <p:commandButton id="createButton" icon="ui-icon-tag"   value="Recibir Pedido"  update=":MaterialPedidoTbCreateForm" oncomplete="PF('MaterialPedidoTbCreateDialog').show()" disabled="#{empty pedidoTbController.selected || pedidoTbController.selected.EEstado!=0}"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":MaterialPedidoTbViewForm" oncomplete="PF('MaterialPedidoTbViewDialog').show()" disabled="#{empty pedidoTbController.selected}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":MaterialPedidoTbEditForm" oncomplete="PF('MaterialPedidoTbEditDialog').show()" disabled="#{empty pedidoTbController.selected}"/>
-                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{materialPedidoTbController.destroy}" update=":growl,datalist" disabled="#{empty pedidoTbController.selected}"/>
-
+                    
                     <p:dataTable id="datalist" value="#{pedidoTbController.items}" var="item"
                                  selectionMode="single" selection="#{pedidoTbController.selected}"
                                  paginator="true"
@@ -39,8 +38,8 @@
                                  widgetVar="pedidosTable"
                                  >
 
-                        <p:ajax event="rowSelect"   update=":MaterialPedidoTbListForm:createButton :MaterialPedidoTbListForm:viewButton :MaterialPedidoTbListForm:editButton :MaterialPedidoTbListForm:deleteButton"/>
-                        <p:ajax event="rowUnselect" update=":MaterialPedidoTbListForm:createButton :MaterialPedidoTbListForm:viewButton :MaterialPedidoTbListForm:editButton :MaterialPedidoTbListForm:deleteButton"/>
+                        <p:ajax event="rowSelect"   update=":MaterialPedidoTbListForm:createButton :MaterialPedidoTbListForm:viewButton :MaterialPedidoTbListForm:editButton"/>
+                        <p:ajax event="rowUnselect" update=":MaterialPedidoTbListForm:createButton :MaterialPedidoTbListForm:viewButton :MaterialPedidoTbListForm:editButton"/>
 
                         
                         <p:column width="50%" filterBy="#{item.MDescripcion}" filterStyle="display:none">

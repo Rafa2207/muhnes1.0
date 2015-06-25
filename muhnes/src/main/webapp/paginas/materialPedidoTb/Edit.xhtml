@@ -11,25 +11,54 @@
         <p:dialog id="MaterialPedidoTbEditDlg" widgetVar="MaterialPedidoTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleMateriales.EditMaterialPedidoTbTitle}">
             <h:form id="MaterialPedidoTbEditForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{materialPedidoTbController.selected != null}">
-                        <p:outputLabel value="#{bundleMateriales.EditMaterialPedidoTbLabel_ECantidad}" for="ECantidad" />
-                        <p:inputText id="ECantidad" value="#{materialPedidoTbController.selected.DCantidad}" title="#{bundleMateriales.EditMaterialPedidoTbTitle_ECantidad}" />
-                        <p:outputLabel value="#{bundleMateriales.EditMaterialPedidoTbLabel_pedidoTb}" for="pedidoTb" />
-                        <p:selectOneMenu id="pedidoTb" value="#{materialPedidoTbController.selected.pedidoTb}" required="true" requiredMessage="#{bundleMateriales.EditMaterialPedidoTbRequiredMessage_pedidoTb}">
-                            <f:selectItem itemLabel="#{bundleMateriales.SelectOneMessage}"/>
-                            <f:selectItems value="#{pedidoTbController.itemsAvailableSelectOne}"
-                                           var="pedidoTbItem"
-                                           itemValue="#{pedidoTbItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundleMateriales.EditMaterialPedidoTbLabel_materialTb}" for="materialTb" />
-                        <p:selectOneMenu id="materialTb" value="#{materialPedidoTbController.selected.materialTb}" required="true" requiredMessage="#{bundleMateriales.EditMaterialPedidoTbRequiredMessage_materialTb}">
-                            <f:selectItem itemLabel="#{bundleMateriales.SelectOneMessage}"/>
-                            <f:selectItems value="#{materialTbController.itemsAvailableSelectOne}"
-                                           var="materialTbItem"
-                                           itemValue="#{materialTbItem}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{materialPedidoTbController.update}" value="#{bundleMateriales.Save}" update="display,:MaterialPedidoTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MaterialPedidoTbEditDialog');"/>
+                    <p:fieldset legend="Pedido">
+                        <p:panelGrid columns="2" rendered="#{pedidoTbController.selected != null}">
+                            <p:outputLabel value="Descripción: " for="descrip" />
+                            <h:outputText id="descrip" value="#{pedidoTbController.selected.MDescripcion}"  />
+                            <p:outputLabel value="Fecha pedido: " for="fechap" />
+                            <h:outputText id="fechap" value="#{pedidoTbController.selected.FFecha}">
+                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                            </h:outputText>
+                            <p:outputLabel value="Fecha a recibir: " for="fechaf" />
+                            <h:outputText id="fechaf" value="#{pedidoTbController.selected.FFechaPosibleRecibir}">
+                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                            </h:outputText>
+                            <p:outputLabel for="estado" value="Estado del pedido:" />
+                            <p:selectOneRadio required="true" requiredMessage="Debe seleccionar un estado" id="estado" value="#{pedidoTbController.estado}">
+                                <f:selectItem itemLabel="Recibido Parcialmente" itemValue="1" />
+                                <f:selectItem itemLabel="Recibido" itemValue="2" />
+                                <f:selectItem itemLabel="No se recibirá" itemValue="3" />
+                            </p:selectOneRadio>
+                        </p:panelGrid>
+                    </p:fieldset>
+                    <p:fieldset legend="Materiales">
+                        <p:dataTable id="materiales"
+                                     editable="true"
+                                     value="#{pedidoTbController.selected.materialPedidoTbList}"
+                                     var="material"
+                                     scrollable="true"
+                                     scrollHeight="210px"
+                                     emptyMessage="No ha agregado materiales"
+                                     tableStyle="width:650px">
+                            <p:column headerText="Material" >
+                                #{material.materialTb.CNombre}
+                            </p:column>
+                            <p:column headerText="Cantidad" width="20%">
+                                #{material.DCantidad}                                   
+                            </p:column>
+                            <p:column headerText="Catidad Recibida" width="20%">
+                                <p:inputText size="10" value="#{material.DEntrada}"/>
+                            </p:column>
+                            <p:column headerText="Fecha Recibido" width="25%">
+                                <p:calendar id="FechaRec" size="15" pattern="dd MMMM yyyy" value="#{material.FFechaRecibido}" title="Fecha recibido"  
+                                            readonlyInput="true"
+                                            requiredMessage="Introduzca fecha de recibido"
+                                            locale="es" 
+                                            required="true" mindate="0"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:fieldset>
+                    <p:commandButton actionListener="#{pedidoTbController.recibirPedido()}" value="#{bundleMateriales.Save}" update="display,:MaterialPedidoTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MaterialPedidoTbEditDialog');"/>
                     <p:commandButton value="#{bundleMateriales.Cancel}" onclick="MaterialPedidoTbEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

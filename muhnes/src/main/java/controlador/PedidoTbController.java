@@ -38,6 +38,15 @@ public class PedidoTbController implements Serializable {
     private List<MaterialTb> materialDisponible;
     private double cantidad;
     private MaterialPedidoTb materialEL;
+    private Integer estado;
+
+    public Integer getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Integer estado) {
+        this.estado = estado;
+    }
 
     public MaterialPedidoTb getMaterialEL() {
         return materialEL;
@@ -271,8 +280,9 @@ public class PedidoTbController implements Serializable {
     
     public String estadoPedido (Integer estado){
         if(estado==0){return "En Proceso";}
-        if(estado==1){return "Recibido";}
-        if(estado==2){return "No Recibido";}
+        if(estado==1){return "Recibido Parcialmente";}
+        if(estado==2){return "Recibido";}
+        if(estado==3){return "No Recibido";}
         return "";
     }
     public Date fechaActual(){
@@ -283,7 +293,7 @@ public class PedidoTbController implements Serializable {
     }
     
      public void recibirPedido() {
-        selected.setEEstado(1);
+        selected.setEEstado(estado);
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("PedidoTbRecibido"));
     }
 }
