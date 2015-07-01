@@ -29,3 +29,9 @@
     vertical-align: top;
 }
 
+.proyecto .fc-event-inner {
+    background: bottom;
+}
+.actividad .fc-event-inner {
+    background: #53c10c;
+ }

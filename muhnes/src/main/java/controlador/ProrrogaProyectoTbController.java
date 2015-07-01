@@ -289,7 +289,7 @@ public class ProrrogaProyectoTbController implements Serializable {
         }
 
         //&& fechaPro.after(FechaActual)
-        if (pro >= i) {
+        if (pro >= i && fechaPro.after(FechaActual)) {
             destroy();
         } else {
             FacesContext context = FacesContext.getCurrentInstance();

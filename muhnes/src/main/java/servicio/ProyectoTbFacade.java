@@ -5,9 +5,12 @@
  */
 package servicio;
 
+import java.util.Date;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import modelo.ProyectoTb;
 
 /**
@@ -27,5 +30,14 @@ public class ProyectoTbFacade extends AbstractFacade<ProyectoTb> {
     public ProyectoTbFacade() {
         super(ProyectoTb.class);
     }
+    
+    //Consulta para la agenda de los proyectos
+    public ProyectoTb BuscarProyecto(String titulo, Date fechaInicio, Date fechaFin) {
+        TypedQuery<ProyectoTb> query = em.createQuery("SELECT p FROM ProyectoTb p WHERE p.mNombre=:t and p.fFechaInicio=:fi and p.fFechaFin=:ff", ProyectoTb.class);
+       query.setParameter("t", titulo);
+       query.setParameter("fi", fechaInicio);
+       query.setParameter("ff", fechaFin);
+        return query.getSingleResult();
+         }
     
 }

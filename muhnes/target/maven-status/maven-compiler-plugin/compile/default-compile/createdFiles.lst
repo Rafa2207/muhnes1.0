@@ -167,6 +167,7 @@ servicio\MaterialProyectoTbFacade.class
 controlador\GeneroTbController.class
 modelo\PaisTb_.class
 modelo\AgentePerfilTbPK.class
+agenda\agenda.class
 modelo\PerfilTb_.class
 controlador\MunicipioTbController.class
 controlador\ProyectoTbController$ProyectoTbControllerConverter.class

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="Calendarización"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="LocalidadTbListForm" >
+                <p:panel header="Calendarización de proyectos y actividades">
+                    <p:schedule id="agendaId" locale="es" widgetVar="AgendaProyecto"
+                                value="#{agenda.eventModel}"
+                                aspectRatio="3" draggable="false" rightHeaderTemplate="" showWeekends="false" 
+                                tooltip="true" >  
+                        <p:ajax event="eventSelect" listener="#{agenda.seleccionEvento}"  update="display1 display2" oncomplete="PF('dialogVer').show();" />
+                    </p:schedule>
+                </p:panel>
+
+                <p:dialog widgetVar="dialogVer" header="Visualizar" showEffect="clip" hideEffect="clip">
+                    <h:panelGroup id="display1">
+                        <p:panelGrid columns="2" id="evento" style="width: 450px">
+
+                            <h:outputText value="Nombre:"/>
+                            <h:outputText value="#{agenda.proyectoView.MNombre}"/>
+
+                            <h:outputText value="Responsable:"/>
+                            <h:outputText value="#{agenda.proyectoView.EResponsable}" />
+
+                            <h:outputText value="Descripción: "/>
+                            <h:outputText  value="#{agenda.proyectoView.MDescripcion}" />
+
+                            <h:outputText value="Fecha Inicio:"/>
+                            <h:outputText value="#{agenda.proyectoView.FFechaInicio}">
+                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                            </h:outputText>
+
+                            <h:outputText value="Fecha Fin: "/>
+                            <h:outputText value="#{agenda.proyectoView.FFechaFin}">
+                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                            </h:outputText>
+
+                        </p:panelGrid>
+                        <p:commandButton value="#{bundle.Close}" update="evento, :growl" oncomplete="handleSubmit(args, 'dialogVer');"/>
+                        <p:commandButton value="Ir a proyectos" action="/paginas/proyectoTb/List.xhtml" />
+                    </h:panelGroup>
+
+
+                    <h:panelGroup id="display2">
+                        <p:panelGrid columns="2" id="evento2" style="width: 450px">
+
+                            <h:outputText value="#{bundle.ViewActividadTbLabel_CNombre}"/>
+                            <h:outputText value="#{agenda.actividadView.MNombre}" title="#{bundle.ViewActividadTbTitle_CNombre}"/>
+
+                            <h:outputText value="Fecha de inicio: "/>
+                            <h:outputText value="#{agenda.actividadView.FFecha}" title="Fecha de inicio">
+                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                            </h:outputText>
+
+                            <h:outputText value="Fecha finalización:"/>
+                            <h:outputText value="#{agenda.actividadView.FFechafin}" title="Fecha de finalización">
+                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                            </h:outputText>
+
+                            <h:outputText value="#{bundle.ViewActividadTbLabel_MDescripcion}"/>
+                            <h:outputText value="#{agenda.actividadView.MDescripcion}" title="#{bundle.ViewActividadTbTitle_MDescripcion}"/>
+
+
+                            <h:outputText value="#{bundle.ViewActividadTbLabel_EIdproyecto}"/>
+                            <h:outputText value="#{agenda.actividadView.EIdproyecto.MNombre}" title="#{bundle.ViewActividadTbTitle_EIdproyecto}"/>
+
+                            <h:outputText value="Costo:"/>
+                            <h:outputText value="$#{agenda.actividadView.DTotal}" title="Costo de la actividad"/>
+                        </p:panelGrid>
+                        <p:commandButton value="#{bundle.Close}" update="evento2, :growl" oncomplete="handleSubmit(args, 'dialogVer');"/>
+                    </h:panelGroup>
+                </p:dialog>    
+            </h:form>
+
+
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -20,6 +20,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
+import modelo.ActividadTb;
 import modelo.AgenteTb;
 import org.primefaces.context.RequestContext;
 
@@ -206,6 +207,14 @@ public class ProyectoTbController implements Serializable {
         }
         
         return agente;   
+    }
+    
+    public double presupuesto(ProyectoTb proy){
+        double presupuesto=0;
+        for(ActividadTb p: proy.getActividadTbList()){
+            presupuesto=presupuesto+p.getDTotal();
+        }
+        return presupuesto;
     }
 
 }

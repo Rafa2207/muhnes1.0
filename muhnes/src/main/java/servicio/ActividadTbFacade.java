@@ -5,6 +5,7 @@
  */
 package servicio;
 
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -36,6 +37,15 @@ public class ActividadTbFacade extends AbstractFacade<ActividadTb> {
         TypedQuery<ActividadTb> query = em.createQuery("SELECT p FROM ActividadTb p WHERE p.eIdproyecto=:h ORDER BY p.mNombre ASC ", ActividadTb.class);
        query.setParameter("h", proyectos);
         return query.getResultList();
+         }
+    
+    //Consulta para la agenda de las actividades
+    public ActividadTb BuscarActividades(String titulo, Date fechaInicio, Date fechaFin) {
+        TypedQuery<ActividadTb> query = em.createQuery("SELECT p FROM ActividadTb p WHERE p.mNombre=:t and p.fFecha=:fi and p.fFechafin=:ff", ActividadTb.class);
+       query.setParameter("t", titulo);
+       query.setParameter("fi", fechaInicio);
+       query.setParameter("ff", fechaFin);
+        return query.getSingleResult();
          }
     
 }
