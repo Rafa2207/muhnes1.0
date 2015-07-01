@@ -20,19 +20,22 @@
                                 value="#{agenda.eventModel}"
                                 aspectRatio="3" draggable="false" rightHeaderTemplate="" showWeekends="false" 
                                 tooltip="true" >  
-                        <p:ajax event="eventSelect" listener="#{agenda.seleccionEvento}"  update="display1 display2" oncomplete="PF('dialogVer').show();" />
+                        <p:ajax event="eventSelect" listener="#{agenda.seleccionEvento}"  update=":modales" oncomplete="PF('dialogVer').show();" />
                     </p:schedule>
                 </p:panel>
+            </h:form>
+            
+            <h:form id="modales">
 
                 <p:dialog widgetVar="dialogVer" header="Visualizar" showEffect="clip" hideEffect="clip">
-                    <h:panelGroup id="display1">
+                    <h:panelGroup id="display1"  rendered="#{agenda.comparador eq 'Proyecto'}" >
                         <p:panelGrid columns="2" id="evento" style="width: 450px">
 
                             <h:outputText value="Nombre:"/>
                             <h:outputText value="#{agenda.proyectoView.MNombre}"/>
 
                             <h:outputText value="Responsable:"/>
-                            <h:outputText value="#{agenda.proyectoView.EResponsable}" />
+                            <h:outputText value="#{proyectoTbController.calculaAgente(agenteTbController.items, agenda.proyectoView.EResponsable)}" />
 
                             <h:outputText value="Descripción: "/>
                             <h:outputText  value="#{agenda.proyectoView.MDescripcion}" />
@@ -53,7 +56,7 @@
                     </h:panelGroup>
 
 
-                    <h:panelGroup id="display2">
+                    <h:panelGroup id="display2" rendered="#{agenda.comparador eq 'Actividad'}">
                         <p:panelGrid columns="2" id="evento2" style="width: 450px">
 
                             <h:outputText value="#{bundle.ViewActividadTbLabel_CNombre}"/>

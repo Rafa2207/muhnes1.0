@@ -18,6 +18,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import modelo.ActividadTb;
+import modelo.AgenteTb;
 import modelo.ProyectoTb;
 
 import org.primefaces.event.ScheduleEntryMoveEvent;
@@ -133,18 +134,6 @@ public class agenda implements Serializable {
         }
         if (comparador.equals("Actividad")) {
             actividadView= getFacadeActividad().BuscarActividades(titulo, event.getStartDate(), event.getEndDate());
-
         }
-
-    }
-    
-    public boolean comprueba(){
-        if (comparador.equals("Proyecto")) {
-           return true;
-        }
-        else{
-            return false;
-        }
-        
     }
 }
