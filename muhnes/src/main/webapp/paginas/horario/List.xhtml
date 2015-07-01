@@ -49,6 +49,9 @@
                             <h:outputText value="#{agenda.proyectoView.FFechaFin}">
                                 <f:convertDateTime pattern="dd MMMM yyyy" />
                             </h:outputText>
+                            
+                            <h:outputText value="Presupuesto: "/>
+                            <h:outputText  value="$#{proyectoTbController.presupuesto(agenda.proyectoView)}" />
 
                         </p:panelGrid>
                         <p:commandButton value="#{bundle.Close}" update="evento, :growl" oncomplete="handleSubmit(args, 'dialogVer');"/>
