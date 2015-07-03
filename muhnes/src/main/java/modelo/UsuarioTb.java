@@ -34,8 +34,10 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "UsuarioTb.findByCNick", query = "SELECT u FROM UsuarioTb u WHERE u.cNick = :cNick"),
     @NamedQuery(name = "UsuarioTb.findByMPassword", query = "SELECT u FROM UsuarioTb u WHERE u.mPassword = :mPassword"),
     @NamedQuery(name = "UsuarioTb.findByCDui", query = "SELECT u FROM UsuarioTb u WHERE u.cDui = :cDui"),
-    @NamedQuery(name = "UsuarioTb.findByCTipo", query = "SELECT u FROM UsuarioTb u WHERE u.cTipo = :cTipo")})
+    @NamedQuery(name = "UsuarioTb.findByCTipo", query = "SELECT u FROM UsuarioTb u WHERE u.cTipo = :cTipo"),
+    @NamedQuery(name = "UsuarioTb.findByBEstado", query = "SELECT u FROM UsuarioTb u WHERE u.bEstado = :bEstado")})
 public class UsuarioTb implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -63,6 +65,8 @@ public class UsuarioTb implements Serializable {
     @Size(max = 15)
     @Column(name = "c_tipo")
     private String cTipo;
+    @Column(name = "b_estado")
+    private Boolean bEstado;
 
     public UsuarioTb() {
     }
@@ -116,12 +120,12 @@ public class UsuarioTb implements Serializable {
     }
 
     public void setMPassword(String mPassword) {
-           try {
+        try {
             this.mPassword = JsfUtil.cifrar(mPassword);
         } catch (NoSuchAlgorithmException ex) {
             this.mPassword = mPassword;
         }
-        
+
     }
 
     public String getCDui() {
@@ -138,6 +142,14 @@ public class UsuarioTb implements Serializable {
 
     public void setCTipo(String cTipo) {
         this.cTipo = cTipo;
+    }
+
+    public Boolean getbEstado() {
+        return bEstado;
+    }
+
+    public void setbEstado(Boolean bEstado) {
+        this.bEstado = bEstado;
     }
 
     @Override
@@ -164,5 +176,5 @@ public class UsuarioTb implements Serializable {
     public String toString() {
         return "modelo.UsuarioTb[ eIdusuario=" + eIdusuario + " ]";
     }
-    
+
 }

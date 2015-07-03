@@ -91,6 +91,7 @@ public class UsuarioTbController implements Serializable {
     }
 
     public void create() {
+        selected.setbEstado(Boolean.TRUE);
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioTbCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -139,6 +140,17 @@ public class UsuarioTbController implements Serializable {
         return items;
     }
 
+    public List<UsuarioTb> getActivos() {
+        items = null;    
+        items = getFacade().buscarActivos();
+        return items;
+    }
+
+    public List<UsuarioTb> getInactivos() {
+        items = null;    
+        items = getFacade().buscarInactivos();
+        return items;
+    }    
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
             setEmbeddableKeys();
@@ -226,17 +238,27 @@ public class UsuarioTbController implements Serializable {
             if (u.getMEmail().equals(c)) {
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El correo ya se encuentra utilizado por otro usuario.", "advertencia"));
                 selected.setMEmail(null);
-            } 
+            }
         }
     }
-    
-        public void compararUsuario(String c) {
+
+    public void compararUsuario(String c) {
         FacesContext context = FacesContext.getCurrentInstance();
         for (UsuarioTb u : items) {
             if (u.getCNick().equals(c)) {
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El nombre de usuario ya existe en el Sistema.", "advertencia"));
                 selected.setCNick(null);
-            } 
+            }
         }
+    }
+
+    public void cambio() {
+        selected.setbEstado(false);
+        update();
+    }
+
+    public void cambioAct() {
+        selected.setbEstado(true);
+        update();
     }
 }

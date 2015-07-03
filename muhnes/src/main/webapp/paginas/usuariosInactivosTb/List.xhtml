@@ -20,18 +20,14 @@
                     <p:breadCrumb>
                         <p:menuitem value="casita"/>
                         <p:menuitem value="Usuarios" outcome="/paginas/usuarioTb/List.xhtml" />
+                        <p:menuitem value="Usuarios inactivos" outcome="/paginas/usuariosInactivosTb/List.xhtml"  />
                     </p:breadCrumb>
-
-                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{usuarioTbController.prepareCreate}" update=":UsuarioTbCreateForm" oncomplete="PF('UsuarioTbCreateDialog').show()"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":UsuarioTbViewForm" oncomplete="PF('UsuarioTbViewDialog').show()" disabled="#{empty usuarioTbController.selected}"/>
-                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":UsuarioTbEditForm" oncomplete="PF('UsuarioTbEditDialog').show()" disabled="#{empty usuarioTbController.selected}"/>
-                    <p:commandButton id="bajaButton" icon="ui-icon-circle-arrow-s"  value="Dar de Baja" actionListener="#{usuarioTbController.cambio()}" update=":UsuarioTbListForm:datalist,:growl" disabled="#{empty usuarioTbController.selected}">
-                        <p:confirm header="Confirmación" message="¿Está seguro dar de baja a este usuario?" icon="ui-icon-alert" />
+                    <p:commandButton id="altaButton" icon="ui-icon-circle-arrow-n"  value="Dar de Alta" actionListener="#{usuarioTbController.cambioAct()}" update=":UsuarioTbListForm:datalist,:growl" disabled="#{empty usuarioTbController.selected}">
+                        <p:confirm header="Confirmación" message="¿Está seguro dar de alta a este usuario?" icon="ui-icon-alert" />
                     </p:commandButton>
 
-                    <p:commandButton id="InactivosButton" icon="ui-icon-circle-close"  value="Usuarios inactivos" action="/paginas/usuariosInactivosTb/List.xhtml"/>
-                    
-                    <p:dataTable id="datalist" value="#{usuarioTbController.activos}" var="item"
+                    <p:dataTable id="datalist" value="#{usuarioTbController.inactivos}" var="item"
                                  selectionMode="single" selection="#{usuarioTbController.selected}"
                                  paginator="true"
                                  paginatorPosition="bottom"
@@ -43,8 +39,8 @@
                                  widgetVar="usuariosTable"
                                  >
 
-                        <p:ajax event="rowSelect"   update=":UsuarioTbListForm:createButton :UsuarioTbListForm:viewButton :UsuarioTbListForm:editButton :UsuarioTbListForm:bajaButton"/>
-                        <p:ajax event="rowUnselect" update=":UsuarioTbListForm:createButton :UsuarioTbListForm:viewButton :UsuarioTbListForm:editButton :UsuarioTbListForm:bajaButton"/>
+                        <p:ajax event="rowSelect"   update=":UsuarioTbListForm:viewButton :UsuarioTbListForm:altaButton"/>
+                        <p:ajax event="rowUnselect" update=":UsuarioTbListForm:viewButton :UsuarioTbListForm:altaButton"/>
 
                         <p:column filterBy="#{item.CNombre}" filterStyle="display:none">
                             <f:facet name="header" >
@@ -80,8 +76,6 @@
                 </p:panel>
             </h:form>
 
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
