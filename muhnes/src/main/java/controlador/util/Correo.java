@@ -95,7 +95,7 @@ public class Correo implements Serializable{
             this.usuario = usuarioFacade.usuarioByCorreo(this.correo);
 
             // Mensaje
-            if (this.usuario != null) {//si encontró algo manda el correo
+              if (this.usuario != null && this.usuario.getbEstado()) {//si encontró algo manda el correo
                 String passnew = RandomStringUtils.randomAlphanumeric(8);
                 this.usuario.setMPassword(passnew);
                 message.setText("Su usuario es: " + this.usuario.getCNick()
@@ -107,12 +107,11 @@ public class Correo implements Serializable{
                 JsfUtil.addSuccessMessage("El correo fue enviado. Verifique su bandeja de entrada.");
                 this.usuarioFacade.edit(usuario);
             } else {
-                JsfUtil.addErrorMessage("Correo no encontrado en la base de datos del Sistema");
+                JsfUtil.addErrorMessage("Correo no encontrado en la base de datos del Sistema, porfavor contactarse con el administrador del sistema si es necesario");
             }
 
-        } catch (MessagingException mex) {
+            } catch (MessagingException mex) {
             mex.printStackTrace();
         }
-    
+        }
     }
-}

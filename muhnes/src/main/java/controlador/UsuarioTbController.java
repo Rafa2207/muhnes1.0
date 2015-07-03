@@ -7,6 +7,7 @@ import servicio.UsuarioTbFacade;
 
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -141,16 +142,17 @@ public class UsuarioTbController implements Serializable {
     }
 
     public List<UsuarioTb> getActivos() {
-        items = null;    
+        items = null;
         items = getFacade().buscarActivos();
         return items;
     }
 
     public List<UsuarioTb> getInactivos() {
-        items = null;    
+        items = null;
         items = getFacade().buscarInactivos();
         return items;
-    }    
+    }
+
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
             setEmbeddableKeys();
@@ -252,13 +254,23 @@ public class UsuarioTbController implements Serializable {
         }
     }
 
+    public Date fechaActual() {
+        return new Date();
+    }
+
     public void cambio() {
         selected.setbEstado(false);
+        selected.setMPassword(String.valueOf(fechaActual()));
         update();
+        if (!JsfUtil.isValidationFailed()) {
+            selected = null; // Remove selection
+            items = null;    // Invalidate list of items to trigger re-query.        
+        }
     }
 
     public void cambioAct() {
         selected.setbEstado(true);
         update();
+        items = null;
     }
 }
