@@ -36,9 +36,17 @@ public class PedidoTbController implements Serializable {
     private List<PedidoTb> items = null, filtro;
     private MaterialTb material;
     private List<MaterialTb> materialDisponible;
-    private double cantidad;
+    private double cantidad, entrada;
     private MaterialPedidoTb materialEL;
     private Integer estado;
+
+    public double getEntrada() {
+        return entrada;
+    }
+
+    public void setEntrada(double entrada) {
+        this.entrada = entrada;
+    }
 
     public Integer getEstado() {
         return estado;
@@ -71,7 +79,7 @@ public class PedidoTbController implements Serializable {
     public void setMaterialDisponible(List<MaterialTb> materialDisponible) {
         this.materialDisponible = materialDisponible;
     }
-    
+
     public MaterialTb getMaterial() {
         return material;
     }
@@ -117,12 +125,12 @@ public class PedidoTbController implements Serializable {
         materialDisponible = materialFacade.buscarTodosAZ();
         return selected;
     }
-    
+
     public PedidoTb prepareEdit() {
         materialDisponible = materialFacade.buscarTodosAZ();
-        for(MaterialPedidoTb b : selected.getMaterialPedidoTbList()){
+        for (MaterialPedidoTb b : selected.getMaterialPedidoTbList()) {
             materialDisponible.remove(b.getMaterialTb());
-        }        
+        }
         initializeEmbeddableKey();
         return selected;
     }
@@ -233,66 +241,86 @@ public class PedidoTbController implements Serializable {
         }
 
     }
-    public void agregar(){
+
+    public void agregar() {
         MaterialPedidoTb nuevo = new MaterialPedidoTb();
         nuevo.setDCantidad(cantidad);
         nuevo.setMaterialTb(material);
         nuevo.setPedidoTb(selected);
-        
+
         MaterialPedidoTbPK mppk = new MaterialPedidoTbPK();
         mppk.setEIdmaterial(material.getEIdmaterial());
         mppk.setEIdpedido(getFacade().siguienteId());
-        
+
         nuevo.setMaterialPedidoTbPK(mppk);
-        
+
         selected.getMaterialPedidoTbList().add(nuevo);
-        
+
         materialDisponible.remove(material);
-        
+
         cantidad = 0.0;
-        
+
     }
-     public void agregarModificar(){
+
+    public void agregarModificar() {
         MaterialPedidoTb nuevo = new MaterialPedidoTb();
         nuevo.setDCantidad(cantidad);
         nuevo.setMaterialTb(material);
         nuevo.setPedidoTb(selected);
-        
+
         MaterialPedidoTbPK mppk = new MaterialPedidoTbPK();
         mppk.setEIdmaterial(material.getEIdmaterial());
         mppk.setEIdpedido(selected.getEIdpedido());
-        
+
         nuevo.setMaterialPedidoTbPK(mppk);
-        
+
         selected.getMaterialPedidoTbList().add(nuevo);
-        
+
         materialDisponible.remove(material);
-        
+
         cantidad = 0.0;
-        
+
     }
-    
-    public void remover(){
-    selected.getMaterialPedidoTbList().remove(materialEL);
-    materialDisponible.add(materialEL.getMaterialTb());
-    material=null;
+
+    public void remover() {
+        selected.getMaterialPedidoTbList().remove(materialEL);
+        materialDisponible.add(materialEL.getMaterialTb());
+        material = null;
     }
-    
-    public String estadoPedido (Integer estado){
-        if(estado==0){return "En Proceso";}
-        if(estado==1){return "Recibido Parcialmente";}
-        if(estado==2){return "Recibido";}
-        if(estado==3){return "No Recibido";}
+
+    public String estadoPedido(Integer estado) {
+        if (estado == 0) {
+            return "En Proceso";
+        }
+        if (estado == 1) {
+            return "Recibido Parcialmente";
+        }
+        if (estado == 2) {
+            return "Recibido";
+        }
+        if (estado == 3) {
+            return "No Recibido";
+        }
         return "";
     }
-    public Date fechaActual(){
-        Date fechaAct= new Date();
+
+    public Date fechaActual() {
+        Date fechaAct = new Date();
         selected.setFFecha(fechaAct);
         selected.setEEstado(0);
         return fechaAct;
     }
-    
-     public void recibirPedido() {
+
+    public void recibirPedido() {
+        //double total = 0.0;
+        //material = new MaterialTb();
+        for (MaterialPedidoTb i : selected.getMaterialPedidoTbList()) {
+            i.getMaterialTb().setDCantidad(i.getMaterialTb().getDCantidad() + i.getDEntrada());
+            materialFacade.edit(i.getMaterialTb());
+//material.setDCantidad(total);
+            //total = 0.0;
+        }
+        
         selected.setEEstado(estado);
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("PedidoTbRecibido"));
     }
