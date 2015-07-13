@@ -37,6 +37,7 @@ C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\SubespecieT
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\FamiliaTb.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\MunicipioTbController.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\AgentePerfilTbPK.java
+C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\MaterialDespachoTb.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\agenda\agenda.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\AreaprotegidaTbController.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\ProrrogaProyectoTbFacade.java
@@ -44,10 +45,12 @@ C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\Varied
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\EjemplarParticipaExhibicionTbController.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\MaterialProyectoTb.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\AgenteIdentificaEjemplarTbPK.java
-C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\MunicipioTb.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\DonacionTbController.java
+C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\MunicipioTb.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\ProyectoTb.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\PedidoTbController.java
+C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\NotapreliminarTbFacade.java
+C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\NotapreliminarTb.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\AgenteIdentificaEjemplarTbController.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\MaterialPedidoTbController.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\BitacoraTbFacade.java
@@ -58,8 +61,8 @@ C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\Actividad
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\GeneroTbController.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\util\ControladorSesion.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\DonacionTbFacade.java
-C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\EjemplarParticipaExhibicionTbFacade.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\ExhibicionTbFacade.java
+C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\EjemplarParticipaExhibicionTbFacade.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\InstitucionTb.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\MaterialProyectoTbPK.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\GeneroTbFacade.java
@@ -97,7 +100,10 @@ C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\Municipio
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\LocalidadTbController.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\UnidadesTbFacade.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\AgenteIdentificaEjemplarTb.java
+C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\MaterialDespachoTbPK.java
+C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\DespachoTb.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\PaisTb.java
+C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\NotapreliminarTbController.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\EjemplarTbFacade.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\Mapas\MapaAreasProtegidas.java
 C:\Users\Rafa\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\AgenteTbFacade.java

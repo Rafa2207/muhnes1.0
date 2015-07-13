@@ -35,12 +35,9 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "ProyectoTb.findByMNombre", query = "SELECT p FROM ProyectoTb p WHERE p.mNombre = :mNombre"),
     @NamedQuery(name = "ProyectoTb.findByFFechaInicio", query = "SELECT p FROM ProyectoTb p WHERE p.fFechaInicio = :fFechaInicio"),
     @NamedQuery(name = "ProyectoTb.findByFFechaFin", query = "SELECT p FROM ProyectoTb p WHERE p.fFechaFin = :fFechaFin"),
-    @NamedQuery(name = "ProyectoTb.findByEResponsable", query = "SELECT p FROM ProyectoTb p WHERE p.eResponsable = :eResponsable")})
+    @NamedQuery(name = "ProyectoTb.findByEResponsable", query = "SELECT p FROM ProyectoTb p WHERE p.eResponsable = :eResponsable"),
+    @NamedQuery(name = "ProyectoTb.findByEEstado", query = "SELECT p FROM ProyectoTb p WHERE p.eEstado = :eEstado")})
 public class ProyectoTb implements Serializable {
-    @Column(name = "e_estado")
-    private Integer eEstado;
-    @OneToMany(mappedBy = "eIdproyecto")
-    private List<NotapreliminarTb> notapreliminarTbList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,10 +58,18 @@ public class ProyectoTb implements Serializable {
     private Date fFechaFin;
     @Column(name = "e_responsable")
     private Integer eResponsable;
+    @Column(name = "e_estado")
+    private Integer eEstado;
+    @OneToMany(mappedBy = "eIdproyecto")
+    private List<DespachoTb> despachoTbList;
     @OneToMany(mappedBy = "eIdproyecto")
     private List<ActividadTb> actividadTbList;
     @OneToMany(mappedBy = "eIdproyecto")
     private List<ProcesoejemplarTb> procesoejemplarTbList;
+    @OneToMany(mappedBy = "eIdproyecto")
+    private List<NotapreliminarTb> notapreliminarTbList;
+    @OneToMany(mappedBy = "eIdproyecto")
+    private List<ProrrogaProyectoTb> prorrogaProyectoTbList;
 
     public ProyectoTb() {
     }
@@ -121,6 +126,22 @@ public class ProyectoTb implements Serializable {
         this.eResponsable = eResponsable;
     }
 
+    public Integer getEEstado() {
+        return eEstado;
+    }
+
+    public void setEEstado(Integer eEstado) {
+        this.eEstado = eEstado;
+    }
+
+    public List<DespachoTb> getDespachoTbList() {
+        return despachoTbList;
+    }
+
+    public void setDespachoTbList(List<DespachoTb> despachoTbList) {
+        this.despachoTbList = despachoTbList;
+    }
+
     public List<ActividadTb> getActividadTbList() {
         return actividadTbList;
     }
@@ -135,6 +156,22 @@ public class ProyectoTb implements Serializable {
 
     public void setProcesoejemplarTbList(List<ProcesoejemplarTb> procesoejemplarTbList) {
         this.procesoejemplarTbList = procesoejemplarTbList;
+    }
+
+    public List<NotapreliminarTb> getNotapreliminarTbList() {
+        return notapreliminarTbList;
+    }
+
+    public void setNotapreliminarTbList(List<NotapreliminarTb> notapreliminarTbList) {
+        this.notapreliminarTbList = notapreliminarTbList;
+    }
+
+    public List<ProrrogaProyectoTb> getProrrogaProyectoTbList() {
+        return prorrogaProyectoTbList;
+    }
+
+    public void setProrrogaProyectoTbList(List<ProrrogaProyectoTb> prorrogaProyectoTbList) {
+        this.prorrogaProyectoTbList = prorrogaProyectoTbList;
     }
 
     @Override
@@ -160,22 +197,6 @@ public class ProyectoTb implements Serializable {
     @Override
     public String toString() {
         return "modelo.ProyectoTb[ eIdproyecto=" + eIdproyecto + " ]";
-    }
-
-    public Integer getEEstado() {
-        return eEstado;
-    }
-
-    public void setEEstado(Integer eEstado) {
-        this.eEstado = eEstado;
-    }
-
-    public List<NotapreliminarTb> getNotapreliminarTbList() {
-        return notapreliminarTbList;
-    }
-
-    public void setNotapreliminarTbList(List<NotapreliminarTb> notapreliminarTbList) {
-        this.notapreliminarTbList = notapreliminarTbList;
     }
     
 }

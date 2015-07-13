@@ -37,6 +37,10 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "MaterialTb.findByMMarca", query = "SELECT m FROM MaterialTb m WHERE m.mMarca = :mMarca"),
     @NamedQuery(name = "MaterialTb.findByDCantidadmin", query = "SELECT m FROM MaterialTb m WHERE m.dCantidadmin = :dCantidadmin")})
 public class MaterialTb implements Serializable {
+    @Column(name = "b_estado")
+    private Boolean bEstado;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "materialTb")
+    private List<MaterialDespachoTb> materialDespachoTbList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -178,6 +182,22 @@ public class MaterialTb implements Serializable {
     @Override
     public String toString() {
         return "modelo.MaterialTb[ eIdmaterial=" + eIdmaterial + " ]";
+    }
+
+    public Boolean getBEstado() {
+        return bEstado;
+    }
+
+    public void setBEstado(Boolean bEstado) {
+        this.bEstado = bEstado;
+    }
+
+    public List<MaterialDespachoTb> getMaterialDespachoTbList() {
+        return materialDespachoTbList;
+    }
+
+    public void setMaterialDespachoTbList(List<MaterialDespachoTb> materialDespachoTbList) {
+        this.materialDespachoTbList = materialDespachoTbList;
     }
     
 }
