@@ -24,5 +24,9 @@
             <base-name>/BundleProrrogaProy</base-name>
             <var>bundleProrrogaProy</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>/BundleNotas</base-name>
+            <var>bundleNotas</var>
+        </resource-bundle>
     </application>
 </faces-config>

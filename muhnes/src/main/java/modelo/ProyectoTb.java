@@ -37,6 +37,10 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "ProyectoTb.findByFFechaFin", query = "SELECT p FROM ProyectoTb p WHERE p.fFechaFin = :fFechaFin"),
     @NamedQuery(name = "ProyectoTb.findByEResponsable", query = "SELECT p FROM ProyectoTb p WHERE p.eResponsable = :eResponsable")})
 public class ProyectoTb implements Serializable {
+    @Column(name = "e_estado")
+    private Integer eEstado;
+    @OneToMany(mappedBy = "eIdproyecto")
+    private List<NotapreliminarTb> notapreliminarTbList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -156,6 +160,22 @@ public class ProyectoTb implements Serializable {
     @Override
     public String toString() {
         return "modelo.ProyectoTb[ eIdproyecto=" + eIdproyecto + " ]";
+    }
+
+    public Integer getEEstado() {
+        return eEstado;
+    }
+
+    public void setEEstado(Integer eEstado) {
+        this.eEstado = eEstado;
+    }
+
+    public List<NotapreliminarTb> getNotapreliminarTbList() {
+        return notapreliminarTbList;
+    }
+
+    public void setNotapreliminarTbList(List<NotapreliminarTb> notapreliminarTbList) {
+        this.notapreliminarTbList = notapreliminarTbList;
     }
     
 }

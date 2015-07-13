@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="NotapreliminarTbViewDlg" widgetVar="NotapreliminarTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleNotas.ViewNotapreliminarTbTitle}">
+            <h:form id="NotapreliminarTbViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{notapreliminarTbController.selected != null}">
+                        <h:outputText value="#{bundleNotas.ViewNotapreliminarTbLabel_EIdnotapreliminar}"/>
+                        <h:outputText value="#{notapreliminarTbController.selected.EIdnotapreliminar}" title="#{bundleNotas.ViewNotapreliminarTbTitle_EIdnotapreliminar}"/>
+                        <h:outputText value="#{bundleNotas.ViewNotapreliminarTbLabel_FFecha}"/>
+                        <h:outputText value="#{notapreliminarTbController.selected.FFecha}" title="#{bundleNotas.ViewNotapreliminarTbTitle_FFecha}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundleNotas.ViewNotapreliminarTbLabel_ENumcorrelativo}"/>
+                        <h:outputText value="#{notapreliminarTbController.selected.ENumcorrelativo}" title="#{bundleNotas.ViewNotapreliminarTbTitle_ENumcorrelativo}"/>
+                        <h:outputText value="#{bundleNotas.ViewNotapreliminarTbLabel_MDescripcion}"/>
+                        <h:outputText value="#{notapreliminarTbController.selected.MDescripcion}" title="#{bundleNotas.ViewNotapreliminarTbTitle_MDescripcion}"/>
+                        <h:outputText value="#{bundleNotas.ViewNotapreliminarTbLabel_CNombre}"/>
+                        <h:outputText value="#{notapreliminarTbController.selected.CNombre}" title="#{bundleNotas.ViewNotapreliminarTbTitle_CNombre}"/>
+                        <h:outputText value="#{bundleNotas.ViewNotapreliminarTbLabel_MAcompanantes}"/>
+                        <h:outputText value="#{notapreliminarTbController.selected.MAcompanantes}" title="#{bundleNotas.ViewNotapreliminarTbTitle_MAcompanantes}"/>
+                        <h:outputText value="#{bundleNotas.ViewNotapreliminarTbLabel_CUbicacion}"/>
+                        <h:outputText value="#{notapreliminarTbController.selected.CUbicacion}" title="#{bundleNotas.ViewNotapreliminarTbTitle_CUbicacion}"/>
+                        <h:outputText value="#{bundleNotas.ViewNotapreliminarTbLabel_EIdusuario}"/>
+                        <h:outputText value="#{notapreliminarTbController.selected.EIdusuario}" title="#{bundleNotas.ViewNotapreliminarTbTitle_EIdusuario}"/>
+                        <h:outputText value="#{bundleNotas.ViewNotapreliminarTbLabel_EIdproyecto}"/>
+                        <h:outputText value="#{notapreliminarTbController.selected.EIdproyecto}" title="#{bundleNotas.ViewNotapreliminarTbTitle_EIdproyecto}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundleNotas.Close}" onclick="NotapreliminarTbViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
