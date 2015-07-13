@@ -28,5 +28,9 @@
             <base-name>/BundleNotas</base-name>
             <var>bundleNotas</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>/BundleDespacho</base-name>
+            <var>bundleDespacho</var>
+        </resource-bundle>
     </application>
 </faces-config>

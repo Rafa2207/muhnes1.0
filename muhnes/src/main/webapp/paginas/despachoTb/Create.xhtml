@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DespachoTbCreateDlg" widgetVar="DespachoTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleDespacho.CreateDespachoTbTitle}">
+            <h:form id="DespachoTbCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{despachoTbController.selected != null}">
+                        <p:outputLabel value="#{bundleDespacho.CreateDespachoTbLabel_EIddespacho}" for="EIddespacho" />
+                        <p:inputText id="EIddespacho" value="#{despachoTbController.selected.EIddespacho}" title="#{bundleDespacho.CreateDespachoTbTitle_EIddespacho}" required="true" requiredMessage="#{bundleDespacho.CreateDespachoTbRequiredMessage_EIddespacho}"/>
+                        <p:outputLabel value="#{bundleDespacho.CreateDespachoTbLabel_MDescripcion}" for="MDescripcion" />
+                        <p:inputText id="MDescripcion" value="#{despachoTbController.selected.MDescripcion}" title="#{bundleDespacho.CreateDespachoTbTitle_MDescripcion}" />
+                        <p:outputLabel value="#{bundleDespacho.CreateDespachoTbLabel_FFecha}" for="FFecha" />
+                        <p:calendar id="FFecha" pattern="MM/dd/yyyy" value="#{despachoTbController.selected.FFecha}" title="#{bundleDespacho.EditDespachoTbTitle_FFecha}"  showOn="button"/>
+                        <p:outputLabel value="#{bundleDespacho.CreateDespachoTbLabel_EIdproyecto}" for="EIdproyecto" />
+                        <p:selectOneMenu id="EIdproyecto" value="#{despachoTbController.selected.EIdproyecto}" >
+                            <f:selectItems value="#{proyectoTbController.itemsAvailableSelectOne}"
+                                           var="EIdproyectoItem"
+                                           itemValue="#{EIdproyectoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{despachoTbController.create}" value="#{bundleDespacho.Save}" update="display,:DespachoTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'DespachoTbCreateDialog');"/>
+                    <p:commandButton value="#{bundleDespacho.Cancel}" onclick="DespachoTbCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
