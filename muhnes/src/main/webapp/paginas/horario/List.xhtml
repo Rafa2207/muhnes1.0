@@ -24,7 +24,7 @@
                     </p:schedule>
                 </p:panel>
             </h:form>
-            
+
             <h:form id="modales">
 
                 <p:dialog widgetVar="dialogVer" header="Visualizar" showEffect="clip" hideEffect="clip">
@@ -49,13 +49,15 @@
                             <h:outputText value="#{agenda.proyectoView.FFechaFin}">
                                 <f:convertDateTime pattern="dd MMMM yyyy" />
                             </h:outputText>
-                            
-                            <h:outputText value="Presupuesto: "/>
-                            <h:outputText  value="$#{proyectoTbController.presupuesto(agenda.proyectoView)}" />
+
+                            <h:outputText value="Presupuesto ($): "/>
+                            <h:outputText  value="#{proyectoTbController.presupuesto(agenda.proyectoView)}" >
+                                <f:convertNumber type="number" groupingUsed="true" minFractionDigits="2" pattern="#0.00"/>
+                            </h:outputText>
 
                         </p:panelGrid>
                         <p:commandButton value="#{bundle.Close}" update="evento, :growl" oncomplete="handleSubmit(args, 'dialogVer');"/>
-                        <p:commandButton value="Ir a proyectos" action="/paginas/proyectoTb/List.xhtml" />
+                        <p:commandButton value="Ir a proyectos" icon="ui-icon-folder-open" action="/paginas/proyectoTb/List.xhtml" />
                     </h:panelGroup>
 
 
@@ -82,10 +84,15 @@
                             <h:outputText value="#{bundle.ViewActividadTbLabel_EIdproyecto}"/>
                             <h:outputText value="#{agenda.actividadView.EIdproyecto.MNombre}" title="#{bundle.ViewActividadTbTitle_EIdproyecto}"/>
 
-                            <h:outputText value="Costo:"/>
-                            <h:outputText value="$#{agenda.actividadView.DTotal}" title="Costo de la actividad"/>
+                            <h:outputText value="Costo ($):"/>
+                            <h:outputText value="#{agenda.actividadView.DTotal}" title="Costo de la actividad">
+                                <f:convertNumber type="number" groupingUsed="true" minFractionDigits="2" pattern="#0.00"/>
+                            </h:outputText>
                         </p:panelGrid>
                         <p:commandButton value="#{bundle.Close}" update="evento2, :growl" oncomplete="handleSubmit(args, 'dialogVer');"/>
+                        <p:commandButton id="ActividadButton" icon="ui-icon-calendar"  value="Ir a actividades" action="/paginas/actividadTb/List.xhtml" >
+                            <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{agenda.actividadView.EIdproyecto}"/>
+                        </p:commandButton>
                     </h:panelGroup>
                 </p:dialog>    
             </h:form>

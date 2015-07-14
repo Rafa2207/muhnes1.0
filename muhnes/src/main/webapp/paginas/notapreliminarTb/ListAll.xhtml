@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundleNotas.ListNotapreliminarTbTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="NotapreliminarTbListForm">
+                <p:panel header="#{bundleNotas.ListNotapreliminarTbTitle}">
+
+                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundleNotas.View}" update=":NotapreliminarTbViewForm" oncomplete="PF('NotapreliminarTbViewDialog').show()" disabled="#{empty notapreliminarTbController.selected}"/>
+
+                    <p:dataTable id="datalist" value="#{notapreliminarTbController.notasAll}" var="item"
+                                 selectionMode="single" selection="#{notapreliminarTbController.selected}"
+                                 paginator="true" widgetVar="notasTable"
+                                 emptyMessage="No se encontraron notas preliminares"
+                                 rowKey="#{item.EIdnotapreliminar}"
+                                 filteredValue="#{notapreliminarTbController.filtro}"
+                                 rows="10" paginatorPosition="bottom"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update=":NotapreliminarTbListForm:viewButton"/>
+                        <p:ajax event="rowUnselect" update=":NotapreliminarTbListForm:viewButton"/>
+
+                        <p:column  width="20%">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleNotas.ListNotapreliminarTbTitle_CNombre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.CNombre}"/>
+                        </p:column>
+                                               
+                        <p:column  width="10%">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleNotas.ListNotapreliminarTbTitle_FFecha}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.FFecha}">
+                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                            </h:outputText>
+                        </p:column>
+                                                
+                        <p:column  width="15%">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleNotas.ListNotapreliminarTbTitle_CUbicacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.CUbicacion}"/>
+                        </p:column>
+                        
+                        <p:column  width="15%">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleNotas.ListNotapreliminarTbTitle_EIdusuario}"/>
+                            </f:facet>
+                            <h:outputText value="#{notapreliminarTbController.NombreUsuario(item.EIdusuario)}"/>
+                        </p:column>
+                        
+                        <p:column >
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleNotas.ListNotapreliminarTbTitle_EIdproyecto}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.EIdproyecto.MNombre}"/>
+                        </p:column>
+                        
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Búsqueda: " />
+                                <p:inputText id="globalFilter" onkeyup="PF('notasTable').filter()" placeholder="Escriba aquí"/>
+                            </p:outputPanel>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

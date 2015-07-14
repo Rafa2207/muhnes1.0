@@ -11,33 +11,42 @@
         <p:dialog id="NotapreliminarTbEditDlg" widgetVar="NotapreliminarTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleNotas.EditNotapreliminarTbTitle}">
             <h:form id="NotapreliminarTbEditForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{notapreliminarTbController.selected != null}">
-                        <p:outputLabel value="#{bundleNotas.EditNotapreliminarTbLabel_EIdnotapreliminar}" for="EIdnotapreliminar" />
-                        <p:inputText id="EIdnotapreliminar" value="#{notapreliminarTbController.selected.EIdnotapreliminar}" title="#{bundleNotas.EditNotapreliminarTbTitle_EIdnotapreliminar}" required="true" requiredMessage="#{bundleNotas.EditNotapreliminarTbRequiredMessage_EIdnotapreliminar}"/>
-                        <p:outputLabel value="#{bundleNotas.EditNotapreliminarTbLabel_FFecha}" for="FFecha" />
-                        <p:calendar id="FFecha" pattern="MM/dd/yyyy" value="#{notapreliminarTbController.selected.FFecha}" title="#{bundleNotas.EditNotapreliminarTbTitle_FFecha}"  showOn="button"/>
-                        <p:outputLabel value="#{bundleNotas.EditNotapreliminarTbLabel_ENumcorrelativo}" for="ENumcorrelativo" />
-                        <p:inputText id="ENumcorrelativo" value="#{notapreliminarTbController.selected.ENumcorrelativo}" title="#{bundleNotas.EditNotapreliminarTbTitle_ENumcorrelativo}" />
-                        <p:outputLabel value="#{bundleNotas.EditNotapreliminarTbLabel_MDescripcion}" for="MDescripcion" />
-                        <p:inputText id="MDescripcion" value="#{notapreliminarTbController.selected.MDescripcion}" title="#{bundleNotas.EditNotapreliminarTbTitle_MDescripcion}" />
-                        <p:outputLabel value="#{bundleNotas.EditNotapreliminarTbLabel_CNombre}" for="CNombre" />
-                        <p:inputText id="CNombre" value="#{notapreliminarTbController.selected.CNombre}" title="#{bundleNotas.EditNotapreliminarTbTitle_CNombre}" />
-                        <p:outputLabel value="#{bundleNotas.EditNotapreliminarTbLabel_MAcompanantes}" for="MAcompanantes" />
-                        <p:inputText id="MAcompanantes" value="#{notapreliminarTbController.selected.MAcompanantes}" title="#{bundleNotas.EditNotapreliminarTbTitle_MAcompanantes}" />
-                        <p:outputLabel value="#{bundleNotas.EditNotapreliminarTbLabel_CUbicacion}" for="CUbicacion" />
-                        <p:inputText id="CUbicacion" value="#{notapreliminarTbController.selected.CUbicacion}" title="#{bundleNotas.EditNotapreliminarTbTitle_CUbicacion}" />
-                        <p:outputLabel value="#{bundleNotas.EditNotapreliminarTbLabel_EIdusuario}" for="EIdusuario" />
-                        <p:inputText id="EIdusuario" value="#{notapreliminarTbController.selected.EIdusuario}" title="#{bundleNotas.EditNotapreliminarTbTitle_EIdusuario}" />
-                        <p:outputLabel value="#{bundleNotas.EditNotapreliminarTbLabel_EIdproyecto}" for="EIdproyecto" />
+                    <p:panelGrid columns="4" rendered="#{notapreliminarTbController.selected != null}">
+                        
+                        <p:outputLabel value="#{bundleNotas.CreateNotapreliminarTbLabel_CNombre}" for="CNombre" />
+                        <p:inputText id="CNombre" value="#{notapreliminarTbController.selected.CNombre}" title="#{bundleNotas.CreateNotapreliminarTbTitle_CNombre}"
+                                     required="true" requiredMessage="Ingrese nombre"/>
+
+                        <p:outputLabel value="#{bundleNotas.CreateNotapreliminarTbLabel_FFecha}" for="FFecha" />
+                        <p:calendar id="FFecha" pattern="dd MMMM yyyy" value="#{notapreliminarTbController.selected.FFecha}"
+                                    title="#{bundleNotas.CreateNotapreliminarTbLabel_FFecha}"
+                                    locale="es" showOn="button" readonlyInput="true" required="true" requiredMessage="Ingrese fecha"/>
+
+                        <p:outputLabel value="#{bundleNotas.CreateNotapreliminarTbLabel_ENumcorrelativo}" for="ENumcorrelativo" />
+                        <p:inputText id="ENumcorrelativo" value="#{notapreliminarTbController.selected.ENumcorrelativo}" title="#{bundleNotas.CreateNotapreliminarTbTitle_ENumcorrelativo}" />
+
+                        <p:outputLabel value="#{bundleNotas.CreateNotapreliminarTbLabel_MDescripcion}" for="MDescripcion" />
+                        <p:inputText id="MDescripcion" value="#{notapreliminarTbController.selected.MDescripcion}" title="#{bundleNotas.CreateNotapreliminarTbTitle_MDescripcion}" />
+
+                        <p:outputLabel value="#{bundleNotas.CreateNotapreliminarTbLabel_MAcompanantes}" for="MAcompanantes" />
+                        <p:inputText id="MAcompanantes" value="#{notapreliminarTbController.selected.MAcompanantes}" title="#{bundleNotas.CreateNotapreliminarTbTitle_MAcompanantes}" />
+
+                        <p:outputLabel value="#{bundleNotas.CreateNotapreliminarTbLabel_CUbicacion}" for="CUbicacion" />
+                        <p:inputText id="CUbicacion" value="#{notapreliminarTbController.selected.CUbicacion}" title="#{bundleNotas.CreateNotapreliminarTbTitle_CUbicacion}" />
+
+                        <p:outputLabel value="#{bundleNotas.CreateNotapreliminarTbLabel_EIdusuario}" for="EIdusuario" />
+                        <p:inputText id="EIdusuario" value="#{notapreliminarTbController.selected.EIdusuario}" title="#{bundleNotas.CreateNotapreliminarTbTitle_EIdusuario}" />
+
+                        <p:outputLabel value="#{bundleNotas.CreateNotapreliminarTbLabel_EIdproyecto}" for="EIdproyecto" />
                         <p:selectOneMenu id="EIdproyecto" value="#{notapreliminarTbController.selected.EIdproyecto}" >
-                            <f:selectItem itemLabel="#{bundleNotas.SelectOneMessage}"/>
                             <f:selectItems value="#{proyectoTbController.itemsAvailableSelectOne}"
                                            var="EIdproyectoItem"
-                                           itemValue="#{EIdproyectoItem}"/>
+                                           itemValue="#{EIdproyectoItem}"
+                                           itemLabel="#{EIdproyectoItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{notapreliminarTbController.update}" value="#{bundleNotas.Save}" update="display,:NotapreliminarTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'NotapreliminarTbEditDialog');"/>
-                    <p:commandButton value="#{bundleNotas.Cancel}" onclick="NotapreliminarTbEditDialog.hide()"/>
+                  
                 </h:panelGroup>
             </h:form>
         </p:dialog>

@@ -18,6 +18,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import modelo.ProyectoTb;
+import modelo.UsuarioTb;
+import servicio.UsuarioTbFacade;
 
 @Named("notapreliminarTbController")
 @SessionScoped
@@ -25,9 +28,55 @@ public class NotapreliminarTbController implements Serializable {
 
     @EJB
     private servicio.NotapreliminarTbFacade ejbFacade;
-    private List<NotapreliminarTb> items = null;
+    @EJB
+    private servicio.UsuarioTbFacade usuarioFacade;
+    private List<NotapreliminarTb> items = null, filtro, NotasAll=null, Notas=null;
     private NotapreliminarTb selected;
+    private UsuarioTb user=null;
 
+    public List<NotapreliminarTb> getNotas(ProyectoTb proyecto) {
+        Notas= getFacade().buscarPorProyecto(proyecto);
+        return Notas;
+    }
+
+    public void setNotas(List<NotapreliminarTb> Notas) {
+        this.Notas = Notas;
+    }
+    
+    public List<NotapreliminarTb> getNotasAll() {
+        NotasAll = getFacade().buscarNotasAll();
+        return NotasAll;
+    }
+
+    public void setNotasAll(List<NotapreliminarTb> NotasAll) {
+        this.NotasAll = NotasAll;
+    }
+    
+
+    public UsuarioTb getUser() {
+        return user;
+    }
+
+    public void setUser(UsuarioTb user) {
+        this.user = user;
+    }
+
+    public UsuarioTbFacade getUsuarioFacade() {
+        return usuarioFacade;
+    }
+
+    public void setUsuarioFacade(UsuarioTbFacade usuarioFacade) {
+        this.usuarioFacade = usuarioFacade;
+    }
+
+    public List<NotapreliminarTb> getFiltro() {
+        return filtro;
+    }
+
+    public void setFiltro(List<NotapreliminarTb> filtro) {
+        this.filtro = filtro;
+    }
+    
     public NotapreliminarTbController() {
     }
 
@@ -49,9 +98,14 @@ public class NotapreliminarTbController implements Serializable {
         return ejbFacade;
     }
 
-    public NotapreliminarTb prepareCreate() {
+    public NotapreliminarTb prepareCreate(String usuario, ProyectoTb proyecto) {
+        
         selected = new NotapreliminarTb();
+       
         initializeEmbeddableKey();
+        user = getUsuarioFacade().BuscarUsuario(usuario);
+        selected.setEIdproyecto(proyecto);
+        selected.setEIdusuario(user.getEIdusuario());
         return selected;
     }
 
@@ -160,6 +214,12 @@ public class NotapreliminarTbController implements Serializable {
             }
         }
 
+    }
+    
+    public String NombreUsuario(int idUser){
+        UsuarioTb user=null;
+        user= getFacade().UsuarioParaVista(idUser);
+        return user.getCNombre()+" "+user.getCApellido();
     }
 
 }

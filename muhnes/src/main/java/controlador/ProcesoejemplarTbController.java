@@ -33,12 +33,16 @@ public class ProcesoejemplarTbController implements Serializable {
     private List<ProcesoejemplarTb> items = null, lista = null;
     private ProcesoejemplarTb selected;
     private ProyectoTb proyectos;
-    private int cantidadSiguiente;
+    private int cantidadSiguiente, cantidad;
     private Date fechaSiguiente = new Date();
     private Date fechaInicioSiguiente = new Date();
     boolean valor, control;
     private String nombre;
 
+    public int getCantidad() {
+        return cantidad;
+    }
+    
     public String getNombre() {
         return nombre;
     }
@@ -247,6 +251,7 @@ public class ProcesoejemplarTbController implements Serializable {
     public void prepareViewSiguiente(ProyectoTb proyecto, ProcesoejemplarTb pe) {
         getLista();
         nombre = pe.getMNombre();
+        cantidad=pe.getECantidad();
         for (ProcesoejemplarTb pro : lista) {
             if (pro.getEIdproyecto().getEIdproyecto() == proyecto.getEIdproyecto()) {
                 if (pro.getERelacion() == pe.getEIdproceso()) {
