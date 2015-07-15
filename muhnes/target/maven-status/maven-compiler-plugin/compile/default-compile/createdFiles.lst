@@ -38,6 +38,7 @@ servicio\NombrecomunTbFacade.class
 modelo\DespachoTb.class
 modelo\EjemplarParticipaExhibicionTb_.class
 modelo\MaterialPedidoTbPK_.class
+controlador\util\RestorePostgresqlDatabase.class
 controlador\CantonTbController$CantonTbControllerConverter.class
 modelo\InsumoTb_.class
 modelo\LocalidadTb_.class
@@ -92,6 +93,7 @@ servicio\UnidadesTbFacade.class
 controlador\GeneroTbController$GeneroTbControllerConverter.class
 controlador\PaisTbController.class
 modelo\AreaprotegidaTb_.class
+controlador\util\BackupDB.class
 servicio\SubespecieTbFacade.class
 controlador\SubespecieTbController.class
 modelo\AgentePerfilTb.class
