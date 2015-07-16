@@ -6,6 +6,7 @@ import controlador.util.JsfUtil.PersistAction;
 import servicio.DespachoTbFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -13,22 +14,79 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.view.ViewScoped;
+import modelo.MaterialDespachoTb;
+import modelo.MaterialDespachoTbPK;
+import modelo.MaterialTb;
 
 @Named("despachoTbController")
-@SessionScoped
+@ViewScoped
 public class DespachoTbController implements Serializable {
 
     @EJB
+    private servicio.MaterialTbFacade materialFacade;
+    @EJB
     private servicio.DespachoTbFacade ejbFacade;
-    private List<DespachoTb> items = null;
+    private List<DespachoTb> items = null, filtro;
     private DespachoTb selected;
+    private MaterialTb material;
+    private List<MaterialTb> materialDisponible;
+    private double cantidad, salida;
+    private MaterialDespachoTb materialMD;
 
     public DespachoTbController() {
+    }
+
+    public List<MaterialTb> getMaterialDisponible() {
+        return materialDisponible;
+    }
+
+    public void setMaterialDisponible(List<MaterialTb> materialDisponible) {
+        this.materialDisponible = materialDisponible;
+    }
+
+    public MaterialDespachoTb getMaterialMD() {
+        return materialMD;
+    }
+
+    public void setMaterialMD(MaterialDespachoTb materialMD) {
+        this.materialMD = materialMD;
+    }
+
+    public MaterialTb getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(MaterialTb material) {
+        this.material = material;
+    }
+
+    public double getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(double cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public double getSalida() {
+        return salida;
+    }
+
+    public void setSalida(double salida) {
+        this.salida = salida;
+    }
+
+    public List<DespachoTb> getFiltro() {
+        return filtro;
+    }
+
+    public void setFiltro(List<DespachoTb> filtro) {
+        this.filtro = filtro;
     }
 
     public DespachoTb getSelected() {
@@ -51,6 +109,17 @@ public class DespachoTbController implements Serializable {
 
     public DespachoTb prepareCreate() {
         selected = new DespachoTb();
+        initializeEmbeddableKey();
+        selected.setMaterialDespachoTbList(new ArrayList<MaterialDespachoTb>());
+        materialDisponible = materialFacade.buscarTodosAZ();
+        return selected;
+    }
+    
+    public DespachoTb prepareEdit() {
+        materialDisponible = materialFacade.buscarTodosAZ();
+        for (MaterialDespachoTb b : selected.getMaterialDespachoTbList()) {
+            materialDisponible.remove(b.getMaterialTb());
+        }
         initializeEmbeddableKey();
         return selected;
     }
@@ -162,4 +231,30 @@ public class DespachoTbController implements Serializable {
 
     }
 
+    public void agregar() {
+        MaterialDespachoTb nuevo = new MaterialDespachoTb();
+        nuevo.setDCantidad(cantidad);
+        nuevo.setMaterialTb(material);
+        nuevo.setDespachoTb(selected);
+
+        MaterialDespachoTbPK mppk = new MaterialDespachoTbPK();
+        mppk.setEIdmaterial(material.getEIdmaterial());
+        mppk.setEIddespacho(getFacade().siguienteId());
+
+        nuevo.setMaterialDespachoTbPK(mppk);
+
+        selected.getMaterialDespachoTbList().add(nuevo);
+
+        materialDisponible.remove(material);
+        material.setDCantidad(material.getDCantidad()-cantidad);
+
+        cantidad = 0.0;
+
+    }
+
+    public void remover() {
+        selected.getMaterialDespachoTbList().remove(materialMD);
+        materialDisponible.add(materialMD.getMaterialTb());
+        material = null;
+    }
 }

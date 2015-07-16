@@ -8,25 +8,82 @@
 
     <ui:composition>
 
-        <p:dialog id="DespachoTbCreateDlg" widgetVar="DespachoTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleDespacho.CreateDespachoTbTitle}">
+        <p:dialog id="DespachoTbCreateDlg" widgetVar="DespachoTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Crear nuevo Despacho de materiales">
             <h:form id="DespachoTbCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{despachoTbController.selected != null}">
-                        <p:outputLabel value="#{bundleDespacho.CreateDespachoTbLabel_EIddespacho}" for="EIddespacho" />
-                        <p:inputText id="EIddespacho" value="#{despachoTbController.selected.EIddespacho}" title="#{bundleDespacho.CreateDespachoTbTitle_EIddespacho}" required="true" requiredMessage="#{bundleDespacho.CreateDespachoTbRequiredMessage_EIddespacho}"/>
-                        <p:outputLabel value="#{bundleDespacho.CreateDespachoTbLabel_MDescripcion}" for="MDescripcion" />
-                        <p:inputText id="MDescripcion" value="#{despachoTbController.selected.MDescripcion}" title="#{bundleDespacho.CreateDespachoTbTitle_MDescripcion}" />
-                        <p:outputLabel value="#{bundleDespacho.CreateDespachoTbLabel_FFecha}" for="FFecha" />
-                        <p:calendar id="FFecha" pattern="MM/dd/yyyy" value="#{despachoTbController.selected.FFecha}" title="#{bundleDespacho.EditDespachoTbTitle_FFecha}"  showOn="button"/>
-                        <p:outputLabel value="#{bundleDespacho.CreateDespachoTbLabel_EIdproyecto}" for="EIdproyecto" />
-                        <p:selectOneMenu id="EIdproyecto" value="#{despachoTbController.selected.EIdproyecto}" >
-                            <f:selectItems value="#{proyectoTbController.itemsAvailableSelectOne}"
-                                           var="EIdproyectoItem"
-                                           itemValue="#{EIdproyectoItem}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{despachoTbController.create}" value="#{bundleDespacho.Save}" update="display,:DespachoTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'DespachoTbCreateDialog');"/>
-                    <p:commandButton value="#{bundleDespacho.Cancel}" onclick="DespachoTbCreateDialog.hide()"/>
+                    <p:fieldset legend="Despacho">
+                        <p:panelGrid columns="2" rendered="#{despachoTbController.selected != null}">
+                            <p:outputLabel value="Descripción: " for="MDescripcion" />
+                            <p:inputTextarea cols="20" rows="4" id="MDescripcion" value="#{despachoTbController.selected.MDescripcion}" title="#{bundleDespacho.CreateDespachoTbTitle_MDescripcion}" required="true" requiredMessage="Introduzca una descripción"/>
+                            <p:outputLabel value="Fecha: " for="FFecha" />
+                            <p:calendar id="FFecha" pattern="dd MMMM yyyy" value="#{despachoTbController.selected.FFecha}" title="#{bundleDespacho.EditDespachoTbTitle_FFecha}"  showOn="button" locale="es" required="true" requiredMessage="Introduzca una fecha" mindate="0"/>
+                            <p:outputLabel value="Proyecto: " for="EIdproyecto" />
+                            <p:selectOneMenu id="EIdproyecto" value="#{despachoTbController.selected.EIdproyecto}" required="true" requiredMessage="Seleccione un proyecto">
+                                <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                <f:selectItems value="#{proyectoTbController.itemsAvailableSelectOne}"
+                                               var="EIdproyectoItem"
+                                               itemValue="#{EIdproyectoItem}"
+                                               itemLabel="#{EIdproyectoItem.MNombre}"/>
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                    </p:fieldset>
+                    <p:fieldset legend="Materiales">
+                        <p:panelGrid columns="9">
+                            <p:outputLabel value="Material:" for="material" />
+                            <p:selectOneMenu id="material"
+                                             value="#{despachoTbController.material}" filter="true">
+                                <f:selectItem itemLabel="Seleccione uno..."
+                                              itemValue=""/>
+                                <f:selectItems value="#{despachoTbController.materialDisponible}"
+                                               var="mt"
+                                               itemLabel="#{mt.CNombre}"
+                                               itemValue="#{mt}"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Cantidad:" for="cant"/>
+                            <p:inputText id="cant" size="4" value="#{despachoTbController.cantidad}"/>
+                            <p:commandButton id="agregar"
+                                             value="Agregar"
+                                             actionListener="#{despachoTbController.agregar()}"
+                                             process="cant material agregar"
+                                             update="cant material materiales"
+                                             />
+                        </p:panelGrid>
+                        <p:dataTable id="materiales"
+                                     editable="true"
+                                     value="#{despachoTbController.selected.materialDespachoTbList}"
+                                     var="material"
+                                     scrollable="true"
+                                     scrollHeight="160"
+                                     emptyMessage="No ha agregado materiales"
+                                     tableStyle="width:800px">
+                            <p:column headerText="Material">
+                                #{material.materialTb.CNombre}
+                            </p:column>
+                            <p:column headerText="Cantidad">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        #{material.DCantidad}
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{material.DCantidad}"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="Acciones">
+                                    <p:rowEditor/>
+                                    <p:commandLink
+                                        style="display: inline-block;"
+                                        styleClass="ui-icon ui-icon-trash"
+                                        action="#{despachoTbController.remover()}"
+                                        process="materiales"
+                                        update="materiales, :DespachoTbCreateForm:material">
+                                        <f:setPropertyActionListener value="#{material}" 
+                                                                     target="#{despachoTbController.materialMD}"/>
+                                    </p:commandLink>
+                            </p:column>
+                        </p:dataTable>
+                    </p:fieldset>
+                    <p:commandButton actionListener="#{despachoTbController.create}" value="#{bundle.Save}" update="display,:DespachoTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'DespachoTbCreateDialog');"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

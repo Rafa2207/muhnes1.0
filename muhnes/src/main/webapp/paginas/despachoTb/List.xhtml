@@ -10,54 +10,63 @@
 
 
         <ui:define name="title">
-            <h:outputText value="#{bundleDespacho.ListDespachoTbTitle}"></h:outputText>
+            <h:outputText value="Despacho de materiales"></h:outputText>
         </ui:define>
 
         <ui:define name="body">
             <h:form id="DespachoTbListForm">
-                <p:panel header="#{bundleDespacho.ListDespachoTbTitle}">
+                <p:panel header="Despacho de materiales">
+                    
+                    <p:breadCrumb>
+                        <p:menuitem value="casita" outcome="/paginas/bienvenido.xhtml"/>
+                        <p:menuitem value="Despacho de materiales" outcome="/paginas/despachoTb/List.xhtml" />
+                    </p:breadCrumb>
+                    
+                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{despachoTbController.prepareCreate}" update=":DespachoTbCreateForm" oncomplete="PF('DespachoTbCreateDialog').show()"/>
+                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DespachoTbViewForm" oncomplete="PF('DespachoTbViewDialog').show()" disabled="#{empty despachoTbController.selected}"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" actionListener="#{despachoTbController.prepareEdit}" update=":DespachoTbEditForm" oncomplete="PF('DespachoTbEditDialog').show()" disabled="#{empty despachoTbController.selected}"/>
+                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{despachoTbController.destroy}" update=":growl,datalist" disabled="#{empty despachoTbController.selected}"/>
+                    
                     <p:dataTable id="datalist" value="#{despachoTbController.items}" var="item"
                                  selectionMode="single" selection="#{despachoTbController.selected}"
                                  paginator="true"
+                                 paginatorPosition="bottom"
                                  rowKey="#{item.EIddespacho}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
+                                 emptyMessage="No se encontraron pedidos."
+                                 filteredValue="#{despachoTbController.filtro}"
+                                 widgetVar="despachoTable"
                                  >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowSelect"   update=":DespachoTbListForm:createButton :DespachoTbListForm:viewButton :DespachoTbListForm:editButton :DespachoTbListForm:deleteButton"/>
+                        <p:ajax event="rowUnselect" update=":DespachoTbListForm:createButton :DespachoTbListForm:viewButton :DespachoTbListForm:editButton :DespachoTbListForm:deleteButton"/>
 
-                        <p:column>
+                        <p:column filterBy="#{item.MDescripcion}" filterStyle="display:none">
                             <f:facet name="header">
-                                <h:outputText value="#{bundleDespacho.ListDespachoTbTitle_EIddespacho}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.EIddespacho}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundleDespacho.ListDespachoTbTitle_MDescripcion}"/>
+                                <h:outputText value="Descripción"/>
                             </f:facet>
                             <h:outputText value="#{item.MDescripcion}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.FFecha}" filterStyle="display:none">
                             <f:facet name="header">
-                                <h:outputText value="#{bundleDespacho.ListDespachoTbTitle_FFecha}"/>
+                                <h:outputText value="Fecha"/>
                             </f:facet>
                             <h:outputText value="#{item.FFecha}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                                <f:convertDateTime pattern="dd MMMM yyyy" />
                             </h:outputText>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.EIdproyecto.MNombre}" filterStyle="display:none">
                             <f:facet name="header">
-                                <h:outputText value="#{bundleDespacho.ListDespachoTbTitle_EIdproyecto}"/>
+                                <h:outputText value="Proyecto"/>
                             </f:facet>
-                            <h:outputText value="#{item.EIdproyecto}"/>
+                            <h:outputText value="#{item.EIdproyecto.MNombre}"/>
                         </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundleDespacho.Create}" actionListener="#{despachoTbController.prepareCreate}" update=":DespachoTbCreateForm" oncomplete="PF('DespachoTbCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundleDespacho.View}" update=":DespachoTbViewForm" oncomplete="PF('DespachoTbViewDialog').show()" disabled="#{empty despachoTbController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundleDespacho.Edit}" update=":DespachoTbEditForm" oncomplete="PF('DespachoTbEditDialog').show()" disabled="#{empty despachoTbController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundleDespacho.Delete}" actionListener="#{despachoTbController.destroy}" update=":growl,datalist" disabled="#{empty despachoTbController.selected}"/>
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Búsqueda: " />
+                                <p:inputText id="globalFilter" onkeyup="PF('despachoTable').filter()" placeholder="Escriba aquí"/>
+                            </p:outputPanel>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

@@ -11,19 +11,35 @@
         <p:dialog id="DespachoTbViewDlg" widgetVar="DespachoTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleDespacho.ViewDespachoTbTitle}">
             <h:form id="DespachoTbViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{despachoTbController.selected != null}">
-                        <h:outputText value="#{bundleDespacho.ViewDespachoTbLabel_EIddespacho}"/>
-                        <h:outputText value="#{despachoTbController.selected.EIddespacho}" title="#{bundleDespacho.ViewDespachoTbTitle_EIddespacho}"/>
-                        <h:outputText value="#{bundleDespacho.ViewDespachoTbLabel_MDescripcion}"/>
+                    <p:panelGrid columns="2" style="width: 600px" rendered="#{despachoTbController.selected != null}">
+                        <h:outputText value="Descripción: "/>
                         <h:outputText value="#{despachoTbController.selected.MDescripcion}" title="#{bundleDespacho.ViewDespachoTbTitle_MDescripcion}"/>
-                        <h:outputText value="#{bundleDespacho.ViewDespachoTbLabel_FFecha}"/>
+                        <h:outputText value="Fecha: "/>
                         <h:outputText value="#{despachoTbController.selected.FFecha}" title="#{bundleDespacho.ViewDespachoTbTitle_FFecha}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                            <f:convertDateTime pattern="dd MMMM yyyy" />
                         </h:outputText>
-                        <h:outputText value="#{bundleDespacho.ViewDespachoTbLabel_EIdproyecto}"/>
-                        <h:outputText value="#{despachoTbController.selected.EIdproyecto}" title="#{bundleDespacho.ViewDespachoTbTitle_EIdproyecto}"/>
+                        <h:outputText value="Proyecto: "/>
+                        <h:outputText value="#{despachoTbController.selected.EIdproyecto.MNombre}" title="#{bundleDespacho.ViewDespachoTbTitle_EIdproyecto}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundleDespacho.Close}" onclick="DespachoTbViewDialog.hide()"/>
+                    <p:dataTable id="materiales"
+                                 editable="true"
+                                 value="#{despachoTbController.selected.materialDespachoTbList}"
+                                 var="material"
+                                 scrollable="true"
+                                 scrollHeight="160"
+                                 emptyMessage="No ha agregado materiales"
+                                 tableStyle="width:600px">
+                        <p:column headerText="Material">
+                            #{material.materialTb.CNombre}
+                        </p:column>
+                        <p:column headerText="Marca">
+                            #{material.materialTb.MMarca}
+                        </p:column>
+                        <p:column headerText="Cantidad">
+                            #{material.DCantidad}
+                        </p:column>
+                    </p:dataTable>
+                    <p:commandButton value="#{bundle.Close}" onclick="DespachoTbViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
