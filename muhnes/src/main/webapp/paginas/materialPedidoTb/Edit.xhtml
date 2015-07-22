@@ -28,6 +28,7 @@
                                 <f:selectItem itemLabel="Recibido Parcialmente" itemValue="1" />
                                 <f:selectItem itemLabel="Recibido" itemValue="2" />
                                 <f:selectItem itemLabel="No se recibirá" itemValue="3" />
+                                <p:ajax event="change" process="estado" listener="#{pedidoTbController.desactivar()}" update="materiales"/>
                             </p:selectOneRadio>
                         </p:panelGrid>
                     </p:fieldset>
@@ -47,14 +48,14 @@
                                 #{material.DCantidad}                                   
                             </p:column>
                             <p:column headerText="Catidad Recibida" width="20%">
-                                <p:inputText size="10" value="#{material.DEntrada}"/>
+                                <p:inputText size="10" value="#{material.DEntrada}" disabled="#{pedidoTbController.bandera}"/>
                             </p:column>
                             <p:column headerText="Fecha Recibido" width="25%">
                                 <p:calendar id="FechaRec" size="15" pattern="dd MMMM yyyy" value="#{material.FFechaRecibido}" title="Fecha recibido"  
                                             readonlyInput="true"
                                             requiredMessage="Introduzca fecha de recibido"
                                             locale="es" 
-                                            required="true" mindate="0"/>
+                                            required="true" mindate="0" disabled="#{pedidoTbController.bandera}"/>
                             </p:column>
                         </p:dataTable>
                     </p:fieldset>

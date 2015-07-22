@@ -39,6 +39,15 @@ public class PedidoTbController implements Serializable {
     private double cantidad, entrada;
     private MaterialPedidoTb materialEL;
     private Integer estado;
+    private boolean bandera;
+
+    public boolean isBandera() {
+        return bandera;
+    }
+
+    public void setBandera(boolean bandera) {
+        this.bandera = bandera;
+    }
 
     public double getEntrada() {
         return entrada;
@@ -130,6 +139,11 @@ public class PedidoTbController implements Serializable {
         materialDisponible = materialFacade.buscarTodosAZ();
         for (MaterialPedidoTb b : selected.getMaterialPedidoTbList()) {
             materialDisponible.remove(b.getMaterialTb());
+        }
+        if (selected.getEEstado() == 3) {
+            bandera = true;
+        } else {
+            bandera = false;
         }
         initializeEmbeddableKey();
         return selected;
@@ -320,8 +334,16 @@ public class PedidoTbController implements Serializable {
 //material.setDCantidad(total);
             //total = 0.0;
         }
-        
-        selected.setEEstado(estado);
+
+        //selected.setEEstado(estado);
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("PedidoTbRecibido"));
+    }
+
+    public void desactivar() {
+        if (selected.getEEstado() == 3) {
+            bandera = true;
+        } else {
+            bandera = false;
+        }
     }
 }
