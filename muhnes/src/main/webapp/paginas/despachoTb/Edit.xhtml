@@ -36,9 +36,11 @@
                                                var="mt"
                                                itemLabel="#{mt.CNombre}"
                                                itemValue="#{mt}"/>
+                                <p:ajax event="change" process="material" update="und"/>
                             </p:selectOneMenu>
                             <p:outputLabel value="Cantidad:" for="cant"/>
                             <p:inputText id="cant" size="4" value="#{despachoTbController.cantidad}"/>
+                            <h:outputText id="und" value="#{despachoTbController.material.EIdunidad.CNombre}"/>
                             <p:commandButton id="agregar"
                                              value="Agregar"
                                              actionListener="#{despachoTbController.agregar()}"

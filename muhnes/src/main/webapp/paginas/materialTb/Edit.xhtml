@@ -20,6 +20,15 @@
                         <p:inputText id="CNombre" value="#{materialTbController.selected.CNombre}" title="#{bundle.CreateMaterialTbTitle_CNombre}"
                                      required="true"
                                      requiredMessage="Introduzca nombre del material" size="25" maxlength="50"/>
+                        
+                        <p:outputLabel value="Unidad:" for="unidad" />
+                        <p:selectOneMenu id="unidad" filter="true" value="#{materialTbController.selected.EIdunidad}">
+                                <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                <f:selectItems value="#{unidadesTbController.itemsAvailableSelectOne}" 
+                                               var="unidad" 
+                                               itemLabel="#{unidad.CNombre}" 
+                                               itemValue="#{unidad}"/>
+                            </p:selectOneMenu>
 
                         <p:outputLabel value="Marca: " for="Marca" />
                         <p:inputText id="Marca" value="#{materialTbController.selected.MMarca}" title="Marca" 

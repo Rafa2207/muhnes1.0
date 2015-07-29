@@ -42,21 +42,21 @@
                         <p:ajax event="rowSelect"   update=":DespachoTbListForm:createButton :DespachoTbListForm:viewButton :DespachoTbListForm:editButton :DespachoTbListForm:deleteButton"/>
                         <p:ajax event="rowUnselect" update=":DespachoTbListForm:createButton :DespachoTbListForm:viewButton :DespachoTbListForm:editButton :DespachoTbListForm:deleteButton"/>
 
-                        <p:column filterBy="#{item.MDescripcion}" filterStyle="display:none">
+                        <p:column width="30%" filterBy="#{item.MDescripcion}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="Descripción"/>
                             </f:facet>
                             <h:outputText value="#{item.MDescripcion}"/>
                         </p:column>
-                        <p:column filterBy="#{item.FFecha}" filterStyle="display:none">
+                        <p:column width="30%" filterBy="#{item.FFecha}" style="text-align: center" filterStyle="display:none">
                             <f:facet name="header">
-                                <h:outputText value="Fecha"/>
+                                <h:outputText value="Fecha de despacho"/>
                             </f:facet>
                             <h:outputText value="#{item.FFecha}">
                                 <f:convertDateTime pattern="dd MMMM yyyy" />
                             </h:outputText>
                         </p:column>
-                        <p:column filterBy="#{item.EIdproyecto.MNombre}" filterStyle="display:none">
+                        <p:column width="40%" filterBy="#{item.EIdproyecto.MNombre}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="Proyecto"/>
                             </f:facet>

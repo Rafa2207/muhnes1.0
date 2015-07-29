@@ -65,6 +65,7 @@ public class MaterialTbController implements Serializable {
     }
 
     public void create() {
+        selected.setDCantidad(0.0);
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("MaterialTbCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.

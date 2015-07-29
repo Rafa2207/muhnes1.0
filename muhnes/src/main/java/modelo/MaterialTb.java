@@ -14,6 +14,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -35,12 +37,9 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "MaterialTb.findByCEstado", query = "SELECT m FROM MaterialTb m WHERE m.cEstado = :cEstado"),
     @NamedQuery(name = "MaterialTb.findByMCodigobarras", query = "SELECT m FROM MaterialTb m WHERE m.mCodigobarras = :mCodigobarras"),
     @NamedQuery(name = "MaterialTb.findByMMarca", query = "SELECT m FROM MaterialTb m WHERE m.mMarca = :mMarca"),
-    @NamedQuery(name = "MaterialTb.findByDCantidadmin", query = "SELECT m FROM MaterialTb m WHERE m.dCantidadmin = :dCantidadmin")})
+    @NamedQuery(name = "MaterialTb.findByDCantidadmin", query = "SELECT m FROM MaterialTb m WHERE m.dCantidadmin = :dCantidadmin"),
+    @NamedQuery(name = "MaterialTb.findByBEstado", query = "SELECT m FROM MaterialTb m WHERE m.bEstado = :bEstado")})
 public class MaterialTb implements Serializable {
-    @Column(name = "b_estado")
-    private Boolean bEstado;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "materialTb")
-    private List<MaterialDespachoTb> materialDespachoTbList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -67,10 +66,13 @@ public class MaterialTb implements Serializable {
     private String mMarca;
     @Column(name = "d_cantidadmin")
     private Double dCantidadmin;
+    @Column(name = "b_estado")
+    private Boolean bEstado;
+    @JoinColumn(name = "e_idunidad", referencedColumnName = "e_idunidad")
+    @ManyToOne
+    private UnidadesTb eIdunidad;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "materialTb")
-    private List<MaterialPedidoTb> materialPedidoTbList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "materialTb")
-    private List<MaterialProyectoTb> materialProyectoTbList;
+    private List<MaterialDespachoTb> materialDespachoTbList;
 
     public MaterialTb() {
     }
@@ -143,20 +145,28 @@ public class MaterialTb implements Serializable {
         this.dCantidadmin = dCantidadmin;
     }
 
-    public List<MaterialPedidoTb> getMaterialPedidoTbList() {
-        return materialPedidoTbList;
+    public Boolean getBEstado() {
+        return bEstado;
     }
 
-    public void setMaterialPedidoTbList(List<MaterialPedidoTb> materialPedidoTbList) {
-        this.materialPedidoTbList = materialPedidoTbList;
+    public void setBEstado(Boolean bEstado) {
+        this.bEstado = bEstado;
     }
 
-    public List<MaterialProyectoTb> getMaterialProyectoTbList() {
-        return materialProyectoTbList;
+    public UnidadesTb getEIdunidad() {
+        return eIdunidad;
     }
 
-    public void setMaterialProyectoTbList(List<MaterialProyectoTb> materialProyectoTbList) {
-        this.materialProyectoTbList = materialProyectoTbList;
+    public void setEIdunidad(UnidadesTb eIdunidad) {
+        this.eIdunidad = eIdunidad;
+    }
+
+    public List<MaterialDespachoTb> getMaterialDespachoTbList() {
+        return materialDespachoTbList;
+    }
+
+    public void setMaterialDespachoTbList(List<MaterialDespachoTb> materialDespachoTbList) {
+        this.materialDespachoTbList = materialDespachoTbList;
     }
 
     @Override
@@ -182,22 +192,6 @@ public class MaterialTb implements Serializable {
     @Override
     public String toString() {
         return "modelo.MaterialTb[ eIdmaterial=" + eIdmaterial + " ]";
-    }
-
-    public Boolean getBEstado() {
-        return bEstado;
-    }
-
-    public void setBEstado(Boolean bEstado) {
-        this.bEstado = bEstado;
-    }
-
-    public List<MaterialDespachoTb> getMaterialDespachoTbList() {
-        return materialDespachoTbList;
-    }
-
-    public void setMaterialDespachoTbList(List<MaterialDespachoTb> materialDespachoTbList) {
-        this.materialDespachoTbList = materialDespachoTbList;
     }
     
 }

@@ -111,12 +111,12 @@ public class DespachoTbController implements Serializable {
         selected = new DespachoTb();
         initializeEmbeddableKey();
         selected.setMaterialDespachoTbList(new ArrayList<MaterialDespachoTb>());
-        materialDisponible = materialFacade.buscarTodosAZ();
+        materialDisponible = getFacade().materialDisponible();
         return selected;
     }
     
     public DespachoTb prepareEdit() {
-        materialDisponible = materialFacade.buscarTodosAZ();
+        materialDisponible = getFacade().materialDisponible();
         for (MaterialDespachoTb b : selected.getMaterialDespachoTbList()) {
             materialDisponible.remove(b.getMaterialTb());
         }

@@ -32,6 +32,8 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "UnidadesTb.findByCAbreviatura", query = "SELECT u FROM UnidadesTb u WHERE u.cAbreviatura = :cAbreviatura"),
     @NamedQuery(name = "UnidadesTb.findByCTipo", query = "SELECT u FROM UnidadesTb u WHERE u.cTipo = :cTipo")})
 public class UnidadesTb implements Serializable {
+    @OneToMany(mappedBy = "eIdunidad")
+    private List<MaterialTb> materialTbList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -120,6 +122,14 @@ public class UnidadesTb implements Serializable {
     @Override
     public String toString() {
         return "modelo.UnidadesTb[ eIdunidad=" + eIdunidad + " ]";
+    }
+
+    public List<MaterialTb> getMaterialTbList() {
+        return materialTbList;
+    }
+
+    public void setMaterialTbList(List<MaterialTb> materialTbList) {
+        this.materialTbList = materialTbList;
     }
     
 }

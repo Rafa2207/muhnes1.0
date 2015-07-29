@@ -18,7 +18,7 @@
                         <h:outputText value="#{pedidoTbController.selected.FFecha}" title="#{bundle.ViewPedidoTbTitle_FFecha}">
                             <f:convertDateTime pattern="dd MMMM yyyy" />
                         </h:outputText>
-                        <h:outputText value="Fecha a recibir: "/>
+                        <h:outputText value="Fecha posible a recibir: "/>
                         <h:outputText value="#{pedidoTbController.selected.FFechaPosibleRecibir}" title="#{bundle.ViewPedidoTbTitle_FFecha}">
                             <f:convertDateTime pattern="dd MMMM yyyy" />
                         </h:outputText>
@@ -38,7 +38,7 @@
                             #{material.materialTb.MMarca}
                         </p:column>
                         <p:column headerText="Cantidad">
-                            #{material.DCantidad}
+                            <h:outputText value="#{material.DCantidad}  #{material.materialTb.EIdunidad.CAbreviatura}"/>
                         </p:column>
                     </p:dataTable>
                     <p:commandButton value="#{bundle.Close}" onclick="PedidoTbViewDialog.hide()"/>

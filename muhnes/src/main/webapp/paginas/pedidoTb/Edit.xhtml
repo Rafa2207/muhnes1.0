@@ -20,7 +20,7 @@
                             <h:outputText id="FechaActual" value="#{pedidoTbController.selected.FFecha}">
                                 <f:convertDateTime pattern="dd MMMM yyyy" />
                             </h:outputText>
-                            <p:outputLabel value="Fecha a recibir: " for="FFecha" />
+                            <p:outputLabel value="Fecha posible a recibir: " for="FFecha" />
                             <p:calendar id="FFecha" pattern="dd MMMM yyyy" value="#{pedidoTbController.selected.FFechaPosibleRecibir}" title="#{bundle.EditPedidoTbTitle_FFecha}"  showOn="button"
                                         requiredMessage="Introduzca fecha del pedido"
                                         locale="es" 
@@ -40,9 +40,11 @@
                                                var="mt"
                                                itemLabel="#{mt.CNombre}"
                                                itemValue="#{mt}"/>
+                                <p:ajax event="change" process="material" update="und"/>
                             </p:selectOneMenu>
                             <p:outputLabel value="Cantidad:" for="cant"/>
                             <p:inputText id="cant" size="4" value="#{pedidoTbController.cantidad}"/>
+                            <h:outputText id="und" value="#{pedidoTbController.material.EIdunidad.CNombre}"/>
                             <p:commandButton id="agregar"
                                              value="Agregar"
                                              actionListener="#{pedidoTbController.agregarModificar()}"
@@ -64,7 +66,7 @@
                             <p:column headerText="Cantidad">
                                 <p:cellEditor>
                                     <f:facet name="output">
-                                        #{material.DCantidad}
+                                        <h:outputText value="#{material.DCantidad}  #{material.materialTb.EIdunidad.CAbreviatura}"/>
                                     </f:facet>
                                     <f:facet name="input">
                                         <p:inputText value="#{material.DCantidad}"/>

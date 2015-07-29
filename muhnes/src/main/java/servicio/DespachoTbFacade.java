@@ -5,12 +5,14 @@
  */
 package servicio;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import modelo.DespachoTb;
+import modelo.MaterialTb;
 
 /**
  *
@@ -37,6 +39,16 @@ public class DespachoTbFacade extends AbstractFacade<DespachoTb> {
         }
         catch(NoResultException nre){
             return 0;
+        }
+    }
+    public List<MaterialTb> materialDisponible(){
+        Query query = em.createQuery("SELECT d FROM MaterialTb d WHERE d.dCantidad != 0");
+        try{
+            List<MaterialTb> material = query.getResultList();
+            return material;
+        }
+        catch(NoResultException nre){
+            return null;
         }
     }
 }

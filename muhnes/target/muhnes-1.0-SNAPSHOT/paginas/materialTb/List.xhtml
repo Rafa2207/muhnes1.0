@@ -59,6 +59,12 @@
                             </f:facet>
                             <h:outputText value="#{item.CNombre}"/>
                         </p:column>
+                        <p:column width="10%" filterBy="#{item.EIdunidad.CNombre}" filterStyle="display:none">
+                            <f:facet name="header">
+                                <h:outputText value="Unidad"/>
+                            </f:facet>
+                            <h:outputText value="#{item.EIdunidad.CAbreviatura}"/>
+                        </p:column>
                         <p:column width="10%" filterBy="#{item.DCantidad}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaterialTbTitle_DCantidad}"/>

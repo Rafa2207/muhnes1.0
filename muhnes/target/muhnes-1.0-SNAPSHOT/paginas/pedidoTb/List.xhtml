@@ -44,15 +44,23 @@
                         <p:ajax event="rowUnselect" update=":PedidoTbListForm:createButton :PedidoTbListForm:viewButton :PedidoTbListForm:editButton :PedidoTbListForm:deleteButton"/>
 
                         
-                        <p:column filterBy="#{item.MDescripcion}" filterStyle="display:none">
+                        <p:column width="50%" filterBy="#{item.MDescripcion}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPedidoTbTitle_MDescripcion}"/>
                             </f:facet>
                             <h:outputText value="#{item.MDescripcion}"/>
                         </p:column>
-                        <p:column filterBy="#{item.FFecha}" filterStyle="display:none">
+                        <p:column style="text-align: center" width="25%" filterBy="#{item.FFecha}" filterStyle="display:none">
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPedidoTbTitle_FFecha}"/>
+                                <h:outputText value="Fecha de pedido"/>
+                            </f:facet>
+                            <h:outputText value="#{item.FFecha}">
+                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column style="text-align: center" width="25%" filterBy="#{item.FFechaPosibleRecibir}" filterStyle="display:none">
+                            <f:facet name="header">
+                                <h:outputText value="Fecha posible recibir"/>
                             </f:facet>
                             <h:outputText value="#{item.FFechaPosibleRecibir}">
                                 <f:convertDateTime pattern="dd MMMM yyyy" />
