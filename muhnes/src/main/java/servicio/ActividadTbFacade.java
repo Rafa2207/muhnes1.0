@@ -19,7 +19,7 @@ import modelo.ProyectoTb;
  * @author Rafa
  */
 @Stateless
-public class ActividadTbFacade extends AbstractFacade<ActividadTb> {
+public class ActividadTbFacade extends AbstractFacade<ActividadTb>{
     @PersistenceContext(unitName = "muhnes_muhnes_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
@@ -33,7 +33,6 @@ public class ActividadTbFacade extends AbstractFacade<ActividadTb> {
     }
 
     public List<ActividadTb> buscarAsc(ProyectoTb proyectos) {
-        
         TypedQuery<ActividadTb> query = em.createQuery("SELECT p FROM ActividadTb p WHERE p.eIdproyecto=:h ORDER BY p.mNombre ASC ", ActividadTb.class);
        query.setParameter("h", proyectos);
         return query.getResultList();

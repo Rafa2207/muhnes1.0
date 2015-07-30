@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,7 +26,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author Rafa
+ * @author Endy
  */
 @Entity
 @Table(name = "actividad_tb")
@@ -39,7 +38,11 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "ActividadTb.findByMNombre", query = "SELECT a FROM ActividadTb a WHERE a.mNombre = :mNombre"),
     @NamedQuery(name = "ActividadTb.findByFFechafin", query = "SELECT a FROM ActividadTb a WHERE a.fFechafin = :fFechafin"),
     @NamedQuery(name = "ActividadTb.findByCTipo", query = "SELECT a FROM ActividadTb a WHERE a.cTipo = :cTipo"),
-@NamedQuery(name = "ActividadTb.findByDTotal", query = "SELECT a FROM ActividadTb a WHERE a.dTotal = :dTotal")})
+    @NamedQuery(name = "ActividadTb.findByDTotal", query = "SELECT a FROM ActividadTb a WHERE a.dTotal = :dTotal"),
+    @NamedQuery(name = "ActividadTb.findByFFechaInicioReal", query = "SELECT a FROM ActividadTb a WHERE a.fFechaInicioReal = :fFechaInicioReal"),
+    @NamedQuery(name = "ActividadTb.findByFFechaFinReal", query = "SELECT a FROM ActividadTb a WHERE a.fFechaFinReal = :fFechaFinReal"),
+    @NamedQuery(name = "ActividadTb.findByMJustificacion", query = "SELECT a FROM ActividadTb a WHERE a.mJustificacion = :mJustificacion"),
+    @NamedQuery(name = "ActividadTb.findByDGastoAdicional", query = "SELECT a FROM ActividadTb a WHERE a.dGastoAdicional = :dGastoAdicional")})
 public class ActividadTb implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -62,12 +65,26 @@ public class ActividadTb implements Serializable {
     @Size(max = 20)
     @Column(name = "c_tipo")
     private String cTipo;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "d_total")
     private Double dTotal;
+    @Column(name = "f_fecha_inicio_real")
+    @Temporal(TemporalType.DATE)
+    private Date fFechaInicioReal;
+    @Column(name = "f_fecha_fin_real")
+    @Temporal(TemporalType.DATE)
+    private Date fFechaFinReal;
+    @Size(max = 2147483647)
+    @Column(name = "m_justificacion")
+    private String mJustificacion;
+    @Column(name = "d_gasto_adicional")
+    private Double dGastoAdicional;
+    @Column(name = "e_estado")
+    private Integer eEstado;
     @JoinColumn(name = "e_idproyecto", referencedColumnName = "e_idproyecto")
     @ManyToOne
     private ProyectoTb eIdproyecto;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "eIdactividad")
+    @OneToMany(mappedBy = "eIdactividad")
     private List<InsumoTb> insumoTbList;
 
     public ActividadTb() {
@@ -132,6 +149,48 @@ public class ActividadTb implements Serializable {
     public void setDTotal(Double dTotal) {
         this.dTotal = dTotal;
     }
+
+    public Date getFFechaInicioReal() {
+        return fFechaInicioReal;
+    }
+
+    public void setFFechaInicioReal(Date fFechaInicioReal) {
+        this.fFechaInicioReal = fFechaInicioReal;
+    }
+
+    public Date getFFechaFinReal() {
+        return fFechaFinReal;
+    }
+
+    public void setFFechaFinReal(Date fFechaFinReal) {
+        this.fFechaFinReal = fFechaFinReal;
+    }
+
+    public String getMJustificacion() {
+        return mJustificacion;
+    }
+
+    public void setMJustificacion(String mJustificacion) {
+        this.mJustificacion = mJustificacion;
+    }
+
+    public Double getDGastoAdicional() {
+        return dGastoAdicional;
+    }
+
+    public void setDGastoAdicional(Double dGastoAdicional) {
+        this.dGastoAdicional = dGastoAdicional;
+    }
+
+    public Integer geteEstado() {
+        return eEstado;
+    }
+
+    public void seteEstado(Integer eEstado) {
+        this.eEstado = eEstado;
+    }
+    
+    
 
     public ProyectoTb getEIdproyecto() {
         return eIdproyecto;

@@ -68,6 +68,7 @@
                                            itemValue="#{EIdinstitucionItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
+
                     <p:panelGrid columns="3">
                         <p:outputLabel value="Perfiles: " for="perfil" />
                         <p:selectOneMenu id="perfil" value="#{agenteTbController.perfil}" 
@@ -83,11 +84,8 @@
                                          actionListener="#{agenteTbController.anadir()}"
                                          process="perfil agregar"
                                          update="perfil perfilesAgentes"/>
-
-
-
                     </p:panelGrid>
-                    
+
                     <p:dataTable id="perfilesAgentes"
                                  value="#{agenteTbController.selected.agentePerfilTbList}"
                                  var="per"
@@ -97,7 +95,7 @@
                                  scrollHeight="80"
                                  emptyMessage="No se han seleccionado perfiles"
                                  >
-                        
+
                         <p:column headerText="Perfiles">
                             <p:cellEditor>
                                 <f:facet name="output">
@@ -108,21 +106,21 @@
                                 </f:facet>
                             </p:cellEditor>
                         </p:column>
-                        
+
                         <p:column headerText="Acciones" width="60">
-                                
-                                <p:commandLink style="display: inline-block"
-                                               styleClass="ui-icon ui-icon-trash"
-                                               action="#{agenteTbController.remover()}"
-                                               process="perfilesAgentes"
-                                               update=":AgenteTbCreateForm:perfil :AgenteTbCreateForm:perfilesAgentes">
-                                    <f:setPropertyActionListener value="#{per}" 
-                                                                 target="#{agenteTbController.perfilAgente}"/>
-                                </p:commandLink>
-                            </p:column>
-                        
+
+                            <p:commandLink style="display: inline-block"
+                                           styleClass="ui-icon ui-icon-trash"
+                                           action="#{agenteTbController.remover()}"
+                                           process="perfilesAgentes"
+                                           update=":AgenteTbCreateForm:perfil :AgenteTbCreateForm:perfilesAgentes">
+                                <f:setPropertyActionListener value="#{per}" 
+                                                             target="#{agenteTbController.perfilAgente}"/>
+                            </p:commandLink>
+                        </p:column>
+
                     </p:dataTable>
-                    
+
                     <p:commandButton actionListener="#{agenteTbController.create}" value="#{bundle.Save}" update="display,:AgenteTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'AgenteTbCreateDialog');"/>
                 </h:panelGroup>
             </h:form>

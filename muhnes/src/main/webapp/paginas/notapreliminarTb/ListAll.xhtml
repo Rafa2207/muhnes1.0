@@ -16,6 +16,12 @@
         <ui:define name="body">
             <h:form id="NotapreliminarTbListForm">
                 <p:panel header="#{bundleNotas.ListNotapreliminarTbTitle}">
+                    
+                    <p:breadCrumb>
+                        <p:menuitem value="casita"/>
+                        <p:menuitem value="Notas preliminares" outcome="/paginas/notapreliminarTb/notapreliminar.xhtml" />
+                        <p:menuitem value="Ver todas las notas" outcome="/paginas/notapreliminarTb/ListAll.xhtml" />
+                    </p:breadCrumb>
 
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundleNotas.View}" update=":NotapreliminarTbViewForm" oncomplete="PF('NotapreliminarTbViewDialog').show()" disabled="#{empty notapreliminarTbController.selected}"/>
 
@@ -48,14 +54,14 @@
                             </h:outputText>
                         </p:column>
                                                 
-                        <p:column  width="15%">
+                        <p:column  width="10%">
                             <f:facet name="header">
                                 <h:outputText value="#{bundleNotas.ListNotapreliminarTbTitle_CUbicacion}"/>
                             </f:facet>
                             <h:outputText value="#{item.CUbicacion}"/>
                         </p:column>
                         
-                        <p:column  width="15%">
+                        <p:column  width="10%">
                             <f:facet name="header">
                                 <h:outputText value="#{bundleNotas.ListNotapreliminarTbTitle_EIdusuario}"/>
                             </f:facet>

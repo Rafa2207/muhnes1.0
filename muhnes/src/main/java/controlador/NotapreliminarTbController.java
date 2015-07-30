@@ -106,6 +106,7 @@ public class NotapreliminarTbController implements Serializable {
         user = getUsuarioFacade().BuscarUsuario(usuario);
         selected.setEIdproyecto(proyecto);
         selected.setEIdusuario(user.getEIdusuario());
+        selected.setENumcorrelativo(getFacade().CorrelativoPorUsuario(user.getEIdusuario()));
         return selected;
     }
 

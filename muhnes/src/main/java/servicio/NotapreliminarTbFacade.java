@@ -9,6 +9,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import modelo.NotapreliminarTb;
 import modelo.ProyectoTb;
@@ -50,6 +51,20 @@ public class NotapreliminarTbFacade extends AbstractFacade<NotapreliminarTb> {
         TypedQuery<UsuarioTb> query = em.createQuery("SELECT p FROM UsuarioTb p WHERE p.eIdusuario=:usuario", UsuarioTb.class);
         query.setParameter("usuario", usuario);
         return query.getSingleResult();
+    }
+    
+    public int CorrelativoPorUsuario(int usuario){
+        int correlativo=0;
+        String a;
+        Query query = em.createNativeQuery("SELECT MAX(e_numcorrelativo) FROM notapreliminar_tb where e_idusuario='"+usuario+"'");
+        query.setParameter("usuario", usuario);
+        a=String.valueOf(query.getSingleResult());
+        if(query.getSingleResult()==null){
+            correlativo=1;
+        }else{
+        correlativo=Integer.valueOf(a)+1;        
+        }
+        return correlativo;
     }
 
 }

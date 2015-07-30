@@ -52,7 +52,7 @@
 
                             <h:outputText value="Presupuesto ($): "/>
                             <h:outputText  value="#{proyectoTbController.presupuesto(agenda.proyectoView)}" >
-                                <f:convertNumber type="number" groupingUsed="true" minFractionDigits="2" pattern="#0.00"/>
+                                <f:convertNumber type="number" groupingUsed="true" minFractionDigits="2" pattern="$#0.00"/>
                             </h:outputText>
 
                         </p:panelGrid>
@@ -86,7 +86,7 @@
 
                             <h:outputText value="Costo ($):"/>
                             <h:outputText value="#{agenda.actividadView.DTotal}" title="Costo de la actividad">
-                                <f:convertNumber type="number" groupingUsed="true" minFractionDigits="2" pattern="#0.00"/>
+                                <f:convertNumber type="number" groupingUsed="true" minFractionDigits="2" pattern="$#0.00"/>
                             </h:outputText>
                         </p:panelGrid>
                         <p:commandButton value="#{bundle.Close}" update="evento2, :growl" oncomplete="handleSubmit(args, 'dialogVer');"/>

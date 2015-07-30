@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Calendarización"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            
+            <h:form id="LocalidadTbListForm" >
+                <p:panel header="Control del proyecto: #{controladorSesion.proyecto.MNombre}">
+                    
+                    <p:breadCrumb>
+                        <p:menuitem value="casita"/>
+                        <p:menuitem value="Seleccione proyecto" outcome="/paginas/horario/seleccionproy.xhtml" />
+                        <p:menuitem value="Control de proyecto" outcome="/paginas/horario/controlProyectos.xhtml" />
+                    </p:breadCrumb>
+                    <br></br>
+                    
+                    <p:schedule id="agendaId" locale="es" widgetVar="AgendaProyecto"
+                                value="#{controlProyectos.eventoActividad(controladorSesion.proyecto)}"
+                                aspectRatio="3" draggable="false" rightHeaderTemplate="" showWeekends="false" 
+                                tooltip="true" >  
+                        <p:ajax event="eventSelect" listener="#{agenda.seleccionEvento}"  update=":modales" oncomplete="PF('dialogVer').show();" />
+                    </p:schedule>
+                </p:panel>
+            </h:form>
+
+            <h:form id="modales">
+
+                <p:dialog widgetVar="dialogVer" header="Visualizar" showEffect="clip" hideEffect="clip">
+                    <h:panelGroup id="display1"  rendered="#{agenda.comparador eq 'Proyecto'}" >
+                        <p:panelGrid columns="2" id="evento" style="width: 450px">
+
+                            <h:outputText value="Nombre:"/>
+                            <h:outputText value="#{agenda.proyectoView.MNombre}"/>
+
+                            <h:outputText value="Responsable:"/>
+                            <h:outputText value="#{proyectoTbController.calculaAgente(agenteTbController.items, agenda.proyectoView.EResponsable)}" />
+
+                            <h:outputText value="Descripción: "/>
+                            <h:outputText  value="#{agenda.proyectoView.MDescripcion}" />
+
+                            <h:outputText value="Fecha Inicio:"/>
+                            <h:outputText value="#{agenda.proyectoView.FFechaInicio}">
+                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                            </h:outputText>
+
+                            <h:outputText value="Fecha Fin: "/>
+                            <h:outputText value="#{agenda.proyectoView.FFechaFin}">
+                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                            </h:outputText>
+
+                            <h:outputText value="Presupuesto ($): "/>
+                            <h:outputText  value="#{proyectoTbController.presupuesto(agenda.proyectoView)}" >
+                                <f:convertNumber type="number" groupingUsed="true" minFractionDigits="2" pattern="$#0.00"/>
+                            </h:outputText>
+
+                        </p:panelGrid>
+                        <p:commandButton value="#{bundle.Close}" update="evento, :growl" oncomplete="handleSubmit(args, 'dialogVer');"/>
+                        <p:commandButton value="Ir a proyectos" icon="ui-icon-folder-open" action="/paginas/proyectoTb/List.xhtml" />
+                    </h:panelGroup>
+
+
+                    <h:panelGroup id="display2" rendered="#{agenda.comparador eq 'Actividad'}">
+                        <p:panelGrid columns="2" id="evento2" style="width: 450px">
+
+                            <h:outputText value="#{bundle.ViewActividadTbLabel_CNombre}"/>
+                            <h:outputText value="#{agenda.actividadView.MNombre}" title="#{bundle.ViewActividadTbTitle_CNombre}"/>
+
+                            <h:outputText value="Fecha de inicio: "/>
+                            <h:outputText value="#{agenda.actividadView.FFecha}" title="Fecha de inicio">
+                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                            </h:outputText>
+
+                            <h:outputText value="Fecha finalización:"/>
+                            <h:outputText value="#{agenda.actividadView.FFechafin}" title="Fecha de finalización">
+                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                            </h:outputText>
+
+                            <h:outputText value="#{bundle.ViewActividadTbLabel_MDescripcion}"/>
+                            <h:outputText value="#{agenda.actividadView.MDescripcion}" title="#{bundle.ViewActividadTbTitle_MDescripcion}"/>
+
+
+                            <h:outputText value="#{bundle.ViewActividadTbLabel_EIdproyecto}"/>
+                            <h:outputText value="#{agenda.actividadView.EIdproyecto.MNombre}" title="#{bundle.ViewActividadTbTitle_EIdproyecto}"/>
+
+                            <h:outputText value="Costo ($):"/>
+                            <h:outputText value="#{agenda.actividadView.DTotal}" title="Costo de la actividad">
+                                <f:convertNumber type="number" groupingUsed="true" minFractionDigits="2" pattern="$#0.00"/>
+                            </h:outputText>
+                        </p:panelGrid>
+                        <p:commandButton value="#{bundle.Close}" update="evento2, :growl" oncomplete="handleSubmit(args, 'dialogVer');"/>
+                        <p:commandButton id="ActividadButton" icon="ui-icon-calendar"  value="Ir a actividades" action="/paginas/actividadTb/List.xhtml" >
+                            <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{agenda.actividadView.EIdproyecto}"/>
+                        </p:commandButton>
+                    </h:panelGroup>
+                </p:dialog>    
+            </h:form>
+
+
+        </ui:define>
+    </ui:composition>
+
+</html>

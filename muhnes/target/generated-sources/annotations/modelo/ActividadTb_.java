@@ -8,18 +8,23 @@ import javax.persistence.metamodel.StaticMetamodel;
 import modelo.InsumoTb;
 import modelo.ProyectoTb;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-07-29T14:04:49")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-07-30T07:08:07")
 @StaticMetamodel(ActividadTb.class)
 public class ActividadTb_ { 
 
-    public static volatile SingularAttribute<ActividadTb, String> cTipo;
     public static volatile SingularAttribute<ActividadTb, ProyectoTb> eIdproyecto;
-    public static volatile SingularAttribute<ActividadTb, Double> dTotal;
     public static volatile SingularAttribute<ActividadTb, Integer> eIdactividad;
     public static volatile SingularAttribute<ActividadTb, Date> fFecha;
-    public static volatile ListAttribute<ActividadTb, InsumoTb> insumoTbList;
     public static volatile SingularAttribute<ActividadTb, String> mDescripcion;
-    public static volatile SingularAttribute<ActividadTb, Date> fFechafin;
     public static volatile SingularAttribute<ActividadTb, String> mNombre;
+    public static volatile SingularAttribute<ActividadTb, String> cTipo;
+    public static volatile SingularAttribute<ActividadTb, Integer> eEstado;
+    public static volatile SingularAttribute<ActividadTb, String> mJustificacion;
+    public static volatile SingularAttribute<ActividadTb, Double> dTotal;
+    public static volatile SingularAttribute<ActividadTb, Date> fFechaFinReal;
+    public static volatile SingularAttribute<ActividadTb, Date> fFechaInicioReal;
+    public static volatile ListAttribute<ActividadTb, InsumoTb> insumoTbList;
+    public static volatile SingularAttribute<ActividadTb, Date> fFechafin;
+    public static volatile SingularAttribute<ActividadTb, Double> dGastoAdicional;
 
 }

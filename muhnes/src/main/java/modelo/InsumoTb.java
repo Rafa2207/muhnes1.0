@@ -50,9 +50,6 @@ public class InsumoTb implements Serializable {
     private Double dGasto;
     @Column(name = "d_cantidad")
     private Double dCantidad;
-    @JoinColumn(name = "e_idunidad", referencedColumnName = "e_idunidad")
-    @ManyToOne
-    private UnidadesTb eIdunidad;
     @JoinColumn(name = "e_idactividad", referencedColumnName = "e_idactividad")
     @ManyToOne
     private ActividadTb eIdactividad;
@@ -102,14 +99,6 @@ public class InsumoTb implements Serializable {
 
     public void setDCantidad(Double dCantidad) {
         this.dCantidad = dCantidad;
-    }
-
-    public UnidadesTb getEIdunidad() {
-        return eIdunidad;
-    }
-
-    public void setEIdunidad(UnidadesTb eIdunidad) {
-        this.eIdunidad = eIdunidad;
     }
 
     public ActividadTb getEIdactividad() {

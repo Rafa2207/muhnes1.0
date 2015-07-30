@@ -127,6 +127,7 @@ public class ActividadTbController implements Serializable {
         selected = new ActividadTb();
         proyectos = proyecto;
         selected.setEIdproyecto(proyectos);
+        selected.seteEstado(1);
         selected.setInsumoTbList(new ArrayList<InsumoTb>());
         initializeEmbeddableKey();
         return selected;
@@ -251,6 +252,7 @@ public class ActividadTbController implements Serializable {
 
     public void prepareEdit() {
         fechatemporal = selected.getFFechafin();
+        selected.seteEstado(1);
 
     }
 

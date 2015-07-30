@@ -14,8 +14,14 @@
         </ui:define>
 
         <ui:define name="body">
-            <h:form id="NotapreliminarTbListForm">
-                <p:panel header="#{bundleNotas.ListNotapreliminarTbTitle}">
+            <h:form id="NotapreliminarTbListForm">                
+                <p:panel header="#{bundleNotas.ListNotapreliminarTbTitle}  de proyecto: #{controladorSesion.proyecto.MNombre}">
+
+                    <p:breadCrumb>
+                        <p:menuitem value="casita"/>
+                        <p:menuitem value="Notas preliminares" outcome="/paginas/notapreliminarTb/notapreliminar.xhtml" />
+                        <p:menuitem value="Gestión de notas" outcome="/paginas/notapreliminarTb/List.xhtml" />
+                    </p:breadCrumb>
 
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundleNotas.Create}" actionListener="#{notapreliminarTbController.prepareCreate(request.userPrincipal.name,controladorSesion.proyecto)}" update=":NotapreliminarTbCreateForm" oncomplete="PF('NotapreliminarTbCreateDialog').show()"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundleNotas.View}" update=":NotapreliminarTbViewForm" oncomplete="PF('NotapreliminarTbViewDialog').show()" disabled="#{empty notapreliminarTbController.selected}"/>
@@ -25,32 +31,33 @@
 
                     <p:dataTable id="datalist" value="#{notapreliminarTbController.getNotas(controladorSesion.proyecto)}" var="item"
                                  selectionMode="single" selection="#{notapreliminarTbController.selected}"
-                                 paginator="true" widgetVar="notasTable"
+                                 paginator="true" 
                                  emptyMessage="No se encontraron notas preliminares"
                                  rowKey="#{item.EIdnotapreliminar}"
-                                 filteredValue="#{notapreliminarTbController.filtro}"
                                  rows="10" paginatorPosition="bottom"
                                  rowsPerPageTemplate="10,20,30,40,50"
+                                 filteredValue="#{notapreliminarTbController.filtro}"
+                                 widgetVar="notasTable"
                                  >
 
                         <p:ajax event="rowSelect"   update=":NotapreliminarTbListForm:createButton :NotapreliminarTbListForm:viewButton :NotapreliminarTbListForm:editButton :NotapreliminarTbListForm:deleteButton"/>
                         <p:ajax event="rowUnselect" update=":NotapreliminarTbListForm:createButton :NotapreliminarTbListForm:viewButton :NotapreliminarTbListForm:editButton :NotapreliminarTbListForm:deleteButton"/>
 
-                        <p:column>
+                        <p:column filterBy="#{item.CNombre}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundleNotas.ListNotapreliminarTbTitle_CNombre}"/>
                             </f:facet>
                             <h:outputText value="#{item.CNombre}"/>
                         </p:column>
-                                               
-                        <p:column>
+
+                        <p:column filterBy="#{item.MDescripcion}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundleNotas.ListNotapreliminarTbTitle_MDescripcion}"/>
                             </f:facet>
                             <h:outputText value="#{item.MDescripcion}"/>
                         </p:column>
-                        
-                        <p:column>
+
+                        <p:column filterBy="#{item.FFecha}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundleNotas.ListNotapreliminarTbTitle_FFecha}"/>
                             </f:facet>
@@ -58,34 +65,28 @@
                                 <f:convertDateTime pattern="dd MMMM yyyy" />
                             </h:outputText>
                         </p:column>
-                                                
-                        <p:column>
+
+                        <p:column filterBy="#{item.CUbicacion}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundleNotas.ListNotapreliminarTbTitle_CUbicacion}"/>
                             </f:facet>
                             <h:outputText value="#{item.CUbicacion}"/>
                         </p:column>
-                        
-                        <p:column>
+
+                        <p:column filterBy="#{notapreliminarTbController.NombreUsuario(item.EIdusuario)}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundleNotas.ListNotapreliminarTbTitle_EIdusuario}"/>
                             </f:facet>
-                            <h:outputText value="#{item.EIdusuario}"/>
+                            <h:outputText value="#{notapreliminarTbController.NombreUsuario(item.EIdusuario)}"/>
                         </p:column>
-                        
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundleNotas.ListNotapreliminarTbTitle_EIdproyecto}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.EIdproyecto}"/>
-                        </p:column>
-                        
+
                         <f:facet name="header">
                             <p:outputPanel>
                                 <h:outputText value="Búsqueda: " />
                                 <p:inputText id="globalFilter" onkeyup="PF('notasTable').filter()" placeholder="Escriba aquí"/>
                             </p:outputPanel>
                         </f:facet>
+                        
                     </p:dataTable>
                 </p:panel>
             </h:form>

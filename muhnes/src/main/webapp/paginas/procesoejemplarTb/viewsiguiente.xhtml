@@ -67,7 +67,7 @@
                             <p:ajax event="dateSelect" update="textfecha" listener="#{procesoejemplarTbController.calcularFechaFinCuarentena(procesoejemplarTbController.selected.FFecha)}"/>
                         </p:calendar>
 
-                        <p:outputLabel value="Fecha finalización: " />
+                        <p:outputLabel value="Fecha finalización:" />
                         <p:outputLabel id="textfecha" value="#{procesoejemplarTbController.selected.FFechafin}">
                             <f:convertDateTime pattern="dd MMMM yyyy" />
                         </p:outputLabel>

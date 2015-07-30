@@ -29,9 +29,23 @@
     vertical-align: top;
 }
 
+//Colores para la calendarización
 .proyecto .fc-event-inner {
     background: bottom;
 }
 .actividad .fc-event-inner {
     background: #53c10c;
  }
+
+ .NoIniciado .fc-event-inner {
+     background: #666666;
+ }
+
+ .EnProceso .fc-event-inner {
+     background: #6666ff;
+ } 
+ 
+ .Finalizado .fc-event-inner {
+     background: #53c10c;
+ }
+ //fin de colores
