@@ -6,7 +6,6 @@
 package modelo;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -32,8 +30,6 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "UnidadesTb.findByCAbreviatura", query = "SELECT u FROM UnidadesTb u WHERE u.cAbreviatura = :cAbreviatura"),
     @NamedQuery(name = "UnidadesTb.findByCTipo", query = "SELECT u FROM UnidadesTb u WHERE u.cTipo = :cTipo")})
 public class UnidadesTb implements Serializable {
-    @OneToMany(mappedBy = "eIdunidad")
-    private List<MaterialTb> materialTbList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,8 +45,6 @@ public class UnidadesTb implements Serializable {
     @Size(max = 50)
     @Column(name = "c_tipo")
     private String cTipo;
-    @OneToMany(mappedBy = "eIdunidad")
-    private List<InsumoTb> insumoTbList;
 
     public UnidadesTb() {
     }
@@ -91,14 +85,6 @@ public class UnidadesTb implements Serializable {
         this.cTipo = cTipo;
     }
 
-    public List<InsumoTb> getInsumoTbList() {
-        return insumoTbList;
-    }
-
-    public void setInsumoTbList(List<InsumoTb> insumoTbList) {
-        this.insumoTbList = insumoTbList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -122,14 +108,6 @@ public class UnidadesTb implements Serializable {
     @Override
     public String toString() {
         return "modelo.UnidadesTb[ eIdunidad=" + eIdunidad + " ]";
-    }
-
-    public List<MaterialTb> getMaterialTbList() {
-        return materialTbList;
-    }
-
-    public void setMaterialTbList(List<MaterialTb> materialTbList) {
-        this.materialTbList = materialTbList;
     }
     
 }
