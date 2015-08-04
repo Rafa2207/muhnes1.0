@@ -7,7 +7,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 import modelo.MaterialDespachoTb;
 import modelo.UnidadesTb;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-07-30T15:51:51")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-08-03T17:04:19")
 @StaticMetamodel(MaterialTb.class)
 public class MaterialTb_ { 
 

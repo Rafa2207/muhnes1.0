@@ -12,94 +12,74 @@
         </ui:define>
 
         <ui:define name="body">
-            
-            <h:form id="LocalidadTbListForm" >
+
+            <h:form id="ControlForm" >
                 <p:panel header="Control del proyecto: #{controladorSesion.proyecto.MNombre}">
-                    
+
                     <p:breadCrumb>
                         <p:menuitem value="casita"/>
-                        <p:menuitem value="Seleccione proyecto" outcome="/paginas/horario/seleccionproy.xhtml" />
+                        <p:menuitem value="Seleccione proyecto" outcome="/paginas/horario/Agenda.xhtml" />
                         <p:menuitem value="Control de proyecto" outcome="/paginas/horario/controlProyectos.xhtml" />
                     </p:breadCrumb>
                     <br></br>
-                    
+
                     <p:schedule id="agendaId" locale="es" widgetVar="AgendaProyecto"
-                                value="#{controlProyectos.eventoActividad(controladorSesion.proyecto)}"
+                                value="#{controlProyectos.eventModel}"
                                 aspectRatio="3" draggable="false" rightHeaderTemplate="" showWeekends="false" 
-                                tooltip="true" >  
-                        <p:ajax event="eventSelect" listener="#{agenda.seleccionEvento}"  update=":modales" oncomplete="PF('dialogVer').show();" />
+                                tooltip="true" resizable="false" initialDate="#{controladorSesion.proyecto.FFechaInicio}"
+                                timeZone="GMT-6">  
+                        <p:ajax event="eventSelect" listener="#{controlProyectos.seleccionEvento}"  update=":modales" oncomplete="PF('dialogVer').show();" />
                     </p:schedule>
                 </p:panel>
             </h:form>
 
             <h:form id="modales">
-
                 <p:dialog widgetVar="dialogVer" header="Visualizar" showEffect="clip" hideEffect="clip">
-                    <h:panelGroup id="display1"  rendered="#{agenda.comparador eq 'Proyecto'}" >
-                        <p:panelGrid columns="2" id="evento" style="width: 450px">
+
+                    <!-- Para Actividades no iniciadas  -->
+                    <h:panelGroup id="NoIniciado"  rendered="#{controlProyectos.comparador eq 'No iniciado'}" >
+                        <p:panelGrid columns="2" id="iniciar" style="width: 450px">
 
                             <h:outputText value="Nombre:"/>
-                            <h:outputText value="#{agenda.proyectoView.MNombre}"/>
+                            <h:outputText value="#{controlProyectos.actividadView.MNombre}"/>
 
-                            <h:outputText value="Responsable:"/>
-                            <h:outputText value="#{proyectoTbController.calculaAgente(agenteTbController.items, agenda.proyectoView.EResponsable)}" />
-
-                            <h:outputText value="Descripción: "/>
-                            <h:outputText  value="#{agenda.proyectoView.MDescripcion}" />
-
-                            <h:outputText value="Fecha Inicio:"/>
-                            <h:outputText value="#{agenda.proyectoView.FFechaInicio}">
-                                <f:convertDateTime pattern="dd MMMM yyyy" />
-                            </h:outputText>
-
-                            <h:outputText value="Fecha Fin: "/>
-                            <h:outputText value="#{agenda.proyectoView.FFechaFin}">
-                                <f:convertDateTime pattern="dd MMMM yyyy" />
-                            </h:outputText>
-
-                            <h:outputText value="Presupuesto ($): "/>
-                            <h:outputText  value="#{proyectoTbController.presupuesto(agenda.proyectoView)}" >
+                            <h:outputText value="Presupuesto:"/>
+                            <h:outputText value="#{controlProyectos.actividadView.DTotal}">
                                 <f:convertNumber type="number" groupingUsed="true" minFractionDigits="2" pattern="$#0.00"/>
                             </h:outputText>
 
+                            <h:outputText value="Fecha espectativa de inicio:"/>
+                            <h:outputText value="#{controlProyectos.actividadView.FFecha}">
+                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                            </h:outputText>
+
+                            <h:outputText value="Fecha espectativa de Finalización:"/>
+                            <h:outputText value="#{controlProyectos.actividadView.FFechafin}">
+                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                            </h:outputText>
+
                         </p:panelGrid>
-                        <p:commandButton value="#{bundle.Close}" update="evento, :growl" oncomplete="handleSubmit(args, 'dialogVer');"/>
-                        <p:commandButton value="Ir a proyectos" icon="ui-icon-folder-open" action="/paginas/proyectoTb/List.xhtml" />
+                        <p:commandButton actionListener="#{controlProyectos.iniciarActividad()}" update="iniciar :ControlForm:agendaId  :growl" value="Iniciar actividad" oncomplete="handleSubmit(args, 'dialogVer');" >
+                            <p:confirm header="Confirmación" message="¿Está seguro que desea iniciar actividad?" icon="ui-icon-alert" />
+                        </p:commandButton>
                     </h:panelGroup>
 
-
-                    <h:panelGroup id="display2" rendered="#{agenda.comparador eq 'Actividad'}">
-                        <p:panelGrid columns="2" id="evento2" style="width: 450px">
-
-                            <h:outputText value="#{bundle.ViewActividadTbLabel_CNombre}"/>
-                            <h:outputText value="#{agenda.actividadView.MNombre}" title="#{bundle.ViewActividadTbTitle_CNombre}"/>
-
-                            <h:outputText value="Fecha de inicio: "/>
-                            <h:outputText value="#{agenda.actividadView.FFecha}" title="Fecha de inicio">
-                                <f:convertDateTime pattern="dd MMMM yyyy" />
-                            </h:outputText>
-
-                            <h:outputText value="Fecha finalización:"/>
-                            <h:outputText value="#{agenda.actividadView.FFechafin}" title="Fecha de finalización">
-                                <f:convertDateTime pattern="dd MMMM yyyy" />
-                            </h:outputText>
-
-                            <h:outputText value="#{bundle.ViewActividadTbLabel_MDescripcion}"/>
-                            <h:outputText value="#{agenda.actividadView.MDescripcion}" title="#{bundle.ViewActividadTbTitle_MDescripcion}"/>
+                    <!-- Para actividades en proceso  -->
+                    <h:panelGroup id="EnProceso"  rendered="#{controlProyectos.comparador eq 'En proceso'}" >
+                        <p:panelGrid columns="2" id="Proceso" style="width: 450px">
+                            
+                            <h:outputText value="Nombre:"/>
+                            <h:outputText value="#{controlProyectos.actividadView.MNombre}"/>
+                            
+                            <h:outputText value="Nombre:"/>
+                            
+                            
 
 
-                            <h:outputText value="#{bundle.ViewActividadTbLabel_EIdproyecto}"/>
-                            <h:outputText value="#{agenda.actividadView.EIdproyecto.MNombre}" title="#{bundle.ViewActividadTbTitle_EIdproyecto}"/>
-
-                            <h:outputText value="Costo ($):"/>
-                            <h:outputText value="#{agenda.actividadView.DTotal}" title="Costo de la actividad">
-                                <f:convertNumber type="number" groupingUsed="true" minFractionDigits="2" pattern="$#0.00"/>
-                            </h:outputText>
+                            <p:commandButton update="Proceso :ControlForm:agendaId  :growl" value="Finalizar actividad" oncomplete="handleSubmit(args, 'dialogVer');" >
+                                <p:confirm header="Confirmación" message="¿Está seguro que desea finalizar actividad?" icon="ui-icon-alert" />
+                            </p:commandButton>
                         </p:panelGrid>
-                        <p:commandButton value="#{bundle.Close}" update="evento2, :growl" oncomplete="handleSubmit(args, 'dialogVer');"/>
-                        <p:commandButton id="ActividadButton" icon="ui-icon-calendar"  value="Ir a actividades" action="/paginas/actividadTb/List.xhtml" >
-                            <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{agenda.actividadView.EIdproyecto}"/>
-                        </p:commandButton>
                     </h:panelGroup>
                 </p:dialog>    
             </h:form>

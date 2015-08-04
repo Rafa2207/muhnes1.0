@@ -18,13 +18,15 @@
                 <p:panel header="Control de proyectos">
                     <p:breadCrumb>
                         <p:menuitem value="casita"/>
-                        <p:menuitem value="Seleccione proyecto" outcome="/paginas/horario/seleccionproy.xhtml" />
+                        <p:menuitem value="Seleccione proyecto" outcome="/paginas/horario/Agenda.xhtml" />
                     </p:breadCrumb>
 
 
                     <p:commandButton id="controlAgenda" icon="ui-icon-clipboard"  value="ver Agenda" action="/paginas/horario/controlProyectos.xhtml" disabled="#{empty proyectoTbController.selected}" >
                         <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{proyectoTbController.selected}" />
                     </p:commandButton>
+                    
+                    <p:commandButton id="Calendarizacion" icon="ui-icon-bookmark"  value="Toda la calendarización" action="/paginas/horario/List.xhtml" />                 
                                                            
                      <p:dataTable id="datalist" value="#{proyectoTbController.items}" var="item"
                                  selectionMode="single" selection="#{proyectoTbController.selected}"
@@ -39,8 +41,8 @@
                                  
                                  >
 
-                        <p:ajax event="rowSelect"   update=":ProyectoTbListForm:controlAgenda"/>
-                        <p:ajax event="rowUnselect" update=":ProyectoTbListForm:controlAgenda"/>
+                        <p:ajax event="rowSelect"   update=":ProyectoTbListForm:controlAgenda :ProyectoTbListForm:Calendarizacion"/>
+                        <p:ajax event="rowUnselect" update=":ProyectoTbListForm:controlAgenda :ProyectoTbListForm:Calendarizacion"/>
 
 
                         <p:column filterBy="#{item.MNombre}" filterStyle="display:none">
@@ -48,6 +50,13 @@
                                 <h:outputText value="Nombre"/>
                             </f:facet>
                             <h:outputText value="#{item.MNombre}"/>
+                        </p:column>
+                        
+                        <p:column width="20%">
+                            <f:facet name="header">
+                                <h:outputText value="Progreso"/>
+                            </f:facet>
+                            <p:progressBar value="#{proyectoTbController.progresoProyecto(item)}" labelTemplate="{value}%" styleClass="animated" displayOnly="true"/>
                         </p:column>
 
                        

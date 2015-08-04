@@ -30,7 +30,7 @@ public class ProyectoTbController implements Serializable {
 
     @EJB
     private servicio.ProyectoTbFacade ejbFacade;
-    private List<ProyectoTb> items = null, filtro;
+    private List<ProyectoTb> items = null, filtro, ListaProyecto=null;
     private ProyectoTb selected;
     private Date fechatemporal;
     String agente;
@@ -42,8 +42,6 @@ public class ProyectoTbController implements Serializable {
     public void setFechatemporal(Date fechatemporal) {
         this.fechatemporal = fechatemporal;
     }
-    
-    
 
     public List<ProyectoTb> getFiltro() {
         return filtro;
@@ -53,7 +51,6 @@ public class ProyectoTbController implements Serializable {
         this.filtro = filtro;
     }
 
-    
     public ProyectoTbController() {
     }
 
@@ -188,33 +185,70 @@ public class ProyectoTbController implements Serializable {
         }
 
     }
-    public void prepareEdit(){
-        fechatemporal=selected.getFFechaFin();
-        
+
+    public void prepareEdit() {
+        fechatemporal = selected.getFFechaFin();
+
     }
-    public void limpiarFecha(){
-        fechatemporal=null;
+
+    public void limpiarFecha() {
+        fechatemporal = null;
     }
-    
-    public String calculaAgente(List<AgenteTb> a, int b){
-        
-        for(AgenteTb agen:a){
-            if(agen.getEIdagente()==b){
-                agente=agen.getCNombre()+" "+ agen.getCApellido();
-            
+
+    public String calculaAgente(List<AgenteTb> a, int b) {
+
+        for (AgenteTb agen : a) {
+            if (agen.getEIdagente() == b) {
+                agente = agen.getCNombre() + " " + agen.getCApellido();
+
             }
-            
+
         }
-        
-        return agente;   
+
+        return agente;
     }
-    
-    public double presupuesto(ProyectoTb proy){
-        double presupuesto=0;
-        for(ActividadTb p: proy.getActividadTbList()){
-            presupuesto=presupuesto+p.getDTotal();
+
+    public double presupuesto(ProyectoTb proy) {
+        double presupuesto = 0;
+        for (ActividadTb p : proy.getActividadTbList()) {
+            presupuesto = presupuesto + p.getDTotal();
         }
         return presupuesto;
+    }
+
+    public int progresoProyecto(ProyectoTb proy) {
+        int TotalActividades=0,TotalEntero=0, proyecto=proy.getEIdproyecto();
+        double cadaActividad=0, total = 0;
+        ListaProyecto = getFacade().ProyectoGeneral();
+        
+        for (ProyectoTb p : ListaProyecto) {
+            if (p.getEIdproyecto() == proyecto) {
+               proy=p;
+            }
+        }
+        
+        for (ActividadTb a : proy.getActividadTbList()) {
+            TotalActividades++;
+        }
+        try {
+            cadaActividad=100/TotalActividades;
+        } catch (Exception e) {
+            cadaActividad=0;
+        }
+        for (ActividadTb a : proy.getActividadTbList()) {
+            if (a.geteEstado() == 1) {
+                total=total+(cadaActividad*0);
+                  }
+            if (a.geteEstado() == 2) {
+                total=total+(cadaActividad/2);
+                  }
+            if (a.geteEstado() == 3) {
+                total=total+(cadaActividad);
+                  }
+        }
+        TotalEntero= (int) total;
+        return TotalEntero;
+
     }
 
 }

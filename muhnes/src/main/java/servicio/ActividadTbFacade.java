@@ -47,4 +47,28 @@ public class ActividadTbFacade extends AbstractFacade<ActividadTb>{
         return query.getSingleResult();
          }
     
+    //Consulta para el control de los proyectos
+    public ActividadTb BuscarActividadNoIniciada(String titulo, Date fechaInicio, Date fechaFin) {
+        TypedQuery<ActividadTb> query = em.createQuery("SELECT p FROM ActividadTb p WHERE p.mNombre=:t and p.fFecha=:fi and p.fFechafin=:ff", ActividadTb.class);
+       query.setParameter("t", titulo);
+       query.setParameter("fi", fechaInicio);
+       query.setParameter("ff", fechaFin);
+        return query.getSingleResult();
+    }
+    
+    public ActividadTb BuscarActividadEnProceso(String titulo, Date fechaInicioReal) {
+        TypedQuery<ActividadTb> query = em.createQuery("SELECT p FROM ActividadTb p WHERE p.mNombre=:t and p.fFechaInicioReal=:fi", ActividadTb.class);
+       query.setParameter("t", titulo);
+       query.setParameter("fi", fechaInicioReal);
+        return query.getSingleResult();
+    }
+    
+    public ActividadTb BuscarActividadFinalizada(String titulo, Date fechaInicioReal, Date fechaFinReal) {
+        TypedQuery<ActividadTb> query = em.createQuery("SELECT p FROM ActividadTb p WHERE p.mNombre=:t and p.fFechaInicioReal=:fi and p.fFechaFinReal=:ff", ActividadTb.class);
+       query.setParameter("t", titulo);
+       query.setParameter("fi", fechaInicioReal);
+       query.setParameter("ff", fechaFinReal);
+        return query.getSingleResult();
+    }
+
 }

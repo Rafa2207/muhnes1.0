@@ -19,6 +19,7 @@ import modelo.ProyectoTb;
  */
 @Stateless
 public class ProyectoTbFacade extends AbstractFacade<ProyectoTb> {
+
     @PersistenceContext(unitName = "muhnes_muhnes_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
@@ -30,14 +31,20 @@ public class ProyectoTbFacade extends AbstractFacade<ProyectoTb> {
     public ProyectoTbFacade() {
         super(ProyectoTb.class);
     }
-    
+
     //Consulta para la agenda de los proyectos
     public ProyectoTb BuscarProyecto(String titulo, Date fechaInicio, Date fechaFin) {
         TypedQuery<ProyectoTb> query = em.createQuery("SELECT p FROM ProyectoTb p WHERE p.mNombre=:t and p.fFechaInicio=:fi and p.fFechaFin=:ff", ProyectoTb.class);
-       query.setParameter("t", titulo);
-       query.setParameter("fi", fechaInicio);
-       query.setParameter("ff", fechaFin);
+        query.setParameter("t", titulo);
+        query.setParameter("fi", fechaInicio);
+        query.setParameter("ff", fechaFin);
         return query.getSingleResult();
-         }
-    
+    }
+
+    //Consulta general
+    public List<ProyectoTb> ProyectoGeneral() {
+        TypedQuery<ProyectoTb> query = em.createQuery("SELECT p FROM ProyectoTb p ", ProyectoTb.class);
+        return query.getResultList();
+    }
+
 }

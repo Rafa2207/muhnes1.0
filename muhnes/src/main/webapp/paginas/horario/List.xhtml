@@ -16,10 +16,18 @@
         <ui:define name="body">
             <h:form id="LocalidadTbListForm" >
                 <p:panel header="Calendarización de proyectos y actividades">
+                    
+                    <p:breadCrumb>
+                        <p:menuitem value="casita"/>
+                        <p:menuitem value="Seleccione proyecto" outcome="/paginas/horario/Agenda.xhtml" />
+                        <p:menuitem value="Toda la calendarización" outcome="/paginas/horario/List.xhtml" />
+                    </p:breadCrumb>
+                    <br></br>
+                    
                     <p:schedule id="agendaId" locale="es" widgetVar="AgendaProyecto"
                                 value="#{agenda.eventModel}"
                                 aspectRatio="3" draggable="false" rightHeaderTemplate="" showWeekends="false" 
-                                tooltip="true" >  
+                                tooltip="true" resizable="false" >  
                         <p:ajax event="eventSelect" listener="#{agenda.seleccionEvento}"  update=":modales" oncomplete="PF('dialogVer').show();" />
                     </p:schedule>
                 </p:panel>
