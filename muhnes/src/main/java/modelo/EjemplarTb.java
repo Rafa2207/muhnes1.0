@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,7 +18,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -39,7 +37,10 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "EjemplarTb.findByCCalificativo", query = "SELECT e FROM EjemplarTb e WHERE e.cCalificativo = :cCalificativo"),
     @NamedQuery(name = "EjemplarTb.findByECorrelativo", query = "SELECT e FROM EjemplarTb e WHERE e.eCorrelativo = :eCorrelativo"),
     @NamedQuery(name = "EjemplarTb.findByFFechaInicioIdent", query = "SELECT e FROM EjemplarTb e WHERE e.fFechaInicioIdent = :fFechaInicioIdent"),
-    @NamedQuery(name = "EjemplarTb.findByFFechaFinIdent", query = "SELECT e FROM EjemplarTb e WHERE e.fFechaFinIdent = :fFechaFinIdent")})
+    @NamedQuery(name = "EjemplarTb.findByFFechaFinIdent", query = "SELECT e FROM EjemplarTb e WHERE e.fFechaFinIdent = :fFechaFinIdent"),
+    @NamedQuery(name = "EjemplarTb.findByBEstadonotas", query = "SELECT e FROM EjemplarTb e WHERE e.bEstadonotas = :bEstadonotas"),
+    @NamedQuery(name = "EjemplarTb.findByEResponsable", query = "SELECT e FROM EjemplarTb e WHERE e.eResponsable = :eResponsable"),
+    @NamedQuery(name = "EjemplarTb.findByCCodigoentrada", query = "SELECT e FROM EjemplarTb e WHERE e.cCodigoentrada = :cCodigoentrada")})
 public class EjemplarTb implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -63,12 +64,12 @@ public class EjemplarTb implements Serializable {
     @Column(name = "f_fecha_fin_ident")
     @Temporal(TemporalType.DATE)
     private Date fFechaFinIdent;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ejemplarTb")
-    private List<AgenteIdentificaEjemplarTb> agenteIdentificaEjemplarTbList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ejemplarTb")
-    private List<EjemplarParticipaExhibicionTb> ejemplarParticipaExhibicionTbList;
-    @OneToMany(mappedBy = "eIdejemplar")
-    private List<NombrecomunTb> nombrecomunTbList;
+    @Column(name = "b_estadonotas")
+    private Boolean bEstadonotas;
+    @Column(name = "e_responsable")
+    private Integer eResponsable;
+    @Column(name = "c_codigoentrada")
+    private Integer cCodigoentrada;
     @JoinColumn(name = "e_variedad", referencedColumnName = "e_idvariedad")
     @ManyToOne
     private VariedadTb eVariedad;
@@ -78,6 +79,9 @@ public class EjemplarTb implements Serializable {
     @JoinColumn(name = "e_idproyecto", referencedColumnName = "e_idproyecto")
     @ManyToOne
     private ProyectoTb eIdproyecto;
+    @JoinColumn(name = "e_idlocalidad", referencedColumnName = "e_idlocalidad")
+    @ManyToOne
+    private LocalidadTb eIdlocalidad;
     @JoinColumn(name = "e_idgenero", referencedColumnName = "e_idgenero")
     @ManyToOne
     private GeneroTb eIdgenero;
@@ -87,10 +91,17 @@ public class EjemplarTb implements Serializable {
     @JoinColumn(name = "e_idespecie", referencedColumnName = "e_idespecie")
     @ManyToOne
     private EspecieTb eIdespecie;
-    @OneToMany(mappedBy = "eIdejemplar")
-    private List<ImagenTb> imagenTbList;
+    private List<AgenteIdentificaEjemplarTb> AgenteIdentificaEjemplarTbList; 
 
     public EjemplarTb() {
+    }
+
+    public List<AgenteIdentificaEjemplarTb> getAgenteIdentificaEjemplarTbList() {
+        return AgenteIdentificaEjemplarTbList;
+    }
+
+    public void setAgenteIdentificaEjemplarTbList(List<AgenteIdentificaEjemplarTb> AgenteIdentificaEjemplarTbList) {
+        this.AgenteIdentificaEjemplarTbList = AgenteIdentificaEjemplarTbList;
     }
 
     public EjemplarTb(Integer eIdejemplar) {
@@ -153,28 +164,28 @@ public class EjemplarTb implements Serializable {
         this.fFechaFinIdent = fFechaFinIdent;
     }
 
-    public List<AgenteIdentificaEjemplarTb> getAgenteIdentificaEjemplarTbList() {
-        return agenteIdentificaEjemplarTbList;
+    public Boolean getBEstadonotas() {
+        return bEstadonotas;
     }
 
-    public void setAgenteIdentificaEjemplarTbList(List<AgenteIdentificaEjemplarTb> agenteIdentificaEjemplarTbList) {
-        this.agenteIdentificaEjemplarTbList = agenteIdentificaEjemplarTbList;
+    public void setBEstadonotas(Boolean bEstadonotas) {
+        this.bEstadonotas = bEstadonotas;
     }
 
-    public List<EjemplarParticipaExhibicionTb> getEjemplarParticipaExhibicionTbList() {
-        return ejemplarParticipaExhibicionTbList;
+    public Integer getEResponsable() {
+        return eResponsable;
     }
 
-    public void setEjemplarParticipaExhibicionTbList(List<EjemplarParticipaExhibicionTb> ejemplarParticipaExhibicionTbList) {
-        this.ejemplarParticipaExhibicionTbList = ejemplarParticipaExhibicionTbList;
+    public void setEResponsable(Integer eResponsable) {
+        this.eResponsable = eResponsable;
     }
 
-    public List<NombrecomunTb> getNombrecomunTbList() {
-        return nombrecomunTbList;
+    public Integer getCCodigoentrada() {
+        return cCodigoentrada;
     }
 
-    public void setNombrecomunTbList(List<NombrecomunTb> nombrecomunTbList) {
-        this.nombrecomunTbList = nombrecomunTbList;
+    public void setCCodigoentrada(Integer cCodigoentrada) {
+        this.cCodigoentrada = cCodigoentrada;
     }
 
     public VariedadTb getEVariedad() {
@@ -201,6 +212,14 @@ public class EjemplarTb implements Serializable {
         this.eIdproyecto = eIdproyecto;
     }
 
+    public LocalidadTb getEIdlocalidad() {
+        return eIdlocalidad;
+    }
+
+    public void setEIdlocalidad(LocalidadTb eIdlocalidad) {
+        this.eIdlocalidad = eIdlocalidad;
+    }
+
     public GeneroTb getEIdgenero() {
         return eIdgenero;
     }
@@ -223,14 +242,6 @@ public class EjemplarTb implements Serializable {
 
     public void setEIdespecie(EspecieTb eIdespecie) {
         this.eIdespecie = eIdespecie;
-    }
-
-    public List<ImagenTb> getImagenTbList() {
-        return imagenTbList;
-    }
-
-    public void setImagenTbList(List<ImagenTb> imagenTbList) {
-        this.imagenTbList = imagenTbList;
     }
 
     @Override

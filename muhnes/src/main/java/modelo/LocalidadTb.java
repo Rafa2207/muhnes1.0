@@ -6,6 +6,7 @@
 package modelo;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -41,6 +43,8 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "LocalidadTb.findByELongitudminutos", query = "SELECT l FROM LocalidadTb l WHERE l.eLongitudminutos = :eLongitudminutos"),
     @NamedQuery(name = "LocalidadTb.findByDLongitudsegundos", query = "SELECT l FROM LocalidadTb l WHERE l.dLongitudsegundos = :dLongitudsegundos")})
 public class LocalidadTb implements Serializable {
+    @OneToMany(mappedBy = "eIdlocalidad")
+    private List<EjemplarTb> ejemplarTbList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -234,6 +238,14 @@ public class LocalidadTb implements Serializable {
     @Override
     public String toString() {
         return "modelo.LocalidadTb[ eIdlocalidad=" + eIdlocalidad + " ]";
+    }
+
+    public List<EjemplarTb> getEjemplarTbList() {
+        return ejemplarTbList;
+    }
+
+    public void setEjemplarTbList(List<EjemplarTb> ejemplarTbList) {
+        this.ejemplarTbList = ejemplarTbList;
     }
     
 }

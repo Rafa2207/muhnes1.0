@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -84,7 +85,7 @@ public class ActividadTb implements Serializable {
     @JoinColumn(name = "e_idproyecto", referencedColumnName = "e_idproyecto")
     @ManyToOne
     private ProyectoTb eIdproyecto;
-    @OneToMany(mappedBy = "eIdactividad")
+    @OneToMany(mappedBy = "eIdactividad", orphanRemoval = true, cascade= CascadeType.ALL)
     private List<InsumoTb> insumoTbList;
 
     public ActividadTb() {

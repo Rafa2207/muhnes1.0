@@ -13,12 +13,14 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
+import modelo.AgenteIdentificaEjemplarTb;
+import modelo.AgenteIdentificaEjemplarTbPK;
+import modelo.AgenteTb;
 
 @Named("ejemplarTbController")
 @ViewScoped
@@ -26,10 +28,36 @@ public class EjemplarTbController implements Serializable {
 
     @EJB
     private servicio.EjemplarTbFacade ejbFacade;
-    private List<EjemplarTb> items = null;
+    private List<EjemplarTb> items = null, filtro;
     private EjemplarTb selected;
+    private AgenteTb agente;
+    private List<AgenteTb> agentes;
 
     public EjemplarTbController() {
+    }
+
+    public List<AgenteTb> getAgentes() {
+        return agentes;
+    }
+
+    public void setAgentes(List<AgenteTb> agentes) {
+        this.agentes = agentes;
+    }
+
+    public AgenteTb getAgente() {
+        return agente;
+    }
+
+    public void setAgente(AgenteTb agente) {
+        this.agente = agente;
+    }
+
+    public List<EjemplarTb> getFiltro() {
+        return filtro;
+    }
+
+    public void setFiltro(List<EjemplarTb> filtro) {
+        this.filtro = filtro;
     }
 
     public EjemplarTb getSelected() {
@@ -163,4 +191,20 @@ public class EjemplarTbController implements Serializable {
 
     }
 
+    public void añadir(){
+        AgenteIdentificaEjemplarTb nuevo = new AgenteIdentificaEjemplarTb();
+        nuevo.setAgenteTb(agente);
+        nuevo.setEjemplarTb(selected);
+
+        AgenteIdentificaEjemplarTbPK agenteIdentificapk = new AgenteIdentificaEjemplarTbPK();
+
+        agenteIdentificapk.setEIdagente(agente.getEIdagente());
+        agenteIdentificapk.setEIdejemplar(getFacade().siguienteId());
+
+        nuevo.setAgenteIdentificaEjemplarTbPK(agenteIdentificapk);
+
+        selected.getAgenteIdentificaEjemplarTbList().add(nuevo);
+
+        agentes.remove(agente);
+    }
 }
