@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -64,7 +65,7 @@ public class ProyectoTb implements Serializable {
     private Integer eEstado;
     @OneToMany(mappedBy = "eIdproyecto")
     private List<DespachoTb> despachoTbList;
-    @OneToMany(mappedBy = "eIdproyecto", orphanRemoval = true)
+    @OneToMany(mappedBy = "eIdproyecto", orphanRemoval = true, cascade= CascadeType.ALL)
     private List<ActividadTb> actividadTbList;
     @OneToMany(mappedBy = "eIdproyecto")
     private List<ProcesoejemplarTb> procesoejemplarTbList;
