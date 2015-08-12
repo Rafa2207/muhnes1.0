@@ -10,6 +10,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import modelo.ProyectoTb;
 
@@ -43,7 +44,8 @@ public class ProyectoTbFacade extends AbstractFacade<ProyectoTb> {
 
     //Consulta general
     public List<ProyectoTb> ProyectoGeneral() {
-        TypedQuery<ProyectoTb> query = em.createQuery("SELECT p FROM ProyectoTb p ", ProyectoTb.class);
+        em.clear();
+        TypedQuery<ProyectoTb> query = em.createQuery("SELECT p FROM ProyectoTb p ORDER BY p.fFechaInicio DESC", ProyectoTb.class);
         return query.getResultList();
     }
 

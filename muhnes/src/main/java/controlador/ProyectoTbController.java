@@ -20,9 +20,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import modelo.ActividadTb;
 import modelo.AgenteTb;
 import org.primefaces.context.RequestContext;
+import servicio.ActividadTbFacade;
 
 @Named("proyectoTbController")
 @ViewScoped
@@ -30,10 +33,37 @@ public class ProyectoTbController implements Serializable {
 
     @EJB
     private servicio.ProyectoTbFacade ejbFacade;
-    private List<ProyectoTb> items = null, filtro, ListaProyecto=null;
+    @EJB
+    private servicio.ActividadTbFacade FacadeActividad;
+    private List<ActividadTb> ListaActividad = null;
+    private List<ProyectoTb> items = null, filtro, ListaProyecto = null, itemsProyecto = null;
     private ProyectoTb selected;
     private Date fechatemporal;
     String agente;
+    @PersistenceContext(unitName = "muhnes_muhnes_war_1.0-SNAPSHOTPU")
+    EntityManager em;
+
+    public List<ProyectoTb> getItemsProyecto() {
+        itemsProyecto = getFacade().ProyectoGeneral();
+        return itemsProyecto;
+    }
+
+    public ActividadTbFacade getFacadeActividad() {
+        return FacadeActividad;
+    }
+
+    public void setFacadeActividad(ActividadTbFacade FacadeActividad) {
+        this.FacadeActividad = FacadeActividad;
+    }
+
+    public List<ActividadTb> getListaActividad() {
+        ListaActividad = getFacadeActividad().findAll();
+        return ListaActividad;
+    }
+
+    public void setListaActividad(List<ActividadTb> ListaActividad) {
+        this.ListaActividad = ListaActividad;
+    }
 
     public Date getFechatemporal() {
         return fechatemporal;
@@ -196,57 +226,61 @@ public class ProyectoTbController implements Serializable {
     }
 
     public String calculaAgente(List<AgenteTb> a, int b) {
-
         for (AgenteTb agen : a) {
             if (agen.getEIdagente() == b) {
                 agente = agen.getCNombre() + " " + agen.getCApellido();
-
             }
-
         }
-
         return agente;
     }
 
     public double presupuesto(ProyectoTb proy) {
         double presupuesto = 0;
-        for (ActividadTb p : proy.getActividadTbList()) {
-            presupuesto = presupuesto + p.getDTotal();
+        for (ActividadTb a : getListaActividad()) {
+            if(a.getEIdproyecto().getEIdproyecto()==proy.getEIdproyecto()) {
+                presupuesto = presupuesto + a.getDTotal();
+            }
         }
         return presupuesto;
     }
 
     public int progresoProyecto(ProyectoTb proy) {
-        int TotalActividades=0,TotalEntero=0, proyecto=proy.getEIdproyecto();
-        double cadaActividad=0, total = 0;
+        int TotalActividades = 0, TotalEntero = 0, proyecto = proy.getEIdproyecto();
+        double cadaActividad = 0, total = 0;
         ListaProyecto = getFacade().ProyectoGeneral();
-        
+        ListaActividad = getFacadeActividad().findAll();
+
         for (ProyectoTb p : ListaProyecto) {
             if (p.getEIdproyecto() == proyecto) {
-               proy=p;
+                proy = p;
             }
         }
-        
-        for (ActividadTb a : proy.getActividadTbList()) {
-            TotalActividades++;
+
+        for (ActividadTb a : ListaActividad) {
+            if (a.getEIdproyecto().getEIdproyecto() == proy.getEIdproyecto()) {
+                TotalActividades++;
+            }
+
         }
         try {
-            cadaActividad=100/TotalActividades;
+            cadaActividad = 100 / (float) TotalActividades;
         } catch (Exception e) {
-            cadaActividad=0;
+            cadaActividad = 0;
         }
-        for (ActividadTb a : proy.getActividadTbList()) {
-            if (a.geteEstado() == 1) {
-                total=total+(cadaActividad*0);
-                  }
-            if (a.geteEstado() == 2) {
-                total=total+(cadaActividad/2);
-                  }
-            if (a.geteEstado() == 3) {
-                total=total+(cadaActividad);
-                  }
+        for (ActividadTb a : ListaActividad) {
+            if (a.getEIdproyecto().getEIdproyecto() == proy.getEIdproyecto()) {
+                if (a.geteEstado() == 1) {
+                    total = total + (cadaActividad * 0);
+                }
+                if (a.geteEstado() == 2) {
+                    total = total + (cadaActividad / 2);
+                }
+                if (a.geteEstado() == 3) {
+                    total = total + (cadaActividad);
+                }
+            }
         }
-        TotalEntero= (int) total;
+        TotalEntero = (int) total;
         return TotalEntero;
 
     }

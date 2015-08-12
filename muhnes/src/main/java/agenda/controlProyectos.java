@@ -45,23 +45,23 @@ public class controlProyectos {
     private ScheduleEvent event;
     private ProyectoTb proyecto;
     private String comparador;
-    private Date fechaActual = new Date();
+    private Date fechaActual = new Date(), fechaFinalPrevista;
+    private int diasFaltantesInt;
     @Inject
     ControladorSesion sesion;
 
     @PostConstruct
     public void init() {
-        int pro=sesion.getProyecto().getEIdproyecto();
+        int pro = sesion.getProyecto().getEIdproyecto();
         eventModel = new DefaultScheduleModel();
-        listaProyecto = getFacadeProyecto().findAll();
-        
+        listaProyecto = getFacadeProyecto().ProyectoGeneral();
 
         for (ProyectoTb p : listaProyecto) {
             if (p.getEIdproyecto() == pro) {
-               proyecto=p;
+                proyecto = p;
             }
         }
-        
+
         try {
             eventoActividad(proyecto);
         } catch (Exception e) {
@@ -70,24 +70,25 @@ public class controlProyectos {
     }
 
     public ScheduleModel eventoActividad(ProyectoTb proy) {
-        
-
-        for (ActividadTb a : proy.getActividadTbList()) {
-            if (a.geteEstado() == 1) {
-                eventModel.addEvent(new DefaultScheduleEvent("No iniciado: " + a.getMNombre(), a.getFFecha(), a.getFFechafin(), "NoIniciado"));
-            }
-            if (a.geteEstado() == 2) {
-                eventModel.addEvent(new DefaultScheduleEvent("En proceso: " + a.getMNombre(), a.getFFechaInicioReal(), fechaActual, "EnProceso"));
-            }
-            if (a.geteEstado() == 3) {
-                eventModel.addEvent(new DefaultScheduleEvent("Finalizado: " + a.getMNombre(), a.getFFechaInicioReal(), a.getFFechaFinReal(), "Finalizado"));
+        listaActividad = FacadeActividad.findAll();
+        for (ActividadTb a : listaActividad) {
+            if (a.getEIdproyecto().getEIdproyecto() == proy.getEIdproyecto()) {
+                if (a.geteEstado() == 1) {
+                    eventModel.addEvent(new DefaultScheduleEvent("No iniciado: " + a.getMNombre(), a.getFFecha(), a.getFFechafin(), "NoIniciado"));
+                }
+                if (a.geteEstado() == 2) {
+                    eventModel.addEvent(new DefaultScheduleEvent("En proceso: " + a.getMNombre(), a.getFFechaInicioReal(), fechaActual, "EnProceso"));
+                }
+                if (a.geteEstado() == 3) {
+                    eventModel.addEvent(new DefaultScheduleEvent("Finalizado: " + a.getMNombre(), a.getFFechaInicioReal(), a.getFFechaFinReal(), "Finalizado"));
+                }
             }
         }
         return eventModel;
     }
 
     public void seleccionEvento(SelectEvent eventoSeleccionado) {
-
+        int DiasDuracionActividad, DiasTranscurridos;
         event = (ScheduleEvent) eventoSeleccionado.getObject();
         String[] cadena = event.getTitle().split(": ", 2);
         comparador = cadena[0];
@@ -102,6 +103,64 @@ public class controlProyectos {
         if (comparador.equals("Finalizado")) {
             actividadView = getFacadeActividad().BuscarActividadFinalizada(titulo, event.getStartDate(), event.getEndDate());
         }
+        try {
+            DiasDuracionActividad = diasDuracionActividad(actividadView.getFFecha(), actividadView.getFFechafin());
+            DiasTranscurridos = diasTranscurridosActividad(actividadView.getFFechaInicioReal(), fechaActual);
+            diasFaltantesInt = diasFaltantes(DiasDuracionActividad, DiasTranscurridos);
+            fechaFinalPrevista = calcularFechaFinEspectativa(actividadView.getFFechaInicioReal(), DiasDuracionActividad);
+
+        } catch (Exception e) {
+        }
+
+    }
+
+    public int diasFaltantes(int diaDuracion, int diaTranscurrido) {
+        int dia, comparar;
+        comparar = diaDuracion - diaTranscurrido;
+        if (comparar >= 0) {
+            dia = comparar;
+        } else {
+            dia = comparar * -1;
+        }
+        return dia;
+    }
+
+    public int diasDuracionActividad(Date fechaInicio, Date fechaFin) {
+        long fecha = fechaFin.getTime() - fechaInicio.getTime();
+        long obtenerDia = fecha / (1000 * 60 * 60 * 24);
+        int dia = (int) obtenerDia;
+        return dia;
+    }
+
+    public int diasTranscurridosActividad(Date fechaInicio, Date fechaFin) {
+        long fecha = fechaFin.getTime() - fechaInicio.getTime();
+        long obtenerDia = fecha / (1000 * 60 * 60 * 24);
+        int dia = (int) obtenerDia;
+        return dia;
+    }
+
+    public Date calcularFechaFinEspectativa(Date fechainicio, int dias) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fechainicio); // Configuramos la fecha que se recibe
+        calendar.add(Calendar.DAY_OF_YEAR, dias);  // numero de dias que se restan o suman
+        Date fecha = calendar.getTime(); //mandamos la fecha a una variable Date
+        return fecha;
+    }
+
+    public int getDiasFaltantesInt() {
+        return diasFaltantesInt;
+    }
+
+    public void setDiasFaltantesInt(int diasFaltantesInt) {
+        this.diasFaltantesInt = diasFaltantesInt;
+    }
+
+    public Date getFechaFinalPrevista() {
+        return fechaFinalPrevista;
+    }
+
+    public void setFechaFinalPrevista(Date fechaFinalPrevista) {
+        this.fechaFinalPrevista = fechaFinalPrevista;
     }
 
     public ProyectoTbFacade getFacadeProyecto() {

@@ -25,7 +25,7 @@
 
                     <p:schedule id="agendaId" locale="es" widgetVar="AgendaProyecto"
                                 value="#{controlProyectos.eventModel}"
-                                aspectRatio="3" draggable="false" rightHeaderTemplate="" showWeekends="false" 
+                                aspectRatio="3" draggable="false" rightHeaderTemplate=""
                                 tooltip="true" resizable="false" initialDate="#{controladorSesion.proyecto.FFechaInicio}"
                                 timeZone="GMT-6">  
                         <p:ajax event="eventSelect" listener="#{controlProyectos.seleccionEvento}"  update=":modales" oncomplete="PF('dialogVer').show();" />
@@ -48,12 +48,12 @@
                                 <f:convertNumber type="number" groupingUsed="true" minFractionDigits="2" pattern="$#0.00"/>
                             </h:outputText>
 
-                            <h:outputText value="Fecha espectativa de inicio:"/>
+                            <h:outputText value="Fecha inicio prevista:"/>
                             <h:outputText value="#{controlProyectos.actividadView.FFecha}">
                                 <f:convertDateTime pattern="dd MMMM yyyy" />
                             </h:outputText>
 
-                            <h:outputText value="Fecha espectativa de Finalización:"/>
+                            <h:outputText value="Fecha finalización prevista:"/>
                             <h:outputText value="#{controlProyectos.actividadView.FFechafin}">
                                 <f:convertDateTime pattern="dd MMMM yyyy" />
                             </h:outputText>
@@ -67,20 +67,61 @@
                     <!-- Para actividades en proceso  -->
                     <h:panelGroup id="EnProceso"  rendered="#{controlProyectos.comparador eq 'En proceso'}" >
                         <p:panelGrid columns="2" id="Proceso" style="width: 450px">
-                            
+
+                            <h:outputText value="Nombre:"/>
+                            <h:outputText value="#{controlProyectos.actividadView.MNombre}"/>
+
+                            <h:outputText value="Presupuesto:"/>
+                            <h:outputText value="#{controlProyectos.actividadView.DTotal}">
+                                <f:convertNumber type="number" groupingUsed="true" minFractionDigits="2" pattern="$#0.00"/>
+                            </h:outputText>
+
+                            <h:outputText value="Fecha iniciada:"/>
+                            <h:outputText value="#{controlProyectos.actividadView.FFechaInicioReal}">
+                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                            </h:outputText>
+
+                            <h:outputText value="Fecha final prevista:"/>
+                            <h:outputText value="#{controlProyectos.fechaFinalPrevista}">
+                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                            </h:outputText>
+
+                            <h:outputText value="Dias faltantes:" rendered="#{not controlProyectos.fechaFinalPrevista.before(controlProyectos.fechaActual)}"/>
+                            <h:outputText value="#{controlProyectos.diasFaltantesInt}" rendered="#{not controlProyectos.fechaFinalPrevista.before(controlProyectos.fechaActual)}"/>
+
+                            <h:outputText value="Dias de retraso:" rendered="#{controlProyectos.fechaFinalPrevista.before(controlProyectos.fechaActual)}"/>
+                            <h:outputText value="#{controlProyectos.diasFaltantesInt}" rendered="#{controlProyectos.fechaFinalPrevista.before(controlProyectos.fechaActual)}"/>
+
+                        </p:panelGrid>
+                        <p:commandButton actionListener="#{controlProyectos.finalizarActividad()}" update="Proceso :ControlForm:agendaId  :growl" value="Finalizar actividad" oncomplete="handleSubmit(args, 'dialogVer');" >
+                            <p:confirm header="Confirmación" message="¿Está seguro que desea finalizar actividad?" icon="ui-icon-alert" />
+                        </p:commandButton>
+                    </h:panelGroup>
+
+                    <!-- Fin Actividades en proceso-->
+                    <h:panelGroup id="probando" rendered="#{controlProyectos.comparador eq 'Finalizado'}">
+                        <p:panelGrid columns="2" id="Finalizado" style="width: 450px">
                             <h:outputText value="Nombre:"/>
                             <h:outputText value="#{controlProyectos.actividadView.MNombre}"/>
                             
-                            <h:outputText value="Nombre:"/>
+                            <h:outputText value="Presupuesto:"/>
+                            <h:outputText value="#{controlProyectos.actividadView.DTotal}">
+                                <f:convertNumber type="number" groupingUsed="true" minFractionDigits="2" pattern="$#0.00"/>
+                            </h:outputText>
                             
+                            <h:outputText value="Fecha iniciada:"/>
+                            <h:outputText value="#{controlProyectos.actividadView.FFechaInicioReal}">
+                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                            </h:outputText>
                             
-
-
-                            <p:commandButton update="Proceso :ControlForm:agendaId  :growl" value="Finalizar actividad" oncomplete="handleSubmit(args, 'dialogVer');" >
-                                <p:confirm header="Confirmación" message="¿Está seguro que desea finalizar actividad?" icon="ui-icon-alert" />
-                            </p:commandButton>
+                            <h:outputText value="Fecha finalizada:"/>
+                            <h:outputText value="#{controlProyectos.actividadView.FFechaFinReal}">
+                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                            </h:outputText>
                         </p:panelGrid>
                     </h:panelGroup>
+                    <!-- Fin Actividades en proceso-->
+                    
                 </p:dialog>    
             </h:form>
 
