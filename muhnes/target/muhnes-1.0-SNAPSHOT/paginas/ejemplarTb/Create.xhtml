@@ -16,7 +16,7 @@
                             <p:row>
                                 <p:column><p:outputLabel value="Responsable: " for="CResponsable" /></p:column> 
                                 <p:column><p:selectOneMenu id="CResponsable" value="#{ejemplarTbController.selected.EResponsable}" 
-                                                           required="true" requiredMessage="Seleccione cantón" filter="true" filterMatchMode="contains">
+                                                           required="true" requiredMessage="Seleccione responsable" filter="true" filterMatchMode="contains">
                                         <f:selectItem itemValue="" itemLabel="Seleccione..."/>
                                         <f:selectItems value="#{agenteTbController.itemsAvailableSelectOne}"
                                                        var="EIdagenteItem"
@@ -30,21 +30,27 @@
                             <p:row>
                                 <p:column><p:outputLabel value="Información Taxonomica: " for="Taxon" /></p:column>
                                 <p:column><p:selectOneMenu id="Taxon" value="#{ejemplarTbController.selected.EIdfamilia}" >
-                                        <f:selectItem itemLabel="Seleccione" itemValue=""/>
-                                        <f:selectItems value="#{familiaTbController.itemsAvailableSelectOne}"
-                                                       var="EIdfamiliaItem"
-                                                       itemLabel="#{EIdfamiliaItem.CNombre}"
-                                                       itemValue="#{EIdfamiliaItem}"/>
+                                        <f:selectItem itemLabel="Seleccione..." itemValue=""/>
+                                        <f:selectItem itemLabel="Familia" itemValue=""/>
+                                        <f:selectItem itemLabel="Genero" itemValue=""/>
+                                        <f:selectItem itemLabel="Especie" itemValue=""/>
+                                        <f:selectItem itemLabel="Subespecie" itemValue=""/>
+                                        <f:selectItem itemLabel="variedad" itemValue=""/>
                                     </p:selectOneMenu></p:column>
                                 <p:column><p:selectOneMenu id="eTaxon" value="#{ejemplarTbController.selected.EIdfamilia}" >
-                                        <f:selectItem itemLabel="Seleccione" itemValue=""/>
+                                        <f:selectItem itemLabel="Seleccione..." itemValue=""/>
                                         <f:selectItems value="#{familiaTbController.itemsAvailableSelectOne}"
                                                        var="EIdfamiliaItem"
                                                        itemLabel="#{EIdfamiliaItem.CNombre}"
                                                        itemValue="#{EIdfamiliaItem}"/>
                                     </p:selectOneMenu></p:column>
                                 <p:column><p:outputLabel value="#{bundle.CreateEjemplarTbLabel_CCalificativo}" for="CCalificativo" /></p:column>
-                                <p:column><p:inputText id="CCalificativo" value="#{ejemplarTbController.selected.CCalificativo}" title="#{bundle.CreateEjemplarTbTitle_CCalificativo}" /></p:column>
+                                <p:column><p:selectOneMenu id="CCalificativo" value="#{ejemplarTbController.selected.EIdfamilia}" >
+                                        <f:selectItem itemLabel="Seleccione..." itemValue=""/>
+                                        <f:selectItem itemLabel="aff." itemValue="aff."/>
+                                        <f:selectItem itemLabel="-cf." itemValue="-cf."/>
+                                        <f:selectItem itemLabel="ined." itemValue="ined."/>
+                                    </p:selectOneMenu></p:column>
                             </p:row>
                             <p:row>
                                 <p:column><p:outputLabel value="Inicio Identificación: " for="FFechaInicioIdent" /></p:column>
@@ -76,60 +82,90 @@
                         </p:panelGrid>
                     </p:fieldset>
 
-                    <p:tabView>
+                    <p:tabView id="recolector" >
                         <p:tab title="Recolectores">
                             <p:panelGrid columns="3">
-                                <p:outputLabel value="Agentes: " for="identificador" />
-                                <p:selectOneMenu id="identificador" value="#{ejemplarTbController.agente}" 
-                                                 required="true" requiredMessage="Seleccione cantón" filter="true" filterMatchMode="contains">
+                                <p:outputLabel value="Agentes: " for="agente" />
+                                <p:selectOneMenu id="agente" 
+                                                 value="#{ejemplarTbController.agente}" 
+                                                 filter="true">
                                     <f:selectItem itemValue="" itemLabel="Seleccione..."/>
-                                    <f:selectItems value="#{ejemplarTbController.agentes}"
-                                                   var="EIdagenteItem"
-                                                   itemValue="#{EIdagenteItem.EIdagente}"
-                                                   itemLabel="#{EIdagenteItem.CIniciales} (#{EIdagenteItem.CNombre} #{EIdagenteItem.CApellido})"/>
+                                    <f:selectItems value="#{ejemplarTbController.listaAgente}"
+                                                   var="ag"
+                                                   itemValue="#{ag}"
+                                                   itemLabel="#{ag.CNombre} #{ag.CApellido}"/>
                                 </p:selectOneMenu>
                                 <p:commandButton id="agregar"
                                                  value="Agregar"
-                                                 actionListener="#{ejemplarTbController.anadir()}"
-                                                 process="identificador agregar"
-                                                 update="identificador AgenteIdentifica"/>
+                                                 actionListener="#{ejemplarTbController.anadirRecolector()}"
+                                                 process="agente agregar"
+                                                 update="agente EjemplarAgentes"/>
                             </p:panelGrid>
 
-                            <p:dataTable id="AgenteIdentifica"
+                            <p:dataTable id="EjemplarAgentes"
                                          value="#{ejemplarTbController.selected.agenteIdentificaEjemplarTbList}"
-                                         var="ident"
+                                         var="agentes"
                                          editable="true"
                                          tableStyle="width: 600px"
                                          scrollable="true"
                                          scrollHeight="80"
                                          emptyMessage="No se han añadido agentes"
                                          >
-
                                 <p:column headerText="Agentes">
-                                    #{ident.agenteTb.CNombre} #{ident.agenteTb.CApellido}
+                                    <h:outputText value="#{agentes.agenteTb.CNombre}  #{agentes.agenteTb.CApellido}"/>
                                 </p:column>
-                                <p:column headerText="Secuencia">
-                                </p:column>
-                                <p:column headerText="Acciones" width="60">
-                                    <p:commandLink style="display: inline-block"
-                                                   styleClass="ui-icon ui-icon-trash"
-                                                   action="#{agenteTbController.remover()}"
-                                                   process="perfilesAgentes"
-                                                   update=":AgenteTbCreateForm:perfil :AgenteTbCreateForm:perfilesAgentes">
-                                        <f:setPropertyActionListener value="#{per}" 
-                                                                     target="#{agenteTbController.perfilAgente}"/>
+                                <p:column headerText="Acciones">
+                                    <p:commandLink styleClass="ui-icon ui-icon-trash"
+                                                   action="#{ejemplarTbController.remover()}"
+                                                   process="EjemplarAgentes"
+                                                   update="EjemplarAgentes :EjemplarTbCreateForm:recolector:agente">
+                                        <f:setPropertyActionListener value="#{agentes}" 
+                                                                     target="#{ejemplarTbController.agenteIdentifica}"/>
                                     </p:commandLink>
                                 </p:column>
-
                             </p:dataTable>
                         </p:tab>
                         <p:tab title="Identificadores">
-                            <h:panelGrid columns="2" cellpadding="10">
-                            </h:panelGrid>
-                        </p:tab>
-                        <p:tab title="Imágenes">
-                            <h:panelGrid columns="2" cellpadding="10">
-                            </h:panelGrid>
+                                <p:panelGrid columns="3">
+                                <p:outputLabel value="Agentes: " for="agente" />
+                                <p:selectOneMenu id="agente1" 
+                                                 value="#{ejemplarTbController.agente}" 
+                                                 filter="true">
+                                    <f:selectItem itemValue="" itemLabel="Seleccione..."/>
+                                    <f:selectItems value="#{ejemplarTbController.listaAgente}"
+                                                   var="ag"
+                                                   itemValue="#{ag}"
+                                                   itemLabel="#{ag.CNombre} #{ag.CApellido}"/>
+                                </p:selectOneMenu>
+                                <p:commandButton id="agregar1"
+                                                 value="Agregar"
+                                                 actionListener="#{ejemplarTbController.anadirIdentificador()}"
+                                                 process="agente1 agregar1"
+                                                 update="agente1 EjemplarAgentes1"/>
+                            </p:panelGrid>
+
+                            <p:dataTable id="EjemplarAgentes1"
+                                         value="#{ejemplarTbController.selected.agenteIdentificaEjemplarTbList}"
+                                         var="agentes"
+                                         editable="true"
+                                         tableStyle="width: 600px"
+                                         scrollable="true"
+                                         scrollHeight="80"
+                                         emptyMessage="No se han añadido agentes"
+                                         >
+                                <p:column headerText="Agentes">
+                                    <h:outputText value="#{agentes.agenteTb.CNombre}  #{agentes.agenteTb.CApellido}"/>
+                                </p:column>
+                                <p:column headerText="Acciones">
+                                    <p:commandLink styleClass="ui-icon ui-icon-trash"
+                                                   action="#{ejemplarTbController.removerIdentificador()}"
+                                                   process="EjemplarAgentes1"
+                                                   update="EjemplarAgentes1 :EjemplarTbCreateForm:recolector:agente1">
+                                        <f:setPropertyActionListener value="#{agentes}" 
+                                                                     target="#{ejemplarTbController.agenteIdentifica}"/>
+                                    </p:commandLink>
+                                </p:column>
+                            </p:dataTable>
                         </p:tab>
                         <p:tab title="Nombre Común">
                             <h:panelGrid columns="2" cellpadding="10">
