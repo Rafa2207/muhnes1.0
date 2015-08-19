@@ -165,7 +165,8 @@ public class ActividadTbController implements Serializable {
     }
     
     public List<ActividadTb> getItems() { //modificando para que funcione por proyectos
-
+        items=getFacade().findAll();
+       
         return items;
     }
 

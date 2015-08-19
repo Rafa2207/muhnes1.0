@@ -44,8 +44,8 @@
                 <h:form>
 
                     <p:themeSwitcher style="margin-left: 10px; width:165px" id="defaultSwitcher" 
-                                     value="#{themeSwitcherBean.theme}">
-                        <f:selectItems value="#{themeSwitcherBean.themes}" />
+                                     value="#{themeSwitcherBean.theme}" effect="fade" var="t">
+                        <f:selectItems value="#{themeSwitcherBean.themes}" var="theme"  />
                         <p:ajax listener="#{themeSwitcherBean.saveUserTheme()}" />
                     </p:themeSwitcher>
 
@@ -80,7 +80,7 @@
                             <p:menuitem value="Control de proyectos" outcome="/paginas/horario/Agenda.xhtml" />
                             <p:menuitem value="Proyecto" outcome="/paginas/proyectoTb/List.xhtml" />
                             <p:menuitem value="Proceso Ejemplar" outcome="/paginas/procesoejemplarTb/ProcesoEjemplar.xhtml"/>
-                             <p:menuitem value="Notas preliminares" outcome="/paginas/notapreliminarTb/notapreliminar.xhtml"/>
+                            <p:menuitem value="Notas preliminares" outcome="/paginas/notapreliminarTb/notapreliminar.xhtml"/>
                         </p:submenu>
                         <p:submenu label="Materiales">
                             <p:menuitem value="Materiales" outcome="/paginas/materialTb/List.xhtml" />
@@ -124,8 +124,13 @@
                 </h:form>
             </p:layoutUnit>
 
-            <p:layoutUnit position="south" size="60" style="border: 0" gutter="0">
-                <ui:insert name="footer"/>
+            <p:layoutUnit position="south" size="60" style="border: 0;text-align:center;tex" gutter="0">
+                <ui:insert name="footer">
+                    <b>
+                    Copyright © 2015, Universidad de El Salvador Facultad Multidisciplinaria Paracentral (UES-FMP) -Todos los derechos reservados
+                    </b>   
+                   
+                </ui:insert>
             </p:layoutUnit>
 
             <p:layoutUnit position="center" style="border: 0" gutter="0">

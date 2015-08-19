@@ -91,7 +91,7 @@
                                            actionListener="#{procesoejemplarTbController.prepareSiguiente(controladorSesion.proyecto,item)}" 
                                            update=":ProcesoejemplarTbSiguienteForm" oncomplete="PF('siguienteDialog').show()" 
                                            title="Siguiente proceso"/>
-                            <p:commandLink value="no ay" styleClass="ui-icon ui-icon-search" rendered="#{procesoejemplarTbController.corroborar(controladorSesion.proyecto,item)}"
+                            <p:commandLink styleClass="ui-icon ui-icon-search" rendered="#{procesoejemplarTbController.corroborar(controladorSesion.proyecto,item)}"
                                            actionListener="#{procesoejemplarTbController.prepareViewSiguiente(controladorSesion.proyecto,item)}"
                                            update=":viewsiguienteForm" oncomplete="PF('viewsiguienteDialog').show()" 
                                            title="Visualizar cuarentena"/>

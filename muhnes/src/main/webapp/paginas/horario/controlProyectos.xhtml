@@ -97,8 +97,9 @@
                             <p:confirm header="Confirmación" message="¿Está seguro que desea finalizar actividad?" icon="ui-icon-alert" />
                         </p:commandButton>
                     </h:panelGroup>
-
                     <!-- Fin Actividades en proceso-->
+                    
+                    <!-- Actividades finalizadas-->
                     <h:panelGroup id="probando" rendered="#{controlProyectos.comparador eq 'Finalizado'}">
                         <p:panelGrid columns="2" id="Finalizado" style="width: 450px">
                             <h:outputText value="Nombre:"/>
@@ -120,7 +121,7 @@
                             </h:outputText>
                         </p:panelGrid>
                     </h:panelGroup>
-                    <!-- Fin Actividades en proceso-->
+                    <!-- Fin Actividades finalizadas-->
                     
                 </p:dialog>    
             </h:form>

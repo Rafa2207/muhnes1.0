@@ -33,7 +33,7 @@
                             <p:selectOneMenu id="material"
                                              value="#{despachoTbController.material}" filter="true">
                                 <f:selectItem itemLabel="Seleccione uno..."
-                                              itemValue=""/>
+                                              itemValue="0"/>
                                 <f:selectItems value="#{despachoTbController.materialDisponible}"
                                                var="mt"
                                                itemLabel="#{mt.CNombre}"
@@ -42,7 +42,7 @@
                             </p:selectOneMenu>
                             <p:outputLabel value="Cantidad:" for="cant"/>
                             <p:inputText id="cant" size="4" value="#{despachoTbController.cantidad}" title="introduzca una cantidad entre 1 y #{despachoTbController.material.DCantidad}">
-                                <f:validateLongRange minimum="1" maximum="#{despachoTbController.material.DCantidad}"/> 
+                              <!--  <f:validateLongRange minimum="1" maximum="#{despachoTbController.material.DCantidad}"/> -->
                             </p:inputText>
                             <h:outputText id="und" value="#{despachoTbController.material.EIdunidad.CNombre}"/>
                             <p:commandButton id="agregar"

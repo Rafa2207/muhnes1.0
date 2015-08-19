@@ -3,15 +3,119 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
-   
-    <ui:composition template="/template.xhtml">
-   <ui:define name="body">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-       <h1 align="center" >BIENVENIDOS</h1>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="body">
+            <h:form>
+                <p:panel header="Agenda del día">
+                    <p:panelGrid columns="2" layout="grid">
+
+
+
+                        <p:carousel style="width: 500px" value="#{proyectoTbController.items}" circular="true" headerText="Proyectos a Finalizar" numVisible="1" var="proy" >
+                            <p:panelGrid columns="2" style="width: 500px">
+                                <h:outputText value="Proyecto:"/>
+                                <h:outputText value="#{proy.MNombre}" />
+
+                                <h:outputText value="Fecha inicio:"/>
+                                <h:outputText value="#{proy.FFechaInicio}" >
+                                    <f:convertDateTime pattern="dd MMMM yyyy" />
+                                </h:outputText>
+
+                                <h:outputText value="Fecha fin:"/>
+                                <h:outputText value="#{proy.FFechaFin}" >
+                                    <f:convertDateTime pattern="dd MMMM yyyy" />
+                                </h:outputText>
+                            </p:panelGrid>
+                            <f:facet name="footer">
+                                <p:commandLink value="Ir a proyectos" action="/paginas/proyectoTb/List.xhtml" rendered="#{proyectoTbController.items!=null}" />
+                                <h:outputText value="No se encontraron proyectos recientes" rendered="#{proyectoTbController.items==null}"/>
+                            
+                            </f:facet>
+                        </p:carousel>
+
+                        <p:carousel style="width: 500px" value="#{actividadTbController.items}" circular="true" headerText="Actividades a Finalizar" numVisible="1" var="actividad" >
+                            <p:panelGrid columns="2" style="width: 500px">
+                                <h:outputText value="Actividad:"/>
+                                <h:outputText value="#{actividad.MNombre}" />
+
+                                <h:outputText value="Fecha inicio:"/>
+                                <h:outputText value="#{actividad.FFecha}" >
+                                    <f:convertDateTime pattern="dd MMMM yyyy" />
+                                </h:outputText>
+
+                                <h:outputText value="Fecha inicio:"/>
+                                <h:outputText value="#{actividad.FFechaInicioReal}" >
+                                    <f:convertDateTime pattern="dd MMMM yyyy" />
+                                </h:outputText>
+
+                                <h:outputText value="Fecha fin:"/>
+                                <h:outputText value="#{actividad.FFechafin}" >
+                                    <f:convertDateTime pattern="dd MMMM yyyy" />
+                                </h:outputText>
+
+                                <h:outputText value="Fecha fin:"/>
+                                <h:outputText value="#{actividad.FFechaFinReal}" >
+                                    <f:convertDateTime pattern="dd MMMM yyyy" />
+                                </h:outputText>
+                            </p:panelGrid>
+
+                            <f:facet name="footer" rendered="#{actividadTbController.items!= null}" >
+                                <p:commandLink value="Ir a proyectos" action="/paginas/proyectoTb/List.xhtml" rendered="#{actividadTbController.items!=null}"/>
+                                <h:outputText value="No se encontraron proyectos recientes" rendered="#{actividadTbController.items==null}"/>
+                            </f:facet>
+                        </p:carousel>
+
+                        <p:carousel style="width: 500px" value="#{procesoejemplarTbController.lista}" circular="true" headerText="Proceso ejemplar" numVisible="1" var="proceso" >
+                            <p:panelGrid columns="2" style="width: 500px">
+                                <h:outputText value="Nombre:"/>
+                                <h:outputText value="#{proceso.MNombre}" />
+
+                                <h:outputText value="Instancia del proceso:"/>
+                                <h:outputText value="#{proceso.CTipo}" />
+
+
+                                <h:outputText value="Fecha fin:"/>
+                                <h:outputText value="#{proceso.FFechafin}" >
+                                    <f:convertDateTime pattern="dd MMMM yyyy" />
+                                </h:outputText>
+
+                            </p:panelGrid>
+
+                            <f:facet name="footer">
+                                <p:commandLink value="Ir a proyectos" action="/paginas/proyectoTb/List.xhtml" />
+                            </f:facet>
+                        </p:carousel>
+
+                        <p:carousel style="width: 500px" value="#{exhibicionTbController.items}" circular="true" headerText="Exhibiciones" numVisible="1" var="exhibicion" >
+                            <p:panelGrid columns="2" style="width: 500px">
+                                <h:outputText value="Nombre:"/>
+                                <h:outputText value="#{exhibicion.MNombre}" />
+
+                            </p:panelGrid>                       
+                            <f:facet name="footer">
+                                <p:commandLink value="Ir exhibiciones" action="/paginas/exhibicionTb/List.xhtml" rendered="#{exhibicionTbController.items!=null}" />
+                                <h:outputText value="No se encontraron exhibiciones recientes" rendered="#{exhibicionTbController.items==null}"/>
+                            </f:facet>
+                        </p:carousel>
+
+                    </p:panelGrid>
+                </p:panel>
+
+
+
+
+            </h:form>
+
 
         </ui:define>
-</ui:composition>
+
+
+    </ui:composition>
+
+
 </html>
 
 
