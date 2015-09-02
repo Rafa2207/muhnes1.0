@@ -12,6 +12,7 @@ controlador\util\ControladorSesion.class
 modelo\MaterialDespachoTbPK_.class
 servicio\EjemplarTbFacade.class
 servicio\MaterialTbFacade.class
+controlador\util\TableHeader.class
 controlador\EjemplarParticipaExhibicionTbController$EjemplarParticipaExhibicionTbControllerConverter.class
 modelo\ActividadTb.class
 controlador\UsuarioTbController.class
@@ -137,14 +138,15 @@ controlador\PaisTbController$PaisTbControllerConverter.class
 controlador\NotapreliminarTbController.class
 modelo\AgenteTb.class
 servicio\VariedadTbFacade.class
+controlador\util\TableHeaderVertical.class
 modelo\EjemplarParticipaExhibicionTbPK_.class
 servicio\PaisTbFacade.class
 modelo\CantonTb_.class
 modelo\ActividadTb_.class
 controlador\NombrecomunTbController$NombrecomunTbControllerConverter.class
+servicio\DespachoTbFacade.class
 modelo\EjemplarParticipaExhibicionTb.class
 modelo\NombrecomunTb_.class
-servicio\DespachoTbFacade.class
 controlador\ActividadTbController$ActividadTbControllerConverter.class
 controlador\UsuarioTbController$UsuarioTbControllerConverter.class
 controlador\DepartamentoTbController.class

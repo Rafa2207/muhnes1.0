@@ -20,15 +20,15 @@
                         <p:menuitem value="casita"/>
                         <p:menuitem value="Agentes" outcome="/paginas/agenteTb/List.xhtml" />
                     </p:breadCrumb>
-                    
-                    
-                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{agenteTbController.prepareCreate}" update=":AgenteTbCreateForm" oncomplete="PF('AgenteTbCreateDialog').show()"/>
-                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":AgenteTbViewForm" oncomplete="PF('AgenteTbViewDialog').show()" disabled="#{empty agenteTbController.selected}"/>
-                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" actionListener="#{agenteTbController.prepareEdit()}" update=":AgenteTbEditForm" oncomplete="PF('AgenteTbEditDialog').show()" disabled="#{empty agenteTbController.selected}"/>
-                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{agenteTbController.destroy}" update=":growl,datalist" disabled="#{empty agenteTbController.selected}">
-                <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
-                </p:commandButton>
-                
+
+
+                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{agenteTbController.prepareCreate}" update=":AgenteTbCreateForm" oncomplete="PF('AgenteTbCreateDialog').show()"/>
+                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":AgenteTbViewForm" oncomplete="PF('AgenteTbViewDialog').show()" disabled="#{empty agenteTbController.selected}"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" actionListener="#{agenteTbController.prepareEdit()}" update=":AgenteTbEditForm" oncomplete="PF('AgenteTbEditDialog').show()" disabled="#{empty agenteTbController.selected}"/>
+                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{agenteTbController.destroy}" update=":growl,datalist" disabled="#{empty agenteTbController.selected}">
+                        <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
+                    </p:commandButton>
+
                     <p:dataTable id="datalist" value="#{agenteTbController.items}" var="item"
                                  selectionMode="single" selection="#{agenteTbController.selected}"
                                  paginator="true"
@@ -40,7 +40,7 @@
                                  widgetVar="agenteTable"
                                  emptyMessage="No se encontro agente"
                                  draggableColumns="true"
-                                 
+
                                  >
 
                         <p:ajax event="rowSelect"   update=":AgenteTbListForm:createButton :AgenteTbListForm:viewButton :AgenteTbListForm:editButton :AgenteTbListForm:deleteButton"/>
@@ -52,31 +52,31 @@
                             </f:facet>
                             <h:outputText value="#{item.CNombre}"/>
                         </p:column>
-                        
+
                         <p:column filterBy="#{item.CApellido}" filterStyle="display:none" width="10%" style="text-align: center">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAgenteTbTitle_CApellido}"/>
                             </f:facet>
                             <h:outputText value="#{item.CApellido}"/>
                         </p:column>
-                        
-                        
+
+
                         <p:column filterBy="#{item.COcupacion}" filterStyle="display:none" width="15%" style="text-align: center">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAgenteTbTitle_COcupacion}"/>
                             </f:facet>
                             <h:outputText value="#{item.COcupacion}"/>
                         </p:column>
-                        
-          
+
+
                         <p:column filterBy="#{item.CTelefono}" filterStyle="display:none" width="10%" style="text-align: center">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAgenteTbTitle_CTelefono}"/>
                             </f:facet>
                             <h:outputText value="#{item.CTelefono}"/>
                         </p:column>
-                                                                     
-                                               
+
+
                         <p:column filterBy="#{item.EIdinstitucion.CNombre}" filterStyle="display:none" >
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAgenteTbTitle_EIdinstitucion}"/>
@@ -91,6 +91,15 @@
                         </f:facet>
                     </p:dataTable>
                 </p:panel>
+            </h:form>
+
+            <h:form target="_blank">
+                <div style="text-align: right"> 
+
+                    <p:commandLink value="Reporte" 
+                                   actionListener="#{agenteTbController.reporte}" 
+                                   ajax="false"/>
+                </div> 
             </h:form>
 
             <ui:include src="Create.xhtml"/>
