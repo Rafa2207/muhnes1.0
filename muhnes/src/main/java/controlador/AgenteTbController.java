@@ -51,6 +51,7 @@ public class AgenteTbController implements Serializable {
 
     @EJB
     private servicio.AgenteTbFacade ejbFacade;
+    @EJB
     private servicio.PerfilTbFacade perfilFacade;
     private List<AgenteTb> items = null, filtrado = null, filtro;
     private AgenteTb selected;
@@ -414,8 +415,6 @@ public class AgenteTbController implements Serializable {
                 }
                 
                 for (AgenteTb l : lista) {
-                    AgenteTb s = l;
-                    l.setAgentePerfilTbList(new ArrayList<AgentePerfilTb>());
                     PdfPCell cell = new PdfPCell(new Phrase(l.getCNombre(), FontFactory.getFont(FontFactory.TIMES, 10)));
                     cell.setHorizontalAlignment(Element.ALIGN_LEFT);
                     agentes.addCell(cell);
