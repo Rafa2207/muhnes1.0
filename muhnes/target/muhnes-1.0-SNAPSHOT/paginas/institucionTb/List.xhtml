@@ -79,6 +79,15 @@
                 </p:panel>
             </h:form>
 
+                        <h:form target="_blank">
+                <div style="text-align: right"> 
+
+                    <p:commandLink value="Reporte" 
+                                   actionListener="#{institucionTbController.reporte}" 
+                                   ajax="false"/>
+                </div> 
+            </h:form>
+
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
