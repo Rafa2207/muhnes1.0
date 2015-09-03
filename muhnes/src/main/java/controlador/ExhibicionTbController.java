@@ -26,7 +26,7 @@ public class ExhibicionTbController implements Serializable {
 
     @EJB
     private servicio.ExhibicionTbFacade ejbFacade;
-    private List<ExhibicionTb> items = null;
+    private List<ExhibicionTb> items = null, lista=null;
     private ExhibicionTb selected;
 
     public ExhibicionTbController() {
@@ -81,6 +81,18 @@ public class ExhibicionTbController implements Serializable {
         }
         return items;
     }
+
+    public List<ExhibicionTb> getLista() {
+        lista=getFacade().findAll();
+        
+        return lista;
+    }
+
+    public void setLista(List<ExhibicionTb> lista) {
+        this.lista = lista;
+    }
+    
+    
 
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {

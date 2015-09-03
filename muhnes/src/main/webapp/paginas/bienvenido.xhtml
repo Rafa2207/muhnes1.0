@@ -9,11 +9,8 @@
     <ui:composition template="/template.xhtml">
         <ui:define name="body">
             <h:form>
-                <p:panel header="Agenda del día">
+                <p:panel header="Notificaciones">
                     <p:panelGrid columns="2" layout="grid">
-
-
-
                         <p:carousel style="width: 500px" value="#{proyectoTbController.items}" circular="true" headerText="Proyectos a Finalizar" numVisible="1" var="proy" >
                             <p:panelGrid columns="2" style="width: 500px">
                                 <h:outputText value="Proyecto:"/>
@@ -36,7 +33,7 @@
                             </f:facet>
                         </p:carousel>
 
-                        <p:carousel style="width: 500px" value="#{actividadTbController.items}" circular="true" headerText="Actividades a Finalizar" numVisible="1" var="actividad" >
+                        <p:carousel style="width: 500px; background: burlywood" value="#{actividadTbController.items}" circular="true" headerText="Actividades a Finalizar" numVisible="1" var="actividad" >
                             <p:panelGrid columns="2" style="width: 500px">
                                 <h:outputText value="Actividad:"/>
                                 <h:outputText value="#{actividad.MNombre}" />
@@ -62,13 +59,13 @@
                                 </h:outputText>
                             </p:panelGrid>
 
-                            <f:facet name="footer" rendered="#{actividadTbController.items!= null}" >
+                            <f:facet name="footer" rendered="#{actividadTbController.items!= null}"  class="Bienvenido">
                                 <p:commandLink value="Ir a proyectos" action="/paginas/proyectoTb/List.xhtml" rendered="#{actividadTbController.items!=null}"/>
                                 <h:outputText value="No se encontraron proyectos recientes" rendered="#{actividadTbController.items==null}"/>
                             </f:facet>
                         </p:carousel>
 
-                        <p:carousel style="width: 500px" value="#{procesoejemplarTbController.lista}" circular="true" headerText="Proceso ejemplar" numVisible="1" var="proceso" >
+                        <p:carousel style="width: 500px" itemStyle="background: #53c10c" value="#{procesoejemplarTbController.lista}" circular="true" headerText="Proceso ejemplar" numVisible="1" var="proceso" >
                             <p:panelGrid columns="2" style="width: 500px">
                                 <h:outputText value="Nombre:"/>
                                 <h:outputText value="#{proceso.MNombre}" />
@@ -85,19 +82,19 @@
                             </p:panelGrid>
 
                             <f:facet name="footer">
-                                <p:commandLink value="Ir a proyectos" action="/paginas/proyectoTb/List.xhtml" />
+                                <p:commandLink value="Ir al proceso ejemplar" action="/paginas/procesoejemplarTb/ProcesoEjemplar.xhtml" />
                             </f:facet>
                         </p:carousel>
 
-                        <p:carousel style="width: 500px" value="#{exhibicionTbController.items}" circular="true" headerText="Exhibiciones" numVisible="1" var="exhibicion" >
+                        <p:carousel style="width: 500px"  value="#{exhibicionTbController.items}" circular="true" headerText="Exhibiciones" numVisible="1" var="exhibicion" >
                             <p:panelGrid columns="2" style="width: 500px">
                                 <h:outputText value="Nombre:"/>
                                 <h:outputText value="#{exhibicion.MNombre}" />
 
                             </p:panelGrid>                       
                             <f:facet name="footer">
-                                <p:commandLink value="Ir exhibiciones" action="/paginas/exhibicionTb/List.xhtml" rendered="#{exhibicionTbController.items!=null}" />
-                                <h:outputText value="No se encontraron exhibiciones recientes" rendered="#{exhibicionTbController.items==null}"/>
+                                <p:commandLink value="Ir exhibiciones" action="/paginas/exhibicionTb/List.xhtml" rendered="#{not exhibicionTbController.lista.isEmpty()}" />
+                                <h:outputText value="No se encontraron exhibiciones recientes" rendered="#{exhibicionTbController.lista.isEmpty()}"/>
                             </f:facet>
                         </p:carousel>
 

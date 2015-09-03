@@ -58,6 +58,15 @@
                                 <f:convertDateTime pattern="dd MMMM yyyy" />
                             </h:outputText>
 
+                            <p:outputLabel value="Fecha de inicio real:" for="FFechaInicio" />
+                            <p:calendar id="FFechaInicio" size="15"
+                                        pattern="dd MMMM yyyy" value="#{controlProyectos.actividadView.FFechaInicioReal}" 
+                                        title="Fecha de inicio real" mindate="#{controlProyectos.actividadView.FFecha}"  
+                                        showOn="button" required="true"
+                                        requiredMessage="Introduzca fecha inicio de la actividad"
+                                        locale="es" readonlyInput="true">
+                            </p:calendar>
+
                         </p:panelGrid>
                         <p:commandButton actionListener="#{controlProyectos.iniciarActividad()}" update="iniciar :ControlForm:agendaId  :growl" value="Iniciar actividad" oncomplete="handleSubmit(args, 'dialogVer');" >
                             <p:confirm header="Confirmación" message="¿Está seguro que desea iniciar actividad?" icon="ui-icon-alert" />
@@ -66,15 +75,12 @@
 
                     <!-- Para actividades en proceso  -->
                     <h:panelGroup id="EnProceso"  rendered="#{controlProyectos.comparador eq 'En proceso'}" >
-                        <p:panelGrid columns="2" id="Proceso" style="width: 450px">
-
+                        <p:panelGrid columns="2" id="Proceso2" style="width: 550px">
                             <h:outputText value="Nombre:"/>
                             <h:outputText value="#{controlProyectos.actividadView.MNombre}"/>
+                        </p:panelGrid>
 
-                            <h:outputText value="Presupuesto:"/>
-                            <h:outputText value="#{controlProyectos.actividadView.DTotal}">
-                                <f:convertNumber type="number" groupingUsed="true" minFractionDigits="2" pattern="$#0.00"/>
-                            </h:outputText>
+                        <p:panelGrid columns="4" id="Proceso" style="width: 650px">
 
                             <h:outputText value="Fecha iniciada:"/>
                             <h:outputText value="#{controlProyectos.actividadView.FFechaInicioReal}">
@@ -86,43 +92,83 @@
                                 <f:convertDateTime pattern="dd MMMM yyyy" />
                             </h:outputText>
 
+                            <h:outputText value="Presupuesto:"/>
+                            <h:outputText value="#{controlProyectos.actividadView.DTotal}">
+                                <f:convertNumber type="number" groupingUsed="true" minFractionDigits="2" pattern="$#0.00"/>
+                            </h:outputText>
+
                             <h:outputText value="Dias faltantes:" rendered="#{not controlProyectos.fechaFinalPrevista.before(controlProyectos.fechaActual)}"/>
                             <h:outputText value="#{controlProyectos.diasFaltantesInt}" rendered="#{not controlProyectos.fechaFinalPrevista.before(controlProyectos.fechaActual)}"/>
 
                             <h:outputText value="Dias de retraso:" rendered="#{controlProyectos.fechaFinalPrevista.before(controlProyectos.fechaActual)}"/>
                             <h:outputText value="#{controlProyectos.diasFaltantesInt}" rendered="#{controlProyectos.fechaFinalPrevista.before(controlProyectos.fechaActual)}"/>
 
+                            <p:outputLabel value="Fecha finalización:" for="FFechaFina" />
+                            <p:calendar id="FFechaFina" size="15"
+                                        pattern="dd MMMM yyyy" value="#{controlProyectos.actividadView.FFechaFinReal}" 
+                                        title="Fecha de inicio real" mindate="#{controlProyectos.actividadView.FFechaInicioReal}" 
+                                        maxdate="#{controlProyectos.fechaActual}"
+                                        showOn="button" required="true"
+                                        requiredMessage="Introduzca fecha inicio de la actividad"
+                                        locale="es" readonlyInput="true">
+                            </p:calendar>
+                            <h:outputText value="Gasto adicional:"/>
+                            <p:selectBooleanCheckbox id="check" value="#{controlProyectos.checkbox}">
+                                <p:ajax event="change" update=":modales:GastoAd :modales:Justificacion"/>
+                            </p:selectBooleanCheckbox>
+
+
+                            <p:outputLabel value="Gasto adicional:" for="GastoAd"/>
+                            <p:inputText id="GastoAd" value="#{controlProyectos.actividadView.DGastoAdicional}" title="Gasto Adicional"
+                                         required="true" requiredMessage="Introduzca el gasto adicional" disabled="#{not controlProyectos.checkbox}"/>
+                            <p:outputLabel value="Justificación:" for="Justificacion"/>
+                            <p:inputTextarea autoResize="false" id="Justificacion" value="#{controlProyectos.actividadView.MJustificacion}" title="Justificación"
+                                             required="true" requiredMessage="Introduzca la justificación" disabled="#{not controlProyectos.checkbox}"/>
                         </p:panelGrid>
-                        <p:commandButton actionListener="#{controlProyectos.finalizarActividad()}" update="Proceso :ControlForm:agendaId  :growl" value="Finalizar actividad" oncomplete="handleSubmit(args, 'dialogVer');" >
+
+                        <p:commandButton actionListener="#{controlProyectos.finalizarActividad()}" update="Proceso Proceso2 :ControlForm:agendaId  :growl" value="Finalizar actividad" oncomplete="handleSubmit(args, 'dialogVer');" >
                             <p:confirm header="Confirmación" message="¿Está seguro que desea finalizar actividad?" icon="ui-icon-alert" />
                         </p:commandButton>
                     </h:panelGroup>
                     <!-- Fin Actividades en proceso-->
-                    
+
                     <!-- Actividades finalizadas-->
-                    <h:panelGroup id="probando" rendered="#{controlProyectos.comparador eq 'Finalizado'}">
+                    <h:panelGroup id="Finalizadoo" rendered="#{controlProyectos.comparador eq 'Finalizado'}">
                         <p:panelGrid columns="2" id="Finalizado" style="width: 450px">
                             <h:outputText value="Nombre:"/>
                             <h:outputText value="#{controlProyectos.actividadView.MNombre}"/>
-                            
+
                             <h:outputText value="Presupuesto:"/>
                             <h:outputText value="#{controlProyectos.actividadView.DTotal}">
                                 <f:convertNumber type="number" groupingUsed="true" minFractionDigits="2" pattern="$#0.00"/>
                             </h:outputText>
-                            
+
                             <h:outputText value="Fecha iniciada:"/>
                             <h:outputText value="#{controlProyectos.actividadView.FFechaInicioReal}">
                                 <f:convertDateTime pattern="dd MMMM yyyy" />
                             </h:outputText>
-                            
+
                             <h:outputText value="Fecha finalizada:"/>
                             <h:outputText value="#{controlProyectos.actividadView.FFechaFinReal}">
                                 <f:convertDateTime pattern="dd MMMM yyyy" />
                             </h:outputText>
+                            
+                            <h:outputText value="Gasto adicional:"
+                                          rendered="#{controlProyectos.actividadView.DGastoAdicional != null}"/>
+                            <h:outputText value="#{controlProyectos.actividadView.DGastoAdicional}"
+                                          rendered="#{controlProyectos.actividadView.DGastoAdicional != null}">
+                                <f:convertNumber type="number" groupingUsed="true" minFractionDigits="2" pattern="$#0.00"/>
+                            </h:outputText>
+                            
+                            <h:outputText value="Justificación al gasto:"
+                                           rendered="#{controlProyectos.actividadView.MJustificacion != null}"/>
+                            <h:outputText value="#{controlProyectos.actividadView.MJustificacion}"
+                                           rendered="#{controlProyectos.actividadView.MJustificacion != null}"/>
+   
                         </p:panelGrid>
                     </h:panelGroup>
                     <!-- Fin Actividades finalizadas-->
-                    
+
                 </p:dialog>    
             </h:form>
 

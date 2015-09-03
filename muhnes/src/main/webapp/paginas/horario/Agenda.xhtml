@@ -22,12 +22,12 @@
                     </p:breadCrumb>
 
 
-                    <p:commandButton id="controlAgenda" icon="ui-icon-clipboard"  value="ver Agenda" action="/paginas/horario/controlProyectos.xhtml" disabled="#{empty proyectoTbController.selected}" >
+                    <p:commandButton id="controlAgenda" icon="ui-icon-bookmark"  value="ver Agenda" action="/paginas/horario/controlProyectos.xhtml" disabled="#{empty proyectoTbController.selected}" >
                         <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{proyectoTbController.selected}" />
                     </p:commandButton>
                     
-                    <p:commandButton id="Calendarizacion" icon="ui-icon-bookmark"  value="Toda la calendarización" action="/paginas/horario/List.xhtml" />                 
-                                                           
+                  <!--  <p:commandButton id="Calendarizacion" icon="ui-icon-bookmark"  value="Toda la calendarización" action="/paginas/horario/List.xhtml" />   -->               
+                                                          
                     <p:dataTable id="datalist" value="#{proyectoTbController.itemsProyecto}" var="item"
                                  selectionMode="single" selection="#{proyectoTbController.selected}"
                                  paginator="true"
@@ -41,8 +41,8 @@
                                  
                                  >
 
-                        <p:ajax event="rowSelect"   update=":ProyectoTbListForm:controlAgenda :ProyectoTbListForm:Calendarizacion"/>
-                        <p:ajax event="rowUnselect" update=":ProyectoTbListForm:controlAgenda :ProyectoTbListForm:Calendarizacion"/>
+                        <p:ajax event="rowSelect"   update=":ProyectoTbListForm:controlAgenda"/>
+                        <p:ajax event="rowUnselect" update=":ProyectoTbListForm:controlAgenda"/>
 
 
                         <p:column filterBy="#{item.MNombre}" filterStyle="display:none">

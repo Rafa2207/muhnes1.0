@@ -47,6 +47,7 @@ public class controlProyectos {
     private String comparador;
     private Date fechaActual = new Date(), fechaFinalPrevista;
     private int diasFaltantesInt;
+    private boolean checkbox=false;
     @Inject
     ControladorSesion sesion;
 
@@ -239,11 +240,18 @@ public class controlProyectos {
         this.event = event;
     }
 
+    public boolean isCheckbox() {
+        return checkbox;
+    }
+
+    public void setCheckbox(boolean checkbox) {
+        this.checkbox = checkbox;
+    }
+    
     public void iniciarActividad() {
         FacesContext context = FacesContext.getCurrentInstance();
         eventModel.clear();
         actividadView.seteEstado(2);
-        actividadView.setFFechaInicioReal(fechaActual);
         try {
             getFacadeActividad().edit(actividadView);
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Actividad iniciada ", "INFO"));
@@ -256,7 +264,6 @@ public class controlProyectos {
     public void finalizarActividad() {
         FacesContext context = FacesContext.getCurrentInstance();
         eventModel.clear();
-        actividadView.setFFechaFinReal(fechaActual);
         actividadView.seteEstado(3);
         try {
             getFacadeActividad().edit(actividadView);
@@ -265,6 +272,16 @@ public class controlProyectos {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error, no se puede finalizar actividad", "INFO"));
         }
         init();
+    }
+    
+    public void checkbooleano(){
+        if(checkbox==true)
+        {
+            checkbox=false;
+        }
+        else{
+            checkbox=true;
+        }
     }
 
 }

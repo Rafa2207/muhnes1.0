@@ -245,22 +245,15 @@ public class ProyectoTbController implements Serializable {
     }
 
     public int progresoProyecto(ProyectoTb proy) {
-        int TotalActividades = 0, TotalEntero = 0, proyecto = proy.getEIdproyecto();
+        int TotalActividades = 0, TotalEntero = 0, proyecto = proy.getEIdproyecto(),i=0;
         double cadaActividad = 0, total = 0;
         ListaProyecto = getFacade().ProyectoGeneral();
         ListaActividad = getFacadeActividad().findAll();
-
-        for (ProyectoTb p : ListaProyecto) {
-            if (p.getEIdproyecto() == proyecto) {
-                proy = p;
-            }
-        }
 
         for (ActividadTb a : ListaActividad) {
             if (a.getEIdproyecto().getEIdproyecto() == proy.getEIdproyecto()) {
                 TotalActividades++;
             }
-
         }
         try {
             cadaActividad = 100 / (float) TotalActividades;
@@ -277,10 +270,17 @@ public class ProyectoTbController implements Serializable {
                 }
                 if (a.geteEstado() == 3) {
                     total = total + (cadaActividad);
+                    i++;
                 }
             }
         }
         TotalEntero = (int) total;
+        
+        //probando..
+        if(i==TotalActividades){
+            TotalEntero=100;
+        }
+        
         return TotalEntero;
 
     }
