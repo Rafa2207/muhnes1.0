@@ -5,11 +5,14 @@
  */
 package servicio;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import modelo.ActividadTb;
 import modelo.AgenteTb;
 
 /**
@@ -40,4 +43,11 @@ public class AgenteTbFacade extends AbstractFacade<AgenteTb> {
         }
     }
     
+    /*public List<AgenteTb> agentesAutores(){
+        Query query = em.createQuery("select p from agente_tb a join a.agente_perfil_tb ap join ap.perfil_tb p where p.c_nombre='autor taxonomico' ");
+        
+//List<AgenteTb> phones = (List<AgenteTb>) query.getResultList();
+        List<AgenteTb> autores = (List<AgenteTb>) query.getResultList();
+        return autores;
+    }*/
 }

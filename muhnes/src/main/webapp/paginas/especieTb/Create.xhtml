@@ -11,18 +11,92 @@
         <p:dialog id="EspecieTbCreateDlg" widgetVar="EspecieTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateEspecieTbTitle}">
             <h:form id="EspecieTbCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{especieTbController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateEspecieTbLabel_CNombre}" for="CNombre" />
-                        <p:inputText id="CNombre" value="#{especieTbController.selected.CNombre}" title="#{bundle.CreateEspecieTbTitle_CNombre}" required="true" requiredMessage="Introduzca un nombre" />
-                        <p:outputLabel value="#{bundle.CreateEspecieTbLabel_CEstado}" for="CEstado" />
-                        <p:selectOneMenu id="CEstado" value="#{especieTbController.selected.CEstado}" required="true" requiredMessage="Seleccione un estado taxonomico">
-                            <f:selectItem itemValue="" itemLabel="Seleccione estado taxonomico"/>
-                            <f:selectItem itemValue="Aceptado" itemLabel="Aceptado"/>
-                            <f:selectItem itemValue="Temporal" itemLabel="Temporal"/>
-                            <f:selectItem itemValue="Sinónimo" itemLabel="Sinónimo"/>
-                            <f:selectItem itemValue="En Desuso" itemLabel="En Desuso"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
+                    <p:fieldset legend="Especie">
+                        <p:panelGrid columns="4" rendered="#{especieTbController.selected != null}">
+                            <p:outputLabel value="Genero: " for="genero" />
+                            <p:outputLabel style="font-weight: bold" id="genero" value="#{controladorSesion.genero.CNombre}" title="#{bundle.CreateEspecieTbTitle_CNombre}"/>
+                            <p:outputLabel value="#{bundle.CreateEspecieTbLabel_CNombre}" for="CNombre" />
+                            <p:inputText id="CNombre" value="#{especieTbController.selected.CNombre}" title="#{bundle.CreateEspecieTbTitle_CNombre}" required="true" requiredMessage="Introduzca un nombre" />
+                            <p:outputLabel value="Autores: " for="CAutores" />
+                            <p:inputText id="CAutores" value="" title="Autores" />
+                            <p:outputLabel value="#{bundle.CreateEspecieTbLabel_CEstado}" for="CEstado" />
+                            <p:selectOneMenu id="CEstado" value="#{especieTbController.selected.CEstado}" required="true" requiredMessage="Seleccione un estado taxonomico">
+                                <f:selectItem itemValue="" itemLabel="Seleccione estado taxonomico"/>
+                                <f:selectItem itemValue="Aceptado" itemLabel="Aceptado"/>
+                                <f:selectItem itemValue="Temporal" itemLabel="Temporal"/>
+                                <f:selectItem itemValue="Sinónimo" itemLabel="Sinónimo"/>
+                                <f:selectItem itemValue="En Desuso" itemLabel="En Desuso"/>
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                    </p:fieldset>
+                    <br/>
+                    <p:tabView id="informacion">
+                        <p:tab title="Autores">
+                            <p:panelGrid columns="7">
+                                <p:outputLabel value="Nombre: " for="agenteRE" />
+                                <p:selectOneMenu id="agenteRE" 
+                                                 value="#{ejemplarTbController.agente}" 
+                                                 filter="true">
+                                    <f:selectItem itemValue="" itemLabel="Seleccione..."/>
+                                </p:selectOneMenu>
+                                <p:outputLabel value="conector: " for="conector"/>
+                                <p:selectOneMenu id="conector" 
+                                                 value="#{especieTbController.conector}" >
+                                    <f:selectItem itemValue="" itemLabel="Seleccione..."/>
+                                    <f:selectItem itemValue="emend." itemLabel="emend."/>
+                                    <f:selectItem itemValue="et." itemLabel="et."/>
+                                    <f:selectItem itemValue="ex." itemLabel="ex."/>
+                                    <f:selectItem itemValue="in." itemLabel="in."/>
+                                    <f:selectItem itemValue="nec." itemLabel="nec."/>
+                                    <f:selectItem itemValue="non." itemLabel="non."/>
+                                    <f:selectItem itemValue="&amp;" itemLabel="&amp;"/>
+                                    <f:selectItem itemValue=":" itemLabel=":"/>
+                                    <f:selectItem itemValue=".:" itemLabel=".:"/>
+                                </p:selectOneMenu>
+                                <p:outputLabel value="Autor Basionimio: " for="autorB"/>
+                                <p:selectBooleanCheckbox id="autorB" value="#{especieTbController.autor}"/>
+                                <p:commandButton id="agregar"
+                                                 value="Agregar"
+                                                 actionListener="#{especieTbController.anadirAutor()}"
+                                                 process="agenteRE agregar"
+                                                 update="agenteRE AutoresBasinimicos"/>
+                            </p:panelGrid>
+
+                            <p:dataTable id="AutoresBasinimicos"
+                                         value="#{especieTbController.selected.agenteEspecieTbList}"
+                                         var="autores"
+                                         editable="true"
+                                         tableStyle="width: 700px"
+                                         scrollable="true"
+                                         scrollHeight="80"
+                                         emptyMessage="No se han añadido autores"
+                                         >
+                                <p:column headerText="Autor">
+                                    <h:outputText value="(#{autores.agenteTb.CNombre}) #{autores.agenteTb.CNombre}  #{autores.agenteTb.CApellido}"/>
+                                </p:column>
+                                <p:column headerText="Autor Basionimio">
+                                    <h:outputText value="#{autores.BAutorBasionimio}"/>
+                                </p:column>
+                                <p:column headerText="Secuencia">
+                                    <h:outputText value="#{autores.ESecuencia}"/>
+                                </p:column>
+                                <p:column headerText="Conector">
+                                    <h:outputText value="#{autores.CConector}"/>
+                                </p:column>
+                                <p:column headerText="Acciones">
+                                    <p:commandLink styleClass="ui-icon ui-icon-trash"
+                                                   action="#{especieTbController.remover()}"
+                                                   process="AutoresBasinimicos"
+                                                   update="AutoresBasinimicos :EspecieTbCreateForm:informacion:agente">
+                                        <f:setPropertyActionListener value="#{agentes}" 
+                                                                     target="#{ejemplarTbController.agenteIdentifica}"/>
+                                    </p:commandLink>
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>
+                        <p:tab title="Nombres comunes"></p:tab>
+                        <p:tab title="Imágenes"></p:tab>
+                    </p:tabView>
                     <p:commandButton actionListener="#{especieTbController.create}" value="#{bundle.Save}" update="display,:EspecieTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'EspecieTbCreateDialog');"/>
                 </h:panelGroup>
             </h:form>

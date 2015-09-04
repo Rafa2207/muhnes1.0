@@ -30,7 +30,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "VariedadTb.findByEIdvariedad", query = "SELECT v FROM VariedadTb v WHERE v.eIdvariedad = :eIdvariedad"),
     @NamedQuery(name = "VariedadTb.findByCNombre", query = "SELECT v FROM VariedadTb v WHERE v.cNombre = :cNombre"),
     @NamedQuery(name = "VariedadTb.findByCEstado", query = "SELECT v FROM VariedadTb v WHERE v.cEstado = :cEstado"),
-    @NamedQuery(name = "VariedadTb.findByEIdsubespecie", query = "SELECT v FROM VariedadTb v WHERE v.eIdsubespecie = :eIdsubespecie")})
+    @NamedQuery(name = "VariedadTb.findByEIdespecie", query = "SELECT v FROM VariedadTb v WHERE v.eIdespecie = :eIdespecie")})
 public class VariedadTb implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -44,8 +44,8 @@ public class VariedadTb implements Serializable {
     @Size(max = 20)
     @Column(name = "c_estado")
     private String cEstado;
-    @Column(name = "e_idsubespecie")
-    private Integer eIdsubespecie;
+    @Column(name = "e_idespecie")
+    private Integer eIdespecie;
     @OneToMany(mappedBy = "eVariedad")
     private List<EjemplarTb> ejemplarTbList;
 
@@ -80,12 +80,12 @@ public class VariedadTb implements Serializable {
         this.cEstado = cEstado;
     }
 
-    public Integer getEIdsubespecie() {
-        return eIdsubespecie;
+    public Integer getEIdespecie() {
+        return eIdespecie;
     }
 
-    public void setEIdsubespecie(Integer eIdsubespecie) {
-        this.eIdsubespecie = eIdsubespecie;
+    public void setEIdespecie(Integer eIdespecie) {
+        this.eIdespecie = eIdespecie;
     }
 
     public List<EjemplarTb> getEjemplarTbList() {

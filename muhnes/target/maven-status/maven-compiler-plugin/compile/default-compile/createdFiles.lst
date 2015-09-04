@@ -47,6 +47,7 @@ controlador\EjemplarTbController$EjemplarTbControllerConverter.class
 modelo\UsuarioTb_.class
 servicio\FamiliaTbFacade.class
 servicio\MaterialPedidoTbFacade.class
+modelo\AgenteEspecieTb_.class
 modelo\MaterialPedidoTb.class
 controlador\util\ThemeSwitcherBean.class
 controlador\PedidoTbController$PedidoTbControllerConverter.class
@@ -87,12 +88,14 @@ controlador\ImagenTbController$ImagenTbControllerConverter.class
 controlador\DespachoTbController.class
 servicio\InsumoTbFacade.class
 modelo\AgenteIdentificaEjemplarTbPK_.class
+modelo\AgenteEspecieTbPK.class
 modelo\VariedadTb_.class
 servicio\AbstractFacade.class
 modelo\FamiliaTb_.class
 controlador\LocalidadTbController$LocalidadTbControllerConverter.class
 servicio\UnidadesTbFacade.class
 controlador\GeneroTbController$GeneroTbControllerConverter.class
+modelo\AgenteEspecieTb.class
 controlador\PaisTbController.class
 modelo\AreaprotegidaTb_.class
 controlador\util\BackupDB.class
@@ -204,9 +207,10 @@ controlador\InstitucionTbController.class
 controlador\BitacoraTbController$BitacoraTbControllerConverter.class
 controlador\DonacionTbController$DonacionTbControllerConverter.class
 modelo\AgenteIdentificaEjemplarTbPK.class
-modelo\AgentePerfilTb_.class
 servicio\AreaprotegidaTbFacade.class
+modelo\AgentePerfilTb_.class
 servicio\LocalidadTbFacade.class
 servicio\ExhibicionTbFacade.class
 servicio\InstitucionTbFacade.class
 servicio\DonacionTbFacade.class
+modelo\AgenteEspecieTbPK_.class

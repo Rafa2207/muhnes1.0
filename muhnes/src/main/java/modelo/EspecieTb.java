@@ -8,6 +8,7 @@ package modelo;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,6 +33,12 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "EspecieTb.findByCEstado", query = "SELECT e FROM EspecieTb e WHERE e.cEstado = :cEstado"),
     @NamedQuery(name = "EspecieTb.findByEIdgenero", query = "SELECT e FROM EspecieTb e WHERE e.eIdgenero = :eIdgenero")})
 public class EspecieTb implements Serializable {
+    @OneToMany(mappedBy = "eIdespecie")
+    private List<ImagenTb> imagenTbList;
+    @OneToMany(mappedBy = "eIdespecie")
+    private List<NombrecomunTb> nombrecomunTbList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "especieTb")
+    private List<AgenteEspecieTb> agenteEspecieTbList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -119,6 +126,30 @@ public class EspecieTb implements Serializable {
     @Override
     public String toString() {
         return "modelo.EspecieTb[ eIdespecie=" + eIdespecie + " ]";
+    }
+
+    public List<AgenteEspecieTb> getAgenteEspecieTbList() {
+        return agenteEspecieTbList;
+    }
+
+    public void setAgenteEspecieTbList(List<AgenteEspecieTb> agenteEspecieTbList) {
+        this.agenteEspecieTbList = agenteEspecieTbList;
+    }
+
+    public List<ImagenTb> getImagenTbList() {
+        return imagenTbList;
+    }
+
+    public void setImagenTbList(List<ImagenTb> imagenTbList) {
+        this.imagenTbList = imagenTbList;
+    }
+
+    public List<NombrecomunTb> getNombrecomunTbList() {
+        return nombrecomunTbList;
+    }
+
+    public void setNombrecomunTbList(List<NombrecomunTb> nombrecomunTbList) {
+        this.nombrecomunTbList = nombrecomunTbList;
     }
     
 }

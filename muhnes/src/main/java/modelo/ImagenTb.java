@@ -31,6 +31,12 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "ImagenTb.findByEIdimagen", query = "SELECT i FROM ImagenTb i WHERE i.eIdimagen = :eIdimagen"),
     @NamedQuery(name = "ImagenTb.findByCNombre", query = "SELECT i FROM ImagenTb i WHERE i.cNombre = :cNombre")})
 public class ImagenTb implements Serializable {
+    @Lob
+    @Column(name = "i_imagen")
+    private byte[] iImagen;
+    @JoinColumn(name = "e_idespecie", referencedColumnName = "e_idespecie")
+    @ManyToOne
+    private EspecieTb eIdespecie;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,12 +46,6 @@ public class ImagenTb implements Serializable {
     @Size(max = 80)
     @Column(name = "c_nombre")
     private String cNombre;
-    @Lob
-    @Column(name = "i_imagen")
-    private byte[] iImagen;
-    @JoinColumn(name = "e_idejemplar", referencedColumnName = "e_idejemplar")
-    @ManyToOne
-    private EjemplarTb eIdejemplar;
 
     public ImagenTb() {
     }
@@ -78,14 +78,6 @@ public class ImagenTb implements Serializable {
         this.iImagen = iImagen;
     }
 
-    public EjemplarTb getEIdejemplar() {
-        return eIdejemplar;
-    }
-
-    public void setEIdejemplar(EjemplarTb eIdejemplar) {
-        this.eIdejemplar = eIdejemplar;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -109,6 +101,14 @@ public class ImagenTb implements Serializable {
     @Override
     public String toString() {
         return "modelo.ImagenTb[ eIdimagen=" + eIdimagen + " ]";
+    }
+
+    public EspecieTb getEIdespecie() {
+        return eIdespecie;
+    }
+
+    public void setEIdespecie(EspecieTb eIdespecie) {
+        this.eIdespecie = eIdespecie;
     }
     
 }

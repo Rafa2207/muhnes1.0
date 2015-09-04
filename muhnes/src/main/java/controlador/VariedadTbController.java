@@ -62,7 +62,7 @@ public class VariedadTbController implements Serializable {
     public VariedadTb prepareCreate(SubespecieTb subespecie) {
         selected = new VariedadTb();
         initializeEmbeddableKey();
-        selected.setEIdsubespecie(subespecie.getEIdsubespecie());
+        selected.setEIdespecie(subespecie.getEIdespecie());
         return selected;
     }
 

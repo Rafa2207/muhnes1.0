@@ -5,14 +5,16 @@ import javax.annotation.Generated;
 import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
+import modelo.AgenteEspecieTb;
 import modelo.AgentePerfilTb;
 import modelo.InstitucionTb;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-09-03T07:56:16")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-09-04T09:01:02")
 @StaticMetamodel(AgenteTb.class)
 public class AgenteTb_ { 
 
     public static volatile SingularAttribute<AgenteTb, String> cEmail;
+    public static volatile ListAttribute<AgenteTb, AgenteEspecieTb> agenteEspecieTbList;
     public static volatile SingularAttribute<AgenteTb, InstitucionTb> eIdinstitucion;
     public static volatile SingularAttribute<AgenteTb, Date> fFecham;
     public static volatile SingularAttribute<AgenteTb, Integer> ePostal;
@@ -20,6 +22,7 @@ public class AgenteTb_ {
     public static volatile SingularAttribute<AgenteTb, String> cFax;
     public static volatile ListAttribute<AgenteTb, AgentePerfilTb> agentePerfilTbList;
     public static volatile SingularAttribute<AgenteTb, Date> fFechanac;
+    public static volatile SingularAttribute<AgenteTb, Boolean> bEstado;
     public static volatile SingularAttribute<AgenteTb, String> cOcupacion;
     public static volatile SingularAttribute<AgenteTb, String> cTelefono;
     public static volatile SingularAttribute<AgenteTb, String> cNombre;

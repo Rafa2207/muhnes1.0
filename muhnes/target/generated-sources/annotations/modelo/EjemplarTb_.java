@@ -14,13 +14,13 @@ import modelo.ProyectoTb;
 import modelo.SubespecieTb;
 import modelo.VariedadTb;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-09-03T07:56:16")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-09-04T09:01:02")
 @StaticMetamodel(EjemplarTb.class)
 public class EjemplarTb_ { 
 
     public static volatile SingularAttribute<EjemplarTb, Date> fFechaFinIdent;
     public static volatile SingularAttribute<EjemplarTb, GeneroTb> eIdgenero;
-    public static volatile SingularAttribute<EjemplarTb, Integer> cCodigoentrada;
+    public static volatile SingularAttribute<EjemplarTb, String> cCodigoentrada;
     public static volatile SingularAttribute<EjemplarTb, ProyectoTb> eIdproyecto;
     public static volatile SingularAttribute<EjemplarTb, Boolean> bEstadonotas;
     public static volatile SingularAttribute<EjemplarTb, LocalidadTb> eIdlocalidad;

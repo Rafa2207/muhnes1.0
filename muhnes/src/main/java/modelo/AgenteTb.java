@@ -46,6 +46,10 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "AgenteTb.findByFFechanac", query = "SELECT a FROM AgenteTb a WHERE a.fFechanac = :fFechanac"),
     @NamedQuery(name = "AgenteTb.findByFFecham", query = "SELECT a FROM AgenteTb a WHERE a.fFecham = :fFecham")})
 public class AgenteTb implements Serializable {
+    @Column(name = "b_estado")
+    private Boolean bEstado;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "agenteTb")
+    private List<AgenteEspecieTb> agenteEspecieTbList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -232,6 +236,22 @@ public class AgenteTb implements Serializable {
     @Override
     public String toString() {
         return "modelo.AgenteTb[ eIdagente=" + eIdagente + " ]";
+    }
+
+    public Boolean getBEstado() {
+        return bEstado;
+    }
+
+    public void setBEstado(Boolean bEstado) {
+        this.bEstado = bEstado;
+    }
+
+    public List<AgenteEspecieTb> getAgenteEspecieTbList() {
+        return agenteEspecieTbList;
+    }
+
+    public void setAgenteEspecieTbList(List<AgenteEspecieTb> agenteEspecieTbList) {
+        this.agenteEspecieTbList = agenteEspecieTbList;
     }
     
 }

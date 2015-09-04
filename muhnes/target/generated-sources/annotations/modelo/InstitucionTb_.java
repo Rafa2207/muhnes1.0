@@ -8,13 +8,14 @@ import modelo.AgenteTb;
 import modelo.DonacionTb;
 import modelo.PaisTb;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-09-03T07:56:16")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-09-04T09:01:02")
 @StaticMetamodel(InstitucionTb.class)
 public class InstitucionTb_ { 
 
+    public static volatile SingularAttribute<InstitucionTb, Boolean> bEstado;
     public static volatile ListAttribute<InstitucionTb, DonacionTb> donacionTbList;
-    public static volatile SingularAttribute<InstitucionTb, String> cAcronimo;
     public static volatile ListAttribute<InstitucionTb, AgenteTb> agenteTbList;
+    public static volatile SingularAttribute<InstitucionTb, String> cAcronimo;
     public static volatile SingularAttribute<InstitucionTb, Integer> eIdinstitucion;
     public static volatile SingularAttribute<InstitucionTb, String> cTelefono;
     public static volatile SingularAttribute<InstitucionTb, String> cNombre;

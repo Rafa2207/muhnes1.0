@@ -69,7 +69,7 @@ public class EjemplarTb implements Serializable {
     @Column(name = "e_responsable")
     private Integer eResponsable;
     @Column(name = "c_codigoentrada")
-    private Integer cCodigoentrada;
+    private String cCodigoentrada;
     @JoinColumn(name = "e_variedad", referencedColumnName = "e_idvariedad")
     @ManyToOne
     private VariedadTb eVariedad;
@@ -180,11 +180,11 @@ public class EjemplarTb implements Serializable {
         this.eResponsable = eResponsable;
     }
 
-    public Integer getCCodigoentrada() {
+    public String getCCodigoentrada() {
         return cCodigoentrada;
     }
 
-    public void setCCodigoentrada(Integer cCodigoentrada) {
+    public void setCCodigoentrada(String cCodigoentrada) {
         this.cCodigoentrada = cCodigoentrada;
     }
 

@@ -30,6 +30,9 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "NombrecomunTb.findByEIdnombrecomun", query = "SELECT n FROM NombrecomunTb n WHERE n.eIdnombrecomun = :eIdnombrecomun"),
     @NamedQuery(name = "NombrecomunTb.findByCNombre", query = "SELECT n FROM NombrecomunTb n WHERE n.cNombre = :cNombre")})
 public class NombrecomunTb implements Serializable {
+    @JoinColumn(name = "e_idespecie", referencedColumnName = "e_idespecie")
+    @ManyToOne
+    private EspecieTb eIdespecie;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -97,6 +100,14 @@ public class NombrecomunTb implements Serializable {
     @Override
     public String toString() {
         return "modelo.NombrecomunTb[ eIdnombrecomun=" + eIdnombrecomun + " ]";
+    }
+
+    public EspecieTb getEIdespecie() {
+        return eIdespecie;
+    }
+
+    public void setEIdespecie(EspecieTb eIdespecie) {
+        this.eIdespecie = eIdespecie;
     }
     
 }

@@ -19,6 +19,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
+import modelo.AgenteTb;
 import modelo.GeneroTb;
 
 @Named("especieTbController")
@@ -27,11 +28,40 @@ public class EspecieTbController implements Serializable {
 
     @EJB
     private servicio.EspecieTbFacade ejbFacade;
+    @EJB
+    private servicio.AgenteTbFacade agenteFacade;
     private List<EspecieTb> items = null, filtro;
     private EspecieTb selected;
+    private boolean autor;
+    private String conector;
+    private List<AgenteTb> listaAutores;
 
     public List<EspecieTb> getFiltro() {
         return filtro;
+    }
+
+    public List<AgenteTb> getListaAutores() {
+        return listaAutores;
+    }
+
+    public void setListaAutores(List<AgenteTb> listaAutores) {
+        this.listaAutores = listaAutores;
+    }
+
+    public String getConector() {
+        return conector;
+    }
+
+    public void setConector(String conector) {
+        this.conector = conector;
+    }
+
+    public boolean isAutor() {
+        return autor;
+    }
+
+    public void setAutor(boolean autor) {
+        this.autor = autor;
     }
 
     public void setFiltro(List<EspecieTb> filtro) {
@@ -63,6 +93,7 @@ public class EspecieTbController implements Serializable {
         selected = new EspecieTb();
         initializeEmbeddableKey();
         selected.setEIdgenero(genero.getEIdgenero());
+        //listaAutores = agenteFacade.agentesAutores();
         return selected;
     }
 

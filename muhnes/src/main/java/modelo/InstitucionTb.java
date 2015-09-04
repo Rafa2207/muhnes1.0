@@ -38,6 +38,8 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "InstitucionTb.findByCFax", query = "SELECT i FROM InstitucionTb i WHERE i.cFax = :cFax"),
     @NamedQuery(name = "InstitucionTb.findByCUrl", query = "SELECT i FROM InstitucionTb i WHERE i.cUrl = :cUrl")})
 public class InstitucionTb implements Serializable {
+    @Column(name = "b_estado")
+    private Boolean bEstado;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -190,6 +192,14 @@ public class InstitucionTb implements Serializable {
     @Override
     public String toString() {
         return "modelo.InstitucionTb[ eIdinstitucion=" + eIdinstitucion + " ]";
+    }
+
+    public Boolean getBEstado() {
+        return bEstado;
+    }
+
+    public void setBEstado(Boolean bEstado) {
+        this.bEstado = bEstado;
     }
     
 }

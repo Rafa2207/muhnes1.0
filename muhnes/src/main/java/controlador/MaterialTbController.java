@@ -178,10 +178,8 @@ public class MaterialTbController implements Serializable {
         selected.setMCodigobarras(pre + correlativo);
     }
 
-    private static final String ORIGINAL
-            = "ÁáÉéÍíÓóÚúÑñÜü";
-    private static final String REPLACEMENT
-            = "AaEeIiOoUuNnUu";
+    private static final String ORIGINAL= "ÁáÉéÍíÓóÚúÑñÜü";
+    private static final String REPLACEMENT = "AaEeIiOoUuNnUu";
 
     public static String stripAccents(String str) {
         if (str == null) {

@@ -39,4 +39,12 @@ public class EjemplarTbFacade extends AbstractFacade<EjemplarTb> {
             return 0;
         }
     }
+    public String obtenerCorrelativo(String pre){
+        Query query = em.createNativeQuery("SELECT COUNT(c_codigoentrada) "
+                + "FROM ejemplar_tb "
+                + "WHERE SUBSTRING(c_codigoentrada,1,2)='"+pre+"'");
+        query.setParameter("pre", pre);
+        Long count = (Long) query.getSingleResult();
+        return String.format("%d", count+1);
+    }
 }
