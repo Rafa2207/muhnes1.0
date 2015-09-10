@@ -63,13 +63,13 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListLocalidadTbTitle_CLatitud}"/>
                             </f:facet>
-                            <h:outputText value="#{item.ELatitudgrados}°#{item.ELatitudminutos}'#{item.DLatitudsegundos}''"/>
+                            <h:outputText value="#{localidadTbController.latitudList(item)}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListLocalidadTbTitle_CLongitud}"/>
                             </f:facet>
-                            <h:outputText value="#{item.ELongitudgrados}°#{item.ELongitudminutos}'#{item.DLongitudsegundos}''"/>
+                            <h:outputText value="#{localidadTbController.longitudList(item)}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">

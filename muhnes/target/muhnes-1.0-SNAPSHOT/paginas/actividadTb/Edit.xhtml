@@ -58,7 +58,7 @@
                             <p:outputLabel value="Cantidad:" for="cant"/>
                             <p:inputText id="cant" size="4" value="#{actividadTbController.cantidad}"/>
                             <p:outputLabel value="Unidades:" for="unidad" />
-                            <p:selectOneMenu id="unidad" value="#{actividadTbController.tiempo}">
+                            <p:selectOneMenu id="unidad" style="width: 100px" value="#{actividadTbController.tiempo}">
                                 <f:selectItem itemLabel="Seleccione" itemValue="" />
                                 <f:selectItems value="#{unidadesTbController.unidades(actividadTbController.selected.CTipo)}" 
                                                var="unidad" 

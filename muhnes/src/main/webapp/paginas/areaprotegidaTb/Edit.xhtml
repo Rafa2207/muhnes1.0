@@ -95,7 +95,7 @@
 
                     <p:panelGrid columns="2" rendered="#{areaprotegidaTbController.selected != null}"> 
                         <p:outputLabel value="Municipio" for="EIdmun" />
-                        <p:selectOneMenu id="EIdmun" value="#{areaprotegidaTbController.selected.EIdmunicipio}" 
+                        <p:selectOneMenu id="EIdmun" style="width: 300px" value="#{areaprotegidaTbController.selected.EIdmunicipio}" 
                                          required="true" requiredMessage="Seleccione municipio" filter="true" filterMatchMode="contains">
                             <f:selectItem itemValue="" itemLabel="Seleccione.."/>
                             <f:selectItems value="#{municipioTbController.itemsAvailableSelectOne}"

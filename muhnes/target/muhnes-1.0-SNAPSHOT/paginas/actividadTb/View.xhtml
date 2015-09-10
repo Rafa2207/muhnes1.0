@@ -11,7 +11,7 @@
         <p:dialog id="ActividadTbViewDlg" widgetVar="ActividadTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewActividadTbTitle}">
             <h:form id="ActividadTbViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{actividadTbController.selected != null}" style="width: 450px">
+                    <p:panelGrid columns="2" rendered="#{actividadTbController.selected != null}" style="width: 600px">
 
                         <h:outputText value="#{bundle.ViewActividadTbLabel_CNombre}"/>
                         <h:outputText value="#{actividadTbController.selected.MNombre}" title="#{bundle.ViewActividadTbTitle_CNombre}"/>
@@ -59,11 +59,24 @@
                         </p:column>
                     </p:dataTable>
                     <div style="text-align: right">
-                        <h:outputText style="font-weight: bold" value="Total ($): "/>
-                        <h:outputText id="total" style="font-weight: bold"  value="#{actividadTbController.selected.DTotal}">
-                        <f:convertNumber type="number" groupingUsed="true" minFractionDigits="2" pattern="#0.00"/>
+                        <h:outputText style="font-weight: bold" value="Sub-total: "/>
+                        <h:outputText style="font-weight: bold"  value="#{actividadTbController.selected.DTotal}">
+                            <f:convertNumber type="number" groupingUsed="true" minFractionDigits="2" pattern="$#0.00"/>
                         </h:outputText>
+                        <br></br>
+                        <h:outputText style="font-weight: bold" value="Gasto Adicional: "/>
+                        <h:outputText style="font-weight: bold"  value="#{actividadTbController.selected.DGastoAdicional}">
+                            <f:convertNumber type="number" groupingUsed="true" minFractionDigits="2" pattern="$#0.00"/>
+                        </h:outputText>
+                        <br></br>
+                        <h:outputText style="font-weight: bold" value="Total: "/>
+                        <h:outputText style="font-weight: bold"  value="#{actividadTbController.TotalViewAct(actividadTbController.selected)}">
+                            <f:convertNumber type="number" groupingUsed="true" minFractionDigits="2" pattern="$#0.00"/>
+                        </h:outputText>
+                        <br></br>
+                        
                     </div>
+                   
                     <p:commandButton value="#{bundle.Close}" onclick="ActividadTbViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

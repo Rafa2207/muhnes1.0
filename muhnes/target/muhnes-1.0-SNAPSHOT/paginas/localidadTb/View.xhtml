@@ -17,11 +17,13 @@
                         <h:outputText value="#{bundle.ViewLocalidadTbLabel_MDescripcion}"/>
                         <h:outputText value="#{localidadTbController.selected.MDescripcion}" title="#{bundle.ViewLocalidadTbTitle_MDescripcion}"/>
                         <h:outputText value="#{bundle.ViewLocalidadTbLabel_EIdcanton}"/>
-                        <h:outputText value="#{localidadTbController.selected.EIdcanton.EIdmunicipio.EIddepto.EIdpais.CNombre},
-                                      #{localidadTbController.selected.EIdcanton.EIdmunicipio.EIddepto.CNombre},
-                                      #{localidadTbController.selected.EIdcanton.EIdmunicipio.CNombre},
+                        <h:outputText value="#{localidadTbController.selected.EIdcanton.EIdmunicipio.EIddepto.EIdpais.CNombre}/
+                                      #{localidadTbController.selected.EIdcanton.EIdmunicipio.EIddepto.CNombre}/
+                                      #{localidadTbController.selected.EIdcanton.EIdmunicipio.CNombre}/
                                       #{localidadTbController.selected.EIdcanton.CNombre}" 
                                            title="#{bundle.ViewLocalidadTbTitle_EIdcanton}"/>
+                        <h:outputText value="Ubicación geográfica:"/>
+                        <h:outputText value="#{localidadTbController.latitudList(localidadTbController.selected)} #{localidadTbController.longitudList(localidadTbController.selected)}"/>
                     </p:panelGrid>
                     <p:panelGrid columns="1" rendered="#{localidadTbController.selected != null}">
                         <p:gmap center="#{localidadTbController.selected.DLatitudDecimal}, #{localidadTbController.selected.DLongitudDecimal}"  zoom="18" type="hybrid" style="width:430px;height:430px" 

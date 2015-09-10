@@ -104,6 +104,7 @@ public class ProyectoTbController implements Serializable {
 
     public ProyectoTb prepareCreate() {
         selected = new ProyectoTb();
+        selected.setEEstado(0);
         initializeEmbeddableKey();
         return selected;
     }
@@ -238,7 +239,10 @@ public class ProyectoTbController implements Serializable {
         double presupuesto = 0;
         for (ActividadTb a : getListaActividad()) {
             if(a.getEIdproyecto().getEIdproyecto()==proy.getEIdproyecto()) {
-                presupuesto = presupuesto + a.getDTotal();
+                if(a.getDGastoAdicional()==null){
+                    a.setDGastoAdicional(0.0);
+                }
+                presupuesto = presupuesto + a.getDTotal()+a.getDGastoAdicional();
             }
         }
         return presupuesto;

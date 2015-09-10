@@ -97,7 +97,7 @@
                     </p:dataTable>
                     <div style="text-align: right">
                         <h:outputText style="font-weight: bold" value="Total del proyecto ($): "/>
-                        <h:outputText id="totalProy" style="font-weight: bold"  value="#{actividadTbController.totalProyecto(actividadTbController.getItems())}">
+                        <h:outputText id="totalProy" style="font-weight: bold"  value="#{actividadTbController.totalProyecto(controladorSesion.proyecto)}">
                             <f:convertNumber type="number" groupingUsed="true" minFractionDigits="2" pattern="#0.00"/>
                         </h:outputText>
                     </div>

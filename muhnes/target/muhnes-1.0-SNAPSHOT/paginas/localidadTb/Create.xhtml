@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
 
     <ui:composition>
 
@@ -90,19 +91,14 @@
                                      required="true" requiredMessage="Introduzca longitud decimales"/>
                     </p:panelGrid>
 
-                    <p:panelGrid columns="4" rendered="#{localidadTbController.selected != null}">   
-                        <p:outputLabel value="Altitud máxima:" for="AltitudMax" />
-                        <p:inputText id="AltitudMax" value="#{localidadTbController.selected.EAltitudMax}" title="Altitud máxima"
-                                     required="true" requiredMessage="Introduzca altitud máxima"/>
+                    <p:panelGrid columns="6" rendered="#{localidadTbController.selected != null}"> 
+                        <p:outputLabel value="Altitud:" for="AltitudMax" />
+                        <pe:inputNumber id="AltitudMax" style="width: 100px" value="#{localidadTbController.selected.EAltitudMax}" title="Altitud"
+                                        decimalPlaces="0" symbol=" mts" symbolPosition="s" />
 
-                        <p:outputLabel value="Altitud mínima:" for="AltitudMin" />
-                        <p:inputText id="AltitudMin" value="#{localidadTbController.selected.EAltitudMin}" title="Altitud mínima" 
-                                     required="true" requiredMessage="Introduzca altitud mínima"/>                       
-                    </p:panelGrid>
-
-                    <p:panelGrid columns="2" rendered="#{localidadTbController.selected != null}"> 
+                        
                         <p:outputLabel value="#{bundle.CreateLocalidadTbLabel_EIdcanton}" for="EIdcanton" />
-                        <p:selectOneMenu id="EIdcanton" value="#{localidadTbController.selected.EIdcanton}" 
+                        <p:selectOneMenu id="EIdcanton" style="width: 100px" value="#{localidadTbController.selected.EIdcanton}" 
                                          required="true" requiredMessage="Seleccione cantón" filter="true" filterMatchMode="contains">
                             <f:selectItem itemValue="" itemLabel="Seleccione.."/>
                             <f:selectItems value="#{cantonTbController.itemsAvailableSelectOne}"
@@ -115,7 +111,7 @@
                         </p:selectOneMenu>
 
                         <p:outputLabel value="Área protegida:" for="EIdarea" />
-                        <p:selectOneMenu id="EIdarea" value="#{localidadTbController.selected.EIdarea}"
+                        <p:selectOneMenu id="EIdarea" style="width: 150px" value="#{localidadTbController.selected.EIdarea}"
                                          filter="true" filterMatchMode="contains">
                             <f:selectItem itemValue="0" itemLabel="Área no protegida"/>
                             <f:selectItems value="#{areaprotegidaTbController.itemsAvailableSelectOne}"
@@ -124,7 +120,6 @@
                                            itemLabel="#{EIdareaItem.CNombre}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-
                     <p:commandButton actionListener="#{localidadTbController.create}" value="#{bundle.Save}" update="display,:LocalidadTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'LocalidadTbCreateDialog');"/>
 
                 </h:panelGroup>

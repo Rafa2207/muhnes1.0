@@ -128,6 +128,7 @@ public class ActividadTbController implements Serializable {
         proyectos = proyecto;
         selected.setEIdproyecto(proyectos);
         selected.seteEstado(1);
+        selected.setDGastoAdicional(0.0);
         selected.setInsumoTbList(new ArrayList<InsumoTb>());
         initializeEmbeddableKey();
         return selected;
@@ -163,10 +164,10 @@ public class ActividadTbController implements Serializable {
 
         return items;
     }
-    
+
     public List<ActividadTb> getItems() { //modificando para que funcione por proyectos
-        items=getFacade().findAll();
-       
+        items = getFacade().findAll();
+
         return items;
     }
 
@@ -289,12 +290,14 @@ public class ActividadTbController implements Serializable {
         selected.setDTotal(tot);
         return tot;
     }
-    
-    public Double totalProyecto(List<ActividadTb> act){
-        Double totalProy = 0.0;
 
-        for (ActividadTb i : act) {
-            totalProy = totalProy + i.getDTotal();
+    public double totalProyecto(ProyectoTb proy) {
+        double totalProy = 0.0;
+
+        for (ActividadTb act : getItems()) {
+            if (act.getEIdproyecto().getEIdproyecto() == proy.getEIdproyecto()) {
+                totalProy = totalProy + act.getDTotal() + act.getDGastoAdicional();
+            }
         }
         return totalProy;
     }
@@ -303,4 +306,13 @@ public class ActividadTbController implements Serializable {
         selected.getInsumoTbList().remove(insumo);
     }
 
+    public Double TotalViewAct(ActividadTb a) {
+        try {
+            Double total = 0.0;
+            total = a.getDTotal() + a.getDGastoAdicional();
+            return total;
+        } catch (Exception e) {
+            return 0.0;
+        }
+    }
 }

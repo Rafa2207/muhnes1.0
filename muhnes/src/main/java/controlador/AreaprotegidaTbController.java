@@ -217,5 +217,27 @@ public class AreaprotegidaTbController implements Serializable {
         }
 
     }
+    
+    public String latitudList(AreaprotegidaTb la) {
+        String latitud;
+        if (la.getELatitudgrados() < 0) {
+            latitud = la.getELatitudgrados() + "°" + la.getELatitudminutos() + "'" + la.getDLatitudsegundos() + "''" + " S";
+            return latitud;
+        } else {
+            latitud = la.getELatitudgrados() + "°" + la.getELatitudminutos() + "'" + la.getDLatitudsegundos() + "''" + " N";
+            return latitud;
+        }
+    }
+
+    public String longitudList(AreaprotegidaTb lo) {
+        String longitud;
+        if (lo.getELongitudgrados() < 0) {
+            longitud = lo.getELongitudgrados()+ "°" + lo.getELongitudminutos() + "'" + lo.getDLongitudsegundos() + "''" + " W";
+            return longitud;
+        } else {
+            longitud = lo.getELongitudgrados() + "°" + lo.getELongitudminutos() + "'" + lo.getDLongitudsegundos() + "''" + " E";
+            return longitud;
+        }
+    }
 
 }

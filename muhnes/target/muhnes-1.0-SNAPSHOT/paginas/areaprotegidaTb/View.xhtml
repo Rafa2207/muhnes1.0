@@ -22,12 +22,9 @@
                         <h:outputText value="#{areaprotegidaTbController.selected.EIdmunicipio.CNombre}" title="#{bundle.ViewAreaprotegidaTbTitle_EIdmunicipio}"/>
 
                         <h:outputText value="Ubicación geográfica:"/>
-                        <h:outputText value="#{areaprotegidaTbController.selected.ELatitudgrados}°
-                                      #{areaprotegidaTbController.selected.ELatitudminutos}'
-                                      #{areaprotegidaTbController.selected.DLatitudsegundos}''   
-                                      #{areaprotegidaTbController.selected.ELongitudgrados}°
-                                      #{areaprotegidaTbController.selected.ELongitudminutos}'
-                                      #{areaprotegidaTbController.selected.DLongitudsegundos}''" title="Ubicación"/>
+                        <h:outputText value="#{areaprotegidaTbController.latitudList(areaprotegidaTbController.selected)} 
+                                      #{areaprotegidaTbController.longitudList(areaprotegidaTbController.selected)}" 
+                                      title="Ubicación"/>
 
 
                     </p:panelGrid>
