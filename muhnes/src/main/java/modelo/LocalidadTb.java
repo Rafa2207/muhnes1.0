@@ -34,7 +34,6 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "LocalidadTb.findByMDescripcion", query = "SELECT l FROM LocalidadTb l WHERE l.mDescripcion = :mDescripcion"),
     @NamedQuery(name = "LocalidadTb.findByDLatitudDecimal", query = "SELECT l FROM LocalidadTb l WHERE l.dLatitudDecimal = :dLatitudDecimal"),
     @NamedQuery(name = "LocalidadTb.findByDLongitudDecimal", query = "SELECT l FROM LocalidadTb l WHERE l.dLongitudDecimal = :dLongitudDecimal"),
-    @NamedQuery(name = "LocalidadTb.findByEAltitudMin", query = "SELECT l FROM LocalidadTb l WHERE l.eAltitudMin = :eAltitudMin"),
     @NamedQuery(name = "LocalidadTb.findByEAltitudMax", query = "SELECT l FROM LocalidadTb l WHERE l.eAltitudMax = :eAltitudMax"),
     @NamedQuery(name = "LocalidadTb.findByELatitudgrados", query = "SELECT l FROM LocalidadTb l WHERE l.eLatitudgrados = :eLatitudgrados"),
     @NamedQuery(name = "LocalidadTb.findByELatitudminutos", query = "SELECT l FROM LocalidadTb l WHERE l.eLatitudminutos = :eLatitudminutos"),
@@ -62,8 +61,6 @@ public class LocalidadTb implements Serializable {
     private Double dLatitudDecimal;
     @Column(name = "d_longitud_decimal")
     private Double dLongitudDecimal;
-    @Column(name = "e_altitud_min")
-    private Integer eAltitudMin;
     @Column(name = "e_altitud_max")
     private Integer eAltitudMax;
     @Column(name = "e_latitudgrados")
@@ -133,14 +130,6 @@ public class LocalidadTb implements Serializable {
 
     public void setDLongitudDecimal(Double dLongitudDecimal) {
         this.dLongitudDecimal = dLongitudDecimal;
-    }
-
-    public Integer getEAltitudMin() {
-        return eAltitudMin;
-    }
-
-    public void setEAltitudMin(Integer eAltitudMin) {
-        this.eAltitudMin = eAltitudMin;
     }
 
     public Integer getEAltitudMax() {
