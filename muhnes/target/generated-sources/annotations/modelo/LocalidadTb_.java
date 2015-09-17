@@ -8,12 +8,11 @@ import modelo.AreaprotegidaTb;
 import modelo.CantonTb;
 import modelo.EjemplarTb;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-09-10T12:15:09")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-09-16T21:10:24")
 @StaticMetamodel(LocalidadTb.class)
 public class LocalidadTb_ { 
 
     public static volatile SingularAttribute<LocalidadTb, AreaprotegidaTb> eIdarea;
-    public static volatile SingularAttribute<LocalidadTb, Integer> eAltitudMin;
     public static volatile SingularAttribute<LocalidadTb, CantonTb> eIdcanton;
     public static volatile SingularAttribute<LocalidadTb, Integer> eLongitudminutos;
     public static volatile SingularAttribute<LocalidadTb, Integer> eIdlocalidad;

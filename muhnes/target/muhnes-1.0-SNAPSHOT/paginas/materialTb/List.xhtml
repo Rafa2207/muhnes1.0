@@ -51,7 +51,7 @@
                             <h:outputText id="c" value="#{item.MCodigobarras}"/>
                             <p:tooltip for="c">
                                 <p:barcode value="#{item.MCodigobarras}" type="code39"/>
-                                </p:tooltip>
+                            </p:tooltip>
                         </p:column>
                         <p:column width="20%" filterBy="#{item.CNombre}" filterStyle="display:none">
                             <f:facet name="header">
@@ -93,7 +93,14 @@
                     </p:dataTable>
                 </p:panel>
             </h:form>
+            <h:form target="_blank">
+                <div style="text-align: right"> 
 
+                    <p:commandLink value="Reporte" 
+                                   actionListener="#{materialTbController.reporte()}" 
+                                   ajax="false"/>
+                </div> 
+            </h:form>
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>

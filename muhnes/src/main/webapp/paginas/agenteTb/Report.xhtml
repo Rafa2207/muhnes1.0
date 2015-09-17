@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AgenteTbReportFormDlg" widgetVar="AgenteTbReportDialog" modal="true" resizable="false" appendTo="@(body)" header="Nuevo Reporte">
+            <h:form id="AgenteTbReportForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" rendered="#{agenteTbController.selected != null}" style="width: 500px">
+                        <h:outputText value="#{bundle.ViewAgenteTbLabel_CNombre}"/>
+                        <h:outputText value="#{agenteTbController.selected.CNombre}" title="#{bundle.ViewAgenteTbTitle_CNombre}"/>
+                        <h:outputText value="#{bundle.ViewAgenteTbLabel_CApellido}"/>
+                        <h:outputText value="#{agenteTbController.selected.CApellido}" title="#{bundle.ViewAgenteTbTitle_CApellido}"/>
+                        <h:outputText value="#{bundle.ViewAgenteTbLabel_CIniciales}"/>
+                        <h:outputText value="#{agenteTbController.selected.CIniciales}" title="#{bundle.ViewAgenteTbTitle_CIniciales}"/>
+                        <h:outputText value="#{bundle.ViewAgenteTbLabel_COcupacion}"/>
+                        <h:outputText value="#{agenteTbController.selected.COcupacion}" title="#{bundle.ViewAgenteTbTitle_COcupacion}"/>
+                        <h:outputText value="#{bundle.ViewAgenteTbLabel_CEmail}"/>
+                        <h:outputText value="#{agenteTbController.selected.CEmail}" title="#{bundle.ViewAgenteTbTitle_CEmail}"/>
+                        <h:outputText value="#{bundle.ViewAgenteTbLabel_EPostal}"/>
+                        <h:outputText value="#{agenteTbController.selected.EPostal}" title="#{bundle.ViewAgenteTbTitle_EPostal}"/>
+                        <h:outputText value="#{bundle.ViewAgenteTbLabel_CTelefono}"/>
+                        <h:outputText value="#{agenteTbController.selected.CTelefono}" title="#{bundle.ViewAgenteTbTitle_CTelefono}"/>
+                        <h:outputText value="#{bundle.ViewAgenteTbLabel_CFax}"/>
+                        <h:outputText value="#{agenteTbController.selected.CFax}" title="#{bundle.ViewAgenteTbTitle_CFax}"/>
+                        <h:outputText value="#{bundle.ViewAgenteTbLabel_MDireccion}"/>
+                        <h:outputText value="#{agenteTbController.selected.MDireccion}" title="#{bundle.ViewAgenteTbTitle_MDireccion}"/>
+                        <h:outputText value="#{bundle.ViewAgenteTbLabel_FFechanac}"/>
+                        <h:outputText value="#{agenteTbController.selected.FFechanac}" title="#{bundle.ViewAgenteTbTitle_FFechanac}">
+                            <f:convertDateTime pattern="dd MMMM yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewAgenteTbLabel_FFecham}"/>
+                        <h:outputText value="#{agenteTbController.selected.FFecham}" title="#{bundle.ViewAgenteTbTitle_FFecham}">
+                            <f:convertDateTime pattern="dd MMMM yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewAgenteTbLabel_EIdinstitucion}"/>
+                        <h:outputText value="#{agenteTbController.selected.EIdinstitucion.CAcronimo}" title="#{bundle.ViewAgenteTbTitle_EIdinstitucion}"/>
+                    </p:panelGrid>
+                    <p:panelGrid columns="1">
+                        <p:dataTable id="perfilesAgentes"
+                                     value="#{agenteTbController.selected.agentePerfilTbList}"
+                                     var="per"
+                                     editable="true"
+                                     tableStyle="width: 450px"
+                                     scrollable="true"
+                                     scrollHeight="80"
+                                     emptyMessage="No se han seleccionado perfiles"
+                                     >
+
+                            <p:column headerText="Perfiles">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        #{per.perfilTb.CNombre}
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{per.perfilTb.CNombre}"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                        </p:dataTable>
+
+
+                    </p:panelGrid>
+                    <h:form target="_blank">
+                        <p:commandButton value="Imprimir Reporte" actionListener="#{agenteTbController.reporteseleccionado()}" ajax="false"
+                                         onclick="this.form.target='_blank'"/>
+                    </h:form>
+                    <p:commandButton value="#{bundle.Close}" onclick="AgenteTbReportDialog.hide()"/>
+
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

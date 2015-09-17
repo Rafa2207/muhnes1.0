@@ -392,14 +392,21 @@ public class AgenteTbController implements Serializable {
                 fecha.setSpacingAfter(10);
                 document.add(fecha);
 
-                PdfPTable agentes = new PdfPTable(6);
+                 /*int i = 0;
+                for (AgentePerfilTb p : selected.getAgentePerfilTbList()) {
+                    i++;
+                    }*/
+                PdfPTable agentes = new PdfPTable(5);
                 agentes.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                 agentes.addCell(new Phrase("Iniciales", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                 agentes.addCell(new Phrase("Nombre", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                 agentes.addCell(new Phrase("Apellido", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                 agentes.addCell(new Phrase("Ocupación", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                 agentes.addCell(new Phrase("Institución", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
-                agentes.addCell(new Phrase("Perfiles", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                /*PdfPCell per = new PdfPCell(new Phrase("Perfiles", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                per.setColspan(i);
+                per.setHorizontalAlignment(Element.ALIGN_CENTER);
+                agentes.addCell(per);*/
 
                 List<AgenteTb> lista;
                 if (filtrado != null) {
@@ -413,18 +420,18 @@ public class AgenteTbController implements Serializable {
                 } else {
                     lista1 = this.items1;
                 }
-                
+
                 for (AgenteTb l : lista) {
-                    
+
                     agentes.addCell(new Phrase(l.getCIniciales(), FontFactory.getFont(FontFactory.TIMES, 10)));
-                    
+
                     PdfPCell cell = new PdfPCell(new Phrase(l.getCNombre(), FontFactory.getFont(FontFactory.TIMES, 10)));
                     cell.setHorizontalAlignment(Element.ALIGN_LEFT);
                     agentes.addCell(cell);
-                    
+
                     PdfPCell cell2 = new PdfPCell(new Phrase(l.getCApellido(), FontFactory.getFont(FontFactory.TIMES, 10)));
                     cell2.setHorizontalAlignment(Element.ALIGN_LEFT);
-                    agentes.addCell(cell2);                 
+                    agentes.addCell(cell2);
 
                     PdfPCell cell3 = new PdfPCell(new Phrase(l.getCOcupacion(), FontFactory.getFont(FontFactory.TIMES, 10)));
                     cell3.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -433,14 +440,11 @@ public class AgenteTbController implements Serializable {
                     PdfPCell cell4 = new PdfPCell(new Phrase(l.getEIdinstitucion().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 10)));
                     cell4.setHorizontalAlignment(Element.ALIGN_LEFT);
                     agentes.addCell(cell4);
-
-                    PdfPCell cell5 = new PdfPCell(new Phrase(l.getCTelefono(), FontFactory.getFont(FontFactory.TIMES, 10)));
-                        cell5.setHorizontalAlignment(Element.ALIGN_LEFT);
-                        agentes.addCell(cell5);
-                    /*for (AgentePerfilTb p : lista1) {
-                        PdfPCell cell5 = new PdfPCell(new Phrase(p., FontFactory.getFont(FontFactory.TIMES, 10)));
-                        cell5.setHorizontalAlignment(Element.ALIGN_LEFT);
-                        agentes.addCell(cell5);
+                  
+                   /* for (AgentePerfilTb r : lista1) {
+                    PdfPCell cell5 = new PdfPCell(new Phrase(r.getPerfilTb().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 10)));
+                    cell5.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    agentes.addCell(cell5);
                     }*/
                 }
                 document.add(agentes);
@@ -461,4 +465,145 @@ public class AgenteTbController implements Serializable {
         }
     }
 
+    public void reporteseleccionado() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        try {
+            Object response = context.getExternalContext().getResponse();
+            if (response instanceof HttpServletResponse) {
+                HttpServletResponse hsr = (HttpServletResponse) response;
+                hsr.setContentType("application/pdf");
+                ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
+
+                // Empieza reporte
+                Document document = new Document(PageSize.LETTER);
+                PdfWriter writer = PdfWriter.getInstance(document, pdfOutputStream);
+                TableHeaderVertical event = new TableHeaderVertical();
+                writer.setPageEvent(event);
+                document.open();
+
+                //este cb sirve para sacar el codigo de barra
+                PdfContentByte cb = writer.getDirectContent();
+
+                //Encabezado
+                //esto es para obtener la ruta del sistema
+                ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+                //Hago referencia a los logo
+                String logoPath = servletContext.getRealPath("") + File.separator + "resources"
+                        + File.separator + "images"
+                        + File.separator + "muhnes1.png";
+                //String logoMined = servletContext.getRealPath("") + File.separator + "resources"
+                //      + File.separator + "images"
+                //    + File.separator + "secultura.png";
+                //Creo una tabla para poner el encabezado
+                PdfPTable encabezado = new PdfPTable(3);
+                //indico que el ancho de la tabla es del 100%
+                encabezado.setWidthPercentage(100);
+                //creo la primer celda
+                PdfPCell cell1 = new PdfPCell();
+
+                //Instancio los logos
+                Image logo = Image.getInstance(logoPath);
+                //Image minedLogo = Image.getInstance(logoMined);
+                //Indico los tamaños de los logos
+                logo.scaleToFit(80, 80);
+                //minedLogo.scaleToFit(130, 130);
+                //añado el primer logo a la celda
+                cell1.addElement(logo);
+                //indico que la celda no tenga borde
+                cell1.setBorder(Rectangle.NO_BORDER);
+                //añado la celda a la tabla
+                encabezado.addCell(cell1);
+                //indico que las siguientes celdas se alineen al centro
+                encabezado.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                encabezado.getDefaultCell().setVerticalAlignment(Element.ALIGN_CENTER);
+                //indico que las siguientes celdas no tengan borde
+                encabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                //añado una nueva celda con los datos del instituto
+                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de El Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                //PdfPCell cell2 = new PdfPCell();
+                //cell2.setBorder(Rectangle.NO_BORDER);
+                encabezado.addCell("");
+                document.add(encabezado);
+                //creo una nueva celda para la otra imagen
+
+                //Ajusto los parametros de la celda igual que la anterior
+                //minedLogo.setAlignment(Element.ALIGN_RIGHT);
+                //cell2.addElement(minedLogo);
+                //cell2.setBorder(Rectangle.NO_BORDER);
+                //encabezado.addCell(cell2);
+                //document.add(encabezado);
+                Paragraph titulo = new Paragraph("Reporte de Agentes", FontFactory.getFont(FontFactory.TIMES_BOLD, 11));
+                titulo.setAlignment(Element.ALIGN_CENTER);
+                titulo.setSpacingAfter(5);
+                titulo.setSpacingBefore(10);
+                document.add(titulo);
+
+                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
+                        FontFactory.getFont(FontFactory.TIMES, 10));
+                fecha.setAlignment(Element.ALIGN_CENTER);
+                fecha.setSpacingAfter(10);
+                document.add(fecha);
+
+                int i = 0;
+                for (AgentePerfilTb p : selected.getAgentePerfilTbList()) {
+                    i++;
+                    }
+
+                PdfPTable agentes = new PdfPTable(5+i);
+                agentes.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                agentes.addCell(new Phrase("Iniciales", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                agentes.addCell(new Phrase("Nombre", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                agentes.addCell(new Phrase("Apellido", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                agentes.addCell(new Phrase("Ocupación", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                agentes.addCell(new Phrase("Institución", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                PdfPCell per = new PdfPCell(new Phrase("Perfiles", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                per.setColspan(i);
+                per.setHorizontalAlignment(Element.ALIGN_CENTER);
+                agentes.addCell(per);
+                    
+                   
+                    for(AgentePerfilTb r : selected.getAgentePerfilTbList()) {
+                    PdfPCell cell0 = new PdfPCell(new Phrase(r.getAgenteTb().getCIniciales(), FontFactory.getFont(FontFactory.TIMES, 10)));
+                    cell0.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    agentes.addCell(cell0);
+                    
+                    PdfPCell cell = new PdfPCell(new Phrase(r.getAgenteTb().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 10)));
+                    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    agentes.addCell(cell);
+
+                    PdfPCell cell2 = new PdfPCell(new Phrase(r.getAgenteTb().getCApellido(), FontFactory.getFont(FontFactory.TIMES, 10)));
+                    cell2.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    agentes.addCell(cell2);
+
+                    PdfPCell cell3 = new PdfPCell(new Phrase(r.getAgenteTb().getCOcupacion(), FontFactory.getFont(FontFactory.TIMES, 10)));
+                    cell3.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    agentes.addCell(cell3);
+
+                    PdfPCell cell4 = new PdfPCell(new Phrase(r.getAgenteTb().getEIdinstitucion().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 10)));
+                    cell4.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    agentes.addCell(cell4);
+                    
+                    for (AgentePerfilTb l : selected.getAgentePerfilTbList()) {
+                    PdfPCell cell5 = new PdfPCell(new Phrase(l.getPerfilTb().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 10)));
+                    cell5.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    agentes.addCell(cell5);
+                    }
+                    }
+                document.add(agentes);
+                document.close();
+                //Termina reporte
+
+                hsr.setHeader("Expires", "0");
+                hsr.setContentType("application/pdf");
+                hsr.setContentLength(pdfOutputStream.size());
+                ServletOutputStream responseOutputStream = hsr.getOutputStream();
+                responseOutputStream.write(pdfOutputStream.toByteArray());
+                responseOutputStream.flush();
+                responseOutputStream.close();
+                context.responseComplete();
+            }
+        } catch (DocumentException | IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

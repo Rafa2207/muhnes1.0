@@ -285,7 +285,7 @@ public class InstitucionTbController implements Serializable {
                     ins.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                     ins.addCell(new Phrase("Acrónimo", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                     ins.addCell(new Phrase("Nombre", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
-                    ins.addCell(new Phrase("Dirección", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                    ins.addCell(new Phrase("Télefono", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                     ins.addCell(new Phrase("Pais", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
 
                     List<InstitucionTb> lista;
