@@ -35,12 +35,16 @@
                     <p:commandButton id="ActividadButton" icon="ui-icon-calendar"  value="Actividad" action="/paginas/actividadTb/List.xhtml" disabled="#{empty proyectoTbController.selected}" >
                         <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{proyectoTbController.selected}"/>
                     </p:commandButton>
+                    
+                    <p:commandButton id="FinalizarButton" icon="ui-icon-flag"  value="Finalizar" actionListener="#{proyectoTbController.FinalizarProyecto()}" update=":growl,datalist" disabled="#{empty proyectoTbController.selected}">
+                        <p:confirm header="Confirmación" message="¿Está seguro que desea Finalizar el proyecto?" icon="ui-icon-alert" />
+                    </p:commandButton>
 
                     <p:commandButton id="ProrrogaProyectoButton" icon="ui-icon-alert"  value="Prórrogas" action="/paginas/prorrogaProyectoTb/List.xhtml" disabled="#{empty proyectoTbController.selected}" >
                         <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{proyectoTbController.selected}" />
                     </p:commandButton>
 
-                    <p:dataTable id="datalist" value="#{proyectoTbController.items}" var="item"
+                    <p:dataTable id="datalist" value="#{proyectoTbController.itemsProyecto}" var="item"
                                  selectionMode="single" selection="#{proyectoTbController.selected}"
                                  paginator="true"
                                  paginatorPosition="bottom"
@@ -51,8 +55,8 @@
                                  filteredValue="#{proyectoTbController.filtro}"
                                  widgetVar="proyectoTable">
 
-                        <p:ajax event="rowSelect"   update=":ProyectoTbListForm:ActividadButton :ProyectoTbListForm:createButton :ProyectoTbListForm:viewButton :ProyectoTbListForm:editButton :ProyectoTbListForm:deleteButton :ProyectoTbListForm:ProrrogaProyectoButton"/>
-                        <p:ajax event="rowUnselect" update=":ProyectoTbListForm:ActividadButton :ProyectoTbListForm:createButton :ProyectoTbListForm:viewButton :ProyectoTbListForm:editButton :ProyectoTbListForm:deleteButton :ProyectoTbListForm:ProrrogaProyectoButton"/>
+                        <p:ajax event="rowSelect"   update=":ProyectoTbListForm:FinalizarButton :ProyectoTbListForm:ActividadButton :ProyectoTbListForm:createButton :ProyectoTbListForm:viewButton :ProyectoTbListForm:editButton :ProyectoTbListForm:deleteButton :ProyectoTbListForm:ProrrogaProyectoButton"/>
+                        <p:ajax event="rowUnselect" update=":ProyectoTbListForm:FinalizarButton :ProyectoTbListForm:ActividadButton :ProyectoTbListForm:createButton :ProyectoTbListForm:viewButton :ProyectoTbListForm:editButton :ProyectoTbListForm:deleteButton :ProyectoTbListForm:ProrrogaProyectoButton"/>
 
 
                         <p:column filterBy="#{item.MNombre}" filterStyle="display:none">
@@ -62,13 +66,6 @@
                             <h:outputText value="#{item.MNombre}"/>
                         </p:column>
 
-                        <p:column filterBy="#{item.MDescripcion}" filterStyle="display:none" width="20%">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProyectoTbTitle_MDescripcion}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.MDescripcion}"/>
-                        </p:column>
-
                         <p:column filterBy="#{proyectoTbController.calculaAgente(agenteTbController.items, item.EResponsable)}" filterStyle="display:none" width="10%" style="text-align: center">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProyectoTbTitle_CResponsable}"/>
@@ -76,7 +73,7 @@
                             <h:outputText value="#{proyectoTbController.calculaAgente(agenteTbController.items, item.EResponsable)}"/>
                         </p:column>
 
-                        <p:column filterBy="#{item.FFechaInicio}" filterStyle="display:none" width="10%" style="text-align: center">
+                        <p:column filterBy="#{item.FFechaInicio}" filterStyle="display:none" width="15%" style="text-align: center">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProyectoTbTitle_FFechaInicio}"/>
                             </f:facet>
@@ -85,13 +82,20 @@
                             </h:outputText>
                         </p:column>
 
-                        <p:column filterBy="#{item.FFechaFin}" filterStyle="display:none" width="10%" style="text-align: center">
+                        <p:column filterBy="#{item.FFechaFin}" filterStyle="display:none" width="15%" style="text-align: center">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProyectoTbTitle_FFechaFin}"/>
                             </f:facet>
                             <h:outputText value="#{item.FFechaFin}">
                                 <f:convertDateTime pattern="dd MMMM yyyy" />
                             </h:outputText>
+                        </p:column>
+                        
+                        <p:column filterBy="#{proyectoTbController.EstadoProyecto(item)}" filterStyle="display:none" width="10%" style="text-align: center">
+                            <f:facet name="header">
+                                <h:outputText value="Estado"/>
+                            </f:facet>
+                            <h:outputText value="#{proyectoTbController.EstadoProyecto(item)}"/>
                         </p:column>
                         
                         <p:column width="10%" style="text-align: right; font-weight: bold">

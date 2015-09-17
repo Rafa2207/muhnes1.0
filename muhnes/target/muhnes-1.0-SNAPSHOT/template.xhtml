@@ -13,9 +13,9 @@
         <h:outputScript library="js" name="jsfcrud.js"/>
         <h:outputScript library="js" name="locale_es.js"/>
         <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true|false" />
-        <link href="images/planta.png" rel="shortcut icon" type="image/png"/>
-        <link href="../images/planta.png" rel="shortcut icon" type="image/png"/>
-        <link href="../../images/planta.png" rel="shortcut icon" type="image/png"/>
+        <link href="resources/images/planta.png" rel="shortcut icon" type="image/png"/>
+        <link href="../resources/images/planta.png" rel="shortcut icon" type="image/png"/>
+        <link href="../../resources/images/planta.png" rel="shortcut icon" type="image/png"/>
     </h:head>
 
     <h:body>
@@ -77,8 +77,8 @@
                     <p:slideMenu backLabel="Regresar" style="width: 95%">
                         <p:menuitem value="#{bundle.Home}" outcome="/paginas/bienvenido.xhtml" icon="ui-icon-home"/>
                         <p:submenu label="Proyectos">
-                            <p:menuitem value="Control de proyectos" outcome="/paginas/horario/Agenda.xhtml" />
                             <p:menuitem value="Proyecto" outcome="/paginas/proyectoTb/List.xhtml" />
+                            <p:menuitem value="Control de proyectos" outcome="/paginas/horario/Agenda.xhtml" />
                             <p:menuitem value="Proceso Ejemplar" outcome="/paginas/procesoejemplarTb/ProcesoEjemplar.xhtml"/>
                             <p:menuitem value="Notas preliminares" outcome="/paginas/notapreliminarTb/notapreliminar.xhtml"/>
                         </p:submenu>
@@ -108,7 +108,6 @@
                         </p:submenu>
                         <p:submenu label="Infomación Taxonómica">
                             <p:menuitem value="Taxonomía" outcome="/paginas/familiaTb/List.xhtml" />
-
                         </p:submenu>
                         <p:submenu label="Agentes e Instituciones">
                             <p:menuitem value="Agentes" outcome="/paginas/agenteTb/List.xhtml" />
@@ -128,7 +127,8 @@
                 <ui:insert name="footer">
                     <b>
                         Universidad de El Salvador Facultad Multidisciplinaria Paracentral (UES-FMP)<br/> 
-                        Copyright © 2015, todos los derechos reservados
+                        Todos los derechos reservados © 2015
+                        <h:graphicImage library="images" name="logo2.png" width="14"/>
                     </b>   
 
                 </ui:insert>

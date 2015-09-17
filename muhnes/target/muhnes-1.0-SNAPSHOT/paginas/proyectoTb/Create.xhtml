@@ -11,28 +11,18 @@
         <p:dialog id="ProyectoTbCreateDlg" widgetVar="ProyectoTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateProyectoTbTitle}">
             <h:form id="ProyectoTbCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{proyectoTbController.selected != null}" >
-                       
+
+                    <p:panelGrid columns="4" rendered="#{proyectoTbController.selected != null}" >
                         <p:outputLabel value="#{bundle.CreateProyectoTbLabel_CNombre}" for="MNombre" />
-                        <p:inputTextarea rows="5" cols="22" autoResize="false" id="MNombre" value="#{proyectoTbController.selected.MNombre}" title="#{bundle.CreateProyectoTbTitle_CNombre}" 
-                                     required="true" requiredMessage="Introduzca el nombre del proyecto"/>
-                        
-                        <p:outputLabel value="#{bundle.CreateProyectoTbLabel_CResponsable}" for="CResponsable" />   
-                        <p:selectOneMenu id="CResponsable" value="#{proyectoTbController.selected.EResponsable}" 
-                                         required="true" requiredMessage="Seleccione cantón" filter="true" filterMatchMode="contains">
-                            <f:selectItem itemValue="" itemLabel="Seleccione.."/>
-                            <f:selectItems value="#{agenteTbController.itemsAvailableSelectOne}"
-                                           var="EIdagenteItem"
-                                           itemValue="#{EIdagenteItem.EIdagente}"
-                                           itemLabel="#{EIdagenteItem.CNombre} #{EIdagenteItem.CApellido}"/>
-                        </p:selectOneMenu>
-                        
-                        
+                        <p:inputTextarea rows="2" cols="30" autoResize="false" id="MNombre" value="#{proyectoTbController.selected.MNombre}" title="#{bundle.CreateProyectoTbTitle_CNombre}" 
+                                         required="true" requiredMessage="Introduzca el nombre del proyecto"/>
+
                         <p:outputLabel value="#{bundle.CreateProyectoTbLabel_MDescripcion}" for="MDescripcion" />
-                        <p:inputTextarea cols="22" id="MDescripcion" value="#{proyectoTbController.selected.MDescripcion}" title="#{bundle.CreateProyectoTbTitle_MDescripcion}" 
-                                     />
-                                                
-                        
+                        <p:inputTextarea rows="2" cols="27" autoResize="" id="MDescripcion" value="#{proyectoTbController.selected.MDescripcion}" title="#{bundle.CreateProyectoTbTitle_MDescripcion}" />
+
+                    </p:panelGrid>
+
+                    <p:panelGrid columns="4" rendered="#{proyectoTbController.selected != null}" >
                         <p:outputLabel value="#{bundle.CreateProyectoTbLabel_FFechaInicio}" for="FFechaInicio" />
                         <p:calendar id="FFechaInicio" size="15"
                                     pattern="dd MMMM yyyy" value="#{proyectoTbController.selected.FFechaInicio}" 
@@ -42,8 +32,8 @@
                                     locale="es" readonlyInput="true">
                             <p:ajax event="dateSelect" update="FFechaFin"/>
                         </p:calendar>
-                        
-                        
+
+
                         <p:outputLabel value="#{bundle.CreateProyectoTbLabel_FFechaFin}" for="FFechaFin" />
                         <p:calendar id="FFechaFin"  size="15"
                                     pattern="dd MMMM yyyy" value="#{proyectoTbController.selected.FFechaFin}" 
@@ -53,13 +43,21 @@
                                     locale="es" readonlyInput="true"
                                     mindate="#{proyectoTbController.selected.FFechaInicio}"
                                     disabled="#{proyectoTbController.selected.FFechaInicio eq null}">
-                        
+
                         </p:calendar>
-                        
-                    
+
+                        <p:outputLabel value="#{bundle.CreateProyectoTbLabel_CResponsable}" for="CResponsable" />   
+                        <p:selectOneMenu id="CResponsable" value="#{proyectoTbController.selected.EResponsable}" 
+                                         required="true" requiredMessage="Seleccione cantón" filter="true" filterMatchMode="contains">
+                            <f:selectItem itemValue="" itemLabel="Seleccione.."/>
+                            <f:selectItems value="#{agenteTbController.itemsAvailableSelectOne}"
+                                           var="EIdagenteItem"
+                                           itemValue="#{EIdagenteItem.EIdagente}"
+                                           itemLabel="#{EIdagenteItem.CNombre} #{EIdagenteItem.CApellido}"/>
+                        </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{proyectoTbController.create}" value="#{bundle.Save}" update="display,:ProyectoTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'ProyectoTbCreateDialog');"/>
-                   
+
                 </h:panelGroup>
             </h:form>
         </p:dialog>

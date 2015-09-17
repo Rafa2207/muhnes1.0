@@ -47,7 +47,7 @@ public class controlProyectos {
     private String comparador;
     private Date fechaActual = new Date(), fechaFinalPrevista;
     private int diasFaltantesInt;
-    private boolean checkbox=false;
+    private boolean checkbox = false;
     @Inject
     ControladorSesion sesion;
 
@@ -247,11 +247,16 @@ public class controlProyectos {
     public void setCheckbox(boolean checkbox) {
         this.checkbox = checkbox;
     }
-    
+
     public void iniciarActividad() {
         FacesContext context = FacesContext.getCurrentInstance();
         eventModel.clear();
         actividadView.seteEstado(2);
+
+        if (actividadView.getEIdproyecto().getEEstado() == 0) {
+            actividadView.getEIdproyecto().setEEstado(1);
+            getFacadeProyecto().edit(actividadView.getEIdproyecto());
+        }
         try {
             getFacadeActividad().edit(actividadView);
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Actividad iniciada ", "INFO"));
@@ -263,6 +268,7 @@ public class controlProyectos {
 
     public void finalizarActividad() {
         FacesContext context = FacesContext.getCurrentInstance();
+        Integer NumActividad = 0, TotalActTerminadas = 0;
         eventModel.clear();
         actividadView.seteEstado(3);
         try {
@@ -271,17 +277,24 @@ public class controlProyectos {
         } catch (Exception e) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error, no se puede finalizar actividad", "INFO"));
         }
+
+        listaActividad = getFacadeActividad().findAll();
+        for (ActividadTb a : listaActividad) {
+            if (a.getEIdproyecto().getEIdproyecto() == actividadView.getEIdproyecto().getEIdproyecto()) {
+                NumActividad++;
+                if (a.geteEstado() == 3) {
+                    TotalActTerminadas++;
+                }
+            }
+        }
+
+        if (TotalActTerminadas == NumActividad) {
+            actividadView.getEIdproyecto().setEEstado(2);
+            getFacadeProyecto().edit(actividadView.getEIdproyecto());
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Proyecto Finalizado", "INFO"));
+
+        }
+
         init();
     }
-    
-    public void checkbooleano(){
-        if(checkbox==true)
-        {
-            checkbox=false;
-        }
-        else{
-            checkbox=true;
-        }
-    }
-
 }

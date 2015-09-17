@@ -61,7 +61,7 @@
                             <p:outputLabel value="Fecha de inicio real:" for="FFechaInicio" />
                             <p:calendar id="FFechaInicio" size="15"
                                         pattern="dd MMMM yyyy" value="#{controlProyectos.actividadView.FFechaInicioReal}" 
-                                        title="Fecha de inicio real" mindate="#{controlProyectos.actividadView.EIdproyecto.FFechaInicio}" maxdate="#{controlProyectos.fechaActual}" 
+                                        title="Fecha de inicio real" mindate="#{controlProyectos.actividadView.EIdproyecto.FFechaInicio}" 
                                         showOn="button" required="true"
                                         requiredMessage="Introduzca fecha inicio de la actividad"
                                         locale="es" readonlyInput="true">
@@ -106,8 +106,7 @@
                             <p:outputLabel value="Fecha finalización:" for="FFechaFina" />
                             <p:calendar id="FFechaFina" size="15"
                                         pattern="dd MMMM yyyy" value="#{controlProyectos.actividadView.FFechaFinReal}" 
-                                        title="Fecha de inicio real" mindate="#{controlProyectos.actividadView.FFechaInicioReal}" 
-                                        maxdate="#{controlProyectos.fechaActual}"
+                                        title="Fecha de inicio real" mindate="#{controlProyectos.actividadView.FFechaInicioReal}"
                                         showOn="button" required="true"
                                         requiredMessage="Introduzca fecha inicio de la actividad"
                                         locale="es" readonlyInput="true">

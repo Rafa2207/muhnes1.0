@@ -15,6 +15,7 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -30,7 +31,7 @@ import servicio.ActividadTbFacade;
 @Named("proyectoTbController")
 @ViewScoped
 public class ProyectoTbController implements Serializable {
-
+    
     @EJB
     private servicio.ProyectoTbFacade ejbFacade;
     @EJB
@@ -38,89 +39,97 @@ public class ProyectoTbController implements Serializable {
     private List<ActividadTb> ListaActividad = null;
     private List<ProyectoTb> items = null, filtro, ListaProyecto = null, itemsProyecto = null;
     private ProyectoTb selected;
-    private Date fechatemporal;
+    private Date fechatemporal, fechaActual = new Date();
     String agente;
     @PersistenceContext(unitName = "muhnes_muhnes_war_1.0-SNAPSHOTPU")
     EntityManager em;
-
+    
     public List<ProyectoTb> getItemsProyecto() {
         itemsProyecto = getFacade().ProyectoGeneral();
         return itemsProyecto;
     }
-
+    
     public ActividadTbFacade getFacadeActividad() {
         return FacadeActividad;
     }
-
+    
     public void setFacadeActividad(ActividadTbFacade FacadeActividad) {
         this.FacadeActividad = FacadeActividad;
     }
-
+    
     public List<ActividadTb> getListaActividad() {
         ListaActividad = getFacadeActividad().findAll();
         return ListaActividad;
     }
-
+    
     public void setListaActividad(List<ActividadTb> ListaActividad) {
         this.ListaActividad = ListaActividad;
     }
-
+    
     public Date getFechatemporal() {
         return fechatemporal;
     }
-
+    
     public void setFechatemporal(Date fechatemporal) {
         this.fechatemporal = fechatemporal;
     }
-
+    
     public List<ProyectoTb> getFiltro() {
         return filtro;
     }
-
+    
     public void setFiltro(List<ProyectoTb> filtro) {
         this.filtro = filtro;
     }
-
+    
     public ProyectoTbController() {
     }
-
+    
     public ProyectoTb getSelected() {
         return selected;
     }
-
+    
     public void setSelected(ProyectoTb selected) {
         this.selected = selected;
     }
-
+    
     protected void setEmbeddableKeys() {
     }
-
+    
     protected void initializeEmbeddableKey() {
     }
-
+    
     private ProyectoTbFacade getFacade() {
         return ejbFacade;
     }
-
+    
     public ProyectoTb prepareCreate() {
         selected = new ProyectoTb();
         selected.setEEstado(0);
         initializeEmbeddableKey();
         return selected;
     }
-
+    
+    public Date getFechaActual() {
+        return fechaActual;
+    }
+    
+    public void setFechaActual(Date fechaActual) {
+        this.fechaActual = fechaActual;
+    }
+    
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ProyectoTbCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-
+    
     public void update() {
         selected.setFFechaFin(fechatemporal);
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ProyectoTbUpdated"));
     }
-
+    
     public void destroy() {
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("ProyectoTbDeleted"));
         if (!JsfUtil.isValidationFailed()) {
@@ -128,14 +137,14 @@ public class ProyectoTbController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-
+    
     public List<ProyectoTb> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
         return items;
     }
-
+    
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
             setEmbeddableKeys();
@@ -163,22 +172,22 @@ public class ProyectoTbController implements Serializable {
             }
         }
     }
-
+    
     public ProyectoTb getProyectoTb(java.lang.Integer id) {
         return getFacade().find(id);
     }
-
+    
     public List<ProyectoTb> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
-
+    
     public List<ProyectoTb> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
-
+    
     @FacesConverter(forClass = ProyectoTb.class)
     public static class ProyectoTbControllerConverter implements Converter {
-
+        
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
@@ -188,19 +197,19 @@ public class ProyectoTbController implements Serializable {
                     getValue(facesContext.getELContext(), null, "proyectoTbController");
             return controller.getProyectoTb(getKey(value));
         }
-
+        
         java.lang.Integer getKey(String value) {
             java.lang.Integer key;
             key = Integer.valueOf(value);
             return key;
         }
-
+        
         String getStringKey(java.lang.Integer value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value);
             return sb.toString();
         }
-
+        
         @Override
         public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
             if (object == null) {
@@ -214,18 +223,18 @@ public class ProyectoTbController implements Serializable {
                 return null;
             }
         }
-
+        
     }
-
+    
     public void prepareEdit() {
         fechatemporal = selected.getFFechaFin();
-
+        
     }
-
+    
     public void limpiarFecha() {
         fechatemporal = null;
     }
-
+    
     public String calculaAgente(List<AgenteTb> a, int b) {
         for (AgenteTb agen : a) {
             if (agen.getEIdagente() == b) {
@@ -234,26 +243,26 @@ public class ProyectoTbController implements Serializable {
         }
         return agente;
     }
-
+    
     public double presupuesto(ProyectoTb proy) {
         double presupuesto = 0;
         for (ActividadTb a : getListaActividad()) {
-            if(a.getEIdproyecto().getEIdproyecto()==proy.getEIdproyecto()) {
-                if(a.getDGastoAdicional()==null){
+            if (a.getEIdproyecto().getEIdproyecto() == proy.getEIdproyecto()) {
+                if (a.getDGastoAdicional() == null) {
                     a.setDGastoAdicional(0.0);
                 }
-                presupuesto = presupuesto + a.getDTotal()+a.getDGastoAdicional();
+                presupuesto = presupuesto + a.getDTotal() + a.getDGastoAdicional();
             }
         }
         return presupuesto;
     }
-
+    
     public int progresoProyecto(ProyectoTb proy) {
-        int TotalActividades = 0, TotalEntero = 0, proyecto = proy.getEIdproyecto(),i=0;
+        int TotalActividades = 0, TotalEntero = 0, proyecto = proy.getEIdproyecto(), i = 0;
         double cadaActividad = 0, total = 0;
         ListaProyecto = getFacade().ProyectoGeneral();
         ListaActividad = getFacadeActividad().findAll();
-
+        
         for (ActividadTb a : ListaActividad) {
             if (a.getEIdproyecto().getEIdproyecto() == proy.getEIdproyecto()) {
                 TotalActividades++;
@@ -279,14 +288,33 @@ public class ProyectoTbController implements Serializable {
             }
         }
         TotalEntero = (int) total;
-        
         //probando..
-        if(i==TotalActividades){
-            TotalEntero=100;
+        if (i == TotalActividades && i != 0) {
+            TotalEntero = 100;
         }
-        
         return TotalEntero;
-
     }
-
+    
+    public String EstadoProyecto(ProyectoTb proyecto) {
+        String estado = null;
+        if (proyecto.getEEstado() == 0) {
+            estado = "No iniciado";
+        }
+        if (proyecto.getEEstado() == 1) {
+            estado = "En Proceso";
+        }
+        if (proyecto.getEEstado() == 2) {
+            estado = "Finalizado";
+        }
+        return estado;
+        
+    }
+    
+    public void FinalizarProyecto() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        selected.setEEstado(2);
+        getFacade().edit(selected);
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Proyecto Finalizado", "INFO"));
+    }
+    
 }

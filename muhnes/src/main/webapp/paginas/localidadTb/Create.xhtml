@@ -18,7 +18,7 @@
                                      required="true" requiredMessage="Introduzca nombre de la localidad"/>
 
                         <p:outputLabel value="#{bundle.CreateLocalidadTbLabel_MDescripcion}" for="MDescripcion" />
-                        <p:inputTextarea autoResize="" id="MDescripcion" value="#{localidadTbController.selected.MDescripcion}" title="#{bundle.CreateLocalidadTbTitle_MDescripcion}" />
+                        <p:inputTextarea cols="60" rows="2" autoResize="" id="MDescripcion" value="#{localidadTbController.selected.MDescripcion}" title="#{bundle.CreateLocalidadTbTitle_MDescripcion}" />
                     </p:panelGrid >
 
                     <p:panelGrid columns="8" rendered="#{localidadTbController.selected != null}" >

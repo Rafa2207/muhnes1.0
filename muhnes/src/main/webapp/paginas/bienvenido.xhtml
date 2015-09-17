@@ -60,8 +60,10 @@
                             </p:panelGrid>
 
                             <f:facet name="footer" rendered="#{actividadTbController.items!= null}"  class="Bienvenido">
-                                <p:commandLink value="Ir a proyectos" action="/paginas/proyectoTb/List.xhtml" rendered="#{actividadTbController.items!=null}"/>
-                                <h:outputText value="No se encontraron proyectos recientes" rendered="#{actividadTbController.items==null}"/>
+                                <p:commandLink value="Ir a actividades" action="/paginas/actividadTb/List.xhtml" rendered="#{not actividadTbController.items.isEmpty()}">
+                                    <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{actividad.EIdproyecto}"/>
+                                </p:commandLink>
+                                <h:outputText value="No se encontraron actividades recientes" rendered="#{actividadTbController.items.isEmpty()}"/>
                             </f:facet>
                         </p:carousel>
 

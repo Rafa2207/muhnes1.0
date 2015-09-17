@@ -13,12 +13,19 @@
 
                 <h:panelGroup id="display">
                     <p:fieldset legend="Detalles de actividad">
+                        <p:panelGrid columns="4" rendered="#{actividadTbController.selected != null}">
+                            <p:outputLabel value="#{bundle.CreateActividadTbLabel_CNombre}" for="CNombre" />
+                            <p:inputTextarea cols="25" rows="2" autoResize="" id="CNombre" value="#{actividadTbController.selected.MNombre}" title="#{bundle.CreateActividadTbTitle_CNombre}" 
+                                             required="true"
+                                             requiredMessage="Introduzca nombre de actividad"/>
+
+                            <p:outputLabel value="#{bundle.CreateActividadTbLabel_MDescripcion}" for="MDescripcion" />
+                            <p:inputTextarea cols="25" rows="2" autoResize="" id="MDescripcion" value="#{actividadTbController.selected.MDescripcion}" />
+                        </p:panelGrid>
+
                         <p:panelGrid columns="6" rendered="#{actividadTbController.selected != null}">
 
-                            <p:outputLabel value="#{bundle.CreateActividadTbLabel_CNombre}" for="CNombre" />
-                            <p:inputText id="CNombre" value="#{actividadTbController.selected.MNombre}" title="#{bundle.CreateActividadTbTitle_CNombre}" 
-                                         required="true"
-                                         requiredMessage="Introduzca nombre de actividad"/>
+
 
                             <p:outputLabel value="#{bundle.CreateActividadTbLabel_FFecha}" for="FFecha" />
                             <p:calendar mindate="#{actividadTbController.proyectos.FFechaInicio}" maxdate="#{actividadTbController.proyectos.FFechaFin}" id="FFecha" pattern="dd MMMM yyyy" value="#{actividadTbController.selected.FFecha}" title="#{bundle.EditActividadTbTitle_FFecha}"  showOn="button" 
@@ -36,9 +43,7 @@
                                         requiredMessage="Introduzca fecha" locale="es"
                                         disabled="#{actividadTbController.selected.FFecha eq null}"/>
 
-                            <p:outputLabel value="#{bundle.CreateActividadTbLabel_MDescripcion}" for="MDescripcion" />
-                            <p:inputTextarea autoResize="" id="MDescripcion" value="#{actividadTbController.selected.MDescripcion}" title="#{bundle.CreateActividadTbTitle_MDescripcion}" 
-                                             />
+
                             <p:outputLabel value="Tipo de actividad: " for="tipo"/>
                             <p:selectOneMenu id="tipo" value="#{actividadTbController.selected.CTipo}" required="true" requiredMessage="Debe seleccionar un tipo">
                                 <f:selectItem itemLabel="Seleccione" itemValue="" />
@@ -47,6 +52,8 @@
                                 <p:ajax event="change" update="unidad" process="tipo"/>
                             </p:selectOneMenu>
                         </p:panelGrid>
+
+
                     </p:fieldset>
                     <p:fieldset legend="Insumos">
                         <p:panelGrid columns="9">
@@ -122,15 +129,17 @@
                                 <h:outputText value="$#{insumo.DCantidad*insumo.DGasto}"/>
                             </p:column>
                             <p:column headerText="Acciones">
-                                <p:rowEditor/>
-                                <p:commandLink style="display: inline-block;"
-                                               styleClass="ui-icon ui-icon-trash"
-                                               action="#{actividadTbController.removerInsumo()}"
-                                               process="insumos"
-                                               update="insumos, :ActividadTbCreateForm:total">
-                                    <f:setPropertyActionListener value="#{insumo}" 
-                                                                 target="#{actividadTbController.insumo}"/>
-                                </p:commandLink>
+                                
+                                    <p:rowEditor/>
+                                    <p:commandLink style="display: inline-block"
+                                                   styleClass="ui-icon ui-icon-trash"
+                                                   action="#{actividadTbController.removerInsumo()}"
+                                                   process="insumos"
+                                                   update="insumos, :ActividadTbCreateForm:total">
+                                        <f:setPropertyActionListener value="#{insumo}" 
+                                                                     target="#{actividadTbController.insumo}"/>
+                                    </p:commandLink>
+                                
                             </p:column>
                         </p:dataTable>
                     </p:fieldset>
