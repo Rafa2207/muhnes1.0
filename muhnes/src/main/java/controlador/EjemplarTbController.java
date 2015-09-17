@@ -22,11 +22,6 @@ import javax.faces.view.ViewScoped;
 import modelo.AgenteIdentificaEjemplarTb;
 import modelo.AgenteIdentificaEjemplarTbPK;
 import modelo.AgenteTb;
-import modelo.EspecieTb;
-import modelo.FamiliaTb;
-import modelo.GeneroTb;
-import modelo.SubespecieTb;
-import modelo.VariedadTb;
 
 @Named("ejemplarTbController")
 @ViewScoped
@@ -291,9 +286,4 @@ public class EjemplarTbController implements Serializable {
         selected.setCCodigoentrada(codigo + "-" + correlativo);
     }
     
-    public void prueba(){
-        if(tipoTaxon==1){
-            familia=true;
-        }
-    }
 }

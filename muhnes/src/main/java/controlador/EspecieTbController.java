@@ -6,6 +6,7 @@ import controlador.util.JsfUtil.PersistAction;
 import servicio.EspecieTbFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -19,8 +20,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
+import modelo.AgenteEspecieTb;
+import modelo.AgenteEspecieTbPK;
 import modelo.AgenteTb;
 import modelo.GeneroTb;
+import modelo.NombrecomunTb;
+import modelo.PaisTb;
 
 @Named("especieTbController")
 @ViewScoped
@@ -30,18 +35,82 @@ public class EspecieTbController implements Serializable {
     private servicio.EspecieTbFacade ejbFacade;
     @EJB
     private servicio.AgenteTbFacade agenteFacade;
+    @EJB
+    private servicio.PaisTbFacade paisFacade;
     private List<EspecieTb> items = null, filtro;
     private EspecieTb selected;
     private boolean autor;
-    private String conector;
+    private String conector, nombreComun, idioma;
+    private AgenteTb agente;
+    private AgenteEspecieTb agenteAutor;
+    private NombrecomunTb nc;
     private List<AgenteTb> listaAutores;
+    private List<PaisTb> listaIdiomas;
+    private List<String> idiomas;
+    int secuencia = 0;
 
     public List<EspecieTb> getFiltro() {
         return filtro;
     }
 
+    public String getNombreComun() {
+        return nombreComun;
+    }
+
+    public List<String> getIdiomas() {
+        return idiomas;
+    }
+
+    public void setIdiomas(List<String> idiomas) {
+        this.idiomas = idiomas;
+    }
+
+    public void setNombreComun(String nombreComun) {
+        this.nombreComun = nombreComun;
+    }
+
+    public String getIdioma() {
+        return idioma;
+    }
+
+    public void setIdioma(String idioma) {
+        this.idioma = idioma;
+    }
+
+    public NombrecomunTb getNc() {
+        return nc;
+    }
+
+    public void setNc(NombrecomunTb nc) {
+        this.nc = nc;
+    }
+
+    public AgenteEspecieTb getAgenteAutor() {
+        return agenteAutor;
+    }
+
+    public void setAgenteAutor(AgenteEspecieTb agenteAutor) {
+        this.agenteAutor = agenteAutor;
+    }
+
+    public List<PaisTb> getListaIdiomas() {
+        return listaIdiomas;
+    }
+
+    public void setListaIdiomas(List<PaisTb> listaIdiomas) {
+        this.listaIdiomas = listaIdiomas;
+    }
+
     public List<AgenteTb> getListaAutores() {
         return listaAutores;
+    }
+
+    public AgenteTb getAgente() {
+        return agente;
+    }
+
+    public void setAgente(AgenteTb agente) {
+        this.agente = agente;
     }
 
     public void setListaAutores(List<AgenteTb> listaAutores) {
@@ -93,7 +162,10 @@ public class EspecieTbController implements Serializable {
         selected = new EspecieTb();
         initializeEmbeddableKey();
         selected.setEIdgenero(genero.getEIdgenero());
-        //listaAutores = agenteFacade.agentesAutores();
+        selected.setAgenteEspecieTbList(new ArrayList<AgenteEspecieTb>());
+        selected.setNombrecomunTbList(new ArrayList<NombrecomunTb>());
+        listaAutores = agenteFacade.agentesAutores();
+        listaIdiomas = paisFacade.idiomas();
         return selected;
     }
 
@@ -118,8 +190,8 @@ public class EspecieTbController implements Serializable {
 
     public List<EspecieTb> getItems(Integer gen) {
         /*if (items == null) {
-            items = getFacade().findAll();
-        }*/
+         items = getFacade().findAll();
+         }*/
         items = getFacade().buscarGeneroAsc(gen);
         return items;
     }
@@ -203,6 +275,67 @@ public class EspecieTbController implements Serializable {
             }
         }
 
+    }
+
+    public String autorBasionimio(boolean ab) {
+        String cadena;
+        if (ab == true) {
+            cadena = "Sí";
+        } else {
+            cadena = "No";
+        }
+        return cadena;
+    }
+
+    public void anadirAutor() {
+        int sec = 0;
+        AgenteEspecieTb nuevo = new AgenteEspecieTb();
+        nuevo.setAgenteTb(agente);
+        nuevo.setBAutorBasionimio(autor);
+        nuevo.setCConector(conector);
+        nuevo.setEspecieTb(selected);
+        for (AgenteEspecieTb i : selected.getAgenteEspecieTbList()) {
+            sec = sec + 1;
+        }
+        nuevo.setESecuencia(sec + 1);
+
+        AgenteEspecieTbPK agenteEspeciepk = new AgenteEspecieTbPK();
+
+        agenteEspeciepk.setEIdagente(agente.getEIdagente());
+        agenteEspeciepk.setEIdespecie(getFacade().siguienteId());
+
+        nuevo.setAgenteEspecieTbPK(agenteEspeciepk);
+
+        selected.getAgenteEspecieTbList().add(nuevo);
+
+        listaAutores.remove(agente);
+        autor = false;
+        conector = "";
+    }
+
+    public void removerAutor() {
+        int sec = 1;
+        selected.getAgenteEspecieTbList().remove(agenteAutor);
+        listaAutores.add(agenteAutor.getAgenteTb());
+        for (AgenteEspecieTb i : selected.getAgenteEspecieTbList()) {
+            i.setESecuencia(sec);
+            sec++;
+        }
+    }
+    
+    public void anadirNombreComun() {
+        NombrecomunTb nuevo = new NombrecomunTb();
+        nuevo.setCNombre(nombreComun);
+        nuevo.setCIdioma(idioma);
+        nuevo.setEIdespecie(selected);
+        selected.getNombrecomunTbList().add(nuevo);
+        nombreComun="";
+        idioma="";
+
+    }
+
+    public void removerNombreComun() {
+        selected.getNombrecomunTbList().remove(nc);
     }
 
 }

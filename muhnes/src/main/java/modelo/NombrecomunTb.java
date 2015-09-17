@@ -28,11 +28,9 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "NombrecomunTb.findAll", query = "SELECT n FROM NombrecomunTb n"),
     @NamedQuery(name = "NombrecomunTb.findByEIdnombrecomun", query = "SELECT n FROM NombrecomunTb n WHERE n.eIdnombrecomun = :eIdnombrecomun"),
-    @NamedQuery(name = "NombrecomunTb.findByCNombre", query = "SELECT n FROM NombrecomunTb n WHERE n.cNombre = :cNombre")})
+    @NamedQuery(name = "NombrecomunTb.findByCNombre", query = "SELECT n FROM NombrecomunTb n WHERE n.cNombre = :cNombre"),
+    @NamedQuery(name = "NombrecomunTb.findByCIdioma", query = "SELECT n FROM NombrecomunTb n WHERE n.cIdioma = :cIdioma")})
 public class NombrecomunTb implements Serializable {
-    @JoinColumn(name = "e_idespecie", referencedColumnName = "e_idespecie")
-    @ManyToOne
-    private EspecieTb eIdespecie;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,9 +40,12 @@ public class NombrecomunTb implements Serializable {
     @Size(max = 50)
     @Column(name = "c_nombre")
     private String cNombre;
-    @JoinColumn(name = "e_idejemplar", referencedColumnName = "e_idejemplar")
+    @Size(max = 20)
+    @Column(name = "c_idioma")
+    private String cIdioma;
+    @JoinColumn(name = "e_idespecie", referencedColumnName = "e_idespecie")
     @ManyToOne
-    private EjemplarTb eIdejemplar;
+    private EspecieTb eIdespecie;
 
     public NombrecomunTb() {
     }
@@ -69,12 +70,20 @@ public class NombrecomunTb implements Serializable {
         this.cNombre = cNombre;
     }
 
-    public EjemplarTb getEIdejemplar() {
-        return eIdejemplar;
+    public String getCIdioma() {
+        return cIdioma;
     }
 
-    public void setEIdejemplar(EjemplarTb eIdejemplar) {
-        this.eIdejemplar = eIdejemplar;
+    public void setCIdioma(String cIdioma) {
+        this.cIdioma = cIdioma;
+    }
+
+    public EspecieTb getEIdespecie() {
+        return eIdespecie;
+    }
+
+    public void setEIdespecie(EspecieTb eIdespecie) {
+        this.eIdespecie = eIdespecie;
     }
 
     @Override
@@ -100,14 +109,6 @@ public class NombrecomunTb implements Serializable {
     @Override
     public String toString() {
         return "modelo.NombrecomunTb[ eIdnombrecomun=" + eIdnombrecomun + " ]";
-    }
-
-    public EspecieTb getEIdespecie() {
-        return eIdespecie;
-    }
-
-    public void setEIdespecie(EspecieTb eIdespecie) {
-        this.eIdespecie = eIdespecie;
     }
     
 }

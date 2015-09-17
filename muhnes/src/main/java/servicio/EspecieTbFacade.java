@@ -8,7 +8,9 @@ package servicio;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import modelo.EspecieTb;
 
@@ -29,6 +31,17 @@ public class EspecieTbFacade extends AbstractFacade<EspecieTb> {
     public EspecieTbFacade() {
         super(EspecieTb.class);
     }
+    public int siguienteId(){
+        Query query = em.createNativeQuery("SELECT last_value from secuencia_especie_id");
+        try{
+            Long id =  (Long) query.getSingleResult();
+            return id.intValue()+1;
+        }
+        catch(NoResultException nre){
+            return 0;
+        }
+    }
+        
     public List<EspecieTb> buscarGeneroAsc(Integer  genero){
         
         TypedQuery<EspecieTb> query = em.createQuery("SELECT p FROM EspecieTb p WHERE p.eIdgenero=:h ORDER BY p.cNombre ASC ", EspecieTb.class);

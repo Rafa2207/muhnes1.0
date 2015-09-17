@@ -12,16 +12,14 @@
             <h:form id="EspecieTbCreateForm">
                 <h:panelGroup id="display">
                     <p:fieldset legend="Especie">
-                        <p:panelGrid columns="4" rendered="#{especieTbController.selected != null}">
+                        <p:panelGrid  style="width: 780px" columns="6" rendered="#{especieTbController.selected != null}">
                             <p:outputLabel value="Genero: " for="genero" />
                             <p:outputLabel style="font-weight: bold" id="genero" value="#{controladorSesion.genero.CNombre}" title="#{bundle.CreateEspecieTbTitle_CNombre}"/>
                             <p:outputLabel value="#{bundle.CreateEspecieTbLabel_CNombre}" for="CNombre" />
                             <p:inputText id="CNombre" value="#{especieTbController.selected.CNombre}" title="#{bundle.CreateEspecieTbTitle_CNombre}" required="true" requiredMessage="Introduzca un nombre" />
-                            <p:outputLabel value="Autores: " for="CAutores" />
-                            <p:inputText id="CAutores" value="" title="Autores" />
-                            <p:outputLabel value="#{bundle.CreateEspecieTbLabel_CEstado}" for="CEstado" />
+                            <p:outputLabel value="Estado taxonómico: " for="CEstado" />
                             <p:selectOneMenu id="CEstado" value="#{especieTbController.selected.CEstado}" required="true" requiredMessage="Seleccione un estado taxonomico">
-                                <f:selectItem itemValue="" itemLabel="Seleccione estado taxonomico"/>
+                                <f:selectItem itemValue="" itemLabel="Seleccione..."/>
                                 <f:selectItem itemValue="Aceptado" itemLabel="Aceptado"/>
                                 <f:selectItem itemValue="Temporal" itemLabel="Temporal"/>
                                 <f:selectItem itemValue="Sinónimo" itemLabel="Sinónimo"/>
@@ -30,14 +28,18 @@
                         </p:panelGrid>
                     </p:fieldset>
                     <br/>
-                    <p:tabView id="informacion">
+                    <p:tabView style="height: 300px" id="informacion">
                         <p:tab title="Autores">
                             <p:panelGrid columns="7">
-                                <p:outputLabel value="Nombre: " for="agenteRE" />
-                                <p:selectOneMenu id="agenteRE" 
-                                                 value="#{ejemplarTbController.agente}" 
+                                <p:outputLabel value="Nombre: " for="agenteAutor" />
+                                <p:selectOneMenu id="agenteAutor" 
+                                                 value="#{especieTbController.agente}" 
                                                  filter="true">
                                     <f:selectItem itemValue="" itemLabel="Seleccione..."/>
+                                    <f:selectItems value="#{especieTbController.listaAutores}"
+                                                   var="autor"
+                                                   itemLabel="#{autor.CNombre} #{autor.CApellido}"
+                                                   itemValue="#{autor}"/>
                                 </p:selectOneMenu>
                                 <p:outputLabel value="conector: " for="conector"/>
                                 <p:selectOneMenu id="conector" 
@@ -58,43 +60,111 @@
                                 <p:commandButton id="agregar"
                                                  value="Agregar"
                                                  actionListener="#{especieTbController.anadirAutor()}"
-                                                 process="agenteRE agregar"
-                                                 update="agenteRE AutoresBasinimicos"/>
+                                                 process="agenteAutor autorB conector agregar"
+                                                 update="agenteAutor autorB conector AutoresBasinimicos"/>
                             </p:panelGrid>
 
                             <p:dataTable id="AutoresBasinimicos"
                                          value="#{especieTbController.selected.agenteEspecieTbList}"
                                          var="autores"
                                          editable="true"
-                                         tableStyle="width: 700px"
+                                         tableStyle="width: 750px"
                                          scrollable="true"
-                                         scrollHeight="80"
+                                         scrollHeight="150"
                                          emptyMessage="No se han añadido autores"
                                          >
-                                <p:column headerText="Autor">
-                                    <h:outputText value="(#{autores.agenteTb.CNombre}) #{autores.agenteTb.CNombre}  #{autores.agenteTb.CApellido}"/>
+                                <p:column width="35%" headerText="Autor">
+                                    <h:outputText value="(#{autores.agenteTb.CIniciales}) #{autores.agenteTb.CNombre}  #{autores.agenteTb.CApellido}"/>
                                 </p:column>
-                                <p:column headerText="Autor Basionimio">
-                                    <h:outputText value="#{autores.BAutorBasionimio}"/>
+                                <p:column style="text-align: center" width="20%" headerText="Autor Basionimio">
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <p:outputLabel  value="#{especieTbController.autorBasionimio(autores.BAutorBasionimio)}"/>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <p:selectBooleanCheckbox value="#{autores.BAutorBasionimio}"/>
+                                        </f:facet>
+                                    </p:cellEditor>
                                 </p:column>
-                                <p:column headerText="Secuencia">
+                                <p:column width="15%" style="text-align: center" headerText="Secuencia">
                                     <h:outputText value="#{autores.ESecuencia}"/>
                                 </p:column>
-                                <p:column headerText="Conector">
-                                    <h:outputText value="#{autores.CConector}"/>
+                                <p:column width="15%" style="text-align: center" headerText="Conector">
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputText value="#{autores.CConector}"/>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <p:selectOneMenu style="width: 75px" value="#{autores.CConector}" >
+                                                <f:selectItem itemValue="emend." itemLabel="emend."/>
+                                                <f:selectItem itemValue="et." itemLabel="et."/>
+                                                <f:selectItem itemValue="ex." itemLabel="ex."/>
+                                                <f:selectItem itemValue="in." itemLabel="in."/>
+                                                <f:selectItem itemValue="nec." itemLabel="nec."/>
+                                                <f:selectItem itemValue="non." itemLabel="non."/>
+                                                <f:selectItem itemValue="&amp;" itemLabel="&amp;"/>
+                                                <f:selectItem itemValue=":" itemLabel=":"/>
+                                                <f:selectItem itemValue=".:" itemLabel=".:"/>
+                                            </p:selectOneMenu>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column width="15%" headerText="Acciones">
+                                    <p:rowEditor/>
+                                    <p:commandLink styleClass="ui-icon ui-icon-trash"
+                                                   action="#{especieTbController.removerAutor()}"
+                                                   process="AutoresBasinimicos"
+                                                   update="AutoresBasinimicos :EspecieTbCreateForm:informacion:agenteAutor">
+                                        <f:setPropertyActionListener value="#{autores}" 
+                                                                     target="#{especieTbController.agenteAutor}"/>
+                                    </p:commandLink>
+                                </p:column>
+                            </p:dataTable>
+                            <p:outputLabel value="Autores: " for="CAutores" />
+                            <p:outputLabel style="font-weight: bold" id="CAutores" value=""/>
+                        </p:tab>
+                        <p:tab title="Nombres comunes">
+                            <p:panelGrid columns="5">
+                                <p:outputLabel value="Nombre Común: " for="nombreComun"/>
+                                <p:inputText id="nombreComun" value="#{especieTbController.nombreComun}"/>
+                                <p:outputLabel value="Idioma: " for="idioma"/>
+                                <p:selectOneMenu id="idioma" value="#{especieTbController.idioma}" required="true" requiredMessage="Seleccione un idioma">
+                                    <f:selectItem itemValue="" itemLabel="Seleccione..."/>
+                                    <f:selectItems value="#{especieTbController.listaIdiomas}" var="idioma"
+                                                   />
+                                </p:selectOneMenu>
+                                <p:commandButton id="agregarNC"
+                                                 value="Agregar"
+                                                 actionListener="#{especieTbController.anadirNombreComun()}"
+                                                 process="nombreComun idioma agregarNC"
+                                                 update="nombreComun idioma NombresComunes"/>
+                            </p:panelGrid>
+                            <p:dataTable id="NombresComunes"
+                                         value="#{especieTbController.selected.nombrecomunTbList}"
+                                         var="nombreComun"
+                                         editable="true"
+                                         tableStyle="width: 500px"
+                                         scrollable="true"
+                                         scrollHeight="200"
+                                         emptyMessage="No se han añadido idiomas"
+                                         >
+                                <p:column headerText="Nombre Común">
+                                    <h:outputText value="#{nombreComun.CNombre}"/>
+                                </p:column>
+                                <p:column headerText="Idioma">
+                                    <h:outputText value="#{nombreComun.CIdioma}"/>
                                 </p:column>
                                 <p:column headerText="Acciones">
                                     <p:commandLink styleClass="ui-icon ui-icon-trash"
-                                                   action="#{especieTbController.remover()}"
-                                                   process="AutoresBasinimicos"
-                                                   update="AutoresBasinimicos :EspecieTbCreateForm:informacion:agente">
-                                        <f:setPropertyActionListener value="#{agentes}" 
-                                                                     target="#{ejemplarTbController.agenteIdentifica}"/>
+                                                   action="#{especieTbController.removerNombreComun()}"
+                                                   process="NombresComunes"
+                                                   update="NombresComunes :EspecieTbCreateForm:informacion:idioma">
+                                        <f:setPropertyActionListener value="#{nombreComun}" 
+                                                                     target="#{especieTbController.nc}"/>
                                     </p:commandLink>
                                 </p:column>
                             </p:dataTable>
                         </p:tab>
-                        <p:tab title="Nombres comunes"></p:tab>
                         <p:tab title="Imágenes"></p:tab>
                     </p:tabView>
                     <p:commandButton actionListener="#{especieTbController.create}" value="#{bundle.Save}" update="display,:EspecieTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'EspecieTbCreateDialog');"/>

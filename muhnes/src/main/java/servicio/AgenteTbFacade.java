@@ -43,11 +43,9 @@ public class AgenteTbFacade extends AbstractFacade<AgenteTb> {
         }
     }
     
-    /*public List<AgenteTb> agentesAutores(){
-        Query query = em.createQuery("select p from agente_tb a join a.agente_perfil_tb ap join ap.perfil_tb p where p.c_nombre='autor taxonomico' ");
-        
-//List<AgenteTb> phones = (List<AgenteTb>) query.getResultList();
-        List<AgenteTb> autores = (List<AgenteTb>) query.getResultList();
-        return autores;
-    }*/
+    public List<AgenteTb> agentesAutores(){
+        String Sentencia = "select a.e_idagente, a.c_nombre, a.c_apellido, a.c_iniciales from agente_tb a inner join agente_perfil_tb ap on a.e_idagente=ap.e_idagente inner join perfil_tb p on ap.e_idperfil=p.e_idperfil where p.c_nombre='autor taxonomico'";
+        Query query = em.createNativeQuery(Sentencia, AgenteTb.class);
+        return query.getResultList();
+    }
 }
