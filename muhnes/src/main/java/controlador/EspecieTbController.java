@@ -37,10 +37,10 @@ public class EspecieTbController implements Serializable {
     private servicio.AgenteTbFacade agenteFacade;
     @EJB
     private servicio.PaisTbFacade paisFacade;
-    private List<EspecieTb> items = null, filtro;
+    private List<EspecieTb> items = null,items2 = null, filtro;
     private EspecieTb selected;
     private boolean autor;
-    private String conector, nombreComun, idioma;
+    private String conector, nombreComun, idioma, autores;
     private AgenteTb agente;
     private AgenteEspecieTb agenteAutor;
     private NombrecomunTb nc;
@@ -51,6 +51,14 @@ public class EspecieTbController implements Serializable {
 
     public List<EspecieTb> getFiltro() {
         return filtro;
+    }
+
+    public String getAutores() {
+        return autores;
+    }
+
+    public void setAutores(String autores) {
+        this.autores = autores;
     }
 
     public String getNombreComun() {
@@ -166,6 +174,26 @@ public class EspecieTbController implements Serializable {
         selected.setNombrecomunTbList(new ArrayList<NombrecomunTb>());
         listaAutores = agenteFacade.agentesAutores();
         listaIdiomas = paisFacade.idiomas();
+        autores = "";
+        return selected;
+    }
+
+    public EspecieTb prepareEdit(EspecieTb especie) {
+        String cadena1 = "", cadena2 = "";
+        listaAutores = agenteFacade.agentesAutores();
+        for (AgenteEspecieTb i : getFacade().buscarEspecieSecuencia(especie.getEIdespecie())) {
+            listaAutores.remove(i.getAgenteTb());
+            if (i.getBAutorBasionimio() == true) {
+                cadena1 = cadena1 + i.getAgenteTb().getCIniciales() + " " + i.getCConector() + " ";
+            }
+            if (i.getBAutorBasionimio() == false) {
+                cadena2 = cadena2 + i.getAgenteTb().getCIniciales() + " ";
+            }
+        }
+        selected.getAgenteEspecieTbList().clear();
+        selected.setAgenteEspecieTbList(getFacade().buscarEspecieSecuencia(especie.getEIdespecie()));
+        autores = "(" + cadena1 + ") " + cadena2;
+        initializeEmbeddableKey();
         return selected;
     }
 
@@ -194,6 +222,13 @@ public class EspecieTbController implements Serializable {
          }*/
         items = getFacade().buscarGeneroAsc(gen);
         return items;
+    }
+
+    public List<EspecieTb> getItems() {
+        if (items2 == null) {
+            items2 = getFacade().findAll();
+        }
+        return items2;
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
@@ -311,6 +346,54 @@ public class EspecieTbController implements Serializable {
         listaAutores.remove(agente);
         autor = false;
         conector = "";
+        //llenar el acronimo de los autores taxonomicos.
+        String cadena1 = "", cadena2 = "";
+        for (AgenteEspecieTb i : selected.getAgenteEspecieTbList()) {
+            if (i.getBAutorBasionimio() == true) {
+                cadena1 = cadena1 + i.getAgenteTb().getCIniciales() + " " + i.getCConector() + " ";
+            }
+            if (i.getBAutorBasionimio() == false) {
+                cadena2 = cadena2 + i.getAgenteTb().getCIniciales() + " ";
+            }
+        }
+        autores = "(" + cadena1 + ") " + cadena2;
+    }
+
+    public void anadirAutorM() {
+        int sec = 0;
+        AgenteEspecieTb nuevo = new AgenteEspecieTb();
+        nuevo.setAgenteTb(agente);
+        nuevo.setBAutorBasionimio(autor);
+        nuevo.setCConector(conector);
+        nuevo.setEspecieTb(selected);
+        for (AgenteEspecieTb i : selected.getAgenteEspecieTbList()) {
+            sec = sec + 1;
+        }
+        nuevo.setESecuencia(sec + 1);
+
+        AgenteEspecieTbPK agenteEspeciepk = new AgenteEspecieTbPK();
+
+        agenteEspeciepk.setEIdagente(agente.getEIdagente());
+        agenteEspeciepk.setEIdespecie(selected.getEIdespecie());
+
+        nuevo.setAgenteEspecieTbPK(agenteEspeciepk);
+
+        selected.getAgenteEspecieTbList().add(nuevo);
+
+        listaAutores.remove(agente);
+        autor = false;
+        conector = "";
+        //llenar el acronimo de los autores taxonomicos.
+        /*String cadena1="", cadena2="";
+         for(AgenteEspecieTb i: selected.getAgenteEspecieTbList()){
+         if(i.getBAutorBasionimio()==true){
+         cadena1 = cadena1 + i.getAgenteTb().getCIniciales() + " " + i.getCConector() +" ";
+         }
+         if(i.getBAutorBasionimio()==false){
+         cadena2 = cadena2 + i.getAgenteTb().getCIniciales() + " ";
+         }
+         }
+         autores = "("+ cadena1 +") " + cadena2;*/
     }
 
     public void removerAutor() {
@@ -322,20 +405,64 @@ public class EspecieTbController implements Serializable {
             sec++;
         }
     }
-    
+
     public void anadirNombreComun() {
         NombrecomunTb nuevo = new NombrecomunTb();
         nuevo.setCNombre(nombreComun);
         nuevo.setCIdioma(idioma);
         nuevo.setEIdespecie(selected);
         selected.getNombrecomunTbList().add(nuevo);
-        nombreComun="";
-        idioma="";
-
+        nombreComun = "";
+        idioma = "";
     }
 
     public void removerNombreComun() {
         selected.getNombrecomunTbList().remove(nc);
     }
 
+    public String autoresBList(EspecieTb List) {
+        String cadena1 = "", cadena2 = "";
+        for (AgenteEspecieTb i : getFacade().buscarEspecieSecuencia(List.getEIdespecie())) {
+            if (i.getBAutorBasionimio() == true) {
+                cadena1 = cadena1 + i.getAgenteTb().getCIniciales() + " " + i.getCConector() + " ";
+            }
+            if (i.getBAutorBasionimio() == false) {
+                cadena2 = cadena2 + i.getAgenteTb().getCIniciales() + " ";
+            }
+        }
+        //autores = "("+ cadena1 +") " + cadena2;
+        return "(" + cadena1 + ") " + cadena2;
+    }
+
+    public List<AgenteEspecieTb> ordenarSecuencia(EspecieTb List) {
+        try {
+            return getFacade().buscarEspecieSecuencia(List.getEIdespecie());
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+
+    public List<AgenteEspecieTb> Secuencia(EspecieTb List) {
+        return getFacade().buscarEspecieSecuencia(List.getEIdespecie());
+
+    }
+
+    public String cadena() {
+        try {
+            String cadena1 = "", cadena2 = "";
+            for (AgenteEspecieTb i : selected.getAgenteEspecieTbList()) {
+                if (i.getBAutorBasionimio() == true) {
+                    cadena1 = cadena1 + i.getAgenteTb().getCIniciales() + " " + i.getCConector() + " ";
+                }
+                if (i.getBAutorBasionimio() == false) {
+                    cadena2 = cadena2 + i.getAgenteTb().getCIniciales() + " ";
+                }
+            }
+            autores = "(" + cadena1 + ") " + cadena2;
+        } catch (Exception e) {
+            return null;
+        }
+        return autores;
+    }
 }

@@ -33,11 +33,11 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "EspecieTb.findByCEstado", query = "SELECT e FROM EspecieTb e WHERE e.cEstado = :cEstado"),
     @NamedQuery(name = "EspecieTb.findByEIdgenero", query = "SELECT e FROM EspecieTb e WHERE e.eIdgenero = :eIdgenero")})
 public class EspecieTb implements Serializable {
-    @OneToMany(mappedBy = "eIdespecie")
+    @OneToMany(orphanRemoval = true, mappedBy = "eIdespecie")
     private List<ImagenTb> imagenTbList;
-    @OneToMany(mappedBy = "eIdespecie")
+    @OneToMany(orphanRemoval = true, mappedBy = "eIdespecie")
     private List<NombrecomunTb> nombrecomunTbList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "especieTb")
+    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, mappedBy = "especieTb")
     private List<AgenteEspecieTb> agenteEspecieTbList;
     private static final long serialVersionUID = 1L;
     @Id

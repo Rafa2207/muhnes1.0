@@ -5,11 +5,14 @@
  */
 package servicio;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import modelo.AgenteIdentificaEjemplarTb;
 import modelo.EjemplarTb;
 
 /**
@@ -46,5 +49,20 @@ public class EjemplarTbFacade extends AbstractFacade<EjemplarTb> {
         query.setParameter("pre", pre);
         Long count = (Long) query.getSingleResult();
         return String.format("%d", count+1);
+    }
+    
+    public List<AgenteIdentificaEjemplarTb> ejemplarRecolector(Integer  ejemplar, String recolector){
+        
+        TypedQuery<AgenteIdentificaEjemplarTb> query = em.createQuery("SELECT p FROM AgenteIdentificaEjemplarTb p WHERE p.ejemplarTb.eIdejemplar=:h AND p.cTipo=:recol ", AgenteIdentificaEjemplarTb.class);
+       query.setParameter("h", ejemplar);
+       query.setParameter("recol", recolector);
+        return query.getResultList();
+    }
+    public List<AgenteIdentificaEjemplarTb> ejemplarIdentificador(Integer  ejemplar, String identificador){
+        
+        TypedQuery<AgenteIdentificaEjemplarTb> query = em.createQuery("SELECT p FROM AgenteIdentificaEjemplarTb p WHERE p.ejemplarTb.eIdejemplar=:h AND p.cTipo=:ident ", AgenteIdentificaEjemplarTb.class);
+       query.setParameter("h", ejemplar);
+       query.setParameter("ident", identificador);
+        return query.getResultList();
     }
 }

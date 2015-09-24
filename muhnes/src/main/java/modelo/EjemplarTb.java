@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,6 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -68,6 +70,7 @@ public class EjemplarTb implements Serializable {
     private Boolean bEstadonotas;
     @Column(name = "e_responsable")
     private Integer eResponsable;
+    @Size(max = 20)
     @Column(name = "c_codigoentrada")
     private String cCodigoentrada;
     @JoinColumn(name = "e_variedad", referencedColumnName = "e_idvariedad")
@@ -91,9 +94,20 @@ public class EjemplarTb implements Serializable {
     @JoinColumn(name = "e_idespecie", referencedColumnName = "e_idespecie")
     @ManyToOne
     private EspecieTb eIdespecie;
-    private List<AgenteIdentificaEjemplarTb> AgenteIdentificaEjemplarTbList; 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ejemplarTb")
+    private List<AgenteIdentificaEjemplarTb> AgenteIdentificaEjemplarTbList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ejemplarTb")
+    private List<AgenteIdentificaEjemplarTb> AgenteIdentificaEjemplarTbIDList;
 
     public EjemplarTb() {
+    }
+
+    public List<AgenteIdentificaEjemplarTb> getAgenteIdentificaEjemplarTbIDList() {
+        return AgenteIdentificaEjemplarTbIDList;
+    }
+
+    public void setAgenteIdentificaEjemplarTbIDList(List<AgenteIdentificaEjemplarTb> AgenteIdentificaEjemplarTbIDList) {
+        this.AgenteIdentificaEjemplarTbIDList = AgenteIdentificaEjemplarTbIDList;
     }
 
     public List<AgenteIdentificaEjemplarTb> getAgenteIdentificaEjemplarTbList() {

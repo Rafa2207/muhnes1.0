@@ -12,6 +12,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import modelo.AgenteEspecieTb;
 import modelo.EspecieTb;
 
 /**
@@ -46,6 +47,12 @@ public class EspecieTbFacade extends AbstractFacade<EspecieTb> {
         
         TypedQuery<EspecieTb> query = em.createQuery("SELECT p FROM EspecieTb p WHERE p.eIdgenero=:h ORDER BY p.cNombre ASC ", EspecieTb.class);
        query.setParameter("h", genero);
+        return query.getResultList();
+    }
+    public List<AgenteEspecieTb> buscarEspecieSecuencia(Integer  especie){
+        
+        TypedQuery<AgenteEspecieTb> query = em.createQuery("SELECT p FROM AgenteEspecieTb p WHERE p.especieTb.eIdespecie=:h ORDER BY p.eSecuencia ASC ", AgenteEspecieTb.class);
+       query.setParameter("h", especie);
         return query.getResultList();
     }
 }

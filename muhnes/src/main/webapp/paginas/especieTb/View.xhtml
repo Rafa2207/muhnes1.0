@@ -8,17 +8,63 @@
 
     <ui:composition>
 
-        <p:dialog id="EspecieTbViewDlg" widgetVar="EspecieTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewEspecieTbTitle}">
+        <p:dialog id="EspecieTbViewDlg" widgetVar="EspecieTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="Visualizar especie">
             <h:form id="EspecieTbViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{especieTbController.selected != null}">
+                        <h:outputText value="#{bundle.ViewEspecieTbLabel_EIdgenero}"/>
+                        <h:outputText style="font-weight: bold" value="#{controladorSesion.genero.CNombre}" title="#{bundle.ViewEspecieTbTitle_EIdgenero}"/>
                         <h:outputText value="#{bundle.ViewEspecieTbLabel_CNombre}"/>
                         <h:outputText value="#{especieTbController.selected.CNombre}" title="#{bundle.ViewEspecieTbTitle_CNombre}"/>
                         <h:outputText value="#{bundle.ViewEspecieTbLabel_CEstado}"/>
                         <h:outputText value="#{especieTbController.selected.CEstado}" title="#{bundle.ViewEspecieTbTitle_CEstado}"/>
-                        <h:outputText value="#{bundle.ViewEspecieTbLabel_EIdgenero}"/>
-                        <h:outputText value="#{controladorSesion.genero.CNombre}" title="#{bundle.ViewEspecieTbTitle_EIdgenero}"/>
+                        <h:outputText value="Autores: "/>
+                        <h:outputText style="font-weight: bold" value="#{especieTbController.autoresBList(especieTbController.selected)}" title="Autores"/>
                     </p:panelGrid>
+                    <p:tabView style="height: 300px" id="informacion">
+                        <p:tab title="Autores">
+                            <p:dataTable id="AutoresBasinimicos"
+                                         value="#{especieTbController.ordenarSecuencia(especieTbController.selected)}"
+                                         var="autores"
+                                         editable="true"
+                                         tableStyle="width: 500px"
+                                         scrollable="true"
+                                         scrollHeight="150"
+                                         emptyMessage="No se han añadido autores"
+                                         >
+                                <p:column width="40%" headerText="Autor">
+                                    <h:outputText value="(#{autores.agenteTb.CIniciales}) #{autores.agenteTb.CNombre}  #{autores.agenteTb.CApellido}"/>
+                                </p:column>
+                                <p:column style="text-align: center" width="30%" headerText="Autor Basionimio">
+                                    <p:outputLabel  value="#{especieTbController.autorBasionimio(autores.BAutorBasionimio)}"/>
+                                </p:column>
+                                <p:column width="15%" style="text-align: center" headerText="Secuencia">
+                                    <h:outputText value="#{autores.ESecuencia}"/>
+                                </p:column>
+                                <p:column width="15%" style="text-align: center" headerText="Conector">
+                                    <h:outputText value="#{autores.CConector}"/> 
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>
+                        <p:tab title="Nombre común">
+                            <p:dataTable id="NombresComunes"
+                                         value="#{especieTbController.selected.nombrecomunTbList}"
+                                         var="nombreComun"
+                                         editable="true"
+                                         tableStyle="width: 500px"
+                                         scrollable="true"
+                                         scrollHeight="200"
+                                         emptyMessage="No se han añadido idiomas"
+                                         >
+                                <p:column headerText="Nombre Común">
+                                    <h:outputText value="#{nombreComun.CNombre}"/>
+                                </p:column>
+                                <p:column headerText="Idioma">
+                                    <h:outputText value="#{nombreComun.CIdioma}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>
+                    </p:tabView>
                     <p:commandButton value="#{bundle.Close}" onclick="EspecieTbViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

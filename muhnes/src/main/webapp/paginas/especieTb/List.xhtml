@@ -26,7 +26,7 @@
 
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{especieTbController.prepareCreate(controladorSesion.genero)}" update=":EspecieTbCreateForm" oncomplete="PF('EspecieTbCreateDialog').show()"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":EspecieTbViewForm" oncomplete="PF('EspecieTbViewDialog').show()" disabled="#{empty especieTbController.selected}"/>
-                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":EspecieTbEditForm" oncomplete="PF('EspecieTbEditDialog').show()" disabled="#{empty especieTbController.selected}"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" actionListener="#{especieTbController.prepareEdit(especieTbController.selected)}" update=":EspecieTbEditForm" oncomplete="PF('EspecieTbEditDialog').show()" disabled="#{empty especieTbController.selected}"/>
                     <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{especieTbController.destroy}" update=":growl,datalist" disabled="#{empty especieTbController.selected}">
                         <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
                     </p:commandButton>
@@ -54,6 +54,12 @@
                                 <h:outputText value="#{bundle.ListEspecieTbTitle_CNombre}"/>
                             </f:facet>
                             <h:outputText value="#{item.CNombre}"/>
+                        </p:column>
+                        <p:column filterBy="#{item.agenteEspecieTbList}" filterStyle="display:none">
+                            <f:facet name="header">
+                                <h:outputText value="Autores"/>
+                            </f:facet>
+                            <h:outputText value="#{especieTbController.autoresBList(item)}"/>
                         </p:column>
                         <p:column filterBy="#{item.CEstado}" filterStyle="display:none">
                             <f:facet name="header">

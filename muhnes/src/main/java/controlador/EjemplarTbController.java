@@ -22,6 +22,7 @@ import javax.faces.view.ViewScoped;
 import modelo.AgenteIdentificaEjemplarTb;
 import modelo.AgenteIdentificaEjemplarTbPK;
 import modelo.AgenteTb;
+import modelo.EspecieTb;
 
 @Named("ejemplarTbController")
 @ViewScoped
@@ -34,7 +35,7 @@ public class EjemplarTbController implements Serializable {
     private List<EjemplarTb> items = null, filtro;
     private EjemplarTb selected;
     private AgenteTb agente;
-    private List<AgenteTb> listaAgente;
+    private List<AgenteTb> listaAgenteR, listaAgenteI;
     private AgenteIdentificaEjemplarTb agenteIdentifica;
     private Integer tipoTaxon;
     private String cod;
@@ -53,6 +54,14 @@ public class EjemplarTbController implements Serializable {
 
     public void setFamilia(boolean familia) {
         this.familia = familia;
+    }
+
+    public List<AgenteTb> getListaAgenteI() {
+        return listaAgenteI;
+    }
+
+    public void setListaAgenteI(List<AgenteTb> listaAgenteI) {
+        this.listaAgenteI = listaAgenteI;
     }
 
     public void setCod(String cod) {
@@ -75,12 +84,12 @@ public class EjemplarTbController implements Serializable {
         this.agenteIdentifica = agenteIdentifica;
     }
 
-    public List<AgenteTb> getListaAgente() {
-        return listaAgente;
+    public List<AgenteTb> getListaAgenteR() {
+        return listaAgenteR;
     }
 
-    public void setListaAgente(List<AgenteTb> listaAgente) {
-        this.listaAgente = listaAgente;
+    public void setListaAgenteR(List<AgenteTb> listaAgenteR) {
+        this.listaAgenteR = listaAgenteR;
     }
 
     public AgenteTb getAgente() {
@@ -120,8 +129,33 @@ public class EjemplarTbController implements Serializable {
     public EjemplarTb prepareCreate() {
         selected = new EjemplarTb();
         selected.setAgenteIdentificaEjemplarTbList(new ArrayList<AgenteIdentificaEjemplarTb>());
+        selected.setAgenteIdentificaEjemplarTbIDList(new ArrayList<AgenteIdentificaEjemplarTb>());
         initializeEmbeddableKey();
-        listaAgente = agenteFacade.findAll();
+        listaAgenteR = agenteFacade.agentesRecolectores();
+        listaAgenteI = agenteFacade.agentesIdentificadores();
+        return selected;
+    }
+    public EjemplarTb prepareView(EjemplarTb ejemplar) {
+        selected.getAgenteIdentificaEjemplarTbIDList().clear();
+        selected.getAgenteIdentificaEjemplarTbList().clear();
+        selected.setAgenteIdentificaEjemplarTbIDList(getFacade().ejemplarIdentificador(ejemplar.getEIdejemplar(),"Identificador"));
+        selected.setAgenteIdentificaEjemplarTbList(getFacade().ejemplarRecolector(ejemplar.getEIdejemplar(),"Recolector"));
+        return selected;
+    }
+    public EjemplarTb prepareEdit(EjemplarTb ejemplar) {
+        listaAgenteR = agenteFacade.agentesRecolectores();
+        for(AgenteIdentificaEjemplarTb i: selected.getAgenteIdentificaEjemplarTbList()){
+            listaAgenteR.remove(i.getAgenteTb());
+        }
+        listaAgenteI = agenteFacade.agentesIdentificadores();
+        for(AgenteIdentificaEjemplarTb i: selected.getAgenteIdentificaEjemplarTbIDList()){
+            listaAgenteI.remove(i.getAgenteTb());
+        }
+        /*selected.getAgenteIdentificaEjemplarTbIDList().clear();
+        selected.getAgenteIdentificaEjemplarTbList().clear();
+        selected.setAgenteIdentificaEjemplarTbIDList(getFacade().ejemplarIdentificador(ejemplar.getEIdejemplar(),"Identificador"));
+        selected.setAgenteIdentificaEjemplarTbList(getFacade().ejemplarRecolector(ejemplar.getEIdejemplar(),"Recolector"));
+        */
         return selected;
     }
 
@@ -233,11 +267,15 @@ public class EjemplarTbController implements Serializable {
     }
 
     public void anadirRecolector() {
+        int sec = 0;
         AgenteIdentificaEjemplarTb nuevo = new AgenteIdentificaEjemplarTb();
         nuevo.setAgenteTb(agente);
         nuevo.setEjemplarTb(selected);
         nuevo.setCTipo("Recolector");
-
+        for (AgenteIdentificaEjemplarTb i : selected.getAgenteIdentificaEjemplarTbList()) {
+            sec = sec + 1;
+        }
+        nuevo.setESecuencia(sec + 1);
         AgenteIdentificaEjemplarTbPK agenteIdentificapk = new AgenteIdentificaEjemplarTbPK();
 
         agenteIdentificapk.setEIdagente(agente.getEIdagente());
@@ -247,21 +285,30 @@ public class EjemplarTbController implements Serializable {
 
         selected.getAgenteIdentificaEjemplarTbList().add(nuevo);
 
-        listaAgente.remove(agente);
+        listaAgenteR.remove(agente);
     }
 
     public void removerRecolector() {
+        int sec = 1;
         selected.getAgenteIdentificaEjemplarTbList().remove(agenteIdentifica);
-        listaAgente.add(agenteIdentifica.getAgenteTb());
+        listaAgenteR.add(agenteIdentifica.getAgenteTb());
+        for (AgenteIdentificaEjemplarTb i : selected.getAgenteIdentificaEjemplarTbList()) {
+            i.setESecuencia(sec);
+            sec++;
+        }
 
     }
 
     public void anadirIndentificador() {
+        int sec = 0;
         AgenteIdentificaEjemplarTb nuevo = new AgenteIdentificaEjemplarTb();
         nuevo.setAgenteTb(agente);
         nuevo.setEjemplarTb(selected);
         nuevo.setCTipo("Identificador");
-
+        for (AgenteIdentificaEjemplarTb i : selected.getAgenteIdentificaEjemplarTbIDList()) {
+            sec = sec + 1;
+        }
+        nuevo.setESecuencia(sec + 1);
         AgenteIdentificaEjemplarTbPK agenteIdentificapk = new AgenteIdentificaEjemplarTbPK();
 
         agenteIdentificapk.setEIdagente(agente.getEIdagente());
@@ -269,14 +316,19 @@ public class EjemplarTbController implements Serializable {
 
         nuevo.setAgenteIdentificaEjemplarTbPK(agenteIdentificapk);
 
-        selected.getAgenteIdentificaEjemplarTbList().add(nuevo);
+        selected.getAgenteIdentificaEjemplarTbIDList().add(nuevo);
 
-        listaAgente.remove(agente);
+        listaAgenteI.remove(agente);
     }
 
     public void removerIdentificador() {
-        selected.getAgenteIdentificaEjemplarTbList().remove(agenteIdentifica);
-        listaAgente.add(agenteIdentifica.getAgenteTb());
+        int sec = 1;
+        selected.getAgenteIdentificaEjemplarTbIDList().remove(agenteIdentifica);
+        listaAgenteI.add(agenteIdentifica.getAgenteTb());
+        for (AgenteIdentificaEjemplarTb i : selected.getAgenteIdentificaEjemplarTbIDList()) {
+            i.setESecuencia(sec);
+            sec++;
+        }
 
     }
 
@@ -286,4 +338,23 @@ public class EjemplarTbController implements Serializable {
         selected.setCCodigoentrada(codigo + "-" + correlativo);
     }
     
+   public String calculaAgente(List<AgenteTb> a, int b) {
+       String agente=""; 
+       for (AgenteTb agen : a) {
+            if (agen.getEIdagente() == b) {
+                agente = agen.getCNombre() + " " + agen.getCApellido();
+            }
+        }
+        return agente;
+   }
+   
+   public String calculaEspecie(List<EspecieTb> a, int b) {
+       String especie=""; 
+       for (EspecieTb esp : a) {
+            if (esp.getEIdespecie()== b) {
+                especie = esp.getCNombre();
+            }
+        }
+        return especie;
+   }
 }

@@ -12,37 +12,81 @@
             <h:form id="EjemplarTbViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{ejemplarTbController.selected != null}">
-                        <h:outputText value="#{bundle.ViewEjemplarTbLabel_EIdejemplar}"/>
-                        <h:outputText value="#{ejemplarTbController.selected.EIdejemplar}" title="#{bundle.ViewEjemplarTbTitle_EIdejemplar}"/>
+                        <h:outputText value="Código de entrada: "/>
+                        <h:outputText value="#{ejemplarTbController.selected.CCodigoentrada}" title="#{bundle.ViewEjemplarTbTitle_EIdejemplar}"/>
+                        <h:outputText value="Correlativo: "/>
+                        <h:outputText value="#{ejemplarTbController.selected.ECorrelativo}" title="#{bundle.ViewEjemplarTbTitle_EIdejemplar}"/>
+                        <h:outputText value="Responsable: "/>
+                        <h:outputText value="#{ejemplarTbController.calculaAgente(agenteTbController.items, ejemplarTbController.selected.EResponsable)}" title="#{bundle.ViewEjemplarTbTitle_EIdejemplar}"/>
                         <h:outputText value="#{bundle.ViewEjemplarTbLabel_MDescripcion}"/>
                         <h:outputText value="#{ejemplarTbController.selected.MDescripcion}" title="#{bundle.ViewEjemplarTbTitle_MDescripcion}"/>
                         <h:outputText value="#{bundle.ViewEjemplarTbLabel_ECantDuplicado}"/>
                         <h:outputText value="#{ejemplarTbController.selected.ECantDuplicado}" title="#{bundle.ViewEjemplarTbTitle_ECantDuplicado}"/>
                         <h:outputText value="#{bundle.ViewEjemplarTbLabel_CCalificativo}"/>
                         <h:outputText value="#{ejemplarTbController.selected.CCalificativo}" title="#{bundle.ViewEjemplarTbTitle_CCalificativo}"/>
-                        <h:outputText value="#{bundle.ViewEjemplarTbLabel_ECorrelativo}"/>
-                        <h:outputText value="#{ejemplarTbController.selected.ECorrelativo}" title="#{bundle.ViewEjemplarTbTitle_ECorrelativo}"/>
-                        <h:outputText value="#{bundle.ViewEjemplarTbLabel_FFechaInicioIdent}"/>
+                        <h:outputText value="Fecha de recolección: "/>
                         <h:outputText value="#{ejemplarTbController.selected.FFechaInicioIdent}" title="#{bundle.ViewEjemplarTbTitle_FFechaInicioIdent}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
-                        <h:outputText value="#{bundle.ViewEjemplarTbLabel_FFechaFinIdent}"/>
+                        <h:outputText value="Fecha de identificación: "/>
                         <h:outputText value="#{ejemplarTbController.selected.FFechaFinIdent}" title="#{bundle.ViewEjemplarTbTitle_FFechaFinIdent}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
-                        <h:outputText value="#{bundle.ViewEjemplarTbLabel_EVariedad}"/>
-                        <h:outputText value="#{ejemplarTbController.selected.EVariedad}" title="#{bundle.ViewEjemplarTbTitle_EVariedad}"/>
-                        <h:outputText value="#{bundle.ViewEjemplarTbLabel_EIdsubespecie}"/>
-                        <h:outputText value="#{ejemplarTbController.selected.EIdsubespecie}" title="#{bundle.ViewEjemplarTbTitle_EIdsubespecie}"/>
+                        <h:outputText value="#{bundle.ViewEjemplarTbLabel_EIdfamilia}" rendered="#{ejemplarTbController.selected.EIdfamilia!=null}"/>
+                        <h:outputText value="#{ejemplarTbController.selected.EIdfamilia.CNombre}" title="#{bundle.ViewEjemplarTbTitle_EIdfamilia}" rendered="#{ejemplarTbController.selected.EIdfamilia!=null}"/>
+                        <h:outputText value="#{bundle.ViewEjemplarTbLabel_EIdgenero}" rendered="#{ejemplarTbController.selected.EIdgenero!=null}"/>
+                        <h:outputText value="#{ejemplarTbController.selected.EIdgenero.CNombre}" title="#{bundle.ViewEjemplarTbTitle_EIdgenero}" rendered="#{ejemplarTbController.selected.EIdgenero!=null}"/>
+                        <h:outputText value="#{bundle.ViewEjemplarTbLabel_EIdespecie}" rendered="#{ejemplarTbController.selected.EIdespecie!=null}"/>
+                        <h:outputText value="#{ejemplarTbController.selected.EIdespecie.CNombre}" title="#{bundle.ViewEjemplarTbTitle_EIdespecie}" rendered="#{ejemplarTbController.selected.EIdespecie!=null}"/>
+                        <h:outputText value="#{bundle.ViewEjemplarTbLabel_EIdsubespecie}" rendered="#{ejemplarTbController.selected.EIdsubespecie!=null}"/>
+                        <h:outputText value="#{ejemplarTbController.selected.EIdsubespecie.CNombre}" title="#{bundle.ViewEjemplarTbTitle_EIdsubespecie}" rendered="#{ejemplarTbController.selected.EIdsubespecie!=null}"/>
+                        <h:outputText value="#{bundle.ViewEjemplarTbLabel_EVariedad}" rendered="#{ejemplarTbController.selected.EVariedad!=null}"/>
+                        <h:outputText value="#{ejemplarTbController.selected.EVariedad.CNombre}" title="#{bundle.ViewEjemplarTbTitle_EVariedad}" rendered="#{ejemplarTbController.selected.EVariedad!=null}"/>
                         <h:outputText value="#{bundle.ViewEjemplarTbLabel_EIdproyecto}"/>
-                        <h:outputText value="#{ejemplarTbController.selected.EIdproyecto}" title="#{bundle.ViewEjemplarTbTitle_EIdproyecto}"/>
-                        <h:outputText value="#{bundle.ViewEjemplarTbLabel_EIdgenero}"/>
-                        <h:outputText value="#{ejemplarTbController.selected.EIdgenero}" title="#{bundle.ViewEjemplarTbTitle_EIdgenero}"/>
-                        <h:outputText value="#{bundle.ViewEjemplarTbLabel_EIdfamilia}"/>
-                        <h:outputText value="#{ejemplarTbController.selected.EIdfamilia}" title="#{bundle.ViewEjemplarTbTitle_EIdfamilia}"/>
-                        <h:outputText value="#{bundle.ViewEjemplarTbLabel_EIdespecie}"/>
-                        <h:outputText value="#{ejemplarTbController.selected.EIdespecie}" title="#{bundle.ViewEjemplarTbTitle_EIdespecie}"/>
+                        <h:outputText value="#{ejemplarTbController.selected.EIdproyecto.MNombre}" title="#{bundle.ViewEjemplarTbTitle_EIdproyecto}"/>
                     </p:panelGrid>
+                    <p:tabView id="detalleEjemplar" >
+                        <p:tab title="Recolectores">
+                            <p:dataTable id="EjemplarAgentes"
+                                         value="#{ejemplarTbController.selected.agenteIdentificaEjemplarTbList}"
+                                         var="agentes"
+                                         editable="true"
+                                         tableStyle="width: 400px"
+                                         scrollable="true"
+                                         scrollHeight="80"
+                                         emptyMessage="No se han añadido agentes"
+                                         >
+                                <p:column headerText="Agentes" width="60%">
+                                    <h:outputText value="#{agentes.agenteTb.CNombre}  #{agentes.agenteTb.CApellido}"/>
+                                </p:column>
+                                <p:column headerText="Secuencia" width="20%" style="text-align: center">
+                                    <h:outputText value="#{agentes.ESecuencia}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>
+                        <p:tab title="Identificadores">
+                            <p:dataTable id="EjemplarAgentes1"
+                                         value="#{ejemplarTbController.selected.agenteIdentificaEjemplarTbIDList}"
+                                         var="agentes1"
+                                         editable="true"
+                                         tableStyle="width: 400px"
+                                         scrollable="true"
+                                         scrollHeight="80"
+                                         emptyMessage="No se han añadido agentes"
+                                         >
+                                <p:column headerText="Agentes" width="60%">
+                                    <h:outputText value="#{agentes1.agenteTb.CNombre}  #{agentes1.agenteTb.CApellido}"/>
+                                </p:column>
+                                <p:column headerText="Secuencia" width="20%" style="text-align: center">
+                                    <h:outputText value="#{agentes1.ESecuencia}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>
+                        <p:tab title="Nombre Común">
+                            <h:panelGrid columns="2" cellpadding="10">
+                            </h:panelGrid>
+                        </p:tab>
+                    </p:tabView>
                     <p:commandButton value="#{bundle.Close}" onclick="EjemplarTbViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

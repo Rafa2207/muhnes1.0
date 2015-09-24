@@ -44,7 +44,7 @@
                                 <p:outputLabel value="conector: " for="conector"/>
                                 <p:selectOneMenu id="conector" 
                                                  value="#{especieTbController.conector}" >
-                                    <f:selectItem itemValue="" itemLabel="Seleccione..."/>
+                                    <f:selectItem itemValue=" " itemLabel="Sin Conector"/>
                                     <f:selectItem itemValue="emend." itemLabel="emend."/>
                                     <f:selectItem itemValue="et." itemLabel="et."/>
                                     <f:selectItem itemValue="ex." itemLabel="ex."/>
@@ -61,7 +61,7 @@
                                                  value="Agregar"
                                                  actionListener="#{especieTbController.anadirAutor()}"
                                                  process="agenteAutor autorB conector agregar"
-                                                 update="agenteAutor autorB conector AutoresBasinimicos"/>
+                                                 update="agenteAutor autorB conector AutoresBasinimicos CAutoresB"/>
                             </p:panelGrid>
 
                             <p:dataTable id="AutoresBasinimicos"
@@ -73,6 +73,7 @@
                                          scrollHeight="150"
                                          emptyMessage="No se han añadido autores"
                                          >
+                                <p:ajax event="rowEdit" update=":EspecieTbCreateForm:informacion:CAutoresB"/>
                                 <p:column width="35%" headerText="Autor">
                                     <h:outputText value="(#{autores.agenteTb.CIniciales}) #{autores.agenteTb.CNombre}  #{autores.agenteTb.CApellido}"/>
                                 </p:column>
@@ -96,6 +97,7 @@
                                         </f:facet>
                                         <f:facet name="input">
                                             <p:selectOneMenu style="width: 75px" value="#{autores.CConector}" >
+                                                <f:selectItem itemValue=" " itemLabel="Sin Conector"/>
                                                 <f:selectItem itemValue="emend." itemLabel="emend."/>
                                                 <f:selectItem itemValue="et." itemLabel="et."/>
                                                 <f:selectItem itemValue="ex." itemLabel="ex."/>
@@ -114,21 +116,21 @@
                                     <p:commandLink styleClass="ui-icon ui-icon-trash"
                                                    action="#{especieTbController.removerAutor()}"
                                                    process="AutoresBasinimicos"
-                                                   update="AutoresBasinimicos :EspecieTbCreateForm:informacion:agenteAutor">
+                                                   update="AutoresBasinimicos :EspecieTbCreateForm:informacion:agenteAutor :EspecieTbCreateForm:informacion:CAutoresB">
                                         <f:setPropertyActionListener value="#{autores}" 
                                                                      target="#{especieTbController.agenteAutor}"/>
                                     </p:commandLink>
                                 </p:column>
                             </p:dataTable>
-                            <p:outputLabel value="Autores: " for="CAutores" />
-                            <p:outputLabel style="font-weight: bold" id="CAutores" value=""/>
+                            <h:outputText value="Autores: "/>
+                            <h:outputText style="font-weight: bold" id="CAutoresB" value="#{especieTbController.cadena()}"/>
                         </p:tab>
                         <p:tab title="Nombres comunes">
                             <p:panelGrid columns="5">
                                 <p:outputLabel value="Nombre Común: " for="nombreComun"/>
                                 <p:inputText id="nombreComun" value="#{especieTbController.nombreComun}"/>
                                 <p:outputLabel value="Idioma: " for="idioma"/>
-                                <p:selectOneMenu id="idioma" value="#{especieTbController.idioma}" required="true" requiredMessage="Seleccione un idioma">
+                                <p:selectOneMenu id="idioma" value="#{especieTbController.idioma}">
                                     <f:selectItem itemValue="" itemLabel="Seleccione..."/>
                                     <f:selectItems value="#{especieTbController.listaIdiomas}" var="idioma"
                                                    />

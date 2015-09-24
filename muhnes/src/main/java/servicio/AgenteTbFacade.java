@@ -44,7 +44,19 @@ public class AgenteTbFacade extends AbstractFacade<AgenteTb> {
     }
     
     public List<AgenteTb> agentesAutores(){
-        String Sentencia = "select a.e_idagente, a.c_nombre, a.c_apellido, a.c_iniciales from agente_tb a inner join agente_perfil_tb ap on a.e_idagente=ap.e_idagente inner join perfil_tb p on ap.e_idperfil=p.e_idperfil where p.c_nombre='autor taxonomico'";
+        String Sentencia = "SELECT a.e_idagente, a.c_nombre, a.c_apellido, a.c_iniciales from agente_tb a INNER JOIN agente_perfil_tb ap ON a.e_idagente=ap.e_idagente INNER JOIN perfil_tb p ON ap.e_idperfil=p.e_idperfil WHERE p.c_nombre='Autor taxonomico'";
+        Query query = em.createNativeQuery(Sentencia, AgenteTb.class);
+        return query.getResultList();
+    }
+    
+    public List<AgenteTb> agentesRecolectores(){
+        String Sentencia = "SELECT a.e_idagente, a.c_nombre, a.c_apellido, a.c_iniciales from agente_tb a INNER JOIN agente_perfil_tb ap ON a.e_idagente=ap.e_idagente INNER JOIN perfil_tb p ON ap.e_idperfil=p.e_idperfil WHERE p.c_nombre='Recolector'";
+        Query query = em.createNativeQuery(Sentencia, AgenteTb.class);
+        return query.getResultList();
+    }
+    
+    public List<AgenteTb> agentesIdentificadores(){
+        String Sentencia = "SELECT a.e_idagente, a.c_nombre, a.c_apellido, a.c_iniciales from agente_tb a INNER JOIN agente_perfil_tb ap ON a.e_idagente=ap.e_idagente INNER JOIN perfil_tb p ON ap.e_idperfil=p.e_idperfil WHERE p.c_nombre='Identificador'";
         Query query = em.createNativeQuery(Sentencia, AgenteTb.class);
         return query.getResultList();
     }

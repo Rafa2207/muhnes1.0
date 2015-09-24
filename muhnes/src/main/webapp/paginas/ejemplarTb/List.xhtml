@@ -23,8 +23,8 @@
                     </p:breadCrumb>
 
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{ejemplarTbController.prepareCreate}" update=":EjemplarTbCreateForm" oncomplete="PF('EjemplarTbCreateDialog').show()"/>
-                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":EjemplarTbViewForm" oncomplete="PF('EjemplarTbViewDialog').show()" disabled="#{empty ejemplarTbController.selected}"/>
-                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":EjemplarTbEditForm" oncomplete="PF('EjemplarTbEditDialog').show()" disabled="#{empty ejemplarTbController.selected}"/>
+                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" actionListener="#{ejemplarTbController.prepareView(ejemplarTbController.selected)}" update=":EjemplarTbViewForm" oncomplete="PF('EjemplarTbViewDialog').show()" disabled="#{empty ejemplarTbController.selected}"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" actionListener="#{ejemplarTbController.prepareEdit(ejemplarTbController.selected)}" update=":EjemplarTbEditForm" oncomplete="PF('EjemplarTbEditDialog').show()" disabled="#{empty ejemplarTbController.selected}"/>
                     <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{ejemplarTbController.destroy}" update=":growl,datalist" disabled="#{empty ejemplarTbController.selected}"/>
 
 
@@ -43,6 +43,12 @@
                         <p:ajax event="rowSelect"   update=":EjemplarTbListForm:createButton :EjemplarTbListForm:viewButton :EjemplarTbListForm:editButton :EjemplarTbListForm:deleteButton"/>
                         <p:ajax event="rowUnselect" update=":EjemplarTbListForm:createButton :EjemplarTbListForm:viewButton :EjemplarTbListForm:editButton :EjemplarTbListForm:deleteButton"/>
 
+                        <p:column filterBy="#{item.CCodigoentrada}" filterStyle="display:none" width="10%">
+                            <f:facet name="header">
+                                <h:outputText value="Codigo de Entrada"/>
+                            </f:facet>
+                            <h:outputText value="#{item.CCodigoentrada}"/>
+                        </p:column>
                         <p:column filterBy="#{item.ECorrelativo}" filterStyle="display:none" width="10%">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListEjemplarTbTitle_ECorrelativo}"/>
@@ -53,7 +59,7 @@
                             <f:facet name="header">
                                 <h:outputText value="Responsable"/>
                             </f:facet>
-                            <h:outputText value="#{item.EResponsable}"/>
+                            <h:outputText value="#{ejemplarTbController.calculaAgente(agenteTbController.items, item.EResponsable)}"/>
                         </p:column>
                         <p:column filterBy="#{item.MDescripcion}" filterStyle="display:none" width="20%">
                             <f:facet name="header">
@@ -69,7 +75,7 @@
                         </p:column>
                         <p:column filterBy="#{item.FFechaInicioIdent}" filterStyle="display:none" width="10%">
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListEjemplarTbTitle_FFechaInicioIdent}"/>
+                                <h:outputText value="Fecha de Recolección"/>
                             </f:facet>
                             <h:outputText value="#{item.FFechaInicioIdent}">
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
@@ -77,7 +83,7 @@
                         </p:column>
                         <p:column filterBy="#{item.FFechaFinIdent}" filterStyle="display:none" width="10%">
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListEjemplarTbTitle_FFechaFinIdent}"/>
+                                <h:outputText value="Fecha de Identificación"/>
                             </f:facet>
                             <h:outputText value="#{item.FFechaFinIdent}">
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
