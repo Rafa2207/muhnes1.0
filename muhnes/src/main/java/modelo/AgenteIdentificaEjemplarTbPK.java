@@ -10,6 +10,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -25,13 +26,19 @@ public class AgenteIdentificaEjemplarTbPK implements Serializable {
     @NotNull
     @Column(name = "e_idejemplar")
     private int eIdejemplar;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "c_tipo")
+    private String cTipo;
 
     public AgenteIdentificaEjemplarTbPK() {
     }
 
-    public AgenteIdentificaEjemplarTbPK(int eIdagente, int eIdejemplar) {
+    public AgenteIdentificaEjemplarTbPK(int eIdagente, int eIdejemplar, String cTipo) {
         this.eIdagente = eIdagente;
         this.eIdejemplar = eIdejemplar;
+        this.cTipo = cTipo;
     }
 
     public int getEIdagente() {
@@ -50,11 +57,20 @@ public class AgenteIdentificaEjemplarTbPK implements Serializable {
         this.eIdejemplar = eIdejemplar;
     }
 
+    public String getCTipo() {
+        return cTipo;
+    }
+
+    public void setCTipo(String cTipo) {
+        this.cTipo = cTipo;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (int) eIdagente;
         hash += (int) eIdejemplar;
+        hash += (cTipo != null ? cTipo.hashCode() : 0);
         return hash;
     }
 
@@ -71,12 +87,15 @@ public class AgenteIdentificaEjemplarTbPK implements Serializable {
         if (this.eIdejemplar != other.eIdejemplar) {
             return false;
         }
+        if ((this.cTipo == null && other.cTipo != null) || (this.cTipo != null && !this.cTipo.equals(other.cTipo))) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "modelo.AgenteIdentificaEjemplarTbPK[ eIdagente=" + eIdagente + ", eIdejemplar=" + eIdejemplar + " ]";
+        return "modelo.AgenteIdentificaEjemplarTbPK[ eIdagente=" + eIdagente + ", eIdejemplar=" + eIdejemplar + ", cTipo=" + cTipo + " ]";
     }
     
 }

@@ -122,11 +122,11 @@
                                 <f:selectItem itemLabel="Seleccione..." itemValue=""/>
                                 <f:selectItems value="#{localidadTbController.itemsAvailableSelectOne}"
                                                var="local"
-                                               itemLabel="#{local.CNombre} (#{local.ELatitudgrados}°#{local.ELongitudminutos}' #{local.DLatitudsegundos}'', #{local.ELongitudgrados}°#{local.ELongitudminutos}' #{local.DLongitudsegundos}'')"
+                                               itemLabel="#{local.CNombre} (#{localidadTbController.latitudList(local)}'', #{localidadTbController.longitudList(local)}'')"
                                                itemValue="#{local}"/>
                             </p:selectOneMenu>
-                            <p:outputLabel value="Codigo de entrada: " for="codEntrada" />
-                            <p:selectOneMenu id="codEntrada" value="#{ejemplarTbController.cod}" required="true" requiredMessage="Seleccione rango taxonomico">
+                            <p:outputLabel value="Codigo de entrada: " for="codigo" />
+                            <p:selectOneMenu id="codEntrada" value="#{ejemplarTbController.cod}" requiredMessage="Seleccione rango taxonomico">
                                 <f:selectItem itemLabel="Seleccione..." itemValue=""/>
                                 <f:selectItem itemLabel="Algas" itemValue="10"/>
                                 <f:selectItem itemLabel="Líquenes. Musgos y Hepáticas" itemValue="11"/>
@@ -139,7 +139,7 @@
                                 <p:ajax event="change" update="codigo"
                                         listener="#{ejemplarTbController.generarCodigoEntrada()}"/>
                             </p:selectOneMenu>
-                            <p:inputText id="codigo" readonly="true" size="8" maxlength="10" value="#{ejemplarTbController.selected.CCodigoentrada}"/>
+                            <p:inputText id="codigo" readonly="true" required="true" requiredMessage="Seleccione rango taxonómico" size="8" maxlength="10" value="#{ejemplarTbController.selected.CCodigoentrada}"/>
                             <p:outputLabel value=""/>
                         </p:panelGrid>
                     </p:fieldset>
@@ -158,7 +158,7 @@
                                 </p:selectOneMenu>
                                 <p:commandButton id="agregar"
                                                  value="Agregar"
-                                                 actionListener="#{ejemplarTbController.anadirRecolector()}"
+                                                 actionListener="#{ejemplarTbController.anadirRecolectorM()}"
                                                  process="agenteRE agregar"
                                                  update="agenteRE EjemplarAgentes"/>
                             </p:panelGrid>
@@ -203,7 +203,7 @@
                                 </p:selectOneMenu>
                                 <p:commandButton id="agregar1"
                                                  value="Agregar"
-                                                 actionListener="#{ejemplarTbController.anadirIndentificador()}"
+                                                 actionListener="#{ejemplarTbController.anadirIndentificadorM()}"
                                                  process="agenteID agregar1"
                                                  update="agenteID EjemplarAgentes1"/>
                             </p:panelGrid>

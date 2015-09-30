@@ -94,9 +94,9 @@ public class EjemplarTb implements Serializable {
     @JoinColumn(name = "e_idespecie", referencedColumnName = "e_idespecie")
     @ManyToOne
     private EspecieTb eIdespecie;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ejemplarTb")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "ejemplarTb")
     private List<AgenteIdentificaEjemplarTb> AgenteIdentificaEjemplarTbList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ejemplarTb")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "ejemplarTb")
     private List<AgenteIdentificaEjemplarTb> AgenteIdentificaEjemplarTbIDList;
 
     public EjemplarTb() {

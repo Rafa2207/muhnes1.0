@@ -14,7 +14,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
 
 /**
  *
@@ -25,13 +24,10 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "AgenteIdentificaEjemplarTb.findAll", query = "SELECT a FROM AgenteIdentificaEjemplarTb a"),
     @NamedQuery(name = "AgenteIdentificaEjemplarTb.findByEIdagente", query = "SELECT a FROM AgenteIdentificaEjemplarTb a WHERE a.agenteIdentificaEjemplarTbPK.eIdagente = :eIdagente"),
-    @NamedQuery(name = "AgenteIdentificaEjemplarTb.findByCTipo", query = "SELECT a FROM AgenteIdentificaEjemplarTb a WHERE a.cTipo = :cTipo"),
     @NamedQuery(name = "AgenteIdentificaEjemplarTb.findByESecuencia", query = "SELECT a FROM AgenteIdentificaEjemplarTb a WHERE a.eSecuencia = :eSecuencia"),
-    @NamedQuery(name = "AgenteIdentificaEjemplarTb.findByEIdejemplar", query = "SELECT a FROM AgenteIdentificaEjemplarTb a WHERE a.agenteIdentificaEjemplarTbPK.eIdejemplar = :eIdejemplar")})
+    @NamedQuery(name = "AgenteIdentificaEjemplarTb.findByEIdejemplar", query = "SELECT a FROM AgenteIdentificaEjemplarTb a WHERE a.agenteIdentificaEjemplarTbPK.eIdejemplar = :eIdejemplar"),
+    @NamedQuery(name = "AgenteIdentificaEjemplarTb.findByCTipo", query = "SELECT a FROM AgenteIdentificaEjemplarTb a WHERE a.agenteIdentificaEjemplarTbPK.cTipo = :cTipo")})
 public class AgenteIdentificaEjemplarTb implements Serializable {
-    @Size(max = 50)
-    @Column(name = "c_tipo")
-    private String cTipo;
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected AgenteIdentificaEjemplarTbPK agenteIdentificaEjemplarTbPK;
@@ -51,8 +47,8 @@ public class AgenteIdentificaEjemplarTb implements Serializable {
         this.agenteIdentificaEjemplarTbPK = agenteIdentificaEjemplarTbPK;
     }
 
-    public AgenteIdentificaEjemplarTb(int eIdagente, int eIdejemplar) {
-        this.agenteIdentificaEjemplarTbPK = new AgenteIdentificaEjemplarTbPK(eIdagente, eIdejemplar);
+    public AgenteIdentificaEjemplarTb(int eIdagente, int eIdejemplar, String cTipo) {
+        this.agenteIdentificaEjemplarTbPK = new AgenteIdentificaEjemplarTbPK(eIdagente, eIdejemplar, cTipo);
     }
 
     public AgenteIdentificaEjemplarTbPK getAgenteIdentificaEjemplarTbPK() {
@@ -110,14 +106,6 @@ public class AgenteIdentificaEjemplarTb implements Serializable {
     @Override
     public String toString() {
         return "modelo.AgenteIdentificaEjemplarTb[ agenteIdentificaEjemplarTbPK=" + agenteIdentificaEjemplarTbPK + " ]";
-    }
-
-    public String getCTipo() {
-        return cTipo;
-    }
-
-    public void setCTipo(String cTipo) {
-        this.cTipo = cTipo;
     }
     
 }

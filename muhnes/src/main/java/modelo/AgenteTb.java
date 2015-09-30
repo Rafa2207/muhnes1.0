@@ -46,6 +46,8 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "AgenteTb.findByFFechanac", query = "SELECT a FROM AgenteTb a WHERE a.fFechanac = :fFechanac"),
     @NamedQuery(name = "AgenteTb.findByFFecham", query = "SELECT a FROM AgenteTb a WHERE a.fFecham = :fFecham")})
 public class AgenteTb implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "agenteTb")
+    private List<AgenteIdentificaEjemplarTb> agenteIdentificaEjemplarTbList;
     @Column(name = "b_estado")
     private Boolean bEstado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "agenteTb")
@@ -252,6 +254,14 @@ public class AgenteTb implements Serializable {
 
     public void setAgenteEspecieTbList(List<AgenteEspecieTb> agenteEspecieTbList) {
         this.agenteEspecieTbList = agenteEspecieTbList;
+    }
+
+    public List<AgenteIdentificaEjemplarTb> getAgenteIdentificaEjemplarTbList() {
+        return agenteIdentificaEjemplarTbList;
+    }
+
+    public void setAgenteIdentificaEjemplarTbList(List<AgenteIdentificaEjemplarTb> agenteIdentificaEjemplarTbList) {
+        this.agenteIdentificaEjemplarTbList = agenteIdentificaEjemplarTbList;
     }
     
 }

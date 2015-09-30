@@ -151,11 +151,11 @@ public class EjemplarTbController implements Serializable {
         for(AgenteIdentificaEjemplarTb i: selected.getAgenteIdentificaEjemplarTbIDList()){
             listaAgenteI.remove(i.getAgenteTb());
         }
-        /*selected.getAgenteIdentificaEjemplarTbIDList().clear();
+        selected.getAgenteIdentificaEjemplarTbIDList().clear();
         selected.getAgenteIdentificaEjemplarTbList().clear();
         selected.setAgenteIdentificaEjemplarTbIDList(getFacade().ejemplarIdentificador(ejemplar.getEIdejemplar(),"Identificador"));
         selected.setAgenteIdentificaEjemplarTbList(getFacade().ejemplarRecolector(ejemplar.getEIdejemplar(),"Recolector"));
-        */
+        
         return selected;
     }
 
@@ -271,7 +271,7 @@ public class EjemplarTbController implements Serializable {
         AgenteIdentificaEjemplarTb nuevo = new AgenteIdentificaEjemplarTb();
         nuevo.setAgenteTb(agente);
         nuevo.setEjemplarTb(selected);
-        nuevo.setCTipo("Recolector");
+        //nuevo.setCTipo("Recolector");
         for (AgenteIdentificaEjemplarTb i : selected.getAgenteIdentificaEjemplarTbList()) {
             sec = sec + 1;
         }
@@ -280,6 +280,29 @@ public class EjemplarTbController implements Serializable {
 
         agenteIdentificapk.setEIdagente(agente.getEIdagente());
         agenteIdentificapk.setEIdejemplar(getFacade().siguienteId());
+        agenteIdentificapk.setCTipo("Recolector");
+
+        nuevo.setAgenteIdentificaEjemplarTbPK(agenteIdentificapk);
+
+        selected.getAgenteIdentificaEjemplarTbList().add(nuevo);
+
+        listaAgenteR.remove(agente);
+    }
+    public void anadirRecolectorM() {
+        int sec = 0;
+        AgenteIdentificaEjemplarTb nuevo = new AgenteIdentificaEjemplarTb();
+        nuevo.setAgenteTb(agente);
+        nuevo.setEjemplarTb(selected);
+        //nuevo.setCTipo("Recolector");
+        for (AgenteIdentificaEjemplarTb i : selected.getAgenteIdentificaEjemplarTbList()) {
+            sec = sec + 1;
+        }
+        nuevo.setESecuencia(sec + 1);
+        AgenteIdentificaEjemplarTbPK agenteIdentificapk = new AgenteIdentificaEjemplarTbPK();
+
+        agenteIdentificapk.setEIdagente(agente.getEIdagente());
+        agenteIdentificapk.setEIdejemplar(selected.getEIdejemplar());
+        agenteIdentificapk.setCTipo("Recolector");
 
         nuevo.setAgenteIdentificaEjemplarTbPK(agenteIdentificapk);
 
@@ -304,7 +327,7 @@ public class EjemplarTbController implements Serializable {
         AgenteIdentificaEjemplarTb nuevo = new AgenteIdentificaEjemplarTb();
         nuevo.setAgenteTb(agente);
         nuevo.setEjemplarTb(selected);
-        nuevo.setCTipo("Identificador");
+        //nuevo.setCTipo("Identificador");
         for (AgenteIdentificaEjemplarTb i : selected.getAgenteIdentificaEjemplarTbIDList()) {
             sec = sec + 1;
         }
@@ -313,6 +336,30 @@ public class EjemplarTbController implements Serializable {
 
         agenteIdentificapk.setEIdagente(agente.getEIdagente());
         agenteIdentificapk.setEIdejemplar(getFacade().siguienteId());
+        agenteIdentificapk.setCTipo("Identificador");
+
+        nuevo.setAgenteIdentificaEjemplarTbPK(agenteIdentificapk);
+
+        selected.getAgenteIdentificaEjemplarTbIDList().add(nuevo);
+
+        listaAgenteI.remove(agente);
+    }
+    
+    public void anadirIndentificadorM() {
+        int sec = 0;
+        AgenteIdentificaEjemplarTb nuevo = new AgenteIdentificaEjemplarTb();
+        nuevo.setAgenteTb(agente);
+        nuevo.setEjemplarTb(selected);
+        //nuevo.setCTipo("Identificador");
+        for (AgenteIdentificaEjemplarTb i : selected.getAgenteIdentificaEjemplarTbIDList()) {
+            sec = sec + 1;
+        }
+        nuevo.setESecuencia(sec + 1);
+        AgenteIdentificaEjemplarTbPK agenteIdentificapk = new AgenteIdentificaEjemplarTbPK();
+
+        agenteIdentificapk.setEIdagente(agente.getEIdagente());
+        agenteIdentificapk.setEIdejemplar(selected.getEIdejemplar());
+        agenteIdentificapk.setCTipo("Identificador");
 
         nuevo.setAgenteIdentificaEjemplarTbPK(agenteIdentificapk);
 

@@ -55,7 +55,7 @@
                             </f:facet>
                             <h:outputText value="#{item.ECorrelativo}"/>
                         </p:column>
-                        <p:column filterBy="#{item.EResponsable}" filterStyle="display:none" width="20%">
+                        <p:column filterBy="#{ejemplarTbController.calculaAgente(agenteTbController.items, item.EResponsable)}" filterStyle="display:none" width="20%">
                             <f:facet name="header">
                                 <h:outputText value="Responsable"/>
                             </f:facet>

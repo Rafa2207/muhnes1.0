@@ -6,10 +6,11 @@ import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import modelo.AgenteEspecieTb;
+import modelo.AgenteIdentificaEjemplarTb;
 import modelo.AgentePerfilTb;
 import modelo.InstitucionTb;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-09-23T23:35:28")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-09-29T16:20:43")
 @StaticMetamodel(AgenteTb.class)
 public class AgenteTb_ { 
 
@@ -18,8 +19,9 @@ public class AgenteTb_ {
     public static volatile SingularAttribute<AgenteTb, InstitucionTb> eIdinstitucion;
     public static volatile SingularAttribute<AgenteTb, Date> fFecham;
     public static volatile SingularAttribute<AgenteTb, Integer> ePostal;
-    public static volatile SingularAttribute<AgenteTb, String> cApellido;
+    public static volatile ListAttribute<AgenteTb, AgenteIdentificaEjemplarTb> agenteIdentificaEjemplarTbList;
     public static volatile SingularAttribute<AgenteTb, String> cFax;
+    public static volatile SingularAttribute<AgenteTb, String> cApellido;
     public static volatile ListAttribute<AgenteTb, AgentePerfilTb> agentePerfilTbList;
     public static volatile SingularAttribute<AgenteTb, Date> fFechanac;
     public static volatile SingularAttribute<AgenteTb, Boolean> bEstado;

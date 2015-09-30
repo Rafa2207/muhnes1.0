@@ -8,7 +8,7 @@ import modelo.AgenteTb;
 import modelo.DonacionTb;
 import modelo.PaisTb;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-09-23T23:35:28")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-09-29T16:20:43")
 @StaticMetamodel(InstitucionTb.class)
 public class InstitucionTb_ { 
 
