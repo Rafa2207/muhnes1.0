@@ -6,6 +6,7 @@ import controlador.util.JsfUtil.PersistAction;
 import servicio.ProyectoTbFacade;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -37,7 +38,7 @@ public class ProyectoTbController implements Serializable {
     @EJB
     private servicio.ActividadTbFacade FacadeActividad;
     private List<ActividadTb> ListaActividad = null;
-    private List<ProyectoTb> items = null, filtro, ListaProyecto = null, itemsProyecto = null;
+    private List<ProyectoTb> items = null, filtro, ListaProyecto = null, itemsProyecto = null, itemsNotificacion=null;
     private ProyectoTb selected;
     private Date fechatemporal, fechaActual = new Date();
     String agente;
@@ -116,6 +117,19 @@ public class ProyectoTbController implements Serializable {
     
     public void setFechaActual(Date fechaActual) {
         this.fechaActual = fechaActual;
+    }
+
+    public List<ProyectoTb> getItemsNotificacion() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fechaActual); // Configuramos la fecha que se recibe
+        calendar.add(Calendar.DAY_OF_YEAR, +7);  // numero de dias que se restan o suman
+        Date fecha = calendar.getTime(); //mandamos la fecha a una variable Date
+        itemsNotificacion=getFacade().ProyectoNotificaciones(fechaActual, fecha);
+        return itemsNotificacion;
+    }
+
+    public void setItemsNotificacion(List<ProyectoTb> itemsNotificacion) {
+        this.itemsNotificacion = itemsNotificacion;
     }
     
     public void create() {

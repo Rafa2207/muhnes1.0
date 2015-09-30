@@ -10,8 +10,9 @@
         <ui:define name="body">
             <h:form>
                 <p:panel header="Notificaciones">
-                    <p:panelGrid columns="2" layout="grid">
-                        <p:carousel style="width: 500px" value="#{proyectoTbController.items}" circular="true" headerText="Proyectos a Finalizar" numVisible="1" var="proy" >
+                    <p:panelGrid columns="2">
+                        <p:carousel style="width: 500px" value="#{proyectoTbController.itemsNotificacion}" circular="true" headerText="Proyectos a Finalizar" numVisible="1" var="proy" 
+                                    rendered="#{not proyectoTbController.itemsNotificacion.isEmpty()}">
                             <p:panelGrid columns="2" style="width: 500px">
                                 <h:outputText value="Proyecto:"/>
                                 <h:outputText value="#{proy.MNombre}" />
@@ -25,15 +26,17 @@
                                 <h:outputText value="#{proy.FFechaFin}" >
                                     <f:convertDateTime pattern="dd MMMM yyyy" />
                                 </h:outputText>
+                                
                             </p:panelGrid>
-                            <f:facet name="footer">
-                                <p:commandLink value="Ir a proyectos" action="/paginas/proyectoTb/List.xhtml" rendered="#{proyectoTbController.items!=null}" />
-                                <h:outputText value="No se encontraron proyectos recientes" rendered="#{proyectoTbController.items==null}"/>
-                            
-                            </f:facet>
+                            <p:panelGrid columns="1" style="text-align: center" layout="grid">
+                                <p:commandButton  value="Ir a proyectos" icon="ui-icon-folder-open" action="/paginas/proyectoTb/List.xhtml" 
+                                                  rendered="#{not proyectoTbController.itemsNotificacion.isEmpty()}"/>
+                            </p:panelGrid>
                         </p:carousel>
 
-                        <p:carousel style="width: 500px; background: burlywood" value="#{actividadTbController.items}" circular="true" headerText="Actividades a Finalizar" numVisible="1" var="actividad" >
+                        <p:carousel style="width: 500px; background: burlywood"  value="#{actividadTbController.itemsNotificacion}" 
+                                    circular="true" headerText="Actividades a Finalizar" numVisible="1" var="actividad"
+                                    rendered="#{not actividadTbController.itemsNotificacion.isEmpty()}">
                             <p:panelGrid columns="2" style="width: 500px">
                                 <h:outputText value="Actividad:"/>
                                 <h:outputText value="#{actividad.MNombre}" />
@@ -57,14 +60,13 @@
                                 <h:outputText value="#{actividad.FFechaFinReal}" >
                                     <f:convertDateTime pattern="dd MMMM yyyy" />
                                 </h:outputText>
-                            </p:panelGrid>
 
-                            <f:facet name="footer" rendered="#{actividadTbController.items!= null}"  class="Bienvenido">
-                                <p:commandLink value="Ir a actividades" action="/paginas/actividadTb/List.xhtml" rendered="#{not actividadTbController.items.isEmpty()}">
+                            </p:panelGrid>
+                            <p:panelGrid columns="1" style="text-align: center" layout="grid">
+                                <p:commandButton  value="Ir a actividad" icon="ui-icon-calendar" action="/paginas/actividadTb/List.xhtml" rendered="#{not actividadTbController.itemsNotificacion.isEmpty()}">
                                     <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{actividad.EIdproyecto}"/>
-                                </p:commandLink>
-                                <h:outputText value="No se encontraron actividades recientes" rendered="#{actividadTbController.items.isEmpty()}"/>
-                            </f:facet>
+                                </p:commandButton>
+                            </p:panelGrid>
                         </p:carousel>
 
                         <p:carousel style="width: 500px" itemStyle="background: #53c10c" value="#{procesoejemplarTbController.lista}" circular="true" headerText="Proceso ejemplar" numVisible="1" var="proceso" >

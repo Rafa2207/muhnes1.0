@@ -48,5 +48,14 @@ public class ProyectoTbFacade extends AbstractFacade<ProyectoTb> {
         TypedQuery<ProyectoTb> query = em.createQuery("SELECT p FROM ProyectoTb p ORDER BY p.fFechaInicio DESC", ProyectoTb.class);
         return query.getResultList();
     }
+    
+    public List<ProyectoTb> ProyectoNotificaciones(Date diaActual, Date Semana) {
+        em.clear();
+        TypedQuery<ProyectoTb> query = em.createQuery("SELECT p FROM ProyectoTb p where p.eEstado!=2 and p.fFechaFin between :d1 and :d2", ProyectoTb.class);
+        query.setParameter("d1", diaActual);
+        query.setParameter("d2", Semana);
+        return query.getResultList();
+    }
+    
 
 }

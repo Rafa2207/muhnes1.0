@@ -26,10 +26,18 @@ public class ExhibicionTbController implements Serializable {
 
     @EJB
     private servicio.ExhibicionTbFacade ejbFacade;
-    private List<ExhibicionTb> items = null, lista=null;
+    private List<ExhibicionTb> items = null, lista=null,filtro;
     private ExhibicionTb selected;
 
     public ExhibicionTbController() {
+    }
+
+    public List<ExhibicionTb> getFiltro() {
+        return filtro;
+    }
+
+    public void setFiltro(List<ExhibicionTb> filtro) {
+        this.filtro = filtro;
     }
 
     public ExhibicionTb getSelected() {

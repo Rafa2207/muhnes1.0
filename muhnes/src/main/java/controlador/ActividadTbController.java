@@ -7,6 +7,7 @@ import servicio.ActividadTbFacade;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -30,10 +31,10 @@ public class ActividadTbController implements Serializable {
 
     @EJB
     private servicio.ActividadTbFacade ejbFacade;
-    private List<ActividadTb> items = null, filtro;
+    private List<ActividadTb> items = null, filtro,itemsNotificacion=null;
     private ActividadTb selected;
     private ProyectoTb proyectos;
-    private Date fechatemporal;
+    private Date fechatemporal, fechaActual=new Date();
     private double cantidad, costo;
     private String nombre, tiempo;
     private InsumoTb insumo;
@@ -122,6 +123,30 @@ public class ActividadTbController implements Serializable {
     private ActividadTbFacade getFacade() {
         return ejbFacade;
     }
+
+    public Date getFechaActual() {
+        return fechaActual;
+    }
+
+    public void setFechaActual(Date fechaActual) {
+        this.fechaActual = fechaActual;
+    }
+    
+
+    public List<ActividadTb> getItemsNotificacion() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fechaActual); // Configuramos la fecha que se recibe
+        calendar.add(Calendar.DAY_OF_YEAR, +7);  // numero de dias que se restan o suman
+        Date fecha = calendar.getTime(); //mandamos la fecha a una variable Date
+        itemsNotificacion=getFacade().ProyectoNotificaciones(fechaActual, fecha);
+        return itemsNotificacion;
+    }
+
+    public void setItemsNotificacion(List<ActividadTb> itemsNotificacion) {
+        this.itemsNotificacion = itemsNotificacion;
+    }
+    
+    
 
     public ActividadTb prepareCreate(ProyectoTb proyecto) {
         selected = new ActividadTb();
