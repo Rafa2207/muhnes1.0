@@ -11,13 +11,13 @@
         <p:dialog id="FamiliaTbCreateDlg" widgetVar="FamiliaTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateFamiliaTbTitle}">
             <h:form id="FamiliaTbCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{familiaTbController.selected != null}">
+                    <p:panelGrid columns="2" rendered="#{taxonomiaTbController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateFamiliaTbLabel_CNombre}" for="CNombre" />
-                        <p:inputText id="CNombre" value="#{familiaTbController.selected.CNombre}" title="#{bundle.CreateFamiliaTbTitle_CNombre}" 
+                        <p:inputText id="CNombre" value="#{taxonomiaTbController.selected.CNombre}" title="#{bundle.CreateFamiliaTbTitle_CNombre}" 
                                      required="true" requiredMessage="Introduzca un nombre"/>
                         
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{familiaTbController.create}" value="#{bundle.Save}" update="display,:FamiliaTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'FamiliaTbCreateDialog');"/>
+                    <p:commandButton actionListener="#{taxonomiaTbController.createFamilia}" value="#{bundle.Save}" update="display,:FamiliaTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'FamiliaTbCreateDialog');"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

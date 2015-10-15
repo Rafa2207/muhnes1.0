@@ -9,13 +9,10 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import modelo.DepartamentoTb;
-import modelo.EspecieTb;
-import modelo.FamiliaTb;
-import modelo.GeneroTb;
 import modelo.MunicipioTb;
 import modelo.PaisTb;
 import modelo.ProyectoTb;
-import modelo.SubespecieTb;
+import modelo.TaxonomiaTb;
 
 /**
  *
@@ -27,38 +24,35 @@ import modelo.SubespecieTb;
 public class ControladorSesion implements Serializable {
 
     private ProyectoTb proyecto;
-    private FamiliaTb familia;
     private PaisTb pais;
     private DepartamentoTb departamento;
     private MunicipioTb municipio;
-    private GeneroTb genero;
-    private EspecieTb especie;
-    private SubespecieTb subespecie;
+    private TaxonomiaTb taxonomia;
 
-    public SubespecieTb getSubespecie() {
-        return subespecie;
-    }
-
-    public void setSubespecie(SubespecieTb subespecie) {
-        this.subespecie = subespecie;
-    }
-
-    public EspecieTb getEspecie() {
+/*    public EspecieTb getEspecie() {
         return especie;
     }
 
     public void setEspecie(EspecieTb especie) {
         this.especie = especie;
     }
+*/
+    public TaxonomiaTb getTaxonomia() {
+        return taxonomia;
+    }
 
-    public GeneroTb getGenero() {
+    public void setTaxonomia(TaxonomiaTb taxonomia) {
+        this.taxonomia = taxonomia;
+    }
+
+/*    public GeneroTb getGenero() {
         return genero;
     }
 
     public void setGenero(GeneroTb genero) {
         this.genero = genero;
     }
-
+*/
     public MunicipioTb getMunicipio() {
         return municipio;
     }
@@ -66,8 +60,7 @@ public class ControladorSesion implements Serializable {
     public void setMunicipio(MunicipioTb municipio) {
         this.municipio = municipio;
     }
-   
-       
+
     public DepartamentoTb getDepartamento() {
         return departamento;
     }
@@ -75,8 +68,6 @@ public class ControladorSesion implements Serializable {
     public void setDepartamento(DepartamentoTb departamento) {
         this.departamento = departamento;
     }
-    
-    
 
     public PaisTb getPais() {
         return pais;
@@ -85,9 +76,7 @@ public class ControladorSesion implements Serializable {
     public void setPais(PaisTb pais) {
         this.pais = pais;
     }
-    
-    
-
+/*
     public FamiliaTb getFamilia() {
         return familia;
     }
@@ -95,8 +84,7 @@ public class ControladorSesion implements Serializable {
     public void setFamilia(FamiliaTb familia) {
         this.familia = familia;
     }
-    
-
+*/
     public ProyectoTb getProyecto() {
         return proyecto;
     }
@@ -104,11 +92,11 @@ public class ControladorSesion implements Serializable {
     public void setProyecto(ProyectoTb proyecto) {
         this.proyecto = proyecto;
     }
-    
+
     /**
      * Creates a new instance of ControladorSesion
      */
     public ControladorSesion() {
     }
-    
+
 }

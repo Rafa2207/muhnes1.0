@@ -22,7 +22,7 @@ import javax.faces.view.ViewScoped;
 import modelo.AgenteIdentificaEjemplarTb;
 import modelo.AgenteIdentificaEjemplarTbPK;
 import modelo.AgenteTb;
-import modelo.EspecieTb;
+//import modelo.EspecieTb;
 
 @Named("ejemplarTbController")
 @ViewScoped
@@ -395,7 +395,7 @@ public class EjemplarTbController implements Serializable {
         return agente;
    }
    
-   public String calculaEspecie(List<EspecieTb> a, int b) {
+/*   public String calculaEspecie(List<EspecieTb> a, int b) {
        String especie=""; 
        for (EspecieTb esp : a) {
             if (esp.getEIdespecie()== b) {
@@ -403,5 +403,5 @@ public class EjemplarTbController implements Serializable {
             }
         }
         return especie;
-   }
+   }*/
 }

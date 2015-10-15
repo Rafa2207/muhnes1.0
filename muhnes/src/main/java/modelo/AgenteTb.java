@@ -47,11 +47,13 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "AgenteTb.findByFFecham", query = "SELECT a FROM AgenteTb a WHERE a.fFecham = :fFecham")})
 public class AgenteTb implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "agenteTb")
+    private List<AgenteTaxonomiaTb> agenteTaxonomiaTbList;
+   @OneToMany(cascade = CascadeType.ALL, mappedBy = "agenteTb")
     private List<AgenteIdentificaEjemplarTb> agenteIdentificaEjemplarTbList;
     @Column(name = "b_estado")
     private Boolean bEstado;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "agenteTb")
-    private List<AgenteEspecieTb> agenteEspecieTbList;
+    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "agenteTb")
+    //private List<AgenteEspecieTb> agenteEspecieTbList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -248,20 +250,28 @@ public class AgenteTb implements Serializable {
         this.bEstado = bEstado;
     }
 
-    public List<AgenteEspecieTb> getAgenteEspecieTbList() {
+/*    public List<AgenteEspecieTb> getAgenteEspecieTbList() {
         return agenteEspecieTbList;
     }
 
     public void setAgenteEspecieTbList(List<AgenteEspecieTb> agenteEspecieTbList) {
         this.agenteEspecieTbList = agenteEspecieTbList;
     }
-
+*/
     public List<AgenteIdentificaEjemplarTb> getAgenteIdentificaEjemplarTbList() {
         return agenteIdentificaEjemplarTbList;
     }
 
     public void setAgenteIdentificaEjemplarTbList(List<AgenteIdentificaEjemplarTb> agenteIdentificaEjemplarTbList) {
         this.agenteIdentificaEjemplarTbList = agenteIdentificaEjemplarTbList;
+    }
+
+    public List<AgenteTaxonomiaTb> getAgenteTaxonomiaTbList() {
+        return agenteTaxonomiaTbList;
+    }
+
+    public void setAgenteTaxonomiaTbList(List<AgenteTaxonomiaTb> agenteTaxonomiaTbList) {
+        this.agenteTaxonomiaTbList = agenteTaxonomiaTbList;
     }
     
 }

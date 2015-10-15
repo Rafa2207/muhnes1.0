@@ -31,6 +31,9 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "NombrecomunTb.findByCNombre", query = "SELECT n FROM NombrecomunTb n WHERE n.cNombre = :cNombre"),
     @NamedQuery(name = "NombrecomunTb.findByCIdioma", query = "SELECT n FROM NombrecomunTb n WHERE n.cIdioma = :cIdioma")})
 public class NombrecomunTb implements Serializable {
+    @JoinColumn(name = "e_idtaxonomia", referencedColumnName = "e_idtaxonomia")
+    @ManyToOne
+    private TaxonomiaTb eIdtaxonomia;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,9 +46,6 @@ public class NombrecomunTb implements Serializable {
     @Size(max = 20)
     @Column(name = "c_idioma")
     private String cIdioma;
-    @JoinColumn(name = "e_idespecie", referencedColumnName = "e_idespecie")
-    @ManyToOne
-    private EspecieTb eIdespecie;
 
     public NombrecomunTb() {
     }
@@ -78,14 +78,6 @@ public class NombrecomunTb implements Serializable {
         this.cIdioma = cIdioma;
     }
 
-    public EspecieTb getEIdespecie() {
-        return eIdespecie;
-    }
-
-    public void setEIdespecie(EspecieTb eIdespecie) {
-        this.eIdespecie = eIdespecie;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -109,6 +101,14 @@ public class NombrecomunTb implements Serializable {
     @Override
     public String toString() {
         return "modelo.NombrecomunTb[ eIdnombrecomun=" + eIdnombrecomun + " ]";
+    }
+
+    public TaxonomiaTb getEIdtaxonomia() {
+        return eIdtaxonomia;
+    }
+
+    public void setEIdtaxonomia(TaxonomiaTb eIdtaxonomia) {
+        this.eIdtaxonomia = eIdtaxonomia;
     }
     
 }

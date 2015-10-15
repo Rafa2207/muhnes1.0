@@ -11,19 +11,166 @@
         <p:dialog id="VariedadTbCreateDlg" widgetVar="VariedadTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateVariedadTbTitle}">
             <h:form id="VariedadTbCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{variedadTbController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateVariedadTbLabel_CNombre}" for="CNombre" />
-                        <p:inputText id="CNombre" value="#{variedadTbController.selected.CNombre}" title="#{bundle.CreateVariedadTbTitle_CNombre}" required="true" requiredMessage="Introduzca un nombre"/>
-                        <p:outputLabel value="#{bundle.CreateVariedadTbLabel_CEstado}" for="CEstado" />
-                        <p:selectOneMenu id="CEstado" value="#{variedadTbController.selected.CEstado}" required="true" requiredMessage="Seleccione un estado taxonómico">
-                            <f:selectItem itemValue="" itemLabel="Seleccione estado taxonómico"/>
-                            <f:selectItem itemValue="Aceptado" itemLabel="Aceptado"/>
-                            <f:selectItem itemValue="Temporal" itemLabel="Temporal"/>
-                            <f:selectItem itemValue="Sinónimo" itemLabel="Sinónimo"/>
-                            <f:selectItem itemValue="En Desuso" itemLabel="En Desuso"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{variedadTbController.create}" value="#{bundle.Save}" update="display,:VariedadTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'VariedadTbCreateDialog');"/>
+                    <p:fieldset legend="Variedad">
+                        <p:panelGrid style="width: 780px" columns="6" rendered="#{taxonomiaTbController.selected != null}">
+                            <p:outputLabel value="Especie: " for="especie" />
+                            <p:outputLabel style="font-weight: bold" id="especie" value="#{controladorSesion.taxonomia.CNombre}" title="#{bundle.CreateEspecieTbTitle_CNombre}"/>
+                            <p:outputLabel value="#{bundle.CreateVariedadTbLabel_CNombre}" for="CNombre" />
+                            <p:inputText id="CNombre" value="#{taxonomiaTbController.selected.CNombre}" title="#{bundle.CreateVariedadTbTitle_CNombre}" required="true" requiredMessage="Introduzca un nombre"/>
+                            <p:outputLabel value="Estado Taxonómico: " for="CEstado" />
+                            <p:selectOneMenu id="CEstado" value="#{taxonomiaTbController.selected.CEstado}" required="true" requiredMessage="Seleccione un estado taxonómico">
+                                <f:selectItem itemValue="" itemLabel="Seleccione..."/>
+                                <f:selectItem itemValue="Aceptado" itemLabel="Aceptado"/>
+                                <f:selectItem itemValue="Temporal" itemLabel="Temporal"/>
+                                <f:selectItem itemValue="Sinónimo" itemLabel="Sinónimo"/>
+                                <f:selectItem itemValue="En Desuso" itemLabel="En Desuso"/>
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                    </p:fieldset>
+                    <br/>
+                    <p:tabView style="height: 300px" id="informacion">
+                        <p:tab title="Autores">
+                            <p:panelGrid columns="7">
+                                <p:outputLabel value="Nombre: " for="agenteAutor" />
+                                <p:selectOneMenu id="agenteAutor" 
+                                                 value="#{taxonomiaTbController.agente}" 
+                                                 filter="true">
+                                    <f:selectItem itemValue="" itemLabel="Seleccione..."/>
+                                    <f:selectItems value="#{taxonomiaTbController.listaAutores}"
+                                                   var="autor"
+                                                   itemLabel="#{autor.CNombre} #{autor.CApellido}"
+                                                   itemValue="#{autor}"/>
+                                </p:selectOneMenu>
+                                <p:outputLabel value="conector: " for="conector"/>
+                                <p:selectOneMenu id="conector" 
+                                                 value="#{taxonomiaTbController.conector}" >
+                                    <f:selectItem itemValue=" " itemLabel="Sin Conector"/>
+                                    <f:selectItem itemValue="emend." itemLabel="emend."/>
+                                    <f:selectItem itemValue="et." itemLabel="et."/>
+                                    <f:selectItem itemValue="ex." itemLabel="ex."/>
+                                    <f:selectItem itemValue="in." itemLabel="in."/>
+                                    <f:selectItem itemValue="nec." itemLabel="nec."/>
+                                    <f:selectItem itemValue="non." itemLabel="non."/>
+                                    <f:selectItem itemValue="&amp;" itemLabel="&amp;"/>
+                                    <f:selectItem itemValue=":" itemLabel=":"/>
+                                    <f:selectItem itemValue=".:" itemLabel=".:"/>
+                                </p:selectOneMenu>
+                                <p:outputLabel value="Autor Basionimio: " for="autorB"/>
+                                <p:selectBooleanCheckbox id="autorB" value="#{taxonomiaTbController.autor}"/>
+                                <p:commandButton id="agregar"
+                                                 value="Agregar"
+                                                 actionListener="#{taxonomiaTbController.anadirAutor()}"
+                                                 process="agenteAutor autorB conector agregar"
+                                                 update="agenteAutor autorB conector AutoresBasinimicos CAutoresB"/>
+                            </p:panelGrid>
+
+                            <p:dataTable id="AutoresBasinimicos"
+                                         value="#{taxonomiaTbController.selected.agenteTaxonomiaTbList}"
+                                         var="autores"
+                                         editable="true"
+                                         tableStyle="width: 750px"
+                                         scrollable="true"
+                                         scrollHeight="150"
+                                         emptyMessage="No se han añadido autores"
+                                         >
+                                <p:ajax event="rowEdit" update=":VariedadTbCreateForm:informacion:CAutoresB"/>
+                                <p:column width="35%" headerText="Autor">
+                                    <h:outputText value="(#{autores.agenteTb.CIniciales}) #{autores.agenteTb.CNombre}  #{autores.agenteTb.CApellido}"/>
+                                </p:column>
+                                <p:column style="text-align: center" width="20%" headerText="Autor Basionimio">
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <p:outputLabel  value="#{especieTbController.autorBasionimio(autores.BAutorbasionimio)}"/>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <p:selectBooleanCheckbox value="#{autores.BAutorbasionimio}"/>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column width="15%" style="text-align: center" headerText="Secuencia">
+                                    <h:outputText value="#{autores.ESecuecia}"/>
+                                </p:column>
+                                <p:column width="15%" style="text-align: center" headerText="Conector">
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputText value="#{autores.CConector}"/>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <p:selectOneMenu style="width: 75px" value="#{autores.CConector}" >
+                                                <f:selectItem itemValue=" " itemLabel="Sin Conector"/>
+                                                <f:selectItem itemValue="emend." itemLabel="emend."/>
+                                                <f:selectItem itemValue="et." itemLabel="et."/>
+                                                <f:selectItem itemValue="ex." itemLabel="ex."/>
+                                                <f:selectItem itemValue="in." itemLabel="in."/>
+                                                <f:selectItem itemValue="nec." itemLabel="nec."/>
+                                                <f:selectItem itemValue="non." itemLabel="non."/>
+                                                <f:selectItem itemValue="&amp;" itemLabel="&amp;"/>
+                                                <f:selectItem itemValue=":" itemLabel=":"/>
+                                                <f:selectItem itemValue=".:" itemLabel=".:"/>
+                                            </p:selectOneMenu>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column width="15%" headerText="Acciones">
+                                    <p:rowEditor/>
+                                    <p:commandLink styleClass="ui-icon ui-icon-trash"
+                                                   action="#{taxonomiaTbController.removerAutor()}"
+                                                   process="AutoresBasinimicos"
+                                                   update="AutoresBasinimicos :VariedadTbCreateForm:informacion:agenteAutor :VariedadTbCreateForm:informacion:CAutoresB">
+                                        <f:setPropertyActionListener value="#{autores}" 
+                                                                     target="#{taxonomiaTbController.agenteAutor}"/>
+                                    </p:commandLink>
+                                </p:column>
+                            </p:dataTable>
+                            <h:outputText value="Autores: "/>
+                            <h:outputText style="font-weight: bold" id="CAutoresB" value="#{taxonomiaTbController.cadena()}"/>
+                        </p:tab>
+
+                        <p:tab title="Nombres comunes">
+                            <p:panelGrid columns="5">
+                                <p:outputLabel value="Nombre Común: " for="nombreComun"/>
+                                <p:inputText id="nombreComun" value="#{taxonomiaTbController.nombreComun}"/>
+                                <p:outputLabel value="Idioma: " for="idioma"/>
+                                <p:selectOneMenu id="idioma" value="#{taxonomiaTbController.idioma}">
+                                    <f:selectItem itemValue="" itemLabel="Seleccione..."/>
+                                    <f:selectItems value="#{taxonomiaTbController.listaIdiomas}" var="idioma"
+                                                   />
+                                </p:selectOneMenu>
+                                <p:commandButton id="agregarNC"
+                                                 value="Agregar"
+                                                 actionListener="#{taxonomiaTbController.anadirNombreComun()}"
+                                                 process="nombreComun idioma agregarNC"
+                                                 update="nombreComun idioma NombresComunes"/>
+                            </p:panelGrid>
+                            <p:dataTable id="NombresComunes"
+                                         value="#{taxonomiaTbController.selected.nombrecomunTbList}"
+                                         var="nombreComun"
+                                         editable="true"
+                                         tableStyle="width: 500px"
+                                         scrollable="true"
+                                         scrollHeight="200"
+                                         emptyMessage="No se han añadido idiomas"
+                                         >
+                                <p:column headerText="Nombre Común">
+                                    <h:outputText value="#{nombreComun.CNombre}"/>
+                                </p:column>
+                                <p:column headerText="Idioma">
+                                    <h:outputText value="#{nombreComun.CIdioma}"/>
+                                </p:column>
+                                <p:column headerText="Acciones">
+                                    <p:commandLink styleClass="ui-icon ui-icon-trash"
+                                                   action="#{taxonomiaTbController.removerNombreComun()}"
+                                                   process="NombresComunes"
+                                                   update="NombresComunes :EspecieTbCreateForm:informacion:idioma">
+                                        <f:setPropertyActionListener value="#{nombreComun}" 
+                                                                     target="#{taxonomiaTbController.nc}"/>
+                                    </p:commandLink>
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>
+                        <p:tab title="Imágenes"></p:tab>
+                    </p:tabView>
+                    <p:commandButton actionListener="#{taxonomiaTbController.createVariedad(controladorSesion.taxonomia)}" value="#{bundle.Save}" update="display,:VariedadTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'VariedadTbCreateDialog');"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

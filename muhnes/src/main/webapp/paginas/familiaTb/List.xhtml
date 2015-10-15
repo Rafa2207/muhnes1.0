@@ -22,24 +22,24 @@
                         <p:menuitem value="Familia" outcome="/paginas/familiaTb/List.xhtml" />
                     </p:breadCrumb>
 
-                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{familiaTbController.prepareCreate}" update=":FamiliaTbCreateForm" oncomplete="PF('FamiliaTbCreateDialog').show()"/>
-                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":FamiliaTbViewForm" oncomplete="PF('FamiliaTbViewDialog').show()" disabled="#{empty familiaTbController.selected}"/>
-                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":FamiliaTbEditForm" oncomplete="PF('FamiliaTbEditDialog').show()" disabled="#{empty familiaTbController.selected}"/>
-                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{familiaTbController.destroy}" update=":growl,datalist" disabled="#{empty familiaTbController.selected}">
+                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{taxonomiaTbController.prepareCreate}" update=":FamiliaTbCreateForm" oncomplete="PF('FamiliaTbCreateDialog').show()"/>
+                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":FamiliaTbViewForm" oncomplete="PF('FamiliaTbViewDialog').show()" disabled="#{empty taxonomiaTbController.selected}"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":FamiliaTbEditForm" oncomplete="PF('FamiliaTbEditDialog').show()" disabled="#{empty taxonomiaTbController.selected}"/>
+                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{taxonomiaTbController.destroy}" update=":growl,datalist" disabled="#{empty taxonomiaTbController.selected}">
                         <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
                     </p:commandButton>
-                    <p:commandButton id="generoButton" icon="ui-icon-arrowthick-1-e"  value="Genero" action="/paginas/generoTb/List.xhtml" disabled="#{empty familiaTbController.selected}" >
-                        <f:setPropertyActionListener target="#{controladorSesion.familia}" value="#{familiaTbController.selected}">
+                    <p:commandButton id="generoButton" icon="ui-icon-arrowthick-1-e"  value="Genero" action="/paginas/generoTb/List.xhtml" disabled="#{empty taxonomiaTbController.selected}" >
+                        <f:setPropertyActionListener target="#{controladorSesion.taxonomia}" value="#{taxonomiaTbController.selected}">
                         </f:setPropertyActionListener> 
                     </p:commandButton>
-                    <p:dataTable id="datalist" value="#{familiaTbController.items}" var="item"
-                                 selectionMode="single" selection="#{familiaTbController.selected}"
+                    <p:dataTable id="datalist" value="#{taxonomiaTbController.itemsFamilia}" var="item"
+                                 selectionMode="single" selection="#{taxonomiaTbController.selected}"
                                  paginator="true"
-                                 rowKey="#{item.EIdfamilia}"
+                                 rowKey="#{item.EIdtaxonomia}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  paginatorPosition="bottom"
-                                 filteredValue="#{familiaTbController.filtro}"
+                                 filteredValue="#{taxonomiaTbController.filtro}"
                                  widgetVar="familiaTable"
                                  emptyMessage="No se encontro la familia"
                                  >

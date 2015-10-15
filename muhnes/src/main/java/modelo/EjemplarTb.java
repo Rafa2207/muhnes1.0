@@ -73,27 +73,15 @@ public class EjemplarTb implements Serializable {
     @Size(max = 20)
     @Column(name = "c_codigoentrada")
     private String cCodigoentrada;
-    @JoinColumn(name = "e_variedad", referencedColumnName = "e_idvariedad")
+    @JoinColumn(name = "e_idtaxonomia", referencedColumnName = "e_idtaxonomia")
     @ManyToOne
-    private VariedadTb eVariedad;
-    @JoinColumn(name = "e_idsubespecie", referencedColumnName = "e_idsubespecie")
-    @ManyToOne
-    private SubespecieTb eIdsubespecie;
+    private TaxonomiaTb eIdtaxonomia;
     @JoinColumn(name = "e_idproyecto", referencedColumnName = "e_idproyecto")
     @ManyToOne
     private ProyectoTb eIdproyecto;
     @JoinColumn(name = "e_idlocalidad", referencedColumnName = "e_idlocalidad")
     @ManyToOne
     private LocalidadTb eIdlocalidad;
-    @JoinColumn(name = "e_idgenero", referencedColumnName = "e_idgenero")
-    @ManyToOne
-    private GeneroTb eIdgenero;
-    @JoinColumn(name = "e_idfamilia", referencedColumnName = "e_idfamilia")
-    @ManyToOne
-    private FamiliaTb eIdfamilia;
-    @JoinColumn(name = "e_idespecie", referencedColumnName = "e_idespecie")
-    @ManyToOne
-    private EspecieTb eIdespecie;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "ejemplarTb")
     private List<AgenteIdentificaEjemplarTb> AgenteIdentificaEjemplarTbList;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "ejemplarTb")
@@ -202,20 +190,12 @@ public class EjemplarTb implements Serializable {
         this.cCodigoentrada = cCodigoentrada;
     }
 
-    public VariedadTb getEVariedad() {
-        return eVariedad;
+    public TaxonomiaTb getEIdtaxonomia() {
+        return eIdtaxonomia;
     }
 
-    public void setEVariedad(VariedadTb eVariedad) {
-        this.eVariedad = eVariedad;
-    }
-
-    public SubespecieTb getEIdsubespecie() {
-        return eIdsubespecie;
-    }
-
-    public void setEIdsubespecie(SubespecieTb eIdsubespecie) {
-        this.eIdsubespecie = eIdsubespecie;
+    public void setEIdtaxonomia(TaxonomiaTb eIdtaxonomia) {
+        this.eIdtaxonomia = eIdtaxonomia;
     }
 
     public ProyectoTb getEIdproyecto() {
@@ -232,30 +212,6 @@ public class EjemplarTb implements Serializable {
 
     public void setEIdlocalidad(LocalidadTb eIdlocalidad) {
         this.eIdlocalidad = eIdlocalidad;
-    }
-
-    public GeneroTb getEIdgenero() {
-        return eIdgenero;
-    }
-
-    public void setEIdgenero(GeneroTb eIdgenero) {
-        this.eIdgenero = eIdgenero;
-    }
-
-    public FamiliaTb getEIdfamilia() {
-        return eIdfamilia;
-    }
-
-    public void setEIdfamilia(FamiliaTb eIdfamilia) {
-        this.eIdfamilia = eIdfamilia;
-    }
-
-    public EspecieTb getEIdespecie() {
-        return eIdespecie;
-    }
-
-    public void setEIdespecie(EspecieTb eIdespecie) {
-        this.eIdespecie = eIdespecie;
     }
 
     @Override

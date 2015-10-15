@@ -15,30 +15,29 @@
 
         <ui:define name="body">
             <h:form id="VariedadTbListForm">
-                <p:panel header="#{bundle.ListVariedadTbTitle} de: #{controladorSesion.subespecie.CNombre}">
+                <p:panel header="#{bundle.ListVariedadTbTitle} de: #{controladorSesion.taxonomia.CNombre}">
                     <p:breadCrumb>
                         <p:menuitem value="casita"/>
                         <p:menuitem value="Familia" outcome="/paginas/familiaTb/List.xhtml" />
                         <p:menuitem value="Género" outcome="/paginas/generoTb/List.xhtml"  />
                         <p:menuitem value="Especie" outcome="/paginas/especieTb/List.xhtml"  />
-                        <p:menuitem value="Subespecie" outcome="/paginas/subespecieTb/List.xhtml"  />
                         <p:menuitem value="Variedad" outcome="/paginas/variedadTb/List.xhtml"  />
                     </p:breadCrumb>
-                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{variedadTbController.prepareCreate(controladorSesion.subespecie)}" update=":VariedadTbCreateForm" oncomplete="PF('VariedadTbCreateDialog').show()"/>
-                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":VariedadTbViewForm" oncomplete="PF('VariedadTbViewDialog').show()" disabled="#{empty variedadTbController.selected}"/>
-                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":VariedadTbEditForm" oncomplete="PF('VariedadTbEditDialog').show()" disabled="#{empty variedadTbController.selected}"/>
-                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{variedadTbController.destroy}" update=":growl,datalist" disabled="#{empty variedadTbController.selected}">
+                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{taxonomiaTbController.prepareCreate(controladorSesion.taxonomia)}" update=":VariedadTbCreateForm" oncomplete="PF('VariedadTbCreateDialog').show()"/>
+                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":VariedadTbViewForm" oncomplete="PF('VariedadTbViewDialog').show()" disabled="#{empty taxonomiaTbController.selected}"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" actionListener="#{taxonomiaTbController.prepareEdit(taxonomiaTbController.selected)}" update=":VariedadTbEditForm" oncomplete="PF('VariedadTbEditDialog').show()" disabled="#{empty taxonomiaTbController.selected}"/>
+                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{taxonomiaTbController.destroy}" update=":growl,datalist" disabled="#{empty taxonomiaTbController.selected}">
                         <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
                     </p:commandButton>
 
-                    <p:dataTable id="datalist" value="#{variedadTbController.getItems(controladorSesion.subespecie.EIdsubespecie)}" var="item"
-                                 selectionMode="single" selection="#{variedadTbController.selected}"
+                    <p:dataTable id="datalist" value="#{taxonomiaTbController.getItemsVariedad(controladorSesion.taxonomia.EIdtaxonomia)}" var="item"
+                                 selectionMode="single" selection="#{taxonomiaTbController.selected}"
                                  paginator="true"
-                                 rowKey="#{item.EIdvariedad}"
+                                 rowKey="#{item.EIdtaxonomia}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  paginatorPosition="Bottom"
-                                 filteredValue="#{variedadTbController.filtro}"
+                                 filteredValue="#{taxonomiaTbController.filtro}"
                                  widgetVar="variedadTable"
                                  emptyMessage="No se encontro variedad"
                                  >
@@ -52,6 +51,12 @@
                             </f:facet>
                             <h:outputText value="#{item.CNombre}"/>
                         </p:column>
+                        <p:column filterBy="#{taxonomiaTbController.autoresBList(item)}" filterStyle="display:none">
+                            <f:facet name="header">
+                                <h:outputText value="Autores"/>
+                            </f:facet>
+                            <h:outputText value="#{taxonomiaTbController.autoresBList(item)}"/>
+                        </p:column>
                         <p:column filterBy="#{item.CEstado}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListVariedadTbTitle_CEstado}"/>
@@ -61,7 +66,7 @@
                         <f:facet name="header">
                             <p:outputPanel>
                                 <h:outputText value="Búsqueda: " />
-                                <p:inputText id="globalFilter" onkeyup="PF('subespecieTable').filter()" placeholder="Escriba aquí"/>
+                                <p:inputText id="globalFilter" onkeyup="PF('variedadTable').filter()" placeholder="Escriba aquí"/>
                             </p:outputPanel>
                         </f:facet>
                     </p:dataTable>

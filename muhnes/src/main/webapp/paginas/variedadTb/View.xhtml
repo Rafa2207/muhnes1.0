@@ -11,14 +11,61 @@
         <p:dialog id="VariedadTbViewDlg" widgetVar="VariedadTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewVariedadTbTitle}">
             <h:form id="VariedadTbViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{variedadTbController.selected != null}">
-                        <h:outputText value="#{bundle.ViewVariedadTbLabel_CNombre}"/>
-                        <h:outputText value="#{variedadTbController.selected.CNombre}" title="#{bundle.ViewVariedadTbTitle_CNombre}"/>
-                        <h:outputText value="#{bundle.ViewVariedadTbLabel_CEstado}"/>
-                        <h:outputText value="#{variedadTbController.selected.CEstado}" title="#{bundle.ViewVariedadTbTitle_CEstado}"/>
-                        <h:outputText value="#{bundle.ViewVariedadTbLabel_EIdsubespecie}"/>
-                        <h:outputText value="#{controladorSesion.subespecie.CNombre}" title="#{bundle.ViewVariedadTbTitle_EIdsubespecie}"/>
+                    <p:panelGrid columns="2" rendered="#{taxonomiaTbController.selected != null}">
+                        <h:outputText value="#{bundle.ViewSubespecieTbLabel_EIdespecie}"/>
+                        <h:outputText style="font-weight: bold" value="#{controladorSesion.taxonomia.CNombre}" title="#{bundle.ViewSubespecieTbTitle_EIdespecie}"/>
+                        <h:outputText value="#{bundle.ViewSubespecieTbLabel_CNombre}"/>
+                        <h:outputText value="#{taxonomiaTbController.selected.CNombre}" title="#{bundle.ViewSubespecieTbTitle_CNombre}"/>
+                        <h:outputText value="#{bundle.ViewSubespecieTbLabel_CEstado}"/>
+                        <h:outputText value="#{taxonomiaTbController.selected.CEstado}" title="#{bundle.ViewSubespecieTbTitle_CEstado}"/>
+                        <h:outputText value="Autores: "/>
+                        <h:outputText style="font-weight: bold" value="#{taxonomiaTbController.autoresBList(taxonomiaTbController.selected)}" title="Autores"/>
                     </p:panelGrid>
+                    <p:tabView style="height: 300px" id="informacion">
+                        <p:tab title="Autores">
+                            <p:dataTable id="AutoresBasinimicos"
+                                         value="#{taxonomiaTbController.ordenarSecuencia(taxonomiaTbController.selected)}"
+                                         var="autores"
+                                         editable="true"
+                                         tableStyle="width: 500px"
+                                         scrollable="true"
+                                         scrollHeight="150"
+                                         emptyMessage="No se han añadido autores"
+                                         >
+                                <p:column width="40%" headerText="Autor">
+                                    <h:outputText value="(#{autores.agenteTb.CIniciales}) #{autores.agenteTb.CNombre}  #{autores.agenteTb.CApellido}"/>
+                                </p:column>
+                                <p:column style="text-align: center" width="30%" headerText="Autor Basionimio">
+                                    <p:outputLabel  value="#{especieTbController.autorBasionimio(autores.BAutorbasionimio)}"/>
+                                </p:column>
+                                <p:column width="15%" style="text-align: center" headerText="Secuencia">
+                                    <h:outputText value="#{autores.ESecuecia}"/>
+                                </p:column>
+                                <p:column width="15%" style="text-align: center" headerText="Conector">
+                                    <h:outputText value="#{autores.CConector}"/> 
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>
+                        
+                        <p:tab title="Nombre común">
+                            <p:dataTable id="NombresComunes"
+                                         value="#{taxonomiaTbController.selected.nombrecomunTbList}"
+                                         var="nombreComun"
+                                         editable="true"
+                                         tableStyle="width: 500px"
+                                         scrollable="true"
+                                         scrollHeight="200"
+                                         emptyMessage="No se han añadido idiomas"
+                                         >
+                                <p:column headerText="Nombre Común">
+                                    <h:outputText value="#{nombreComun.CNombre}"/>
+                                </p:column>
+                                <p:column headerText="Idioma">
+                                    <h:outputText value="#{nombreComun.CIdioma}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>
+                    </p:tabView>
                     <p:commandButton value="#{bundle.Close}" onclick="VariedadTbViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

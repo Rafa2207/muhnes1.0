@@ -16,22 +16,22 @@ import javax.validation.constraints.NotNull;
  * @author Rafa
  */
 @Embeddable
-public class AgenteEspecieTbPK implements Serializable {
+public class AgenteTaxonomiaTbPK implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "e_idagente")
     private int eIdagente;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "e_idespecie")
-    private int eIdespecie;
+    @Column(name = "e_idtaxonomia")
+    private int eIdtaxonomia;
 
-    public AgenteEspecieTbPK() {
+    public AgenteTaxonomiaTbPK() {
     }
 
-    public AgenteEspecieTbPK(int eIdagente, int eIdespecie) {
+    public AgenteTaxonomiaTbPK(int eIdagente, int eIdtaxonomia) {
         this.eIdagente = eIdagente;
-        this.eIdespecie = eIdespecie;
+        this.eIdtaxonomia = eIdtaxonomia;
     }
 
     public int getEIdagente() {
@@ -42,33 +42,33 @@ public class AgenteEspecieTbPK implements Serializable {
         this.eIdagente = eIdagente;
     }
 
-    public int getEIdespecie() {
-        return eIdespecie;
+    public int getEIdtaxonomia() {
+        return eIdtaxonomia;
     }
 
-    public void setEIdespecie(int eIdespecie) {
-        this.eIdespecie = eIdespecie;
+    public void setEIdtaxonomia(int eIdtaxonomia) {
+        this.eIdtaxonomia = eIdtaxonomia;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (int) eIdagente;
-        hash += (int) eIdespecie;
+        hash += (int) eIdtaxonomia;
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof AgenteEspecieTbPK)) {
+        if (!(object instanceof AgenteTaxonomiaTbPK)) {
             return false;
         }
-        AgenteEspecieTbPK other = (AgenteEspecieTbPK) object;
+        AgenteTaxonomiaTbPK other = (AgenteTaxonomiaTbPK) object;
         if (this.eIdagente != other.eIdagente) {
             return false;
         }
-        if (this.eIdespecie != other.eIdespecie) {
+        if (this.eIdtaxonomia != other.eIdtaxonomia) {
             return false;
         }
         return true;
@@ -76,7 +76,7 @@ public class AgenteEspecieTbPK implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.AgenteEspecieTbPK[ eIdagente=" + eIdagente + ", eIdespecie=" + eIdespecie + " ]";
+        return "modelo.AgenteTaxonomiaTbPK[ eIdagente=" + eIdagente + ", eIdtaxonomia=" + eIdtaxonomia + " ]";
     }
     
 }

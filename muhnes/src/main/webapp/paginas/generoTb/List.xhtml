@@ -15,7 +15,7 @@
 
         <ui:define name="body">
             <h:form id="GeneroTbListForm">
-                <p:panel header="#{bundle.ListGeneroTbTitle}: #{controladorSesion.familia.CNombre}">
+                <p:panel header="#{bundle.ListGeneroTbTitle}: #{controladorSesion.taxonomia.CNombre}">
 
                     <p:breadCrumb>
                         <p:menuitem value="casita"/>
@@ -23,24 +23,24 @@
                         <p:menuitem value="Género" outcome="/paginas/generoTb/List.xhtml"  />
                     </p:breadCrumb>
 
-                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{generoTbController.prepareCreate(controladorSesion.familia)}" update=":GeneroTbCreateForm" oncomplete="PF('GeneroTbCreateDialog').show()"/>
-                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":GeneroTbViewForm" oncomplete="PF('GeneroTbViewDialog').show()" disabled="#{empty generoTbController.selected}"/>
-                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":GeneroTbEditForm" oncomplete="PF('GeneroTbEditDialog').show()" disabled="#{empty generoTbController.selected}"/>
-                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{generoTbController.destroy}" update=":growl,datalist" disabled="#{empty generoTbController.selected}">
+                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{taxonomiaTbController.prepareCreate(controladorSesion.taxonomia.EIdniveltaxonomia)}" update=":GeneroTbCreateForm" oncomplete="PF('GeneroTbCreateDialog').show()"/>
+                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":GeneroTbViewForm" oncomplete="PF('GeneroTbViewDialog').show()" disabled="#{empty taxonomiaTbController.selected}"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":GeneroTbEditForm" oncomplete="PF('GeneroTbEditDialog').show()" disabled="#{empty taxonomiaTbController.selected}"/>
+                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{taxonomiaTbController.destroy}" update=":growl,datalist" disabled="#{empty taxonomiaTbController.selected}">
                         <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
                     </p:commandButton>
-                    <p:commandButton id="especieButton" icon="ui-icon-arrowthick-1-e"  value="Especie" action="/paginas/especieTb/List.xhtml" disabled="#{empty generoTbController.selected}">
-                        <f:setPropertyActionListener target="#{controladorSesion.genero}" value="#{generoTbController.selected}">
+                    <p:commandButton id="especieButton" icon="ui-icon-arrowthick-1-e"  value="Especie" action="/paginas/especieTb/List.xhtml" disabled="#{empty taxonomiaTbController.selected}">
+                        <f:setPropertyActionListener target="#{controladorSesion.taxonomia}" value="#{taxonomiaTbController.selected}">
                         </f:setPropertyActionListener> 
                     </p:commandButton>
-                    <p:dataTable id="datalist" value="#{generoTbController.getItems(controladorSesion.familia.EIdfamilia)}" var="item"
-                                 selectionMode="single" selection="#{generoTbController.selected}"
+                    <p:dataTable id="datalist" value="#{taxonomiaTbController.getItemsGenero(controladorSesion.taxonomia.EIdtaxonomia)}" var="item"
+                                 selectionMode="single" selection="#{taxonomiaTbController.selected}"
                                  paginator="true"
-                                 rowKey="#{item.EIdgenero}"
+                                 rowKey="#{item.EIdtaxonomia}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  paginatorPosition="Bottom"
-                                 filteredValue="#{generoTbController.filtro}"
+                                 filteredValue="#{taxonomiaTbController.filtro}"
                                  widgetVar="generoTable"
                                  emptyMessage="No se encontro género"
                                  >

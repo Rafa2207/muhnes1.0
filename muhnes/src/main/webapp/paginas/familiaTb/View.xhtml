@@ -11,9 +11,9 @@
         <p:dialog id="FamiliaTbViewDlg" widgetVar="FamiliaTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewFamiliaTbTitle}">
             <h:form id="FamiliaTbViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{familiaTbController.selected != null}">
+                    <p:panelGrid columns="2" rendered="#{taxonomiaTbController.selected != null}">
                         <h:outputText value="#{bundle.ViewFamiliaTbLabel_CNombre}"/>
-                        <h:outputText value="#{familiaTbController.selected.CNombre}" title="#{bundle.ViewFamiliaTbTitle_CNombre}"/>
+                        <h:outputText value="#{taxonomiaTbController.selected.CNombre}" title="#{bundle.ViewFamiliaTbTitle_CNombre}"/>
                        
                          </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="FamiliaTbViewDialog.hide()"/>

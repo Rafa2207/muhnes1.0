@@ -34,9 +34,9 @@ public class ImagenTb implements Serializable {
     @Lob
     @Column(name = "i_imagen")
     private byte[] iImagen;
-    @JoinColumn(name = "e_idespecie", referencedColumnName = "e_idespecie")
+    @JoinColumn(name = "e_idtaxonomia", referencedColumnName = "e_idtaxonomia")
     @ManyToOne
-    private EspecieTb eIdespecie;
+    private TaxonomiaTb eIdtaxonomia;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -103,12 +103,12 @@ public class ImagenTb implements Serializable {
         return "modelo.ImagenTb[ eIdimagen=" + eIdimagen + " ]";
     }
 
-    public EspecieTb getEIdespecie() {
-        return eIdespecie;
+    public TaxonomiaTb getEIdtaxonomia() {
+        return eIdtaxonomia;
     }
 
-    public void setEIdespecie(EspecieTb eIdespecie) {
-        this.eIdespecie = eIdespecie;
+    public void setEIdtaxonomia(TaxonomiaTb eIdtaxonomia) {
+        this.eIdtaxonomia = eIdtaxonomia;
     }
     
 }

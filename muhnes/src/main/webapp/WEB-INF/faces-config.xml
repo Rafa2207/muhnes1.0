@@ -32,5 +32,9 @@
             <base-name>/BundleDespacho</base-name>
             <var>bundleDespacho</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>/BundleTaxonomia</base-name>
+            <var>bundleTaxonomia</var>
+        </resource-bundle>
     </application>
 </faces-config>

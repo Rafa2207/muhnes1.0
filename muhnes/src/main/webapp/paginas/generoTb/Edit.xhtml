@@ -11,20 +11,20 @@
         <p:dialog id="GeneroTbEditDlg" widgetVar="GeneroTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditGeneroTbTitle}">
             <h:form id="GeneroTbEditForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{generoTbController.selected != null}">
+                    <p:panelGrid columns="2" rendered="#{taxonomiaTbController.selected != null}">
                         <p:outputLabel value="#{bundle.EditGeneroTbLabel_CNombre}" for="CNombre" />
-                        <p:inputText id="CNombre" value="#{generoTbController.selected.CNombre}" title="#{bundle.EditGeneroTbTitle_CNombre}" 
+                        <p:inputText id="CNombre" value="#{taxonomiaTbController.selected.CNombre}" title="#{bundle.EditGeneroTbTitle_CNombre}" 
                                      required="true" requiredMessage="Introduzca un nombre"/>
                         <p:outputLabel value="#{bundle.EditGeneroTbLabel_EIdfamilia}" for="EIdfamilia" />
-                        <p:selectOneMenu id="EIdfamilia" value="#{generoTbController.selected.EIdfamilia}" required="true" requiredMessage="Seleccione un estado taxonomico" filter="true" filterMatchMode="contains">
+                        <p:selectOneMenu id="EIdfamilia" value="#{taxonomiaTbController.selected.EIdniveltaxonomia}" required="true" requiredMessage="Seleccione un estado taxonomico" filter="true" filterMatchMode="contains">
                             <f:selectItem itemValue="" itemLabel="Seleccione familia"/>
-                            <f:selectItems value="#{familiaTbController.itemsAvailableSelectOne}"
+                            <f:selectItems value="#{taxonomiaTbController.itemsFamilia}"
                                        var="familia"
                                        itemLabel="#{familia.CNombre}"
-                                       itemValue="#{familia.EIdfamilia}"/>
+                                       itemValue="#{familia.EIdniveltaxonomia}"/>
                         </p:selectOneMenu>
                         </p:panelGrid>
-                    <p:commandButton actionListener="#{generoTbController.update}" value="#{bundle.Save}" update="display,:GeneroTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'GeneroTbEditDialog');"/>
+                    <p:commandButton actionListener="#{taxonomiaTbController.update}" value="#{bundle.Save}" update="display,:GeneroTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'GeneroTbEditDialog');"/>
                     
                 </h:panelGroup>
             </h:form>

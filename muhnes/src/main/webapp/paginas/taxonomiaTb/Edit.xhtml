@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TaxonomiaTbEditDlg" widgetVar="TaxonomiaTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleTaxonomia.EditTaxonomiaTbTitle}">
+            <h:form id="TaxonomiaTbEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{taxonomiaTbController.selected != null}">
+                        <p:outputLabel value="#{bundleTaxonomia.EditTaxonomiaTbLabel_EIdtaxonomia}" for="EIdtaxonomia" />
+                        <p:inputText id="EIdtaxonomia" value="#{taxonomiaTbController.selected.EIdtaxonomia}" title="#{bundleTaxonomia.EditTaxonomiaTbTitle_EIdtaxonomia}" required="true" requiredMessage="#{bundleTaxonomia.EditTaxonomiaTbRequiredMessage_EIdtaxonomia}"/>
+                        <p:outputLabel value="#{bundleTaxonomia.EditTaxonomiaTbLabel_CNombre}" for="CNombre" />
+                        <p:inputText id="CNombre" value="#{taxonomiaTbController.selected.CNombre}" title="#{bundleTaxonomia.EditTaxonomiaTbTitle_CNombre}" />
+                        <p:outputLabel value="#{bundleTaxonomia.EditTaxonomiaTbLabel_CEstado}" for="CEstado" />
+                        <p:inputText id="CEstado" value="#{taxonomiaTbController.selected.CEstado}" title="#{bundleTaxonomia.EditTaxonomiaTbTitle_CEstado}" />
+                        <p:outputLabel value="#{bundleTaxonomia.EditTaxonomiaTbLabel_ERango}" for="ERango" />
+                        <p:inputText id="ERango" value="#{taxonomiaTbController.selected.ERango}" title="#{bundleTaxonomia.EditTaxonomiaTbTitle_ERango}" />
+                        <p:outputLabel value="#{bundleTaxonomia.EditTaxonomiaTbLabel_CTipo}" for="CTipo" />
+                        <p:inputText id="CTipo" value="#{taxonomiaTbController.selected.CTipo}" title="#{bundleTaxonomia.EditTaxonomiaTbTitle_CTipo}" />
+                        <p:outputLabel value="#{bundleTaxonomia.EditTaxonomiaTbLabel_EIdniveltaxonomia}" for="EIdniveltaxonomia" />
+                        <p:selectOneMenu id="EIdniveltaxonomia" value="#{taxonomiaTbController.selected.EIdniveltaxonomia}" >
+                            <f:selectItem itemLabel="#{bundleTaxonomia.SelectOneMessage}"/>
+                            <f:selectItems value="#{taxonomiaTbController.itemsAvailableSelectOne}"
+                                           var="EIdniveltaxonomiaItem"
+                                           itemValue="#{EIdniveltaxonomiaItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{taxonomiaTbController.update}" value="#{bundleTaxonomia.Save}" update="display,:TaxonomiaTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TaxonomiaTbEditDialog');"/>
+                    <p:commandButton value="#{bundleTaxonomia.Cancel}" onclick="TaxonomiaTbEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

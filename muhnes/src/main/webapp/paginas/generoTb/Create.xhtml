@@ -11,12 +11,12 @@
         <p:dialog id="GeneroTbCreateDlg" widgetVar="GeneroTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateGeneroTbTitle}">
             <h:form id="GeneroTbCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{generoTbController.selected != null}">
+                    <p:panelGrid columns="2" rendered="#{taxonomiaTbController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateGeneroTbLabel_CNombre}" for="CNombre" />
-                        <p:inputText id="CNombre" value="#{generoTbController.selected.CNombre}" title="#{bundle.CreateGeneroTbTitle_CNombre}" 
+                        <p:inputText id="CNombre" value="#{taxonomiaTbController.selected.CNombre}" title="#{bundle.CreateGeneroTbTitle_CNombre}" 
                                      required="true" requiredMessage="Introduzca un nombre"/>
                         </p:panelGrid>
-                    <p:commandButton actionListener="#{generoTbController.create}" value="#{bundle.Save}" update="display,:GeneroTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'GeneroTbCreateDialog');"/>
+                    <p:commandButton actionListener="#{taxonomiaTbController.createGenero(controladorSesion.taxonomia)}" value="#{bundle.Save}" update="display,:GeneroTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'GeneroTbCreateDialog');"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

@@ -11,11 +11,11 @@
         <p:dialog id="GeneroTbViewDlg" widgetVar="GeneroTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewGeneroTbTitle}">
             <h:form id="GeneroTbViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{generoTbController.selected != null}">
+                    <p:panelGrid columns="2" rendered="#{taxonomiaTbController.selected != null}">
                         <h:outputText value="#{bundle.ViewGeneroTbLabel_CNombre}"/>
-                        <h:outputText value="#{generoTbController.selected.CNombre}" title="#{bundle.ViewGeneroTbTitle_CNombre}"/>
+                        <h:outputText value="#{taxonomiaTbController.selected.CNombre}" title="#{bundle.ViewGeneroTbTitle_CNombre}"/>
                         <h:outputText value="#{bundle.ViewGeneroTbLabel_EIdfamilia}"/>
-                        <h:outputText value="#{controladorSesion.familia.CNombre}" title="#{bundle.ViewGeneroTbTitle_EIdfamilia}"/>
+                        <h:outputText value="#{controladorSesion.taxonomia.CNombre}" title="#{bundle.ViewGeneroTbTitle_EIdfamilia}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="GeneroTbViewDialog.hide()"/>
                 </h:panelGroup>
