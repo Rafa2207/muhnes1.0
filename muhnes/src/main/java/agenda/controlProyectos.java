@@ -252,6 +252,9 @@ public class controlProyectos {
         FacesContext context = FacesContext.getCurrentInstance();
         eventModel.clear();
         actividadView.seteEstado(2);
+        int DiasDuracionActividad = diasDuracionActividad(actividadView.getFFecha(), actividadView.getFFechafin());
+        Date fechaFinal = calcularFechaFinEspectativa(actividadView.getFFechaInicioReal(), DiasDuracionActividad);
+        actividadView.setFFechaFinReal(fechaFinal);
 
         if (actividadView.getEIdproyecto().getEEstado() == 0) {
             actividadView.getEIdproyecto().setEEstado(1);

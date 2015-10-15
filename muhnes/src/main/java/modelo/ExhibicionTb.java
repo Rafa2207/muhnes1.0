@@ -7,9 +7,7 @@ package modelo;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,7 +17,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,7 +24,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author Rafa
+ * @author Endy
  */
 @Entity
 @Table(name = "exhibicion_tb")
@@ -40,12 +37,10 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "ExhibicionTb.findByFFechaSalida", query = "SELECT e FROM ExhibicionTb e WHERE e.fFechaSalida = :fFechaSalida"),
     @NamedQuery(name = "ExhibicionTb.findByFFechaReingreso", query = "SELECT e FROM ExhibicionTb e WHERE e.fFechaReingreso = :fFechaReingreso"),
     @NamedQuery(name = "ExhibicionTb.findByMDireccion", query = "SELECT e FROM ExhibicionTb e WHERE e.mDireccion = :mDireccion"),
+    @NamedQuery(name = "ExhibicionTb.findByCResponsable", query = "SELECT e FROM ExhibicionTb e WHERE e.cResponsable = :cResponsable"),
     @NamedQuery(name = "ExhibicionTb.findByMNombre", query = "SELECT e FROM ExhibicionTb e WHERE e.mNombre = :mNombre"),
-    @NamedQuery(name = "ExhibicionTb.findByCResponsable", query = "SELECT e FROM ExhibicionTb e WHERE e.cResponsable = :cResponsable")})
+    @NamedQuery(name = "ExhibicionTb.findByEEstado", query = "SELECT e FROM ExhibicionTb e WHERE e.eEstado = :eEstado")})
 public class ExhibicionTb implements Serializable {
-    @Size(max = 2147483647)
-    @Column(name = "m_nombre")
-    private String mNombre;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -73,8 +68,11 @@ public class ExhibicionTb implements Serializable {
     @Size(max = 100)
     @Column(name = "c_responsable")
     private String cResponsable;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "exhibicionTb")
-    private List<EjemplarParticipaExhibicionTb> ejemplarParticipaExhibicionTbList;
+    @Size(max = 2147483647)
+    @Column(name = "m_nombre")
+    private String mNombre;
+    @Column(name = "e_estado")
+    private Integer eEstado;
     @JoinColumn(name = "id_usuario", referencedColumnName = "e_idusuario")
     @ManyToOne
     private UsuarioTb idUsuario;
@@ -150,12 +148,20 @@ public class ExhibicionTb implements Serializable {
         this.cResponsable = cResponsable;
     }
 
-    public List<EjemplarParticipaExhibicionTb> getEjemplarParticipaExhibicionTbList() {
-        return ejemplarParticipaExhibicionTbList;
+    public String getMNombre() {
+        return mNombre;
     }
 
-    public void setEjemplarParticipaExhibicionTbList(List<EjemplarParticipaExhibicionTb> ejemplarParticipaExhibicionTbList) {
-        this.ejemplarParticipaExhibicionTbList = ejemplarParticipaExhibicionTbList;
+    public void setMNombre(String mNombre) {
+        this.mNombre = mNombre;
+    }
+
+    public Integer getEEstado() {
+        return eEstado;
+    }
+
+    public void setEEstado(Integer eEstado) {
+        this.eEstado = eEstado;
     }
 
     public UsuarioTb getIdUsuario() {
@@ -189,14 +195,6 @@ public class ExhibicionTb implements Serializable {
     @Override
     public String toString() {
         return "modelo.ExhibicionTb[ eIdexhibicion=" + eIdexhibicion + " ]";
-    }
-
-    public String getMNombre() {
-        return mNombre;
-    }
-
-    public void setMNombre(String mNombre) {
-        this.mNombre = mNombre;
     }
     
 }

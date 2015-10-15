@@ -6,6 +6,9 @@ import controlador.util.JsfUtil.PersistAction;
 import servicio.ExhibicionTbFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -14,6 +17,7 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -26,8 +30,9 @@ public class ExhibicionTbController implements Serializable {
 
     @EJB
     private servicio.ExhibicionTbFacade ejbFacade;
-    private List<ExhibicionTb> items = null, lista=null,filtro;
+    private List<ExhibicionTb> items = null, lista=null,filtro, itemsNotificacion = null;
     private ExhibicionTb selected;
+    private Date fechaActual = new Date();
 
     public ExhibicionTbController() {
     }
@@ -58,9 +63,35 @@ public class ExhibicionTbController implements Serializable {
         return ejbFacade;
     }
 
+    public List<ExhibicionTb> getItemsNotificacion() {
+        List<ExhibicionTb> quitarFinalizados = new ArrayList<ExhibicionTb>();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fechaActual); // Configuramos la fecha que se recibe
+        calendar.add(Calendar.DAY_OF_YEAR, 4);  // numero de dias que se restan o suman
+        Date fecha = calendar.getTime(); //mandamos la fecha a una variable Date */
+        itemsNotificacion= getFacade().ExhibicionesNotificaciones(fechaActual, fecha);
+        for(ExhibicionTb e: itemsNotificacion){
+            if(e.getEEstado()==1){
+                quitarFinalizados.add(e);
+            }
+            if(e.getEEstado()==0){
+                if(e.getFFechaReingreso().after(fecha)){
+                    quitarFinalizados.add(e);
+                }
+            }
+        }
+        itemsNotificacion.removeAll(quitarFinalizados);
+        return itemsNotificacion;
+    }
+
+    public void setItemsNotificacion(List<ExhibicionTb> itemsNotificacion) {
+        this.itemsNotificacion = itemsNotificacion;
+    }
+    
     public ExhibicionTb prepareCreate() {
         selected = new ExhibicionTb();
         initializeEmbeddableKey();
+        selected.setEEstado(0);
         return selected;
     }
 
@@ -82,10 +113,17 @@ public class ExhibicionTbController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
+    
+    public void finExhibicion() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        selected.setEEstado(1);
+        getFacade().edit(selected);
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Recibido", "INFO"));
+    }
 
     public List<ExhibicionTb> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = getFacade().ExhibicionGeneral();
         }
         return items;
     }

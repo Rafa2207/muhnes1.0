@@ -24,7 +24,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author Rafa
+ * @author Endy
  */
 @Entity
 @Table(name = "procesoejemplar_tb")
@@ -37,7 +37,8 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "ProcesoejemplarTb.findByMNombre", query = "SELECT p FROM ProcesoejemplarTb p WHERE p.mNombre = :mNombre"),
     @NamedQuery(name = "ProcesoejemplarTb.findByFFechafin", query = "SELECT p FROM ProcesoejemplarTb p WHERE p.fFechafin = :fFechafin"),
     @NamedQuery(name = "ProcesoejemplarTb.findByEIdproceso", query = "SELECT p FROM ProcesoejemplarTb p WHERE p.eIdproceso = :eIdproceso"),
-    @NamedQuery(name = "ProcesoejemplarTb.findByERelacion", query = "SELECT p FROM ProcesoejemplarTb p WHERE p.eRelacion = :eRelacion")})
+    @NamedQuery(name = "ProcesoejemplarTb.findByERelacion", query = "SELECT p FROM ProcesoejemplarTb p WHERE p.eRelacion = :eRelacion"),
+    @NamedQuery(name = "ProcesoejemplarTb.findByEEstado", query = "SELECT p FROM ProcesoejemplarTb p WHERE p.eEstado = :eEstado")})
 public class ProcesoejemplarTb implements Serializable {
     private static final long serialVersionUID = 1L;
     @Size(max = 2147483647)
@@ -64,6 +65,8 @@ public class ProcesoejemplarTb implements Serializable {
     private Integer eIdproceso;
     @Column(name = "e_relacion")
     private Integer eRelacion;
+    @Column(name = "e_estado")
+    private Integer eEstado;
     @JoinColumn(name = "e_idproyecto", referencedColumnName = "e_idproyecto")
     @ManyToOne
     private ProyectoTb eIdproyecto;
@@ -137,6 +140,14 @@ public class ProcesoejemplarTb implements Serializable {
 
     public void setERelacion(Integer eRelacion) {
         this.eRelacion = eRelacion;
+    }
+
+    public Integer getEEstado() {
+        return eEstado;
+    }
+
+    public void setEEstado(Integer eEstado) {
+        this.eEstado = eEstado;
     }
 
     public ProyectoTb getEIdproyecto() {

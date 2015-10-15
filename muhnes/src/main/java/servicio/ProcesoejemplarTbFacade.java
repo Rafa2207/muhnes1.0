@@ -5,6 +5,7 @@
  */
 package servicio;
 
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -37,5 +38,13 @@ public class ProcesoejemplarTbFacade extends AbstractFacade<ProcesoejemplarTb> {
        query.setParameter("h", proyectos);
         return query.getResultList();
          }
+    
+    public List<ProcesoejemplarTb> ProcesoNotificaciones(Date diaActual, Date Semana) {
+        em.clear();
+        TypedQuery<ProcesoejemplarTb> query = em.createQuery("SELECT p FROM ProcesoejemplarTb p where p.eEstado=0 or p.fFechafin between :d1 and :d2 order by p.fFechafin ASC", ProcesoejemplarTb.class);
+        query.setParameter("d1", diaActual);
+        query.setParameter("d2", Semana);
+        return query.getResultList();
+    }
     
 }

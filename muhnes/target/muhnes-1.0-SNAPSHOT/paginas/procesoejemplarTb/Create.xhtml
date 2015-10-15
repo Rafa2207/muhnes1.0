@@ -30,7 +30,7 @@
                         </p:inputText>
 
                         <p:outputLabel value="Fecha de inicio:" for="FFecha" />
-                        <p:calendar locale="es" mindate="#{controladorSesion.proyecto.FFechaFin}" id="FFecha" 
+                        <p:calendar locale="es" mindate="#{controladorSesion.proyecto.FFechaInicio}" id="FFecha" 
                                     readonlyInput="true" pattern="dd MMMM yyyy" value="#{procesoejemplarTbController.selected.FFecha}" 
                                     title="Fecha de inicio"  showOn="button" required="true" requiredMessage="Introduzca fecha inicio">
                             <p:ajax event="dateSelect" update="FFechafin"/>

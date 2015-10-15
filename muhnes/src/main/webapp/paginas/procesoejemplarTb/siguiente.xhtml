@@ -43,7 +43,7 @@
 
 
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{procesoejemplarTbController.create()}" value="#{bundle.Save}" update="display,:ProcesoejemplarTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'siguienteDialog');"/>
+                    <p:commandButton actionListener="#{procesoejemplarTbController.guardarProcesoCuarentena()}" value="#{bundle.Save}" update="display,:ProcesoejemplarTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'siguienteDialog');"/>
 
                 </h:panelGroup>
             </h:form>

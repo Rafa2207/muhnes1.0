@@ -72,9 +72,9 @@ public class ActividadTbFacade extends AbstractFacade<ActividadTb> {
         return query.getSingleResult();
     }
     
-    public List<ActividadTb> ProyectoNotificaciones(Date diaActual, Date Semana) {
+    public List<ActividadTb> ActividadNotificaciones(Date diaActual, Date Semana) {
         em.clear();
-        TypedQuery<ActividadTb> query = em.createQuery("SELECT p FROM ActividadTb p where p.cTipo!=3 and p.fFechafin between :d1 and :d2", ActividadTb.class);
+        TypedQuery<ActividadTb> query = em.createQuery("SELECT p FROM ActividadTb p where p.eEstado!=3 or p.fFechaFinReal between :d1 and :d2 order by p.fFechaFinReal ASC", ActividadTb.class);
         query.setParameter("d1", diaActual);
         query.setParameter("d2", Semana);
         return query.getResultList();

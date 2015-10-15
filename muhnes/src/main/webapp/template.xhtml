@@ -32,15 +32,6 @@
 
         <p:layout fullPage="true">
             <p:layoutUnit position="north" size="50" style="border: 0" gutter="0" >
-                <!-- Área de notificaciones-->
-                <p:notificationBar  position="bottom" effect="slide" widgetVar="bar">
-                    <h:outputText value="Holaaaaaaa!!!" style="text-align: center; color: green; font-size:24px;"  />
-                    <br></br>
-                    <h:outputText value="Holaaaaaaa!!!" style="text-align: center; color: green; font-size:24px;"  />
-                    <br></br>
-
-                </p:notificationBar>
-                <!-- fin de notificaciones -->
                 <h:form>
 
                     <p:themeSwitcher style="margin-left: 10px; width:165px" id="defaultSwitcher" 
@@ -58,14 +49,6 @@
                                         icon="ui-icon-contact"
                                         />
                             <p:menuitem value="Cerrar sesión" action="#{sesion.logout()}" icon="ui-icon-extlink"/>
-                        </p:submenu>
-                    </p:menubar>
-
-                    <p:menubar style="float: right; margin-right: 0px;">
-
-                        <p:submenu label="Notificaciones" icon="ui-icon-info">
-                            <p:menuitem value="Mostrar" onclick="PF('bar').show()" icon="ui-icon-arrow-1-n"/>
-                            <p:menuitem value="Ocultar" onclick="PF('bar').hide()" icon="ui-icon-arrow-1-s"/>
                         </p:submenu>
                     </p:menubar>
                 </h:form>

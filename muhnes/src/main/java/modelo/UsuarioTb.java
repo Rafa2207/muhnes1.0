@@ -8,6 +8,7 @@ package modelo;
 import controlador.util.JsfUtil;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -37,6 +39,10 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "UsuarioTb.findByCTipo", query = "SELECT u FROM UsuarioTb u WHERE u.cTipo = :cTipo"),
     @NamedQuery(name = "UsuarioTb.findByBEstado", query = "SELECT u FROM UsuarioTb u WHERE u.bEstado = :bEstado")})
 public class UsuarioTb implements Serializable {
+    @Column(name = "e_idagente")
+    private Integer eIdagente;
+    @OneToMany(mappedBy = "idUsuario")
+    private List<ExhibicionTb> exhibicionTbList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -175,6 +181,22 @@ public class UsuarioTb implements Serializable {
     @Override
     public String toString() {
         return "modelo.UsuarioTb[ eIdusuario=" + eIdusuario + " ]";
+    }
+
+    public Integer getEIdagente() {
+        return eIdagente;
+    }
+
+    public void setEIdagente(Integer eIdagente) {
+        this.eIdagente = eIdagente;
+    }
+
+    public List<ExhibicionTb> getExhibicionTbList() {
+        return exhibicionTbList;
+    }
+
+    public void setExhibicionTbList(List<ExhibicionTb> exhibicionTbList) {
+        this.exhibicionTbList = exhibicionTbList;
     }
 
 }

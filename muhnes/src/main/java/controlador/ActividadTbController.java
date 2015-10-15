@@ -31,10 +31,10 @@ public class ActividadTbController implements Serializable {
 
     @EJB
     private servicio.ActividadTbFacade ejbFacade;
-    private List<ActividadTb> items = null, filtro,itemsNotificacion=null;
+    private List<ActividadTb> items = null, filtro, itemsNotificacion = null;
     private ActividadTb selected;
     private ProyectoTb proyectos;
-    private Date fechatemporal, fechaActual=new Date();
+    private Date fechatemporal, fechaActual = new Date();
     private double cantidad, costo;
     private String nombre, tiempo;
     private InsumoTb insumo;
@@ -131,22 +131,37 @@ public class ActividadTbController implements Serializable {
     public void setFechaActual(Date fechaActual) {
         this.fechaActual = fechaActual;
     }
-    
 
     public List<ActividadTb> getItemsNotificacion() {
+        List<ActividadTb> quitarFinalizados = new ArrayList<ActividadTb>();
+        //Notificación de 7 dias 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(fechaActual); // Configuramos la fecha que se recibe
-        calendar.add(Calendar.DAY_OF_YEAR, +7);  // numero de dias que se restan o suman
-        Date fecha = calendar.getTime(); //mandamos la fecha a una variable Date
-        itemsNotificacion=getFacade().ProyectoNotificaciones(fechaActual, fecha);
+        calendar.add(Calendar.DAY_OF_YEAR, 7);  // numero de dias que se restan o suman
+        Date fechaDeSemana = calendar.getTime(); //mandamos la fecha a una variable Date
+
+        itemsNotificacion = getFacade().ActividadNotificaciones(fechaActual, fechaDeSemana);
+        for (ActividadTb a : itemsNotificacion) {
+            if (a.geteEstado() == 3) {
+                quitarFinalizados.add(a);
+            }
+            if (a.geteEstado() == 1) {
+                quitarFinalizados.add(a);
+            }
+            if (a.geteEstado() == 0) {
+                if (a.getFFechaFinReal().after(fechaDeSemana)) {
+                    quitarFinalizados.add(a);
+                }
+            }
+
+        }
+        itemsNotificacion.removeAll(quitarFinalizados);
         return itemsNotificacion;
     }
 
     public void setItemsNotificacion(List<ActividadTb> itemsNotificacion) {
         this.itemsNotificacion = itemsNotificacion;
     }
-    
-    
 
     public ActividadTb prepareCreate(ProyectoTb proyecto) {
         selected = new ActividadTb();
@@ -339,5 +354,22 @@ public class ActividadTbController implements Serializable {
         } catch (Exception e) {
             return 0.0;
         }
+    }
+    public String NombreNotificacion(ActividadTb a) {
+        String nombre = null;
+        int cadena=0;
+        try {
+            cadena=a.getMNombre().length();
+            if(cadena>=200){
+                nombre = a.getMNombre().substring(0, 200);
+                nombre = nombre+"...";
+            }
+            else{
+                nombre=a.getMNombre().substring(0,cadena);
+            }   
+        } catch (Exception e) {
+            nombre = null;
+        }
+        return nombre;
     }
 }

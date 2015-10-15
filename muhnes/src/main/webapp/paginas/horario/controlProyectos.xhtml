@@ -116,13 +116,13 @@
                                 <p:ajax event="change" update=":modales:GastoAd :modales:Justificacion"/>
                             </p:selectBooleanCheckbox>
 
-
                             <p:outputLabel value="Gasto adicional:" for="GastoAd"/>
                             <p:inputText id="GastoAd" value="#{controlProyectos.actividadView.DGastoAdicional}" title="Gasto Adicional"
                                          required="true" requiredMessage="Introduzca el gasto adicional" disabled="#{not controlProyectos.checkbox}"/>
                             <p:outputLabel value="Justificación:" for="Justificacion"/>
                             <p:inputTextarea autoResize="false" id="Justificacion" value="#{controlProyectos.actividadView.MJustificacion}" title="Justificación"
                                              required="true" requiredMessage="Introduzca la justificación" disabled="#{not controlProyectos.checkbox}"/>
+
                         </p:panelGrid>
 
                         <p:commandButton actionListener="#{controlProyectos.finalizarActividad()}" update="Proceso Proceso2 :ControlForm:agendaId  :growl" value="Finalizar actividad" oncomplete="handleSubmit(args, 'dialogVer');" >
@@ -151,19 +151,19 @@
                             <h:outputText value="#{controlProyectos.actividadView.FFechaFinReal}">
                                 <f:convertDateTime pattern="dd MMMM yyyy" />
                             </h:outputText>
-                            
+
                             <h:outputText value="Gasto adicional:"
                                           rendered="#{controlProyectos.actividadView.DGastoAdicional != null}"/>
                             <h:outputText value="#{controlProyectos.actividadView.DGastoAdicional}"
                                           rendered="#{controlProyectos.actividadView.DGastoAdicional != null}">
                                 <f:convertNumber type="number" groupingUsed="true" minFractionDigits="2" pattern="$#0.00"/>
                             </h:outputText>
-                            
+
                             <h:outputText value="Justificación al gasto:"
-                                           rendered="#{controlProyectos.actividadView.MJustificacion != null}"/>
+                                          rendered="#{controlProyectos.actividadView.MJustificacion != null}"/>
                             <h:outputText value="#{controlProyectos.actividadView.MJustificacion}"
-                                           rendered="#{controlProyectos.actividadView.MJustificacion != null}"/>
-   
+                                          rendered="#{controlProyectos.actividadView.MJustificacion != null}"/>
+
                         </p:panelGrid>
                     </h:panelGroup>
                     <!-- Fin Actividades finalizadas-->

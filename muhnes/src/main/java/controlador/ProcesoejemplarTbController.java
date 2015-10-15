@@ -6,6 +6,7 @@ import controlador.util.JsfUtil.PersistAction;
 import servicio.ProcesoejemplarTbFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -30,19 +31,19 @@ public class ProcesoejemplarTbController implements Serializable {
 
     @EJB
     private servicio.ProcesoejemplarTbFacade ejbFacade;
-    private List<ProcesoejemplarTb> items = null, lista = null;
-    private ProcesoejemplarTb selected;
+    private List<ProcesoejemplarTb> items = null, lista = null, itemsNotificacion = null;
+    private ProcesoejemplarTb selected, proceso;
     private ProyectoTb proyectos;
     private int cantidadSiguiente, cantidad;
     private Date fechaSiguiente = new Date();
-    private Date fechaInicioSiguiente = new Date();
+    private Date fechaInicioSiguiente = new Date(), fechaActual = new Date();
     boolean valor, control;
     private String nombre;
 
     public int getCantidad() {
         return cantidad;
     }
-    
+
     public String getNombre() {
         return nombre;
     }
@@ -107,6 +108,33 @@ public class ProcesoejemplarTbController implements Serializable {
         this.selected = selected;
     }
 
+    public List<ProcesoejemplarTb> getItemsNotificacion() {
+        List<ProcesoejemplarTb> quitarFinalizados = new ArrayList<ProcesoejemplarTb>();
+        //Notificación de 7 dias 
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fechaActual); // Configuramos la fecha que se recibe
+        calendar.add(Calendar.DAY_OF_YEAR, 2);  // numero de dias que se restan o suman
+        Date fechaDeSemana = calendar.getTime(); //mandamos la fecha a una variable Date
+
+        itemsNotificacion = getFacade().ProcesoNotificaciones(fechaActual, fechaDeSemana);
+        for (ProcesoejemplarTb p : itemsNotificacion) {
+            if (p.getEEstado() == 1) {
+                quitarFinalizados.add(p);
+            }
+            if (p.getEEstado() == 0) {
+                if (p.getFFechafin().after(fechaDeSemana)) {
+                    quitarFinalizados.add(p);
+                }
+            }
+        }
+        itemsNotificacion.removeAll(quitarFinalizados);
+        return itemsNotificacion;
+    }
+
+    public void setItemsNotificacion(List<ProcesoejemplarTb> itemsNotificacion) {
+        this.itemsNotificacion = itemsNotificacion;
+    }
+
     protected void setEmbeddableKeys() {
     }
 
@@ -117,13 +145,34 @@ public class ProcesoejemplarTbController implements Serializable {
         return ejbFacade;
     }
 
+    public ProcesoejemplarTb getProceso() {
+        return proceso;
+    }
+
+    public void setProceso(ProcesoejemplarTb proceso) {
+        this.proceso = proceso;
+    }
+
     public ProcesoejemplarTb prepareCreate(ProyectoTb proyecto) {
         selected = new ProcesoejemplarTb();
         proyectos = proyecto;
+        selected.setEEstado(0);
         selected.setCTipo("Secado");
         selected.setEIdproyecto(proyectos);
         initializeEmbeddableKey();
         return selected;
+    }
+
+    public void guardarProcesoCuarentena() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        if (selected != null && proceso != null) {
+            proceso.setEEstado(1);
+            getFacade().edit(proceso);
+            getFacade().create(selected);
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "El proceso ha cambiado a cuarentena exitosamente", "INFO"));
+        } else {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ha ocurrido un problema, porfavor recarga la página", "INFO"));
+        }
     }
 
     public void create() {
@@ -235,12 +284,15 @@ public class ProcesoejemplarTbController implements Serializable {
 
     public void prepareSiguiente(ProyectoTb proyecto, ProcesoejemplarTb pe) {
         selected = pe;
-        nombre=pe.getMNombre();
+        proceso = pe;
+        nombre = pe.getMNombre();
         int id = pe.getEIdproceso();
         cantidadSiguiente = pe.getECantidad();
         fechaSiguiente = pe.getFFechafin();
 
         selected = new ProcesoejemplarTb();
+        selected.setEEstado(0);
+        selected.setMNombre(nombre);
         selected.setCTipo("Cuarentena");
         proyectos = proyecto;
         selected.setEIdproyecto(proyectos);
@@ -251,7 +303,7 @@ public class ProcesoejemplarTbController implements Serializable {
     public void prepareViewSiguiente(ProyectoTb proyecto, ProcesoejemplarTb pe) {
         getLista();
         nombre = pe.getMNombre();
-        cantidad=pe.getECantidad();
+        cantidad = pe.getECantidad();
         for (ProcesoejemplarTb pro : lista) {
             if (pro.getEIdproyecto().getEIdproyecto() == proyecto.getEIdproyecto()) {
                 if (pro.getERelacion() == pe.getEIdproceso()) {
@@ -292,7 +344,7 @@ public class ProcesoejemplarTbController implements Serializable {
     }
 
     public void controlmodificar() {
-            control = false;        
+        control = false;
     }
 
 }

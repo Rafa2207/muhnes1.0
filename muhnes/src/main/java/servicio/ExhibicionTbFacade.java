@@ -5,9 +5,12 @@
  */
 package servicio;
 
+import java.util.Date;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import modelo.ExhibicionTb;
 
 /**
@@ -28,4 +31,17 @@ public class ExhibicionTbFacade extends AbstractFacade<ExhibicionTb> {
         super(ExhibicionTb.class);
     }
     
+    public List<ExhibicionTb> ExhibicionesNotificaciones(Date diaActual, Date Semana) {
+        em.clear();
+        TypedQuery<ExhibicionTb> query = em.createQuery("SELECT e FROM ExhibicionTb e where e.eEstado=0 or e.fFechaReingreso between :d1 and :d2 order by e.fFechaReingreso ASC", ExhibicionTb.class);
+        query.setParameter("d1", diaActual);
+        query.setParameter("d2", Semana);
+        return query.getResultList();
+    }
+    public List<ExhibicionTb> ExhibicionGeneral() {
+        em.clear();
+        TypedQuery<ExhibicionTb> query = em.createQuery("SELECT e FROM ExhibicionTb e order by e.fFechaSalida DESC", ExhibicionTb.class);
+        
+        return query.getResultList();
+    }
 }
