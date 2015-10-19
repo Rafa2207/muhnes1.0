@@ -34,7 +34,7 @@ public class ProcesoejemplarTbController implements Serializable {
     private List<ProcesoejemplarTb> items = null, lista = null, itemsNotificacion = null;
     private ProcesoejemplarTb selected, proceso;
     private ProyectoTb proyectos;
-    private int cantidadSiguiente, cantidad;
+    private int cantidadSiguiente, cantidad,NumeroDeNotificaciones=0;
     private Date fechaSiguiente = new Date();
     private Date fechaInicioSiguiente = new Date(), fechaActual = new Date();
     boolean valor, control;
@@ -50,6 +50,14 @@ public class ProcesoejemplarTbController implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public int getNumeroDeNotificaciones() {
+        return NumeroDeNotificaciones;
+    }
+
+    public void setNumeroDeNotificaciones(int NumeroDeNotificaciones) {
+        this.NumeroDeNotificaciones = NumeroDeNotificaciones;
     }
 
     public boolean isControl() {
@@ -128,6 +136,7 @@ public class ProcesoejemplarTbController implements Serializable {
             }
         }
         itemsNotificacion.removeAll(quitarFinalizados);
+        NumeroDeNotificaciones=itemsNotificacion.size();
         return itemsNotificacion;
     }
 
@@ -345,6 +354,23 @@ public class ProcesoejemplarTbController implements Serializable {
 
     public void controlmodificar() {
         control = false;
+    }
+    public String NombreNotificacion(ProcesoejemplarTb a) {
+        String nombre = null;
+        int cadena=0;
+        try {
+            cadena=a.getMNombre().length();
+            if(cadena>=200){
+                nombre = a.getMNombre().substring(0, 200);
+                nombre = nombre+"...";
+            }
+            else{
+                nombre=a.getMNombre().substring(0,cadena);
+            }   
+        } catch (Exception e) {
+            nombre = null;
+        }
+        return nombre;
     }
 
 }

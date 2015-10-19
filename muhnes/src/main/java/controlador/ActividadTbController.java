@@ -38,6 +38,7 @@ public class ActividadTbController implements Serializable {
     private double cantidad, costo;
     private String nombre, tiempo;
     private InsumoTb insumo;
+    int NumeroDeNotificaciones=0;
 
     public InsumoTb getInsumo() {
         return insumo;
@@ -47,6 +48,14 @@ public class ActividadTbController implements Serializable {
         this.insumo = insumo;
     }
 
+    public int getNumeroDeNotificaciones() {
+        return NumeroDeNotificaciones;
+    }
+
+    public void setNumeroDeNotificaciones(int NumeroDeNotificaciones) {
+        this.NumeroDeNotificaciones = NumeroDeNotificaciones;
+    }
+    
     public double getCantidad() {
         return cantidad;
     }
@@ -156,6 +165,7 @@ public class ActividadTbController implements Serializable {
 
         }
         itemsNotificacion.removeAll(quitarFinalizados);
+        NumeroDeNotificaciones=itemsNotificacion.size();
         return itemsNotificacion;
     }
 

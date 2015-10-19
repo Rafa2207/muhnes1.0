@@ -12,13 +12,19 @@
     text-align: center;
     //text-transform: uppercase;
 }
+
+.ui-layout, .ui-layout-doc, .ui-layout-unit, .ui-layout-wrap, .ui-layout-bd, .ui-layout-hd{
+    border: none;
+}
+
 .ui-button {
     margin-top: 10px !important;
 }
 .ui-panelgrid td, .ui-panelgrid tr{
     border-style: none !important;
+    background: transparent !important; //transparente a los formularios  
     //background-color: white;
-    
+
 }
 .ui-row-editor{
     display: inline; 
@@ -35,21 +41,46 @@
 }
 .actividad .fc-event-inner {
     background: #53c10c;
- }
+}
 
- .NoIniciado .fc-event-inner {
-     background: #666666;
- }
+.NoIniciado .fc-event-inner {
+    background: #666666;
+}
 
- .EnProceso .fc-event-inner {
-     background: #6666ff;
- } 
- 
- .Finalizado .fc-event-inner {
-     background: #53c10c;
- }
- //fin de colores
- 
- .Bienvenido{
-     background: #53c10c;
- }
+.EnProceso .fc-event-inner {
+    background: #6666ff;
+} 
+
+.Finalizado .fc-event-inner {
+    background: #53c10c;
+}
+//fin de colores
+
+.Bienvenido{
+    background: #53c10c;
+}
+
+//colores del Layout
+.myLayoutStyleClass .ui-layout-unit-header{
+    background: #00cc99;
+}
+
+.myLayoutStyleClass .ui-layout-unit-content{
+    background: #00cc99;
+}
+
+.notificacionesProyecto .ui-widget-header{
+    border:1px solid #006666;color:#ffffff;
+    background-color:#006666;background:#006666}
+
+.notificacionesActividad .ui-widget-header{
+    border:1px solid #000066;color:#ffffff;
+    background-color:#000066;background:#000066}
+
+.notificacionesProceso .ui-widget-header{
+    border:1px solid #660000;color:#ffffff;
+    background-color:#660000;background:#660000}
+
+.notificacionesExhibiciones .ui-widget-header{
+    border:1px solid #003300;color:#ffffff;
+    background-color:#003300;background:#003300}

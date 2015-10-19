@@ -18,7 +18,7 @@
         <link href="../../resources/images/planta.png" rel="shortcut icon" type="image/png"/>
     </h:head>
 
-    <h:body>
+    <h:body >
 
         <p:growl id="growl" life="3000" /> <!-- para que aparezcan las notificaciones 3000=3 segundos -->
         <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
@@ -30,8 +30,8 @@
 
 
 
-        <p:layout fullPage="true">
-            <p:layoutUnit position="north" size="50" style="border: 0" gutter="0" >
+        <p:layout fullPage="true" >
+            <p:layoutUnit position="north" size="50" gutter="0" >
                 <h:form>
 
                     <p:themeSwitcher style="margin-left: 10px; width:165px" id="defaultSwitcher" 
@@ -55,7 +55,7 @@
             </p:layoutUnit>
 
 
-            <p:layoutUnit position="west" size="210" header="#{bundle.AppName}" style="border: 0" gutter="0" collapsible="true" >
+            <p:layoutUnit position="west" size="210" header="#{bundle.AppName}" collapsible="true" gutter="0">
                 <h:form id="menuForm">
                     <p:slideMenu backLabel="Regresar" style="width: 95%">
                         <p:menuitem value="#{bundle.Home}" outcome="/paginas/bienvenido.xhtml" icon="ui-icon-home"/>
@@ -105,7 +105,7 @@
                 </h:form>
             </p:layoutUnit>
 
-            <p:layoutUnit position="south" size="60" style="border: 0;text-align:center;tex" gutter="0">
+            <p:layoutUnit position="south" size="60" style="text-align:center;" gutter="0">
                 <ui:insert name="footer">
                     <b>
                         Universidad de El Salvador Facultad Multidisciplinaria Paracentral (UES-FMP)<br/> 
@@ -116,7 +116,7 @@
                 </ui:insert>
             </p:layoutUnit>
 
-            <p:layoutUnit position="center" style="border: 0" gutter="0">
+            <p:layoutUnit position="center" gutter="0">
                 <ui:insert name="body"/>
             </p:layoutUnit>
 

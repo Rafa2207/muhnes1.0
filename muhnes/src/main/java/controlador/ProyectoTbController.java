@@ -43,6 +43,7 @@ public class ProyectoTbController implements Serializable {
     private List<ProyectoTb> items = null, filtro, ListaProyecto = null, itemsProyecto = null, itemsNotificacion = null, listaNotificacion = null;
     private ProyectoTb selected;
     private Date fechatemporal, fechaActual = new Date();
+    int NumeroDeNotificaciones=0;
     String agente;
     @PersistenceContext(unitName = "muhnes_muhnes_war_1.0-SNAPSHOTPU")
     EntityManager em;
@@ -121,6 +122,14 @@ public class ProyectoTbController implements Serializable {
         this.fechaActual = fechaActual;
     }
 
+    public int getNumeroDeNotificaciones() {
+        return NumeroDeNotificaciones;
+    }
+
+    public void setNumeroDeNotificaciones(int NumeroDeNotificaciones) {
+        this.NumeroDeNotificaciones = NumeroDeNotificaciones;
+    }
+
     public void setItemsNotificacion(List<ProyectoTb> itemsNotificacion) {
         this.itemsNotificacion = itemsNotificacion;
     }
@@ -143,7 +152,9 @@ public class ProyectoTbController implements Serializable {
             }
             
         }
+        
         itemsNotificacion.removeAll(quitarFinalizados);
+        NumeroDeNotificaciones=itemsNotificacion.size();
         return itemsNotificacion;
     }
 
