@@ -30,22 +30,22 @@
                             <p:outputLabel value="Información Taxonomica: " for="Taxon" />
                             <h:panelGroup>
                                 <p:selectOneMenu id="Taxon" value="#{ejemplarTbController.tipoTaxon}" required="true" requiredMessage="Seleccione taxón">
-                                    <f:selectItem itemLabel="Seleccione..." itemValue="Genero"/>
+                                    <f:selectItem itemLabel="Seleccione..." itemValue=""/>
                                     <f:selectItem itemLabel="Familia" itemValue="Familia"/>
                                     <f:selectItem itemLabel="Genero" itemValue="Genero"/>
                                     <f:selectItem itemLabel="Especie" itemValue="Especie"/>
                                     <f:selectItem itemLabel="Subespecie" itemValue="Subespecie"/>
                                     <f:selectItem itemLabel="variedad" itemValue="Variedad"/>
-                                    <p:ajax update=":EjemplarTbCreateForm:fTaxon"  listener="#{taxonomiaTbController.taxonomia(ejemplarTbController.tipoTaxon)}"/>
+                                    <p:ajax event="change" update="fTaxon" process="Taxon"/>
                                 </p:selectOneMenu>
                                 <p:outputLabel value="    "/>
-                                    <p:selectOneMenu id="fTaxon" style="width: 150px" value="#{ejemplarTbController.selected.EIdtaxonomia}" >
-                                        <f:selectItem itemLabel="Seleccione..." itemValue=""/>
-                                        <f:selectItems value="#{taxonomiaTbController.itemsTaxonomia}"
-                                                       var="taxon"
-                                                       itemLabel="#{taxon.CNombre}"
-                                                       itemValue="#{taxon}"/>
-                                    </p:selectOneMenu>
+                                <p:selectOneMenu id="fTaxon" style="width: 150px" value="#{ejemplarTbController.selected.EIdtaxonomia}" filter="true" >
+                                    <f:selectItem itemLabel="Seleccione..." itemValue=""/>
+                                    <f:selectItems value="#{taxonomiaTbController.taxonomia(ejemplarTbController.tipoTaxon)}"
+                                                   var="taxon"
+                                                   itemLabel="#{taxon.CNombre}"
+                                                   itemValue="#{taxon}"/>
+                                </p:selectOneMenu>
                             </h:panelGroup>
                             <p:outputLabel value="#{bundle.CreateEjemplarTbLabel_CCalificativo}" for="CCalificativo" />
                             <p:selectOneMenu id="CCalificativo" value="#{ejemplarTbController.selected.CCalificativo}" required="true" >

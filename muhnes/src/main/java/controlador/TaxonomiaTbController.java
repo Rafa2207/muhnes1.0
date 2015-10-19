@@ -37,7 +37,7 @@ public class TaxonomiaTbController implements Serializable {
     private servicio.AgenteTbFacade agenteFacade;
     @EJB
     private servicio.PaisTbFacade paisFacade;
-    private List<TaxonomiaTb> items = null, items2 = null, items3 = null, filtro, itemsTaxonomia;
+    private List<TaxonomiaTb> items = null, items2 = null, items3 = null, filtro, itemsTaxonomia = null;
     private TaxonomiaTb selected;
     private boolean autor;
     private String conector, nombreComun, idioma, autores;
@@ -244,7 +244,7 @@ public class TaxonomiaTbController implements Serializable {
         selected.setEIdniveltaxonomia(tx);
         selected.setERango(4);
         selected.setCTipo("Subespecie");
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("SubEspecieTbCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("SubespecieTbCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
@@ -272,9 +272,11 @@ public class TaxonomiaTbController implements Serializable {
         }
     }
     
-        public void taxonomia(String Tipo){
-            //items3 = getFacade().buscarTaxonomiaAsc(Tipo);
-        itemsTaxonomia = getFacade().buscarTaxonomiaAsc(Tipo);
+        public List<TaxonomiaTb> taxonomia(String tipo){
+        
+        items = getFacade().buscarTaxonomiaAsc(tipo);
+        
+        return items;
     }
 
     public List<TaxonomiaTb> getItemsFamilia() {

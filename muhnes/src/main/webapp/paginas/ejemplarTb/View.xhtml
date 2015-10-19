@@ -20,16 +20,8 @@
                         <h:outputText value="#{ejemplarTbController.calculaAgente(agenteTbController.items, ejemplarTbController.selected.EResponsable)}" title="#{bundle.ViewEjemplarTbTitle_EIdejemplar}"/>
                         <h:outputText value="#{bundle.ViewEjemplarTbLabel_MDescripcion}"/>
                         <h:outputText value="#{ejemplarTbController.selected.MDescripcion}" title="#{bundle.ViewEjemplarTbTitle_MDescripcion}"/>
-                        <h:outputText value="#{bundle.ViewEjemplarTbLabel_EIdfamilia}" rendered="#{ejemplarTbController.selected.EIdfamilia!=null}"/>
-                        <h:outputText value="#{ejemplarTbController.selected.EIdfamilia.CNombre}" title="#{bundle.ViewEjemplarTbTitle_EIdfamilia}" rendered="#{ejemplarTbController.selected.EIdfamilia!=null}"/>
-                        <h:outputText value="#{bundle.ViewEjemplarTbLabel_EIdgenero}" rendered="#{ejemplarTbController.selected.EIdgenero!=null}"/>
-                        <h:outputText value="#{ejemplarTbController.selected.EIdgenero.CNombre}" title="#{bundle.ViewEjemplarTbTitle_EIdgenero}" rendered="#{ejemplarTbController.selected.EIdgenero!=null}"/>
-                        <h:outputText value="#{bundle.ViewEjemplarTbLabel_EIdespecie}" rendered="#{ejemplarTbController.selected.EIdespecie!=null}"/>
-                        <h:outputText value="#{ejemplarTbController.selected.EIdespecie.CNombre}" title="#{bundle.ViewEjemplarTbTitle_EIdespecie}" rendered="#{ejemplarTbController.selected.EIdespecie!=null}"/>
-                        <h:outputText value="#{bundle.ViewEjemplarTbLabel_EIdsubespecie}" rendered="#{ejemplarTbController.selected.EIdsubespecie!=null}"/>
-                        <h:outputText value="#{ejemplarTbController.selected.EIdsubespecie.CNombre}" title="#{bundle.ViewEjemplarTbTitle_EIdsubespecie}" rendered="#{ejemplarTbController.selected.EIdsubespecie!=null}"/>
-                        <h:outputText value="#{bundle.ViewEjemplarTbLabel_EVariedad}" rendered="#{ejemplarTbController.selected.EVariedad!=null}"/>
-                        <h:outputText value="#{ejemplarTbController.selected.EVariedad.CNombre}" title="#{bundle.ViewEjemplarTbTitle_EVariedad}" rendered="#{ejemplarTbController.selected.EVariedad!=null}"/>
+                        <h:outputText value="Información Taxonómica: "/>
+                        <h:outputText value="#{ejemplarTbController.selected.EIdtaxonomia.CNombre}" title="#{bundle.ViewEjemplarTbTitle_EIdfamilia}"/>
                         <h:outputText value="#{bundle.ViewEjemplarTbLabel_CCalificativo}"/>
                         <h:outputText value="#{ejemplarTbController.selected.CCalificativo}" title="#{bundle.ViewEjemplarTbTitle_CCalificativo}"/>
                         <h:outputText value="Fecha de recolección: "/>

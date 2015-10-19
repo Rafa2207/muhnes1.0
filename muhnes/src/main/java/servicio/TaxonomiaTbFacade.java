@@ -46,7 +46,7 @@ public class TaxonomiaTbFacade extends AbstractFacade<TaxonomiaTb> {
 
     public List<TaxonomiaTb> buscarTaxonomiaAsc(String Tipo) {
 
-        TypedQuery<TaxonomiaTb> query = em.createQuery("SELECT t FROM TaxonomiaTb t WHERE t.cTipo=:'h' ORDER BY t.cNombre ASC ", TaxonomiaTb.class);
+        TypedQuery<TaxonomiaTb> query = em.createQuery("SELECT t FROM TaxonomiaTb t WHERE t.cTipo=:h ORDER BY t.cNombre ASC ", TaxonomiaTb.class);
         query.setParameter("h", Tipo);
         return query.getResultList();
     }

@@ -37,7 +37,7 @@ public class EjemplarTbController implements Serializable {
     private AgenteTb agente;
     private List<AgenteTb> listaAgenteR, listaAgenteI;
     private AgenteIdentificaEjemplarTb agenteIdentifica;
-    private Integer tipoTaxon;
+    private String tipoTaxon;
     private String cod;
     private boolean familia;
 
@@ -68,11 +68,11 @@ public class EjemplarTbController implements Serializable {
         this.cod = cod;
     }
 
-    public Integer getTipoTaxon() {
+    public String getTipoTaxon() {
         return tipoTaxon;
     }
 
-    public void setTipoTaxon(Integer tipoTaxon) {
+    public void setTipoTaxon(String tipoTaxon) {
         this.tipoTaxon = tipoTaxon;
     }
 
