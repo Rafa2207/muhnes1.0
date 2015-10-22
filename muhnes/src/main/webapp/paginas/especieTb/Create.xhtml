@@ -9,7 +9,7 @@
     <ui:composition>
 
         <p:dialog id="EspecieTbCreateDlg" widgetVar="EspecieTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateEspecieTbTitle}">
-            <h:form id="EspecieTbCreateForm">
+            <h:form id="EspecieTbCreateForm" enctype="multipart/form-data">
                 <h:panelGroup id="display">
                     <p:fieldset legend="Especie">
                         <p:panelGrid  style="width: 780px" columns="6" rendered="#{taxonomiaTbController.selected != null}">
@@ -167,7 +167,15 @@
                                 </p:column>
                             </p:dataTable>
                         </p:tab>
-                        <p:tab title="Imágenes"></p:tab>
+                        <p:tab title="Imágenes">
+                           
+                                <p:outputLabel value="Subir Imagen: " for="imagen" />
+                                <h:inputFile id="imagen"
+                                             value="#{taxonomiaTbController.photo}"
+                                             required="true"
+                                             validator="#{imagenTbController.validatePhoto}"/>
+                           
+                        </p:tab>
                     </p:tabView>
                     <p:commandButton actionListener="#{taxonomiaTbController.createEspecie(controladorSesion.taxonomia)}" value="#{bundle.Save}" update="display,:EspecieTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'EspecieTbCreateDialog');"/>
                 </h:panelGroup>

@@ -59,25 +59,25 @@
                             </f:facet>
                             <h:outputText value="#{item.CNombre}"/>
                         </p:column>
-                        <p:column width="10%" filterBy="#{item.EIdunidad.CNombre}" filterStyle="display:none">
+                        <p:column width="10%" filterBy="#{item.ETipo}" filterStyle="display:none">
                             <f:facet name="header">
-                                <h:outputText value="Unidad"/>
+                                <h:outputText value="Tipo"/>
                             </f:facet>
-                            <h:outputText value="#{item.EIdunidad.CAbreviatura}"/>
+                            <h:outputText value="#{materialTbController.tipo(item.ETipo)}"/>
                         </p:column>
                         <p:column width="10%" filterBy="#{item.DCantidad}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaterialTbTitle_DCantidad}"/>
                             </f:facet>
-                            <h:outputText value="#{item.DCantidad}"/>
+                            <h:outputText value="#{item.DCantidad} #{item.EIdunidad.CAbreviatura}"/>
                         </p:column>
-                        <p:column width="15%" filterBy="#{item.DCantidadmin}" filterStyle="display:none">
+                        <p:column width="15%" filterBy="#{item.DCantidadmin} #{item.EIdunidad.CAbreviatura}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="Cantidad Mínima"/>
                             </f:facet>
-                            <h:outputText value="#{item.DCantidadmin}"/>
+                            <h:outputText value="#{item.DCantidadmin} #{item.EIdunidad.CAbreviatura}"/>
                         </p:column>
-                        <p:column filterBy="#{item.DCantidadmin}" filterStyle="display:none">
+                        <p:column filterBy="#{item.DCantidadmin} #{item.EIdunidad.CAbreviatura}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="Descripción"/>
                             </f:facet>

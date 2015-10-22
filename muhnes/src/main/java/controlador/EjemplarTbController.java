@@ -155,11 +155,26 @@ public class EjemplarTbController implements Serializable {
         selected.getAgenteIdentificaEjemplarTbList().clear();
         selected.setAgenteIdentificaEjemplarTbIDList(getFacade().ejemplarIdentificador(ejemplar.getEIdejemplar(),"Identificador"));
         selected.setAgenteIdentificaEjemplarTbList(getFacade().ejemplarRecolector(ejemplar.getEIdejemplar(),"Recolector"));
-        
+        if(selected.getEIdtaxonomia().getCTipo().equals("Familia")){
+            tipoTaxon = "Familia";
+        } 
+        if(selected.getEIdtaxonomia().getCTipo().equals("Genero")){
+            tipoTaxon = "Genero";
+        } 
+        if(selected.getEIdtaxonomia().getCTipo().equals("Especie")){
+            tipoTaxon = "Especie";
+        } 
+        if(selected.getEIdtaxonomia().getCTipo().equals("Subespecie")){
+            tipoTaxon = "Subespecie";
+        } 
+        if(selected.getEIdtaxonomia().getCTipo().equals("Variedad")){
+            tipoTaxon = "Variedad";
+        } 
         return selected;
     }
 
     public void create() {
+        selected.seteEstado(1);
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("EjemplarTbCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.

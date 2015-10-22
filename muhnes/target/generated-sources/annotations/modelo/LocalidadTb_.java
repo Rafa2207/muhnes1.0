@@ -8,7 +8,7 @@ import modelo.AreaprotegidaTb;
 import modelo.CantonTb;
 import modelo.EjemplarTb;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-10-19T14:31:02")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-10-21T16:27:57")
 @StaticMetamodel(LocalidadTb.class)
 public class LocalidadTb_ { 
 

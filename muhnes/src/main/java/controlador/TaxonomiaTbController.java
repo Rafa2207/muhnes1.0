@@ -3,6 +3,7 @@ package controlador;
 import modelo.TaxonomiaTb;
 import controlador.util.JsfUtil;
 import controlador.util.JsfUtil.PersistAction;
+import java.io.IOException;
 import servicio.TaxonomiaTbFacade;
 
 import java.io.Serializable;
@@ -21,11 +22,15 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
+import javax.mail.MessagingException;
+import javax.mail.Part;
 import modelo.AgenteTaxonomiaTb;
 import modelo.AgenteTaxonomiaTbPK;
 import modelo.AgenteTb;
+import modelo.ImagenTb;
 import modelo.NombrecomunTb;
 import modelo.PaisTb;
+import org.apache.commons.io.IOUtils;
 
 @Named("taxonomiaTbController")
 @ViewScoped
@@ -47,6 +52,7 @@ public class TaxonomiaTbController implements Serializable {
     private List<AgenteTb> listaAutores;
     private List<PaisTb> listaIdiomas;
     private List<String> idiomas;
+    private Part photo;
 
     public TaxonomiaTbController() {
     }
@@ -57,6 +63,14 @@ public class TaxonomiaTbController implements Serializable {
 
     public void setAutor(boolean autor) {
         this.autor = autor;
+    }
+
+    public Part getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(Part photo) {
+        this.photo = photo;
     }
 
     public List<TaxonomiaTb> getItemsTaxonomia() {
@@ -523,6 +537,15 @@ public class TaxonomiaTbController implements Serializable {
         selected.getNombrecomunTbList().add(nuevo);
         nombreComun = "";
         idioma = "";
+    }
+    
+    public void anadirImagen() throws IOException, MessagingException {
+        byte[] photoContents = IOUtils.toByteArray(photo.getInputStream());
+        ImagenTb nuevo = new ImagenTb();
+        nuevo.setCNombre(photo.getFileName());
+        nuevo.setIImagen(photoContents);
+        nuevo.setEIdtaxonomia(selected);
+        selected.getImagenTbList().add(nuevo);
     }
 
     public void removerNombreComun() {

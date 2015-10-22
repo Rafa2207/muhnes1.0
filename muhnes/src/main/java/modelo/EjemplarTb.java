@@ -73,6 +73,8 @@ public class EjemplarTb implements Serializable {
     @Size(max = 20)
     @Column(name = "c_codigoentrada")
     private String cCodigoentrada;
+    @Column(name = "e_estado")
+    private Integer eEstado;
     @JoinColumn(name = "e_idtaxonomia", referencedColumnName = "e_idtaxonomia")
     @ManyToOne
     private TaxonomiaTb eIdtaxonomia;
@@ -208,6 +210,14 @@ public class EjemplarTb implements Serializable {
 
     public LocalidadTb getEIdlocalidad() {
         return eIdlocalidad;
+    }
+
+    public Integer geteEstado() {
+        return eEstado;
+    }
+
+    public void seteEstado(Integer eEstado) {
+        this.eEstado = eEstado;
     }
 
     public void setEIdlocalidad(LocalidadTb eIdlocalidad) {

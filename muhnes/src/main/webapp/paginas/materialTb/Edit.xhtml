@@ -37,9 +37,13 @@
                         <p:outputLabel value="Cantidad Mínima: " for="DCantidad" />
                         <p:inputText id="DCantidad" value="#{materialTbController.selected.DCantidadmin}" title="#{bundle.CreateMaterialTbTitle_DCantidad}" 
                                      required="true"
-                                     requiredMessage="Introduzca cantidad del material" size="10" maxlength="10"/>              
-
-                      
+                                     requiredMessage="Introduzca cantidad del material" size="10" maxlength="10"/>
+                        <p:outputLabel value="Tipo:" for="tipo" />
+                        <p:selectOneMenu id="tipo" filter="true" value="#{materialTbController.selected.ETipo}">
+                            <f:selectItem itemLabel="Seleccione" itemValue="" />
+                            <f:selectItem itemLabel="Consumibles" itemValue="1" />
+                            <f:selectItem itemLabel="Herramientas" itemValue="2" />
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateMaterialTbLabel_MDescripcion}" for="MDescripcion" />
                         <p:inputTextarea autoResize=""  cols="30" id="MDescripcion" value="#{materialTbController.selected.MDescripcion}" title="#{bundle.CreateMaterialTbTitle_MDescripcion}" 
                                          requiredMessage="Introduzca descripción"/>

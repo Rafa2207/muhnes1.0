@@ -205,6 +205,16 @@ public class MaterialTbController implements Serializable {
 
     }
 
+    public String tipo(Integer tipo){
+        String Tipo = "";
+        if(tipo==1){
+            Tipo="Consumibles";
+        }else{
+            Tipo="Herramientas";
+        }
+        return Tipo;
+    }
+    
     public void generarCodigo() {
         String pre = stripAccents(selected.getCNombre()).trim().toUpperCase().substring(0, 3);
         String correlativo = getFacade().obtenerCorrelativo(pre);

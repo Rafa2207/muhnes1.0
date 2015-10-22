@@ -18,6 +18,7 @@ import modelo.UnidadesTb;
  */
 @Stateless
 public class UnidadesTbFacade extends AbstractFacade<UnidadesTb> {
+
     @PersistenceContext(unitName = "muhnes_muhnes_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
@@ -29,10 +30,17 @@ public class UnidadesTbFacade extends AbstractFacade<UnidadesTb> {
     public UnidadesTbFacade() {
         super(UnidadesTb.class);
     }
+
     public List<UnidadesTb> obtenerUnidades(String proyecto) {
-        
+
         TypedQuery<UnidadesTb> query = em.createQuery("SELECT p FROM UnidadesTb p WHERE p.cTipo=:h ORDER BY p.cNombre ASC", UnidadesTb.class);
-       query.setParameter("h", proyecto);
+        query.setParameter("h", proyecto);
         return query.getResultList();
-         }
+    }
+    public List<UnidadesTb> obtenerUnidadesMateriales() {
+        String material ="Materiales";
+        TypedQuery<UnidadesTb> query = em.createQuery("SELECT p FROM UnidadesTb p WHERE p.cTipo=:h ORDER BY p.cNombre ASC", UnidadesTb.class);
+        query.setParameter("h", material);
+        return query.getResultList();
+    }
 }

@@ -9,23 +9,27 @@
     <ui:composition>
 
         <p:dialog id="ImagenTbCreateDlg" widgetVar="ImagenTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateImagenTbTitle}">
-            <h:form id="ImagenTbCreateForm">
+            <h:form id="ImagenTbCreateForm" enctype="multipart/form-data">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{imagenTbController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateImagenTbLabel_EIdimagen}" for="EIdimagen" />
                         <p:inputText id="EIdimagen" value="#{imagenTbController.selected.EIdimagen}" title="#{bundle.CreateImagenTbTitle_EIdimagen}" required="true" requiredMessage="#{bundle.CreateImagenTbRequiredMessage_EIdimagen}"/>
                         <p:outputLabel value="#{bundle.CreateImagenTbLabel_CNombre}" for="CNombre" />
                         <p:inputText id="CNombre" value="#{imagenTbController.selected.CNombre}" title="#{bundle.CreateImagenTbTitle_CNombre}" />
-                        <p:outputLabel value="#{bundle.CreateImagenTbLabel_IImagen}" for="IImagen" />
-                        <p:inputTextarea rows="4" cols="30" id="IImagen" value="#{imagenTbController.selected.IImagen}" title="#{bundle.CreateImagenTbTitle_IImagen}" />
                         <p:outputLabel value="#{bundle.CreateImagenTbLabel_EIdejemplar}" for="EIdejemplar" />
-                        <p:selectOneMenu id="EIdejemplar" value="#{imagenTbController.selected.EIdejemplar}" >
-                            <f:selectItems value="#{ejemplarTbController.itemsAvailableSelectOne}"
+                        <p:selectOneMenu id="EIdejemplar" value="#{imagenTbController.selected.EIdtaxonomia}" >
+                            <f:selectItems value="#{taxonomiaTbController.itemsAvailableSelectOne}"
                                            var="EIdejemplarItem"
-                                           itemValue="#{EIdejemplarItem}"/>
+                                           itemValue="#{EIdejemplarItem}" itemLabel="#{EIdejemplarItem.CNombre}"/>
                         </p:selectOneMenu>
+                        <p:outputLabel value="Subir Imagen: " for="imagen" />
+                                <h:inputFile id="imagen"
+                                             value="#{imagenTbController.photo}"
+                                             required="true"
+                                             validator="#{imagenTbController.validatePhoto}"/>
+                           
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{imagenTbController.create}" value="#{bundle.Save}" update="display,:ImagenTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'ImagenTbCreateDialog');"/>
+                    <p:commandButton actionListener="#{imagenTbController.create}" value="#{bundle.Save}" ajax="false" update="display,:ImagenTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'ImagenTbCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ImagenTbCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

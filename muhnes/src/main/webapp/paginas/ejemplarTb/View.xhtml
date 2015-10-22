@@ -20,7 +20,7 @@
                         <h:outputText value="#{ejemplarTbController.calculaAgente(agenteTbController.items, ejemplarTbController.selected.EResponsable)}" title="#{bundle.ViewEjemplarTbTitle_EIdejemplar}"/>
                         <h:outputText value="#{bundle.ViewEjemplarTbLabel_MDescripcion}"/>
                         <h:outputText value="#{ejemplarTbController.selected.MDescripcion}" title="#{bundle.ViewEjemplarTbTitle_MDescripcion}"/>
-                        <h:outputText value="Información Taxonómica: "/>
+                        <h:outputText value="#{ejemplarTbController.selected.EIdtaxonomia.CTipo}: "/>
                         <h:outputText value="#{ejemplarTbController.selected.EIdtaxonomia.CNombre}" title="#{bundle.ViewEjemplarTbTitle_EIdfamilia}"/>
                         <h:outputText value="#{bundle.ViewEjemplarTbLabel_CCalificativo}"/>
                         <h:outputText value="#{ejemplarTbController.selected.CCalificativo}" title="#{bundle.ViewEjemplarTbTitle_CCalificativo}"/>

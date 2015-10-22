@@ -32,10 +32,10 @@
                                 <p:selectOneMenu id="Taxon" value="#{ejemplarTbController.tipoTaxon}" required="true" requiredMessage="Seleccione taxón">
                                     <f:selectItem itemLabel="Seleccione..." itemValue=""/>
                                     <f:selectItem itemLabel="Familia" itemValue="Familia"/>
-                                    <f:selectItem itemLabel="Genero" itemValue="Genero"/>
+                                    <f:selectItem itemLabel="Género" itemValue="Genero"/>
                                     <f:selectItem itemLabel="Especie" itemValue="Especie"/>
                                     <f:selectItem itemLabel="Subespecie" itemValue="Subespecie"/>
-                                    <f:selectItem itemLabel="variedad" itemValue="Variedad"/>
+                                    <f:selectItem itemLabel="Variedad" itemValue="Variedad"/>
                                     <p:ajax event="change" update="fTaxon" process="Taxon"/>
                                 </p:selectOneMenu>
                                 <p:outputLabel value="    "/>
@@ -56,7 +56,7 @@
                             </p:selectOneMenu>
 
                             <p:outputLabel value="Fecha de Recolección: " for="FFechaInicioIdent" />
-                            <p:calendar size="14" id="FFechaInicioIdent" pattern="dd MMM yyyy" 
+                            <p:calendar size="14" id="FFechaInicioIdent" pattern="dd MMMM yyyy" 
                                         value="#{ejemplarTbController.selected.FFechaInicioIdent}" 
                                         title="Fecha de recolección"  
                                         showOn="button"
@@ -66,7 +66,7 @@
                                 <p:ajax event="dateSelect" update="FFechaFinIdent"/>
                             </p:calendar>
                             <p:outputLabel value="Fecha de Identificación: " for="FFechaFinIdent" />
-                            <p:calendar size="14" id="FFechaFinIdent" pattern="dd MMM yyyy" 
+                            <p:calendar size="14" id="FFechaFinIdent" pattern="dd MMMM yyyy" 
                                         value="#{ejemplarTbController.selected.FFechaFinIdent}" 
                                         title="Fecha de identificación"  showOn="button"
                                         required="true"

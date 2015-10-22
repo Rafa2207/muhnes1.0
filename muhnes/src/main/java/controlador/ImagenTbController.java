@@ -3,22 +3,28 @@ package controlador;
 import modelo.ImagenTb;
 import controlador.util.JsfUtil;
 import controlador.util.JsfUtil.PersistAction;
+import java.io.IOException;
 import servicio.ImagenTbFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
+import static java.util.logging.Level.INFO;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.validator.ValidatorException;
 import javax.faces.view.ViewScoped;
+import javax.servlet.http.Part;
+import org.apache.commons.io.IOUtils;
 
 @Named("imagenTbController")
 @ViewScoped
@@ -28,6 +34,7 @@ public class ImagenTbController implements Serializable {
     private servicio.ImagenTbFacade ejbFacade;
     private List<ImagenTb> items = null;
     private ImagenTb selected;
+    private Part photo;
 
     public ImagenTbController() {
     }
@@ -38,6 +45,14 @@ public class ImagenTbController implements Serializable {
 
     public void setSelected(ImagenTb selected) {
         this.selected = selected;
+    }
+
+    public Part getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(Part photo) {
+        this.photo = photo;
     }
 
     protected void setEmbeddableKeys() {
@@ -56,7 +71,9 @@ public class ImagenTbController implements Serializable {
         return selected;
     }
 
-    public void create() {
+    public void create() throws IOException{
+        byte[] photoContents = IOUtils.toByteArray(photo.getInputStream());
+        selected.setIImagen(photoContents);
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ImagenTbCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -163,4 +180,37 @@ public class ImagenTbController implements Serializable {
 
     }
 
+   /* public String uploadPhoto() throws IOException, MessagingException {
+// Uploading file. You don't have to do anything here, but you could
+// use it for post processing. Don't use this method for validating
+// the uploaded file.
+        
+        userProfileService.savePhoto(userProfile, photoContents);
+        FacesContext.getCurrentInstance().addMessage("frm-photo-upload",
+                new FacesMessage(FacesMessage.SEVERITY INFO, "Photo uploaded successfully",
+"Name: " + photo.getName() + " Size: " + (photo.getSize() / 1024) + " KB"
+        ));
+return "/photo-uploaded";
+    }*/
+
+    public void validatePhoto(FacesContext ctx, UIComponent comp, Object value){
+// List of possible validation errors
+        List<FacesMessage> msgs = new ArrayList<>();
+// Retrieve the uploaded file from passed value object
+        Part imagen = (Part) value;
+        int num =5;
+// Ensure that the file is an image
+        if (!imagen.getContentType().startsWith("image/")) {
+            msgs.add(new FacesMessage("El archivo tiene que ser una imagen"));
+        }
+// Ensure that the file is less than 2 MB
+        long size = imagen.getSize();
+        if (size > 5242880) {
+            msgs.add(new FacesMessage("La imagen debe ser menor a 5MB"));
+        }
+// Determine if a validation exception should be thrown
+        if (!msgs.isEmpty()) {
+            throw new ValidatorException(msgs);
+        }
+    }
 }

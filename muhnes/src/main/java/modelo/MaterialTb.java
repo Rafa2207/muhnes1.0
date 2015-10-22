@@ -38,7 +38,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "MaterialTb.findByMCodigobarras", query = "SELECT m FROM MaterialTb m WHERE m.mCodigobarras = :mCodigobarras"),
     @NamedQuery(name = "MaterialTb.findByMMarca", query = "SELECT m FROM MaterialTb m WHERE m.mMarca = :mMarca"),
     @NamedQuery(name = "MaterialTb.findByDCantidadmin", query = "SELECT m FROM MaterialTb m WHERE m.dCantidadmin = :dCantidadmin"),
-    @NamedQuery(name = "MaterialTb.findByBEstado", query = "SELECT m FROM MaterialTb m WHERE m.bEstado = :bEstado")})
+    @NamedQuery(name = "MaterialTb.findByETipo", query = "SELECT m FROM MaterialTb m WHERE m.eTipo = :eTipo")})
 public class MaterialTb implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -66,8 +66,8 @@ public class MaterialTb implements Serializable {
     private String mMarca;
     @Column(name = "d_cantidadmin")
     private Double dCantidadmin;
-    @Column(name = "b_estado")
-    private Boolean bEstado;
+    @Column(name = "e_tipo")
+    private Integer eTipo;
     @JoinColumn(name = "e_idunidad", referencedColumnName = "e_idunidad")
     @ManyToOne
     private UnidadesTb eIdunidad;
@@ -145,12 +145,12 @@ public class MaterialTb implements Serializable {
         this.dCantidadmin = dCantidadmin;
     }
 
-    public Boolean getBEstado() {
-        return bEstado;
+    public Integer getETipo() {
+        return eTipo;
     }
 
-    public void setBEstado(Boolean bEstado) {
-        this.bEstado = bEstado;
+    public void setETipo(Integer eTipo) {
+        this.eTipo = eTipo;
     }
 
     public UnidadesTb getEIdunidad() {

@@ -19,11 +19,10 @@
                         <p:outputLabel value="#{bundle.EditImagenTbLabel_IImagen}" for="IImagen" />
                         <p:inputTextarea rows="4" cols="30" id="IImagen" value="#{imagenTbController.selected.IImagen}" title="#{bundle.EditImagenTbTitle_IImagen}" />
                         <p:outputLabel value="#{bundle.EditImagenTbLabel_EIdejemplar}" for="EIdejemplar" />
-                        <p:selectOneMenu id="EIdejemplar" value="#{imagenTbController.selected.EIdejemplar}" >
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{ejemplarTbController.itemsAvailableSelectOne}"
+                        <p:selectOneMenu id="EIdejemplar" value="#{imagenTbController.selected.EIdtaxonomia}" >
+                            <f:selectItems value="#{taxonomiaTbController.itemsAvailableSelectOne}"
                                            var="EIdejemplarItem"
-                                           itemValue="#{EIdejemplarItem}"/>
+                                           itemValue="#{EIdejemplarItem}" itemLabel="#{EIdejemplarItem.CNombre}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{imagenTbController.update}" value="#{bundle.Save}" update="display,:ImagenTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ImagenTbEditDialog');"/>
