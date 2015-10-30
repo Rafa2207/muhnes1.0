@@ -14,7 +14,7 @@
                     <p:fieldset legend="Sub Especie" >
                         <p:panelGrid style="width: 780px" columns="6" rendered="#{taxonomiaTbController.selected != null}">
                             <p:outputLabel value="Especie: " for="especie" />
-                            <p:outputLabel style="font-weight: bold" id="especie" value="#{controladorSesion.taxonomia.CNombre}" title="#{bundle.CreateEspecieTbTitle_CNombre}"/>
+                            <p:outputLabel style="font-weight: bold" id="especie" value="#{controladorSesion.especie.CNombre}" title="#{bundle.CreateEspecieTbTitle_CNombre}"/>
                             <p:outputLabel value="#{bundle.CreateSubespecieTbLabel_CNombre}" for="CNombre" />
                             <p:inputText id="CNombre" value="#{taxonomiaTbController.selected.CNombre}" title="#{bundle.CreateSubespecieTbTitle_CNombre}" required="true" requiredMessage="Introduzca un nombre"/>
                             <p:outputLabel value="#{bundle.CreateSubespecieTbLabel_CEstado}" for="CEstado" />
@@ -170,7 +170,7 @@
                         </p:tab>
                         <p:tab title="Imágenes"></p:tab>
                     </p:tabView>
-                    <p:commandButton actionListener="#{taxonomiaTbController.createSubEspecie(controladorSesion.taxonomia)}" value="#{bundle.Save}" update="display,:SubespecieTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'SubespecieTbCreateDialog');"/>
+                    <p:commandButton actionListener="#{taxonomiaTbController.createSubEspecie(controladorSesion.especie)}" value="#{bundle.Save}" update="display,:SubespecieTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'SubespecieTbCreateDialog');"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

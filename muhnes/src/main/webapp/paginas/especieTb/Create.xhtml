@@ -14,7 +14,7 @@
                     <p:fieldset legend="Especie">
                         <p:panelGrid  style="width: 780px" columns="6" rendered="#{taxonomiaTbController.selected != null}">
                             <p:outputLabel value="Genero: " for="genero" />
-                            <p:outputLabel style="font-weight: bold" id="genero" value="#{controladorSesion.taxonomia.CNombre}" title="#{bundle.CreateEspecieTbTitle_CNombre}"/>
+                            <p:outputLabel style="font-weight: bold" id="genero" value="#{controladorSesion.genero.CNombre}" title="#{bundle.CreateEspecieTbTitle_CNombre}"/>
                             <p:outputLabel value="#{bundle.CreateEspecieTbLabel_CNombre}" for="CNombre" />
                             <p:inputText id="CNombre" value="#{taxonomiaTbController.selected.CNombre}" title="#{bundle.CreateEspecieTbTitle_CNombre}" required="true" requiredMessage="Introduzca un nombre" />
                             <p:outputLabel value="Estado taxonómico: " for="CEstado" />
@@ -28,7 +28,7 @@
                         </p:panelGrid>
                     </p:fieldset>
                     <br/>
-                    <p:tabView style="height: 300px" id="informacion">
+                    <p:tabView style="height: 350px" id="informacion">
                         <p:tab title="Autores">
                             <p:panelGrid columns="7">
                                 <p:outputLabel value="Nombre: " for="agenteAutor" />
@@ -168,16 +168,31 @@
                             </p:dataTable>
                         </p:tab>
                         <p:tab title="Imágenes">
-                           
-                                <p:outputLabel value="Subir Imagen: " for="imagen" />
-                                <h:inputFile id="imagen"
-                                             value="#{taxonomiaTbController.photo}"
-                                             required="true"
-                                             validator="#{imagenTbController.validatePhoto}"/>
-                           
+                            <p:outputLabel value="Seleccione imagen: " />
+                            <p:panelGrid columns="2">
+                                <p:panelGrid columns="1">
+                                    <p:fileUpload fileUploadListener="#{taxonomiaTbController.handleFileUpload}" 
+                                                  style="width: 280px; height: 100px"
+                                                  mode="advanced" 
+                                                  dragDropSupport="false"
+                                                  sizeLimit="5242880" fileLimit="3" 
+                                                  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" 
+                                                  fileLimitMessage="El máximo de imágenes es 3"  
+                                                  invalidFileMessage="Se debe seleccionar una imagen"
+                                                  cancelLabel="Cancelar" uploadLabel="Subir"
+                                                  update=":growl" />
+                                    <p:commandButton value="Actualizar galeria" update="imagenes"/>
+                                </p:panelGrid>
+                                <p:galleria id="imagenes" value="#{taxonomiaTbController.selected.imagenTbList}" 
+                                            var="imagen" 
+                                            panelWidth="500" panelHeight="200">
+                                    <p:graphicImage value="/images/#{imagen.CNombre}" title="#{imagen.CNombre}"/>
+                                </p:galleria>
+                            </p:panelGrid>
+
                         </p:tab>
                     </p:tabView>
-                    <p:commandButton actionListener="#{taxonomiaTbController.createEspecie(controladorSesion.taxonomia)}" value="#{bundle.Save}" update="display,:EspecieTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'EspecieTbCreateDialog');"/>
+                    <p:commandButton actionListener="#{taxonomiaTbController.createEspecie(controladorSesion.genero)}" value="#{bundle.Save}" update="display,:EspecieTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'EspecieTbCreateDialog');"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

@@ -3,9 +3,12 @@ package controlador;
 import modelo.ImagenTb;
 import controlador.util.JsfUtil;
 import controlador.util.JsfUtil.PersistAction;
+import controlador.util.UtilPath;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import servicio.ImagenTbFacade;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +21,7 @@ import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
@@ -25,6 +29,8 @@ import javax.faces.validator.ValidatorException;
 import javax.faces.view.ViewScoped;
 import javax.servlet.http.Part;
 import org.apache.commons.io.IOUtils;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 @Named("imagenTbController")
 @ViewScoped
@@ -71,9 +77,7 @@ public class ImagenTbController implements Serializable {
         return selected;
     }
 
-    public void create() throws IOException{
-        byte[] photoContents = IOUtils.toByteArray(photo.getInputStream());
-        selected.setIImagen(photoContents);
+    public void create() throws IOException {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ImagenTbCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -180,25 +184,45 @@ public class ImagenTbController implements Serializable {
 
     }
 
-   /* public String uploadPhoto() throws IOException, MessagingException {
-// Uploading file. You don't have to do anything here, but you could
-// use it for post processing. Don't use this method for validating
-// the uploaded file.
+    //metodo para subir imagenes a una carpeta y almacenar ruta relativa en bd
+    public void handleFileUpload(FileUploadEvent event) {
+        UploadedFile file = event.getFile();
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        String realPath = UtilPath.getPathDefinida(ec.getRealPath("/"));
+        String pathDefinition = realPath+ File.separator + "src" + File.separator + "main" + File.separator + "webapp" + File.separator + "images" + File.separator +file.getFileName();
+        String ruta = File.separator + "images" + File.separator +file.getFileName();
+        System.out.println(""+pathDefinition);
         
-        userProfileService.savePhoto(userProfile, photoContents);
-        FacesContext.getCurrentInstance().addMessage("frm-photo-upload",
-                new FacesMessage(FacesMessage.SEVERITY INFO, "Photo uploaded successfully",
-"Name: " + photo.getName() + " Size: " + (photo.getSize() / 1024) + " KB"
-        ));
-return "/photo-uploaded";
-    }*/
+        try {
+            FileInputStream in = (FileInputStream) file.getInputstream();
+            FileOutputStream out = new FileOutputStream(pathDefinition);
 
-    public void validatePhoto(FacesContext ctx, UIComponent comp, Object value){
+            byte[] buffer = new byte[(int) file.getSize()];
+            int contador = 0;
+
+            while ((contador = in.read(buffer)) != -1) {
+                out.write(buffer, 0, contador);
+            }
+            in.close();
+            out.close();
+
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            FacesMessage error = new FacesMessage("No se puede subir la imagen");
+            FacesContext.getCurrentInstance().addMessage(null, error);
+
+        }
+        FacesMessage exito = new FacesMessage("imagen subida correctamente");
+            FacesContext.getCurrentInstance().addMessage(null, exito);
+    }
+
+    //metodo para validar subida de imagenes a la base de datos
+    public void validatePhoto(FacesContext ctx, UIComponent comp, Object value) {
 // List of possible validation errors
         List<FacesMessage> msgs = new ArrayList<>();
 // Retrieve the uploaded file from passed value object
         Part imagen = (Part) value;
-        int num =5;
+        int num = 5;
 // Ensure that the file is an image
         if (!imagen.getContentType().startsWith("image/")) {
             msgs.add(new FacesMessage("El archivo tiene que ser una imagen"));

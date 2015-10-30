@@ -29,8 +29,10 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "ImagenTb.findAll", query = "SELECT i FROM ImagenTb i"),
     @NamedQuery(name = "ImagenTb.findByEIdimagen", query = "SELECT i FROM ImagenTb i WHERE i.eIdimagen = :eIdimagen"),
-    @NamedQuery(name = "ImagenTb.findByCNombre", query = "SELECT i FROM ImagenTb i WHERE i.cNombre = :cNombre")})
+    @NamedQuery(name = "ImagenTb.findByCNombre", query = "SELECT i FROM ImagenTb i WHERE i.cNombre = :cNombre"),
+    @NamedQuery(name = "ImagenTb.findByCRuta", query = "SELECT i FROM ImagenTb i WHERE i.cRuta = :cRuta")})
 public class ImagenTb implements Serializable {
+
     @Lob
     @Column(name = "i_imagen")
     private byte[] iImagen;
@@ -46,6 +48,9 @@ public class ImagenTb implements Serializable {
     @Size(max = 80)
     @Column(name = "c_nombre")
     private String cNombre;
+    @Size(max = 200)
+    @Column(name = "c_ruta")
+    private String cRuta;
 
     public ImagenTb() {
     }
@@ -70,12 +75,12 @@ public class ImagenTb implements Serializable {
         this.cNombre = cNombre;
     }
 
-    public byte[] getIImagen() {
-        return iImagen;
+    public String getCRuta() {
+        return cRuta;
     }
 
-    public void setIImagen(byte[] iImagen) {
-        this.iImagen = iImagen;
+    public void setCRuta(String cRuta) {
+        this.cRuta = cRuta;
     }
 
     @Override
@@ -110,5 +115,5 @@ public class ImagenTb implements Serializable {
     public void setEIdtaxonomia(TaxonomiaTb eIdtaxonomia) {
         this.eIdtaxonomia = eIdtaxonomia;
     }
-    
+
 }

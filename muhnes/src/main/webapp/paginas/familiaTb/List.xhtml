@@ -29,7 +29,7 @@
                         <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
                     </p:commandButton>
                     <p:commandButton id="generoButton" icon="ui-icon-arrowthick-1-e"  value="Genero" action="/paginas/generoTb/List.xhtml" disabled="#{empty taxonomiaTbController.selected}" >
-                        <f:setPropertyActionListener target="#{controladorSesion.taxonomia}" value="#{taxonomiaTbController.selected}">
+                        <f:setPropertyActionListener target="#{controladorSesion.familia}" value="#{taxonomiaTbController.selected}">
                         </f:setPropertyActionListener> 
                     </p:commandButton>
                     <p:dataTable id="datalist" value="#{taxonomiaTbController.itemsFamilia}" var="item"

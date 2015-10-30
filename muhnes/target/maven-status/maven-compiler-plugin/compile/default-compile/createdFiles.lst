@@ -139,6 +139,7 @@ servicio\DespachoTbFacade.class
 controlador\ActividadTbController$ActividadTbControllerConverter.class
 controlador\UsuarioTbController$UsuarioTbControllerConverter.class
 controlador\DepartamentoTbController.class
+controlador\util\UtilPath.class
 modelo\AreaprotegidaTb.class
 modelo\ProrrogaProyectoTb.class
 modelo\BitacoraTb.class

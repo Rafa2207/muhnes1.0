@@ -13,7 +13,7 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{taxonomiaTbController.selected != null}">
                         <h:outputText value="#{bundle.ViewSubespecieTbLabel_EIdespecie}"/>
-                        <h:outputText style="font-weight: bold" value="#{controladorSesion.taxonomia.CNombre}" title="#{bundle.ViewSubespecieTbTitle_EIdespecie}"/>
+                        <h:outputText style="font-weight: bold" value="#{controladorSesion.especie.CNombre}" title="#{bundle.ViewSubespecieTbTitle_EIdespecie}"/>
                         <h:outputText value="#{bundle.ViewSubespecieTbLabel_CNombre}"/>
                         <h:outputText value="#{taxonomiaTbController.selected.CNombre}" title="#{bundle.ViewSubespecieTbTitle_CNombre}"/>
                         <h:outputText value="#{bundle.ViewSubespecieTbLabel_CEstado}"/>

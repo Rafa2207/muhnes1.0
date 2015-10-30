@@ -25,7 +25,7 @@
                         <p:outputLabel value="#{bundle.EditEspecieTbLabel_EIdgenero}" for="EIdgenero" />
                         <p:selectOneMenu id="EIdgenero" value="#{taxonomiaTbController.selected.EIdniveltaxonomia.EIdtaxonomia}" required="true" requiredMessage="Seleccione un estado taxonomico" filter="true" filterMatchMode="contains">
                             <f:selectItem itemValue="" itemLabel="Seleccione género"/>
-                            <f:selectItems value="#{taxonomiaTbController.getItemsGenero(controladorSesion.taxonomia.EIdniveltaxonomia.EIdtaxonomia)}"
+                            <f:selectItems value="#{taxonomiaTbController.getItemsGenero(controladorSesion.genero.EIdniveltaxonomia.EIdtaxonomia)}"
                                        var="genero"
                                        itemLabel="#{genero.CNombre}"
                                        itemValue="#{genero.EIdtaxonomia}"/>

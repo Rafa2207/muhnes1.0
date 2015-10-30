@@ -28,15 +28,35 @@ public class ControladorSesion implements Serializable {
     private DepartamentoTb departamento;
     private MunicipioTb municipio;
     private TaxonomiaTb taxonomia;
+    private TaxonomiaTb familia;
+    private TaxonomiaTb genero;
+    private TaxonomiaTb especie;
+    //private TaxonomiaTb taxonomia;
 
-/*    public EspecieTb getEspecie() {
+    public TaxonomiaTb getFamilia() {
+        return familia;
+    }
+
+    public void setFamilia(TaxonomiaTb familia) {
+        this.familia = familia;
+    }
+
+    public TaxonomiaTb getGenero() {
+        return genero;
+    }
+
+    public void setGenero(TaxonomiaTb genero) {
+        this.genero = genero;
+    }
+
+    public TaxonomiaTb getEspecie() {
         return especie;
     }
 
-    public void setEspecie(EspecieTb especie) {
+    public void setEspecie(TaxonomiaTb especie) {
         this.especie = especie;
     }
-*/
+
     public TaxonomiaTb getTaxonomia() {
         return taxonomia;
     }

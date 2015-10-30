@@ -22,13 +22,14 @@
                                            var="EIdejemplarItem"
                                            itemValue="#{EIdejemplarItem}" itemLabel="#{EIdejemplarItem.CNombre}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="Subir Imagen: " for="imagen" />
-                                <h:inputFile id="imagen"
-                                             value="#{imagenTbController.photo}"
-                                             required="true"
-                                             validator="#{imagenTbController.validatePhoto}"/>
-                           
+                        <p:fileUpload fileUploadListener="#{imagenTbController.handleFileUpload}" mode="advanced" dragDropSupport="false"
+                          update="messages" sizeLimit="5242880" fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" oncomplete="PF('dlgActualizarFoto').hide()" fileLimitMessage="El maximo de imagenes es 1"  invalidFileMessage="Se debe seleccionar una imagen"
+                          cancelLabel="Cancelar" uploadLabel="Actualizar"/>
+
+            <p:growl id="messages" showDetail="true" />
                     </p:panelGrid>
+                    
+                    
                     <p:commandButton actionListener="#{imagenTbController.create}" value="#{bundle.Save}" ajax="false" update="display,:ImagenTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'ImagenTbCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ImagenTbCreateDialog.hide()"/>
                 </h:panelGroup>

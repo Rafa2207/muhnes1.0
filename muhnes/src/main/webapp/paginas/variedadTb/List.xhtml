@@ -15,7 +15,7 @@
 
         <ui:define name="body">
             <h:form id="VariedadTbListForm">
-                <p:panel header="#{bundle.ListVariedadTbTitle} de: #{controladorSesion.taxonomia.CNombre}">
+                <p:panel header="#{bundle.ListVariedadTbTitle} de: #{controladorSesion.especie.CNombre}">
                     <p:breadCrumb>
                         <p:menuitem value="casita"/>
                         <p:menuitem value="Familia" outcome="/paginas/familiaTb/List.xhtml" />
@@ -23,14 +23,14 @@
                         <p:menuitem value="Especie" outcome="/paginas/especieTb/List.xhtml"  />
                         <p:menuitem value="Variedad" outcome="/paginas/variedadTb/List.xhtml"  />
                     </p:breadCrumb>
-                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{taxonomiaTbController.prepareCreate(controladorSesion.taxonomia)}" update=":VariedadTbCreateForm" oncomplete="PF('VariedadTbCreateDialog').show()"/>
+                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{taxonomiaTbController.prepareCreate(controladorSesion.especie)}" update=":VariedadTbCreateForm" oncomplete="PF('VariedadTbCreateDialog').show()"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":VariedadTbViewForm" oncomplete="PF('VariedadTbViewDialog').show()" disabled="#{empty taxonomiaTbController.selected}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" actionListener="#{taxonomiaTbController.prepareEdit(taxonomiaTbController.selected)}" update=":VariedadTbEditForm" oncomplete="PF('VariedadTbEditDialog').show()" disabled="#{empty taxonomiaTbController.selected}"/>
                     <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{taxonomiaTbController.destroy}" update=":growl,datalist" disabled="#{empty taxonomiaTbController.selected}">
                         <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
                     </p:commandButton>
 
-                    <p:dataTable id="datalist" value="#{taxonomiaTbController.getItemsVariedad(controladorSesion.taxonomia.EIdtaxonomia)}" var="item"
+                    <p:dataTable id="datalist" value="#{taxonomiaTbController.getItemsVariedad(controladorSesion.especie.EIdtaxonomia)}" var="item"
                                  selectionMode="single" selection="#{taxonomiaTbController.selected}"
                                  paginator="true"
                                  rowKey="#{item.EIdtaxonomia}"
