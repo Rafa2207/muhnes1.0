@@ -13,7 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -32,13 +31,6 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "ImagenTb.findByCNombre", query = "SELECT i FROM ImagenTb i WHERE i.cNombre = :cNombre"),
     @NamedQuery(name = "ImagenTb.findByCRuta", query = "SELECT i FROM ImagenTb i WHERE i.cRuta = :cRuta")})
 public class ImagenTb implements Serializable {
-
-    @Lob
-    @Column(name = "i_imagen")
-    private byte[] iImagen;
-    @JoinColumn(name = "e_idtaxonomia", referencedColumnName = "e_idtaxonomia")
-    @ManyToOne
-    private TaxonomiaTb eIdtaxonomia;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,6 +43,9 @@ public class ImagenTb implements Serializable {
     @Size(max = 200)
     @Column(name = "c_ruta")
     private String cRuta;
+    @JoinColumn(name = "e_idtaxonomia", referencedColumnName = "e_idtaxonomia")
+    @ManyToOne
+    private TaxonomiaTb eIdtaxonomia;
 
     public ImagenTb() {
     }
@@ -83,6 +78,14 @@ public class ImagenTb implements Serializable {
         this.cRuta = cRuta;
     }
 
+    public TaxonomiaTb getEIdtaxonomia() {
+        return eIdtaxonomia;
+    }
+
+    public void setEIdtaxonomia(TaxonomiaTb eIdtaxonomia) {
+        this.eIdtaxonomia = eIdtaxonomia;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -107,13 +110,5 @@ public class ImagenTb implements Serializable {
     public String toString() {
         return "modelo.ImagenTb[ eIdimagen=" + eIdimagen + " ]";
     }
-
-    public TaxonomiaTb getEIdtaxonomia() {
-        return eIdtaxonomia;
-    }
-
-    public void setEIdtaxonomia(TaxonomiaTb eIdtaxonomia) {
-        this.eIdtaxonomia = eIdtaxonomia;
-    }
-
+    
 }

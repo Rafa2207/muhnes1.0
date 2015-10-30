@@ -28,7 +28,7 @@
                         </p:panelGrid>
                     </p:fieldset>
                     <br/>
-                    <p:tabView style="height: 300px" id="informacion">
+                    <p:tabView style="height: 350px" id="informacion">
                         <p:tab title="Autores">
                             <p:panelGrid columns="7">
                                 <p:outputLabel value="Nombre: " for="agenteAutor" />
@@ -168,7 +168,29 @@
                                 </p:column>
                             </p:dataTable>
                         </p:tab>
-                        <p:tab title="Imágenes"></p:tab>
+                        <p:tab title="Imágenes">
+                            <p:panelGrid columns="2">
+                                <p:panelGrid columns="1">
+                                    <p:fileUpload  label="Seleccione imagen:" fileUploadListener="#{taxonomiaTbController.handleFileUpload}" 
+                                                  style="width: 280px; height: 100px"
+                                                  mode="advanced" 
+                                                  dragDropSupport="false"
+                                                  sizeLimit="5242880" fileLimit="3" 
+                                                  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" 
+                                                  fileLimitMessage="El máximo de imágenes es 3"  
+                                                  invalidFileMessage="Se debe seleccionar una imagen"
+                                                  cancelLabel="Cancelar" uploadLabel="Subir"
+                                                  update=":growl" />
+                                    <p:commandButton value="Actualizar galeria" update="imagenes"/>
+                                </p:panelGrid>
+                                <p:galleria id="imagenes" value="#{taxonomiaTbController.selected.imagenTbList}" 
+                                            var="imagen" 
+                                            panelWidth="450" panelHeight="250">
+                                    <p:graphicImage value="/images/#{imagen.CNombre}" title="#{imagen.CNombre}" height="250" width="500"/>
+                                </p:galleria>
+                            </p:panelGrid>
+
+                        </p:tab>
                     </p:tabView>
                     <p:commandButton actionListener="#{taxonomiaTbController.createSubEspecie(controladorSesion.especie)}" value="#{bundle.Save}" update="display,:SubespecieTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'SubespecieTbCreateDialog');"/>
                 </h:panelGroup>

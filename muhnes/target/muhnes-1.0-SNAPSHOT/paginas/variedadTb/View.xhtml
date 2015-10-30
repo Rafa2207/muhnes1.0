@@ -21,7 +21,7 @@
                         <h:outputText value="Autores: "/>
                         <h:outputText style="font-weight: bold" value="#{taxonomiaTbController.autoresBList(taxonomiaTbController.selected)}" title="Autores"/>
                     </p:panelGrid>
-                    <p:tabView style="height: 300px" id="informacion">
+                    <p:tabView style="height: 350px" id="informacion">
                         <p:tab title="Autores">
                             <p:dataTable id="AutoresBasinimicos"
                                          value="#{taxonomiaTbController.ordenarSecuencia(taxonomiaTbController.selected)}"
@@ -64,6 +64,13 @@
                                     <h:outputText value="#{nombreComun.CIdioma}"/>
                                 </p:column>
                             </p:dataTable>
+                        </p:tab>
+                        <p:tab title="Imágenes">
+                                <p:galleria id="imagenes" value="#{taxonomiaTbController.selected.imagenTbList}" 
+                                            var="imagen" 
+                                            panelWidth="500" panelHeight="250">
+                                    <p:graphicImage value="/images/#{imagen.CNombre}" title="#{imagen.CNombre}" height="250" width="500"/>
+                                </p:galleria>
                         </p:tab>
                     </p:tabView>
                     <p:commandButton value="#{bundle.Close}" onclick="VariedadTbViewDialog.hide()"/>
