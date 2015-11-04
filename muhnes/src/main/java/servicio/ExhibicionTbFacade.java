@@ -33,14 +33,14 @@ public class ExhibicionTbFacade extends AbstractFacade<ExhibicionTb> {
     
     public List<ExhibicionTb> ExhibicionesNotificaciones(Date diaActual, Date Semana) {
         em.clear();
-        TypedQuery<ExhibicionTb> query = em.createQuery("SELECT e FROM ExhibicionTb e where e.eEstado=0 or e.fFechaReingreso between :d1 and :d2 order by e.fFechaReingreso ASC", ExhibicionTb.class);
+        TypedQuery<ExhibicionTb> query = em.createQuery("SELECT e FROM ExhibicionTb e where e.eEstado=0 or e.tFechaRecibido between :d1 and :d2 order by e.tFechaRecibido ASC", ExhibicionTb.class);
         query.setParameter("d1", diaActual);
         query.setParameter("d2", Semana);
         return query.getResultList();
     }
     public List<ExhibicionTb> ExhibicionGeneral() {
         em.clear();
-        TypedQuery<ExhibicionTb> query = em.createQuery("SELECT e FROM ExhibicionTb e order by e.fFechaSalida DESC", ExhibicionTb.class);
+        TypedQuery<ExhibicionTb> query = em.createQuery("SELECT e FROM ExhibicionTb e order by e.tFechaPrestamo DESC", ExhibicionTb.class);
         
         return query.getResultList();
     }

@@ -92,7 +92,7 @@ public class UsuarioTbController implements Serializable {
     }
 
     public void create() {
-        selected.setbEstado(Boolean.TRUE);
+        selected.setBEstado(Boolean.TRUE);
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioTbCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -259,7 +259,7 @@ public class UsuarioTbController implements Serializable {
     }
 
     public void cambio() {
-        selected.setbEstado(false);
+        selected.setBEstado(false);
         selected.setMPassword(String.valueOf(fechaActual()));
         update();
         if (!JsfUtil.isValidationFailed()) {
@@ -269,7 +269,7 @@ public class UsuarioTbController implements Serializable {
     }
 
     public void cambioAct() {
-        selected.setbEstado(true);
+        selected.setBEstado(true);
         update();
         items = null;
     }

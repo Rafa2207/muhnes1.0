@@ -95,7 +95,7 @@ public class Correo implements Serializable{
             this.usuario = usuarioFacade.usuarioByCorreo(this.correo);
 
             // Mensaje
-              if (this.usuario != null && this.usuario.getbEstado()) {//si encontrÃ³ algo manda el correo
+              if (this.usuario != null && this.usuario.getBEstado()) {//si encontrÃ³ algo manda el correo
                 String passnew = RandomStringUtils.randomAlphanumeric(8);
                 this.usuario.setMPassword(passnew);
                 message.setText("Su usuario es: " + this.usuario.getCNick()

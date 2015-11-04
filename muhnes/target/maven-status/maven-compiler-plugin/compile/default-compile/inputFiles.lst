@@ -40,6 +40,7 @@ C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\controlador\Mat
 C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\servicio\UsuarioTbFacade.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\controlador\ProcesoejemplarTbController.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\controlador\ImagenTbController.java
+C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\modelo\ExhibicionTb.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\modelo\AreaprotegidaTb.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\controlador\util\TableHeader.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\modelo\PaisTb.java
@@ -52,8 +53,8 @@ C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\modelo\Taxonomi
 C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\servicio\ActividadTbFacade.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\controlador\NombrecomunTbController.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\servicio\ProyectoTbFacade.java
-C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\modelo\BitacoraTb.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\servicio\CantonTbFacade.java
+C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\modelo\BitacoraTb.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\servicio\PerfilTbFacade.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\controlador\PaisTbController.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\modelo\ActividadTb.java
@@ -81,9 +82,9 @@ C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\controlador\Tax
 C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\controlador\util\Sesion.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\servicio\ProcesoejemplarTbFacade.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\modelo\NombrecomunTb.java
+C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\servicio\DespachoTbFacade.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\modelo\AgenteTaxonomiaTb.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\modelo\MaterialDespachoTbPK.java
-C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\servicio\DespachoTbFacade.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\controlador\BitacoraTbController.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\modelo\DonacionTb.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\controlador\ExhibicionTbController.java
@@ -92,10 +93,12 @@ C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\controlador\Pro
 C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\controlador\AgenteTbController.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\modelo\MaterialProyectoTb.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\servicio\InstitucionTbFacade.java
+C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\modelo\ExhibicionEjemplarTb.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\controlador\util\ControladorSesion.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\modelo\UsuarioTb.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\modelo\InstitucionTb.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\modelo\DepartamentoTb.java
+C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\modelo\ExhibicionEjemplarTbPK.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\controlador\CantonTbController.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\servicio\ImagenTbFacade.java
 C:\Users\Endy\Documents\muhnes1.0\muhnes1.0\muhnes\src\main\java\modelo\InsumoTb.java

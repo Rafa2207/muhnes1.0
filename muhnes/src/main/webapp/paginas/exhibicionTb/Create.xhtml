@@ -16,43 +16,40 @@
                         <p:outputLabel value="Nombre:" for="MNombre" />
                         <p:inputTextarea rows="2" autoResize="" id="MNombre" value="#{exhibicionTbController.selected.MNombre}" title="#{bundle.CreateExhibicionTbTitle_EIdexhibicion}" required="true" requiredMessage="#{bundle.CreateExhibicionTbRequiredMessage_EIdexhibicion}"/>
 
-                        <p:outputLabel value="#{bundle.CreateExhibicionTbLabel_MObservaciones}" for="MObservaciones" />
-                        <p:inputTextarea rows="2" autoResize="" id="MObservaciones" value="#{exhibicionTbController.selected.MObservaciones}" title="#{bundle.CreateExhibicionTbTitle_MObservaciones}" />
+                        <p:outputLabel value="Descripción:" for="MDescripcion" />
+                        <p:inputTextarea rows="2" autoResize="" id="MDescripcion" value="#{exhibicionTbController.selected.MDescripcion}" title="Descripción" />
 
                         <p:outputLabel value="#{bundle.CreateExhibicionTbLabel_MDestino}" for="MDestino" />
                         <p:inputText id="MDestino" value="#{exhibicionTbController.selected.MDestino}" title="#{bundle.CreateExhibicionTbTitle_MDestino}" />
 
-                        <p:outputLabel value="#{bundle.CreateExhibicionTbLabel_MDireccion}" for="MDireccion" />
-                        <p:inputTextarea rows="2" autoResize="" id="MDireccion" value="#{exhibicionTbController.selected.MDireccion}" title="#{bundle.CreateExhibicionTbTitle_MDireccion}" />
-
+                        <p:outputLabel value="Solicitante:" for="MSolicitante" />
+                        <p:inputText  id="MSolicitante" value="#{exhibicionTbController.selected.MSolicitante}" title="Solicitante" />
 
                         <p:outputLabel value="#{bundle.CreateExhibicionTbLabel_CTipo}" for="CTipo" />
                         <p:selectOneMenu id="CTipo" value="#{exhibicionTbController.selected.CTipo}" >
                             <f:selectItem itemLabel="Seleccione.." itemValue=""/>
+                            <f:selectItem itemLabel="Ilustración" itemValue="Ilustración"/>
                             <f:selectItem itemLabel="Itinerante" itemValue="Itinerante"/>
                             <f:selectItem itemLabel="Pieza del mes" itemValue="Pieza del mes"/>
+                            <f:selectItem itemLabel="Sala de exposición" itemValue="Sala de exposición"/>
                         </p:selectOneMenu>
 
-                        <p:outputLabel value="#{bundle.CreateExhibicionTbLabel_CResponsable}" for="CResponsable" />
-                        <p:inputText id="CResponsable" value="#{exhibicionTbController.selected.CResponsable}" title="#{bundle.CreateExhibicionTbTitle_CResponsable}" />
+                        <p:outputLabel value="Responsable:" for="EIdResponsable" />
+                        <p:inputText id="EIdResponsable" value="#{exhibicionTbController.selected.EIdResponsable}" title="Responsable" />
 
-                        <p:outputLabel value="#{bundle.CreateExhibicionTbLabel_FFechaSalida}" for="FFechaSalida" />
-                        <p:calendar id="FFechaSalida" pattern="dd MMMM yyyy" locale="es" readonlyInput="true"
-                                    value="#{exhibicionTbController.selected.FFechaSalida}" size="15"
-                                    title="#{bundle.EditExhibicionTbTitle_FFechaSalida}"  showOn="button"/>
+                        <p:outputLabel value="Fecha de préstamo:" for="Prestamo" />
+                        <p:calendar id="Prestamo" pattern="dd MMMM yyyy" locale="es" readonlyInput="true"
+                                    value="#{exhibicionTbController.selected.TFechaPrestamo}" size="15"
+                                    title="Préstamo"  showOn="button"/>
 
-                        <p:outputLabel value="#{bundle.CreateExhibicionTbLabel_FFechaReingreso}" for="FFechaReingreso" />
+                        <p:outputLabel value="Fecha de recibido:" for="FFechaReingreso" />
                         <p:calendar id="FFechaReingreso" pattern="dd MMMM yyyy" locale="es" readonlyInput="true"
-                                    value="#{exhibicionTbController.selected.FFechaReingreso}" size="15"
-                                    title="#{bundle.EditExhibicionTbTitle_FFechaReingreso}"  showOn="button"/>
+                                    value="#{exhibicionTbController.selected.TFechaRecibido}" size="15"
+                                    title="Recibido"  showOn="button"/>
+                        
+                        <p:outputLabel value="Custodio:" for="Custodio" />
+                        <p:inputText id="Custodio" value="#{exhibicionTbController.selected.ECustidio}" title="Custodio" />
 
-                        <p:outputLabel value="#{bundle.CreateExhibicionTbLabel_idUsuario}" for="idUsuario" />
-                        <p:selectOneMenu id="idUsuario" value="#{exhibicionTbController.selected.idUsuario}" >
-                            <f:selectItems value="#{usuarioTbController.itemsAvailableSelectOne}"
-                                           var="idUsuarioItem"
-                                           itemLabel="#{idUsuarioItem.CNombre} #{idUsuarioItem.CApellido}"
-                                           itemValue="#{idUsuarioItem}"/>
-                        </p:selectOneMenu>
 
                     </p:panelGrid>
                     <p:commandButton actionListener="#{exhibicionTbController.create}" value="#{bundle.Save}" update="display,:ExhibicionTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'ExhibicionTbCreateDialog');"/>

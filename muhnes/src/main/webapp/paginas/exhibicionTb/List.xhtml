@@ -55,37 +55,37 @@
 
                         <p:column filterBy="#{item.CTipo}" filterStyle="display:none">
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListExhibicionTbTitle_CTipo}"/>
+                                <h:outputText value="Tipo"/>
                             </f:facet>
                             <h:outputText value="#{item.CTipo}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListExhibicionTbTitle_MDestino}"/>
+                                <h:outputText value="Destino"/>
                             </f:facet>
                             <h:outputText value="#{item.MDestino}"/>
                         </p:column>
 
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListExhibicionTbTitle_CResponsable}"/>
+                                <h:outputText value="Responsable"/>
                             </f:facet>
-                            <h:outputText value="#{item.CResponsable}"/>
+                            <h:outputText value="#{item.EIdResponsable}"/>
                         </p:column>
 
                         <p:column width="15%">
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListExhibicionTbTitle_FFechaSalida}"/>
+                                <h:outputText value="Fecha préstamo"/>
                             </f:facet>
-                            <h:outputText value="#{item.FFechaSalida}">
+                            <h:outputText value="#{item.TFechaPrestamo}">
                                 <f:convertDateTime pattern="dd MMMM yyyy" />
                             </h:outputText>
                         </p:column>
                         <p:column width="15%">
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListExhibicionTbTitle_FFechaReingreso}"/>
+                                <h:outputText value="Fecha recibido"/>
                             </f:facet>
-                            <h:outputText value="#{item.FFechaReingreso}">
+                            <h:outputText value="#{item.TFechaRecibido}">
                                 <f:convertDateTime pattern="dd MMMM yyyy" />
                             </h:outputText>
                         </p:column>
@@ -111,7 +111,7 @@
                 
             </h:form>
 
-            <ui:include src="Create.xhtml"/>
+           <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
         </ui:define>

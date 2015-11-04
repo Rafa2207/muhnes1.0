@@ -5,10 +5,7 @@
  */
 package modelo;
 
-import controlador.util.JsfUtil;
 import java.io.Serializable;
-import java.security.NoSuchAlgorithmException;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,16 +14,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Frank Martinez
+ * @author Endy
  */
 @Entity
 @Table(name = "usuario_tb")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "UsuarioTb.findAll", query = "SELECT u FROM UsuarioTb u"),
     @NamedQuery(name = "UsuarioTb.findByEIdusuario", query = "SELECT u FROM UsuarioTb u WHERE u.eIdusuario = :eIdusuario"),
@@ -37,13 +35,9 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "UsuarioTb.findByMPassword", query = "SELECT u FROM UsuarioTb u WHERE u.mPassword = :mPassword"),
     @NamedQuery(name = "UsuarioTb.findByCDui", query = "SELECT u FROM UsuarioTb u WHERE u.cDui = :cDui"),
     @NamedQuery(name = "UsuarioTb.findByCTipo", query = "SELECT u FROM UsuarioTb u WHERE u.cTipo = :cTipo"),
-    @NamedQuery(name = "UsuarioTb.findByBEstado", query = "SELECT u FROM UsuarioTb u WHERE u.bEstado = :bEstado")})
+    @NamedQuery(name = "UsuarioTb.findByBEstado", query = "SELECT u FROM UsuarioTb u WHERE u.bEstado = :bEstado"),
+    @NamedQuery(name = "UsuarioTb.findByEIdagente", query = "SELECT u FROM UsuarioTb u WHERE u.eIdagente = :eIdagente")})
 public class UsuarioTb implements Serializable {
-    @Column(name = "e_idagente")
-    private Integer eIdagente;
-    @OneToMany(mappedBy = "idUsuario")
-    private List<ExhibicionTb> exhibicionTbList;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -73,6 +67,8 @@ public class UsuarioTb implements Serializable {
     private String cTipo;
     @Column(name = "b_estado")
     private Boolean bEstado;
+    @Column(name = "e_idagente")
+    private Integer eIdagente;
 
     public UsuarioTb() {
     }
@@ -126,12 +122,7 @@ public class UsuarioTb implements Serializable {
     }
 
     public void setMPassword(String mPassword) {
-        try {
-            this.mPassword = JsfUtil.cifrar(mPassword);
-        } catch (NoSuchAlgorithmException ex) {
-            this.mPassword = mPassword;
-        }
-
+        this.mPassword = mPassword;
     }
 
     public String getCDui() {
@@ -150,12 +141,20 @@ public class UsuarioTb implements Serializable {
         this.cTipo = cTipo;
     }
 
-    public Boolean getbEstado() {
+    public Boolean getBEstado() {
         return bEstado;
     }
 
-    public void setbEstado(Boolean bEstado) {
+    public void setBEstado(Boolean bEstado) {
         this.bEstado = bEstado;
+    }
+
+    public Integer getEIdagente() {
+        return eIdagente;
+    }
+
+    public void setEIdagente(Integer eIdagente) {
+        this.eIdagente = eIdagente;
     }
 
     @Override
@@ -182,21 +181,5 @@ public class UsuarioTb implements Serializable {
     public String toString() {
         return "modelo.UsuarioTb[ eIdusuario=" + eIdusuario + " ]";
     }
-
-    public Integer getEIdagente() {
-        return eIdagente;
-    }
-
-    public void setEIdagente(Integer eIdagente) {
-        this.eIdagente = eIdagente;
-    }
-
-    public List<ExhibicionTb> getExhibicionTbList() {
-        return exhibicionTbList;
-    }
-
-    public void setExhibicionTbList(List<ExhibicionTb> exhibicionTbList) {
-        this.exhibicionTbList = exhibicionTbList;
-    }
-
+    
 }

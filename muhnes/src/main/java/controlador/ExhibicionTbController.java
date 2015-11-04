@@ -30,10 +30,10 @@ public class ExhibicionTbController implements Serializable {
 
     @EJB
     private servicio.ExhibicionTbFacade ejbFacade;
-    private List<ExhibicionTb> items = null, lista=null,filtro, itemsNotificacion = null;
+    private List<ExhibicionTb> items = null, lista = null, filtro, itemsNotificacion = null;
     private ExhibicionTb selected;
     private Date fechaActual = new Date();
-    private int NumeroDeNotificaciones=0;
+    private int NumeroDeNotificaciones = 0;
 
     public ExhibicionTbController() {
     }
@@ -67,7 +67,7 @@ public class ExhibicionTbController implements Serializable {
     public void setNumeroDeNotificaciones(int NumeroDeNotificaciones) {
         this.NumeroDeNotificaciones = NumeroDeNotificaciones;
     }
-    
+
     private ExhibicionTbFacade getFacade() {
         return ejbFacade;
     }
@@ -78,26 +78,30 @@ public class ExhibicionTbController implements Serializable {
         calendar.setTime(fechaActual); // Configuramos la fecha que se recibe
         calendar.add(Calendar.DAY_OF_YEAR, 4);  // numero de dias que se restan o suman
         Date fecha = calendar.getTime(); //mandamos la fecha a una variable Date */
-        itemsNotificacion= getFacade().ExhibicionesNotificaciones(fechaActual, fecha);
-        for(ExhibicionTb e: itemsNotificacion){
-            if(e.getEEstado()==1){
-                quitarFinalizados.add(e);
-            }
-            if(e.getEEstado()==0){
-                if(e.getFFechaReingreso().after(fecha)){
+        itemsNotificacion = getFacade().ExhibicionesNotificaciones(fechaActual, fecha);
+        try {
+            for (ExhibicionTb e : itemsNotificacion) {
+                if (e.getEEstado() == 1) {
                     quitarFinalizados.add(e);
                 }
+                if (e.getEEstado() == 0) {
+                    if (e.getTFechaRecibido().after(fecha)) {
+                        quitarFinalizados.add(e);
+                    }
+                }
             }
+            itemsNotificacion.removeAll(quitarFinalizados);
+            NumeroDeNotificaciones = itemsNotificacion.size();
+
+        } catch (Exception e) {
         }
-        itemsNotificacion.removeAll(quitarFinalizados);
-        NumeroDeNotificaciones=itemsNotificacion.size();
         return itemsNotificacion;
     }
 
     public void setItemsNotificacion(List<ExhibicionTb> itemsNotificacion) {
         this.itemsNotificacion = itemsNotificacion;
     }
-    
+
     public ExhibicionTb prepareCreate() {
         selected = new ExhibicionTb();
         initializeEmbeddableKey();
@@ -123,7 +127,7 @@ public class ExhibicionTbController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-    
+
     public void finExhibicion() {
         FacesContext context = FacesContext.getCurrentInstance();
         selected.setEEstado(1);
@@ -139,16 +143,14 @@ public class ExhibicionTbController implements Serializable {
     }
 
     public List<ExhibicionTb> getLista() {
-        lista=getFacade().findAll();
-        
+        lista = getFacade().findAll();
+
         return lista;
     }
 
     public void setLista(List<ExhibicionTb> lista) {
         this.lista = lista;
     }
-    
-    
 
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
@@ -230,32 +232,31 @@ public class ExhibicionTbController implements Serializable {
         }
 
     }
-    
+
     public String NombreNotificacion(ExhibicionTb a) {
         String nombre = null;
-        int cadena=0;
+        int cadena = 0;
         try {
-            cadena=a.getMNombre().length();
-            if(cadena>=200){
+            cadena = a.getMNombre().length();
+            if (cadena >= 200) {
                 nombre = a.getMNombre().substring(0, 200);
-                nombre = nombre+"...";
+                nombre = nombre + "...";
+            } else {
+                nombre = a.getMNombre().substring(0, cadena);
             }
-            else{
-                nombre=a.getMNombre().substring(0,cadena);
-            }   
         } catch (Exception e) {
             nombre = null;
         }
         return nombre;
     }
-    
-    public String EstadoList(int estado){
-        String mensaje=null;
-        if(estado==0){
-            mensaje="En préstamo";
+
+    public String EstadoList(int estado) {
+        String mensaje = null;
+        if (estado == 0) {
+            mensaje = "En préstamo";
         }
-        if(estado==1){
-            mensaje="Recibido";
+        if (estado == 1) {
+            mensaje = "Recibido";
         }
         return mensaje;
     }

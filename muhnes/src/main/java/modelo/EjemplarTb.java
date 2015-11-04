@@ -24,6 +24,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -44,6 +45,8 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "EjemplarTb.findByEResponsable", query = "SELECT e FROM EjemplarTb e WHERE e.eResponsable = :eResponsable"),
     @NamedQuery(name = "EjemplarTb.findByCCodigoentrada", query = "SELECT e FROM EjemplarTb e WHERE e.cCodigoentrada = :cCodigoentrada")})
 public class EjemplarTb implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ejemplarTb")
+    private List<ExhibicionEjemplarTb> exhibicionEjemplarTbList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -247,6 +250,15 @@ public class EjemplarTb implements Serializable {
     @Override
     public String toString() {
         return "modelo.EjemplarTb[ eIdejemplar=" + eIdejemplar + " ]";
+    }
+
+    @XmlTransient
+    public List<ExhibicionEjemplarTb> getExhibicionEjemplarTbList() {
+        return exhibicionEjemplarTbList;
+    }
+
+    public void setExhibicionEjemplarTbList(List<ExhibicionEjemplarTb> exhibicionEjemplarTbList) {
+        this.exhibicionEjemplarTbList = exhibicionEjemplarTbList;
     }
     
 }
