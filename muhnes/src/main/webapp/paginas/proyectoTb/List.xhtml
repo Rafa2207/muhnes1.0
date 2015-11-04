@@ -36,9 +36,9 @@
                         <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{proyectoTbController.selected}"/>
                     </p:commandButton>
                     
-                    <p:commandButton id="FinalizarButton" icon="ui-icon-flag"  value="Finalizar" actionListener="#{proyectoTbController.FinalizarProyecto()}" update=":growl,datalist" disabled="#{empty proyectoTbController.selected}">
-                        <p:confirm header="Confirmación" message="¿Está seguro que desea Finalizar el proyecto?" icon="ui-icon-alert" />
-                    </p:commandButton>
+                    <p:commandButton id="FinalizarButton" icon="ui-icon-flag"  value="Desactivar" 
+                                     update=":ProyectoTbDesactivarForm" oncomplete="PF('ProyectoTbDesactivarDialog').show()"
+                                     disabled="#{empty proyectoTbController.selected || proyectoTbController.selected.EEstado==2}"/>
 
                     <p:commandButton id="ProrrogaProyectoButton" icon="ui-icon-alert"  value="Prórrogas" action="/paginas/prorrogaProyectoTb/List.xhtml" disabled="#{empty proyectoTbController.selected}" >
                         <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{proyectoTbController.selected}" />
@@ -63,10 +63,10 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProyectoTbTitle_CNombre}"/>
                             </f:facet>
-                            <h:outputText value="#{item.MNombre}"/>
+                            <h:outputText value="#{proyectoTbController.NombreNotificacion(item.MNombre, 60)}"/>
                         </p:column>
 
-                        <p:column filterBy="#{proyectoTbController.calculaAgente(agenteTbController.items, item.EResponsable)}" filterStyle="display:none" width="10%" style="text-align: center">
+                        <p:column filterBy="#{proyectoTbController.calculaAgente(agenteTbController.items, item.EResponsable)}" filterStyle="display:none" width="15%" style="text-align: center">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProyectoTbTitle_CResponsable}"/>
                             </f:facet>
@@ -91,7 +91,7 @@
                             </h:outputText>
                         </p:column>
                         
-                        <p:column filterBy="#{proyectoTbController.EstadoProyecto(item)}" filterStyle="display:none" width="10%" style="text-align: center">
+                        <p:column filterBy="#{proyectoTbController.EstadoProyecto(item)}" filterStyle="display:none" width="8%" style="text-align: center">
                             <f:facet name="header">
                                 <h:outputText value="Estado"/>
                             </f:facet>
@@ -121,6 +121,7 @@
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
+            <ui:include src="desactivar.xhtml"/>
         </ui:define>
     </ui:composition>
 

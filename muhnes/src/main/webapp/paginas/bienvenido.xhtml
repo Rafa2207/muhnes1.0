@@ -16,7 +16,7 @@
                                     value="#{proyectoTbController.itemsNotificacion}" circular="true" headerText="Proyectos" numVisible="1" var="proy">
 
                             <p:panelGrid columns="1" style="width: 500px;text-align: center;height: 100px">
-                                <b>#{proyectoTbController.NombreNotificacion(proy)}</b>
+                                <b>#{proyectoTbController.NombreNotificacion(proy.MNombre,200)}</b>
                                 <h:panelGroup>
                                     <h:outputText value="Fecha de finalización: "/>
                                     <b>
@@ -39,7 +39,7 @@
                                     circular="true" headerText="Actividades" numVisible="1" var="actividad"
                                     rendered="#{not actividadTbController.itemsNotificacion.isEmpty()}">
                             <p:panelGrid columns="1" style="width: 500px;text-align: center;height: 100px">
-                                <b>#{actividadTbController.NombreNotificacion(actividad)}</b>
+                                <b>#{actividadTbController.NombreNotificacion(actividad.MNombre,200)}</b>
                                 <h:panelGroup>
                                     <h:outputText value="Fecha de finalización: "/>
                                     <b>
@@ -80,7 +80,7 @@
                                 </h:panelGroup>
                             </p:panelGrid>
                             <p:panelGrid columns="1" style="text-align: center" layout="grid">
-                                <p:commandButton style="background: #660000;color: #ffffff"  value="Ir al proceso del ejemplar" icon="ui-icon-clock" action="/paginas/procesoejemplarTb/List.xhtml" rendered="#{not actividadTbController.itemsNotificacion.isEmpty()}">
+                                <p:commandButton style="background: #660000;color: #ffffff"  value="Ir al proceso del ejemplar" icon="ui-icon-clock" action="/paginas/procesoejemplarTb/List.xhtml" >
                                     <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{proceso.EIdproyecto}"/>
                                 </p:commandButton>
                             </p:panelGrid>

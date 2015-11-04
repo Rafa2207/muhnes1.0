@@ -30,6 +30,7 @@ import modelo.AgenteTb;
 import modelo.ProrrogaProyectoTb;
 import org.primefaces.context.RequestContext;
 import servicio.ActividadTbFacade;
+import servicio.ProrrogaProyectoTbFacade;
 
 @Named("proyectoTbController")
 @ViewScoped
@@ -39,9 +40,12 @@ public class ProyectoTbController implements Serializable {
     private servicio.ProyectoTbFacade ejbFacade;
     @EJB
     private servicio.ActividadTbFacade FacadeActividad;
+    @EJB
+    private servicio.ProrrogaProyectoTbFacade FacadeProrroga;
     private List<ActividadTb> ListaActividad = null;
     private List<ProyectoTb> items = null, filtro, ListaProyecto = null, itemsProyecto = null, itemsNotificacion = null, listaNotificacion = null;
     private ProyectoTb selected;
+    private ProrrogaProyectoTb prorroga;
     private Date fechatemporal, fechaActual = new Date();
     int NumeroDeNotificaciones=0;
     String agente;
@@ -97,6 +101,22 @@ public class ProyectoTbController implements Serializable {
         this.selected = selected;
     }
 
+    public ProrrogaProyectoTb getProrroga() {
+        return prorroga;
+    }
+
+    public void setProrroga(ProrrogaProyectoTb prorroga) {
+        this.prorroga = prorroga;
+    }
+
+    public ProrrogaProyectoTbFacade getFacadeProrroga() {
+        return FacadeProrroga;
+    }
+
+    public void setFacadeProrroga(ProrrogaProyectoTbFacade FacadeProrroga) {
+        this.FacadeProrroga = FacadeProrroga;
+    }
+    
     protected void setEmbeddableKeys() {
     }
 
@@ -133,7 +153,7 @@ public class ProyectoTbController implements Serializable {
     public void setItemsNotificacion(List<ProyectoTb> itemsNotificacion) {
         this.itemsNotificacion = itemsNotificacion;
     }
-
+    
     public List<ProyectoTb> getItemsNotificacion() {
         List<ProyectoTb> quitarFinalizados = new ArrayList<ProyectoTb>();
 
@@ -176,6 +196,17 @@ public class ProyectoTbController implements Serializable {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
+    }
+    
+    //probando la prorroga
+    public void desactivarProyecto(ProyectoTb proyec) {
+        ProrrogaProyectoTb prorrogaDesactivar;
+        proyec.getProrrogaProyectoTbList().clear();
+        proyec.getProrrogaProyectoTbList().addAll(getFacadeProrroga().buscarProrroga(proyec));
+        for(ProrrogaProyectoTb prorro :proyec.getProrrogaProyectoTbList()){
+            
+        }
+        persist(PersistAction.UPDATE, "El proyecto ha sido desactivado correctamente");
     }
 
     public List<ProyectoTb> getItems() {
@@ -357,17 +388,17 @@ public class ProyectoTbController implements Serializable {
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Proyecto Finalizado", "INFO"));
     }
 
-    public String NombreNotificacion(ProyectoTb p) {
+    public String NombreNotificacion(String p,int n) {
         String nombre = null;
         int cadena=0;
         try {
-            cadena=p.getMNombre().length();
-            if(cadena>=200){
-                nombre = p.getMNombre().substring(0, 200);
+            cadena=p.length();
+            if(cadena>=n){
+                nombre = p.substring(0, n);
                 nombre = nombre+"...";
             }
             else{
-                nombre=p.getMNombre().substring(0,cadena);
+                nombre=p.substring(0,cadena);
             }   
         } catch (Exception e) {
             nombre = null;

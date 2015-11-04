@@ -5,9 +5,11 @@
  */
 package servicio;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import modelo.AreaprotegidaTb;
 
 /**
@@ -26,6 +28,12 @@ public class AreaprotegidaTbFacade extends AbstractFacade<AreaprotegidaTb> {
 
     public AreaprotegidaTbFacade() {
         super(AreaprotegidaTb.class);
+    }
+    
+    public List<AreaprotegidaTb> AreaProtegidaOrdenNombreAsc() {
+        em.clear();
+        TypedQuery<AreaprotegidaTb> query = em.createQuery("SELECT p FROM AreaprotegidaTb p ORDER BY p.cNombre ASC", AreaprotegidaTb.class);
+        return query.getResultList();
     }
     
 }

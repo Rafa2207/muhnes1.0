@@ -51,7 +51,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListActividadTbTitle_CNombre}"/>
                             </f:facet>
-                            <h:outputText value="#{item.MNombre}"/>
+                            <h:outputText value="#{actividadTbController.NombreNotificacion(item.MNombre, 50)}"/>
                         </p:column>
 
                         <p:column filterBy="#{item.FFecha}" width="15%" filterStyle="display:none">
@@ -76,10 +76,10 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListActividadTbTitle_MDescripcion}"/>
                             </f:facet>
-                            <h:outputText value="#{item.MDescripcion}"/>
+                            <h:outputText value="#{actividadTbController.NombreNotificacion(item.MDescripcion, 50)}"/>
                         </p:column>
 
-                        <p:column filterBy="#{item.DTotal}" filterStyle="display:none" width="10%" style="text-align: right">
+                        <p:column filterBy="#{item.DTotal}" filterStyle="display:none" width="8%" style="text-align: right">
                             <f:facet name="header">
                                 <h:outputText value="Presupuesto"/>
                             </f:facet>

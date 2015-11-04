@@ -37,6 +37,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "ProyectoTb.findByFFechaInicio", query = "SELECT p FROM ProyectoTb p WHERE p.fFechaInicio = :fFechaInicio"),
     @NamedQuery(name = "ProyectoTb.findByFFechaFin", query = "SELECT p FROM ProyectoTb p WHERE p.fFechaFin = :fFechaFin"),
     @NamedQuery(name = "ProyectoTb.findByEResponsable", query = "SELECT p FROM ProyectoTb p WHERE p.eResponsable = :eResponsable"),
+    @NamedQuery(name = "ProyectoTb.findByMInformacionAdicional", query = "SELECT p FROM ProyectoTb p WHERE p.mInformacionAdicional = :mInformacionAdicional"),
     @NamedQuery(name = "ProyectoTb.findByEEstado", query = "SELECT p FROM ProyectoTb p WHERE p.eEstado = :eEstado")})
 public class ProyectoTb implements Serializable {
     @OneToMany(mappedBy = "eIdproyecto", orphanRemoval = true)
@@ -63,6 +64,9 @@ public class ProyectoTb implements Serializable {
     private Integer eResponsable;
     @Column(name = "e_estado")
     private Integer eEstado;
+    @Size(max = 2147483647)
+    @Column(name = "m_informacion_adicional")
+    private String mInformacionAdicional;
     @OneToMany(mappedBy = "eIdproyecto")
     private List<DespachoTb> despachoTbList;
     @OneToMany(mappedBy = "eIdproyecto", orphanRemoval = true, cascade= CascadeType.ALL)
@@ -135,6 +139,14 @@ public class ProyectoTb implements Serializable {
 
     public void setEEstado(Integer eEstado) {
         this.eEstado = eEstado;
+    }
+
+    public String getMInformacionAdicional() {
+        return mInformacionAdicional;
+    }
+
+    public void setMInformacionAdicional(String mInformacionAdicional) {
+        this.mInformacionAdicional = mInformacionAdicional;
     }
 
     public List<DespachoTb> getDespachoTbList() {

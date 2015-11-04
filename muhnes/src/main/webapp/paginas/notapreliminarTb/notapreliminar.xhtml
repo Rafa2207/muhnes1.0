@@ -22,14 +22,11 @@
                     </p:breadCrumb>
 
 
-                    <p:commandButton id="NotaAdminButton" icon="ui-icon-pencil"  value="Registrar notas" action="/paginas/notapreliminarTb/List.xhtml" disabled="#{empty proyectoTbController.selected}" >
+                    <p:commandButton id="NotaAdminButton" icon="ui-icon-pencil"  value="Gestionar notas" action="/paginas/notapreliminarTb/List.xhtml" disabled="#{empty proyectoTbController.selected}" >
                         <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{proyectoTbController.selected}" />
                     </p:commandButton>
-                   
-                    <p:commandButton id="NotaAllButton" icon="ui-icon-clipboard"  value="Ver todas las notas" action="/paginas/notapreliminarTb/ListAll.xhtml">
-                    </p:commandButton>
-                                        
-                     <p:dataTable id="datalist" value="#{proyectoTbController.items}" var="item"
+                                                           
+                    <p:dataTable id="datalist" value="#{proyectoTbController.itemsProyecto}" var="item"
                                  selectionMode="single" selection="#{proyectoTbController.selected}"
                                  paginator="true"
                                  paginatorPosition="bottom"
@@ -42,15 +39,15 @@
                                  
                                  >
 
-                        <p:ajax event="rowSelect"   update=":ProyectoTbListForm:NotaAdminButton :ProyectoTbListForm:NotaAllButton"/>
-                        <p:ajax event="rowUnselect" update=":ProyectoTbListForm:NotaAdminButton :ProyectoTbListForm:NotaAllButton"/>
+                        <p:ajax event="rowSelect"   update=":ProyectoTbListForm:NotaAdminButton"/>
+                        <p:ajax event="rowUnselect" update=":ProyectoTbListForm:NotaAdminButton"/>
 
 
                         <p:column filterBy="#{item.MNombre}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="Nombre"/>
                             </f:facet>
-                            <h:outputText value="#{item.MNombre}"/>
+                            <h:outputText value="#{proyectoTbController.NombreNotificacion(item.MNombre, 150)}"/>
                         </p:column>
 
                        

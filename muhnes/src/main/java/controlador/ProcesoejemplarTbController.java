@@ -355,22 +355,33 @@ public class ProcesoejemplarTbController implements Serializable {
     public void controlmodificar() {
         control = false;
     }
+    
+      public void finalizarProceso() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        selected.setEEstado(1);
+        getFacade().edit(selected);
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Cuarentena Finalizada", "INFO"));
+        }
+    
+    
     public String NombreNotificacion(ProcesoejemplarTb a) {
         String nombre = null;
         int cadena=0;
         try {
             cadena=a.getMNombre().length();
             if(cadena>=200){
-                nombre = a.getMNombre().substring(0, 200);
+                nombre =a.getCTipo()+": "+a.getMNombre().substring(0, 200);
                 nombre = nombre+"...";
             }
             else{
-                nombre=a.getMNombre().substring(0,cadena);
+                nombre=a.getCTipo()+": "+a.getMNombre().substring(0,cadena);
             }   
         } catch (Exception e) {
             nombre = null;
         }
         return nombre;
     }
+    
+  
 
 }

@@ -287,14 +287,13 @@ public class AgenteTbController implements Serializable {
         selected.getAgentePerfilTbList().add(nuevo);
 
         perfiles.remove(perfil);
-
     }
 
     public void anadirEdit() {
         AgentePerfilTb nuevo = new AgentePerfilTb();
         nuevo.setPerfilTb(perfil);
         nuevo.setAgenteTb(selected);
-
+        
         AgentePerfilTbPK agentepk = new AgentePerfilTbPK();
 
         agentepk.setEIdperfil(perfil.getEIdperfil());

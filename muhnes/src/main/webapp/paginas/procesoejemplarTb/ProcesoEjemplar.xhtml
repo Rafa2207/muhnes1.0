@@ -26,7 +26,7 @@
                         <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{proyectoTbController.selected}" />
                     </p:commandButton>
                     
-                     <p:dataTable id="datalist" value="#{proyectoTbController.items}" var="item"
+                    <p:dataTable id="datalist" value="#{proyectoTbController.itemsProyecto}" var="item"
                                  selectionMode="single" selection="#{proyectoTbController.selected}"
                                  paginator="true"
                                  paginatorPosition="bottom"
@@ -47,7 +47,7 @@
                             <f:facet name="header">
                                 <h:outputText value="Nombre"/>
                             </f:facet>
-                            <h:outputText value="#{item.MNombre}"/>
+                            <h:outputText value="#{proyectoTbController.NombreNotificacion(item.MNombre, 150)}"/>
                         </p:column>
 
                        

@@ -248,5 +248,16 @@ public class ExhibicionTbController implements Serializable {
         }
         return nombre;
     }
+    
+    public String EstadoList(int estado){
+        String mensaje=null;
+        if(estado==0){
+            mensaje="En préstamo";
+        }
+        if(estado==1){
+            mensaje="Recibido";
+        }
+        return mensaje;
+    }
 
 }

@@ -304,8 +304,6 @@ public class ActividadTbController implements Serializable {
 
     public void prepareEdit() {
         fechatemporal = selected.getFFechafin();
-        selected.seteEstado(1);
-
     }
 
     public void limpiarFecha() {
@@ -365,17 +363,17 @@ public class ActividadTbController implements Serializable {
             return 0.0;
         }
     }
-    public String NombreNotificacion(ActividadTb a) {
+    public String NombreNotificacion(String a,int n) {
         String nombre = null;
         int cadena=0;
         try {
-            cadena=a.getMNombre().length();
-            if(cadena>=200){
-                nombre = a.getMNombre().substring(0, 200);
+            cadena=a.length();
+            if(cadena>=n){
+                nombre = a.substring(0, n);
                 nombre = nombre+"...";
             }
             else{
-                nombre=a.getMNombre().substring(0,cadena);
+                nombre=a.substring(0,cadena);
             }   
         } catch (Exception e) {
             nombre = null;

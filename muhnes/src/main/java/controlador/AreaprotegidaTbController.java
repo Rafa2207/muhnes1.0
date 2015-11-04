@@ -26,7 +26,7 @@ public class AreaprotegidaTbController implements Serializable {
 
     @EJB
     private servicio.AreaprotegidaTbFacade ejbFacade;
-    private List<AreaprotegidaTb> items = null, filtro;
+    private List<AreaprotegidaTb> items = null, filtro, itemsAreaOrdenNombreAsc=null;
     private AreaprotegidaTb selected;
 
     public List<AreaprotegidaTb> getFiltro() {
@@ -57,6 +57,15 @@ public class AreaprotegidaTbController implements Serializable {
     private AreaprotegidaTbFacade getFacade() {
         return ejbFacade;
     }
+
+    public List<AreaprotegidaTb> getItemsAreaOrdenNombreAsc() {
+        itemsAreaOrdenNombreAsc=getFacade().AreaProtegidaOrdenNombreAsc();
+        return itemsAreaOrdenNombreAsc;
+    }
+
+    public void setItemsAreaOrdenNombreAsc(List<AreaprotegidaTb> itemsAreaOrdenNombreAsc) {
+        this.itemsAreaOrdenNombreAsc = itemsAreaOrdenNombreAsc;
+    } 
 
     public AreaprotegidaTb prepareCreate() {
         selected = new AreaprotegidaTb();

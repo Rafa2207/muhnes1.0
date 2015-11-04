@@ -52,7 +52,7 @@
                             </f:facet>
                             <h:outputText value="#{item.MNombre}"/>
                         </p:column>
-                        
+
                         <p:column filterBy="#{item.CTipo}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListExhibicionTbTitle_CTipo}"/>
@@ -65,14 +65,14 @@
                             </f:facet>
                             <h:outputText value="#{item.MDestino}"/>
                         </p:column>
-                        
+
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListExhibicionTbTitle_CResponsable}"/>
                             </f:facet>
                             <h:outputText value="#{item.CResponsable}"/>
                         </p:column>
-                                                
+
                         <p:column width="15%">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListExhibicionTbTitle_FFechaSalida}"/>
@@ -93,7 +93,7 @@
                             <f:facet name="header">
                                 <h:outputText value="Estado"/>
                             </f:facet>
-                            <h:outputText value="#{item.EEstado}"/>
+                            <h:outputText value="#{exhibicionTbController.EstadoList(item.EEstado)}"/>
                         </p:column>
 
                         <f:facet name="header">
@@ -103,7 +103,12 @@
                             </p:outputPanel>
                         </f:facet>
                     </p:dataTable>
-                </p:panel>
+                    <p:commandLink>
+                        <p:graphicImage name="images/planta.png" />
+                        <p:dataExporter type="pdf" target="datalist" fileName="hola" pageOnly="true"/>
+                    </p:commandLink>
+                    </p:panel>
+                
             </h:form>
 
             <ui:include src="Create.xhtml"/>

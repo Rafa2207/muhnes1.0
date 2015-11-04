@@ -45,7 +45,7 @@ public class ProyectoTbFacade extends AbstractFacade<ProyectoTb> {
     //Consulta general
     public List<ProyectoTb> ProyectoGeneral() {
         em.clear();
-        TypedQuery<ProyectoTb> query = em.createQuery("SELECT p FROM ProyectoTb p ORDER BY p.fFechaInicio DESC", ProyectoTb.class);
+        TypedQuery<ProyectoTb> query = em.createQuery("SELECT p FROM ProyectoTb p ORDER BY p.fFechaFin DESC", ProyectoTb.class);
         return query.getResultList();
     }
             

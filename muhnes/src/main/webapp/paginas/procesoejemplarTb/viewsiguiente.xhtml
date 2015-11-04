@@ -11,7 +11,7 @@
         <p:dialog showEffect="explode" id="viewsiguienteDlg" widgetVar="viewsiguienteDialog" modal="true" resizable="false" appendTo="@(body)" header="Proceso cuarentena">
             <h:form id="viewsiguienteForm">
                 <h:panelGroup id="display" rendered="#{procesoejemplarTbController.control}" >
-                    <p:panelGrid columns="2" style="width: 600px">
+                    <p:panelGrid columns="2">
                         
                         <h:outputText value="Nombre:"/>
                         <b>#{procesoejemplarTbController.nombre}</b>
@@ -35,9 +35,13 @@
                             <f:convertDateTime pattern="dd MMMM yyyy" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewProcesoejemplarTbLabel_EIdproyecto}"/>
-                        <h:outputText value="#{procesoejemplarTbController.selected.EIdproyecto.MNombre}" title="#{bundle.ViewProcesoejemplarTbTitle_EIdproyecto}"/>
+                        <h:outputText value="#{proyectoTbController.NombreNotificacion(procesoejemplarTbController.selected.EIdproyecto.MNombre, 100)}" title="#{bundle.ViewProcesoejemplarTbTitle_EIdproyecto}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" update="display, :growl" oncomplete="handleSubmit(args, 'viewsiguienteDialog');"/>
+                    <p:commandButton icon="ui-icon-flag"  value="Finalizar cuarentena" actionListener="#{procesoejemplarTbController.finalizarProceso()}" 
+                                     update="display,:growl" rendered="#{procesoejemplarTbController.selected.EEstado==0}" 
+                                     oncomplete="handleSubmit(args, 'viewsiguienteDialog');">
+                        <p:confirm header="Confirmación" message="¿Está seguro que desea Finalizar el proceso?" icon="ui-icon-alert" />
+                    </p:commandButton>
                     <p:commandButton value="Modificar" actionListener="#{procesoejemplarTbController.controlmodificar()}" update="display, :viewsiguienteForm"/>
                 </h:panelGroup>
 
