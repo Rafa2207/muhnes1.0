@@ -66,11 +66,23 @@
                             </p:dataTable>
                         </p:tab>
                         <p:tab title="Imágenes">
-                                <p:galleria id="imagenes" value="#{taxonomiaTbController.selected.imagenTbList}" 
-                                            var="imagen" 
-                                            panelWidth="500" panelHeight="250">
-                                    <p:graphicImage value="/images/#{imagen.CNombre}" title="#{imagen.CNombre}" height="250" width="500"/>
-                                </p:galleria>
+                                <p:dataTable id="imagenes"
+                                         value="#{taxonomiaTbController.selected.imagenTbList}"
+                                         var="img"
+                                         editable="true"
+                                         tableStyle="width: 500px"
+                                         scrollable="true"
+                                         scrollHeight="200"
+                                         emptyMessage="No se han añadido idiomas"
+                                         >
+                                <p:column headerText="Imagen">
+                                    <p:commandLink styleClass="ui-icon ui-icon-image" value="ver imagen" type="button" onclick="PF('#{img.CNombre}').show();"/>
+                                    <p:outputLabel value="Ver imagen"/>
+                                    <p:dialog header="Imagen" height="300" width="500" resizable="true" dynamic="true" showEffect="clip" widgetVar="#{img.CNombre}">
+                                        <p:graphicImage value="/images/#{img.CNombre}" />
+                                    </p:dialog>
+                                </p:column>
+                            </p:dataTable>
                         </p:tab>
                     </p:tabView>
                     <p:commandButton value="#{bundle.Close}" onclick="VariedadTbViewDialog.hide()"/>

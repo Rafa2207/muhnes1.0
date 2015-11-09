@@ -174,7 +174,47 @@
                                 </p:column>
                             </p:dataTable>
                         </p:tab>
-                        <p:tab title="Imágenes"></p:tab>
+                        <p:tab title="Imágenes">
+                            <p:fileUpload  label="Seleccione imagen:" 
+                                           fileUploadListener="#{taxonomiaTbController.handleFileUpload}" 
+                                           style="width: 760px; height: 150px;"
+                                           mode="advanced" 
+                                           dragDropSupport="false"
+                                           sizeLimit="5242880" 
+                                           invalidSizeMessage="La imagen debe ser menor a 5MB" 
+                                           fileLimit="3" 
+                                           allowTypes="/(\.|\/)(gif|jpe?g|png)$/" 
+                                           fileLimitMessage="El máximo de imágenes es 3"  
+                                           invalidFileMessage="Se debe seleccionar una imagen"
+                                           cancelLabel="Cancelar" uploadLabel="Subir"
+                                           update="imagenes :growl" />
+                            <p:dataTable id="imagenes"
+                                         value="#{taxonomiaTbController.selected.imagenTbList}"
+                                         var="img"
+                                         editable="true"
+                                         tableStyle="width: 500px"
+                                         scrollable="true"
+                                         scrollHeight="200"
+                                         emptyMessage="No se han añadido idiomas"
+                                         >
+                                <p:column headerText="Imagen">
+                                    <p:commandLink styleClass="ui-icon ui-icon-image" value="ver imagen" type="button" onclick="PF('#{img.CNombre}').show();"/>
+                                    <p:outputLabel value="Ver imagen"/>
+                                    <p:dialog header="Imagen" height="300" width="500" resizable="true" dynamic="true" showEffect="clip" widgetVar="#{img.CNombre}">
+                                        <p:graphicImage value="/images/#{img.CNombre}" />
+                                    </p:dialog>
+                                </p:column>
+                                <p:column headerText="Acciones">
+                                    <p:commandLink styleClass="ui-icon ui-icon-trash"
+                                                   action="#{taxonomiaTbController.borrarImagen()}"
+                                                   process="imagenes"
+                                                   update="imagenes :growl">
+                                        <f:setPropertyActionListener value="#{img}" 
+                                                                     target="#{taxonomiaTbController.img}"/>
+                                    </p:commandLink>
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>
                     </p:tabView>
                     <p:commandButton actionListener="#{taxonomiaTbController.update}" value="#{bundle.Save}" update="display,:SubespecieTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'SubespecieTbEditDialog');"/>
                 </h:panelGroup>

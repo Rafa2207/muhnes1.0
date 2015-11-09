@@ -61,6 +61,7 @@ public class TaxonomiaTbController implements Serializable {
     private List<PaisTb> listaIdiomas;
     private List<String> idiomas;
     private Part photo;
+    private ImagenTb img;
 
     public TaxonomiaTbController() {
     }
@@ -71,6 +72,14 @@ public class TaxonomiaTbController implements Serializable {
 
     public void setAutor(boolean autor) {
         this.autor = autor;
+    }
+
+    public ImagenTb getImg() {
+        return img;
+    }
+
+    public void setImg(ImagenTb img) {
+        this.img = img;
     }
 
     public Part getPhoto() {
@@ -581,6 +590,24 @@ public class TaxonomiaTbController implements Serializable {
         selected.getImagenTbList().add(nuevo);
         FacesMessage exito = new FacesMessage("imagen subida correctamente");
         FacesContext.getCurrentInstance().addMessage(null, exito);
+    }
+
+    public void borrarImagen() {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        String realPath = UtilPath.getPathDefinida(ec.getRealPath("/"));
+        String pathDefinition = realPath + File.separator + "src" + File.separator + "main" + File.separator + "webapp" + File.separator + "images" + File.separator + img.getCNombre();
+        try {
+            File imagen = new File(pathDefinition);
+            if (imagen.exists()) {
+                imagen.delete();
+                FacesMessage exito = new FacesMessage("imagen eliminada correctamente");
+                FacesContext.getCurrentInstance().addMessage(null, exito);
+                selected.getImagenTbList().remove(img);
+            }
+        } catch (Exception e) {
+            FacesMessage error = new FacesMessage("No se puede subir la imagen");
+            FacesContext.getCurrentInstance().addMessage(null, error);
+        }
     }
 
     public void removerNombreComun() {
