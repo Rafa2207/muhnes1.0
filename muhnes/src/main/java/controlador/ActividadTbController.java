@@ -38,7 +38,7 @@ public class ActividadTbController implements Serializable {
     private double cantidad, costo;
     private String nombre, tiempo;
     private InsumoTb insumo;
-    int NumeroDeNotificaciones=0;
+    int NumeroDeNotificaciones = 0;
 
     public InsumoTb getInsumo() {
         return insumo;
@@ -55,7 +55,7 @@ public class ActividadTbController implements Serializable {
     public void setNumeroDeNotificaciones(int NumeroDeNotificaciones) {
         this.NumeroDeNotificaciones = NumeroDeNotificaciones;
     }
-    
+
     public double getCantidad() {
         return cantidad;
     }
@@ -150,22 +150,26 @@ public class ActividadTbController implements Serializable {
         Date fechaDeSemana = calendar.getTime(); //mandamos la fecha a una variable Date
 
         itemsNotificacion = getFacade().ActividadNotificaciones(fechaActual, fechaDeSemana);
-        for (ActividadTb a : itemsNotificacion) {
-            if (a.geteEstado() == 3) {
-                quitarFinalizados.add(a);
-            }
-            if (a.geteEstado() == 1) {
-                quitarFinalizados.add(a);
-            }
-            if (a.geteEstado() == 0) {
-                if (a.getFFechaFinReal().after(fechaDeSemana)) {
+        try {
+            for (ActividadTb a : itemsNotificacion) {
+                if (a.geteEstado() == 3) {
                     quitarFinalizados.add(a);
                 }
-            }
+                if (a.geteEstado() == 1) {
+                    quitarFinalizados.add(a);
+                }
+                if (a.geteEstado() == 0) {
+                    if (a.getFFechaFinReal().after(fechaDeSemana)) {
+                        quitarFinalizados.add(a);
+                    }
+                }
 
+            }
+            itemsNotificacion.removeAll(quitarFinalizados);
+            NumeroDeNotificaciones = itemsNotificacion.size();
+
+        } catch (Exception e) {
         }
-        itemsNotificacion.removeAll(quitarFinalizados);
-        NumeroDeNotificaciones=itemsNotificacion.size();
         return itemsNotificacion;
     }
 
@@ -363,18 +367,18 @@ public class ActividadTbController implements Serializable {
             return 0.0;
         }
     }
-    public String NombreNotificacion(String a,int n) {
+
+    public String NombreNotificacion(String a, int n) {
         String nombre = null;
-        int cadena=0;
+        int cadena = 0;
         try {
-            cadena=a.length();
-            if(cadena>=n){
+            cadena = a.length();
+            if (cadena >= n) {
                 nombre = a.substring(0, n);
-                nombre = nombre+"...";
+                nombre = nombre + "...";
+            } else {
+                nombre = a.substring(0, cadena);
             }
-            else{
-                nombre=a.substring(0,cadena);
-            }   
         } catch (Exception e) {
             nombre = null;
         }

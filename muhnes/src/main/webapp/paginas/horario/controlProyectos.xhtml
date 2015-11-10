@@ -26,7 +26,7 @@
                                 value="#{controlProyectos.eventModel}"
                                 aspectRatio="3" draggable="false" rightHeaderTemplate=""
                                 tooltip="true" resizable="false" initialDate="#{controladorSesion.proyecto.FFechaInicio}"
-                                timeZone="GMT-6">  
+                                timeZone="GMT-5">  
                         <p:ajax event="eventSelect" listener="#{controlProyectos.seleccionEvento}"  update=":modales" oncomplete="PF('dialogVer').show();" />
                     </p:schedule>
                 </p:panel>

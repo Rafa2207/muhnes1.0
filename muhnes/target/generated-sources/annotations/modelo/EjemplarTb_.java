@@ -6,12 +6,12 @@ import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import modelo.AgenteIdentificaEjemplarTb;
-import modelo.ExhibicionEjemplarTb;
+import modelo.EjemplarParticipaExhibicionTb;
 import modelo.LocalidadTb;
 import modelo.ProyectoTb;
 import modelo.TaxonomiaTb;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-11-09T12:03:00")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-11-10T10:02:57")
 @StaticMetamodel(EjemplarTb.class)
 public class EjemplarTb_ { 
 
@@ -30,7 +30,7 @@ public class EjemplarTb_ {
     public static volatile SingularAttribute<EjemplarTb, Integer> eIdejemplar;
     public static volatile SingularAttribute<EjemplarTb, Integer> eResponsable;
     public static volatile SingularAttribute<EjemplarTb, Integer> eCantDuplicado;
+    public static volatile ListAttribute<EjemplarTb, EjemplarParticipaExhibicionTb> ejemplarParticipaExhibicionTbList;
     public static volatile SingularAttribute<EjemplarTb, Integer> eCorrelativo;
-    public static volatile ListAttribute<EjemplarTb, ExhibicionEjemplarTb> exhibicionEjemplarTbList;
 
 }

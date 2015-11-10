@@ -47,6 +47,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "ExhibicionTb.findByTFechaPrestamo", query = "SELECT e FROM ExhibicionTb e WHERE e.tFechaPrestamo = :tFechaPrestamo"),
     @NamedQuery(name = "ExhibicionTb.findByTFechaRecibido", query = "SELECT e FROM ExhibicionTb e WHERE e.tFechaRecibido = :tFechaRecibido")})
 public class ExhibicionTb implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "exhibicionTb")
+    private List<EjemplarParticipaExhibicionTb> ejemplarParticipaExhibicionTbList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -85,8 +87,6 @@ public class ExhibicionTb implements Serializable {
     @Column(name = "t_fecha_recibido")
     @Temporal(TemporalType.TIMESTAMP)
     private Date tFechaRecibido;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "exhibicionTb")
-    private List<ExhibicionEjemplarTb> exhibicionEjemplarTbList;
 
     public ExhibicionTb() {
     }
@@ -201,15 +201,6 @@ public class ExhibicionTb implements Serializable {
         this.tFechaRecibido = tFechaRecibido;
     }
 
-    @XmlTransient
-    public List<ExhibicionEjemplarTb> getExhibicionEjemplarTbList() {
-        return exhibicionEjemplarTbList;
-    }
-
-    public void setExhibicionEjemplarTbList(List<ExhibicionEjemplarTb> exhibicionEjemplarTbList) {
-        this.exhibicionEjemplarTbList = exhibicionEjemplarTbList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -233,6 +224,15 @@ public class ExhibicionTb implements Serializable {
     @Override
     public String toString() {
         return "modelo.ExhibicionTb[ eIdexhibicion=" + eIdexhibicion + " ]";
+    }
+
+    @XmlTransient
+    public List<EjemplarParticipaExhibicionTb> getEjemplarParticipaExhibicionTbList() {
+        return ejemplarParticipaExhibicionTbList;
+    }
+
+    public void setEjemplarParticipaExhibicionTbList(List<EjemplarParticipaExhibicionTb> ejemplarParticipaExhibicionTbList) {
+        this.ejemplarParticipaExhibicionTbList = ejemplarParticipaExhibicionTbList;
     }
     
 }

@@ -34,7 +34,7 @@ public class ProcesoejemplarTbController implements Serializable {
     private List<ProcesoejemplarTb> items = null, lista = null, itemsNotificacion = null;
     private ProcesoejemplarTb selected, proceso;
     private ProyectoTb proyectos;
-    private int cantidadSiguiente, cantidad,NumeroDeNotificaciones=0;
+    private int cantidadSiguiente, cantidad, NumeroDeNotificaciones = 0;
     private Date fechaSiguiente = new Date();
     private Date fechaInicioSiguiente = new Date(), fechaActual = new Date();
     boolean valor, control;
@@ -125,18 +125,22 @@ public class ProcesoejemplarTbController implements Serializable {
         Date fechaDeSemana = calendar.getTime(); //mandamos la fecha a una variable Date
 
         itemsNotificacion = getFacade().ProcesoNotificaciones(fechaActual, fechaDeSemana);
-        for (ProcesoejemplarTb p : itemsNotificacion) {
-            if (p.getEEstado() == 1) {
-                quitarFinalizados.add(p);
-            }
-            if (p.getEEstado() == 0) {
-                if (p.getFFechafin().after(fechaDeSemana)) {
+        try {
+            for (ProcesoejemplarTb p : itemsNotificacion) {
+                if (p.getEEstado() == 1) {
                     quitarFinalizados.add(p);
                 }
+                if (p.getEEstado() == 0) {
+                    if (p.getFFechafin().after(fechaDeSemana)) {
+                        quitarFinalizados.add(p);
+                    }
+                }
             }
+            itemsNotificacion.removeAll(quitarFinalizados);
+            NumeroDeNotificaciones = itemsNotificacion.size();
+
+        } catch (Exception e) {
         }
-        itemsNotificacion.removeAll(quitarFinalizados);
-        NumeroDeNotificaciones=itemsNotificacion.size();
         return itemsNotificacion;
     }
 
@@ -355,33 +359,29 @@ public class ProcesoejemplarTbController implements Serializable {
     public void controlmodificar() {
         control = false;
     }
-    
-      public void finalizarProceso() {
+
+    public void finalizarProceso() {
         FacesContext context = FacesContext.getCurrentInstance();
         selected.setEEstado(1);
         getFacade().edit(selected);
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Cuarentena Finalizada", "INFO"));
-        }
-    
-    
+    }
+
     public String NombreNotificacion(ProcesoejemplarTb a) {
         String nombre = null;
-        int cadena=0;
+        int cadena = 0;
         try {
-            cadena=a.getMNombre().length();
-            if(cadena>=200){
-                nombre =a.getCTipo()+": "+a.getMNombre().substring(0, 200);
-                nombre = nombre+"...";
+            cadena = a.getMNombre().length();
+            if (cadena >= 200) {
+                nombre = a.getCTipo() + ": " + a.getMNombre().substring(0, 200);
+                nombre = nombre + "...";
+            } else {
+                nombre = a.getCTipo() + ": " + a.getMNombre().substring(0, cadena);
             }
-            else{
-                nombre=a.getCTipo()+": "+a.getMNombre().substring(0,cadena);
-            }   
         } catch (Exception e) {
             nombre = null;
         }
         return nombre;
     }
-    
-  
 
 }

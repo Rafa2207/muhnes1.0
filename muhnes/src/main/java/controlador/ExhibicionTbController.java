@@ -23,6 +23,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
+import modelo.TaxonomiaTb;
 
 @Named("exhibicionTbController")
 @ViewScoped
@@ -34,6 +35,8 @@ public class ExhibicionTbController implements Serializable {
     private ExhibicionTb selected;
     private Date fechaActual = new Date();
     private int NumeroDeNotificaciones = 0;
+    private String tipoTaxon=null;
+    private TaxonomiaTb taxonomia;
 
     public ExhibicionTbController() {
     }
@@ -66,6 +69,22 @@ public class ExhibicionTbController implements Serializable {
 
     public void setNumeroDeNotificaciones(int NumeroDeNotificaciones) {
         this.NumeroDeNotificaciones = NumeroDeNotificaciones;
+    }
+
+    public String getTipoTaxon() {
+        return tipoTaxon;
+    }
+
+    public void setTipoTaxon(String tipoTaxon) {
+        this.tipoTaxon = tipoTaxon;
+    }
+
+    public TaxonomiaTb getTaxonomia() {
+        return taxonomia;
+    }
+
+    public void setTaxonomia(TaxonomiaTb taxonomia) {
+        this.taxonomia = taxonomia;
     }
 
     private ExhibicionTbFacade getFacade() {

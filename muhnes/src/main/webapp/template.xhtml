@@ -32,24 +32,39 @@
 
         <p:layout fullPage="true" >
             <p:layoutUnit position="north" size="50" gutter="0" >
-                <h:form>
+                <h:form> 
+                    <p:menubar style="float: left">
+                        <p:menuitem>
+                            <p:graphicImage name="images/concha.png" height="20px"/>
+                            <font face="Papyrus" style="color: #006666; font-weight: bold" size="3" >
+                                Museo de Historia Natural de El Salvador
+                            </font>
+                            <p:graphicImage name="images/sapo.png" height="20px"/>
+                        </p:menuitem>
+                    </p:menubar>
 
-                    <p:themeSwitcher style="margin-left: 10px; width:165px" id="defaultSwitcher" 
-                                     value="#{themeSwitcherBean.theme}" effect="fade" var="t">
-                        <f:selectItems value="#{themeSwitcherBean.themes}" var="theme"  />
-                        <p:ajax listener="#{themeSwitcherBean.saveUserTheme()}" />
-                    </p:themeSwitcher>
-
-                    <p:menubar style="float: right; margin-right: 120px;" >
+                    <p:menubar style="float: right"  >
                         <p:submenu label="#{request.userPrincipal.name}" icon="ui-icon-person" >
                             <p:menuitem value="Editar información"
                                         actionListener="#{usuarioTbController.prepareCambiarContra(request.userPrincipal.name)}"
                                         update=":CambiarContraForm"
                                         oncomplete="PF('ContraEditDialog').show()"
-                                        icon="ui-icon-contact"
-                                        />
+                                        icon="ui-icon-contact"/>
                             <p:menuitem value="Cerrar sesión" action="#{sesion.logout()}" icon="ui-icon-extlink"/>
                         </p:submenu>
+                        <p:menuitem value="Tema:"></p:menuitem>
+                        <p:menuitem value="Selección de tema:">
+                            <p:themeSwitcher style="margin-left: 10px; width:115px" id="defaultSwitcher" 
+                                             value="#{themeSwitcherBean.theme}" effect="fade" var="t" >
+                                <f:selectItems value="#{themeSwitcherBean.themes}" var="theme"/>
+                                <p:ajax listener="#{themeSwitcherBean.saveUserTheme()}" />
+                            </p:themeSwitcher>  
+                        </p:menuitem>
+                        <p:menuitem>
+                            <p:commandLink style="margin-left: 10px;" title="Ayuda" action="/paginas/proyectoTb/List.xhtml" >
+                                <p:graphicImage name="images/ayuda.png" height="25px" />
+                            </p:commandLink>
+                        </p:menuitem>
                     </p:menubar>
                 </h:form>
             </p:layoutUnit>
@@ -102,7 +117,7 @@
                             <p:menuitem value="Crear y restaurar Backup" outcome="/paginas/configuracion/respaldo.xhtml" />
                         </p:submenu>
                     </p:slideMenu>
-                   
+
                 </h:form>
             </p:layoutUnit>
 
@@ -113,7 +128,6 @@
                         Todos los derechos reservados © 2015
                         <h:graphicImage library="images" name="logo2.png" width="14"/>
                     </b>   
-
                 </ui:insert>
             </p:layoutUnit>
 

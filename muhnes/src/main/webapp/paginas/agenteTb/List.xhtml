@@ -98,9 +98,10 @@
             <h:form target="_blank">
                 <div style="text-align: right"> 
 
-                    <p:commandLink value="Reporte" 
-                                   actionListener="#{agenteTbController.reporte}" 
-                                   ajax="false"/>
+                    <p:commandLink title="Reporte de agentes" ajax="false"
+                                   actionListener="#{agenteTbController.reporte}">
+                    <p:graphicImage name="images/pdf-icon.png" height="50px"/>
+                    </p:commandLink>
                 </div> 
             </h:form>
 

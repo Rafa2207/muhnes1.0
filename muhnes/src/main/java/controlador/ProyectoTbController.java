@@ -47,7 +47,7 @@ public class ProyectoTbController implements Serializable {
     private ProyectoTb selected;
     private ProrrogaProyectoTb prorroga;
     private Date fechatemporal, fechaActual = new Date();
-    int NumeroDeNotificaciones=0;
+    int NumeroDeNotificaciones = 0;
     String agente;
     @PersistenceContext(unitName = "muhnes_muhnes_war_1.0-SNAPSHOTPU")
     EntityManager em;
@@ -116,7 +116,7 @@ public class ProyectoTbController implements Serializable {
     public void setFacadeProrroga(ProrrogaProyectoTbFacade FacadeProrroga) {
         this.FacadeProrroga = FacadeProrroga;
     }
-    
+
     protected void setEmbeddableKeys() {
     }
 
@@ -153,7 +153,7 @@ public class ProyectoTbController implements Serializable {
     public void setItemsNotificacion(List<ProyectoTb> itemsNotificacion) {
         this.itemsNotificacion = itemsNotificacion;
     }
-    
+
     public List<ProyectoTb> getItemsNotificacion() {
         List<ProyectoTb> quitarFinalizados = new ArrayList<ProyectoTb>();
 
@@ -162,19 +162,21 @@ public class ProyectoTbController implements Serializable {
         calendar.add(Calendar.DAY_OF_YEAR, 15);  // numero de dias que se restan o suman
         Date fecha = calendar.getTime(); //mandamos la fecha a una variable Date */
         itemsNotificacion = getFacade().ProyectoNotificaciones(fechaActual, fecha);
+        try {
+            for (ProyectoTb p : itemsNotificacion) {
+                if (p.getEEstado() == 2) {
+                    quitarFinalizados.add(p);
+                } else if (p.getFFechaFin().after(fecha)) {
+                    quitarFinalizados.add(p);
+                }
 
-        for (ProyectoTb p : itemsNotificacion) {
-            if (p.getEEstado() == 2) {
-                quitarFinalizados.add(p);
             }
-            else if (p.getFFechaFin().after(fecha)){
-                quitarFinalizados.add(p);
-            }
-            
+
+            itemsNotificacion.removeAll(quitarFinalizados);
+            NumeroDeNotificaciones = itemsNotificacion.size();
+
+        } catch (Exception e) {
         }
-        
-        itemsNotificacion.removeAll(quitarFinalizados);
-        NumeroDeNotificaciones=itemsNotificacion.size();
         return itemsNotificacion;
     }
 
@@ -197,14 +199,14 @@ public class ProyectoTbController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-    
+
     //probando la prorroga
     public void desactivarProyecto(ProyectoTb proyec) {
         ProrrogaProyectoTb prorrogaDesactivar;
         proyec.getProrrogaProyectoTbList().clear();
         proyec.getProrrogaProyectoTbList().addAll(getFacadeProrroga().buscarProrroga(proyec));
-        for(ProrrogaProyectoTb prorro :proyec.getProrrogaProyectoTbList()){
-            
+        for (ProrrogaProyectoTb prorro : proyec.getProrrogaProyectoTbList()) {
+
         }
         persist(PersistAction.UPDATE, "El proyecto ha sido desactivado correctamente");
     }
@@ -388,18 +390,17 @@ public class ProyectoTbController implements Serializable {
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Proyecto Finalizado", "INFO"));
     }
 
-    public String NombreNotificacion(String p,int n) {
+    public String NombreNotificacion(String p, int n) {
         String nombre = null;
-        int cadena=0;
+        int cadena = 0;
         try {
-            cadena=p.length();
-            if(cadena>=n){
+            cadena = p.length();
+            if (cadena >= n) {
                 nombre = p.substring(0, n);
-                nombre = nombre+"...";
+                nombre = nombre + "...";
+            } else {
+                nombre = p.substring(0, cadena);
             }
-            else{
-                nombre=p.substring(0,cadena);
-            }   
         } catch (Exception e) {
             nombre = null;
         }
