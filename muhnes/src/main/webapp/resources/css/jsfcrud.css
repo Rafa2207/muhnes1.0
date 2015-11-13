@@ -30,6 +30,11 @@
     display: inline; 
 }
 
+.ui-image-switch{
+    text-align: center;
+    alignment-adjust: central;
+}
+
 .ui-datatable .ui-panelgrid td,.ui-datatable .ui-panelgrid tr{
     border: none;
     vertical-align: top;

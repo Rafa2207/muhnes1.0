@@ -41,8 +41,17 @@ public class ImagenTbController implements Serializable {
     private List<ImagenTb> items = null;
     private ImagenTb selected;
     private Part photo;
+    private List<String> images = new ArrayList<String>();
 
     public ImagenTbController() {
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
     }
 
     public ImagenTb getSelected() {
@@ -189,10 +198,10 @@ public class ImagenTbController implements Serializable {
         UploadedFile file = event.getFile();
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         String realPath = UtilPath.getPathDefinida(ec.getRealPath("/"));
-        String pathDefinition = realPath+ File.separator + "src" + File.separator + "main" + File.separator + "webapp" + File.separator + "images" + File.separator +file.getFileName();
-        String ruta = File.separator + "images" + File.separator +file.getFileName();
-        System.out.println(""+pathDefinition);
-        
+        String pathDefinition = realPath + File.separator + "src" + File.separator + "main" + File.separator + "webapp" + File.separator + "images" + File.separator + file.getFileName();
+        String ruta = File.separator + "images" + File.separator + file.getFileName();
+        System.out.println("" + pathDefinition);
+
         try {
             FileInputStream in = (FileInputStream) file.getInputstream();
             FileOutputStream out = new FileOutputStream(pathDefinition);
@@ -213,10 +222,26 @@ public class ImagenTbController implements Serializable {
 
         }
         FacesMessage exito = new FacesMessage("imagen subida correctamente");
-            FacesContext.getCurrentInstance().addMessage(null, exito);
+        FacesContext.getCurrentInstance().addMessage(null, exito);
+    }
+
+    
+
+    public List<String> imagenes() {
+        List<String> images1 = new ArrayList<String>();
+        for (int i = 1; i <= 7; i++) {
+            //ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+            //String realPath = UtilPath.getPathDefinida(ec.getRealPath("/"));
+            //String pathDefinition = realPath + File.separator + "src" + File.separator + "main" + File.separator + "webapp" + File.separator + "images" + File.separator;
+            images1.add("nature" + i + ".jpg");
+            System.out.println("nature" + i + ".jpg");
+            
+        }
+        return images1;
     }
 
     //metodo para validar subida de imagenes a la base de datos
+
     public void validatePhoto(FacesContext ctx, UIComponent comp, Object value) {
 // List of possible validation errors
         List<FacesMessage> msgs = new ArrayList<>();

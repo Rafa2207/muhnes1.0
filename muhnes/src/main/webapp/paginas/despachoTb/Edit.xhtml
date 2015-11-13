@@ -11,22 +11,28 @@
         <p:dialog id="DespachoTbEditDlg" widgetVar="DespachoTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleDespacho.EditDespachoTbTitle}">
             <h:form id="DespachoTbEditForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{despachoTbController.selected != null}">
+                    <p:fieldset legend="Despacho">
+                    <p:panelGrid columns="2"  rendered="#{despachoTbController.selected != null}">
                         <p:outputLabel value="#{bundleDespacho.EditDespachoTbLabel_MDescripcion}" for="MDescripcion" />
                         <p:inputTextarea cols="20" rows="4" id="MDescripcion" value="#{despachoTbController.selected.MDescripcion}" title="#{bundleDespacho.EditDespachoTbTitle_MDescripcion}" required="true" requiredMessage="Introduzca una descripción"/>
                         <p:outputLabel value="#{bundleDespacho.EditDespachoTbLabel_FFecha}" for="FFecha" />
                         <p:calendar id="FFecha" pattern="dd MMMM yyyy" value="#{despachoTbController.selected.FFecha}" title="#{bundleDespacho.EditDespachoTbTitle_FFecha}"  showOn="button" locale="es" required="true" requiredMessage="Introduzca una fecha" mindate="0"/>
                         <p:outputLabel value="#{bundleDespacho.EditDespachoTbLabel_EIdproyecto}" for="EIdproyecto" />
-                        <p:selectOneMenu id="EIdproyecto" value="#{despachoTbController.selected.EIdproyecto}" >
-                            <f:selectItem itemLabel="#{bundleDespacho.SelectOneMessage}"/>
+                        <p:selectOneMenu id="EIdproyecto" 
+                                         filterMatchMode="contains"
+                                         filter="true"
+                                         value="#{despachoTbController.selected.EIdproyecto}" 
+                                         style="width: 300px">
+                            <f:selectItem itemLabel="Seleccione..."/>
                             <f:selectItems value="#{proyectoTbController.itemsAvailableSelectOne}"
                                            var="EIdproyectoItem"
                                            itemValue="#{EIdproyectoItem}"
                                            itemLabel="#{EIdproyectoItem.MNombre}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
+                </p:fieldset>
                     <p:fieldset legend="Materiales">
-                        <p:panelGrid columns="9">
+                        <p:panelGrid columns="9" style="width: 750px">
                             <p:outputLabel value="Material:" for="material" />
                             <p:selectOneMenu id="material"
                                              value="#{despachoTbController.material}" filter="true">
@@ -36,16 +42,17 @@
                                                var="mt"
                                                itemLabel="#{mt.CNombre}"
                                                itemValue="#{mt}"/>
-                                <p:ajax event="change" process="material" update="und"/>
+                                <p:ajax event="change" process="material" update="und cant cnd"/>
                             </p:selectOneMenu>
                             <p:outputLabel value="Cantidad:" for="cant"/>
                             <p:inputText id="cant" size="4" value="#{despachoTbController.cantidad}"/>
                             <h:outputText id="und" value="#{despachoTbController.material.EIdunidad.CNombre}"/>
+                            <h:outputText id="cnd" value="Cantidad Máxima: #{despachoTbController.material.DCantidad}"/>
                             <p:commandButton id="agregar"
                                              value="Agregar"
-                                             actionListener="#{despachoTbController.agregar()}"
+                                             actionListener="#{despachoTbController.agregarM()}"
                                              process="cant material agregar"
-                                             update="cant material materiales"
+                                             update="cant material materiales und cnd"
                                              />
                         </p:panelGrid>
                         <p:dataTable id="materiales"
@@ -55,7 +62,7 @@
                                      scrollable="true"
                                      scrollHeight="160"
                                      emptyMessage="No ha agregado materiales"
-                                     tableStyle="width:800px">
+                                     tableStyle="width:750px">
                             <p:column headerText="Material">
                                 #{material.materialTb.CNombre}
                             </p:column>
@@ -70,16 +77,16 @@
                                 </p:cellEditor>
                             </p:column>
                             <p:column headerText="Acciones">
-                                    <p:rowEditor/>
-                                    <p:commandLink
-                                        style="display: inline-block;"
-                                        styleClass="ui-icon ui-icon-trash"
-                                        action="#{despachoTbController.remover()}"
-                                        process="materiales"
-                                        update="materiales, :DespachoTbCreateForm:material">
-                                        <f:setPropertyActionListener value="#{material}" 
-                                                                     target="#{despachoTbController.materialMD}"/>
-                                    </p:commandLink>
+                                <p:rowEditor/>
+                                <p:commandLink
+                                    style="display: inline-block;"
+                                    styleClass="ui-icon ui-icon-trash"
+                                    action="#{despachoTbController.remover()}"
+                                    process="materiales"
+                                    update="materiales, :DespachoTbEditForm:material">
+                                    <f:setPropertyActionListener value="#{material}" 
+                                                                 target="#{despachoTbController.materialMD}"/>
+                                </p:commandLink>
                             </p:column>
                         </p:dataTable>
                     </p:fieldset>

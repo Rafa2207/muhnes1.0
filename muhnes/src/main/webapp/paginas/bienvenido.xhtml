@@ -112,13 +112,15 @@
                             </p:carousel>
                         </p:panelGrid>
                     </h:panelGroup>
-                   <h:panelGroup id="imagenMuhnes" rendered="#{proyectoTbController.itemsNotificacion.isEmpty() and actividadTbController.itemsNotificacion.isEmpty() 
-                                                               and procesoejemplarTbController.itemsNotificacion.isEmpty() and exhibicionTbController.itemsNotificacion.isEmpty()}">
-                        <p:panelGrid columns="1" layout="grid" style="text-align: center">
-                            <p:graphicImage name="images/inicio_muhnes.jpg"/>
-                            
-                        </p:panelGrid>
-                        
+                    <h:panelGroup id="imagenMuhnes" rendered="#{proyectoTbController.itemsNotificacion.isEmpty() and actividadTbController.itemsNotificacion.isEmpty() 
+                                                                and procesoejemplarTbController.itemsNotificacion.isEmpty() and exhibicionTbController.itemsNotificacion.isEmpty()}">
+                        <div align="center">
+                            <p:imageSwitch  effect="fade" slideshowSpeed="5000" id="fadeEffect">
+                                <ui:repeat value="#{imagenTbController.imagenes()}" var="image" id="fadeEffectImages">
+                                    <p:graphicImage name="images/galleria/#{image}" id="image" height="450" width="800" />
+                                </ui:repeat>
+                            </p:imageSwitch>
+                        </div>
                     </h:panelGroup>
                 </p:panel>
             </h:form>

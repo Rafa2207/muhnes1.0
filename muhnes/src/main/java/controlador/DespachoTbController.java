@@ -253,6 +253,29 @@ public class DespachoTbController implements Serializable {
         //material.setDCantidad(material.getDCantidad()-cantidad);
 
         cantidad = 0.0;
+        material=null;
+
+    }
+    
+    public void agregarM() {
+        MaterialDespachoTb nuevo = new MaterialDespachoTb();
+        nuevo.setDCantidad(cantidad);
+        nuevo.setMaterialTb(material);
+        nuevo.setDespachoTb(selected);
+
+        MaterialDespachoTbPK mppk = new MaterialDespachoTbPK();
+        mppk.setEIdmaterial(material.getEIdmaterial());
+        mppk.setEIddespacho(selected.getEIddespacho());
+
+        nuevo.setMaterialDespachoTbPK(mppk);
+
+        selected.getMaterialDespachoTbList().add(nuevo);
+
+        materialDisponible.remove(material);
+        //material.setDCantidad(material.getDCantidad()-cantidad);
+
+        cantidad = 0.0;
+        material=null;
 
     }
 
