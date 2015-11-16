@@ -8,6 +8,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpServletRequest;
 
 public class JsfUtil {
 
@@ -78,5 +79,9 @@ public class JsfUtil {
          sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
         }
         return sb.toString();
+    }
+    
+    public static HttpServletRequest getRequest(){
+        return (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
     }
 }

@@ -32,7 +32,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "BitacoraTb.findAll", query = "SELECT b FROM BitacoraTb b"),
     @NamedQuery(name = "BitacoraTb.findByEIdbitacora", query = "SELECT b FROM BitacoraTb b WHERE b.eIdbitacora = :eIdbitacora"),
     @NamedQuery(name = "BitacoraTb.findByMDescripcion", query = "SELECT b FROM BitacoraTb b WHERE b.mDescripcion = :mDescripcion"),
-    @NamedQuery(name = "BitacoraTb.findByFFecha", query = "SELECT b FROM BitacoraTb b WHERE b.fFecha = :fFecha")})
+    @NamedQuery(name = "BitacoraTb.findByTFecha", query = "SELECT b FROM BitacoraTb b WHERE b.tFecha = :tFecha")})
 public class BitacoraTb implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -43,9 +43,9 @@ public class BitacoraTb implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "m_descripcion")
     private String mDescripcion;
-    @Column(name = "f_fecha")
-    @Temporal(TemporalType.DATE)
-    private Date fFecha;
+    @Column(name = "t_fecha")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date tFecha;
     @JoinColumn(name = "e_idusuario", referencedColumnName = "e_idusuario")
     @ManyToOne
     private UsuarioTb eIdusuario;
@@ -73,12 +73,12 @@ public class BitacoraTb implements Serializable {
         this.mDescripcion = mDescripcion;
     }
 
-    public Date getFFecha() {
-        return fFecha;
+    public Date getTFecha() {
+        return tFecha;
     }
 
-    public void setFFecha(Date fFecha) {
-        this.fFecha = fFecha;
+    public void setTFecha(Date tFecha) {
+        this.tFecha = tFecha;
     }
 
     public UsuarioTb getEIdusuario() {

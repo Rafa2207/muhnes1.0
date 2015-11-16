@@ -181,5 +181,5 @@ public class UsuarioTb implements Serializable {
     public String toString() {
         return "modelo.UsuarioTb[ eIdusuario=" + eIdusuario + " ]";
     }
-    
-}
+
+    }

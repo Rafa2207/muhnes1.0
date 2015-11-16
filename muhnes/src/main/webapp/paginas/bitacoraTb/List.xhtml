@@ -43,15 +43,15 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListBitacoraTbTitle_FFecha}"/>
                             </f:facet>
-                            <h:outputText value="#{item.FFecha}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            <h:outputText value="#{item.TFecha}">
+                                <f:convertDateTime pattern="dd MMMM yyyy hh:mm a" />
                             </h:outputText>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListBitacoraTbTitle_EIdusuario}"/>
                             </f:facet>
-                            <h:outputText value="#{item.EIdusuario}"/>
+                            <h:outputText value="#{item.EIdusuario.CNombre} #{item.EIdusuario.CApellido}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{bitacoraTbController.prepareCreate}" update=":BitacoraTbCreateForm" oncomplete="PF('BitacoraTbCreateDialog').show()"/>
