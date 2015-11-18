@@ -37,6 +37,8 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "TaxonomiaTb.findByCTipo", query = "SELECT t FROM TaxonomiaTb t WHERE t.cTipo = :cTipo")})
 public class TaxonomiaTb implements Serializable {
     @OneToMany(mappedBy = "eIdtaxonomia")
+    private List<EjemplarVivoTb> ejemplarVivoTbList;
+    @OneToMany(mappedBy = "eIdtaxonomia")
     private List<EjemplarTb> ejemplarTbList;
     private static final long serialVersionUID = 1L;
     @Id
@@ -185,6 +187,14 @@ public class TaxonomiaTb implements Serializable {
 
     public void setEjemplarTbList(List<EjemplarTb> ejemplarTbList) {
         this.ejemplarTbList = ejemplarTbList;
+    }
+
+    public List<EjemplarVivoTb> getEjemplarVivoTbList() {
+        return ejemplarVivoTbList;
+    }
+
+    public void setEjemplarVivoTbList(List<EjemplarVivoTb> ejemplarVivoTbList) {
+        this.ejemplarVivoTbList = ejemplarVivoTbList;
     }
     
 }

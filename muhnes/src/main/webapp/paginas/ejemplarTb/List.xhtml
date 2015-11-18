@@ -78,7 +78,7 @@
                                 <h:outputText value="Fecha de Recolección"/>
                             </f:facet>
                             <h:outputText value="#{item.FFechaInicioIdent}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                                <f:convertDateTime pattern="dd MMMM yyyy" />
                             </h:outputText>
                         </p:column>
                         <p:column filterBy="#{item.FFechaFinIdent}" filterStyle="display:none" width="10%">
@@ -86,7 +86,7 @@
                                 <h:outputText value="Fecha de Identificación"/>
                             </f:facet>
                             <h:outputText value="#{item.FFechaFinIdent}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                                <f:convertDateTime pattern="dd MMMM yyyy" />
                             </h:outputText>
                         </p:column>
                         <p:column filterBy="#{item.EIdproyecto.MNombre}" filterStyle="display:none" width="20%">

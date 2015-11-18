@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DisminuirEjemplarTbCreateDlg" widgetVar="DisminuirEjemplarTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleEjemplarVivo.CreateDisminuirEjemplarTbTitle}">
+            <h:form id="DisminuirEjemplarTbCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{disminuirEjemplarTbController.selected != null}">
+                        <p:outputLabel value="#{bundleEjemplarVivo.CreateDisminuirEjemplarTbLabel_EIddisminuirEjemplar}" for="EIddisminuirEjemplar" />
+                        <p:inputText id="EIddisminuirEjemplar" value="#{disminuirEjemplarTbController.selected.EIddisminuirEjemplar}" title="#{bundleEjemplarVivo.CreateDisminuirEjemplarTbTitle_EIddisminuirEjemplar}" required="true" requiredMessage="#{bundleEjemplarVivo.CreateDisminuirEjemplarTbRequiredMessage_EIddisminuirEjemplar}"/>
+                        <p:outputLabel value="#{bundleEjemplarVivo.CreateDisminuirEjemplarTbLabel_MMotivo}" for="MMotivo" />
+                        <p:inputText id="MMotivo" value="#{disminuirEjemplarTbController.selected.MMotivo}" title="#{bundleEjemplarVivo.CreateDisminuirEjemplarTbTitle_MMotivo}" />
+                        <p:outputLabel value="#{bundleEjemplarVivo.CreateDisminuirEjemplarTbLabel_ECantidad}" for="ECantidad" />
+                        <p:inputText id="ECantidad" value="#{disminuirEjemplarTbController.selected.ECantidad}" title="#{bundleEjemplarVivo.CreateDisminuirEjemplarTbTitle_ECantidad}" />
+                        <p:outputLabel value="#{bundleEjemplarVivo.CreateDisminuirEjemplarTbLabel_EIdejemplarVivo}" for="EIdejemplarVivo" />
+                        <p:selectOneMenu id="EIdejemplarVivo" value="#{disminuirEjemplarTbController.selected.EIdejemplarVivo}" >
+                            <f:selectItems value="#{ejemplarVivoTbController.itemsAvailableSelectOne}"
+                                           var="EIdejemplarVivoItem"
+                                           itemValue="#{EIdejemplarVivoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{disminuirEjemplarTbController.create}" value="#{bundleEjemplarVivo.Save}" update="display,:DisminuirEjemplarTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'DisminuirEjemplarTbCreateDialog');"/>
+                    <p:commandButton value="#{bundleEjemplarVivo.Cancel}" onclick="DisminuirEjemplarTbCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

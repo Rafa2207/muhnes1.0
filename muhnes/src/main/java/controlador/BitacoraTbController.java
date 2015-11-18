@@ -26,10 +26,18 @@ public class BitacoraTbController implements Serializable {
 
     @EJB
     private servicio.BitacoraTbFacade ejbFacade;
-    private List<BitacoraTb> items = null;
+    private List<BitacoraTb> items = null, filtro;
     private BitacoraTb selected;
 
     public BitacoraTbController() {
+    }
+
+    public List<BitacoraTb> getFiltro() {
+        return filtro;
+    }
+
+    public void setFiltro(List<BitacoraTb> filtro) {
+        this.filtro = filtro;
     }
 
     public BitacoraTb getSelected() {

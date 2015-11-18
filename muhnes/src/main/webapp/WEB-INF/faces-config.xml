@@ -36,5 +36,9 @@
             <base-name>/BundleTaxonomia</base-name>
             <var>bundleTaxonomia</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>/BundleEjemplarVivo</base-name>
+            <var>bundleEjemplarVivo</var>
+        </resource-bundle>
     </application>
 </faces-config>

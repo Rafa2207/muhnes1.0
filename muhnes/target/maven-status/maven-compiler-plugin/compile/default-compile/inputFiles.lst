@@ -1,5 +1,6 @@
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\UnidadesTbFacade.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\ActividadTbFacade.java
+C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\DisminuirEjemplarTbFacade.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\ExhibicionTb.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\AgenteTaxonomiaTbPK.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\util\TableHeader.java
@@ -8,8 +9,8 @@ C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\MaterialDe
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\EjemplarTb.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\AgenteTbFacade.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\agenda\controlProyectos.java
-C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\PerfilTb.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\MaterialProyectoTbFacade.java
+C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\PerfilTb.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\LocalidadTb.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\MaterialProyectoTbPK.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\AgenteTaxonomiaTb.java
@@ -29,6 +30,7 @@ C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\AgentePerf
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\DespachoTbFacade.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\NombrecomunTbController.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\PaisTbController.java
+C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\EjemplarVivoTb.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\EjemplarTbController.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\ActividadTbController.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\agenda\agenda.java
@@ -49,10 +51,11 @@ C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\PaisTbFa
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\util\ControladorSesion.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\TaxonomiaTb.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\NotapreliminarTbController.java
-C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\util\ThemeSwitcherBean.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\DepartamentoTbFacade.java
+C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\util\ThemeSwitcherBean.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\EjemplarParticipaExhibicionTbFacade.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\TaxonomiaTbFacade.java
+C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\DisminuirEjemplarTbController.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\EjemplarParticipaExhibicionTb.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\EjemplarParticipaExhibicionTbController.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\ProyectoTb.java
@@ -81,6 +84,7 @@ C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\UnidadesTb
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\util\Sesion.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\MaterialDespachoTb.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\ProcesoejemplarTbFacade.java
+C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\EjemplarVivoTbController.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\MaterialTb.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\MunicipioTb.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\DepartamentoTbController.java
@@ -90,11 +94,12 @@ C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\ActividadT
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\ProrrogaProyectoTbController.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\DepartamentoTb.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\DespachoTbController.java
-C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\InsumoTb.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\NombrecomunTb.java
+C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\InsumoTb.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\ProrrogaProyectoTbFacade.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\MunicipioTbController.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\AgenteIdentificaEjemplarTb.java
+C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\DisminuirEjemplarTb.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\PerfilTbFacade.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\AgenteTbController.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\MaterialPedidoTbPK.java
@@ -107,6 +112,7 @@ C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\Notaprel
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\controlador\CantonTbController.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\EjemplarTbFacade.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\MaterialDespachoTbFacade.java
+C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\EjemplarVivoTbFacade.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\AbstractFacade.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\modelo\ProrrogaProyectoTb.java
 C:\Users\rafa_\Documents\GitHub\muhnes1.0\muhnes\src\main\java\servicio\BitacoraTbFacade.java

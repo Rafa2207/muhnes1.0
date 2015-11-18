@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EjemplarVivoTbViewDlg" widgetVar="EjemplarVivoTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleEjemplarVivo.ViewEjemplarVivoTbTitle}">
+            <h:form id="EjemplarVivoTbViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{ejemplarVivoTbController.selected != null}">
+                        <h:outputText value="#{bundleEjemplarVivo.ViewEjemplarVivoTbLabel_CNombre}"/>
+                        <h:outputText value="#{ejemplarVivoTbController.selected.CNombre}" title="#{bundleEjemplarVivo.ViewEjemplarVivoTbTitle_CNombre}"/>
+                        <h:outputText value="#{bundleEjemplarVivo.ViewEjemplarVivoTbLabel_MDescripcion}"/>
+                        <h:outputText value="#{ejemplarVivoTbController.selected.MDescripcion}" title="#{bundleEjemplarVivo.ViewEjemplarVivoTbTitle_MDescripcion}"/>
+                        <h:outputText value="#{bundleEjemplarVivo.ViewEjemplarVivoTbLabel_FFechaLlegada}"/>
+                        <h:outputText value="#{ejemplarVivoTbController.selected.FFecha}" title="#{bundleEjemplarVivo.ViewEjemplarVivoTbTitle_FFechaLlegada}">
+                            <f:convertDateTime pattern="dd MMMM yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundleEjemplarVivo.ViewEjemplarVivoTbLabel_ECantidad}"/>
+                        <h:outputText value="#{ejemplarVivoTbController.selected.ECantidad}" title="#{bundleEjemplarVivo.ViewEjemplarVivoTbTitle_ECantidad}"/>
+                        <h:outputText value="Jardín: "/>
+                        <h:outputText value="#{ejemplarVivoTbController.selected.CJardin}" title="Jardín"/>
+                        <h:outputText value="#{ejemplarVivoTbController.selected.EIdtaxonomia.CTipo}: "/>
+                        <h:outputText value="#{ejemplarVivoTbController.selected.EIdtaxonomia.CNombre}" title="#{bundleEjemplarVivo.ViewEjemplarVivoTbTitle_EIdtaxonomia}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundleEjemplarVivo.Close}" onclick="EjemplarVivoTbViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

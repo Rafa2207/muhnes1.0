@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EjemplarVivoTbCreateDlg" widgetVar="EjemplarVivoTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleEjemplarVivo.CreateEjemplarVivoTbTitle}">
+            <h:form id="EjemplarVivoTbCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{ejemplarVivoTbController.selected != null}">
+                        <p:outputLabel value="#{bundleEjemplarVivo.CreateEjemplarVivoTbLabel_CNombre}" for="CNombre" />
+                        <p:inputText id="CNombre" value="#{ejemplarVivoTbController.selected.CNombre}" title="#{bundleEjemplarVivo.CreateEjemplarVivoTbTitle_CNombre}" />
+                        <p:outputLabel value="#{bundleEjemplarVivo.CreateEjemplarVivoTbLabel_MDescripcion}" for="MDescripcion" />
+                        <p:inputText id="MDescripcion" value="#{ejemplarVivoTbController.selected.MDescripcion}" title="#{bundleEjemplarVivo.CreateEjemplarVivoTbTitle_MDescripcion}" />
+                        <p:outputLabel value="#{bundleEjemplarVivo.CreateEjemplarVivoTbLabel_FFechaLlegada}" for="FFechaLlegada" />
+                        <p:calendar id="FFechaLlegada" pattern="MM/dd/yyyy" value="#{ejemplarVivoTbController.selected.FFecha}" title="#{bundleEjemplarVivo.EditEjemplarVivoTbTitle_FFechaLlegada}" locale="es" showOn="button"/>
+                        <p:outputLabel value="#{bundleEjemplarVivo.CreateEjemplarVivoTbLabel_ECantidad}" for="ECantidad" />
+                        <p:inputText id="ECantidad" value="#{ejemplarVivoTbController.selected.ECantidad}" title="#{bundleEjemplarVivo.CreateEjemplarVivoTbTitle_ECantidad}" />
+                        <p:outputLabel value="Jardín: " for="CJardin" />
+                        <p:selectOneMenu id="CJardin" value="#{ejemplarVivoTbController.selected.CJardin}" required="true" requiredMessage="Debe seleccionar el jardín">
+                            <f:selectItem itemLabel="Seleccione..." itemValue=""/>
+                            <f:selectItem itemLabel="Jardín de Bosque Seco" itemValue="Jardín de Bosque Seco"/>
+                            <f:selectItem itemLabel="Jardín de Helechos" itemValue="Jardín de Helechos"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundleEjemplarVivo.CreateEjemplarVivoTbLabel_EIdtaxonomia}" for="fTaxon" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="Taxon" value="#{ejemplarTbController.tipoTaxon}" required="true" requiredMessage="Seleccione taxón">
+                                <f:selectItem itemLabel="Seleccione..." itemValue=""/>
+                                <f:selectItem itemLabel="Familia" itemValue="Familia"/>
+                                <f:selectItem itemLabel="Género" itemValue="Genero"/>
+                                <f:selectItem itemLabel="Especie" itemValue="Especie"/>
+                                <f:selectItem itemLabel="Subespecie" itemValue="Subespecie"/>
+                                <f:selectItem itemLabel="Variedad" itemValue="Variedad"/>
+                                <p:ajax event="change" update="fTaxon" process="Taxon"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="    "/>
+                            <p:selectOneMenu id="fTaxon" style="width: 150px" value="#{ejemplarVivoTbController.selected.EIdtaxonomia}" filter="true" >
+                                <f:selectItem itemLabel="Seleccione..." itemValue=""/>
+                                <f:selectItems value="#{taxonomiaTbController.taxonomia(ejemplarTbController.tipoTaxon)}"
+                                               var="taxon"
+                                               itemLabel="#{taxon.CNombre}"
+                                               itemValue="#{taxon}"/>
+                            </p:selectOneMenu>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ejemplarVivoTbController.create}" value="#{bundleEjemplarVivo.Save}" update="display,:EjemplarVivoTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'EjemplarVivoTbCreateDialog');"/>
+                    <p:commandButton value="#{bundleEjemplarVivo.Cancel}" onclick="EjemplarVivoTbCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
