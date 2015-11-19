@@ -32,6 +32,7 @@ public class EjemplarTbFacade extends AbstractFacade<EjemplarTb> {
     public EjemplarTbFacade() {
         super(EjemplarTb.class);
     }
+    
     public int siguienteId(){
         Query query = em.createNativeQuery("SELECT last_value from secuencia_ejemplar_id");
         try{
@@ -42,6 +43,7 @@ public class EjemplarTbFacade extends AbstractFacade<EjemplarTb> {
             return 0;
         }
     }
+    
     public String obtenerCorrelativo(String pre){
         Query query = em.createNativeQuery("SELECT COUNT(c_codigoentrada) "
                 + "FROM ejemplar_tb "
@@ -65,4 +67,10 @@ public class EjemplarTbFacade extends AbstractFacade<EjemplarTb> {
        query.setParameter("ident", identificador);
         return query.getResultList();
     }
+    
+    public List<EjemplarTb> EjemplarOrdenAsc(){
+       TypedQuery<EjemplarTb> query = em.createQuery("SELECT p FROM EjemplarTb p ORDER BY p.cCodigoentrada ASC", EjemplarTb.class);
+        return query.getResultList();
+    }
+    
 }

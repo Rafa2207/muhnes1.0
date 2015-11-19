@@ -7,11 +7,11 @@ import modelo.EjemplarParticipaExhibicionTbPK;
 import modelo.EjemplarTb;
 import modelo.ExhibicionTb;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-11-18T17:16:33")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-11-19T15:47:00")
 @StaticMetamodel(EjemplarParticipaExhibicionTb.class)
 public class EjemplarParticipaExhibicionTb_ { 
 
-    public static volatile SingularAttribute<EjemplarParticipaExhibicionTb, Integer> eCantidad;
+    public static volatile SingularAttribute<EjemplarParticipaExhibicionTb, Integer> eEstado;
     public static volatile SingularAttribute<EjemplarParticipaExhibicionTb, EjemplarTb> ejemplarTb;
     public static volatile SingularAttribute<EjemplarParticipaExhibicionTb, EjemplarParticipaExhibicionTbPK> ejemplarParticipaExhibicionTbPK;
     public static volatile SingularAttribute<EjemplarParticipaExhibicionTb, ExhibicionTb> exhibicionTb;

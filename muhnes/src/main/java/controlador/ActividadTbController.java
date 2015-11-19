@@ -17,6 +17,7 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -315,21 +316,26 @@ public class ActividadTbController implements Serializable {
     }
 
     public void agregar() {
+        FacesContext context = FacesContext.getCurrentInstance();
         InsumoTb ins = new InsumoTb();
         //presupuesto = new PresupuestoTb();
         //presupuesto.setEIdpresupuesto(getFacade().siguienteId());
-        ins.setMNombre(nombre);
-        ins.setDCantidad(cantidad);
-        ins.setDGasto(costo);
-        ins.setMTiempo(tiempo);
-        //presupuesto.setEIdpresupuesto();
-        ins.setEIdactividad(selected);
-        selected.getInsumoTbList().add(ins);
+        if (nombre == null || tiempo == null) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Llene los campos nombre y seleccione la unidad", "INFO"));
+        } else {
+            ins.setMNombre(nombre);
+            ins.setDCantidad(cantidad);
+            ins.setDGasto(costo);
+            ins.setMTiempo(tiempo);
+            //presupuesto.setEIdpresupuesto();
+            ins.setEIdactividad(selected);
+            selected.getInsumoTbList().add(ins);
 
-        cantidad = 0;
-        costo = 0;
-        nombre = "";
-        tiempo = "";
+            cantidad = 0;
+            costo = 0;
+            nombre = "";
+            tiempo = "";
+        }
 
     }
 

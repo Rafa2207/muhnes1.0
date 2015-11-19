@@ -11,29 +11,54 @@
         <p:dialog id="ExhibicionTbViewDlg" widgetVar="ExhibicionTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewExhibicionTbTitle}">
             <h:form id="ExhibicionTbViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{exhibicionTbController.selected != null}">
-                        <h:outputText value="#{bundle.ViewExhibicionTbLabel_EIdexhibicion}"/>
-                        <h:outputText value="#{exhibicionTbController.selected.EIdexhibicion}" title="#{bundle.ViewExhibicionTbTitle_EIdexhibicion}"/>
-                        <h:outputText value="#{bundle.ViewExhibicionTbLabel_CTipo}"/>
-                        <h:outputText value="#{exhibicionTbController.selected.CTipo}" title="#{bundle.ViewExhibicionTbTitle_CTipo}"/>
-                        <h:outputText value="#{bundle.ViewExhibicionTbLabel_MDestino}"/>
-                        <h:outputText value="#{exhibicionTbController.selected.MDestino}" title="#{bundle.ViewExhibicionTbTitle_MDestino}"/>
-                        <h:outputText value="#{bundle.ViewExhibicionTbLabel_MObservaciones}"/>
-                        <h:outputText value="#{exhibicionTbController.selected.MObservaciones}" title="#{bundle.ViewExhibicionTbTitle_MObservaciones}"/>
-                        <h:outputText value="#{bundle.ViewExhibicionTbLabel_FFechaSalida}"/>
-                        <h:outputText value="#{exhibicionTbController.selected.FFechaSalida}" title="#{bundle.ViewExhibicionTbTitle_FFechaSalida}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                    <p:panelGrid columns="2" style="width: 450px" rendered="#{exhibicionTbController.selected != null}">
+                        <h:outputText value="Nombre:"/>
+                        <h:outputText value="#{exhibicionTbController.selected.MNombre}"/>
+
+                        <h:outputText value="Descripción:"/>
+                        <h:outputText value="#{exhibicionTbController.selected.MDescripcion}"/>
+
+                        <h:outputText value="Destino:"/>
+                        <h:outputText value="#{exhibicionTbController.selected.MDestino}"/>
+
+                        <h:outputText value="Solicitante:"/>
+                        <h:outputText value="#{exhibicionTbController.selected.MSolicitante}"/>
+
+                        <h:outputText value="Tipo de exhibición:"/>
+                        <h:outputText value="#{exhibicionTbController.selected.CTipo}"/>
+
+                        <h:outputText value="Responsable:"/>
+                        <h:outputText value="#{exhibicionTbController.calculaAgente(exhibicionTbController.selected.EIdResponsable)}"/>
+
+                        <h:outputText value="Fecha de préstamo:"/>
+                        <h:outputText value="#{exhibicionTbController.selected.TFechaPrestamo}">
+                            <f:convertDateTime pattern="dd MMMM yyyy -- hh:mm a" />
                         </h:outputText>
-                        <h:outputText value="#{bundle.ViewExhibicionTbLabel_FFechaReingreso}"/>
-                        <h:outputText value="#{exhibicionTbController.selected.FFechaReingreso}" title="#{bundle.ViewExhibicionTbTitle_FFechaReingreso}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
+
+                        <h:outputText value="Fecha de recibido:"/>
+                        <h:outputText value="#{exhibicionTbController.selected.TFechaRecibido}">
+                            <f:convertDateTime pattern="dd MMMM yyyy -- hh:mm a" />
                         </h:outputText>
-                        <h:outputText value="#{bundle.ViewExhibicionTbLabel_MDireccion}"/>
-                        <h:outputText value="#{exhibicionTbController.selected.MDireccion}" title="#{bundle.ViewExhibicionTbTitle_MDireccion}"/>
-                        <h:outputText value="#{bundle.ViewExhibicionTbLabel_CResponsable}"/>
-                        <h:outputText value="#{exhibicionTbController.selected.CResponsable}" title="#{bundle.ViewExhibicionTbTitle_CResponsable}"/>
-                        <h:outputText value="#{bundle.ViewExhibicionTbLabel_idUsuario}"/>
-                        <h:outputText value="#{exhibicionTbController.selected.idUsuario}" title="#{bundle.ViewExhibicionTbTitle_idUsuario}"/>
+                        
+                        <h:outputText value="Custodio:"/>
+                        <h:outputText value="#{exhibicionTbController.calculaAgente(exhibicionTbController.selected.ECustidio)}" />
+                    </p:panelGrid>
+
+                    <p:panelGrid columns="1">
+                        <p:dataTable id="tablaExhibicionEjemplar"
+                                     value="#{exhibicionTbController.selected.ejemplarParticipaExhibicionTbList}"
+                                     var="exej"
+                                     editable="true"
+                                     tableStyle="width: 450px"
+                                     scrollable="true"
+                                     scrollHeight="80"
+                                     emptyMessage="No se han encontrado ejemplares"
+                                     >
+
+                            <p:column headerText="Ejemplares" style="text-align: center">
+                                <h:outputText value="#{exej.ejemplarTb.ECorrelativo}"/>
+                            </p:column>
+                        </p:dataTable>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="ExhibicionTbViewDialog.hide()"/>
                 </h:panelGroup>

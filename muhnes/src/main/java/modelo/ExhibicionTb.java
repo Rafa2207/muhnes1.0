@@ -47,7 +47,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "ExhibicionTb.findByTFechaPrestamo", query = "SELECT e FROM ExhibicionTb e WHERE e.tFechaPrestamo = :tFechaPrestamo"),
     @NamedQuery(name = "ExhibicionTb.findByTFechaRecibido", query = "SELECT e FROM ExhibicionTb e WHERE e.tFechaRecibido = :tFechaRecibido")})
 public class ExhibicionTb implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "exhibicionTb")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "exhibicionTb")
     private List<EjemplarParticipaExhibicionTb> ejemplarParticipaExhibicionTbList;
     private static final long serialVersionUID = 1L;
     @Id

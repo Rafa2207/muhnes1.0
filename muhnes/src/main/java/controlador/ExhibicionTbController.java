@@ -23,7 +23,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
+import modelo.AgenteTb;
+import modelo.EjemplarParticipaExhibicionTb;
+import modelo.EjemplarParticipaExhibicionTbPK;
+import modelo.EjemplarTb;
 import modelo.TaxonomiaTb;
+import servicio.AgenteTbFacade;
 
 @Named("exhibicionTbController")
 @ViewScoped
@@ -31,12 +36,20 @@ public class ExhibicionTbController implements Serializable {
 
     @EJB
     private servicio.ExhibicionTbFacade ejbFacade;
+    @EJB
+    private servicio.AgenteTbFacade agenteFacade;
+    @EJB
+    private servicio.EjemplarTbFacade ejemplarFacade;
     private List<ExhibicionTb> items = null, lista = null, filtro, itemsNotificacion = null;
+    private List<EjemplarTb> ejemplares;
     private ExhibicionTb selected;
     private Date fechaActual = new Date();
-    private int NumeroDeNotificaciones = 0;
-    private String tipoTaxon=null;
+    private int NumeroDeNotificaciones = 0, CantidadEjemplar = 1;
+    private String tipoTaxon = null;
     private TaxonomiaTb taxonomia;
+    private EjemplarTb ejemplar;
+    private AgenteTb agente;
+    private EjemplarParticipaExhibicionTb ejemplarExhibicion;
 
     public ExhibicionTbController() {
     }
@@ -87,8 +100,48 @@ public class ExhibicionTbController implements Serializable {
         this.taxonomia = taxonomia;
     }
 
+    public int getCantidadEjemplar() {
+        return CantidadEjemplar;
+    }
+
+    public void setCantidadEjemplar(int CantidadEjemplar) {
+        this.CantidadEjemplar = CantidadEjemplar;
+    }
+
+    public EjemplarTb getEjemplar() {
+        return ejemplar;
+    }
+
+    public void setEjemplar(EjemplarTb ejemplar) {
+        this.ejemplar = ejemplar;
+    }
+
     private ExhibicionTbFacade getFacade() {
         return ejbFacade;
+    }
+
+    public AgenteTbFacade getAgenteFacade() {
+        return agenteFacade;
+    }
+
+    public void setAgenteFacade(AgenteTbFacade agenteFacade) {
+        this.agenteFacade = agenteFacade;
+    }
+
+    public List<EjemplarTb> getEjemplares() {
+        return ejemplares;
+    }
+
+    public void setEjemplares(List<EjemplarTb> ejemplares) {
+        this.ejemplares = ejemplares;
+    }
+
+    public EjemplarParticipaExhibicionTb getEjemplarExhibicion() {
+        return ejemplarExhibicion;
+    }
+
+    public void setEjemplarExhibicion(EjemplarParticipaExhibicionTb ejemplarExhibicion) {
+        this.ejemplarExhibicion = ejemplarExhibicion;
     }
 
     public List<ExhibicionTb> getItemsNotificacion() {
@@ -123,12 +176,26 @@ public class ExhibicionTbController implements Serializable {
 
     public ExhibicionTb prepareCreate() {
         selected = new ExhibicionTb();
-        initializeEmbeddableKey();
         selected.setEEstado(0);
+        selected.setEjemplarParticipaExhibicionTbList(new ArrayList<EjemplarParticipaExhibicionTb>());
+        ejemplares = ejemplarFacade.EjemplarOrdenAsc();
+        initializeEmbeddableKey();
+        return selected;
+    }
+
+    public ExhibicionTb prepareEdit() {
+        ejemplares = ejemplarFacade.EjemplarOrdenAsc();
+        for (EjemplarParticipaExhibicionTb b : selected.getEjemplarParticipaExhibicionTbList()) {
+            ejemplares.remove(b.getEjemplarTb());
+        }
+        initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
+        for (EjemplarParticipaExhibicionTb ee : selected.getEjemplarParticipaExhibicionTbList()) {
+            ejemplarFacade.edit(ee.getEjemplarTb());
+        }
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ExhibicionTbCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -136,6 +203,9 @@ public class ExhibicionTbController implements Serializable {
     }
 
     public void update() {
+        for (EjemplarParticipaExhibicionTb ee : selected.getEjemplarParticipaExhibicionTbList()) {
+            ejemplarFacade.edit(ee.getEjemplarTb());
+        }
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ExhibicionTbUpdated"));
     }
 
@@ -150,6 +220,10 @@ public class ExhibicionTbController implements Serializable {
     public void finExhibicion() {
         FacesContext context = FacesContext.getCurrentInstance();
         selected.setEEstado(1);
+        for (EjemplarParticipaExhibicionTb ee : selected.getEjemplarParticipaExhibicionTbList()) {
+            ee.getEjemplarTb().setECantDuplicado(ee.getEjemplarTb().getECantDuplicado()+1);
+            ejemplarFacade.edit(ee.getEjemplarTb());
+        }
         getFacade().edit(selected);
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Recibido", "INFO"));
     }
@@ -278,6 +352,57 @@ public class ExhibicionTbController implements Serializable {
             mensaje = "Recibido";
         }
         return mensaje;
+    }
+
+    public String calculaAgente(int a) {
+        try {
+            agente = getAgenteFacade().agentePorId(a);
+            return agente.getCNombre() + " " + agente.getCApellido();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public void anadir() {
+        EjemplarParticipaExhibicionTb nuevo = new EjemplarParticipaExhibicionTb();
+        ejemplar.setECantDuplicado(ejemplar.getECantDuplicado() - 1);
+        nuevo.setEjemplarTb(ejemplar);
+        nuevo.setExhibicionTb(selected);
+
+        EjemplarParticipaExhibicionTbPK exhibicionpk = new EjemplarParticipaExhibicionTbPK();
+
+        exhibicionpk.setEIdexhibicion(getFacade().siguienteId());
+        exhibicionpk.setEIdejemplar(ejemplar.getEIdejemplar());
+
+        nuevo.setEjemplarParticipaExhibicionTbPK(exhibicionpk);
+
+        selected.getEjemplarParticipaExhibicionTbList().add(nuevo);
+        ejemplares.remove(ejemplar);
+
+    }
+
+    public void anadirEdit() {
+        EjemplarParticipaExhibicionTb nuevo = new EjemplarParticipaExhibicionTb();
+        ejemplar.setECantDuplicado(ejemplar.getECantDuplicado() - 1);
+        nuevo.setEjemplarTb(ejemplar);
+        nuevo.setExhibicionTb(selected);
+
+        EjemplarParticipaExhibicionTbPK exhibicionpk = new EjemplarParticipaExhibicionTbPK();
+
+        exhibicionpk.setEIdexhibicion(selected.getEIdexhibicion());
+        exhibicionpk.setEIdejemplar(ejemplar.getEIdejemplar());
+
+        nuevo.setEjemplarParticipaExhibicionTbPK(exhibicionpk);
+
+        selected.getEjemplarParticipaExhibicionTbList().add(nuevo);
+        ejemplares.remove(ejemplar);
+
+    }
+
+    public void remover() {
+        ejemplarExhibicion.getEjemplarTb().setECantDuplicado(ejemplarExhibicion.getEjemplarTb().getECantDuplicado() + 1);
+        selected.getEjemplarParticipaExhibicionTbList().remove(ejemplarExhibicion);
+        ejemplares.add(ejemplarExhibicion.getEjemplarTb());
     }
 
 }

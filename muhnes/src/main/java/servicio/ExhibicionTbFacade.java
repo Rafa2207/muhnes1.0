@@ -9,7 +9,9 @@ import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import modelo.ExhibicionTb;
 
@@ -43,5 +45,15 @@ public class ExhibicionTbFacade extends AbstractFacade<ExhibicionTb> {
         TypedQuery<ExhibicionTb> query = em.createQuery("SELECT e FROM ExhibicionTb e order by e.tFechaPrestamo DESC", ExhibicionTb.class);
         
         return query.getResultList();
+    }
+    public int siguienteId(){
+        Query query = em.createNativeQuery("SELECT last_value from secuencia_exhibicion_id");
+        try{
+            Long id =  (Long) query.getSingleResult();
+            return id.intValue()+1;
+        }
+        catch(NoResultException nre){
+            return 0;
+        }
     }
 }

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ExhibicionTbRecibirDlg" widgetVar="ExhibicionTbRecibirDialog" modal="true" resizable="false" appendTo="@(body)" header="Formulario de recibido">
+            <h:form id="ExhibicionTbRecibirForm">
+                <h:panelGroup id="display">
+
+                    <p:panelGrid columns="4" rendered="#{exhibicionTbController.selected != null}">
+
+                        <p:outputLabel value="Observaciones:" for="MDescripcion" />
+                        <p:inputTextarea rows="2" autoResize="" id="MDescripcion" value="#{exhibicionTbController.selected.MObservaciones}" title="Observaciones" />
+
+                        <p:outputLabel value="Fecha de recibido:" for="FFechaReingreso" />
+                        <p:calendar id="FFechaReingreso" pattern="dd/MMM/yy hh:mm a" locale="es" readonlyInput="true"
+                                    value="#{exhibicionTbController.selected.TFechaRecibido}" size="15"
+
+                                    title="Recibido"  showOn="button" required="true" requiredMessage="Seleccione fecha de reingreso">
+                        </p:calendar>
+
+                    </p:panelGrid>
+                    <p:panelGrid columns="1">
+                        <p:dataTable id="tablaExhibicionEjemplar"
+                                     value="#{exhibicionTbController.selected.ejemplarParticipaExhibicionTbList}"
+                                     var="exej"
+                                     editable="true"
+                                     tableStyle="width: 450px"
+                                     scrollable="true"
+                                     scrollHeight="80"
+                                     emptyMessage="No se han encontrado ejemplares"
+                                     >
+
+                            <p:column headerText="Ejemplares" style="text-align: center">
+                                <h:outputText value="#{exej.ejemplarTb.ECorrelativo}"/>
+                            </p:column>
+                            <p:column headerText="Estado del ejemplar" style="text-align: center">
+                                <p:outputLabel value="Estado:" for="CTipo" />
+                                <p:selectOneMenu id="CTipo" value="#{exej.EEstado}" style="width: 150px"
+                                                 required="true" requiredMessage="Seleccione Estado del ejemplar">
+                                    <f:selectItem itemLabel="Seleccione.." itemValue=""/>
+                                    <f:selectItem itemLabel="Sin observaciones" itemValue="1"/>
+                                    <f:selectItem itemLabel="Dañado" itemValue="1"/>
+                                    <f:selectItem itemLabel="Perdido" itemValue="0"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panelGrid>
+
+                    <p:commandButton actionListener="#{exhibicionTbController.finExhibicion()}" value="#{bundle.Save}" update="display,:ExhibicionTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'ExhibicionTbRecibirDialog');">
+                        <p:confirm header="Confirmación" message="¿Se han recibido los ejemplares?" icon="ui-icon-alert" />
+                    </p:commandButton>
+
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

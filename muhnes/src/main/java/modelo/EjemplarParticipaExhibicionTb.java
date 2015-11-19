@@ -25,10 +25,10 @@ import javax.persistence.Table;
     @NamedQuery(name = "EjemplarParticipaExhibicionTb.findAll", query = "SELECT e FROM EjemplarParticipaExhibicionTb e"),
     @NamedQuery(name = "EjemplarParticipaExhibicionTb.findByEIdejemplar", query = "SELECT e FROM EjemplarParticipaExhibicionTb e WHERE e.ejemplarParticipaExhibicionTbPK.eIdejemplar = :eIdejemplar"),
     @NamedQuery(name = "EjemplarParticipaExhibicionTb.findByEIdexhibicion", query = "SELECT e FROM EjemplarParticipaExhibicionTb e WHERE e.ejemplarParticipaExhibicionTbPK.eIdexhibicion = :eIdexhibicion"),
-    @NamedQuery(name = "EjemplarParticipaExhibicionTb.findByECantidad", query = "SELECT e FROM EjemplarParticipaExhibicionTb e WHERE e.eCantidad = :eCantidad")})
+    @NamedQuery(name = "EjemplarParticipaExhibicionTb.findByEEstado", query = "SELECT e FROM EjemplarParticipaExhibicionTb e WHERE e.eEstado = :eEstado")})
 public class EjemplarParticipaExhibicionTb implements Serializable {
-    @Column(name = "e_cantidad")
-    private Integer eCantidad;
+    @Column(name = "e_estado")
+    private Integer eEstado;
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected EjemplarParticipaExhibicionTbPK ejemplarParticipaExhibicionTbPK;
@@ -100,12 +100,12 @@ public class EjemplarParticipaExhibicionTb implements Serializable {
         return "modelo.EjemplarParticipaExhibicionTb[ ejemplarParticipaExhibicionTbPK=" + ejemplarParticipaExhibicionTbPK + " ]";
     }
 
-    public Integer getECantidad() {
-        return eCantidad;
+    public Integer getEEstado() {
+        return eEstado;
     }
 
-    public void setECantidad(Integer eCantidad) {
-        this.eCantidad = eCantidad;
+    public void setEEstado(Integer eEstado) {
+        this.eEstado = eEstado;
     }
     
 }

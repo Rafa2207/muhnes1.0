@@ -27,7 +27,8 @@
                             <p:inputText  id="MSolicitante" value="#{exhibicionTbController.selected.MSolicitante}" title="Solicitante" />
 
                             <p:outputLabel value="#{bundle.CreateExhibicionTbLabel_CTipo}" for="CTipo" />
-                            <p:selectOneMenu id="CTipo" value="#{exhibicionTbController.selected.CTipo}" style="width: 150px" >
+                            <p:selectOneMenu id="CTipo" value="#{exhibicionTbController.selected.CTipo}" style="width: 150px"
+                                             required="true" requiredMessage="Seleccione tipo de exhibición">
                                 <f:selectItem itemLabel="Seleccione.." itemValue=""/>
                                 <f:selectItem itemLabel="Ilustración" itemValue="Ilustración"/>
                                 <f:selectItem itemLabel="Itinerante" itemValue="Itinerante"/>
@@ -46,15 +47,22 @@
                             </p:selectOneMenu>
 
                             <p:outputLabel value="Fecha de préstamo:" for="Prestamo" />
-                            <p:calendar id="Prestamo" pattern="dd MMMM yyyy HH:mm:ss" locale="es" readonlyInput="true"
+                            <p:calendar id="Prestamo" pattern="dd/MMM/yy" locale="es" readonlyInput="true"
                                         value="#{exhibicionTbController.selected.TFechaPrestamo}" size="15"
-                                        title="Préstamo"  showOn="button" required="true" requiredMessage="Seleccione fecha de préstamo"/>
+                                        title="Préstamo"  showOn="button" required="true" requiredMessage="Seleccione fecha de préstamo">
+                            </p:calendar>
+                            <p:outputLabel value="Hora de préstamo:" for="HPrestamo" />
+                            <p:calendar id="HPrestamo" pattern="hh:mm a" locale="es" readonlyInput="true" minHour="8" maxHour="17"
+                                        value="#{exhibicionTbController.selected.TFechaPrestamo}" size="15" timeOnly="true"
+                                        title="Hora de préstamo" required="true" requiredMessage="Seleccione hora de préstamo">
+                            </p:calendar>
+                            
 
                             <p:outputLabel value="Fecha de recibido:" for="FFechaReingreso" />
-                            <p:calendar id="FFechaReingreso" pattern="dd MMMM yyyy HH:mm:ss" timeControlType="select" locale="es" readonlyInput="true"
+                            <p:calendar id="FFechaReingreso" pattern="dd/MMM/yy hh:mm a" locale="es" readonlyInput="true"
                                         value="#{exhibicionTbController.selected.TFechaRecibido}" size="15"
-                                        title="Recibido"  showOn="button" 
-                                        required="true" requiredMessage="Seleccione fecha de reingreso"/>
+                                        title="Recibido"  showOn="button" required="true" requiredMessage="Seleccione fecha de reingreso">
+                            </p:calendar>
 
                             <p:outputLabel value="Custodio:" for="Custodio" />
                             <p:selectOneMenu id="Custodio" value="#{exhibicionTbController.selected.ECustidio}" style="width: 150px" 
@@ -68,9 +76,9 @@
 
                         </p:panelGrid>
                     </p:fieldset>
-                    <p:panelGrid columns="5">
-                        <p:outputLabel value="Seleccione ejemplar:"/>
-                        <p:selectOneMenu id="Taxon" value="#{exhibicionTbController.tipoTaxon}" required="true" requiredMessage="Seleccione taxón">
+                    <p:panelGrid columns="5" >
+                        <p:outputLabel value="Ejemplar:"/>
+                        <p:selectOneMenu id="Taxon" value="#{exhibicionTbController.tipoTaxon}" >
                             <f:selectItem itemLabel="Seleccione..." itemValue=""/>
                             <f:selectItem itemLabel="Familia" itemValue="Familia"/>
                             <f:selectItem itemLabel="Género" itemValue="Genero"/>
@@ -79,7 +87,7 @@
                             <f:selectItem itemLabel="Variedad" itemValue="Variedad"/>
                             <p:ajax event="change" update="fTaxon" process="Taxon"/>
                         </p:selectOneMenu>
-                        <p:selectOneMenu id="fTaxon" style="width: 100px" value="#{exhibicionTbController.taxonomia}" filter="true" >
+                        <p:selectOneMenu id="fTaxon" style="width: 130px" value="#{exhibicionTbController.taxonomia}" filter="true" >
                             <f:selectItem itemLabel="Seleccione..." itemValue=""/>
                             <f:selectItems value="#{taxonomiaTbController.taxonomia(exhibicionTbController.tipoTaxon)}"
                                            var="taxon"
@@ -87,54 +95,54 @@
                                            itemValue="#{taxon}"/>
                             <p:ajax event="change" update="ejemplar" process="fTaxon"/>
                         </p:selectOneMenu>
-                        <p:selectOneMenu id="ejemplar" style="width: 100px" value="#{exhibicionTbController.taxonomia}" filter="true" >
+                        <p:selectOneMenu id="ejemplar" style="width: 100px" value="#{exhibicionTbController.ejemplar}" filter="true" >
                             <f:selectItem itemLabel="Seleccione..." itemValue=""/>
+                            <f:selectItems value="#{exhibicionTbController.ejemplares}"
+                                           var="ejemplares"
+                                           itemLabel="#{ejemplares.CCodigoentrada}"
+                                           itemValue="#{ejemplares}"/>
                         </p:selectOneMenu>
-                        <p:commandButton value="Agregar"/>
+                        <p:commandButton id="agregar" value="Agregar"
+                                         actionListener="#{exhibicionTbController.anadir()}"
+                                         process="agregar ejemplar" 
+                                         update="ejemplar tablaEjemplares"
+                                         />
                     </p:panelGrid>
-                    <p:dataTable id="tablaEjemplares"
-                                 value="#{exhibicionTbController.selected.ejemplarParticipaExhibicionTbList}"
-                                 var="ejem"
-                                 editable="true"
-                                 tableStyle="width: 670px"
-                                 scrollable="true"
-                                 scrollHeight="80"
-                                 emptyMessage="No se han seleccionado perfiles"
-                                 >
+                    <p:panelGrid columns="1" >
+                        <p:dataTable id="tablaEjemplares"
+                                     value="#{exhibicionTbController.selected.ejemplarParticipaExhibicionTbList}"
+                                     var="ejem"
+                                     editable="true"
+                                     tableStyle="width: 500px"
+                                     scrollable="true"
+                                     scrollHeight="80" 
+                                     emptyMessage="No se han seleccionado ejemplares"
+                                     >
 
-                        <p:column headerText="Ejemplares">
-                            <p:cellEditor>
-                                <f:facet name="output">
-                                    #{ejem.ejemplarTb.CCodigoentrada}
-                                </f:facet>
-                                <f:facet name="input">
-                                    <p:inputText value="#{ejem.ejemplarTb}"/>
-                                </f:facet>
-                            </p:cellEditor>
-                        </p:column>
-                        <p:column headerText="Cantidad">
-                            <p:cellEditor>
-                                <f:facet name="output">
-                                    #{ejem.ECantidad}
-                                </f:facet>
-                                <f:facet name="input">
-                                    <p:inputText value="#{ejem.ECantidad}"/>
-                                </f:facet>
-                            </p:cellEditor>
-                        </p:column>
+                            <p:column headerText="Ejemplar" >
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        #{ejem.ejemplarTb.CCodigoentrada}
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{ejem.ejemplarTb.CCodigoentrada}"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
 
-                        <p:column headerText="Acciones" width="60">
+                            <p:column headerText="Acciones" width="60">
+                                <p:commandLink style="display: inline-block"
+                                               styleClass="ui-icon ui-icon-trash"
+                                               action="#{exhibicionTbController.remover()}"
+                                               process="tablaEjemplares"
+                                               update=":ExhibicionTbCreateForm:ejemplar :ExhibicionTbCreateForm:tablaEjemplares">
+                                    <f:setPropertyActionListener value="#{ejem}" 
+                                                                 target="#{exhibicionTbController.ejemplarExhibicion}"/>
+                                </p:commandLink>
+                            </p:column>
 
-                            <p:commandLink style="display: inline-block"
-                                           styleClass="ui-icon ui-icon-trash"
-                                           action="#{agenteTbController.remover()}"
-                                           process="tablaEjemplares">
-                                <f:setPropertyActionListener value="#{ejem}" 
-                                                             target="#{agenteTbController.perfilAgente}"/>
-                            </p:commandLink>
-                        </p:column>
-
-                    </p:dataTable>
+                        </p:dataTable>
+                    </p:panelGrid>
                     <p:commandButton actionListener="#{exhibicionTbController.create}" value="#{bundle.Save}" update="display,:ExhibicionTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'ExhibicionTbCreateDialog');"/>
 
                 </h:panelGroup>

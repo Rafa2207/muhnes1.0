@@ -43,28 +43,28 @@
                     </p:panelGrid>
                     <p:panelGrid columns="1">
                         <p:dataTable id="perfilesAgentes"
-                                 value="#{agenteTbController.selected.agentePerfilTbList}"
-                                 var="per"
-                                 editable="true"
-                                 tableStyle="width: 450px"
-                                 scrollable="true"
-                                 scrollHeight="80"
-                                 emptyMessage="No se han seleccionado perfiles"
-                                 >
-                        
-                        <p:column headerText="Perfiles">
-                            <p:cellEditor>
-                                <f:facet name="output">
-                                    #{per.perfilTb.CNombre}
-                                </f:facet>
-                                <f:facet name="input">
-                                    <p:inputText value="#{per.perfilTb.CNombre}"/>
-                                </f:facet>
-                            </p:cellEditor>
-                        </p:column>
+                                     value="#{agenteTbController.selected.agentePerfilTbList}"
+                                     var="per"
+                                     editable="true"
+                                     tableStyle="width: 450px"
+                                     scrollable="true"
+                                     scrollHeight="80"
+                                     emptyMessage="No se han seleccionado perfiles"
+                                     >
+
+                            <p:column headerText="Perfiles">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        #{per.perfilTb.CNombre}
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{per.perfilTb.CNombre}"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
                         </p:dataTable>
-                        
-                       
+
+
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="AgenteTbViewDialog.hide()"/>
                 </h:panelGroup>
