@@ -5,9 +5,11 @@
  */
 package servicio;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import modelo.EjemplarVivoTb;
 
 /**
@@ -16,6 +18,7 @@ import modelo.EjemplarVivoTb;
  */
 @Stateless
 public class EjemplarVivoTbFacade extends AbstractFacade<EjemplarVivoTb> {
+
     @PersistenceContext(unitName = "muhnes_muhnes_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
@@ -27,5 +30,14 @@ public class EjemplarVivoTbFacade extends AbstractFacade<EjemplarVivoTb> {
     public EjemplarVivoTbFacade() {
         super(EjemplarVivoTb.class);
     }
-    
+
+    public List<EjemplarVivoTb> buscarEjemplarConExistencia() {
+        TypedQuery<EjemplarVivoTb> query = em.createQuery("SELECT p FROM EjemplarVivoTb p WHERE p.eCantidad>0 ORDER BY p.cNombre ASC", EjemplarVivoTb.class);
+        return query.getResultList();
+    }
+
+    public List<EjemplarVivoTb> buscarEjemplarSinExistencia() {
+        TypedQuery<EjemplarVivoTb> query = em.createQuery("SELECT p FROM EjemplarVivoTb p WHERE p.eCantidad=0 ORDER BY p.cNombre ASC", EjemplarVivoTb.class);
+        return query.getResultList();
+    }
 }

@@ -9,6 +9,7 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import modelo.DepartamentoTb;
+import modelo.EjemplarVivoTb;
 import modelo.MunicipioTb;
 import modelo.PaisTb;
 import modelo.ProyectoTb;
@@ -31,7 +32,16 @@ public class ControladorSesion implements Serializable {
     private TaxonomiaTb familia;
     private TaxonomiaTb genero;
     private TaxonomiaTb especie;
+    private EjemplarVivoTb ejemplarVivo;
     //private TaxonomiaTb taxonomia;
+
+    public EjemplarVivoTb getEjemplarVivo() {
+        return ejemplarVivo;
+    }
+
+    public void setEjemplarVivo(EjemplarVivoTb ejemplarVivo) {
+        this.ejemplarVivo = ejemplarVivo;
+    }
 
     public TaxonomiaTb getFamilia() {
         return familia;

@@ -26,7 +26,7 @@ public class EjemplarVivoTbController implements Serializable {
 
     @EJB
     private servicio.EjemplarVivoTbFacade ejbFacade;
-    private List<EjemplarVivoTb> items = null, filtro;
+    private List<EjemplarVivoTb> items = null, items2 = null, filtro;
     private EjemplarVivoTb selected;
 
     public EjemplarVivoTbController() {
@@ -85,9 +85,16 @@ public class EjemplarVivoTbController implements Serializable {
 
     public List<EjemplarVivoTb> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = getFacade().buscarEjemplarConExistencia();
         }
         return items;
+    }
+    
+    public List<EjemplarVivoTb> getItems2() {
+        if (items2 == null) {
+            items2 = getFacade().buscarEjemplarSinExistencia();
+        }
+        return items2;
     }
 
     private void persist(PersistAction persistAction, String successMessage) {

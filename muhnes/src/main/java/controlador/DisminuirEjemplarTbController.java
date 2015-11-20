@@ -18,6 +18,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import modelo.EjemplarVivoTb;
 
 @Named("disminuirEjemplarTbController")
 @SessionScoped
@@ -25,10 +26,20 @@ public class DisminuirEjemplarTbController implements Serializable {
 
     @EJB
     private servicio.DisminuirEjemplarTbFacade ejbFacade;
-    private List<DisminuirEjemplarTb> items = null;
+    @EJB
+    private servicio.EjemplarVivoTbFacade ejemplarVivoFacade;
+    private List<DisminuirEjemplarTb> items = null, filtro;
     private DisminuirEjemplarTb selected;
 
     public DisminuirEjemplarTbController() {
+    }
+
+    public List<DisminuirEjemplarTb> getFiltro() {
+        return filtro;
+    }
+
+    public void setFiltro(List<DisminuirEjemplarTb> filtro) {
+        this.filtro = filtro;
     }
 
     public DisminuirEjemplarTb getSelected() {
@@ -49,13 +60,18 @@ public class DisminuirEjemplarTbController implements Serializable {
         return ejbFacade;
     }
 
-    public DisminuirEjemplarTb prepareCreate() {
+    public DisminuirEjemplarTb prepareCreate(EjemplarVivoTb ejemplarVivo) {
         selected = new DisminuirEjemplarTb();
+        selected.setEIdejemplarVivo(ejemplarVivo);
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
+        int cantidad = selected.getEIdejemplarVivo().getECantidad();
+        int cantidadBaja = selected.getECantidad();
+        selected.getEIdejemplarVivo().setECantidad(cantidad-cantidadBaja);
+        ejemplarVivoFacade.edit(selected.getEIdejemplarVivo());
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/BundleEjemplarVivo").getString("DisminuirEjemplarTbCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.

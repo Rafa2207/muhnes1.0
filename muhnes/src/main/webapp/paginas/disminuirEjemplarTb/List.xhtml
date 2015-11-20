@@ -10,28 +10,42 @@
 
 
         <ui:define name="title">
-            <h:outputText value="#{bundleEjemplarVivo.ListDisminuirEjemplarTbTitle}"></h:outputText>
+            <h:outputText value="Ver Bajas"></h:outputText>
         </ui:define>
 
         <ui:define name="body">
             <h:form id="DisminuirEjemplarTbListForm">
-                <p:panel header="#{bundleEjemplarVivo.ListDisminuirEjemplarTbTitle}">
+                <p:panel header="Ver Bajas">
+
+                    <p:breadCrumb>
+                        <p:menuitem value="casita" outcome="/paginas/bienvenido.xhtml"/>
+                        <p:menuitem value="Ejemplares Vivos" outcome="/paginas/ejemplarVivoTb/List.xhtml" />
+                        <p:menuitem value="Ver Bajas" outcome="/paginas/disminuirEjemplarTb/List.xhtml" />
+                    </p:breadCrumb>
+                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundleEjemplarVivo.View}" update=":DisminuirEjemplarTbViewForm" oncomplete="PF('DisminuirEjemplarTbViewDialog').show()" disabled="#{empty disminuirEjemplarTbController.selected}"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundleEjemplarVivo.Edit}" update=":DisminuirEjemplarTbEditForm" oncomplete="PF('DisminuirEjemplarTbEditDialog').show()" disabled="#{empty disminuirEjemplarTbController.selected}"/>
+                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundleEjemplarVivo.Delete}" actionListener="#{disminuirEjemplarTbController.destroy}" update=":growl,datalist" disabled="#{empty disminuirEjemplarTbController.selected}"/>
+
                     <p:dataTable id="datalist" value="#{disminuirEjemplarTbController.items}" var="item"
                                  selectionMode="single" selection="#{disminuirEjemplarTbController.selected}"
                                  paginator="true"
                                  rowKey="#{item.EIddisminuirEjemplar}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
+                                 filteredValue="#{disminuirEjemplarTbController.filtro}"
+                                 paginatorPosition="Bottom"
+                                 widgetVar="ejemplarVivoTable"
+                                 emptyMessage="No se encontro bajas de ejemplar"
                                  >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowSelect"   update=":DisminuirEjemplarTbListForm:viewButton :DisminuirEjemplarTbListForm:editButton :DisminuirEjemplarTbListForm:deleteButton"/>
+                        <p:ajax event="rowUnselect" update=":DisminuirEjemplarTbListForm:viewButton :DisminuirEjemplarTbListForm:editButton :DisminuirEjemplarTbListForm:deleteButton"/>
 
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundleEjemplarVivo.ListDisminuirEjemplarTbTitle_EIddisminuirEjemplar}"/>
+                                <h:outputText value="Ejemplar Vivo"/>
                             </f:facet>
-                            <h:outputText value="#{item.EIddisminuirEjemplar}"/>
+                            <h:outputText value="#{item.EIdejemplarVivo.CNombre}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -45,23 +59,15 @@
                             </f:facet>
                             <h:outputText value="#{item.ECantidad}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundleEjemplarVivo.ListDisminuirEjemplarTbTitle_EIdejemplarVivo}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.EIdejemplarVivo}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundleEjemplarVivo.Create}" actionListener="#{disminuirEjemplarTbController.prepareCreate}" update=":DisminuirEjemplarTbCreateForm" oncomplete="PF('DisminuirEjemplarTbCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundleEjemplarVivo.View}" update=":DisminuirEjemplarTbViewForm" oncomplete="PF('DisminuirEjemplarTbViewDialog').show()" disabled="#{empty disminuirEjemplarTbController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundleEjemplarVivo.Edit}" update=":DisminuirEjemplarTbEditForm" oncomplete="PF('DisminuirEjemplarTbEditDialog').show()" disabled="#{empty disminuirEjemplarTbController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundleEjemplarVivo.Delete}" actionListener="#{disminuirEjemplarTbController.destroy}" update=":growl,datalist" disabled="#{empty disminuirEjemplarTbController.selected}"/>
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Búsqueda: " />
+                                <p:inputText id="globalFilter" onkeyup="PF('bajaTable').filter()" placeholder="Escriba aquí"/>
+                            </p:outputPanel>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>
             </h:form>
-
-            <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
         </ui:define>

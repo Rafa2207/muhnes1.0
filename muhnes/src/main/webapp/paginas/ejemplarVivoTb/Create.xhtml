@@ -13,20 +13,23 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{ejemplarVivoTbController.selected != null}">
                         <p:outputLabel value="#{bundleEjemplarVivo.CreateEjemplarVivoTbLabel_CNombre}" for="CNombre" />
-                        <p:inputText id="CNombre" value="#{ejemplarVivoTbController.selected.CNombre}" title="#{bundleEjemplarVivo.CreateEjemplarVivoTbTitle_CNombre}" />
+                        <p:inputText id="CNombre" value="#{ejemplarVivoTbController.selected.CNombre}" title="#{bundleEjemplarVivo.CreateEjemplarVivoTbTitle_CNombre}" required="true" requiredMessage="Introduzca nombre del ejemplar"/>
                         <p:outputLabel value="#{bundleEjemplarVivo.CreateEjemplarVivoTbLabel_MDescripcion}" for="MDescripcion" />
                         <p:inputText id="MDescripcion" value="#{ejemplarVivoTbController.selected.MDescripcion}" title="#{bundleEjemplarVivo.CreateEjemplarVivoTbTitle_MDescripcion}" />
                         <p:outputLabel value="#{bundleEjemplarVivo.CreateEjemplarVivoTbLabel_FFechaLlegada}" for="FFechaLlegada" />
-                        <p:calendar id="FFechaLlegada" pattern="MM/dd/yyyy" value="#{ejemplarVivoTbController.selected.FFecha}" title="#{bundleEjemplarVivo.EditEjemplarVivoTbTitle_FFechaLlegada}" locale="es" showOn="button"/>
+                        <p:calendar id="FFechaLlegada" pattern="dd MMMM yyyy" value="#{ejemplarVivoTbController.selected.FFecha}" title="#{bundleEjemplarVivo.EditEjemplarVivoTbTitle_FFechaLlegada}" required="true" requiredMessage="Seleccione una fecha de llegada" locale="es" showOn="button"/>
                         <p:outputLabel value="#{bundleEjemplarVivo.CreateEjemplarVivoTbLabel_ECantidad}" for="ECantidad" />
-                        <p:inputText id="ECantidad" value="#{ejemplarVivoTbController.selected.ECantidad}" title="#{bundleEjemplarVivo.CreateEjemplarVivoTbTitle_ECantidad}" />
+                        <p:panelGrid columns="1">
+                        <p:inputText id="ECantidad" value="#{ejemplarVivoTbController.selected.ECantidad}" title="#{bundleEjemplarVivo.CreateEjemplarVivoTbTitle_ECantidad}" required="true" requiredMessage="introduzca cantidad"/>
+                        <p:slider for="ECantidad" minValue="0" maxValue="100"/>
+                        </p:panelGrid>
                         <p:outputLabel value="Jardín: " for="CJardin" />
                         <p:selectOneMenu id="CJardin" value="#{ejemplarVivoTbController.selected.CJardin}" required="true" requiredMessage="Debe seleccionar el jardín">
                             <f:selectItem itemLabel="Seleccione..." itemValue=""/>
                             <f:selectItem itemLabel="Jardín de Bosque Seco" itemValue="Jardín de Bosque Seco"/>
                             <f:selectItem itemLabel="Jardín de Helechos" itemValue="Jardín de Helechos"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundleEjemplarVivo.CreateEjemplarVivoTbLabel_EIdtaxonomia}" for="fTaxon" />
+                        <p:outputLabel value="#{bundleEjemplarVivo.CreateEjemplarVivoTbLabel_EIdtaxonomia}" for="Taxon" />
                         <h:panelGroup>
                             <p:selectOneMenu id="Taxon" value="#{ejemplarTbController.tipoTaxon}" required="true" requiredMessage="Seleccione taxón">
                                 <f:selectItem itemLabel="Seleccione..." itemValue=""/>

@@ -12,14 +12,12 @@
             <h:form id="DisminuirEjemplarTbViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{disminuirEjemplarTbController.selected != null}">
-                        <h:outputText value="#{bundleEjemplarVivo.ViewDisminuirEjemplarTbLabel_EIddisminuirEjemplar}"/>
-                        <h:outputText value="#{disminuirEjemplarTbController.selected.EIddisminuirEjemplar}" title="#{bundleEjemplarVivo.ViewDisminuirEjemplarTbTitle_EIddisminuirEjemplar}"/>
                         <h:outputText value="#{bundleEjemplarVivo.ViewDisminuirEjemplarTbLabel_MMotivo}"/>
                         <h:outputText value="#{disminuirEjemplarTbController.selected.MMotivo}" title="#{bundleEjemplarVivo.ViewDisminuirEjemplarTbTitle_MMotivo}"/>
                         <h:outputText value="#{bundleEjemplarVivo.ViewDisminuirEjemplarTbLabel_ECantidad}"/>
                         <h:outputText value="#{disminuirEjemplarTbController.selected.ECantidad}" title="#{bundleEjemplarVivo.ViewDisminuirEjemplarTbTitle_ECantidad}"/>
                         <h:outputText value="#{bundleEjemplarVivo.ViewDisminuirEjemplarTbLabel_EIdejemplarVivo}"/>
-                        <h:outputText value="#{disminuirEjemplarTbController.selected.EIdejemplarVivo}" title="#{bundleEjemplarVivo.ViewDisminuirEjemplarTbTitle_EIdejemplarVivo}"/>
+                        <h:outputText value="#{disminuirEjemplarTbController.selected.EIdejemplarVivo.CNombre}" title="#{bundleEjemplarVivo.ViewDisminuirEjemplarTbTitle_EIdejemplarVivo}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundleEjemplarVivo.Close}" onclick="DisminuirEjemplarTbViewDialog.hide()"/>
                 </h:panelGroup>
