@@ -21,10 +21,12 @@
                             <p:inputTextarea rows="2" autoResize="" id="MDescripcion" value="#{exhibicionTbController.selected.MDescripcion}" title="Descripción" />
 
                             <p:outputLabel value="#{bundle.CreateExhibicionTbLabel_MDestino}" for="MDestino" />
-                            <p:inputText id="MDestino" value="#{exhibicionTbController.selected.MDestino}" title="#{bundle.CreateExhibicionTbTitle_MDestino}" />
+                            <p:inputText id="MDestino" value="#{exhibicionTbController.selected.MDestino}" title="#{bundle.CreateExhibicionTbTitle_MDestino}" 
+                                         required="true" requiredMessage="Escriba el lugar de destino del préstamo"/>
 
                             <p:outputLabel value="Solicitante:" for="MSolicitante" />
-                            <p:inputText  id="MSolicitante" value="#{exhibicionTbController.selected.MSolicitante}" title="Solicitante" />
+                            <p:inputText  id="MSolicitante" value="#{exhibicionTbController.selected.MSolicitante}" title="Solicitante"
+                                           required="true" requiredMessage="Escriba el nombre de la persona solicitante"/>
 
                             <p:outputLabel value="#{bundle.CreateExhibicionTbLabel_CTipo}" for="CTipo" />
                             <p:selectOneMenu id="CTipo" value="#{exhibicionTbController.selected.CTipo}" style="width: 150px" >

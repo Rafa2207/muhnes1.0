@@ -15,13 +15,13 @@
                     <p:panelGrid columns="2" rendered="#{exhibicionTbController.selected != null}">
 
                         <p:outputLabel value="Observaciones:" for="MDescripcion" />
-                        <p:inputTextarea rows="2" cols="50" autoResize="" id="MDescripcion" value="#{exhibicionTbController.selected.MObservaciones}" title="Observaciones" />
-                    </p:panelGrid>
-                    <p:panelGrid columns="4" rendered="#{exhibicionTbController.selected != null}">
+                        <p:inputTextarea rows="2" cols="40" autoResize="" id="MDescripcion" value="#{exhibicionTbController.selected.MObservaciones}" 
+                                         title="Observaciones" required="true" requiredMessage="Escriba observaciones de recibido" />
+                    
                         <p:outputLabel value="Fecha de recibido:" for="FFechaReingreso" />
                         <p:calendar id="FFechaReingreso" pattern="dd MMMM yyyy" locale="es" readonlyInput="true"
                                     value="#{exhibicionTbController.selected.FFechaRecibido}" size="15"
-
+                                    mindate="#{exhibicionTbController.selected.FFechaPrestamo}"
                                     title="Recibido"  showOn="button" required="true" requiredMessage="Seleccione fecha de reingreso">
                         </p:calendar>
                         <p:outputLabel value="Hora de recibido:" for="HReingreso" />
