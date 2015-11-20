@@ -72,19 +72,19 @@
                             <h:outputText value="#{exhibicionTbController.calculaAgente(item.EIdResponsable)}"/>
                         </p:column>
 
-                        <p:column width="15%" filterBy="#{item.TFechaPrestamo}" filterStyle="display:none">
+                        <p:column width="15%" filterBy="#{item.FFechaPrestamo}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="Fecha préstamo"/>
                             </f:facet>
-                            <h:outputText value="#{item.TFechaPrestamo}">
+                            <h:outputText value="#{item.FFechaPrestamo}">
                                 <f:convertDateTime pattern="dd MMMM yyyy" />
                             </h:outputText>
                         </p:column>
-                        <p:column width="15%" filterBy="#{item.TFechaRecibido}" filterStyle="display:none">
+                        <p:column width="15%" filterBy="#{item.FFechaRecibido}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="Fecha recibido"/>
                             </f:facet>
-                            <h:outputText value="#{item.TFechaRecibido}">
+                            <h:outputText value="#{item.FFechaRecibido}">
                                 <f:convertDateTime pattern="dd MMMM yyyy" />
                             </h:outputText>
                         </p:column>

@@ -44,11 +44,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "ExhibicionTb.findByMSolicitante", query = "SELECT e FROM ExhibicionTb e WHERE e.mSolicitante = :mSolicitante"),
     @NamedQuery(name = "ExhibicionTb.findByEIdEjemplar", query = "SELECT e FROM ExhibicionTb e WHERE e.eIdEjemplar = :eIdEjemplar"),
     @NamedQuery(name = "ExhibicionTb.findByEIdResponsable", query = "SELECT e FROM ExhibicionTb e WHERE e.eIdResponsable = :eIdResponsable"),
-    @NamedQuery(name = "ExhibicionTb.findByTFechaPrestamo", query = "SELECT e FROM ExhibicionTb e WHERE e.tFechaPrestamo = :tFechaPrestamo"),
-    @NamedQuery(name = "ExhibicionTb.findByTFechaRecibido", query = "SELECT e FROM ExhibicionTb e WHERE e.tFechaRecibido = :tFechaRecibido")})
+    @NamedQuery(name = "ExhibicionTb.findByFFechaPrestamo", query = "SELECT e FROM ExhibicionTb e WHERE e.fFechaPrestamo = :fFechaPrestamo"),
+    @NamedQuery(name = "ExhibicionTb.findByFFechaRecibido", query = "SELECT e FROM ExhibicionTb e WHERE e.fFechaRecibido = :fFechaRecibido"),
+    @NamedQuery(name = "ExhibicionTb.findByECustodio", query = "SELECT e FROM ExhibicionTb e WHERE e.eCustodio = :eCustodio"),
+    @NamedQuery(name = "ExhibicionTb.findByHHoraPrestamo", query = "SELECT e FROM ExhibicionTb e WHERE e.hHoraPrestamo = :hHoraPrestamo"),
+    @NamedQuery(name = "ExhibicionTb.findByHHoraRecibido", query = "SELECT e FROM ExhibicionTb e WHERE e.hHoraRecibido = :hHoraRecibido")})
 public class ExhibicionTb implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "exhibicionTb")
-    private List<EjemplarParticipaExhibicionTb> ejemplarParticipaExhibicionTbList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -77,16 +78,24 @@ public class ExhibicionTb implements Serializable {
     private String mSolicitante;
     @Column(name = "e_id_ejemplar")
     private Integer eIdEjemplar;
-    @Column(name = "e_custodio")
-    private Integer eCustidio;
     @Column(name = "e_id_responsable")
     private Integer eIdResponsable;
-    @Column(name = "t_fecha_prestamo")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date tFechaPrestamo;
-    @Column(name = "t_fecha_recibido")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date tFechaRecibido;
+    @Column(name = "f_fecha_prestamo")
+    @Temporal(TemporalType.DATE)
+    private Date fFechaPrestamo;
+    @Column(name = "f_fecha_recibido")
+    @Temporal(TemporalType.DATE)
+    private Date fFechaRecibido;
+    @Column(name = "e_custodio")
+    private Integer eCustodio;
+    @Column(name = "h_hora_prestamo")
+    @Temporal(TemporalType.TIME)
+    private Date hHoraPrestamo;
+    @Column(name = "h_hora_recibido")
+    @Temporal(TemporalType.TIME)
+    private Date hHoraRecibido;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "exhibicionTb")
+    private List<EjemplarParticipaExhibicionTb> ejemplarParticipaExhibicionTbList;
 
     public ExhibicionTb() {
     }
@@ -175,30 +184,53 @@ public class ExhibicionTb implements Serializable {
         this.eIdResponsable = eIdResponsable;
     }
 
-    public Integer getECustidio() {
-        return eCustidio;
+    public Date getFFechaPrestamo() {
+        return fFechaPrestamo;
     }
 
-    public void setECustidio(Integer eCustidio) {
-        this.eCustidio = eCustidio;
+    public void setFFechaPrestamo(Date fFechaPrestamo) {
+        this.fFechaPrestamo = fFechaPrestamo;
     }
 
-    
-    
-    public Date getTFechaPrestamo() {
-        return tFechaPrestamo;
+    public Date getFFechaRecibido() {
+        return fFechaRecibido;
     }
 
-    public void setTFechaPrestamo(Date tFechaPrestamo) {
-        this.tFechaPrestamo = tFechaPrestamo;
+    public void setFFechaRecibido(Date fFechaRecibido) {
+        this.fFechaRecibido = fFechaRecibido;
     }
 
-    public Date getTFechaRecibido() {
-        return tFechaRecibido;
+    public Integer getECustodio() {
+        return eCustodio;
     }
 
-    public void setTFechaRecibido(Date tFechaRecibido) {
-        this.tFechaRecibido = tFechaRecibido;
+    public void setECustodio(Integer eCustodio) {
+        this.eCustodio = eCustodio;
+    }
+
+    public Date getHHoraPrestamo() {
+        return hHoraPrestamo;
+    }
+
+    public void setHHoraPrestamo(Date hHoraPrestamo) {
+        this.hHoraPrestamo = hHoraPrestamo;
+    }
+
+    public Date getHHoraRecibido() {
+        return hHoraRecibido;
+    }
+
+    public void setHHoraRecibido(Date hHoraRecibido) {
+        this.hHoraRecibido = hHoraRecibido;
+    }
+
+    @XmlTransient
+    public List<EjemplarParticipaExhibicionTb> getEjemplarParticipaExhibicionTbList() {
+        return ejemplarParticipaExhibicionTbList;
+    }
+
+    public void setEjemplarParticipaExhibicionTbList(List<EjemplarParticipaExhibicionTb> ejemplarParticipaExhibicionTbList) {
+        this.ejemplarParticipaExhibicionTbList = ejemplarParticipaExhibicionTbList;
     }
 
     @Override
@@ -224,15 +256,6 @@ public class ExhibicionTb implements Serializable {
     @Override
     public String toString() {
         return "modelo.ExhibicionTb[ eIdexhibicion=" + eIdexhibicion + " ]";
-    }
-
-    @XmlTransient
-    public List<EjemplarParticipaExhibicionTb> getEjemplarParticipaExhibicionTbList() {
-        return ejemplarParticipaExhibicionTbList;
-    }
-
-    public void setEjemplarParticipaExhibicionTbList(List<EjemplarParticipaExhibicionTb> ejemplarParticipaExhibicionTbList) {
-        this.ejemplarParticipaExhibicionTbList = ejemplarParticipaExhibicionTbList;
     }
     
 }

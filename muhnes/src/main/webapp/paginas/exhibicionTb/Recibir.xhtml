@@ -12,16 +12,22 @@
             <h:form id="ExhibicionTbRecibirForm">
                 <h:panelGroup id="display">
 
-                    <p:panelGrid columns="4" rendered="#{exhibicionTbController.selected != null}">
+                    <p:panelGrid columns="2" rendered="#{exhibicionTbController.selected != null}">
 
                         <p:outputLabel value="Observaciones:" for="MDescripcion" />
-                        <p:inputTextarea rows="2" autoResize="" id="MDescripcion" value="#{exhibicionTbController.selected.MObservaciones}" title="Observaciones" />
-
+                        <p:inputTextarea rows="2" cols="50" autoResize="" id="MDescripcion" value="#{exhibicionTbController.selected.MObservaciones}" title="Observaciones" />
+                    </p:panelGrid>
+                    <p:panelGrid columns="4" rendered="#{exhibicionTbController.selected != null}">
                         <p:outputLabel value="Fecha de recibido:" for="FFechaReingreso" />
-                        <p:calendar id="FFechaReingreso" pattern="dd/MMM/yy hh:mm a" locale="es" readonlyInput="true"
-                                    value="#{exhibicionTbController.selected.TFechaRecibido}" size="15"
+                        <p:calendar id="FFechaReingreso" pattern="dd MMMM yyyy" locale="es" readonlyInput="true"
+                                    value="#{exhibicionTbController.selected.FFechaRecibido}" size="15"
 
                                     title="Recibido"  showOn="button" required="true" requiredMessage="Seleccione fecha de reingreso">
+                        </p:calendar>
+                        <p:outputLabel value="Hora de recibido:" for="HReingreso" />
+                        <p:calendar id="HReingreso" pattern="hh:mm a" locale="es" readonlyInput="true" minHour="8" maxHour="17"
+                                    value="#{exhibicionTbController.selected.HHoraPrestamo}" size="8" timeOnly="true"
+                                    title="Hora de préstamo" required="true" requiredMessage="Seleccione hora de recibido">
                         </p:calendar>
 
                     </p:panelGrid>
@@ -37,13 +43,12 @@
                                      >
 
                             <p:column headerText="Ejemplares" style="text-align: center">
-                                <h:outputText value="#{exej.ejemplarTb.ECorrelativo}"/>
+                                <h:outputText value="#{exej.ejemplarTb.CCodigoentrada}"/>
                             </p:column>
                             <p:column headerText="Estado del ejemplar" style="text-align: center">
-                                <p:outputLabel value="Estado:" for="CTipo" />
                                 <p:selectOneMenu id="CTipo" value="#{exej.EEstado}" style="width: 150px"
                                                  required="true" requiredMessage="Seleccione Estado del ejemplar">
-                                    <f:selectItem itemLabel="Seleccione.." itemValue=""/>
+                                    <f:selectItem itemLabel="Seleccione estado.." itemValue=""/>
                                     <f:selectItem itemLabel="Sin observaciones" itemValue="1"/>
                                     <f:selectItem itemLabel="Dañado" itemValue="1"/>
                                     <f:selectItem itemLabel="Perdido" itemValue="0"/>

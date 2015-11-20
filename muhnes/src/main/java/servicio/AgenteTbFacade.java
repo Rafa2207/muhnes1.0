@@ -67,4 +67,10 @@ public class AgenteTbFacade extends AbstractFacade<AgenteTb> {
         query.setParameter("a", agente);
         return query.getSingleResult();
     }
+    
+    public List<AgenteTb> agenteCustodio() {
+       String Sentencia = "SELECT a.e_idagente, a.c_nombre, a.c_apellido, a.c_iniciales from agente_tb a INNER JOIN agente_perfil_tb ap ON a.e_idagente=ap.e_idagente INNER JOIN perfil_tb p ON ap.e_idperfil=p.e_idperfil WHERE p.c_nombre='Custodio'";
+        Query query = em.createNativeQuery(Sentencia, AgenteTb.class);
+        return query.getResultList();
+    }
 }

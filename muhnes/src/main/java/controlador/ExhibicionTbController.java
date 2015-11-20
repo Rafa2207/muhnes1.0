@@ -157,7 +157,7 @@ public class ExhibicionTbController implements Serializable {
                     quitarFinalizados.add(e);
                 }
                 if (e.getEEstado() == 0) {
-                    if (e.getTFechaRecibido().after(fecha)) {
+                    if (e.getFFechaRecibido().after(fecha)) {
                         quitarFinalizados.add(e);
                     }
                 }

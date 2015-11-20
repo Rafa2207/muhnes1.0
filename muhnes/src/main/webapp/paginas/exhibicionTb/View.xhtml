@@ -31,17 +31,27 @@
                         <h:outputText value="#{exhibicionTbController.calculaAgente(exhibicionTbController.selected.EIdResponsable)}"/>
 
                         <h:outputText value="Fecha de préstamo:"/>
-                        <h:outputText value="#{exhibicionTbController.selected.TFechaPrestamo}">
-                            <f:convertDateTime pattern="dd MMMM yyyy -- hh:mm a" />
-                        </h:outputText>
+                        <h:panelGroup>
+                            <h:outputText value="#{exhibicionTbController.selected.FFechaPrestamo}">
+                                <f:convertDateTime pattern="dd MMMM yyyy  " />
+                            </h:outputText>
+                            <h:outputText value="#{exhibicionTbController.selected.HHoraPrestamo}">
+                                <f:convertDateTime pattern="hh:mm a" />
+                            </h:outputText>
+                        </h:panelGroup>
 
                         <h:outputText value="Fecha de recibido:"/>
-                        <h:outputText value="#{exhibicionTbController.selected.TFechaRecibido}">
-                            <f:convertDateTime pattern="dd MMMM yyyy -- hh:mm a" />
-                        </h:outputText>
+                        <h:panelGroup>
+                            <h:outputText value="#{exhibicionTbController.selected.FFechaRecibido}">
+                                <f:convertDateTime pattern="dd MMMM yyyy  " />
+                            </h:outputText>
+                            <h:outputText value="#{exhibicionTbController.selected.HHoraRecibido}">
+                                <f:convertDateTime pattern="hh:mm a" />
+                            </h:outputText>
+                        </h:panelGroup>
                         
                         <h:outputText value="Custodio:"/>
-                        <h:outputText value="#{exhibicionTbController.calculaAgente(exhibicionTbController.selected.ECustidio)}" />
+                        <h:outputText value="#{exhibicionTbController.calculaAgente(exhibicionTbController.selected.ECustodio)}" />
                     </p:panelGrid>
 
                     <p:panelGrid columns="1">
@@ -56,7 +66,7 @@
                                      >
 
                             <p:column headerText="Ejemplares" style="text-align: center">
-                                <h:outputText value="#{exej.ejemplarTb.ECorrelativo}"/>
+                                <h:outputText value="#{exej.ejemplarTb.CCodigoentrada}"/>
                             </p:column>
                         </p:dataTable>
                     </p:panelGrid>

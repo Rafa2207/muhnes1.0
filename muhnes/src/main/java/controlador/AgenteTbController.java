@@ -53,7 +53,7 @@ public class AgenteTbController implements Serializable {
     private servicio.AgenteTbFacade ejbFacade;
     @EJB
     private servicio.PerfilTbFacade perfilFacade;
-    private List<AgenteTb> items = null, filtrado = null, filtro;
+    private List<AgenteTb> items = null, filtrado = null, filtro,AgenteCustodio;
     private AgenteTb selected;
     private PerfilTb perfil;
     private List<PerfilTb> perfiles;
@@ -145,6 +145,15 @@ public class AgenteTbController implements Serializable {
         return ejbFacade;
     }
 
+    public List<AgenteTb> getAgenteCustodio() {
+        AgenteCustodio=getFacade().agenteCustodio();
+        return AgenteCustodio;
+    }
+
+    public void setAgenteCustodio(List<AgenteTb> AgenteCustodio) {
+        this.AgenteCustodio = AgenteCustodio;
+    }
+    
     public AgenteTb prepareCreate() {
         selected = new AgenteTb();
         //Hay que inicializar la lista
@@ -230,7 +239,7 @@ public class AgenteTbController implements Serializable {
     public List<AgenteTb> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
-
+    
     @FacesConverter(forClass = AgenteTb.class)
     public static class AgenteTbControllerConverter implements Converter {
 
