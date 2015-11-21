@@ -5,7 +5,7 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import modelo.ActividadTb;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-11-20T11:57:42")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-11-20T17:50:04")
 @StaticMetamodel(InsumoTb.class)
 public class InsumoTb_ { 
 

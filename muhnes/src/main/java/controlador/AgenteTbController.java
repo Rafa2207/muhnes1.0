@@ -53,7 +53,7 @@ public class AgenteTbController implements Serializable {
     private servicio.AgenteTbFacade ejbFacade;
     @EJB
     private servicio.PerfilTbFacade perfilFacade;
-    private List<AgenteTb> items = null, filtrado = null, filtro,AgenteCustodio;
+    private List<AgenteTb> items = null, filtrado = null, filtro, AgenteCustodio;
     private AgenteTb selected;
     private PerfilTb perfil;
     private List<PerfilTb> perfiles;
@@ -146,14 +146,14 @@ public class AgenteTbController implements Serializable {
     }
 
     public List<AgenteTb> getAgenteCustodio() {
-        AgenteCustodio=getFacade().agenteCustodio();
+        AgenteCustodio = getFacade().agenteCustodio();
         return AgenteCustodio;
     }
 
     public void setAgenteCustodio(List<AgenteTb> AgenteCustodio) {
         this.AgenteCustodio = AgenteCustodio;
     }
-    
+
     public AgenteTb prepareCreate() {
         selected = new AgenteTb();
         //Hay que inicializar la lista
@@ -239,7 +239,7 @@ public class AgenteTbController implements Serializable {
     public List<AgenteTb> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
-    
+
     @FacesConverter(forClass = AgenteTb.class)
     public static class AgenteTbControllerConverter implements Converter {
 
@@ -302,7 +302,7 @@ public class AgenteTbController implements Serializable {
         AgentePerfilTb nuevo = new AgentePerfilTb();
         nuevo.setPerfilTb(perfil);
         nuevo.setAgenteTb(selected);
-        
+
         AgentePerfilTbPK agentepk = new AgentePerfilTbPK();
 
         agentepk.setEIdperfil(perfil.getEIdperfil());
@@ -400,10 +400,10 @@ public class AgenteTbController implements Serializable {
                 fecha.setSpacingAfter(10);
                 document.add(fecha);
 
-                 /*int i = 0;
-                for (AgentePerfilTb p : selected.getAgentePerfilTbList()) {
-                    i++;
-                    }*/
+                /*int i = 0;
+                 for (AgentePerfilTb p : selected.getAgentePerfilTbList()) {
+                 i++;
+                 }*/
                 PdfPTable agentes = new PdfPTable(5);
                 agentes.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                 agentes.addCell(new Phrase("Iniciales", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
@@ -412,9 +412,9 @@ public class AgenteTbController implements Serializable {
                 agentes.addCell(new Phrase("Ocupación", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                 agentes.addCell(new Phrase("Institución", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                 /*PdfPCell per = new PdfPCell(new Phrase("Perfiles", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
-                per.setColspan(i);
-                per.setHorizontalAlignment(Element.ALIGN_CENTER);
-                agentes.addCell(per);*/
+                 per.setColspan(i);
+                 per.setHorizontalAlignment(Element.ALIGN_CENTER);
+                 agentes.addCell(per);*/
 
                 List<AgenteTb> lista;
                 if (filtrado != null) {
@@ -448,12 +448,12 @@ public class AgenteTbController implements Serializable {
                     PdfPCell cell4 = new PdfPCell(new Phrase(l.getEIdinstitucion().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 10)));
                     cell4.setHorizontalAlignment(Element.ALIGN_LEFT);
                     agentes.addCell(cell4);
-                  
-                   /* for (AgentePerfilTb r : lista1) {
-                    PdfPCell cell5 = new PdfPCell(new Phrase(r.getPerfilTb().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 10)));
-                    cell5.setHorizontalAlignment(Element.ALIGN_LEFT);
-                    agentes.addCell(cell5);
-                    }*/
+
+                    /* for (AgentePerfilTb r : lista1) {
+                     PdfPCell cell5 = new PdfPCell(new Phrase(r.getPerfilTb().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 10)));
+                     cell5.setHorizontalAlignment(Element.ALIGN_LEFT);
+                     agentes.addCell(cell5);
+                     }*/
                 }
                 document.add(agentes);
                 document.close();
@@ -488,9 +488,6 @@ public class AgenteTbController implements Serializable {
                 TableHeaderVertical event = new TableHeaderVertical();
                 writer.setPageEvent(event);
                 document.open();
-
-                //este cb sirve para sacar el codigo de barra
-                PdfContentByte cb = writer.getDirectContent();
 
                 //Encabezado
                 //esto es para obtener la ruta del sistema
@@ -540,7 +537,7 @@ public class AgenteTbController implements Serializable {
                 //cell2.setBorder(Rectangle.NO_BORDER);
                 //encabezado.addCell(cell2);
                 //document.add(encabezado);
-                Paragraph titulo = new Paragraph("Reporte de Agentes", FontFactory.getFont(FontFactory.TIMES_BOLD, 11));
+                Paragraph titulo = new Paragraph("Reporte del Agente", FontFactory.getFont(FontFactory.TIMES_BOLD, 11));
                 titulo.setAlignment(Element.ALIGN_CENTER);
                 titulo.setSpacingAfter(5);
                 titulo.setSpacingBefore(10);
@@ -552,29 +549,30 @@ public class AgenteTbController implements Serializable {
                 fecha.setSpacingAfter(10);
                 document.add(fecha);
 
-                int i = 0;
-                for (AgentePerfilTb p : selected.getAgentePerfilTbList()) {
-                    i++;
-                    }
+                PdfPTable per = new PdfPTable(1);
+                for (AgentePerfilTb l : selected.getAgentePerfilTbList()) {
+                    PdfPCell cell0 = new PdfPCell(new Phrase(l.getPerfilTb().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 10)));
+                    cell0.setBorder(Rectangle.NO_BORDER);
+                    cell0.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    per.addCell(cell0);
+                }
 
-                PdfPTable agentes = new PdfPTable(5+i);
+                PdfPTable agentes = new PdfPTable(6);
                 agentes.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                 agentes.addCell(new Phrase("Iniciales", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                 agentes.addCell(new Phrase("Nombre", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                 agentes.addCell(new Phrase("Apellido", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                 agentes.addCell(new Phrase("Ocupación", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                 agentes.addCell(new Phrase("Institución", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
-                PdfPCell per = new PdfPCell(new Phrase("Perfiles", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
-                per.setColspan(i);
-                per.setHorizontalAlignment(Element.ALIGN_CENTER);
-                agentes.addCell(per);
-                    
-                   
-                    for(AgentePerfilTb r : selected.getAgentePerfilTbList()) {
+                agentes.addCell(new Phrase("Perfiles", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+
+                int j=0;
+                for (AgentePerfilTb r : selected.getAgentePerfilTbList()) {
+                    if(j==0){
                     PdfPCell cell0 = new PdfPCell(new Phrase(r.getAgenteTb().getCIniciales(), FontFactory.getFont(FontFactory.TIMES, 10)));
                     cell0.setHorizontalAlignment(Element.ALIGN_CENTER);
                     agentes.addCell(cell0);
-                    
+
                     PdfPCell cell = new PdfPCell(new Phrase(r.getAgenteTb().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 10)));
                     cell.setHorizontalAlignment(Element.ALIGN_LEFT);
                     agentes.addCell(cell);
@@ -591,13 +589,12 @@ public class AgenteTbController implements Serializable {
                     cell4.setHorizontalAlignment(Element.ALIGN_LEFT);
                     agentes.addCell(cell4);
                     
-                    for (AgentePerfilTb l : selected.getAgentePerfilTbList()) {
-                    PdfPCell cell5 = new PdfPCell(new Phrase(l.getPerfilTb().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 10)));
-                    cell5.setHorizontalAlignment(Element.ALIGN_LEFT);
-                    agentes.addCell(cell5);
+                    agentes.addCell(new PdfPCell(per));
+                    document.add(agentes);
                     }
-                    }
-                document.add(agentes);
+                    j++;
+                }
+                
                 document.close();
                 //Termina reporte
 
