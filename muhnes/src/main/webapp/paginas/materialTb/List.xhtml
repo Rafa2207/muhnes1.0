@@ -96,11 +96,12 @@
             <h:form target="_blank">
                 <div style="text-align: right"> 
 
-                    <p:commandLink value="Reporte" 
-                                   actionListener="#{materialTbController.reporte()}" 
-                                   ajax="false"/>
+                    <p:commandLink title="Reporte de materiales" ajax="false"
+                                   actionListener="#{materialTbController.reporte}">
+                    <p:graphicImage name="images/pdf-icon.png" height="50px"/>
+                    </p:commandLink>
                 </div> 
-            </h:form>
+            </h:form> 
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>

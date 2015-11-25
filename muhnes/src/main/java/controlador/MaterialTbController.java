@@ -285,14 +285,14 @@ public class MaterialTbController implements Serializable {
                 hsr.setContentType("application/pdf");
                 ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
 
-                // Empieza reporte
-                Document document = new Document(PageSize.LETTER);
+                // Empieza reporte horizontal
+                Document document = new Document(PageSize.LETTER.rotate());
                 PdfWriter writer = PdfWriter.getInstance(document, pdfOutputStream);
-                TableHeaderVertical event = new TableHeaderVertical();
+                TableHeader event = new TableHeader();
                 writer.setPageEvent(event);
                 document.open();
 
-                //este cb sirve para sacar el codigo de barra
+                //este cod sirve para sacar el codigo de barra
                 PdfContentByte cb = writer.getDirectContent();
 
                 //Encabezado
@@ -363,7 +363,9 @@ public class MaterialTbController implements Serializable {
                 mat.addCell(new Phrase("Cantidad", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                 mat.addCell(new Phrase("Cantidad Min", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                 mat.addCell(new Phrase("Descripción", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
-
+                mat.setSpacingBefore(10);
+                mat.setSpacingAfter(10);
+                
                 List<MaterialTb> lista;
                 if (filtrar != null) {
                     lista = filtrar;
@@ -374,27 +376,40 @@ public class MaterialTbController implements Serializable {
                 for (MaterialTb l : lista) {
                     Barcode39 cod = new Barcode39();
                     cod.setCode(l.getMCodigobarras());
-                    mat.addCell(cod.createImageWithBarcode(cb, null, null));
-
+                    PdfPCell cell0 = new PdfPCell();
+                    cell0.addElement(cod.createImageWithBarcode(cb, null, null));
+                    cell0.setBorder(Rectangle.NO_BORDER);
+                    mat.addCell(cell0);
+                    //mat.addCell(cod.createImageWithBarcode(cb, null, null));                
+                    
                     PdfPCell cell2 = new PdfPCell(new Phrase(l.getCNombre(), FontFactory.getFont(FontFactory.TIMES, 10)));
                     cell2.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    cell2.setBorder(Rectangle.NO_BORDER);
                     mat.addCell(cell2);
+                    
 
                     PdfPCell cell22 = new PdfPCell(new Phrase(l.getEIdunidad().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 10)));
                     cell22.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    cell22.setBorder(Rectangle.NO_BORDER);
                     mat.addCell(cell22);
 
                     PdfPCell cell3 = new PdfPCell(new Phrase(String.valueOf(l.getDCantidad()), FontFactory.getFont(FontFactory.TIMES, 10)));
                     cell3.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                    cell3.setBorder(Rectangle.NO_BORDER);
                     mat.addCell(cell3);
 
                     PdfPCell cell4 = new PdfPCell(new Phrase(String.valueOf(l.getDCantidadmin()), FontFactory.getFont(FontFactory.TIMES, 10)));
                     cell4.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                    cell4.setBorder(Rectangle.NO_BORDER);
                     mat.addCell(cell4);
 
                     PdfPCell cell5 = new PdfPCell(new Phrase(l.getMDescripcion(), FontFactory.getFont(FontFactory.TIMES, 10)));
                     cell5.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+                    cell5.setBorder(Rectangle.NO_BORDER);
                     mat.addCell(cell5);
+                    
+                    mat.setSpacingBefore(10);
+                    mat.setSpacingAfter(10);
                 }
                 document.add(mat);
                 document.close();

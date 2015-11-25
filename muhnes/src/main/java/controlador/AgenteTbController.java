@@ -444,11 +444,18 @@ public class AgenteTbController implements Serializable {
                     PdfPCell cell3 = new PdfPCell(new Phrase(l.getCOcupacion(), FontFactory.getFont(FontFactory.TIMES, 10)));
                     cell3.setHorizontalAlignment(Element.ALIGN_LEFT);
                     agentes.addCell(cell3);
-
+                    
+                    try {
                     PdfPCell cell4 = new PdfPCell(new Phrase(l.getEIdinstitucion().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 10)));
+                    cell4.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    agentes.addCell(cell4);    
+                    } catch (Exception e) {
+                    PdfPCell cell4 = new PdfPCell(new Phrase("Sin Institución", FontFactory.getFont(FontFactory.TIMES, 10)));
                     cell4.setHorizontalAlignment(Element.ALIGN_LEFT);
                     agentes.addCell(cell4);
 
+                    }
+                    
                     /* for (AgentePerfilTb r : lista1) {
                      PdfPCell cell5 = new PdfPCell(new Phrase(r.getPerfilTb().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 10)));
                      cell5.setHorizontalAlignment(Element.ALIGN_LEFT);
