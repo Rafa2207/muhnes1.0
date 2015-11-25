@@ -28,7 +28,7 @@
                     <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{agenteTbController.destroy}" update=":growl,datalist" disabled="#{empty agenteTbController.selected}">
                         <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
                     </p:commandButton>
-                    <p:commandButton id="reportButton"   icon="ui-icon-print" value="Reporte" update=":AgenteTbReportForm" oncomplete="PF('AgenteTbReportDialog').show()" disabled="#{empty agenteTbController.selected}"/>
+                    
                     
 
                     <p:dataTable id="datalist" value="#{agenteTbController.items}" var="item"
@@ -45,8 +45,8 @@
 
                                  >
 
-                        <p:ajax event="rowSelect"   update=":AgenteTbListForm:createButton :AgenteTbListForm:viewButton :AgenteTbListForm:editButton :AgenteTbListForm:deleteButton :AgenteTbListForm:reportButton"/>
-                        <p:ajax event="rowUnselect" update=":AgenteTbListForm:createButton :AgenteTbListForm:viewButton :AgenteTbListForm:editButton :AgenteTbListForm:deleteButton :AgenteTbListForm:reportButton"/>
+                        <p:ajax event="rowSelect"   update=":AgenteTbListForm:createButton :AgenteTbListForm:viewButton :AgenteTbListForm:editButton :AgenteTbListForm:deleteButton"/>
+                        <p:ajax event="rowUnselect" update=":AgenteTbListForm:createButton :AgenteTbListForm:viewButton :AgenteTbListForm:editButton :AgenteTbListForm:deleteButton"/>
 
                         <p:column filterBy="#{item.CNombre}" filterStyle="display:none" width="10%" style="text-align: center" >
                             <f:facet name="header">
@@ -108,7 +108,6 @@
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
-            <ui:include src="Report.xhtml"/> 
         </ui:define>
     </ui:composition>
 
