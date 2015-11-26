@@ -24,10 +24,12 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
 import modelo.AgenteTb;
+import modelo.BitacoraTb;
 import modelo.EjemplarParticipaExhibicionTb;
 import modelo.EjemplarParticipaExhibicionTbPK;
 import modelo.EjemplarTb;
 import modelo.TaxonomiaTb;
+import modelo.UsuarioTb;
 import servicio.AgenteTbFacade;
 
 @Named("exhibicionTbController")
@@ -40,8 +42,13 @@ public class ExhibicionTbController implements Serializable {
     private servicio.AgenteTbFacade agenteFacade;
     @EJB
     private servicio.EjemplarTbFacade ejemplarFacade;
+    @EJB
+    private servicio.UsuarioTbFacade usuarioFacade;
+    @EJB
+    private servicio.BitacoraTbFacade bitacoraFacade;
     private List<ExhibicionTb> items = null, lista = null, filtro, itemsNotificacion = null;
     private List<EjemplarTb> ejemplares;
+    private List<EjemplarParticipaExhibicionTb> listaEliminados;
     private ExhibicionTb selected;
     private Date fechaActual = new Date();
     private int NumeroDeNotificaciones = 0, CantidadEjemplar = 1;
@@ -184,6 +191,7 @@ public class ExhibicionTbController implements Serializable {
     }
 
     public ExhibicionTb prepareEdit() {
+        listaEliminados = new ArrayList<EjemplarParticipaExhibicionTb>();
         ejemplares = ejemplarFacade.EjemplarOrdenAsc();
         for (EjemplarParticipaExhibicionTb b : selected.getEjemplarParticipaExhibicionTbList()) {
             ejemplares.remove(b.getEjemplarTb());
@@ -193,20 +201,52 @@ public class ExhibicionTbController implements Serializable {
     }
 
     public void create() {
+
         for (EjemplarParticipaExhibicionTb ee : selected.getEjemplarParticipaExhibicionTbList()) {
             ejemplarFacade.edit(ee.getEjemplarTb());
         }
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Se realizó una exhibición: '" + selected.getMNombre() + "' de tipo '"+selected.getCTipo()+"' en el módulo: Exhibición");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ExhibicionTbCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
+
     }
 
     public void update() {
-        for (EjemplarParticipaExhibicionTb ee : selected.getEjemplarParticipaExhibicionTbList()) {
-            ejemplarFacade.edit(ee.getEjemplarTb());
+        try {
+            for (EjemplarParticipaExhibicionTb ee : selected.getEjemplarParticipaExhibicionTbList()) {
+                ejemplarFacade.edit(ee.getEjemplarTb());
+            }
+        } catch (Exception e) {
         }
+        try {
+            for (EjemplarParticipaExhibicionTb ee : listaEliminados) {
+                ejemplarFacade.edit(ee.getEjemplarTb());
+            }
+        } catch (Exception e) {
+        }
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Se modificó la exhibición: '" + selected.getMNombre() + "' en el módulo: Exhibición");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ExhibicionTbUpdated"));
+
     }
 
     public void destroy() {
@@ -220,10 +260,32 @@ public class ExhibicionTbController implements Serializable {
     public void finExhibicion() {
         FacesContext context = FacesContext.getCurrentInstance();
         selected.setEEstado(1);
-        for (EjemplarParticipaExhibicionTb ee : selected.getEjemplarParticipaExhibicionTbList()) {
-            ee.getEjemplarTb().setECantDuplicado(ee.getEjemplarTb().getECantDuplicado()+1);
-            ejemplarFacade.edit(ee.getEjemplarTb());
+        try {
+            for (EjemplarParticipaExhibicionTb ee : listaEliminados) {
+                ejemplarFacade.edit(ee.getEjemplarTb());
+            }
+        } catch (Exception e) {
         }
+        try {
+            for (EjemplarParticipaExhibicionTb ee : selected.getEjemplarParticipaExhibicionTbList()) {
+                if (ee.getEEstado() != 0) {
+                    ee.getEjemplarTb().setECantDuplicado(ee.getEjemplarTb().getECantDuplicado() + 1);
+                }
+                ejemplarFacade.edit(ee.getEjemplarTb());
+            }
+
+        } catch (Exception e) {
+        }
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Se recibieron los ejemplares de la exhibición: '" + selected.getMNombre() + "' en el módulo: Exhibición");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
         getFacade().edit(selected);
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Recibido", "INFO"));
     }
@@ -402,6 +464,13 @@ public class ExhibicionTbController implements Serializable {
     public void remover() {
         ejemplarExhibicion.getEjemplarTb().setECantDuplicado(ejemplarExhibicion.getEjemplarTb().getECantDuplicado() + 1);
         selected.getEjemplarParticipaExhibicionTbList().remove(ejemplarExhibicion);
+        ejemplares.add(ejemplarExhibicion.getEjemplarTb());
+    }
+
+    public void removerEdit() {
+        ejemplarExhibicion.getEjemplarTb().setECantDuplicado(ejemplarExhibicion.getEjemplarTb().getECantDuplicado() + 1);
+        selected.getEjemplarParticipaExhibicionTbList().remove(ejemplarExhibicion);
+        listaEliminados.add(ejemplarExhibicion);
         ejemplares.add(ejemplarExhibicion.getEjemplarTb());
     }
 

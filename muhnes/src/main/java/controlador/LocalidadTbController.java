@@ -6,6 +6,7 @@ import controlador.util.JsfUtil.PersistAction;
 import servicio.LocalidadTbFacade;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -19,6 +20,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
+import modelo.BitacoraTb;
+import modelo.UsuarioTb;
 
 @Named("localidadTbController")
 @ViewScoped
@@ -26,6 +29,10 @@ public class LocalidadTbController implements Serializable {
 
     @EJB
     private servicio.LocalidadTbFacade ejbFacade;
+    @EJB
+    private servicio.UsuarioTbFacade usuarioFacade;
+    @EJB
+    private servicio.BitacoraTbFacade bitacoraFacade;
     private List<LocalidadTb> items = null, filtro;
     private LocalidadTb selected;
 
@@ -65,6 +72,16 @@ public class LocalidadTbController implements Serializable {
     }
 
     public void create() {
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Agregado nueva localidad: '" + selected.getCNombre()+ "' en el módulo: Localización");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("LocalidadTbCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -72,6 +89,16 @@ public class LocalidadTbController implements Serializable {
     }
 
     public void update() {
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Modificado localidad: '" + selected.getCNombre()+ "' en el módulo: Localización");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("LocalidadTbUpdated"));
     }
 

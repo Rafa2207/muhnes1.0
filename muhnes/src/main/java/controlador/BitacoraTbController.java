@@ -85,7 +85,7 @@ public class BitacoraTbController implements Serializable {
 
     public List<BitacoraTb> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = getFacade().BitacoraOrdenFecha();
         }
         return items;
     }

@@ -6,6 +6,7 @@ import controlador.util.JsfUtil.PersistAction;
 import servicio.AreaprotegidaTbFacade;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -19,6 +20,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
+import modelo.BitacoraTb;
+import modelo.UsuarioTb;
 
 @Named("areaprotegidaTbController")
 @ViewScoped
@@ -26,6 +29,10 @@ public class AreaprotegidaTbController implements Serializable {
 
     @EJB
     private servicio.AreaprotegidaTbFacade ejbFacade;
+    @EJB
+    private servicio.UsuarioTbFacade usuarioFacade;
+    @EJB
+    private servicio.BitacoraTbFacade bitacoraFacade;
     private List<AreaprotegidaTb> items = null, filtro, itemsAreaOrdenNombreAsc=null;
     private AreaprotegidaTb selected;
 
@@ -74,6 +81,16 @@ public class AreaprotegidaTbController implements Serializable {
     }
 
     public void create() {
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Agregado nueva área protegida: '" + selected.getCNombre()+ "' en el módulo: Localización");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AreaprotegidaTbCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -81,6 +98,16 @@ public class AreaprotegidaTbController implements Serializable {
     }
 
     public void update() {
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Modificado área protegida: '" + selected.getCNombre()+ "' en el módulo: Localización");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("AreaprotegidaTbUpdated"));
     }
 

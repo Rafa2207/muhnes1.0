@@ -94,7 +94,7 @@ public class ExhibicionTb implements Serializable {
     @Column(name = "h_hora_recibido")
     @Temporal(TemporalType.TIME)
     private Date hHoraRecibido;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "exhibicionTb")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "exhibicionTb")
     private List<EjemplarParticipaExhibicionTb> ejemplarParticipaExhibicionTbList;
 
     public ExhibicionTb() {

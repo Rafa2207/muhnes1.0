@@ -16,11 +16,12 @@
                         <p:inputText id="CNombre" value="#{areaprotegidaTbController.selected.CNombre}" title="#{bundle.CreateAreaprotegidaTbTitle_CNombre}" 
                                      required="true" requiredMessage="Introduzca nombre del área protegida"/>
 
-                        <p:outputLabel value="#{bundle.CreateAreaprotegidaTbLabel_MDescripcion}" for="MDescripcion" />
-                        <p:inputTextarea autoResize="" id="MDescripcion" value="#{areaprotegidaTbController.selected.MDescripcion}" title="#{bundle.CreateAreaprotegidaTbTitle_MDescripcion}" />
-                    </p:panelGrid>
+                       <p:outputLabel value="#{bundle.CreateAreaprotegidaTbLabel_MDescripcion}" for="MDescripcion" />
+                        <p:inputTextarea rows="2" autoResize="" id="MDescripcion" value="#{areaprotegidaTbController.selected.MDescripcion}" title="#{bundle.CreateAreaprotegidaTbTitle_MDescripcion}" />
+                     </p:panelGrid>
 
-                    <p:panelGrid columns="8" rendered="#{areaprotegidaTbController.selected != null}" >
+                    <p:panelGrid columns="9" rendered="#{areaprotegidaTbController.selected != null}" >
+                        <b>Latitud</b>
                         <p:outputLabel value="Grados:" for="Grados" />
                         <p:inputText id="Grados" value="#{areaprotegidaTbController.selected.ELatitudgrados}" title="Rangos válidos: -360 a 360" maxlength="4" size="4"
                                      required="true" requiredMessage="Introduzca grados de latitud">
@@ -51,9 +52,11 @@
                                                 areaprotegidaTbController.selected.DLatitudsegundos)}" />
                         </p:inputText>
 
-                        <p:outputLabel value="Latitud:" for="Latitud" />
+                        <p:outputLabel value="Decimal:" for="Latitud" />
                         <p:inputText readonly="true" id="Latitud" value="#{areaprotegidaTbController.selected.DLatituddecimal}" title="Latitud" 
                                      required="true" requiredMessage="Introduzca latitud decimal"/>
+
+                        <b>Longitud</b>
 
                         <p:outputLabel value="Grados:" for="Grados2" />
                         <p:inputText id="Grados2" value="#{areaprotegidaTbController.selected.ELongitudgrados}" title="Rangos válidos: -360 a 360"  maxlength="4" size="4"
@@ -88,7 +91,7 @@
                                                 areaprotegidaTbController.selected.DLongitudsegundos)}" />
                         </p:inputText>
 
-                        <p:outputLabel value="Longitud:" for="Longitud" />
+                        <p:outputLabel value="Decimal:" for="Longitud" />
                         <p:inputText readonly="true" id="Longitud" value="#{areaprotegidaTbController.selected.DLongituddecimal}" title="Longitud" 
                                      required="true" requiredMessage="Introduzca longitud decimal"/>
                     </p:panelGrid>

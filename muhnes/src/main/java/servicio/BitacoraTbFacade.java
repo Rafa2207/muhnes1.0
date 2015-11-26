@@ -5,9 +5,11 @@
  */
 package servicio;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import modelo.BitacoraTb;
 
 /**
@@ -16,6 +18,7 @@ import modelo.BitacoraTb;
  */
 @Stateless
 public class BitacoraTbFacade extends AbstractFacade<BitacoraTb> {
+
     @PersistenceContext(unitName = "muhnes_muhnes_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
@@ -27,5 +30,10 @@ public class BitacoraTbFacade extends AbstractFacade<BitacoraTb> {
     public BitacoraTbFacade() {
         super(BitacoraTb.class);
     }
-    
+
+    public List<BitacoraTb> BitacoraOrdenFecha() {
+        TypedQuery<BitacoraTb> query = em.createQuery("SELECT p FROM BitacoraTb p ORDER BY p.tFecha DESC", BitacoraTb.class);
+        return query.getResultList();
+    }
+
 }
