@@ -15,7 +15,16 @@
                         <p:outputLabel value="Justificación:" for="justificacion" />
                         <p:inputTextarea rows="2" cols="27" autoResize="" id="justificacion" 
                                          value="#{proyectoTbController.selected.MInformacionAdicional}" 
-                                         title="Justificación" />
+                                         title="Justificación" required="true" requiredMessage="ingrese justificación" />
+                        <p:outputLabel value="Fecha:" for="FFechaFin" />
+                        <p:calendar id="FFechaFin"  size="15"
+                                    pattern="dd MMMM yyyy" value="#{proyectoTbController.selected.FFechaFin}" 
+                                    title="Fecha"  showOn="button"
+                                    required="true"
+                                    requiredMessage="Introduzca fecha fin"
+                                    locale="es" readonlyInput="true"
+                                    mindate="#{proyectoTbController.selected.FFechaInicio}">
+                        </p:calendar>
 
                     </p:panelGrid>
                     <p:commandButton actionListener="#{proyectoTbController.desactivarProyecto(proyectoTbController.selected)}" 

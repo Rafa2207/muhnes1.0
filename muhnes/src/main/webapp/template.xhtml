@@ -60,11 +60,6 @@
                                 <p:ajax listener="#{themeSwitcherBean.saveUserTheme()}" />
                             </p:themeSwitcher>  
                         </p:menuitem>
-                        <p:menuitem>
-                            <p:commandLink style="margin-left: 10px;" title="Ayuda" action="/paginas/Ayuda/List.xhtml" >
-                                <p:graphicImage name="images/ayuda.png" height="25px" />
-                            </p:commandLink>
-                        </p:menuitem>
                     </p:menubar>
                 </h:form>
             </p:layoutUnit>
@@ -75,7 +70,7 @@
                     <p:slideMenu backLabel="Regresar" style="width: 95%">
                         <p:menuitem value="#{bundle.Home}" outcome="/paginas/bienvenido.xhtml" icon="ui-icon-home"/>
                         <p:submenu label="Proyectos">
-                            <p:menuitem value="Proyecto" outcome="/paginas/proyectoTb/List.xhtml" />
+                            <p:menuitem value="Proyecto" outcome="/paginas/proyectoTb/List.xhtml"/>
                             <p:menuitem value="Control de proyectos" outcome="/paginas/horario/Agenda.xhtml" />
                             <p:menuitem value="Proceso Ejemplar" outcome="/paginas/procesoejemplarTb/ProcesoEjemplar.xhtml"/>
                             <p:menuitem value="Notas preliminares" outcome="/paginas/notapreliminarTb/notapreliminar.xhtml"/>

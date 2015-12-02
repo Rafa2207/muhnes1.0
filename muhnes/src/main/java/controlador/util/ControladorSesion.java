@@ -33,7 +33,16 @@ public class ControladorSesion implements Serializable {
     private TaxonomiaTb genero;
     private TaxonomiaTb especie;
     private EjemplarVivoTb ejemplarVivo;
+    private String ayuda=null;
     //private TaxonomiaTb taxonomia;
+
+    public String getAyuda() {
+        return ayuda;
+    }
+
+    public void setAyuda(String ayuda) {
+        this.ayuda = ayuda;
+    }
 
     public EjemplarVivoTb getEjemplarVivo() {
         return ejemplarVivo;
@@ -75,14 +84,14 @@ public class ControladorSesion implements Serializable {
         this.taxonomia = taxonomia;
     }
 
-/*    public GeneroTb getGenero() {
-        return genero;
-    }
+    /*    public GeneroTb getGenero() {
+     return genero;
+     }
 
-    public void setGenero(GeneroTb genero) {
-        this.genero = genero;
-    }
-*/
+     public void setGenero(GeneroTb genero) {
+     this.genero = genero;
+     }
+     */
     public MunicipioTb getMunicipio() {
         return municipio;
     }
@@ -106,21 +115,37 @@ public class ControladorSesion implements Serializable {
     public void setPais(PaisTb pais) {
         this.pais = pais;
     }
-/*
-    public FamiliaTb getFamilia() {
-        return familia;
-    }
+    /*
+     public FamiliaTb getFamilia() {
+     return familia;
+     }
 
-    public void setFamilia(FamiliaTb familia) {
-        this.familia = familia;
-    }
-*/
+     public void setFamilia(FamiliaTb familia) {
+     this.familia = familia;
+     }
+     */
+
     public ProyectoTb getProyecto() {
         return proyecto;
     }
 
     public void setProyecto(ProyectoTb proyecto) {
         this.proyecto = proyecto;
+    }
+
+    public String mostrarAyuda() {
+        String ayudaComparacion=ayuda;
+        
+        String tipoAyuda = "inicio";
+
+        if (ayudaComparacion != "inicio") {
+            tipoAyuda = "../../pdf/"+ayudaComparacion+".pdf";
+            ayudaComparacion="inicio";
+            return tipoAyuda;
+        } 
+        else {
+            return "../pdf/inicio.pdf";
+        }
     }
 
     /**

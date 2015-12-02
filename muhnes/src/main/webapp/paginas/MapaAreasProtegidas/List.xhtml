@@ -14,7 +14,6 @@
         </ui:define>
 
         <ui:define name="body">
-            <p:dataTable></p:dataTable>
             <h:form id="LocalidadTbListForm">
                 <p:panel header="Localización de las áreas protegidas">
                     <p:gmap center="13.814489, -88.878934"  zoom="8" type="bybrid" style="width:100%;height:460px" model="#{mapaAreasProtegidas.localidadesAreaprotegida(areaprotegidaTbController.items)}" />

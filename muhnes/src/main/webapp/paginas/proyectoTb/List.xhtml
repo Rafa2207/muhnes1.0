@@ -44,6 +44,15 @@
                         <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{proyectoTbController.selected}" />
                     </p:commandButton>
 
+                    <p:menubar  style="float: right">
+                        <p:menuitem>
+                            <p:commandLink title="Ayuda" update=":AyudaForm" oncomplete="PF('AyudaDialog').show()" >
+                                <p:graphicImage name="images/ayuda.png" height="20px" />
+                                <f:setPropertyActionListener target="#{controladorSesion.ayuda}" value="proyecto"/>
+                            </p:commandLink>
+                        </p:menuitem>
+                    </p:menubar>
+
                     <p:dataTable id="datalist" value="#{proyectoTbController.itemsProyecto}" var="item"
                                  selectionMode="single" selection="#{proyectoTbController.selected}"
                                  paginator="true"
@@ -122,6 +131,7 @@
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
             <ui:include src="desactivar.xhtml"/>
+            <ui:include src="../Ayuda/List.xhtml"/>
         </ui:define>
     </ui:composition>
 
