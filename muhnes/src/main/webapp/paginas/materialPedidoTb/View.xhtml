@@ -22,6 +22,9 @@
                         <h:outputText value="#{pedidoTbController.selected.FFechaPosibleRecibir}" title="#{bundle.ViewPedidoTbTitle_FFecha}">
                             <f:convertDateTime pattern="dd MMMM yyyy" />
                         </h:outputText>
+                        <h:outputText value="Estado del pedido: "/>
+                        <h:outputText value="#{pedidoTbController.estadoPedido(pedidoTbController.selected.EEstado)}"/>
+                        <p:outputLabel value=""/>
                     </p:panelGrid>
                     <p:fieldset legend="Materiales">
                         <p:dataTable id="materiales"

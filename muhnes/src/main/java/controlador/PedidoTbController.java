@@ -36,6 +36,7 @@ public class PedidoTbController implements Serializable {
     private List<PedidoTb> items = null, filtro;
     private MaterialTb material;
     private List<MaterialTb> materialDisponible;
+    private List<MaterialPedidoTb> mp;
     private double cantidad, entrada;
     private MaterialPedidoTb materialEL;
     private Integer estado;
@@ -47,6 +48,14 @@ public class PedidoTbController implements Serializable {
 
     public void setBandera(boolean bandera) {
         this.bandera = bandera;
+    }
+
+    public List<MaterialPedidoTb> getMp() {
+        return mp;
+    }
+
+    public void setMp(List<MaterialPedidoTb> mp) {
+        this.mp = mp;
     }
 
     public double getEntrada() {
@@ -140,6 +149,15 @@ public class PedidoTbController implements Serializable {
         for (MaterialPedidoTb b : selected.getMaterialPedidoTbList()) {
             materialDisponible.remove(b.getMaterialTb());
         }
+        if (selected.getEEstado() == 3) {
+            bandera = true;
+        } else {
+            bandera = false;
+        }
+        initializeEmbeddableKey();
+        return selected;
+    }
+public PedidoTb prepareActualizar() {
         if (selected.getEEstado() == 3) {
             bandera = true;
         } else {
@@ -331,6 +349,26 @@ public class PedidoTbController implements Serializable {
         for (MaterialPedidoTb i : selected.getMaterialPedidoTbList()) {
             i.getMaterialTb().setDCantidad(i.getMaterialTb().getDCantidad() + i.getDEntrada());
             materialFacade.edit(i.getMaterialTb());
+//material.setDCantidad(total);
+            //total = 0.0;
+        }
+
+        //selected.setEEstado(estado);
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("PedidoTbRecibido"));
+    }
+
+    public void actualizarPedido() {
+        //double total = 0.0;
+        //material = new MaterialTb();
+ //       List<MaterialPedidoTb> mpp = getFacade().pedido(selected);
+        for (MaterialPedidoTb  i : selected.getMaterialPedidoTbList()) {
+  //          List<MaterialPedidoTb> mpp2 = selected.getMaterialPedidoTbList();
+            for (MaterialPedidoTb z : getFacade().pedido(selected)) {
+                if (i.getMaterialTb() == z.getMaterialTb()) {
+                    i.getMaterialTb().setDCantidad(i.getMaterialTb().getDCantidad() + (i.getDEntrada() - z.getDEntrada()));
+                    materialFacade.edit(i.getMaterialTb());
+                }
+            }
 //material.setDCantidad(total);
             //total = 0.0;
         }

@@ -16,72 +16,57 @@
         <ui:define name="body">
             <h:form id="DonacionTbListForm">
                 <p:panel header="#{bundle.ListDonacionTbTitle}">
+
+                    <p:breadCrumb>
+                        <p:menuitem value="casita" outcome="/paginas/bienvenido.xhtml"/>
+                        <p:menuitem value="Donaciones" outcome="/paginas/donacionTb/List.xhtml" />
+                    </p:breadCrumb>
+
+                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{donacionTbController.prepareCreate}" update=":DonacionTbCreateForm" oncomplete="PF('DonacionTbCreateDialog').show()"/>
+                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DonacionTbViewForm" oncomplete="PF('DonacionTbViewDialog').show()" disabled="#{empty donacionTbController.selected}"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":DonacionTbEditForm" oncomplete="PF('DonacionTbEditDialog').show()" disabled="#{empty donacionTbController.selected}"/>
+                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{donacionTbController.destroy}" update=":growl,datalist" disabled="#{empty donacionTbController.selected}"/>
+
                     <p:dataTable id="datalist" value="#{donacionTbController.items}" var="item"
                                  selectionMode="single" selection="#{donacionTbController.selected}"
                                  paginator="true"
                                  rowKey="#{item.EIddonacion}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
+                                 filteredValue="#{donacionTbController.filtro}"
+                                 paginatorPosition="Bottom"
+                                 widgetVar="donacionTable"
+                                 emptyMessage="No se encontraron donaciones"
                                  >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowSelect"   update=":DonacionTbListForm:createButton :DonacionTbListForm:viewButton :DonacionTbListForm:editButton :DonacionTbListForm:deleteButton"/>
+                        <p:ajax event="rowUnselect" update=":DonacionTbListForm:createButton :DonacionTbListForm:viewButton :DonacionTbListForm:editButton :DonacionTbListForm:deleteButton"/>
 
-                        <p:column>
+                        <p:column filterBy="#{item.MDescripcion}" filterStyle="display:none">
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDonacionTbTitle_EIddonacion}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.EIddonacion}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDonacionTbTitle_CResponsable}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.CResponsable}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDonacionTbTitle_CCalificativo}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.CCalificativo}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDonacionTbTitle_CTipo}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.CTipo}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDonacionTbTitle_MDescripcion}"/>
+                                <h:outputText value="Descripción"/>
                             </f:facet>
                             <h:outputText value="#{item.MDescripcion}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.FFecha}" filterStyle="display:none">
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDonacionTbTitle_ECantduplicados}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.ECantduplicados}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDonacionTbTitle_FFecha}"/>
+                                <h:outputText value="Fecha"/>
                             </f:facet>
                             <h:outputText value="#{item.FFecha}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                                <f:convertDateTime pattern= "dd MMMM yyyy" />
                             </h:outputText>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.EIdinstitucion}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDonacionTbTitle_EIdinstitucion}"/>
                             </f:facet>
-                            <h:outputText value="#{item.EIdinstitucion}"/>
+                            <h:outputText value="#{donacionTbController.calculaInsitucion(item.EIdinstitucion)}"/>
                         </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{donacionTbController.prepareCreate}" update=":DonacionTbCreateForm" oncomplete="PF('DonacionTbCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DonacionTbViewForm" oncomplete="PF('DonacionTbViewDialog').show()" disabled="#{empty donacionTbController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":DonacionTbEditForm" oncomplete="PF('DonacionTbEditDialog').show()" disabled="#{empty donacionTbController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{donacionTbController.destroy}" update=":growl,datalist" disabled="#{empty donacionTbController.selected}"/>
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Búsqueda: " />
+                                <p:inputText id="globalFilter" onkeyup="PF('donacionTable').filter()" placeholder="Escriba aquí"/>
+                            </p:outputPanel>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

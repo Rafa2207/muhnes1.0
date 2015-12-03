@@ -5,10 +5,17 @@
  */
 package servicio;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import modelo.DonacionTb;
+import modelo.EjemplarTb;
+import modelo.InstitucionTb;
+import modelo.TaxonomiaTb;
 
 /**
  *
@@ -28,4 +35,26 @@ public class DonacionTbFacade extends AbstractFacade<DonacionTb> {
         super(DonacionTb.class);
     }
     
+    public int siguienteId(){
+        Query query = em.createNativeQuery("SELECT last_value from secuencia_donacion_id");
+        try{
+            Long id =  (Long) query.getSingleResult();
+            return id.intValue()+1;
+        }
+        catch(NoResultException nre){
+            return 0;
+        }
+    }
+    
+    public InstitucionTb BuscarInsitucion(int a) {
+        TypedQuery<InstitucionTb> query = em.createQuery("SELECT p FROM InstitucionTb p WHERE p.eIdinstitucion=:t", InstitucionTb.class);
+        query.setParameter("t", a);
+        return query.getSingleResult();
+    }
+    
+    public List<EjemplarTb> BuscarEjemplares(TaxonomiaTb tax) {
+        TypedQuery<EjemplarTb> query = em.createQuery("SELECT p FROM EjemplarTb p WHERE p.eIdtaxonomia=:t", EjemplarTb.class);
+        query.setParameter("t", tax);
+        return query.getResultList();
+    }
 }

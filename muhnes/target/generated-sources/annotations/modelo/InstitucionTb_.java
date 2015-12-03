@@ -5,17 +5,15 @@ import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import modelo.AgenteTb;
-import modelo.DonacionTb;
 import modelo.PaisTb;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-12-02T11:27:41")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-12-03T15:04:20")
 @StaticMetamodel(InstitucionTb.class)
 public class InstitucionTb_ { 
 
     public static volatile SingularAttribute<InstitucionTb, Boolean> bEstado;
-    public static volatile ListAttribute<InstitucionTb, DonacionTb> donacionTbList;
-    public static volatile ListAttribute<InstitucionTb, AgenteTb> agenteTbList;
     public static volatile SingularAttribute<InstitucionTb, String> cAcronimo;
+    public static volatile ListAttribute<InstitucionTb, AgenteTb> agenteTbList;
     public static volatile SingularAttribute<InstitucionTb, Integer> eIdinstitucion;
     public static volatile SingularAttribute<InstitucionTb, String> cTelefono;
     public static volatile SingularAttribute<InstitucionTb, String> cNombre;

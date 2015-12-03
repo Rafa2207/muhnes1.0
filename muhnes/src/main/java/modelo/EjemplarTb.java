@@ -45,6 +45,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "EjemplarTb.findByEResponsable", query = "SELECT e FROM EjemplarTb e WHERE e.eResponsable = :eResponsable"),
     @NamedQuery(name = "EjemplarTb.findByCCodigoentrada", query = "SELECT e FROM EjemplarTb e WHERE e.cCodigoentrada = :cCodigoentrada")})
 public class EjemplarTb implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "ejemplarTb")
+    private List<EjemplarDonacionTb> ejemplarDonacionTbList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ejemplarTb")
     private List<EjemplarParticipaExhibicionTb> ejemplarParticipaExhibicionTbList;
     private static final long serialVersionUID = 1L;
@@ -259,6 +261,14 @@ public class EjemplarTb implements Serializable {
 
     public void setEjemplarParticipaExhibicionTbList(List<EjemplarParticipaExhibicionTb> ejemplarParticipaExhibicionTbList) {
         this.ejemplarParticipaExhibicionTbList = ejemplarParticipaExhibicionTbList;
+    }
+
+    public List<EjemplarDonacionTb> getEjemplarDonacionTbList() {
+        return ejemplarDonacionTbList;
+    }
+
+    public void setEjemplarDonacionTbList(List<EjemplarDonacionTb> ejemplarDonacionTbList) {
+        this.ejemplarDonacionTbList = ejemplarDonacionTbList;
     }
     
 }

@@ -68,8 +68,6 @@ public class InstitucionTb implements Serializable {
     private String cUrl;
     @OneToMany(mappedBy = "eIdinstitucion")
     private List<AgenteTb> agenteTbList;
-    @OneToMany(mappedBy = "eIdinstitucion")
-    private List<DonacionTb> donacionTbList;
     @JoinColumn(name = "e_idpais", referencedColumnName = "e_idpais")
     @ManyToOne
     private PaisTb eIdpais;
@@ -151,14 +149,6 @@ public class InstitucionTb implements Serializable {
 
     public void setAgenteTbList(List<AgenteTb> agenteTbList) {
         this.agenteTbList = agenteTbList;
-    }
-
-    public List<DonacionTb> getDonacionTbList() {
-        return donacionTbList;
-    }
-
-    public void setDonacionTbList(List<DonacionTb> donacionTbList) {
-        this.donacionTbList = donacionTbList;
     }
 
     public PaisTb getEIdpais() {

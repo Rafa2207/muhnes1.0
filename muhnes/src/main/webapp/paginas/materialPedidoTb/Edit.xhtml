@@ -47,7 +47,7 @@
                             <p:column headerText="Cantidad" width="20%">
                                 #{material.DCantidad}                                   
                             </p:column>
-                            <p:column headerText="Catidad Recibida" width="20%">
+                            <p:column headerText="Cantidad Recibida" width="20%">
                                 <p:inputText size="10" value="#{material.DEntrada}" disabled="#{pedidoTbController.bandera}"/>
                             </p:column>
                             <p:column headerText="Fecha Recibido" width="25%">
@@ -59,8 +59,7 @@
                             </p:column>
                         </p:dataTable>
                     </p:fieldset>
-                    <p:commandButton actionListener="#{pedidoTbController.recibirPedido()}" value="#{bundle.Save}" update="display,:MaterialPedidoTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MaterialPedidoTbEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="MaterialPedidoTbEditDialog.hide()"/>
+                    <p:commandButton actionListener="#{pedidoTbController.actualizarPedido()}" value="#{bundle.Save}" update="display,:MaterialPedidoTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MaterialPedidoTbEditDialog');"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

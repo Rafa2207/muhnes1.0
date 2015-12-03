@@ -48,6 +48,7 @@ modelo\UsuarioTb_.class
 servicio\MaterialPedidoTbFacade.class
 modelo\MaterialPedidoTb.class
 controlador\util\ThemeSwitcherBean.class
+modelo\EjemplarDonacionTb_.class
 modelo\AgenteTaxonomiaTbPK_.class
 controlador\PedidoTbController$PedidoTbControllerConverter.class
 controlador\NotapreliminarTbController$NotapreliminarTbControllerConverter.class
@@ -70,6 +71,7 @@ modelo\AgenteIdentificaEjemplarTb.class
 modelo\TaxonomiaTb_.class
 modelo\UsuarioTb.class
 servicio\UsuarioTbFacade.class
+modelo\EjemplarDonacionTb.class
 servicio\BitacoraTbFacade.class
 modelo\UnidadesTb.class
 controlador\MunicipioTbController$MunicipioTbControllerConverter.class
@@ -91,6 +93,7 @@ modelo\AgenteTaxonomiaTb.class
 controlador\LocalidadTbController$LocalidadTbControllerConverter.class
 servicio\UnidadesTbFacade.class
 controlador\PaisTbController.class
+modelo\EjemplarDonacionTbPK_.class
 modelo\AreaprotegidaTb_.class
 controlador\util\BackupDB.class
 modelo\AgentePerfilTb.class
@@ -141,9 +144,9 @@ servicio\DisminuirEjemplarTbFacade.class
 modelo\ActividadTb_.class
 controlador\DisminuirEjemplarTbController$DisminuirEjemplarTbControllerConverter.class
 controlador\NombrecomunTbController$NombrecomunTbControllerConverter.class
+servicio\DespachoTbFacade.class
 modelo\EjemplarParticipaExhibicionTb.class
 modelo\NombrecomunTb_.class
-servicio\DespachoTbFacade.class
 controlador\ActividadTbController$ActividadTbControllerConverter.class
 controlador\UsuarioTbController$UsuarioTbControllerConverter.class
 controlador\DepartamentoTbController.class
@@ -205,3 +208,4 @@ servicio\LocalidadTbFacade.class
 servicio\ExhibicionTbFacade.class
 servicio\InstitucionTbFacade.class
 servicio\DonacionTbFacade.class
+modelo\EjemplarDonacionTbPK.class

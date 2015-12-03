@@ -22,9 +22,10 @@
                         <p:menuitem value="Control de pedidos" outcome="/paginas/materialPedidoTb/List.xhtml" />
                     </p:breadCrumb>
 
+                    <p:commandButton id="createButton" icon="ui-icon-tag"   value="Recibir Pedido" update=":MaterialPedidoTbCreateForm" oncomplete="PF('MaterialPedidoTbCreateDialog').show()" disabled="#{empty pedidoTbController.selected || pedidoTbController.selected.EEstado!=0}"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":MaterialPedidoTbViewForm" oncomplete="PF('MaterialPedidoTbViewDialog').show()" disabled="#{empty pedidoTbController.selected}"/>
-                    <p:commandButton id="createButton" icon="ui-icon-tag"   value="Recibir Pedido"  update=":MaterialPedidoTbCreateForm" oncomplete="PF('MaterialPedidoTbCreateDialog').show()" disabled="#{empty pedidoTbController.selected || pedidoTbController.selected.EEstado!=0}"/>
-                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Actualizar pedido" actionListener="#{pedidoTbController.prepareEdit}" update=":MaterialPedidoTbEditForm" oncomplete="PF('MaterialPedidoTbEditDialog').show()" disabled="#{empty pedidoTbController.selected}"/>
+                    <p:commandButton id="modificarButton"   icon="ui-icon-pencil" value="Modificar" update=":MaterialPedidoTbCreate2Form" oncomplete="PF('MaterialPedidoTbCreate2Dialog').show()" disabled="#{empty pedidoTbController.selected}"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Actualizar pedido" actionListener="#{pedidoTbController.prepareEdit}" update=":MaterialPedidoTbEditForm" oncomplete="PF('MaterialPedidoTbEditDialog').show()" disabled="#{empty pedidoTbController.selected || pedidoTbController.selected.EEstado!=1}"/>
                     
                     <p:dataTable id="datalist" value="#{pedidoTbController.items}" var="item"
                                  selectionMode="single" selection="#{pedidoTbController.selected}"
@@ -38,8 +39,8 @@
                                  widgetVar="pedidosTable"
                                  >
 
-                        <p:ajax event="rowSelect"   update=":MaterialPedidoTbListForm:createButton :MaterialPedidoTbListForm:viewButton :MaterialPedidoTbListForm:editButton"/>
-                        <p:ajax event="rowUnselect" update=":MaterialPedidoTbListForm:createButton :MaterialPedidoTbListForm:viewButton :MaterialPedidoTbListForm:editButton"/>
+                        <p:ajax event="rowSelect"   update=":MaterialPedidoTbListForm:createButton :MaterialPedidoTbListForm:viewButton :MaterialPedidoTbListForm:modificarButton :MaterialPedidoTbListForm:editButton"/>
+                        <p:ajax event="rowUnselect" update=":MaterialPedidoTbListForm:createButton :MaterialPedidoTbListForm:viewButton :MaterialPedidoTbListForm:modificarButton :MaterialPedidoTbListForm:editButton"/>
 
                         
                         <p:column width="50%" filterBy="#{item.MDescripcion}" filterStyle="display:none">
@@ -73,6 +74,7 @@
             </h:form>
 
             <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit2.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
         </ui:define>

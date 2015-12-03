@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EjemplarVivoTbCreateAumentaDlg" widgetVar="EjemplarVivoTbCreateAumentaDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleEjemplarVivo.EditEjemplarVivoTbTitle}">
+            <h:form id="EjemplarVivoTbCreateAumentaForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{ejemplarVivoTbController.selected != null}">
+                        <p:outputLabel value="#{bundleEjemplarVivo.EditEjemplarVivoTbLabel_CNombre}"/>
+                        <p:outputLabel style="font-weight: bold" value="#{ejemplarVivoTbController.selected.CNombre}" title="#{bundleEjemplarVivo.EditEjemplarVivoTbTitle_CNombre}" />
+                        <p:outputLabel value="#{bundleEjemplarVivo.EditEjemplarVivoTbLabel_MDescripcion}" />
+                        <p:outputLabel value="#{ejemplarVivoTbController.selected.MDescripcion}" title="#{bundleEjemplarVivo.EditEjemplarVivoTbTitle_MDescripcion}" />
+                        <p:outputLabel value="#{bundleEjemplarVivo.EditEjemplarVivoTbLabel_ECantidad}" />
+                        <p:panelGrid columns="1">
+                            <p:inputText id="ECantidad" value="#{ejemplarVivoTbController.selected.ECantidad}" title="#{bundleEjemplarVivo.CreateDisminuirEjemplarTbTitle_ECantidad}" required="true" requiredMessage="Introduzca cantidad"/>
+                            <p:slider for="ECantidad" minValue="0" maxValue="100"/>
+                        </p:panelGrid>
+                        <p:outputLabel value="Jardín: "/>
+                        <p:outputLabel value="#{ejemplarVivoTbController.selected.CJardin}"/>
+                        <p:outputLabel value="#{ejemplarVivoTbController.selected.EIdtaxonomia.CTipo}"/>
+                        <p:outputLabel value="#{ejemplarVivoTbController.selected.EIdtaxonomia.CNombre}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ejemplarVivoTbController.update}" value="#{bundleEjemplarVivo.Save}" update="display,:EjemplarVivoTbList2Form:datalist,:growl" oncomplete="handleSubmit(args, 'EjemplarVivoTbCreateAumentaDialog');"/>
+                    <p:commandButton value="#{bundleEjemplarVivo.Cancel}" onclick="EjemplarVivoTbEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

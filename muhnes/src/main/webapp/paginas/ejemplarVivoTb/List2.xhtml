@@ -14,7 +14,7 @@
         </ui:define>
 
         <ui:define name="body">
-            <h:form id="EjemplarVivoTbListForm">
+            <h:form id="EjemplarVivoTbList2Form">
                 <p:panel header="Ejemplares Sin Existencias">
 
                     <p:breadCrumb>
@@ -24,7 +24,7 @@
                     </p:breadCrumb>
 
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundleEjemplarVivo.View}" update=":EjemplarVivoTbViewForm" oncomplete="PF('EjemplarVivoTbViewDialog').show()" disabled="#{empty ejemplarVivoTbController.selected}"/>
-                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundleEjemplarVivo.Edit}" update=":EjemplarVivoTbEditForm" oncomplete="PF('EjemplarVivoTbEditDialog').show()" disabled="#{empty ejemplarVivoTbController.selected}"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Agregar Ejemplares" update=":EjemplarVivoTbCreateAumentaForm" oncomplete="PF('EjemplarVivoTbCreateAumentaDialog').show()" disabled="#{empty ejemplarVivoTbController.selected}"/>
                     <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundleEjemplarVivo.Delete}" actionListener="#{ejemplarVivoTbController.destroy}" update=":growl,datalist" disabled="#{empty ejemplarVivoTbController.selected}"/>
                     
                     <p:dataTable id="datalist" value="#{ejemplarVivoTbController.items2}" var="item"
@@ -39,8 +39,8 @@
                                  emptyMessage="No se encontro ejemplar vivo"
                                  >
 
-                        <p:ajax event="rowSelect"   update=":EjemplarVivoTbListForm:viewButton :EjemplarVivoTbListForm:editButton :EjemplarVivoTbListForm:deleteButton"/>
-                        <p:ajax event="rowUnselect" update=":EjemplarVivoTbListForm:viewButton :EjemplarVivoTbListForm:editButton :EjemplarVivoTbListForm:deleteButton"/>
+                        <p:ajax event="rowSelect"   update=":EjemplarVivoTbList2Form:viewButton :EjemplarVivoTbList2Form:editButton :EjemplarVivoTbList2Form:deleteButton"/>
+                        <p:ajax event="rowUnselect" update=":EjemplarVivoTbList2Form:viewButton :EjemplarVivoTbList2Form:editButton :EjemplarVivoTbList2Form:deleteButton"/>
 
                         <p:column filterBy="#{item.CNombre}" filterStyle="display:none">
                             <f:facet name="header">
@@ -90,7 +90,7 @@
                 </p:panel>
             </h:form>
 
-            <ui:include src="Edit.xhtml"/>
+            <ui:include src="CreateAumenta.xhtml"/>
             <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
