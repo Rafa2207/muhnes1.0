@@ -104,11 +104,11 @@
                                            var="taxon"
                                            itemLabel="#{taxon.CNombre}"
                                            itemValue="#{taxon}"/>
-                            <p:ajax event="change" update="ejemplar" process="fTaxon"/>
+                            <p:ajax event="change" update="ejemplar" process="fTaxon" listener="#{exhibicionTbController.llenarEjemplares(exhibicionTbController.taxonomia)}"/>
                         </p:selectOneMenu>
                         <p:selectOneMenu id="ejemplar" style="width: 100px" value="#{exhibicionTbController.ejemplar}" filter="true" >
                             <f:selectItem itemLabel="Seleccione..." itemValue=""/>
-                            <f:selectItems value="#{exhibicionTbController.ejemplares}"
+                            <f:selectItems value="#{exhibicionTbController.listaEjemplares}"
                                            var="ejemplares"
                                            itemLabel="#{ejemplares.CCodigoentrada}"
                                            itemValue="#{ejemplares}"/>

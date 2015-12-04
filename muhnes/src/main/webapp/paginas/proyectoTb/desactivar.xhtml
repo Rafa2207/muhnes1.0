@@ -18,7 +18,7 @@
                                          title="Justificación" required="true" requiredMessage="ingrese justificación" />
                         <p:outputLabel value="Fecha:" for="FFechaFin" />
                         <p:calendar id="FFechaFin"  size="15"
-                                    pattern="dd MMMM yyyy" value="#{proyectoTbController.selected.FFechaFin}" 
+                                    pattern="dd MMMM yyyy" value="#{proyectoTbController.prorroga.FFechaInicio}" 
                                     title="Fecha"  showOn="button"
                                     required="true"
                                     requiredMessage="Introduzca fecha fin"
@@ -27,7 +27,7 @@
                         </p:calendar>
 
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{proyectoTbController.desactivarProyecto(proyectoTbController.selected)}" 
+                    <p:commandButton actionListener="#{proyectoTbController.finalizarProyecto()}" 
                                      value="#{bundle.Save}" update="display,:ProyectoTbListForm:datalist,:growl" 
                                      oncomplete="handleSubmit(args,'ProyectoTbDesactivarDialog');"/>
 

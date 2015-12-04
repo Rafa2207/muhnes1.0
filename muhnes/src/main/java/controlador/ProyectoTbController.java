@@ -164,7 +164,7 @@ public class ProyectoTbController implements Serializable {
         itemsNotificacion = getFacade().ProyectoNotificaciones(fechaActual, fecha);
         try {
             for (ProyectoTb p : itemsNotificacion) {
-                if (p.getEEstado() == 2) {
+                if (p.getEEstado() == 2 || p.getEEstado() == 3) {
                     quitarFinalizados.add(p);
                 } else if (p.getFFechaFin().after(fecha)) {
                     quitarFinalizados.add(p);
@@ -198,17 +198,6 @@ public class ProyectoTbController implements Serializable {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
-    }
-
-    //probando la prorroga
-    public void desactivarProyecto(ProyectoTb proyec) {
-        ProrrogaProyectoTb prorrogaDesactivar;
-        proyec.getProrrogaProyectoTbList().clear();
-        proyec.getProrrogaProyectoTbList().addAll(getFacadeProrroga().buscarProrroga(proyec));
-        for (ProrrogaProyectoTb prorro : proyec.getProrrogaProyectoTbList()) {
-
-        }
-        persist(PersistAction.UPDATE, "El proyecto ha sido desactivado correctamente");
     }
 
     public List<ProyectoTb> getItems() {
@@ -379,15 +368,36 @@ public class ProyectoTbController implements Serializable {
         if (proyecto.getEEstado() == 2) {
             estado = "Finalizado";
         }
+        if (proyecto.getEEstado() == 3) {
+            estado = "Cancelado";
+        }
         return estado;
 
     }
 
-    public void FinalizarProyecto() {
+    public void prepareFinalizar() {
+        prorroga = new ProrrogaProyectoTb();
+        //Añadiendo
+        prorroga.setEIdproyecto(selected);
+        prorroga.setENumprorroga(1);
+        selected.getProrrogaProyectoTbList().clear();
+        selected.setProrrogaProyectoTbList(getFacadeProrroga().buscarProrroga(selected));
+        initializeEmbeddableKey();
+    }
+
+    public void finalizarProyecto() {
+        int i = 1;
         FacesContext context = FacesContext.getCurrentInstance();
-        selected.setEEstado(2);
+        for (ProrrogaProyectoTb p : selected.getProrrogaProyectoTbList()) {
+            i++;
+            prorroga.setENumprorroga(i);
+        }
+        prorroga.setMJustificacion(selected.getMInformacionAdicional());
+        selected.setEEstado(3);
+
+        getFacadeProrroga().create(prorroga);
         getFacade().edit(selected);
-        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Proyecto Finalizado", "INFO"));
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Proyecto Cancelado", "INFO"));
     }
 
     public String NombreNotificacion(String p, int n) {

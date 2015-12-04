@@ -36,9 +36,10 @@
                         <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{proyectoTbController.selected}"/>
                     </p:commandButton>
 
-                    <p:commandButton id="FinalizarButton" icon="ui-icon-flag"  value="Desactivar" 
+                    <p:commandButton id="FinalizarButton" icon="ui-icon-cancel"  value="Desactivar" 
                                      update=":ProyectoTbDesactivarForm" oncomplete="PF('ProyectoTbDesactivarDialog').show()"
-                                     disabled="#{empty proyectoTbController.selected || proyectoTbController.selected.EEstado==2}"/>
+                                     disabled="#{empty proyectoTbController.selected || proyectoTbController.selected.EEstado==2}"
+                                     actionListener="#{proyectoTbController.prepareFinalizar()}"/>
 
                     <p:commandButton id="ProrrogaProyectoButton" icon="ui-icon-alert"  value="Prórrogas" action="/paginas/prorrogaProyectoTb/List.xhtml" disabled="#{empty proyectoTbController.selected}" >
                         <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{proyectoTbController.selected}" />

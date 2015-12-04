@@ -47,7 +47,7 @@ public class ExhibicionTbController implements Serializable {
     @EJB
     private servicio.BitacoraTbFacade bitacoraFacade;
     private List<ExhibicionTb> items = null, lista = null, filtro, itemsNotificacion = null;
-    private List<EjemplarTb> ejemplares;
+    private List<EjemplarTb> ejemplares,listaEjemplares;
     private List<EjemplarParticipaExhibicionTb> listaEliminados;
     private ExhibicionTb selected;
     private Date fechaActual = new Date();
@@ -139,6 +139,14 @@ public class ExhibicionTbController implements Serializable {
         return ejemplares;
     }
 
+    public List<EjemplarTb> getListaEjemplares() {
+        return listaEjemplares;
+    }
+
+    public void setListaEjemplares(List<EjemplarTb> listaEjemplares) {
+        this.listaEjemplares = listaEjemplares;
+    }
+
     public void setEjemplares(List<EjemplarTb> ejemplares) {
         this.ejemplares = ejemplares;
     }
@@ -185,17 +193,12 @@ public class ExhibicionTbController implements Serializable {
         selected = new ExhibicionTb();
         selected.setEEstado(0);
         selected.setEjemplarParticipaExhibicionTbList(new ArrayList<EjemplarParticipaExhibicionTb>());
-        ejemplares = ejemplarFacade.EjemplarOrdenAsc();
         initializeEmbeddableKey();
         return selected;
     }
 
     public ExhibicionTb prepareEdit() {
         listaEliminados = new ArrayList<EjemplarParticipaExhibicionTb>();
-        ejemplares = ejemplarFacade.EjemplarOrdenAsc();
-        for (EjemplarParticipaExhibicionTb b : selected.getEjemplarParticipaExhibicionTbList()) {
-            ejemplares.remove(b.getEjemplarTb());
-        }
         initializeEmbeddableKey();
         return selected;
     }
@@ -439,8 +442,8 @@ public class ExhibicionTbController implements Serializable {
         nuevo.setEjemplarParticipaExhibicionTbPK(exhibicionpk);
 
         selected.getEjemplarParticipaExhibicionTbList().add(nuevo);
-        ejemplares.remove(ejemplar);
-
+        listaEjemplares.remove(ejemplar);
+        
     }
 
     public void anadirEdit() {
@@ -457,21 +460,31 @@ public class ExhibicionTbController implements Serializable {
         nuevo.setEjemplarParticipaExhibicionTbPK(exhibicionpk);
 
         selected.getEjemplarParticipaExhibicionTbList().add(nuevo);
-        ejemplares.remove(ejemplar);
+        listaEjemplares.remove(ejemplar);
 
+    }
+    public void llenarEjemplares(TaxonomiaTb taxon) {
+        listaEjemplares = ejemplarFacade.BuscarEjemplares(taxon);
+        for (EjemplarParticipaExhibicionTb ee : selected.getEjemplarParticipaExhibicionTbList()) {
+            for (EjemplarTb aa : listaEjemplares) {
+                if ((ee.getEjemplarTb().getEIdejemplar()) == aa.getEIdejemplar()) {
+                    listaEjemplares.remove(ee.getEjemplarTb());
+                }
+            }
+        }
     }
 
     public void remover() {
         ejemplarExhibicion.getEjemplarTb().setECantDuplicado(ejemplarExhibicion.getEjemplarTb().getECantDuplicado() + 1);
         selected.getEjemplarParticipaExhibicionTbList().remove(ejemplarExhibicion);
-        ejemplares.add(ejemplarExhibicion.getEjemplarTb());
+        listaEjemplares.add(ejemplarExhibicion.getEjemplarTb());
     }
 
     public void removerEdit() {
         ejemplarExhibicion.getEjemplarTb().setECantDuplicado(ejemplarExhibicion.getEjemplarTb().getECantDuplicado() + 1);
         selected.getEjemplarParticipaExhibicionTbList().remove(ejemplarExhibicion);
         listaEliminados.add(ejemplarExhibicion);
-        ejemplares.add(ejemplarExhibicion.getEjemplarTb());
+        listaEjemplares.add(ejemplarExhibicion.getEjemplarTb());
     }
 
 }

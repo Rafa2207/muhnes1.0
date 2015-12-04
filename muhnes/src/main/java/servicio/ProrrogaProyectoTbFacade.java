@@ -32,9 +32,8 @@ public class ProrrogaProyectoTbFacade extends AbstractFacade<ProrrogaProyectoTb>
     }
     
     public List<ProrrogaProyectoTb> buscarProrroga(ProyectoTb proyectos) {
-        
         TypedQuery<ProrrogaProyectoTb> query = em.createQuery("SELECT p FROM ProrrogaProyectoTb p WHERE p.eIdproyecto=:h order by p.eNumprorroga", ProrrogaProyectoTb.class);
-       query.setParameter("h", proyectos);
+        query.setParameter("h", proyectos);
         return query.getResultList();
-         }
+    }
 }
