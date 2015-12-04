@@ -14,7 +14,7 @@
                     <p:fieldset legend="Información General">
                                 <p:panelGrid columns="2" rendered="#{donacionTbController.selected != null}">
                             <p:outputLabel value="#{bundle.CreateDonacionTbLabel_MDescripcion}" for="MDescripcion" />
-                            <p:inputText id="MDescripcion" value="#{donacionTbController.selected.MDescripcion}" title="#{bundle.CreateDonacionTbTitle_MDescripcion}" />
+                            <p:inputTextarea id="MDescripcion" value="#{donacionTbController.selected.MDescripcion}" title="#{bundle.CreateDonacionTbTitle_MDescripcion}" />
                             <p:outputLabel value="#{bundle.CreateDonacionTbLabel_FFecha}" for="FFecha" />
                             <p:calendar id="FFecha" readonlyInput="true" pattern="dd MMMM yyyy" value="#{donacionTbController.selected.FFecha}" locale="es" title="#{bundle.EditDonacionTbTitle_FFecha}"  showOn="button"/>
                                     <p:outputLabel value="#{bundle.CreateDonacionTbLabel_EIdinstitucion}" for="EIdinstitucion" />
@@ -27,7 +27,7 @@
                         </p:panelGrid>
                     </p:fieldset>
                     <p:fieldset legend="Ejemplares">
-                        <p:panelGrid columns="7" >
+                        <p:panelGrid columns="4" >
                             <p:outputLabel value="Ejemplar:"/>
                             <p:selectOneMenu id="Taxon" value="#{donacionTbController.tipoTaxon}" >
                                 <f:selectItem itemLabel="Seleccione..." itemValue=""/>
@@ -52,13 +52,17 @@
                                                var="ejemplares"
                                                itemLabel="#{ejemplares.CCodigoentrada}"
                                                itemValue="#{ejemplares}"/>
+                                <p:ajax event="change" process="ejemplar" update="cantidad cnd"/>
                             </p:selectOneMenu>
                             <p:outputLabel value="Cantidad: "/>
-                            <p:inputText id="cantidad" value="#{donacionTbController.cantidad}" size="4" />
+                            <p:inputText id="cantidad" value="#{donacionTbController.cantidad}" size="4" >
+                                <f:validateLongRange minimum="1" maximum="#{donacionTbController.ejemplar.ECantDuplicado}"/>
+                            </p:inputText>
+                            <h:outputText id="cnd" value="Cantidad Máxima: #{donacionTbController.ejemplar.ECantDuplicado}"/>
                             <p:commandButton id="agregar" value="Agregar"
                                              actionListener="#{donacionTbController.anadir()}"
                                              process="agregar cantidad ejemplar" 
-                                             update="ejemplar cantidad tablaEjemplares"
+                                             update="ejemplar cantidad tablaEjemplares cnd :growl"
                                              />
                         </p:panelGrid>
                          <p:dataTable id="tablaEjemplares"
@@ -71,6 +75,16 @@
                                      emptyMessage="No se han seleccionado ejemplares"
                                      >
 
+                             <p:column headerText="Taxonomia" >
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        #{ejemplar.ejemplarTb.EIdtaxonomia.CNombre}
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{ejemplar.ejemplarTb.CCodigoentrada}"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
                             <p:column headerText="Ejemplar" >
                                 <p:cellEditor>
                                     <f:facet name="output">

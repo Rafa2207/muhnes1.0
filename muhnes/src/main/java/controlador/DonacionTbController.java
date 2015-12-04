@@ -42,6 +42,7 @@ public class DonacionTbController implements Serializable {
     private List<EjemplarTb> listaEjemplares;
     private Integer cantidad;
     private EjemplarDonacionTb ejemplarDonacion;
+    private List<EjemplarDonacionTb> eliminados = new ArrayList<EjemplarDonacionTb>();;
 
     public DonacionTbController() {
     }
@@ -126,7 +127,7 @@ public class DonacionTbController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
-
+    
     public void create() {
         try {
             for (EjemplarDonacionTb ee : selected.getEjemplarDonacionTbList()) {
@@ -141,6 +142,18 @@ public class DonacionTbController implements Serializable {
     }
 
     public void update() {
+         try {
+            for (EjemplarDonacionTb ee : selected.getEjemplarDonacionTbList()) {
+                ejemplarFacade.edit(ee.getEjemplarTb());
+            }
+        } catch (Exception e) {
+        }
+         try {
+            for (EjemplarDonacionTb aa : eliminados) {
+                ejemplarFacade.edit(aa.getEjemplarTb());
+            }
+        } catch (Exception e) {
+        }
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("DonacionTbUpdated"));
     }
 
@@ -277,8 +290,32 @@ public class DonacionTbController implements Serializable {
         listaEjemplares.remove(ejemplar);
 
     }
+    
+    public void anadirM() {
+        EjemplarDonacionTb nuevo = new EjemplarDonacionTb();
+        ejemplar.setECantDuplicado(ejemplar.getECantDuplicado() - cantidad);
+        nuevo.setEjemplarTb(ejemplar);
+        nuevo.setECantidad(cantidad);
+        nuevo.setDonacionTb(selected);
+
+        EjemplarDonacionTbPK exhibicionpk = new EjemplarDonacionTbPK();
+
+        exhibicionpk.setEIddonacion(selected.getEIddonacion());
+        exhibicionpk.setEIdejemplar(ejemplar.getEIdejemplar());
+
+        nuevo.setEjemplarDonacionTbPK(exhibicionpk);
+
+        selected.getEjemplarDonacionTbList().add(nuevo);
+        listaEjemplares.remove(ejemplar);
+
+    }
 
     public void remover() {
+        selected.getEjemplarDonacionTbList().remove(ejemplarDonacion);
+    }
+    public void removerM() {
+        ejemplarDonacion.getEjemplarTb().setECantDuplicado(ejemplarDonacion.getEjemplarTb().getECantDuplicado() + ejemplarDonacion.getECantidad());
+        eliminados.add(ejemplarDonacion);
         selected.getEjemplarDonacionTbList().remove(ejemplarDonacion);
     }
 

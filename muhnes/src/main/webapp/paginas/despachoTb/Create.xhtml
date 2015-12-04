@@ -47,7 +47,7 @@
                             </p:selectOneMenu>
                             <p:outputLabel value="Cantidad:" for="cant"/>
                             <p:inputText id="cant" size="4" value="#{despachoTbController.cantidad}" title="introduzca una cantidad entre 1 y #{despachoTbController.material.DCantidad}">
-                              <!--  <f:validateLongRange minimum="1" maximum="#{despachoTbController.material.DCantidad}"/> -->
+                               <f:validateLongRange minimum="1" maximum="#{despachoTbController.material.DCantidad}"/>
                             </p:inputText>
                             <h:outputText id="und" value="#{despachoTbController.material.EIdunidad.CNombre}"/>
                             <h:outputText id="cnd" value="Cantidad Máxima: #{despachoTbController.material.DCantidad}"/>

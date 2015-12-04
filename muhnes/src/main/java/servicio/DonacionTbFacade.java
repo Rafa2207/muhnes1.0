@@ -53,7 +53,7 @@ public class DonacionTbFacade extends AbstractFacade<DonacionTb> {
     }
     
     public List<EjemplarTb> BuscarEjemplares(TaxonomiaTb tax) {
-        TypedQuery<EjemplarTb> query = em.createQuery("SELECT p FROM EjemplarTb p WHERE p.eIdtaxonomia=:t", EjemplarTb.class);
+        TypedQuery<EjemplarTb> query = em.createQuery("SELECT p FROM EjemplarTb p WHERE p.eIdtaxonomia=:t AND p.eCantDuplicado > 1 ORDER BY p.cCodigoentrada ASC", EjemplarTb.class);
         query.setParameter("t", tax);
         return query.getResultList();
     }
