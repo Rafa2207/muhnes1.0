@@ -1,5 +1,6 @@
 package controlador;
 
+import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
@@ -444,18 +445,18 @@ public class AgenteTbController implements Serializable {
                     PdfPCell cell3 = new PdfPCell(new Phrase(l.getCOcupacion(), FontFactory.getFont(FontFactory.TIMES, 10)));
                     cell3.setHorizontalAlignment(Element.ALIGN_LEFT);
                     agentes.addCell(cell3);
-                    
+
                     try {
-                    PdfPCell cell4 = new PdfPCell(new Phrase(l.getEIdinstitucion().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 10)));
-                    cell4.setHorizontalAlignment(Element.ALIGN_LEFT);
-                    agentes.addCell(cell4);    
+                        PdfPCell cell4 = new PdfPCell(new Phrase(l.getEIdinstitucion().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 10)));
+                        cell4.setHorizontalAlignment(Element.ALIGN_LEFT);
+                        agentes.addCell(cell4);
                     } catch (Exception e) {
-                    PdfPCell cell4 = new PdfPCell(new Phrase("Sin Institución", FontFactory.getFont(FontFactory.TIMES, 10)));
-                    cell4.setHorizontalAlignment(Element.ALIGN_LEFT);
-                    agentes.addCell(cell4);
+                        PdfPCell cell4 = new PdfPCell(new Phrase("Sin Institución", FontFactory.getFont(FontFactory.TIMES, 10)));
+                        cell4.setHorizontalAlignment(Element.ALIGN_LEFT);
+                        agentes.addCell(cell4);
 
                     }
-                    
+
                     /* for (AgentePerfilTb r : lista1) {
                      PdfPCell cell5 = new PdfPCell(new Phrase(r.getPerfilTb().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 10)));
                      cell5.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -573,35 +574,433 @@ public class AgenteTbController implements Serializable {
                 agentes.addCell(new Phrase("Institución", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                 agentes.addCell(new Phrase("Perfiles", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
 
-                int j=0;
+                int j = 0;
                 for (AgentePerfilTb r : selected.getAgentePerfilTbList()) {
-                    if(j==0){
-                    PdfPCell cell0 = new PdfPCell(new Phrase(r.getAgenteTb().getCIniciales(), FontFactory.getFont(FontFactory.TIMES, 10)));
-                    cell0.setHorizontalAlignment(Element.ALIGN_CENTER);
-                    agentes.addCell(cell0);
+                    if (j == 0) {
+                        PdfPCell cell0 = new PdfPCell(new Phrase(r.getAgenteTb().getCIniciales(), FontFactory.getFont(FontFactory.TIMES, 10)));
+                        cell0.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        agentes.addCell(cell0);
 
-                    PdfPCell cell = new PdfPCell(new Phrase(r.getAgenteTb().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 10)));
-                    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-                    agentes.addCell(cell);
+                        PdfPCell cell = new PdfPCell(new Phrase(r.getAgenteTb().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 10)));
+                        cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                        agentes.addCell(cell);
 
-                    PdfPCell cell2 = new PdfPCell(new Phrase(r.getAgenteTb().getCApellido(), FontFactory.getFont(FontFactory.TIMES, 10)));
-                    cell2.setHorizontalAlignment(Element.ALIGN_LEFT);
-                    agentes.addCell(cell2);
+                        PdfPCell cell2 = new PdfPCell(new Phrase(r.getAgenteTb().getCApellido(), FontFactory.getFont(FontFactory.TIMES, 10)));
+                        cell2.setHorizontalAlignment(Element.ALIGN_LEFT);
+                        agentes.addCell(cell2);
 
-                    PdfPCell cell3 = new PdfPCell(new Phrase(r.getAgenteTb().getCOcupacion(), FontFactory.getFont(FontFactory.TIMES, 10)));
-                    cell3.setHorizontalAlignment(Element.ALIGN_LEFT);
-                    agentes.addCell(cell3);
+                        PdfPCell cell3 = new PdfPCell(new Phrase(r.getAgenteTb().getCOcupacion(), FontFactory.getFont(FontFactory.TIMES, 10)));
+                        cell3.setHorizontalAlignment(Element.ALIGN_LEFT);
+                        agentes.addCell(cell3);
 
-                    PdfPCell cell4 = new PdfPCell(new Phrase(r.getAgenteTb().getEIdinstitucion().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 10)));
-                    cell4.setHorizontalAlignment(Element.ALIGN_LEFT);
-                    agentes.addCell(cell4);
-                    
-                    agentes.addCell(new PdfPCell(per));
-                    document.add(agentes);
+                        PdfPCell cell4 = new PdfPCell(new Phrase(r.getAgenteTb().getEIdinstitucion().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 10)));
+                        cell4.setHorizontalAlignment(Element.ALIGN_LEFT);
+                        agentes.addCell(cell4);
+
+                        agentes.addCell(new PdfPCell(per));
+                        document.add(agentes);
                     }
                     j++;
                 }
-                
+
+                document.close();
+                //Termina reporte
+
+                hsr.setHeader("Expires", "0");
+                hsr.setContentType("application/pdf");
+                hsr.setContentLength(pdfOutputStream.size());
+                ServletOutputStream responseOutputStream = hsr.getOutputStream();
+                responseOutputStream.write(pdfOutputStream.toByteArray());
+                responseOutputStream.flush();
+                responseOutputStream.close();
+                context.responseComplete();
+            }
+        } catch (DocumentException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void reporteseleccionadocv() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        try {
+            Object response = context.getExternalContext().getResponse();
+            if (response instanceof HttpServletResponse) {
+                HttpServletResponse hsr = (HttpServletResponse) response;
+                hsr.setContentType("application/pdf");
+                ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
+
+                // Empieza reporte
+                Document document = new Document(PageSize.LETTER);
+                PdfWriter writer = PdfWriter.getInstance(document, pdfOutputStream);
+                TableHeaderVertical event = new TableHeaderVertical();
+                writer.setPageEvent(event);
+                document.open();
+
+                //Encabezado
+                //esto es para obtener la ruta del sistema
+                ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+                //Hago referencia a los logo
+                String logoPath = servletContext.getRealPath("") + File.separator + "resources"
+                        + File.separator + "images"
+                        + File.separator + "muhnes1.png";
+                //String logoMined = servletContext.getRealPath("") + File.separator + "resources"
+                //      + File.separator + "images"
+                //    + File.separator + "secultura.png";
+                //Creo una tabla para poner el encabezado
+                PdfPTable encabezado = new PdfPTable(3);
+                //indico que el ancho de la tabla es del 100%
+                encabezado.setWidthPercentage(100);
+                //creo la primer celda
+                PdfPCell cell1 = new PdfPCell();
+
+                //Instancio los logos
+                Image logo = Image.getInstance(logoPath);
+                //Image minedLogo = Image.getInstance(logoMined);
+                //Indico los tamaños de los logos
+                logo.scaleToFit(80, 80);
+                //minedLogo.scaleToFit(130, 130);
+                //añado el primer logo a la celda
+                cell1.addElement(logo);
+                //indico que la celda no tenga borde
+                cell1.setBorder(Rectangle.NO_BORDER);
+                //añado la celda a la tabla
+                encabezado.addCell(cell1);
+                //indico que las siguientes celdas se alineen al centro
+                encabezado.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                encabezado.getDefaultCell().setVerticalAlignment(Element.ALIGN_CENTER);
+                //indico que las siguientes celdas no tengan borde
+                encabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                //añado una nueva celda con los datos del instituto
+                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de El Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                //PdfPCell cell2 = new PdfPCell();
+                //cell2.setBorder(Rectangle.NO_BORDER);
+                encabezado.addCell("");
+                document.add(encabezado);
+                //creo una nueva celda para la otra imagen
+
+                //Ajusto los parametros de la celda igual que la anterior
+                //minedLogo.setAlignment(Element.ALIGN_RIGHT);
+                //cell2.addElement(minedLogo);
+                //cell2.setBorder(Rectangle.NO_BORDER);
+                //encabezado.addCell(cell2);
+                //document.add(encabezado);
+                Paragraph titulo = new Paragraph("Reporte de Agente", FontFactory.getFont(FontFactory.TIMES_BOLD, 11));
+                titulo.setAlignment(Element.ALIGN_CENTER);
+                titulo.setSpacingAfter(5);
+                titulo.setSpacingBefore(10);
+                document.add(titulo);
+
+                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
+                        FontFactory.getFont(FontFactory.TIMES, 10));
+                fecha.setAlignment(Element.ALIGN_CENTER);
+                fecha.setSpacingAfter(15);
+                document.add(fecha);
+
+                int i = 0;
+                for (AgentePerfilTb l : selected.getAgentePerfilTbList()) {
+                    i++;
+                }
+
+                PdfPTable per = new PdfPTable(i);
+                for (AgentePerfilTb l : selected.getAgentePerfilTbList()) {
+                    PdfPCell cell0 = new PdfPCell(new Phrase(l.getPerfilTb().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 14)));
+                    cell0.setBorder(Rectangle.NO_BORDER);
+                    cell0.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    per.addCell(cell0);
+                }
+
+                int j = 0;
+                for (AgentePerfilTb r : selected.getAgentePerfilTbList()) {
+                    if (j == 0) {
+                        PdfPTable ag = new PdfPTable(2);
+                        ag.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
+                        ag.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                        int headerwidths[] = {15, 85};
+                        try {
+                            ag.setWidths(headerwidths);
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+
+                        ag.setWidthPercentage(100);
+                        ag.addCell(new Phrase("Nombre :", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                        ag.addCell(new Phrase(new Phrase(r.getAgenteTb().getCNombre() + " " + r.getAgenteTb().getCApellido(), FontFactory.getFont(FontFactory.TIMES, 14))));
+                        document.add(ag);
+
+                        Paragraph a = new Paragraph("", FontFactory.getFont(FontFactory.TIMES_BOLD, 11));
+                        a.setAlignment(Element.ALIGN_LEFT);
+                        a.setSpacingAfter(5);
+                        a.setSpacingBefore(5);
+                        document.add(a);
+
+                        PdfPTable ag1 = new PdfPTable(2);
+                        ag1.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
+                        ag1.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                        int headerwidth[] = {15, 85};
+                        try {
+                            ag1.setWidths(headerwidth);
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+
+                        ag1.setWidthPercentage(100);
+                        ag1.addCell(new Phrase("Iniciales :", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                        if (r.getAgenteTb().getCIniciales().equals("")) {
+                            ag1.addCell(new Phrase("---------", FontFactory.getFont(FontFactory.TIMES, 14)));
+                        } else {
+                            ag1.addCell(new Phrase(new Phrase(r.getAgenteTb().getCIniciales(), FontFactory.getFont(FontFactory.TIMES, 14))));
+                        }
+                        document.add(ag1);
+
+                        Paragraph aa = new Paragraph("", FontFactory.getFont(FontFactory.TIMES_BOLD, 11));
+                        aa.setAlignment(Element.ALIGN_LEFT);
+                        aa.setSpacingAfter(5);
+                        aa.setSpacingBefore(5);
+                        document.add(aa);
+
+                        PdfPTable ag2 = new PdfPTable(2);
+                        ag2.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
+                        ag2.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                        int header[] = {15, 85};
+                        try {
+                            ag2.setWidths(header);
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+
+                        ag2.setWidthPercentage(100);
+                        ag2.addCell(new Phrase("Ocupación :", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                        if (r.getAgenteTb().getCOcupacion().equals("")) {
+                            ag2.addCell(new Phrase("---------", FontFactory.getFont(FontFactory.TIMES, 14)));
+                        } else {
+                            ag2.addCell(new Phrase(new Phrase(r.getAgenteTb().getCOcupacion(), FontFactory.getFont(FontFactory.TIMES, 14))));
+                        }
+                        document.add(ag2);
+
+                        Paragraph aaa = new Paragraph("", FontFactory.getFont(FontFactory.TIMES_BOLD, 11));
+                        aaa.setAlignment(Element.ALIGN_LEFT);
+                        aaa.setSpacingAfter(5);
+                        aaa.setSpacingBefore(5);
+                        document.add(aaa);
+
+                        PdfPTable ag3 = new PdfPTable(2);
+                        ag3.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
+                        ag3.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                        int headers[] = {15, 85};
+                        try {
+                            ag3.setWidths(headers);
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+
+                        ag3.setWidthPercentage(100);
+                        ag3.addCell(new Phrase("Email :", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                        if (r.getAgenteTb().getCEmail().equals("")) {
+                            ag2.addCell(new Phrase("---------", FontFactory.getFont(FontFactory.TIMES, 14)));
+                        } else {
+                            ag2.addCell(new Phrase(new Phrase(r.getAgenteTb().getCEmail(), FontFactory.getFont(FontFactory.TIMES, 14))));
+                        }
+                        document.add(ag3);
+
+                        Paragraph o = new Paragraph("", FontFactory.getFont(FontFactory.TIMES_BOLD, 11));
+                        o.setAlignment(Element.ALIGN_LEFT);
+                        o.setSpacingAfter(5);
+                        o.setSpacingBefore(5);
+                        document.add(o);
+
+                        PdfPTable ag4 = new PdfPTable(2);
+                        ag4.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
+                        ag4.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                        int headersw[] = {15, 85};
+                        try {
+                            ag4.setWidths(headersw);
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+
+                        ag4.setWidthPercentage(100);
+                        ag4.addCell(new Phrase("Postal :", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                        if (r.getAgenteTb().getEPostal() != null) {
+                            ag4.addCell(new Phrase(new Phrase(String.valueOf(r.getAgenteTb().getEPostal()), FontFactory.getFont(FontFactory.TIMES, 14))));
+                        } else {
+                            ag4.addCell(new Phrase("---------", FontFactory.getFont(FontFactory.TIMES, 14)));
+                        }
+                        document.add(ag4);
+
+                        Paragraph os = new Paragraph(new Phrase("", FontFactory.getFont(FontFactory.TIMES, 10)));
+                        os.setAlignment(Element.ALIGN_LEFT);
+                        os.setSpacingAfter(5);
+                        os.setSpacingBefore(5);
+                        document.add(os);
+
+                        PdfPTable ag5 = new PdfPTable(2);
+                        ag5.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
+                        ag5.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                        int head[] = {15, 85};
+                        try {
+                            ag5.setWidths(head);
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+
+                        ag5.setWidthPercentage(100);
+                        ag5.addCell(new Phrase("Teléfono :", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                        if (r.getAgenteTb().getCTelefono().equals("")) {
+                        ag5.addCell(new Phrase("---------", FontFactory.getFont(FontFactory.TIMES, 14)));
+                        } else {
+                        ag5.addCell(new Phrase(new Phrase(r.getAgenteTb().getCTelefono(), FontFactory.getFont(FontFactory.TIMES, 14))));
+                        }
+                        document.add(ag5);
+
+                        Paragraph ex = new Paragraph("", FontFactory.getFont(FontFactory.TIMES_BOLD, 11));
+                        ex.setAlignment(Element.ALIGN_LEFT);
+                        ex.setSpacingAfter(5);
+                        ex.setSpacingBefore(5);
+                        document.add(ex);
+
+                        PdfPTable ag6 = new PdfPTable(2);
+                        ag6.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
+                        ag6.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                        int headerss[] = {15, 85};
+                        try {
+                            ag6.setWidths(headerss);
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+
+                        ag6.setWidthPercentage(100);
+                        ag6.addCell(new Phrase("Fax :", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                        if (r.getAgenteTb().getCFax() != null) {
+                            ag6.addCell(new Phrase(new Phrase(r.getAgenteTb().getCFax(), FontFactory.getFont(FontFactory.TIMES, 14))));
+                        } else {
+                            ag6.addCell(new Phrase("---------", FontFactory.getFont(FontFactory.TIMES, 14)));
+                        }
+                        document.add(ag6);
+
+                        Paragraph es = new Paragraph(new Phrase("", FontFactory.getFont(FontFactory.TIMES, 10)));
+                        es.setAlignment(Element.ALIGN_LEFT);
+                        es.setSpacingAfter(5);
+                        es.setSpacingBefore(5);
+                        document.add(es);
+
+                        PdfPTable ag7 = new PdfPTable(2);
+                        ag7.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
+                        ag7.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                        int headerssw[] = {15, 85};
+                        try {
+                            ag7.setWidths(headerssw);
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+
+                        ag7.setWidthPercentage(100);
+                        ag7.addCell(new Phrase("Dirección :", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                        if (r.getAgenteTb().getMDireccion().equals("")) {
+                        ag2.addCell(new Phrase("---------", FontFactory.getFont(FontFactory.TIMES, 14)));
+                        } else {
+                        ag7.addCell(new Phrase(new Phrase(r.getAgenteTb().getMDireccion(), FontFactory.getFont(FontFactory.TIMES, 14))));
+                        }
+                        document.add(ag7);
+
+                        Paragraph p = new Paragraph("", FontFactory.getFont(FontFactory.TIMES_BOLD, 11));
+                        p.setAlignment(Element.ALIGN_LEFT);
+                        p.setSpacingAfter(5);
+                        p.setSpacingBefore(5);
+                        document.add(p);
+
+                        PdfPTable ag8 = new PdfPTable(2);
+                        ag8.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
+                        ag8.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                        int hea[] = {28, 72};
+                        try {
+                            ag8.setWidths(hea);
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+
+                        ag8.setWidthPercentage(100);
+                        ag8.addCell(new Phrase("Fecha de Nacimiento :", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                        if (r.getAgenteTb().getFFechanac() != null) {
+                            ag8.addCell(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(r.getAgenteTb().getFFechanac()), FontFactory.getFont(FontFactory.TIMES, 14)));
+                         } else {
+                            ag8.addCell(new Phrase("---------", FontFactory.getFont(FontFactory.TIMES, 14)));
+                        }
+                        document.add(ag8);
+
+                        Paragraph ps = new Paragraph(new Phrase("", FontFactory.getFont(FontFactory.TIMES, 10)));
+                        ps.setAlignment(Element.ALIGN_LEFT);
+                        ps.setSpacingAfter(5);
+                        ps.setSpacingBefore(5);
+                        document.add(ps);
+
+                        PdfPTable ag9 = new PdfPTable(2);
+                        ag9.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
+                        ag9.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                        int heaw[] = {28, 72};
+                        try {
+                            ag9.setWidths(heaw);
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+
+                        ag9.setWidthPercentage(100);
+                        ag9.addCell(new Phrase("Fecha de Muerte :", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                        if (r.getAgenteTb().getFFecham() != null) {
+                            ag9.addCell(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(r.getAgenteTb().getFFecham()), FontFactory.getFont(FontFactory.TIMES, 14)));
+                        } else {
+                            ag9.addCell(new Phrase("---------", FontFactory.getFont(FontFactory.TIMES, 14)));
+                        }
+                        document.add(ag9);
+
+                        Paragraph t = new Paragraph("", FontFactory.getFont(FontFactory.TIMES_BOLD, 11));
+                        t.setAlignment(Element.ALIGN_LEFT);
+                        t.setSpacingAfter(5);
+                        t.setSpacingBefore(5);
+                        document.add(t);
+
+                        PdfPTable ag10 = new PdfPTable(2);
+                        ag10.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
+                        ag10.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                        int heaws[] = {15, 85};
+                        try {
+                            ag10.setWidths(heaws);
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+
+                        ag10.setWidthPercentage(100);
+                        ag10.addCell(new Phrase("Institución :", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                        try {
+                            ag10.addCell(new Phrase(new Phrase(r.getAgenteTb().getEIdinstitucion().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 14))));
+                        } catch (Exception e) {
+                            ag10.addCell(new Phrase("Sin Institución", FontFactory.getFont(FontFactory.TIMES, 14)));
+                        }
+                        document.add(ag10);
+
+                        Paragraph ts = new Paragraph(new Phrase("", FontFactory.getFont(FontFactory.TIMES, 10)));
+                        ts.setAlignment(Element.ALIGN_LEFT);
+                        ts.setSpacingAfter(5);
+                        ts.setSpacingBefore(5);
+                        document.add(ts);
+
+                        PdfPTable ag11 = new PdfPTable(2);
+                        ag11.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
+                        ag11.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                        int heawsh[] = {15, 85};
+                        try {
+                            ag11.setWidths(heawsh);
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+
+                        ag11.setWidthPercentage(100);
+                        ag11.addCell(new Phrase("Perfiles :", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                        ag11.addCell(per);
+                        document.add(ag11);
+                    }
+                    j++;
+                }
+
                 document.close();
                 //Termina reporte
 
