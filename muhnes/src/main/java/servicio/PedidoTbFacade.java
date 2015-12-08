@@ -44,8 +44,8 @@ public class PedidoTbFacade extends AbstractFacade<PedidoTb> {
         }
     }
 
-    public List<MaterialPedidoTb> pedido(PedidoTb pedido) {
-        TypedQuery<MaterialPedidoTb> query = em.createQuery("SELECT p FROM MaterialPedidoTb p WHERE p.pedidoTb=:h", MaterialPedidoTb.class);
+    public List<MaterialPedidoTb> pedido(Integer pedido) {
+        TypedQuery<MaterialPedidoTb> query = em.createQuery("SELECT p FROM MaterialPedidoTb p WHERE p.pedidoTb.eIdpedido=:h", MaterialPedidoTb.class);
         query.setParameter("h", pedido);
         return query.getResultList();
     }

@@ -16,7 +16,7 @@
                             <p:outputLabel value="Descripción: " for="MDescripcion" />
                             <p:inputTextarea cols="20" rows="4" id="MDescripcion" value="#{despachoTbController.selected.MDescripcion}" title="#{bundleDespacho.CreateDespachoTbTitle_MDescripcion}" required="true" requiredMessage="Introduzca una descripción"/>
                             <p:outputLabel value="Fecha: " for="FFecha" />
-                            <p:calendar id="FFecha" pattern="dd MMMM yyyy" value="#{despachoTbController.selected.FFecha}" title="#{bundleDespacho.EditDespachoTbTitle_FFecha}"  showOn="button" locale="es" required="true" requiredMessage="Introduzca una fecha" mindate="0"/>
+                            <p:calendar id="FFecha" pattern="dd MMMM yyyy" value="#{despachoTbController.selected.FFecha}" title="#{bundleDespacho.EditDespachoTbTitle_FFecha}"  showOn="button" locale="es" readonlyInput="true" required="true" requiredMessage="Introduzca una fecha" mindate="0"/>
                             <p:outputLabel value="Proyecto: " for="EIdproyecto" />
                             <p:selectOneMenu id="EIdproyecto"
                                              filterMatchMode="contains"
@@ -47,7 +47,7 @@
                             </p:selectOneMenu>
                             <p:outputLabel value="Cantidad:" for="cant"/>
                             <p:inputText id="cant" size="4" value="#{despachoTbController.cantidad}" title="introduzca una cantidad entre 1 y #{despachoTbController.material.DCantidad}">
-                               <f:validateLongRange minimum="1" maximum="#{despachoTbController.material.DCantidad}"/>
+      
                             </p:inputText>
                             <h:outputText id="und" value="#{despachoTbController.material.EIdunidad.CNombre}"/>
                             <h:outputText id="cnd" value="Cantidad Máxima: #{despachoTbController.material.DCantidad}"/>

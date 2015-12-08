@@ -16,6 +16,7 @@
 
                             <p:outputLabel value="#{bundle.CreatePedidoTbLabel_MDescripcion}" for="MDescripcion" />
                             <p:inputTextarea autoResize="" id="MDescripcion" cols="30" value="#{pedidoTbController.selected.MDescripcion}" title="#{bundle.CreatePedidoTbTitle_MDescripcion}" 
+                                             required="true" requiredMessage="Introduzca una descripción"
                                              />
                             <p:outputLabel value="Fecha de Pedido: " for="FechaActual"/>
                             <h:outputText id="FechaActual" value="#{pedidoTbController.fechaActual()}">
@@ -24,7 +25,8 @@
                             <p:outputLabel value="Fecha posible a recibir: " for="FFecha" />
                             <p:calendar id="FFecha" pattern="dd MMMM yyyy" value="#{pedidoTbController.selected.FFechaPosibleRecibir}" title="#{bundle.EditPedidoTbTitle_FFecha}"  showOn="button"
                                         requiredMessage="Introduzca fecha del pedido"
-                                        locale="es" 
+                                        locale="es"
+                                        readonlyInput="true"
                                         required="true" mindate="0"/>
 
 
@@ -50,7 +52,7 @@
                                              value="Agregar"
                                              actionListener="#{pedidoTbController.agregar()}"
                                              process="cant material agregar"
-                                             update="cant material materiales und"
+                                             update="cant material materiales und :growl"
                                              />
                         </p:panelGrid>
                         <p:dataTable id="materiales"

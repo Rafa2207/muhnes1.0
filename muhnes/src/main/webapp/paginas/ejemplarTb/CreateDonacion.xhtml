@@ -8,8 +8,8 @@
 
     <ui:composition>
 
-        <p:dialog id="EjemplarTbCreateDlg" widgetVar="EjemplarTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateEjemplarTbTitle}">
-            <h:form id="EjemplarTbCreateForm">
+        <p:dialog id="EjemplarTbCreate2Dlg" widgetVar="EjemplarTbCreate2Dialog" modal="true" resizable="false" appendTo="@(body)" header="Nuevo Ejemplar Donado">
+            <h:form id="EjemplarTbCreate2Form">
                 <h:panelGroup id="display">
                         <p:panelGrid  columns="4" rendered="#{ejemplarTbController.selected != null}">
 
@@ -110,6 +110,18 @@
                             </p:selectOneMenu>
                             <p:inputText id="codigo" readonly="true" required="true" requiredMessage="Seleccione rango taxonómico" size="8" maxlength="10" value="#{ejemplarTbController.selected.CCodigoentrada}"/>
                             <p:outputLabel value=""/>
+                            <p:outputLabel style="font-weight: bold" value="Institución: " for="institucion"/>
+                            <p:selectOneMenu id="institucion"
+                                             required="true"
+                                             requiredMessage="Seleccione Institución"
+                                             value="#{ejemplarTbController.selected.EIdinstitucion}" 
+                                             filter="true">
+                                <f:selectItem itemValue="" itemLabel="Seleccione..."/>
+                                <f:selectItems value="#{institucionTbController.itemsAvailableSelectOne}"
+                                               var="institucion"
+                                               itemValue="#{institucion.EIdinstitucion}"
+                                               itemLabel="#{institucion.CNombre}"/>
+                            </p:selectOneMenu>
                         </p:panelGrid>
                     <p:tabView id="detalleEjemplar" >
                         <p:tab title="Recolectores">
@@ -150,7 +162,7 @@
                                     <p:commandLink styleClass="ui-icon ui-icon-trash"
                                                    action="#{ejemplarTbController.removerRecolector()}"
                                                    process="EjemplarAgentes"
-                                                   update="EjemplarAgentes :EjemplarTbCreateForm:detalleEjemplar:agenteRE">
+                                                   update="EjemplarAgentes :EjemplarTbCreate2Form:detalleEjemplar:agenteRE">
                                         <f:setPropertyActionListener value="#{agentes}" 
                                                                      target="#{ejemplarTbController.agenteIdentifica}"/>
                                     </p:commandLink>
@@ -195,7 +207,7 @@
                                     <p:commandLink styleClass="ui-icon ui-icon-trash"
                                                    action="#{ejemplarTbController.removerIdentificador()}"
                                                    process="EjemplarAgentes1"
-                                                   update="EjemplarAgentes1 :EjemplarTbCreateForm:detalleEjemplar:agenteID">
+                                                   update="EjemplarAgentes1 :EjemplarTbCreate2Form:detalleEjemplar:agenteID">
                                         <f:setPropertyActionListener value="#{agentes1}" 
                                                                      target="#{ejemplarTbController.agenteIdentifica}"/>
                                     </p:commandLink>
@@ -207,7 +219,7 @@
                             </h:panelGrid>
                         </p:tab>
                     </p:tabView>
-                    <p:commandButton actionListener="#{ejemplarTbController.create}" value="#{bundle.Save}" update="display,:EjemplarTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'EjemplarTbCreateDialog');"/>
+                    <p:commandButton actionListener="#{ejemplarTbController.create}" value="#{bundle.Save}" update="display,:EjemplarTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'EjemplarTbCreate2Dialog');"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

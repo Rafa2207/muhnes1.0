@@ -8,39 +8,41 @@
 
     <ui:composition>
 
-        <p:dialog id="EjemplarTbViewDlg" widgetVar="EjemplarTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewEjemplarTbTitle}">
+        <p:dialog id="EjemplarTbViewDlg" widgetVar="EjemplarTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="Visualizar Ejemplar">
             <h:form id="EjemplarTbViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="4" rendered="#{ejemplarTbController.selected != null}" style="width: 600px">
-                        <h:outputText value="Código de entrada: "/>
-                        <h:outputText value="#{ejemplarTbController.selected.CCodigoentrada}" title="#{bundle.ViewEjemplarTbTitle_EIdejemplar}"/>
-                        <h:outputText value="Correlativo: "/>
-                        <h:outputText value="#{ejemplarTbController.selected.ECorrelativo}" title="#{bundle.ViewEjemplarTbTitle_EIdejemplar}"/>
-                        <h:outputText value="Responsable: "/>
-                        <h:outputText value="#{ejemplarTbController.calculaAgente(agenteTbController.items, ejemplarTbController.selected.EResponsable)}" title="#{bundle.ViewEjemplarTbTitle_EIdejemplar}"/>
-                        <h:outputText value="#{bundle.ViewEjemplarTbLabel_MDescripcion}"/>
-                        <h:outputText value="#{ejemplarTbController.selected.MDescripcion}" title="#{bundle.ViewEjemplarTbTitle_MDescripcion}"/>
-                        <h:outputText value="#{ejemplarTbController.selected.EIdtaxonomia.CTipo}: "/>
-                        <h:outputText value="#{ejemplarTbController.selected.EIdtaxonomia.CNombre}" title="#{bundle.ViewEjemplarTbTitle_EIdfamilia}"/>
-                        <h:outputText value="#{bundle.ViewEjemplarTbLabel_CCalificativo}"/>
-                        <h:outputText value="#{ejemplarTbController.selected.CCalificativo}" title="#{bundle.ViewEjemplarTbTitle_CCalificativo}"/>
-                        <h:outputText value="Fecha de recolección: "/>
-                        <h:outputText value="#{ejemplarTbController.selected.FFechaInicioIdent}" title="#{bundle.ViewEjemplarTbTitle_FFechaInicioIdent}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
-                        </h:outputText>
-                        <h:outputText value="Fecha de identificación: "/>
-                        <h:outputText value="#{ejemplarTbController.selected.FFechaFinIdent}" title="#{bundle.ViewEjemplarTbTitle_FFechaFinIdent}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
-                        </h:outputText>
-                        <h:outputText value="#{bundle.ViewEjemplarTbLabel_ECantDuplicado}"/>
-                        <h:outputText value="#{ejemplarTbController.selected.ECantDuplicado}" title="#{bundle.ViewEjemplarTbTitle_ECantDuplicado}"/>
-                    </p:panelGrid>
-                    <p:panelGrid columns="2" rendered="#{ejemplarTbController.selected != null}" style="width: 600px">
-                        <h:outputText value="#{bundle.ViewEjemplarTbLabel_EIdproyecto}"/>
-                        <h:outputText value="#{ejemplarTbController.selected.EIdproyecto.MNombre}" title="#{bundle.ViewEjemplarTbTitle_EIdproyecto}"/>
-                        <h:outputText value="Localidad: "/>
-                        <h:outputText value="#{ejemplarTbController.selected.EIdlocalidad.CNombre}  (#{localidadTbController.latitudList(ejemplarTbController.selected.EIdlocalidad)}, #{localidadTbController.longitudList(ejemplarTbController.selected.EIdlocalidad)})"/>
-                    </p:panelGrid>
+                    <p:fieldset legend="Ejemplar">
+                        <p:panelGrid columns="4" rendered="#{ejemplarTbController.selected != null}" style="width: 600px">
+                            <h:outputText value="Código de entrada: "/>
+                            <h:outputText value="#{ejemplarTbController.selected.CCodigoentrada}" title="#{bundle.ViewEjemplarTbTitle_EIdejemplar}"/>
+                            <h:outputText value="Correlativo: "/>
+                            <h:outputText value="#{ejemplarTbController.selected.ECorrelativo}" title="#{bundle.ViewEjemplarTbTitle_EIdejemplar}"/>
+                            <h:outputText value="Responsable: "/>
+                            <h:outputText value="#{ejemplarTbController.calculaAgente(agenteTbController.items, ejemplarTbController.selected.EResponsable)}" title="#{bundle.ViewEjemplarTbTitle_EIdejemplar}"/>
+                            <h:outputText value="#{bundle.ViewEjemplarTbLabel_MDescripcion}"/>
+                            <h:outputText value="#{ejemplarTbController.selected.MDescripcion}" title="#{bundle.ViewEjemplarTbTitle_MDescripcion}"/>
+                            <h:outputText value="#{ejemplarTbController.selected.EIdtaxonomia.CTipo}: "/>
+                            <h:outputText value="#{ejemplarTbController.selected.EIdtaxonomia.CNombre}" title="#{bundle.ViewEjemplarTbTitle_EIdfamilia}"/>
+                            <h:outputText value="#{bundle.ViewEjemplarTbLabel_CCalificativo}"/>
+                            <h:outputText value="#{ejemplarTbController.selected.CCalificativo}" title="#{bundle.ViewEjemplarTbTitle_CCalificativo}"/>
+                            <h:outputText value="Fecha de recolección: "/>
+                            <h:outputText value="#{ejemplarTbController.selected.FFechaInicioIdent}" title="#{bundle.ViewEjemplarTbTitle_FFechaInicioIdent}">
+                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                            </h:outputText>
+                            <h:outputText value="Fecha de identificación: "/>
+                            <h:outputText value="#{ejemplarTbController.selected.FFechaFinIdent}" title="#{bundle.ViewEjemplarTbTitle_FFechaFinIdent}">
+                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                            </h:outputText>
+                            <h:outputText value="#{bundle.ViewEjemplarTbLabel_ECantDuplicado}"/>
+                            <h:outputText value="#{ejemplarTbController.selected.ECantDuplicado}" title="#{bundle.ViewEjemplarTbTitle_ECantDuplicado}"/>
+                        </p:panelGrid>
+                        <p:panelGrid columns="2" rendered="#{ejemplarTbController.selected != null}" style="width: 600px">
+                            <h:outputText value="#{bundle.ViewEjemplarTbLabel_EIdproyecto}"/>
+                            <h:outputText value="#{ejemplarTbController.selected.EIdproyecto.MNombre}" title="#{bundle.ViewEjemplarTbTitle_EIdproyecto}"/>
+                            <h:outputText value="Localidad: "/>
+                            <h:outputText value="#{ejemplarTbController.selected.EIdlocalidad.CNombre}  (#{localidadTbController.latitudList(ejemplarTbController.selected.EIdlocalidad)}, #{localidadTbController.longitudList(ejemplarTbController.selected.EIdlocalidad)})"/>
+                        </p:panelGrid>
+                    </p:fieldset>
                     <p:tabView id="detalleEjemplar" >
                         <p:tab title="Recolectores">
                             <p:dataTable id="EjemplarAgentes"

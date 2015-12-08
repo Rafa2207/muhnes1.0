@@ -11,27 +11,29 @@
         <p:dialog id="EspecieTbEditDlg" widgetVar="EspecieTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditEspecieTbTitle}">
             <h:form id="EspecieTbEditForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="6" rendered="#{taxonomiaTbController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditEspecieTbLabel_CNombre}" for="CNombre" />
-                        <p:inputText id="CNombre" value="#{taxonomiaTbController.selected.CNombre}" title="#{bundle.EditEspecieTbTitle_CNombre}" required="true" requiredMessage="Introduzca un nombre"/>
-                        <p:outputLabel value="#{bundle.EditEspecieTbLabel_CEstado}" for="CEstado" />
-                        <p:selectOneMenu id="CEstado" value="#{taxonomiaTbController.selected.CEstado}" required="true" requiredMessage="Seleccione un estado taxonomico">
-                            <f:selectItem itemValue="" itemLabel="Seleccione estado taxonomico"/>
-                            <f:selectItem itemValue="Aceptado" itemLabel="Aceptado"/>
-                            <f:selectItem itemValue="Temporal" itemLabel="Temporal"/>
-                            <f:selectItem itemValue="Sinónimo" itemLabel="Sinónimo"/>
-                            <f:selectItem itemValue="En Desuso" itemLabel="En Desuso"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditEspecieTbLabel_EIdgenero}" for="EIdgenero" />
-                        <p:selectOneMenu id="EIdgenero" value="#{taxonomiaTbController.selected.EIdniveltaxonomia.EIdtaxonomia}" required="true" requiredMessage="Seleccione un estado taxonomico" filter="true" filterMatchMode="contains">
-                            <f:selectItem itemValue="" itemLabel="Seleccione género"/>
-                            <f:selectItems value="#{taxonomiaTbController.getItemsGenero(controladorSesion.genero.EIdniveltaxonomia.EIdtaxonomia)}"
-                                           var="genero"
-                                           itemLabel="#{genero.CNombre}"
-                                           itemValue="#{genero.EIdtaxonomia}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:tabView style="height: 300px" id="informacion">
+                    <p:fieldset legend="Especie">
+                        <p:panelGrid columns="6" style="width: 780px" rendered="#{taxonomiaTbController.selected != null}">
+                            <p:outputLabel value="#{bundle.EditEspecieTbLabel_CNombre}" for="CNombre" />
+                            <p:inputText id="CNombre" value="#{taxonomiaTbController.selected.CNombre}" title="#{bundle.EditEspecieTbTitle_CNombre}" required="true" requiredMessage="Introduzca un nombre"/>
+                            <p:outputLabel value="#{bundle.EditEspecieTbLabel_CEstado}" for="CEstado" />
+                            <p:selectOneMenu id="CEstado" value="#{taxonomiaTbController.selected.CEstado}" required="true" requiredMessage="Seleccione un estado taxonomico">
+                                <f:selectItem itemValue="" itemLabel="Seleccione estado taxonomico"/>
+                                <f:selectItem itemValue="Aceptado" itemLabel="Aceptado"/>
+                                <f:selectItem itemValue="Temporal" itemLabel="Temporal"/>
+                                <f:selectItem itemValue="Sinónimo" itemLabel="Sinónimo"/>
+                                <f:selectItem itemValue="En Desuso" itemLabel="En Desuso"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="#{bundle.EditEspecieTbLabel_EIdgenero}" for="EIdgenero" />
+                            <p:selectOneMenu id="EIdgenero" value="#{taxonomiaTbController.selected.EIdniveltaxonomia.EIdtaxonomia}" required="true" requiredMessage="Seleccione un estado taxonomico" filter="true" filterMatchMode="contains">
+                                <f:selectItem itemValue="" itemLabel="Seleccione género"/>
+                                <f:selectItems value="#{taxonomiaTbController.getItemsGenero(controladorSesion.genero.EIdniveltaxonomia.EIdtaxonomia)}"
+                                               var="genero"
+                                               itemLabel="#{genero.CNombre}"
+                                               itemValue="#{genero.EIdtaxonomia}"/>
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                    </p:fieldset>
+                    <p:tabView style="height: 400px" id="informacion">
                         <p:tab title="Autores">
                             <p:panelGrid columns="7">
                                 <p:outputLabel value="Nombre: " for="agenteAutor" />

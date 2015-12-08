@@ -12,7 +12,7 @@
             <h:form id="VariedadTbEditForm">
                 <h:panelGroup id="display">
                     <p:fieldset legend="Variedad">
-                        <p:panelGrid columns="6" rendered="#{taxonomiaTbController.selected != null}">
+                        <p:panelGrid style="width: 780px" columns="6" rendered="#{taxonomiaTbController.selected != null}">
                             <p:outputLabel value="#{bundle.EditSubespecieTbLabel_CNombre}" for="CNombre" />
                             <p:inputText id="CNombre" value="#{taxonomiaTbController.selected.CNombre}" title="#{bundle.EditSubespecieTbTitle_CNombre}" required="true" requiredMessage="Introduzca un nombre"/>
                             <p:outputLabel value="#{bundle.EditSubespecieTbLabel_CEstado}" for="CEstado" />
@@ -34,7 +34,7 @@
                         </p:panelGrid>
                     </p:fieldset>
                     <br/>
-                    <p:tabView style="height: 300px" id="informacion">
+                    <p:tabView style="height: 400px" id="informacion">
                         <p:tab title="Autores">
                             <p:panelGrid columns="7">
                                 <p:outputLabel value="Nombre: " for="agenteAutor" />

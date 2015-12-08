@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
+import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -114,7 +115,7 @@ public class DespachoTbController implements Serializable {
         materialDisponible = getFacade().materialDisponible();
         return selected;
     }
-    
+
     public DespachoTb prepareEdit() {
         materialDisponible = getFacade().materialDisponible();
         for (MaterialDespachoTb b : selected.getMaterialDespachoTbList()) {
@@ -125,18 +126,26 @@ public class DespachoTbController implements Serializable {
     }
 
     public void create() {
-        for (MaterialDespachoTb i: selected.getMaterialDespachoTbList()){
-            i.getMaterialTb().setDCantidad(i.getMaterialTb().getDCantidad() - i.getDCantidad());
-            materialFacade.edit(i.getMaterialTb());
-        }
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/BundleDespacho").getString("DespachoTbCreated"));
-        if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
+        if (selected.getMaterialDespachoTbList().isEmpty()) {
+            JsfUtil.addErrorMessage("Debe agregar materiales");
+        } else {
+            for (MaterialDespachoTb i : selected.getMaterialDespachoTbList()) {
+                i.getMaterialTb().setDCantidad(i.getMaterialTb().getDCantidad() - i.getDCantidad());
+                materialFacade.edit(i.getMaterialTb());
+            }
+            persist(PersistAction.CREATE, ResourceBundle.getBundle("/BundleDespacho").getString("DespachoTbCreated"));
+            if (!JsfUtil.isValidationFailed()) {
+                items = null;    // Invalidate list of items to trigger re-query.
+            }
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/BundleDespacho").getString("DespachoTbUpdated"));
+        if (selected.getMaterialDespachoTbList().isEmpty()) {
+            JsfUtil.addErrorMessage("Debe agregar materiales");
+        } else {
+            persist(PersistAction.UPDATE, ResourceBundle.getBundle("/BundleDespacho").getString("DespachoTbUpdated"));
+        }
     }
 
     public void destroy() {
@@ -236,27 +245,34 @@ public class DespachoTbController implements Serializable {
     }
 
     public void agregar() {
-        MaterialDespachoTb nuevo = new MaterialDespachoTb();
-        nuevo.setDCantidad(cantidad);
-        nuevo.setMaterialTb(material);
-        nuevo.setDespachoTb(selected);
+        FacesContext context = FacesContext.getCurrentInstance();
+        if (material == null || cantidad == 0) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Seleccione material e ingrese cantidad", "Alerta: "));
+        } else if (cantidad > material.getDCantidad()) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "la cantidad no debe ser mayor a " + material.getDCantidad(), "Alerta: "));
+        } else {
+            MaterialDespachoTb nuevo = new MaterialDespachoTb();
+            nuevo.setDCantidad(cantidad);
+            nuevo.setMaterialTb(material);
+            nuevo.setDespachoTb(selected);
 
-        MaterialDespachoTbPK mppk = new MaterialDespachoTbPK();
-        mppk.setEIdmaterial(material.getEIdmaterial());
-        mppk.setEIddespacho(getFacade().siguienteId());
+            MaterialDespachoTbPK mppk = new MaterialDespachoTbPK();
+            mppk.setEIdmaterial(material.getEIdmaterial());
+            mppk.setEIddespacho(getFacade().siguienteId());
 
-        nuevo.setMaterialDespachoTbPK(mppk);
+            nuevo.setMaterialDespachoTbPK(mppk);
 
-        selected.getMaterialDespachoTbList().add(nuevo);
+            selected.getMaterialDespachoTbList().add(nuevo);
 
-        materialDisponible.remove(material);
-        //material.setDCantidad(material.getDCantidad()-cantidad);
+            materialDisponible.remove(material);
+            //material.setDCantidad(material.getDCantidad()-cantidad);
 
-        cantidad = 0.0;
-        material=null;
+            cantidad = 0.0;
+            material = null;
+        }
 
     }
-    
+
     public void agregarM() {
         MaterialDespachoTb nuevo = new MaterialDespachoTb();
         nuevo.setDCantidad(cantidad);
@@ -275,7 +291,7 @@ public class DespachoTbController implements Serializable {
         //material.setDCantidad(material.getDCantidad()-cantidad);
 
         cantidad = 0.0;
-        material=null;
+        material = null;
 
     }
 

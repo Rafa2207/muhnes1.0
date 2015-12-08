@@ -46,7 +46,7 @@
                                      required="true"
                                      requiredMessage="Introduzca código de material" size="10" maxlength="10"/>
                         <p:outputLabel value="Tipo:" for="tipo" />
-                        <p:selectOneMenu id="tipo" filter="true" value="#{materialTbController.selected.ETipo}">
+                        <p:selectOneMenu id="tipo" value="#{materialTbController.selected.ETipo}" required="true" requiredMessage="Seleccione el tipo de material">
                             <f:selectItem itemLabel="Seleccione" itemValue="" />
                             <f:selectItem itemLabel="Consumibles" itemValue="1" />
                             <f:selectItem itemLabel="Herramientas" itemValue="2" />

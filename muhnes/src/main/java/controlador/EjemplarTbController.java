@@ -135,46 +135,52 @@ public class EjemplarTbController implements Serializable {
         listaAgenteI = agenteFacade.agentesIdentificadores();
         return selected;
     }
+
     public EjemplarTb prepareView(EjemplarTb ejemplar) {
         selected.getAgenteIdentificaEjemplarTbIDList().clear();
         selected.getAgenteIdentificaEjemplarTbList().clear();
-        selected.setAgenteIdentificaEjemplarTbIDList(getFacade().ejemplarIdentificador(ejemplar.getEIdejemplar(),"Identificador"));
-        selected.setAgenteIdentificaEjemplarTbList(getFacade().ejemplarRecolector(ejemplar.getEIdejemplar(),"Recolector"));
+        selected.setAgenteIdentificaEjemplarTbIDList(getFacade().ejemplarIdentificador(ejemplar.getEIdejemplar(), "Identificador"));
+        selected.setAgenteIdentificaEjemplarTbList(getFacade().ejemplarRecolector(ejemplar.getEIdejemplar(), "Recolector"));
         return selected;
     }
+
     public EjemplarTb prepareEdit(EjemplarTb ejemplar) {
         listaAgenteR = agenteFacade.agentesRecolectores();
-        for(AgenteIdentificaEjemplarTb i: selected.getAgenteIdentificaEjemplarTbList()){
+        for (AgenteIdentificaEjemplarTb i : selected.getAgenteIdentificaEjemplarTbList()) {
             listaAgenteR.remove(i.getAgenteTb());
         }
         listaAgenteI = agenteFacade.agentesIdentificadores();
-        for(AgenteIdentificaEjemplarTb i: selected.getAgenteIdentificaEjemplarTbIDList()){
+        for (AgenteIdentificaEjemplarTb i : selected.getAgenteIdentificaEjemplarTbIDList()) {
             listaAgenteI.remove(i.getAgenteTb());
         }
         selected.getAgenteIdentificaEjemplarTbIDList().clear();
         selected.getAgenteIdentificaEjemplarTbList().clear();
-        selected.setAgenteIdentificaEjemplarTbIDList(getFacade().ejemplarIdentificador(ejemplar.getEIdejemplar(),"Identificador"));
-        selected.setAgenteIdentificaEjemplarTbList(getFacade().ejemplarRecolector(ejemplar.getEIdejemplar(),"Recolector"));
-        if(selected.getEIdtaxonomia().getCTipo().equals("Familia")){
+        selected.setAgenteIdentificaEjemplarTbIDList(getFacade().ejemplarIdentificador(ejemplar.getEIdejemplar(), "Identificador"));
+        selected.setAgenteIdentificaEjemplarTbList(getFacade().ejemplarRecolector(ejemplar.getEIdejemplar(), "Recolector"));
+        if (selected.getEIdtaxonomia().getCTipo().equals("Familia")) {
             tipoTaxon = "Familia";
-        } 
-        if(selected.getEIdtaxonomia().getCTipo().equals("Genero")){
+        }
+        if (selected.getEIdtaxonomia().getCTipo().equals("Genero")) {
             tipoTaxon = "Genero";
-        } 
-        if(selected.getEIdtaxonomia().getCTipo().equals("Especie")){
+        }
+        if (selected.getEIdtaxonomia().getCTipo().equals("Especie")) {
             tipoTaxon = "Especie";
-        } 
-        if(selected.getEIdtaxonomia().getCTipo().equals("Subespecie")){
+        }
+        if (selected.getEIdtaxonomia().getCTipo().equals("Subespecie")) {
             tipoTaxon = "Subespecie";
-        } 
-        if(selected.getEIdtaxonomia().getCTipo().equals("Variedad")){
+        }
+        if (selected.getEIdtaxonomia().getCTipo().equals("Variedad")) {
             tipoTaxon = "Variedad";
-        } 
+        }
         return selected;
     }
 
     public void create() {
-        selected.seteEstado(1);
+        if (selected.getEIdinstitucion() != null) {
+            selected.setEEstado(2); //ejemplar que se recibió donado
+        } else {
+            selected.setEEstado(1); //ejemplar que se recolectó
+        }
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("EjemplarTbCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -303,6 +309,7 @@ public class EjemplarTbController implements Serializable {
 
         listaAgenteR.remove(agente);
     }
+
     public void anadirRecolectorM() {
         int sec = 0;
         AgenteIdentificaEjemplarTb nuevo = new AgenteIdentificaEjemplarTb();
@@ -359,7 +366,7 @@ public class EjemplarTbController implements Serializable {
 
         listaAgenteI.remove(agente);
     }
-    
+
     public void anadirIndentificadorM() {
         int sec = 0;
         AgenteIdentificaEjemplarTb nuevo = new AgenteIdentificaEjemplarTb();
@@ -399,24 +406,24 @@ public class EjemplarTbController implements Serializable {
         String correlativo = getFacade().obtenerCorrelativo(codigo);
         selected.setCCodigoentrada(codigo + "-" + correlativo);
     }
-    
-   public String calculaAgente(List<AgenteTb> a, int b) {
-       String agente=""; 
-       for (AgenteTb agen : a) {
+
+    public String calculaAgente(List<AgenteTb> a, int b) {
+        String agente = "";
+        for (AgenteTb agen : a) {
             if (agen.getEIdagente() == b) {
                 agente = agen.getCNombre() + " " + agen.getCApellido();
             }
         }
         return agente;
-   }
-   
-/*   public String calculaEspecie(List<EspecieTb> a, int b) {
-       String especie=""; 
-       for (EspecieTb esp : a) {
-            if (esp.getEIdespecie()== b) {
-                especie = esp.getCNombre();
-            }
-        }
-        return especie;
-   }*/
+    }
+
+    /*   public String calculaEspecie(List<EspecieTb> a, int b) {
+     String especie=""; 
+     for (EspecieTb esp : a) {
+     if (esp.getEIdespecie()== b) {
+     especie = esp.getCNombre();
+     }
+     }
+     return especie;
+     }*/
 }

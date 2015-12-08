@@ -43,7 +43,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "EjemplarTb.findByFFechaFinIdent", query = "SELECT e FROM EjemplarTb e WHERE e.fFechaFinIdent = :fFechaFinIdent"),
     @NamedQuery(name = "EjemplarTb.findByBEstadonotas", query = "SELECT e FROM EjemplarTb e WHERE e.bEstadonotas = :bEstadonotas"),
     @NamedQuery(name = "EjemplarTb.findByEResponsable", query = "SELECT e FROM EjemplarTb e WHERE e.eResponsable = :eResponsable"),
-    @NamedQuery(name = "EjemplarTb.findByCCodigoentrada", query = "SELECT e FROM EjemplarTb e WHERE e.cCodigoentrada = :cCodigoentrada")})
+    @NamedQuery(name = "EjemplarTb.findByCCodigoentrada", query = "SELECT e FROM EjemplarTb e WHERE e.cCodigoentrada = :cCodigoentrada"),
+    @NamedQuery(name = "EjemplarTb.findByEEstado", query = "SELECT e FROM EjemplarTb e WHERE e.eEstado = :eEstado"),
+    @NamedQuery(name = "EjemplarTb.findByEIdinstitucion", query = "SELECT e FROM EjemplarTb e WHERE e.eIdinstitucion = :eIdinstitucion")})
 public class EjemplarTb implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "ejemplarTb")
     private List<EjemplarDonacionTb> ejemplarDonacionTbList;
@@ -80,6 +82,8 @@ public class EjemplarTb implements Serializable {
     private String cCodigoentrada;
     @Column(name = "e_estado")
     private Integer eEstado;
+    @Column(name = "e_idinstitucion")
+    private Integer eIdinstitucion;
     @JoinColumn(name = "e_idtaxonomia", referencedColumnName = "e_idtaxonomia")
     @ManyToOne
     private TaxonomiaTb eIdtaxonomia;
@@ -197,6 +201,22 @@ public class EjemplarTb implements Serializable {
         this.cCodigoentrada = cCodigoentrada;
     }
 
+    public Integer getEEstado() {
+        return eEstado;
+    }
+
+    public void setEEstado(Integer eEstado) {
+        this.eEstado = eEstado;
+    }
+
+    public Integer getEIdinstitucion() {
+        return eIdinstitucion;
+    }
+
+    public void setEIdinstitucion(Integer eIdinstitucion) {
+        this.eIdinstitucion = eIdinstitucion;
+    }
+
     public TaxonomiaTb getEIdtaxonomia() {
         return eIdtaxonomia;
     }
@@ -215,14 +235,6 @@ public class EjemplarTb implements Serializable {
 
     public LocalidadTb getEIdlocalidad() {
         return eIdlocalidad;
-    }
-
-    public Integer geteEstado() {
-        return eEstado;
-    }
-
-    public void seteEstado(Integer eEstado) {
-        this.eEstado = eEstado;
     }
 
     public void setEIdlocalidad(LocalidadTb eIdlocalidad) {
@@ -253,11 +265,11 @@ public class EjemplarTb implements Serializable {
     public String toString() {
         return "modelo.EjemplarTb[ eIdejemplar=" + eIdejemplar + " ]";
     }
-
+    
     @XmlTransient
     public List<EjemplarParticipaExhibicionTb> getEjemplarParticipaExhibicionTbList() {
         return ejemplarParticipaExhibicionTbList;
-    }
+}
 
     public void setEjemplarParticipaExhibicionTbList(List<EjemplarParticipaExhibicionTb> ejemplarParticipaExhibicionTbList) {
         this.ejemplarParticipaExhibicionTbList = ejemplarParticipaExhibicionTbList;

@@ -23,6 +23,7 @@
                     </p:breadCrumb>
 
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{ejemplarTbController.prepareCreate}" update=":EjemplarTbCreateForm" oncomplete="PF('EjemplarTbCreateDialog').show()"/>
+                    <p:commandButton id="create2Button" icon="ui-icon-plus"   value="Nuevo Ejemplar Donado" actionListener="#{ejemplarTbController.prepareCreate}" update=":EjemplarTbCreate2Form" oncomplete="PF('EjemplarTbCreate2Dialog').show()"/> 
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" actionListener="#{ejemplarTbController.prepareView(ejemplarTbController.selected)}" update=":EjemplarTbViewForm" oncomplete="PF('EjemplarTbViewDialog').show()" disabled="#{empty ejemplarTbController.selected}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" actionListener="#{ejemplarTbController.prepareEdit(ejemplarTbController.selected)}" update=":EjemplarTbEditForm" oncomplete="PF('EjemplarTbEditDialog').show()" disabled="#{empty ejemplarTbController.selected}"/>
                     <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{ejemplarTbController.destroy}" update=":growl,datalist" disabled="#{empty ejemplarTbController.selected}"/>
@@ -40,8 +41,8 @@
                                  emptyMessage="No se encontro ejemplar"
                                  >
 
-                        <p:ajax event="rowSelect"   update=":EjemplarTbListForm:createButton :EjemplarTbListForm:viewButton :EjemplarTbListForm:editButton :EjemplarTbListForm:deleteButton"/>
-                        <p:ajax event="rowUnselect" update=":EjemplarTbListForm:createButton :EjemplarTbListForm:viewButton :EjemplarTbListForm:editButton :EjemplarTbListForm:deleteButton"/>
+                        <p:ajax event="rowSelect"   update=":EjemplarTbListForm:createButton :EjemplarTbListForm:create2Button :EjemplarTbListForm:viewButton :EjemplarTbListForm:editButton :EjemplarTbListForm:deleteButton"/>
+                        <p:ajax event="rowUnselect" update=":EjemplarTbListForm:createButton :EjemplarTbListForm:create2Button :EjemplarTbListForm:viewButton :EjemplarTbListForm:editButton :EjemplarTbListForm:deleteButton"/>
 
                         <p:column filterBy="#{item.CCodigoentrada}" filterStyle="display:none" width="10%">
                             <f:facet name="header">
@@ -106,6 +107,7 @@
             </h:form>
 
             <ui:include src="Create.xhtml"/>
+            <ui:include src="CreateDonacion.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
         </ui:define>

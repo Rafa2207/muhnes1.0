@@ -16,6 +16,7 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -41,9 +42,18 @@ public class PedidoTbController implements Serializable {
     private MaterialPedidoTb materialEL;
     private Integer estado;
     private boolean bandera;
+    private String oncomplete;
 
     public boolean isBandera() {
         return bandera;
+    }
+
+    public String getOncomplete() {
+        return oncomplete;
+    }
+
+    public void setOncomplete(String oncomplete) {
+        this.oncomplete = oncomplete;
     }
 
     public void setBandera(boolean bandera) {
@@ -157,7 +167,8 @@ public class PedidoTbController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
-public PedidoTb prepareActualizar() {
+
+    public PedidoTb prepareActualizar() {
         if (selected.getEEstado() == 3) {
             bandera = true;
         } else {
@@ -168,14 +179,25 @@ public PedidoTb prepareActualizar() {
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PedidoTbCreated"));
-        if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
+        if (selected.getMaterialPedidoTbList().isEmpty()) {
+            JsfUtil.addErrorMessage("Debe agregar materiales");
+            oncomplete = "";
+        } else {
+            //oncomplete = "handleSubmit(args,'PedidoTbCreateDialog');";
+            persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PedidoTbCreated"));
+            if (!JsfUtil.isValidationFailed()) {
+                items = null;    // Invalidate list of items to trigger re-query.
+            }
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("PedidoTbUpdated"));
+        if (selected.getMaterialPedidoTbList().isEmpty()) {
+            JsfUtil.addErrorMessage("Debe agregar materiales");
+            oncomplete = "";
+        } else {
+            persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("PedidoTbUpdated"));
+        }
     }
 
     public void destroy() {
@@ -275,42 +297,52 @@ public PedidoTb prepareActualizar() {
     }
 
     public void agregar() {
-        MaterialPedidoTb nuevo = new MaterialPedidoTb();
-        nuevo.setDCantidad(cantidad);
-        nuevo.setMaterialTb(material);
-        nuevo.setPedidoTb(selected);
+        FacesContext context = FacesContext.getCurrentInstance();
+        if (material == null || cantidad == 0) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Seleccione material e ingrese cantidad", "Alerta: "));
+        } else {
+            MaterialPedidoTb nuevo = new MaterialPedidoTb();
+            nuevo.setDCantidad(cantidad);
+            nuevo.setMaterialTb(material);
+            nuevo.setPedidoTb(selected);
 
-        MaterialPedidoTbPK mppk = new MaterialPedidoTbPK();
-        mppk.setEIdmaterial(material.getEIdmaterial());
-        mppk.setEIdpedido(getFacade().siguienteId());
+            MaterialPedidoTbPK mppk = new MaterialPedidoTbPK();
+            mppk.setEIdmaterial(material.getEIdmaterial());
+            mppk.setEIdpedido(getFacade().siguienteId());
 
-        nuevo.setMaterialPedidoTbPK(mppk);
+            nuevo.setMaterialPedidoTbPK(mppk);
 
-        selected.getMaterialPedidoTbList().add(nuevo);
+            selected.getMaterialPedidoTbList().add(nuevo);
 
-        materialDisponible.remove(material);
+            materialDisponible.remove(material);
 
-        cantidad = 0.0;
+            cantidad = 0.0;
+        }
 
     }
 
     public void agregarModificar() {
-        MaterialPedidoTb nuevo = new MaterialPedidoTb();
-        nuevo.setDCantidad(cantidad);
-        nuevo.setMaterialTb(material);
-        nuevo.setPedidoTb(selected);
+        FacesContext context = FacesContext.getCurrentInstance();
+        if (material == null || cantidad == 0) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Seleccione material e ingrese cantidad", "Alerta: "));
+        } else {
+            MaterialPedidoTb nuevo = new MaterialPedidoTb();
+            nuevo.setDCantidad(cantidad);
+            nuevo.setMaterialTb(material);
+            nuevo.setPedidoTb(selected);
 
-        MaterialPedidoTbPK mppk = new MaterialPedidoTbPK();
-        mppk.setEIdmaterial(material.getEIdmaterial());
-        mppk.setEIdpedido(selected.getEIdpedido());
+            MaterialPedidoTbPK mppk = new MaterialPedidoTbPK();
+            mppk.setEIdmaterial(material.getEIdmaterial());
+            mppk.setEIdpedido(selected.getEIdpedido());
 
-        nuevo.setMaterialPedidoTbPK(mppk);
+            nuevo.setMaterialPedidoTbPK(mppk);
 
-        selected.getMaterialPedidoTbList().add(nuevo);
+            selected.getMaterialPedidoTbList().add(nuevo);
 
-        materialDisponible.remove(material);
+            materialDisponible.remove(material);
 
-        cantidad = 0.0;
+            cantidad = 0.0;
+        }
 
     }
 
@@ -344,33 +376,21 @@ public PedidoTb prepareActualizar() {
     }
 
     public void recibirPedido() {
-        //double total = 0.0;
-        //material = new MaterialTb();
         for (MaterialPedidoTb i : selected.getMaterialPedidoTbList()) {
             i.getMaterialTb().setDCantidad(i.getMaterialTb().getDCantidad() + i.getDEntrada());
             materialFacade.edit(i.getMaterialTb());
-//material.setDCantidad(total);
-            //total = 0.0;
         }
-
-        //selected.setEEstado(estado);
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("PedidoTbRecibido"));
     }
 
     public void actualizarPedido() {
-        //double total = 0.0;
-        //material = new MaterialTb();
- //       List<MaterialPedidoTb> mpp = getFacade().pedido(selected);
-        for (MaterialPedidoTb  i : selected.getMaterialPedidoTbList()) {
-  //          List<MaterialPedidoTb> mpp2 = selected.getMaterialPedidoTbList();
-            for (MaterialPedidoTb z : getFacade().pedido(selected)) {
+        for (MaterialPedidoTb i : selected.getMaterialPedidoTbList()) {
+            for (MaterialPedidoTb z : getFacade().pedido(selected.getEIdpedido())) {
                 if (i.getMaterialTb() == z.getMaterialTb()) {
                     i.getMaterialTb().setDCantidad(i.getMaterialTb().getDCantidad() + (i.getDEntrada() - z.getDEntrada()));
                     materialFacade.edit(i.getMaterialTb());
                 }
             }
-//material.setDCantidad(total);
-            //total = 0.0;
         }
 
         //selected.setEEstado(estado);

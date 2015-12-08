@@ -12,7 +12,7 @@ import modelo.LocalidadTb;
 import modelo.ProyectoTb;
 import modelo.TaxonomiaTb;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-12-04T15:07:52")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-12-08T11:33:34")
 @StaticMetamodel(EjemplarTb.class)
 public class EjemplarTb_ { 
 
@@ -22,6 +22,7 @@ public class EjemplarTb_ {
     public static volatile SingularAttribute<EjemplarTb, String> cCodigoentrada;
     public static volatile SingularAttribute<EjemplarTb, ProyectoTb> eIdproyecto;
     public static volatile SingularAttribute<EjemplarTb, Boolean> bEstadonotas;
+    public static volatile SingularAttribute<EjemplarTb, Integer> eIdinstitucion;
     public static volatile SingularAttribute<EjemplarTb, LocalidadTb> eIdlocalidad;
     public static volatile SingularAttribute<EjemplarTb, Date> fFechaInicioIdent;
     public static volatile ListAttribute<EjemplarTb, AgenteIdentificaEjemplarTb> AgenteIdentificaEjemplarTbList;
