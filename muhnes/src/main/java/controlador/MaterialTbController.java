@@ -378,9 +378,13 @@ public class MaterialTbController implements Serializable {
                     cod.setCode(l.getMCodigobarras());
                     PdfPCell cell0 = new PdfPCell();
                     cell0.addElement(cod.createImageWithBarcode(cb, null, null));
-                    cell0.setBorder(Rectangle.NO_BORDER);
+                    cell0.setBorder(Rectangle.BOTTOM);
                     mat.addCell(cell0);
-                    //mat.addCell(cod.createImageWithBarcode(cb, null, null));                
+                        Paragraph t = new Paragraph("", FontFactory.getFont(FontFactory.TIMES_BOLD, 11));
+                        t.setAlignment(Element.ALIGN_LEFT);
+                        t.setSpacingAfter(5);
+                        t.setSpacingBefore(5);
+                        
                     
                     PdfPCell cell2 = new PdfPCell(new Phrase(l.getCNombre(), FontFactory.getFont(FontFactory.TIMES, 10)));
                     cell2.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -410,6 +414,7 @@ public class MaterialTbController implements Serializable {
                     
                     mat.setSpacingBefore(10);
                     mat.setSpacingAfter(10);
+                    document.add(t);
                 }
                 document.add(mat);
                 document.close();

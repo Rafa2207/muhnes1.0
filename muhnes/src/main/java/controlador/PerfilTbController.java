@@ -210,64 +210,49 @@ public class PerfilTbController implements Serializable {
                 hsr.setContentType("application/pdf");
                 ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
 
-                // Empieza reporte
+                // Inicia reporte
                 Document document = new Document(PageSize.LETTER);
                 PdfWriter writer = PdfWriter.getInstance(document, pdfOutputStream);
                 TableHeaderVertical event = new TableHeaderVertical();
                 writer.setPageEvent(event);
                 document.open();
 
-                //este cb sirve para sacar el codigo de barra
-                PdfContentByte cb = writer.getDirectContent();
-
                 //Encabezado
-                //esto es para obtener la ruta del sistema
+                //ruta del sistema
                 ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-                //Hago referencia a los logo
+                //Referencia al logo
                 String logoPath = servletContext.getRealPath("") + File.separator + "resources"
                         + File.separator + "images"
                         + File.separator + "muhnes1.png";
-                //String logoMined = servletContext.getRealPath("") + File.separator + "resources"
-                //      + File.separator + "images"
-                //    + File.separator + "secultura.png";
-                //Creo una tabla para poner el encabezado
+
+                //Tabla para  el encabezado
                 PdfPTable encabezado = new PdfPTable(3);
-                //indico que el ancho de la tabla es del 100%
+                //Ancho de la tabla
                 encabezado.setWidthPercentage(100);
-                //creo la primer celda
+                //Primera celda
                 PdfPCell cell1 = new PdfPCell();
-                //Instancio los logos
+                //Instancia al logo
                 Image logo = Image.getInstance(logoPath);
-                //Image minedLogo = Image.getInstance(logoMined);
-                //Indico los tamaños de los logos
+                //Indico tamaño del logo
                 logo.scaleToFit(80, 80);
-                //minedLogo.scaleToFit(130, 130);
                 //añado el primer logo a la celda
                 cell1.addElement(logo);
-                //indico que la celda no tenga borde
+                //Celda sin borde borde
                 cell1.setBorder(Rectangle.NO_BORDER);
-                //añado la celda a la tabla
+                //añado celda a la tabla
                 encabezado.addCell(cell1);
-                //indico que las siguientes celdas se alineen al centro
+                //celdas se alineen al centro
                 encabezado.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                 encabezado.getDefaultCell().setVerticalAlignment(Element.ALIGN_CENTER);
-                //indico que las siguientes celdas no tengan borde
+                //Siguientes celdas no tengan borde
                 encabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-                //añado una nueva celda con los datos del instituto
+                //nueva celda con los datos del MUHNES
                 encabezado.addCell(new Paragraph("\n Museo de Historia Natural de El Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
-                //PdfPCell cell2 = new PdfPCell();
-                //cell2.setBorder(Rectangle.NO_BORDER);
+
                 encabezado.addCell("");
                 document.add(encabezado);
-                //creo una nueva celda para la otra imagen
 
-                //Ajusto los parametros de la celda igual que la anterior
-                //minedLogo.setAlignment(Element.ALIGN_RIGHT);
-                //cell2.addElement(minedLogo);
-                //cell2.setBorder(Rectangle.NO_BORDER);
-                //encabezado.addCell(cell2);
-                //document.add(encabezado);
-                Paragraph titulo = new Paragraph("Reporte de Perfiles", FontFactory.getFont(FontFactory.TIMES_BOLD, 11));
+                Paragraph titulo = new Paragraph("Reporte de Perfiles", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                 titulo.setAlignment(Element.ALIGN_CENTER);
                 titulo.setSpacingAfter(5);
                 titulo.setSpacingBefore(10);
@@ -282,8 +267,8 @@ public class PerfilTbController implements Serializable {
                 PdfPTable per = new PdfPTable(2);
                 per.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                 per.setWidths(new int[]{75,175});
-                per.addCell(new Phrase("Nombre", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
-                per.addCell(new Phrase("Descripción", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                per.addCell(new Phrase("Nombre", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                per.addCell(new Phrase("Descripción", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
 
 
                 List<PerfilTb> lista;
@@ -294,11 +279,11 @@ public class PerfilTbController implements Serializable {
                 }
 
                 for (PerfilTb l : lista) {
-                    PdfPCell cell = new PdfPCell(new Phrase(l.getCNombre(), FontFactory.getFont(FontFactory.TIMES, 10)));
+                    PdfPCell cell = new PdfPCell(new Phrase(l.getCNombre(), FontFactory.getFont(FontFactory.TIMES, 12)));
                     cell.setHorizontalAlignment(Element.ALIGN_LEFT);
                     per.addCell(cell);
 
-                    PdfPCell cell2 = new PdfPCell(new Phrase(l.getMDescripcion(), FontFactory.getFont(FontFactory.TIMES, 10)));
+                    PdfPCell cell2 = new PdfPCell(new Phrase(l.getMDescripcion(), FontFactory.getFont(FontFactory.TIMES, 12)));
                     cell2.setHorizontalAlignment(Element.ALIGN_LEFT);
                     per.addCell(cell2);
 

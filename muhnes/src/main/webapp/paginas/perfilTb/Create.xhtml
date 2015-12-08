@@ -19,7 +19,8 @@
                                      required="true" requiredMessage="Introduzca el nombre del perfil"/>
                         
                         <p:outputLabel value="#{bundle.CreatePerfilTbLabel_MDescripcion}" for="MDescripcion" />
-                        <p:inputTextarea rows="4" cols="25" autoResize="" id="MDescripcion" value="#{perfilTbController.selected.MDescripcion}" title="#{bundle.CreatePerfilTbTitle_MDescripcion}" 
+                        <p:inputTextarea rows="4" cols="25" autoResize="" id="MDescripcion" value="#{perfilTbController.selected.MDescripcion}" title="#{bundle.CreatePerfilTbTitle_MDescripcion}"
+                                         required="true" requiredMessage="Introduzca la descripción" 
                                          />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{perfilTbController.create}" value="#{bundle.Save}" update="display,:PerfilTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'PerfilTbCreateDialog');"/>

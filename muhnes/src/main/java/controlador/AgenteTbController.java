@@ -1,6 +1,5 @@
 package controlador;
 
-import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
@@ -332,64 +331,49 @@ public class AgenteTbController implements Serializable {
                 hsr.setContentType("application/pdf");
                 ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
 
-                // Empieza reporte
+                // Inicia reporte
                 Document document = new Document(PageSize.LETTER);
                 PdfWriter writer = PdfWriter.getInstance(document, pdfOutputStream);
                 TableHeaderVertical event = new TableHeaderVertical();
                 writer.setPageEvent(event);
                 document.open();
 
-                //este cb sirve para sacar el codigo de barra
-                PdfContentByte cb = writer.getDirectContent();
-
                 //Encabezado
-                //esto es para obtener la ruta del sistema
+                //ruta del sistema
                 ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-                //Hago referencia a los logo
+                //Referencia al logo
                 String logoPath = servletContext.getRealPath("") + File.separator + "resources"
                         + File.separator + "images"
                         + File.separator + "muhnes1.png";
-                //String logoMined = servletContext.getRealPath("") + File.separator + "resources"
-                //      + File.separator + "images"
-                //    + File.separator + "secultura.png";
-                //Creo una tabla para poner el encabezado
+
+                //Tabla para  el encabezado
                 PdfPTable encabezado = new PdfPTable(3);
-                //indico que el ancho de la tabla es del 100%
+                //Ancho de la tabla
                 encabezado.setWidthPercentage(100);
-                //creo la primer celda
+                //Primera celda
                 PdfPCell cell1 = new PdfPCell();
-                //Instancio los logos
+                //Instancia al logo
                 Image logo = Image.getInstance(logoPath);
-                //Image minedLogo = Image.getInstance(logoMined);
-                //Indico los tamaños de los logos
+                //Indico tamaño del logo
                 logo.scaleToFit(80, 80);
-                //minedLogo.scaleToFit(130, 130);
                 //añado el primer logo a la celda
                 cell1.addElement(logo);
-                //indico que la celda no tenga borde
+                //Celda sin borde borde
                 cell1.setBorder(Rectangle.NO_BORDER);
-                //añado la celda a la tabla
+                //añado celda a la tabla
                 encabezado.addCell(cell1);
-                //indico que las siguientes celdas se alineen al centro
+                //celdas se alineen al centro
                 encabezado.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                 encabezado.getDefaultCell().setVerticalAlignment(Element.ALIGN_CENTER);
-                //indico que las siguientes celdas no tengan borde
+                //Siguientes celdas no tengan borde
                 encabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-                //añado una nueva celda con los datos del instituto
+                //nueva celda con los datos del MUHNES
                 encabezado.addCell(new Paragraph("\n Museo de Historia Natural de El Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
-                //PdfPCell cell2 = new PdfPCell();
-                //cell2.setBorder(Rectangle.NO_BORDER);
+
                 encabezado.addCell("");
                 document.add(encabezado);
-                //creo una nueva celda para la otra imagen
 
-                //Ajusto los parametros de la celda igual que la anterior
-                //minedLogo.setAlignment(Element.ALIGN_RIGHT);
-                //cell2.addElement(minedLogo);
-                //cell2.setBorder(Rectangle.NO_BORDER);
-                //encabezado.addCell(cell2);
-                //document.add(encabezado);
-                Paragraph titulo = new Paragraph("Reporte de Agentes", FontFactory.getFont(FontFactory.TIMES_BOLD, 11));
+                Paragraph titulo = new Paragraph("Reporte de Agentes", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                 titulo.setAlignment(Element.ALIGN_CENTER);
                 titulo.setSpacingAfter(5);
                 titulo.setSpacingBefore(10);
@@ -401,21 +385,13 @@ public class AgenteTbController implements Serializable {
                 fecha.setSpacingAfter(10);
                 document.add(fecha);
 
-                /*int i = 0;
-                 for (AgentePerfilTb p : selected.getAgentePerfilTbList()) {
-                 i++;
-                 }*/
                 PdfPTable agentes = new PdfPTable(5);
                 agentes.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-                agentes.addCell(new Phrase("Iniciales", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
-                agentes.addCell(new Phrase("Nombre", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
-                agentes.addCell(new Phrase("Apellido", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
-                agentes.addCell(new Phrase("Ocupación", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
-                agentes.addCell(new Phrase("Institución", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
-                /*PdfPCell per = new PdfPCell(new Phrase("Perfiles", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
-                 per.setColspan(i);
-                 per.setHorizontalAlignment(Element.ALIGN_CENTER);
-                 agentes.addCell(per);*/
+                agentes.addCell(new Phrase("Iniciales", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                agentes.addCell(new Phrase("Nombre", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                agentes.addCell(new Phrase("Apellido", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                agentes.addCell(new Phrase("Ocupación", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                agentes.addCell(new Phrase("Institución", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
 
                 List<AgenteTb> lista;
                 if (filtrado != null) {
@@ -423,186 +399,41 @@ public class AgenteTbController implements Serializable {
                 } else {
                     lista = this.items;
                 }
-                List<AgentePerfilTb> lista1;
-                if (perfilAgente != null) {
-                    lista1 = perfil1;
-                } else {
-                    lista1 = this.items1;
-                }
 
                 for (AgenteTb l : lista) {
 
-                    agentes.addCell(new Phrase(l.getCIniciales(), FontFactory.getFont(FontFactory.TIMES, 10)));
+                    agentes.addCell(new Phrase(l.getCIniciales(), FontFactory.getFont(FontFactory.TIMES, 12)));
 
-                    PdfPCell cell = new PdfPCell(new Phrase(l.getCNombre(), FontFactory.getFont(FontFactory.TIMES, 10)));
+                    PdfPCell cell = new PdfPCell(new Phrase(l.getCNombre(), FontFactory.getFont(FontFactory.TIMES, 12)));
                     cell.setHorizontalAlignment(Element.ALIGN_LEFT);
                     agentes.addCell(cell);
 
-                    PdfPCell cell2 = new PdfPCell(new Phrase(l.getCApellido(), FontFactory.getFont(FontFactory.TIMES, 10)));
+                    PdfPCell cell2 = new PdfPCell(new Phrase(l.getCApellido(), FontFactory.getFont(FontFactory.TIMES, 12)));
                     cell2.setHorizontalAlignment(Element.ALIGN_LEFT);
                     agentes.addCell(cell2);
 
-                    PdfPCell cell3 = new PdfPCell(new Phrase(l.getCOcupacion(), FontFactory.getFont(FontFactory.TIMES, 10)));
-                    cell3.setHorizontalAlignment(Element.ALIGN_LEFT);
-                    agentes.addCell(cell3);
-
+                     if (l.getCOcupacion().equals("")) {
+                        PdfPCell cell3 = new PdfPCell(new Phrase("Sin ocupación", FontFactory.getFont(FontFactory.TIMES, 12)));
+                        cell3.setHorizontalAlignment(Element.ALIGN_LEFT);
+                        agentes.addCell(cell3);
+                        } else {
+                        PdfPCell cell3 = new PdfPCell(new Phrase(l.getCOcupacion(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                        cell3.setHorizontalAlignment(Element.ALIGN_LEFT);
+                        agentes.addCell(cell3);
+                        }
+                    
                     try {
-                        PdfPCell cell4 = new PdfPCell(new Phrase(l.getEIdinstitucion().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 10)));
+                        PdfPCell cell4 = new PdfPCell(new Phrase(l.getEIdinstitucion().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 12)));
                         cell4.setHorizontalAlignment(Element.ALIGN_LEFT);
                         agentes.addCell(cell4);
                     } catch (Exception e) {
-                        PdfPCell cell4 = new PdfPCell(new Phrase("Sin Institución", FontFactory.getFont(FontFactory.TIMES, 10)));
+                        PdfPCell cell4 = new PdfPCell(new Phrase("Sin institución", FontFactory.getFont(FontFactory.TIMES, 12)));
                         cell4.setHorizontalAlignment(Element.ALIGN_LEFT);
                         agentes.addCell(cell4);
-
                     }
 
-                    /* for (AgentePerfilTb r : lista1) {
-                     PdfPCell cell5 = new PdfPCell(new Phrase(r.getPerfilTb().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 10)));
-                     cell5.setHorizontalAlignment(Element.ALIGN_LEFT);
-                     agentes.addCell(cell5);
-                     }*/
                 }
                 document.add(agentes);
-                document.close();
-                //Termina reporte
-
-                hsr.setHeader("Expires", "0");
-                hsr.setContentType("application/pdf");
-                hsr.setContentLength(pdfOutputStream.size());
-                ServletOutputStream responseOutputStream = hsr.getOutputStream();
-                responseOutputStream.write(pdfOutputStream.toByteArray());
-                responseOutputStream.flush();
-                responseOutputStream.close();
-                context.responseComplete();
-            }
-        } catch (DocumentException | IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void reporteseleccionado() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        try {
-            Object response = context.getExternalContext().getResponse();
-            if (response instanceof HttpServletResponse) {
-                HttpServletResponse hsr = (HttpServletResponse) response;
-                hsr.setContentType("application/pdf");
-                ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
-
-                // Empieza reporte
-                Document document = new Document(PageSize.LETTER);
-                PdfWriter writer = PdfWriter.getInstance(document, pdfOutputStream);
-                TableHeaderVertical event = new TableHeaderVertical();
-                writer.setPageEvent(event);
-                document.open();
-
-                //Encabezado
-                //esto es para obtener la ruta del sistema
-                ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-                //Hago referencia a los logo
-                String logoPath = servletContext.getRealPath("") + File.separator + "resources"
-                        + File.separator + "images"
-                        + File.separator + "muhnes1.png";
-                //String logoMined = servletContext.getRealPath("") + File.separator + "resources"
-                //      + File.separator + "images"
-                //    + File.separator + "secultura.png";
-                //Creo una tabla para poner el encabezado
-                PdfPTable encabezado = new PdfPTable(3);
-                //indico que el ancho de la tabla es del 100%
-                encabezado.setWidthPercentage(100);
-                //creo la primer celda
-                PdfPCell cell1 = new PdfPCell();
-
-                //Instancio los logos
-                Image logo = Image.getInstance(logoPath);
-                //Image minedLogo = Image.getInstance(logoMined);
-                //Indico los tamaños de los logos
-                logo.scaleToFit(80, 80);
-                //minedLogo.scaleToFit(130, 130);
-                //añado el primer logo a la celda
-                cell1.addElement(logo);
-                //indico que la celda no tenga borde
-                cell1.setBorder(Rectangle.NO_BORDER);
-                //añado la celda a la tabla
-                encabezado.addCell(cell1);
-                //indico que las siguientes celdas se alineen al centro
-                encabezado.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-                encabezado.getDefaultCell().setVerticalAlignment(Element.ALIGN_CENTER);
-                //indico que las siguientes celdas no tengan borde
-                encabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-                //añado una nueva celda con los datos del instituto
-                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de El Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
-                //PdfPCell cell2 = new PdfPCell();
-                //cell2.setBorder(Rectangle.NO_BORDER);
-                encabezado.addCell("");
-                document.add(encabezado);
-                //creo una nueva celda para la otra imagen
-
-                //Ajusto los parametros de la celda igual que la anterior
-                //minedLogo.setAlignment(Element.ALIGN_RIGHT);
-                //cell2.addElement(minedLogo);
-                //cell2.setBorder(Rectangle.NO_BORDER);
-                //encabezado.addCell(cell2);
-                //document.add(encabezado);
-                Paragraph titulo = new Paragraph("Reporte del Agente", FontFactory.getFont(FontFactory.TIMES_BOLD, 11));
-                titulo.setAlignment(Element.ALIGN_CENTER);
-                titulo.setSpacingAfter(5);
-                titulo.setSpacingBefore(10);
-                document.add(titulo);
-
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
-                        FontFactory.getFont(FontFactory.TIMES, 10));
-                fecha.setAlignment(Element.ALIGN_CENTER);
-                fecha.setSpacingAfter(10);
-                document.add(fecha);
-
-                PdfPTable per = new PdfPTable(1);
-                for (AgentePerfilTb l : selected.getAgentePerfilTbList()) {
-                    PdfPCell cell0 = new PdfPCell(new Phrase(l.getPerfilTb().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 10)));
-                    cell0.setBorder(Rectangle.NO_BORDER);
-                    cell0.setHorizontalAlignment(Element.ALIGN_LEFT);
-                    per.addCell(cell0);
-                }
-
-                PdfPTable agentes = new PdfPTable(6);
-                agentes.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-                agentes.addCell(new Phrase("Iniciales", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
-                agentes.addCell(new Phrase("Nombre", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
-                agentes.addCell(new Phrase("Apellido", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
-                agentes.addCell(new Phrase("Ocupación", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
-                agentes.addCell(new Phrase("Institución", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
-                agentes.addCell(new Phrase("Perfiles", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
-
-                int j = 0;
-                for (AgentePerfilTb r : selected.getAgentePerfilTbList()) {
-                    if (j == 0) {
-                        PdfPCell cell0 = new PdfPCell(new Phrase(r.getAgenteTb().getCIniciales(), FontFactory.getFont(FontFactory.TIMES, 10)));
-                        cell0.setHorizontalAlignment(Element.ALIGN_CENTER);
-                        agentes.addCell(cell0);
-
-                        PdfPCell cell = new PdfPCell(new Phrase(r.getAgenteTb().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 10)));
-                        cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-                        agentes.addCell(cell);
-
-                        PdfPCell cell2 = new PdfPCell(new Phrase(r.getAgenteTb().getCApellido(), FontFactory.getFont(FontFactory.TIMES, 10)));
-                        cell2.setHorizontalAlignment(Element.ALIGN_LEFT);
-                        agentes.addCell(cell2);
-
-                        PdfPCell cell3 = new PdfPCell(new Phrase(r.getAgenteTb().getCOcupacion(), FontFactory.getFont(FontFactory.TIMES, 10)));
-                        cell3.setHorizontalAlignment(Element.ALIGN_LEFT);
-                        agentes.addCell(cell3);
-
-                        PdfPCell cell4 = new PdfPCell(new Phrase(r.getAgenteTb().getEIdinstitucion().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 10)));
-                        cell4.setHorizontalAlignment(Element.ALIGN_LEFT);
-                        agentes.addCell(cell4);
-
-                        agentes.addCell(new PdfPCell(per));
-                        document.add(agentes);
-                    }
-                    j++;
-                }
-
                 document.close();
                 //Termina reporte
 
@@ -629,7 +460,7 @@ public class AgenteTbController implements Serializable {
                 hsr.setContentType("application/pdf");
                 ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
 
-                // Empieza reporte
+                // Inicia reporte
                 Document document = new Document(PageSize.LETTER);
                 PdfWriter writer = PdfWriter.getInstance(document, pdfOutputStream);
                 TableHeaderVertical event = new TableHeaderVertical();
@@ -637,54 +468,41 @@ public class AgenteTbController implements Serializable {
                 document.open();
 
                 //Encabezado
-                //esto es para obtener la ruta del sistema
+                //ruta del sistema
                 ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-                //Hago referencia a los logo
+                //Referencia al logo
                 String logoPath = servletContext.getRealPath("") + File.separator + "resources"
                         + File.separator + "images"
                         + File.separator + "muhnes1.png";
-                //String logoMined = servletContext.getRealPath("") + File.separator + "resources"
-                //      + File.separator + "images"
-                //    + File.separator + "secultura.png";
-                //Creo una tabla para poner el encabezado
-                PdfPTable encabezado = new PdfPTable(3);
-                //indico que el ancho de la tabla es del 100%
-                encabezado.setWidthPercentage(100);
-                //creo la primer celda
-                PdfPCell cell1 = new PdfPCell();
 
-                //Instancio los logos
+                //Tabla para  el encabezado
+                PdfPTable encabezado = new PdfPTable(3);
+                //Ancho de la tabla
+                encabezado.setWidthPercentage(100);
+                //Primera celda
+                PdfPCell cell1 = new PdfPCell();
+                //Instancia al logo
                 Image logo = Image.getInstance(logoPath);
-                //Image minedLogo = Image.getInstance(logoMined);
-                //Indico los tamaños de los logos
+                //Indico tamaño del logo
                 logo.scaleToFit(80, 80);
-                //minedLogo.scaleToFit(130, 130);
                 //añado el primer logo a la celda
                 cell1.addElement(logo);
-                //indico que la celda no tenga borde
+                //Celda sin borde borde
                 cell1.setBorder(Rectangle.NO_BORDER);
-                //añado la celda a la tabla
+                //añado celda a la tabla
                 encabezado.addCell(cell1);
-                //indico que las siguientes celdas se alineen al centro
+                //celdas se alineen al centro
                 encabezado.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                 encabezado.getDefaultCell().setVerticalAlignment(Element.ALIGN_CENTER);
-                //indico que las siguientes celdas no tengan borde
+                //Siguientes celdas no tengan borde
                 encabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-                //añado una nueva celda con los datos del instituto
+                //nueva celda con los datos del MUHNES
                 encabezado.addCell(new Paragraph("\n Museo de Historia Natural de El Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
-                //PdfPCell cell2 = new PdfPCell();
-                //cell2.setBorder(Rectangle.NO_BORDER);
+
                 encabezado.addCell("");
                 document.add(encabezado);
-                //creo una nueva celda para la otra imagen
 
-                //Ajusto los parametros de la celda igual que la anterior
-                //minedLogo.setAlignment(Element.ALIGN_RIGHT);
-                //cell2.addElement(minedLogo);
-                //cell2.setBorder(Rectangle.NO_BORDER);
-                //encabezado.addCell(cell2);
-                //document.add(encabezado);
-                Paragraph titulo = new Paragraph("Reporte de Agente", FontFactory.getFont(FontFactory.TIMES_BOLD, 11));
+                Paragraph titulo = new Paragraph("Reporte de Agente", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                 titulo.setAlignment(Element.ALIGN_CENTER);
                 titulo.setSpacingAfter(5);
                 titulo.setSpacingBefore(10);
@@ -701,9 +519,9 @@ public class AgenteTbController implements Serializable {
                     i++;
                 }
 
-                PdfPTable per = new PdfPTable(i);
+                PdfPTable per = new PdfPTable(1);
                 for (AgentePerfilTb l : selected.getAgentePerfilTbList()) {
-                    PdfPCell cell0 = new PdfPCell(new Phrase(l.getPerfilTb().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 14)));
+                    PdfPCell cell0 = new PdfPCell(new Phrase(" -" + l.getPerfilTb().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 12)));
                     cell0.setBorder(Rectangle.NO_BORDER);
                     cell0.setHorizontalAlignment(Element.ALIGN_LEFT);
                     per.addCell(cell0);
@@ -715,7 +533,7 @@ public class AgenteTbController implements Serializable {
                         PdfPTable ag = new PdfPTable(2);
                         ag.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
                         ag.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-                        int headerwidths[] = {15, 85};
+                        int headerwidths[] = {13, 87};
                         try {
                             ag.setWidths(headerwidths);
                         } catch (Exception e) {
@@ -723,8 +541,8 @@ public class AgenteTbController implements Serializable {
                         }
 
                         ag.setWidthPercentage(100);
-                        ag.addCell(new Phrase("Nombre :", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
-                        ag.addCell(new Phrase(new Phrase(r.getAgenteTb().getCNombre() + " " + r.getAgenteTb().getCApellido(), FontFactory.getFont(FontFactory.TIMES, 14))));
+                        ag.addCell(new Phrase("Nombre :", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                        ag.addCell(new Phrase(new Phrase(r.getAgenteTb().getCNombre() + " " + r.getAgenteTb().getCApellido(), FontFactory.getFont(FontFactory.TIMES, 12))));
                         document.add(ag);
 
                         Paragraph a = new Paragraph("", FontFactory.getFont(FontFactory.TIMES_BOLD, 11));
@@ -736,7 +554,7 @@ public class AgenteTbController implements Serializable {
                         PdfPTable ag1 = new PdfPTable(2);
                         ag1.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
                         ag1.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-                        int headerwidth[] = {15, 85};
+                        int headerwidth[] = {13, 87};
                         try {
                             ag1.setWidths(headerwidth);
                         } catch (Exception e) {
@@ -744,11 +562,11 @@ public class AgenteTbController implements Serializable {
                         }
 
                         ag1.setWidthPercentage(100);
-                        ag1.addCell(new Phrase("Iniciales :", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                        ag1.addCell(new Phrase("Iniciales :", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                         if (r.getAgenteTb().getCIniciales().equals("")) {
-                            ag1.addCell(new Phrase("---------", FontFactory.getFont(FontFactory.TIMES, 14)));
+                            ag1.addCell(new Phrase("---------", FontFactory.getFont(FontFactory.TIMES, 12)));
                         } else {
-                            ag1.addCell(new Phrase(new Phrase(r.getAgenteTb().getCIniciales(), FontFactory.getFont(FontFactory.TIMES, 14))));
+                            ag1.addCell(new Phrase(new Phrase(r.getAgenteTb().getCIniciales(), FontFactory.getFont(FontFactory.TIMES, 12))));
                         }
                         document.add(ag1);
 
@@ -761,7 +579,7 @@ public class AgenteTbController implements Serializable {
                         PdfPTable ag2 = new PdfPTable(2);
                         ag2.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
                         ag2.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-                        int header[] = {15, 85};
+                        int header[] = {13, 87};
                         try {
                             ag2.setWidths(header);
                         } catch (Exception e) {
@@ -769,11 +587,11 @@ public class AgenteTbController implements Serializable {
                         }
 
                         ag2.setWidthPercentage(100);
-                        ag2.addCell(new Phrase("Ocupación :", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                        ag2.addCell(new Phrase("Ocupación :", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                         if (r.getAgenteTb().getCOcupacion().equals("")) {
-                            ag2.addCell(new Phrase("---------", FontFactory.getFont(FontFactory.TIMES, 14)));
+                            ag2.addCell(new Phrase("---------", FontFactory.getFont(FontFactory.TIMES, 12)));
                         } else {
-                            ag2.addCell(new Phrase(new Phrase(r.getAgenteTb().getCOcupacion(), FontFactory.getFont(FontFactory.TIMES, 14))));
+                            ag2.addCell(new Phrase(new Phrase(r.getAgenteTb().getCOcupacion(), FontFactory.getFont(FontFactory.TIMES, 12))));
                         }
                         document.add(ag2);
 
@@ -786,7 +604,7 @@ public class AgenteTbController implements Serializable {
                         PdfPTable ag3 = new PdfPTable(2);
                         ag3.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
                         ag3.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-                        int headers[] = {15, 85};
+                        int headers[] = {13, 87};
                         try {
                             ag3.setWidths(headers);
                         } catch (Exception e) {
@@ -794,11 +612,11 @@ public class AgenteTbController implements Serializable {
                         }
 
                         ag3.setWidthPercentage(100);
-                        ag3.addCell(new Phrase("Email :", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                        ag3.addCell(new Phrase("Email :", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                         if (r.getAgenteTb().getCEmail().equals("")) {
-                            ag2.addCell(new Phrase("---------", FontFactory.getFont(FontFactory.TIMES, 14)));
+                            ag2.addCell(new Phrase("---------", FontFactory.getFont(FontFactory.TIMES, 12)));
                         } else {
-                            ag2.addCell(new Phrase(new Phrase(r.getAgenteTb().getCEmail(), FontFactory.getFont(FontFactory.TIMES, 14))));
+                            ag2.addCell(new Phrase(new Phrase(r.getAgenteTb().getCEmail(), FontFactory.getFont(FontFactory.TIMES, 12))));
                         }
                         document.add(ag3);
 
@@ -811,7 +629,7 @@ public class AgenteTbController implements Serializable {
                         PdfPTable ag4 = new PdfPTable(2);
                         ag4.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
                         ag4.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-                        int headersw[] = {15, 85};
+                        int headersw[] = {13, 87};
                         try {
                             ag4.setWidths(headersw);
                         } catch (Exception e) {
@@ -819,15 +637,15 @@ public class AgenteTbController implements Serializable {
                         }
 
                         ag4.setWidthPercentage(100);
-                        ag4.addCell(new Phrase("Postal :", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                        ag4.addCell(new Phrase("Postal :", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                         if (r.getAgenteTb().getEPostal() != null) {
-                            ag4.addCell(new Phrase(new Phrase(String.valueOf(r.getAgenteTb().getEPostal()), FontFactory.getFont(FontFactory.TIMES, 14))));
+                            ag4.addCell(new Phrase(new Phrase(String.valueOf(r.getAgenteTb().getEPostal()), FontFactory.getFont(FontFactory.TIMES, 12))));
                         } else {
-                            ag4.addCell(new Phrase("---------", FontFactory.getFont(FontFactory.TIMES, 14)));
+                            ag4.addCell(new Phrase("---------", FontFactory.getFont(FontFactory.TIMES, 12)));
                         }
                         document.add(ag4);
 
-                        Paragraph os = new Paragraph(new Phrase("", FontFactory.getFont(FontFactory.TIMES, 10)));
+                        Paragraph os = new Paragraph(new Phrase("", FontFactory.getFont(FontFactory.TIMES, 11)));
                         os.setAlignment(Element.ALIGN_LEFT);
                         os.setSpacingAfter(5);
                         os.setSpacingBefore(5);
@@ -836,7 +654,7 @@ public class AgenteTbController implements Serializable {
                         PdfPTable ag5 = new PdfPTable(2);
                         ag5.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
                         ag5.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-                        int head[] = {15, 85};
+                        int head[] = {13, 87};
                         try {
                             ag5.setWidths(head);
                         } catch (Exception e) {
@@ -844,11 +662,11 @@ public class AgenteTbController implements Serializable {
                         }
 
                         ag5.setWidthPercentage(100);
-                        ag5.addCell(new Phrase("Teléfono :", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                        ag5.addCell(new Phrase("Teléfono :", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                         if (r.getAgenteTb().getCTelefono().equals("")) {
-                        ag5.addCell(new Phrase("---------", FontFactory.getFont(FontFactory.TIMES, 14)));
+                            ag5.addCell(new Phrase("---------", FontFactory.getFont(FontFactory.TIMES, 12)));
                         } else {
-                        ag5.addCell(new Phrase(new Phrase(r.getAgenteTb().getCTelefono(), FontFactory.getFont(FontFactory.TIMES, 14))));
+                            ag5.addCell(new Phrase(new Phrase(r.getAgenteTb().getCTelefono(), FontFactory.getFont(FontFactory.TIMES, 12))));
                         }
                         document.add(ag5);
 
@@ -861,7 +679,7 @@ public class AgenteTbController implements Serializable {
                         PdfPTable ag6 = new PdfPTable(2);
                         ag6.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
                         ag6.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-                        int headerss[] = {15, 85};
+                        int headerss[] = {13, 87};
                         try {
                             ag6.setWidths(headerss);
                         } catch (Exception e) {
@@ -869,15 +687,15 @@ public class AgenteTbController implements Serializable {
                         }
 
                         ag6.setWidthPercentage(100);
-                        ag6.addCell(new Phrase("Fax :", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
-                        if (r.getAgenteTb().getCFax() != null) {
-                            ag6.addCell(new Phrase(new Phrase(r.getAgenteTb().getCFax(), FontFactory.getFont(FontFactory.TIMES, 14))));
+                        ag6.addCell(new Phrase("Fax :", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                        if (r.getAgenteTb().getCFax().equals("")) {
+                            ag6.addCell(new Phrase("---------", FontFactory.getFont(FontFactory.TIMES, 12)));
                         } else {
-                            ag6.addCell(new Phrase("---------", FontFactory.getFont(FontFactory.TIMES, 14)));
+                            ag6.addCell(new Phrase(new Phrase(r.getAgenteTb().getCFax(), FontFactory.getFont(FontFactory.TIMES, 12))));
                         }
                         document.add(ag6);
 
-                        Paragraph es = new Paragraph(new Phrase("", FontFactory.getFont(FontFactory.TIMES, 10)));
+                        Paragraph es = new Paragraph(new Phrase("", FontFactory.getFont(FontFactory.TIMES, 11)));
                         es.setAlignment(Element.ALIGN_LEFT);
                         es.setSpacingAfter(5);
                         es.setSpacingBefore(5);
@@ -886,7 +704,7 @@ public class AgenteTbController implements Serializable {
                         PdfPTable ag7 = new PdfPTable(2);
                         ag7.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
                         ag7.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-                        int headerssw[] = {15, 85};
+                        int headerssw[] = {13, 87};
                         try {
                             ag7.setWidths(headerssw);
                         } catch (Exception e) {
@@ -894,11 +712,11 @@ public class AgenteTbController implements Serializable {
                         }
 
                         ag7.setWidthPercentage(100);
-                        ag7.addCell(new Phrase("Dirección :", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                        ag7.addCell(new Phrase("Dirección :", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                         if (r.getAgenteTb().getMDireccion().equals("")) {
-                        ag2.addCell(new Phrase("---------", FontFactory.getFont(FontFactory.TIMES, 14)));
+                            ag2.addCell(new Phrase("---------", FontFactory.getFont(FontFactory.TIMES, 12)));
                         } else {
-                        ag7.addCell(new Phrase(new Phrase(r.getAgenteTb().getMDireccion(), FontFactory.getFont(FontFactory.TIMES, 14))));
+                            ag7.addCell(new Phrase(new Phrase(r.getAgenteTb().getMDireccion(), FontFactory.getFont(FontFactory.TIMES, 12))));
                         }
                         document.add(ag7);
 
@@ -911,7 +729,7 @@ public class AgenteTbController implements Serializable {
                         PdfPTable ag8 = new PdfPTable(2);
                         ag8.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
                         ag8.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-                        int hea[] = {28, 72};
+                        int hea[] = {26, 74};
                         try {
                             ag8.setWidths(hea);
                         } catch (Exception e) {
@@ -919,15 +737,15 @@ public class AgenteTbController implements Serializable {
                         }
 
                         ag8.setWidthPercentage(100);
-                        ag8.addCell(new Phrase("Fecha de Nacimiento :", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                        ag8.addCell(new Phrase("Fecha de Nacimiento :", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                         if (r.getAgenteTb().getFFechanac() != null) {
-                            ag8.addCell(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(r.getAgenteTb().getFFechanac()), FontFactory.getFont(FontFactory.TIMES, 14)));
-                         } else {
+                            ag8.addCell(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(r.getAgenteTb().getFFechanac()), FontFactory.getFont(FontFactory.TIMES, 12)));
+                        } else {
                             ag8.addCell(new Phrase("---------", FontFactory.getFont(FontFactory.TIMES, 14)));
                         }
                         document.add(ag8);
 
-                        Paragraph ps = new Paragraph(new Phrase("", FontFactory.getFont(FontFactory.TIMES, 10)));
+                        Paragraph ps = new Paragraph(new Phrase("", FontFactory.getFont(FontFactory.TIMES, 11)));
                         ps.setAlignment(Element.ALIGN_LEFT);
                         ps.setSpacingAfter(5);
                         ps.setSpacingBefore(5);
@@ -936,7 +754,7 @@ public class AgenteTbController implements Serializable {
                         PdfPTable ag9 = new PdfPTable(2);
                         ag9.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
                         ag9.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-                        int heaw[] = {28, 72};
+                        int heaw[] = {26, 74};
                         try {
                             ag9.setWidths(heaw);
                         } catch (Exception e) {
@@ -944,11 +762,11 @@ public class AgenteTbController implements Serializable {
                         }
 
                         ag9.setWidthPercentage(100);
-                        ag9.addCell(new Phrase("Fecha de Muerte :", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                        ag9.addCell(new Phrase("Fecha de Muerte :", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                         if (r.getAgenteTb().getFFecham() != null) {
-                            ag9.addCell(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(r.getAgenteTb().getFFecham()), FontFactory.getFont(FontFactory.TIMES, 14)));
+                            ag9.addCell(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(r.getAgenteTb().getFFecham()), FontFactory.getFont(FontFactory.TIMES, 12)));
                         } else {
-                            ag9.addCell(new Phrase("---------", FontFactory.getFont(FontFactory.TIMES, 14)));
+                            ag9.addCell(new Phrase("---------", FontFactory.getFont(FontFactory.TIMES, 12)));
                         }
                         document.add(ag9);
 
@@ -961,7 +779,7 @@ public class AgenteTbController implements Serializable {
                         PdfPTable ag10 = new PdfPTable(2);
                         ag10.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
                         ag10.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-                        int heaws[] = {15, 85};
+                        int heaws[] = {13, 87};
                         try {
                             ag10.setWidths(heaws);
                         } catch (Exception e) {
@@ -969,15 +787,15 @@ public class AgenteTbController implements Serializable {
                         }
 
                         ag10.setWidthPercentage(100);
-                        ag10.addCell(new Phrase("Institución :", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                        ag10.addCell(new Phrase("Institución :", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                         try {
-                            ag10.addCell(new Phrase(new Phrase(r.getAgenteTb().getEIdinstitucion().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 14))));
+                            ag10.addCell(new Phrase(new Phrase(r.getAgenteTb().getEIdinstitucion().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 12))));
                         } catch (Exception e) {
-                            ag10.addCell(new Phrase("Sin Institución", FontFactory.getFont(FontFactory.TIMES, 14)));
+                            ag10.addCell(new Phrase("Sin Institución", FontFactory.getFont(FontFactory.TIMES, 12)));
                         }
                         document.add(ag10);
 
-                        Paragraph ts = new Paragraph(new Phrase("", FontFactory.getFont(FontFactory.TIMES, 10)));
+                        Paragraph ts = new Paragraph(new Phrase("", FontFactory.getFont(FontFactory.TIMES, 11)));
                         ts.setAlignment(Element.ALIGN_LEFT);
                         ts.setSpacingAfter(5);
                         ts.setSpacingBefore(5);
@@ -986,7 +804,7 @@ public class AgenteTbController implements Serializable {
                         PdfPTable ag11 = new PdfPTable(2);
                         ag11.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
                         ag11.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-                        int heawsh[] = {15, 85};
+                        int heawsh[] = {13, 87};
                         try {
                             ag11.setWidths(heawsh);
                         } catch (Exception e) {
@@ -994,8 +812,11 @@ public class AgenteTbController implements Serializable {
                         }
 
                         ag11.setWidthPercentage(100);
-                        ag11.addCell(new Phrase("Perfiles :", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
-                        ag11.addCell(per);
+                        ag11.addCell(new Phrase("Perfiles :", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                        PdfPCell cellp = new PdfPCell(per);
+                        cellp.setBorder(Rectangle.NO_BORDER);
+                        ag11.addCell(cellp);
+                        //ag11.addCell(new PdfPCell(per).setBorder(Rectangle.NO_BORDER));
                         document.add(ag11);
                     }
                     j++;

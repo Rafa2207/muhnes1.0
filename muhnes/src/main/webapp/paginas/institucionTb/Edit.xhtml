@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
 
     <ui:composition>
 
@@ -27,12 +28,13 @@
                         <p:outputLabel value="#{bundle.EditInstitucionTbLabel_EPostal}" for="EPostal" />
                         <p:inputText id="EPostal" value="#{institucionTbController.selected.EPostal}" title="#{bundle.EditInstitucionTbTitle_EPostal}" />
 
-                        <p:outputLabel value="#{bundle.EditInstitucionTbLabel_CTelefono}" for="CTelefono" />
-                        <p:inputMask mask="9999-9999" id="CTelefono" value="#{institucionTbController.selected.CTelefono}" title="#{bundle.EditInstitucionTbTitle_CTelefono}" 
-                                     required="true" requiredMessage="Introduzca teléfono"/>
+                        <p:outputLabel value="#{bundle.CreateInstitucionTbLabel_CTelefono}" for="CTelefono" />
+                        <p:inputText id="CTelefono" value="#{institucionTbController.selected.CTelefono}" title="#{bundle.CreateInstitucionTbTitle_CTelefono}" 
+                                     required="true" requiredMessage="Introduzca el teléfono" onkeyup="$(this).val($(this).val().replace(/[^0-9]/g, ''));"/>
 
-                        <p:outputLabel value="#{bundle.EditInstitucionTbLabel_CFax}" for="CFax" />
-                        <p:inputMask mask="9999-9999" id="CFax" value="#{institucionTbController.selected.CFax}" title="#{bundle.EditInstitucionTbTitle_CFax}" />
+                        <p:outputLabel value="#{bundle.CreateInstitucionTbLabel_CFax}" for="CFax" />
+                        <p:inputText id="CFax" value="#{institucionTbController.selected.CFax}" title="#{bundle.CreateInstitucionTbTitle_CFax}" 
+                                     onkeyup="$(this).val($(this).val().replace(/[^0-9]/g, ''));"/>
 
                         <p:outputLabel value="#{bundle.EditInstitucionTbLabel_CUrl}" for="CUrl" />
                         <p:inputText id="CUrl" value="#{institucionTbController.selected.CUrl}" title="#{bundle.EditInstitucionTbTitle_CUrl}" />
