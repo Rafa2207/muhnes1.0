@@ -38,6 +38,7 @@ public class DespachoTbController implements Serializable {
     private List<MaterialTb> materialDisponible;
     private double cantidad, salida;
     private MaterialDespachoTb materialMD;
+    private List<MaterialDespachoTb> eliminados = new ArrayList<MaterialDespachoTb>();
 
     public DespachoTbController() {
     }
@@ -144,6 +145,12 @@ public class DespachoTbController implements Serializable {
         if (selected.getMaterialDespachoTbList().isEmpty()) {
             JsfUtil.addErrorMessage("Debe agregar materiales");
         } else {
+            try {
+            for (MaterialDespachoTb aa : eliminados) {
+                materialFacade.edit(aa.getMaterialTb());
+            }
+        } catch (Exception e) {
+        }
             persist(PersistAction.UPDATE, ResourceBundle.getBundle("/BundleDespacho").getString("DespachoTbUpdated"));
         }
     }
@@ -296,6 +303,13 @@ public class DespachoTbController implements Serializable {
     }
 
     public void remover() {
+        selected.getMaterialDespachoTbList().remove(materialMD);
+        materialDisponible.add(materialMD.getMaterialTb());
+        material = null;
+    }
+    public void removerM() {
+        materialMD.getMaterialTb().setDCantidad(materialMD.getMaterialTb().getDCantidad()+ materialMD.getDCantidad());
+        eliminados.add(materialMD);
         selected.getMaterialDespachoTbList().remove(materialMD);
         materialDisponible.add(materialMD.getMaterialTb());
         material = null;

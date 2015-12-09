@@ -52,7 +52,7 @@ public class DespachoTb implements Serializable {
     @JoinColumn(name = "e_idproyecto", referencedColumnName = "e_idproyecto")
     @ManyToOne
     private ProyectoTb eIdproyecto;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "despachoTb")
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, mappedBy = "despachoTb")
     private List<MaterialDespachoTb> materialDespachoTbList;
 
     public DespachoTb() {

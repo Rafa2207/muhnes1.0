@@ -40,15 +40,18 @@
                                      scrollable="true"
                                      scrollHeight="210px"
                                      emptyMessage="No ha agregado materiales"
-                                     tableStyle="width:650px">
+                                     tableStyle="width:750px">
                             <p:column headerText="Material" >
                                 #{material.materialTb.CNombre}
                             </p:column>
-                            <p:column headerText="Cantidad" width="20%">
+                            <p:column headerText="Solicitado" width="20%">
                                 #{material.DCantidad}                                   
                             </p:column>
                             <p:column headerText="Cantidad Recibida" width="20%">
-                                <p:inputText size="10" value="#{material.DEntrada}" disabled="#{pedidoTbController.bandera}"/>
+                                #{material.DEntrada}                                   
+                            </p:column>
+                            <p:column headerText="Cantidad Adicional" width="20%">
+                                <p:inputText size="10" value="#{material.cantidad2}" disabled="#{pedidoTbController.bandera}"/>
                             </p:column>
                             <p:column headerText="Fecha Recibido" width="25%">
                                 <p:calendar id="FechaRec" size="15" pattern="dd MMMM yyyy" value="#{material.FFechaRecibido}" title="Fecha recibido"  

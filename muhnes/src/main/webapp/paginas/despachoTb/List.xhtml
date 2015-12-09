@@ -10,16 +10,16 @@
 
 
         <ui:define name="title">
-            <h:outputText value="Despacho de materiales"></h:outputText>
+            <h:outputText value="Despacho de Materiales"></h:outputText>
         </ui:define>
 
         <ui:define name="body">
             <h:form id="DespachoTbListForm">
-                <p:panel header="Despacho de materiales">
+                <p:panel header="Despacho de Materiales">
                     
                     <p:breadCrumb>
                         <p:menuitem value="casita" outcome="/paginas/bienvenido.xhtml"/>
-                        <p:menuitem value="Despacho de materiales" outcome="/paginas/despachoTb/List.xhtml" />
+                        <p:menuitem value="Despacho de Materiales" outcome="/paginas/despachoTb/List.xhtml" />
                     </p:breadCrumb>
                     
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{despachoTbController.prepareCreate}" update=":DespachoTbCreateForm" oncomplete="PF('DespachoTbCreateDialog').show()"/>

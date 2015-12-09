@@ -303,6 +303,7 @@ public class PedidoTbController implements Serializable {
         } else {
             MaterialPedidoTb nuevo = new MaterialPedidoTb();
             nuevo.setDCantidad(cantidad);
+            nuevo.setDEntrada(0.0);
             nuevo.setMaterialTb(material);
             nuevo.setPedidoTb(selected);
 
@@ -328,6 +329,7 @@ public class PedidoTbController implements Serializable {
         } else {
             MaterialPedidoTb nuevo = new MaterialPedidoTb();
             nuevo.setDCantidad(cantidad);
+            nuevo.setDEntrada(0.0);
             nuevo.setMaterialTb(material);
             nuevo.setPedidoTb(selected);
 
@@ -385,14 +387,10 @@ public class PedidoTbController implements Serializable {
 
     public void actualizarPedido() {
         for (MaterialPedidoTb i : selected.getMaterialPedidoTbList()) {
-            for (MaterialPedidoTb z : getFacade().pedido(selected.getEIdpedido())) {
-                if (i.getMaterialTb() == z.getMaterialTb()) {
-                    i.getMaterialTb().setDCantidad(i.getMaterialTb().getDCantidad() + (i.getDEntrada() - z.getDEntrada()));
-                    materialFacade.edit(i.getMaterialTb());
-                }
-            }
+            i.setDEntrada(i.getDEntrada()+i.getCantidad2());
+            i.getMaterialTb().setDCantidad(i.getMaterialTb().getDCantidad() + i.getCantidad2());
+            materialFacade.edit(i.getMaterialTb());
         }
-
         //selected.setEEstado(estado);
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("PedidoTbRecibido"));
     }

@@ -17,6 +17,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  *
@@ -49,8 +50,18 @@ public class MaterialPedidoTb implements Serializable {
     @JoinColumn(name = "e_idmaterial", referencedColumnName = "e_idmaterial", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private MaterialTb materialTb;
+    @Transient
+    private Double cantidad2;
 
     public MaterialPedidoTb() {
+    }
+
+    public Double getCantidad2() {
+        return cantidad2;
+    }
+
+    public void setCantidad2(Double cantidad2) {
+        this.cantidad2 = cantidad2;
     }
 
     public MaterialPedidoTb(MaterialPedidoTbPK materialPedidoTbPK) {

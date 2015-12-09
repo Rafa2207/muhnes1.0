@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="MaterialTbViewDlg" widgetVar="MaterialTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewMaterialTbTitle}">
+        <p:dialog id="MaterialTbViewDlg" widgetVar="MaterialTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="Visualizar Material">
             <h:form id="MaterialTbViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{materialTbController.selected != null}">
@@ -26,7 +26,7 @@
                         <h:outputText value="#{bundle.ViewMaterialTbLabel_MDescripcion}"/>
                         <h:outputText value="#{materialTbController.selected.MDescripcion}" title="#{bundle.ViewMaterialTbTitle_MDescripcion}"/>
                                               
-                        <h:outputText  value="codigo: "/>
+                        <h:outputText  value="Código: "/>
                         <p:barcode value="#{materialTbController.selected.MCodigobarras}" type="code39"/>
                         
                         

@@ -67,21 +67,12 @@
                                 #{material.materialTb.CNombre}
                             </p:column>
                             <p:column headerText="Cantidad">
-                                <p:cellEditor>
-                                    <f:facet name="output">
                                         #{material.DCantidad}
-                                    </f:facet>
-                                    <f:facet name="input">
-                                        <p:inputText value="#{material.DCantidad}"/>
-                                    </f:facet>
-                                </p:cellEditor>
                             </p:column>
                             <p:column headerText="Acciones">
-                                <p:rowEditor/>
                                 <p:commandLink
-                                    style="display: inline-block;"
                                     styleClass="ui-icon ui-icon-trash"
-                                    action="#{despachoTbController.remover()}"
+                                    action="#{despachoTbController.removerM()}"
                                     process="materiales"
                                     update="materiales, :DespachoTbEditForm:material">
                                     <f:setPropertyActionListener value="#{material}" 
