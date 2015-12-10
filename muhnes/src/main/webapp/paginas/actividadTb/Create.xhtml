@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
 
     <ui:composition>
 
@@ -28,14 +29,14 @@
 
 
                             <p:outputLabel value="#{bundle.CreateActividadTbLabel_FFecha}" for="FFecha" />
-                            <p:calendar mindate="#{actividadTbController.proyectos.FFechaInicio}" maxdate="#{actividadTbController.proyectos.FFechaFin}" id="FFecha" pattern="dd MMMM yyyy" value="#{actividadTbController.selected.FFecha}" title="#{bundle.EditActividadTbTitle_FFecha}"  showOn="button" 
+                            <p:calendar mindate="#{actividadTbController.proyectos.FFechaInicio}" maxdate="#{actividadTbController.calcularFechaMaxima()}" id="FFecha" pattern="dd MMMM yyyy" value="#{actividadTbController.selected.FFecha}" title="#{bundle.EditActividadTbTitle_FFecha}"  showOn="button" 
                                         required="true" readonlyInput="true"
                                         requiredMessage="Introduzca fecha" locale="es">
                                 <p:ajax event="dateSelect" update="FFechafin"/>
                             </p:calendar>
 
                             <p:outputLabel value="Fecha finalización:" for="FFechafin" />
-                            <p:calendar mindate="#{actividadTbController.selected.FFecha}" maxdate="#{actividadTbController.proyectos.FFechaFin}" 
+                            <p:calendar mindate="#{actividadTbController.selected.FFecha}" maxdate="#{actividadTbController.calcularFechaMaxima()}" 
                                         id="FFechafin" 
                                         pattern="dd MMMM yyyy" 
                                         value="#{actividadTbController.selected.FFechafin}" title="Fecha fin"  showOn="button" 
@@ -45,7 +46,7 @@
 
 
                             <p:outputLabel value="Tipo de actividad: " for="tipo"/>
-                            <p:selectOneMenu id="tipo" value="#{actividadTbController.selected.CTipo}" required="true" requiredMessage="Debe seleccionar un tipo">
+                            <p:selectOneMenu id="tipo" value="#{actividadTbController.selected.CTipo}" required="true" requiredMessage="Debe seleccionar un tipo" disabled="#{actividadTbController.istActividad()}">
                                 <f:selectItem itemLabel="Seleccione" itemValue="" />
                                 <f:selectItem itemLabel="Materiales" itemValue="Materiales" />
                                 <f:selectItem itemLabel="Viaje" itemValue="Viaje" />
@@ -68,14 +69,18 @@
                                                itemValue="#{unidad.CNombre}"/>
                             </p:selectOneMenu>
                             <p:outputLabel value="Cantidad:" for="cant"/>
-                            <p:inputText id="cant" size="4" value="#{actividadTbController.cantidad}"/>
+                            <pe:inputNumber id="cant" value="#{actividadTbController.cantidad}" title="Cantidad"
+                                            decimalPlaces="1" styleClass="ParaInputNumberActividades"/>
+
                             <p:outputLabel value="Costo Unitario($):" for="costo" />
-                            <p:inputText id="costo" size="4" value="#{actividadTbController.costo}"/>
+                            <pe:inputNumber id="costo" value="#{actividadTbController.costo}" title="Costo"
+                                            decimalPlaces="2" symbol="$ " styleClass="ParaInputNumberActividades"/>
+
                             <p:commandButton id="agregar"
                                              value="Agregar"
                                              actionListener="#{actividadTbController.agregar()}"
                                              process="insumo cant costo unidad agregar"
-                                             update="insumos insumo cant costo unidad total :growl"
+                                             update="insumos insumo cant costo unidad total :growl tipo"
                                              />
                         </p:panelGrid>
                         <p:dataTable id="insumos"
@@ -100,28 +105,24 @@
                             <p:column headerText="Cantidad">
                                 <p:cellEditor>
                                     <f:facet name="output">
-                                        #{insumo.DCantidad}
+                                        #{insumo.DCantidad} #{insumo.MTiempo}
                                     </f:facet>
                                     <f:facet name="input">
-                                        <p:inputText value="#{insumo.DCantidad}"/>
+                                        <pe:inputNumber id="cant" value="#{insumo.DCantidad}" title="Cantidad"
+                                                        decimalPlaces="1" styleClass="ParaInputNumberActividades"/>
                                     </f:facet>
                                 </p:cellEditor>
                             </p:column>
-                            <p:column headerText="Unidades"><p:cellEditor>
-                                    <f:facet name="output">
-                                        #{insumo.MTiempo}
-                                    </f:facet>
-                                    <f:facet name="input">
-                                        <p:inputText value="#{insumo.MTiempo}"/>
-                                    </f:facet>
-                                </p:cellEditor></p:column>
+
                             <p:column headerText="Costo Unitario">
                                 <p:cellEditor>
                                     <f:facet name="output">
                                         $#{insumo.DGasto}
                                     </f:facet>
                                     <f:facet name="input">
-                                        <p:inputText value="#{insumo.DGasto}"/>
+                                        <pe:inputNumber id="costo" value="#{insumo.DGasto}" title="Costo"
+                                                        decimalPlaces="2" symbol="$ " styleClass="ParaInputNumberActividades"/>
+
                                     </f:facet>
                                 </p:cellEditor>
                             </p:column>
@@ -129,17 +130,17 @@
                                 <h:outputText value="$#{insumo.DCantidad*insumo.DGasto}"/>
                             </p:column>
                             <p:column headerText="Acciones">
-                                
-                                    <p:rowEditor/>
-                                    <p:commandLink style="display: inline-block"
-                                                   styleClass="ui-icon ui-icon-trash"
-                                                   action="#{actividadTbController.removerInsumo()}"
-                                                   process="insumos"
-                                                   update="insumos, :ActividadTbCreateForm:total">
-                                        <f:setPropertyActionListener value="#{insumo}" 
-                                                                     target="#{actividadTbController.insumo}"/>
-                                    </p:commandLink>
-                                
+
+                                <p:rowEditor/>
+                                <p:commandLink style="display: inline-block"
+                                               styleClass="ui-icon ui-icon-trash"
+                                               action="#{actividadTbController.removerInsumo()}"
+                                               process="insumos"
+                                               update="insumos, :ActividadTbCreateForm:total">
+                                    <f:setPropertyActionListener value="#{insumo}" 
+                                                                 target="#{actividadTbController.insumo}"/>
+                                </p:commandLink>
+
                             </p:column>
                         </p:dataTable>
                     </p:fieldset>

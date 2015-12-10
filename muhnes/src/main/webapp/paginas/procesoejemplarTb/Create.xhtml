@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog showEffect="explode" id="ProcesoejemplarTbCreateDlg" widgetVar="ProcesoejemplarTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateProcesoejemplarTbTitle}">
+        <p:dialog showEffect="explode" id="ProcesoejemplarTbCreateDlg" widgetVar="ProcesoejemplarTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Nuevo Proceso Ejemplar">
             <h:form id="ProcesoejemplarTbCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{procesoejemplarTbController.selected != null}">
@@ -24,11 +24,10 @@
                         <p:inputText id="MDescripcion" value="#{procesoejemplarTbController.selected.MDescripcion}" title="#{bundle.CreateProcesoejemplarTbTitle_MDescripcion}" />
 
                         <p:outputLabel value="#{bundle.CreateProcesoejemplarTbLabel_DCantidad}" for="DCantidad" />
-                        <p:inputText id="DCantidad" value="#{procesoejemplarTbController.selected.ECantidad}" title="#{bundle.CreateProcesoejemplarTbTitle_DCantidad}" 
-                                     required="true" requiredMessage="Introduzca cantidad">
-                            <f:validateLongRange minimum="1"/> 
-                        </p:inputText>
-
+                        <h:panelGroup>
+                        <p:inputText id="DCantidad" value="#{procesoejemplarTbController.selected.ECantidad}" title="Cantidad" required="true" requiredMessage="introduzca cantidad"/>
+                        <p:slider for="DCantidad" minValue="1" maxValue="30" style="width: 155px"/>
+                        </h:panelGroup>
                         <p:outputLabel value="Fecha de inicio:" for="FFecha" />
                         <p:calendar locale="es" mindate="#{controladorSesion.proyecto.FFechaInicio}" id="FFecha" 
                                     readonlyInput="true" pattern="dd MMMM yyyy" value="#{procesoejemplarTbController.selected.FFecha}" 

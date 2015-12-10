@@ -317,6 +317,8 @@ public class ProcesoejemplarTbController implements Serializable {
         getLista();
         nombre = pe.getMNombre();
         cantidad = pe.getECantidad();
+        fechaSiguiente = selected.getFFechafin();
+        cantidadSiguiente = selected.getECantidad();
         for (ProcesoejemplarTb pro : lista) {
             if (pro.getEIdproyecto().getEIdproyecto() == proyecto.getEIdproyecto()) {
                 if (pro.getERelacion() == pe.getEIdproceso()) {
@@ -326,8 +328,7 @@ public class ProcesoejemplarTbController implements Serializable {
             }
         }
         control = true;
-        fechaSiguiente = selected.getFFechafin();
-        cantidadSiguiente = selected.getECantidad();
+        
 
     }
 

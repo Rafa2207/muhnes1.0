@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="ProcesoejemplarTbEditDlg" widgetVar="ProcesoejemplarTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditProcesoejemplarTbTitle}">
+        <p:dialog id="ProcesoejemplarTbEditDlg" widgetVar="ProcesoejemplarTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Modificar Proceso Ejemplar">
             <h:form id="ProcesoejemplarTbEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{procesoejemplarTbController.selected != null}">
@@ -22,23 +22,23 @@
                         <p:outputLabel value="#{bundle.CreateProcesoejemplarTbLabel_MDescripcion}" for="MDescripcion" />
                         <p:inputText id="MDescripcion" value="#{procesoejemplarTbController.selected.MDescripcion}" title="#{bundle.CreateProcesoejemplarTbTitle_MDescripcion}" />
 
-                        <p:outputLabel value="#{bundle.CreateProcesoejemplarTbLabel_DCantidad}" for="DCantidad" />
-                        <p:inputText id="DCantidad" value="#{procesoejemplarTbController.selected.ECantidad}" title="#{bundle.CreateProcesoejemplarTbTitle_DCantidad}" 
-                                     required="true" requiredMessage="Introduzca cantidad">
-                            <f:validateLongRange minimum="1"/>
-                        </p:inputText>
+                        <p:outputLabel value="#{bundle.CreateProcesoejemplarTbLabel_DCantidad}" for="DCantidad" rendered="#{procesoejemplarTbController.selected.EEstado==0}" />
+                        <h:panelGroup rendered="#{procesoejemplarTbController.selected.EEstado==0}">
+                            <p:inputText id="DCantidad" value="#{procesoejemplarTbController.selected.ECantidad}" title="Cantidad" required="true" requiredMessage="introduzca cantidad"/>
+                            <p:slider for="DCantidad" minValue="1" maxValue="30" style="width: 155px"/>
+                        </h:panelGroup>
 
-                        <p:outputLabel value="Fecha de inicio:" for="FFecha" />
-                        <p:calendar locale="es" mindate="#{controladorSesion.proyecto.FFechaFin}" id="FFecha" 
+                        <p:outputLabel value="Fecha de inicio:" for="FFecha" rendered="#{procesoejemplarTbController.selected.EEstado==0}" />
+                        <p:calendar locale="es" mindate="#{controladorSesion.proyecto.FFechaFin}" id="FFecha" rendered="#{procesoejemplarTbController.selected.EEstado==0}"
                                     readonlyInput="true" pattern="dd MMMM yyyy" value="#{procesoejemplarTbController.selected.FFecha}" 
                                     title="Fecha de inicio"  showOn="button" required="true" requiredMessage="Introduzca fecha inicio">
                             <p:ajax event="dateSelect" update="FFechafin"/>
                         </p:calendar>
 
-                        <p:outputLabel value="Fecha finalización: " for="FFechafin" />
+                        <p:outputLabel value="Fecha finalización: " for="FFechafin" rendered="#{procesoejemplarTbController.selected.EEstado==0}" />
                         <p:calendar locale="es" mindate="#{procesoejemplarTbController.selected.FFecha}" id="FFechafin" 
                                     readonlyInput="true" pattern="dd MMMM yyyy" value="#{procesoejemplarTbController.selected.FFechafin}" 
-                                    title="Fecha fin" showOn="button"
+                                    title="Fecha fin" showOn="button" rendered="#{procesoejemplarTbController.selected.EEstado==0}"
                                     required="true" requiredMessage="Introduzca fecha fin"/>
 
                     </p:panelGrid>

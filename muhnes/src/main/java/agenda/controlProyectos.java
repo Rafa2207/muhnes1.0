@@ -74,13 +74,13 @@ public class controlProyectos {
         listaActividad = FacadeActividad.findAll();
         for (ActividadTb a : listaActividad) {
             if (a.getEIdproyecto().getEIdproyecto() == proy.getEIdproyecto()) {
-                if (a.geteEstado() == 1) {
+                if (a.getEEstado() == 1) {
                     eventModel.addEvent(new DefaultScheduleEvent("No iniciado: " + a.getMNombre(), a.getFFecha(), a.getFFechafin(), "NoIniciado"));
                 }
-                if (a.geteEstado() == 2) {
+                if (a.getEEstado() == 2) {
                     eventModel.addEvent(new DefaultScheduleEvent("En proceso: " + a.getMNombre(), a.getFFechaInicioReal(), fechaActual, "EnProceso"));
                 }
-                if (a.geteEstado() == 3) {
+                if (a.getEEstado() == 3) {
                     eventModel.addEvent(new DefaultScheduleEvent("Finalizado: " + a.getMNombre(), a.getFFechaInicioReal(), a.getFFechaFinReal(), "Finalizado"));
                 }
             }
@@ -251,7 +251,7 @@ public class controlProyectos {
     public void iniciarActividad() {
         FacesContext context = FacesContext.getCurrentInstance();
         eventModel.clear();
-        actividadView.seteEstado(2);
+        actividadView.setEEstado(2);
         int DiasDuracionActividad = diasDuracionActividad(actividadView.getFFecha(), actividadView.getFFechafin());
         Date fechaFinal = calcularFechaFinEspectativa(actividadView.getFFechaInicioReal(), DiasDuracionActividad);
         actividadView.setFFechaFinReal(fechaFinal);
@@ -273,7 +273,7 @@ public class controlProyectos {
         FacesContext context = FacesContext.getCurrentInstance();
         Integer NumActividad = 0, TotalActTerminadas = 0;
         eventModel.clear();
-        actividadView.seteEstado(3);
+        actividadView.setEEstado(3);
         try {
             getFacadeActividad().edit(actividadView);
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Actividad finalizada", "INFO"));
@@ -285,7 +285,7 @@ public class controlProyectos {
         for (ActividadTb a : listaActividad) {
             if (a.getEIdproyecto().getEIdproyecto() == actividadView.getEIdproyecto().getEIdproyecto()) {
                 NumActividad++;
-                if (a.geteEstado() == 3) {
+                if (a.getEEstado() == 3) {
                     TotalActTerminadas++;
                 }
             }

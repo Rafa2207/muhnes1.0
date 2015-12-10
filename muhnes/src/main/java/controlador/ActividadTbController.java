@@ -24,6 +24,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
 import modelo.InsumoTb;
+import modelo.ProrrogaProyectoTb;
 import modelo.ProyectoTb;
 
 @Named("actividadTbController")
@@ -32,12 +33,15 @@ public class ActividadTbController implements Serializable {
 
     @EJB
     private servicio.ActividadTbFacade ejbFacade;
+    @EJB
+    private servicio.ProrrogaProyectoTbFacade FacadeProrroga;
     private List<ActividadTb> items = null, filtro, itemsNotificacion = null;
     private ActividadTb selected;
     private ProyectoTb proyectos;
     private Date fechatemporal, fechaActual = new Date();
     private double cantidad, costo;
-    private String nombre, tiempo;
+    private String nombre = null, tiempo;
+    private boolean tActividad = false;
     private InsumoTb insumo;
     int NumeroDeNotificaciones = 0;
 
@@ -47,6 +51,14 @@ public class ActividadTbController implements Serializable {
 
     public void setInsumo(InsumoTb insumo) {
         this.insumo = insumo;
+    }
+
+    public boolean istActividad() {
+        return tActividad;
+    }
+
+    public void settActividad(boolean tActividad) {
+        this.tActividad = tActividad;
     }
 
     public int getNumeroDeNotificaciones() {
@@ -153,14 +165,16 @@ public class ActividadTbController implements Serializable {
         itemsNotificacion = getFacade().ActividadNotificaciones(fechaActual, fechaDeSemana);
         try {
             for (ActividadTb a : itemsNotificacion) {
-                if (a.geteEstado() == 3) {
+                if (a.getEEstado() == 3) {
                     quitarFinalizados.add(a);
                 }
-                if (a.geteEstado() == 1) {
+                if (a.getEEstado() == 1) {
                     quitarFinalizados.add(a);
                 }
-                if (a.geteEstado() == 0) {
+                if (a.getEEstado() == 2) {
                     if (a.getFFechaFinReal().after(fechaDeSemana)) {
+                        quitarFinalizados.add(a);
+                    } else if (a.getEIdproyecto().getEEstado() == 3) {
                         quitarFinalizados.add(a);
                     }
                 }
@@ -182,9 +196,10 @@ public class ActividadTbController implements Serializable {
         selected = new ActividadTb();
         proyectos = proyecto;
         selected.setEIdproyecto(proyectos);
-        selected.seteEstado(1);
+        selected.setEEstado(1);
         selected.setDGastoAdicional(0.0);
         selected.setInsumoTbList(new ArrayList<InsumoTb>());
+        tActividad = false;
         initializeEmbeddableKey();
         return selected;
     }
@@ -320,8 +335,8 @@ public class ActividadTbController implements Serializable {
         InsumoTb ins = new InsumoTb();
         //presupuesto = new PresupuestoTb();
         //presupuesto.setEIdpresupuesto(getFacade().siguienteId());
-        if (nombre == null || tiempo == null) {
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Llene los campos nombre y seleccione la unidad", "INFO"));
+        if (nombre.isEmpty() || tiempo == null || cantidad == 0.0 || costo == 0.0) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Llene los campos insumo, cantidad, costo y el tipo de unidad.", "INFO"));
         } else {
             ins.setMNombre(nombre);
             ins.setDCantidad(cantidad);
@@ -335,6 +350,8 @@ public class ActividadTbController implements Serializable {
             costo = 0;
             nombre = "";
             tiempo = "";
+            tActividad = true;
+
         }
 
     }
@@ -389,5 +406,19 @@ public class ActividadTbController implements Serializable {
             nombre = null;
         }
         return nombre;
+    }
+
+    public Date calcularFechaMaxima() {
+        Date FechaMaxima = selected.getEIdproyecto().getFFechaFin();
+        selected.getEIdproyecto().setProrrogaProyectoTbList(FacadeProrroga.buscarProrroga(selected.getEIdproyecto()));
+        for (ProrrogaProyectoTb p : selected.getEIdproyecto().getProrrogaProyectoTbList()) {
+            try {
+                if (p.getFFechaFin().after(FechaMaxima)) {
+                    FechaMaxima = p.getFFechaFin();
+                }
+            } catch (Exception e) {
+            }
+        }
+        return FechaMaxima;
     }
 }

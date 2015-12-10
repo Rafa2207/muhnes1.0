@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
@@ -33,7 +34,7 @@
             </h:form>
 
             <h:form id="modales">
-                <p:dialog widgetVar="dialogVer" header="Visualizar" showEffect="clip" hideEffect="clip">
+                <p:dialog widgetVar="dialogVer" header="Actividades" showEffect="clip" hideEffect="clip">
 
                     <!-- Para Actividades no iniciadas  -->
                     <h:panelGroup id="NoIniciado"  rendered="#{controlProyectos.comparador eq 'No iniciado'}" >
@@ -116,8 +117,8 @@
                             </p:selectBooleanCheckbox>
 
                             <p:outputLabel value="Gasto adicional:" for="GastoAd"/>
-                            <p:inputText id="GastoAd" value="#{controlProyectos.actividadView.DGastoAdicional}" title="Gasto Adicional"
-                                         required="true" requiredMessage="Introduzca el gasto adicional" disabled="#{not controlProyectos.checkbox}"/>
+                            <pe:inputNumber id="GastoAd" value="#{controlProyectos.actividadView.DGastoAdicional}" title="Gasto Adicional"
+                                            decimalPlaces="2" symbol="$ " styleClass="ParaInputNumber" disabled="#{not controlProyectos.checkbox}" />
                             <p:outputLabel value="Justificación:" for="Justificacion"/>
                             <p:inputTextarea autoResize="false" id="Justificacion" value="#{controlProyectos.actividadView.MJustificacion}" title="Justificación"
                                              required="true" requiredMessage="Introduzca la justificación" disabled="#{not controlProyectos.checkbox}"/>

@@ -20,7 +20,7 @@
                         <p:calendar id="FFechaInicio" pattern="dd MMMM yyyy" value="#{prorrogaProyectoTbController.selected.FFechaInicio}" title="#{bundleProrrogaProy.EditProrrogaProyectoTbTitle_FFechaInicio}"
                                     showOn="button" size="15" locale="es" readonlyInput="true"
                                     mindate="#{prorrogaProyectoTbController.fechaMinimaTemporalEdit}"
-                                    disabled="#{prorrogaProyectoTbController.selected.FFechaInicio.before(prorrogaProyectoTbController.fechaActual)}">
+                                    disabled="true">
                             <p:ajax event="dateSelect" update="FFechaFin"/>
                         </p:calendar>
                         

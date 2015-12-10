@@ -34,7 +34,8 @@
 
                         <p:outputLabel value="Minutos:" for="Minutos" />
                         <p:inputText  id="Minutos" value="#{localidadTbController.selected.ELatitudminutos}" maxlength="2" size="2"
-                                      title="Rangos válidos: 0 a 60" required="true" requiredMessage="Introduzca minutos de latitud" >
+                                      title="Rangos válidos: 0 a 60" required="true" requiredMessage="Introduzca minutos de latitud" 
+                                      onkeyup="$(this).val($(this).val().replace(/[^0-9]/g, ''));">
                             <f:validateLongRange minimum="0" maximum="60"/>
                             <p:ajax event="keyup" update="Latitud"
                                     listener="#{localidadTbController.latitudDecimal(localidadTbController.selected.ELatitudgrados, 
@@ -44,8 +45,9 @@
 
                         <p:outputLabel value="Segundos:" for="Segundos" />
                         <p:inputText id="Segundos" value="#{localidadTbController.selected.DLatitudsegundos}" maxlength="7" size="7" 
-                                     title="Rangos válidos: 0 a 59.9999" required="true" requiredMessage="Introduzca segundos de latitud">
-                            <f:validateDoubleRange minimum="0" maximum="59.9999"/>    
+                                     title="Rangos válidos: 0 a 59.9999" required="true" requiredMessage="Introduzca segundos de latitud"
+                                     onkeyup="$(this).val($(this).val().replace(/[^0-9]/g, ''));">
+                            <f:validateDoubleRange minimum="0" maximum="59.9999" />    
                             <p:ajax event="keyup" update="Latitud" 
                                     listener="#{localidadTbController.latitudDecimal(localidadTbController.selected.ELatitudgrados, 
                                                 localidadTbController.selected.ELatitudminutos, 
@@ -68,7 +70,8 @@
 
                         <p:outputLabel value="Minutos:" for="Minutos2" />
                         <p:inputText id="Minutos2" value="#{localidadTbController.selected.ELongitudminutos}" maxlength="2" size="2" 
-                                     title="Rangos válidos: 0 a 60" required="true" requiredMessage="Introduzca minutos de longitud">
+                                     title="Rangos válidos: 0 a 60" required="true" requiredMessage="Introduzca minutos de longitud"
+                                     onkeyup="$(this).val($(this).val().replace(/[^0-9]/g, ''));">
                             <f:validateLongRange minimum="0" maximum="60"/>    
                             <p:ajax event="keyup" update="Longitud" 
                                     listener="#{localidadTbController.longitudDecimal(localidadTbController.selected.ELongitudgrados, 
@@ -78,7 +81,8 @@
 
                         <p:outputLabel value="Segundos:" for="Segundos2" />
                         <p:inputText id="Segundos2" value="#{localidadTbController.selected.DLongitudsegundos}" maxlength="7" size="7" 
-                                     title="Rangos válidos: 0 a 59.9999" required="true" requiredMessage="Introduzca segundos de longitud">
+                                     title="Rangos válidos: 0 a 59.9999" required="true" requiredMessage="Introduzca segundos de longitud"
+                                     onkeyup="$(this).val($(this).val().replace(/[^0-9]/g, ''));">
                             <f:validateDoubleRange minimum="0" maximum="59.9999"/>    
                             <p:ajax event="keyup" update="Longitud" 
                                     listener="#{localidadTbController.longitudDecimal(localidadTbController.selected.ELongitudgrados, 
@@ -94,7 +98,7 @@
                     <p:panelGrid columns="6" rendered="#{localidadTbController.selected != null}"> 
                         <p:outputLabel value="Altitud:" for="AltitudMax" />
                         <pe:inputNumber id="AltitudMax" style="width: 100px" value="#{localidadTbController.selected.EAltitudMax}" title="Altitud"
-                                        decimalPlaces="0" symbol=" mts" symbolPosition="s" />
+                                        decimalPlaces="0" symbol=" mts" symbolPosition="s" styleClass="ParaInputNumber" />
 
                         
                         <p:outputLabel value="#{bundle.CreateLocalidadTbLabel_EIdcanton}" for="EIdcanton" />

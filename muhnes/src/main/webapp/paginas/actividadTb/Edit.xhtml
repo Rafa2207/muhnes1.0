@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="ActividadTbEditDlg" widgetVar="ActividadTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditActividadTbTitle}">
+        <p:dialog id="ActividadTbEditDlg" widgetVar="ActividadTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Modificar Actividad">
             <h:form id="ActividadTbEditForm">
                 <h:panelGroup id="display">
                     <p:fieldset legend="Detalles de actividad">
@@ -21,22 +21,23 @@
                             <p:outputLabel value="#{bundle.CreateActividadTbLabel_MDescripcion}" for="MDescripcion" />
                             <p:inputTextarea cols="25" rows="2" autoResize="" id="MDescripcion" value="#{actividadTbController.selected.MDescripcion}" />
                         </p:panelGrid>
-                        <p:panelGrid columns="6" rendered="#{actividadTbController.selected != null}">
+                        
+                        <p:panelGrid columns="6" rendered="#{actividadTbController.selected.EEstado==1}">
 
                             <p:outputLabel value="#{bundle.CreateActividadTbLabel_FFecha}" for="FFecha" />
 
                             <p:calendar id="FFecha" value="#{actividadTbController.selected.FFecha}"
                                         pattern="dd MMMM yyyy" 
                                         mindate="#{actividadTbController.selected.EIdproyecto.FFechaInicio}" 
-                                        maxdate="#{actividadTbController.selected.EIdproyecto.FFechaFin}"                                      
+                                        maxdate="#{actividadTbController.calcularFechaMaxima()}"                                      
                                         title="#{bundle.EditActividadTbTitle_FFecha}"  showOn="button" 
                                         required="true" readonlyInput="true"
                                         requiredMessage="Introduzca fecha" locale="es">
                                 <p:ajax event="dateSelect" update="FFechafin" listener="#{actividadTbController.limpiarFecha()}"/>
                             </p:calendar>
 
-                            <p:outputLabel value="Fecha finalización:" for="FFechafin" />
-                            <p:calendar mindate="#{actividadTbController.selected.FFecha}" maxdate="#{actividadTbController.selected.EIdproyecto.FFechaFin}" 
+                            <p:outputLabel value="Fecha finalización:" for="FFechafin"  />
+                            <p:calendar mindate="#{actividadTbController.selected.FFecha}" maxdate="#{actividadTbController.calcularFechaMaxima()}" 
                                         id="FFechafin" 
                                         pattern="dd MMMM yyyy" 
                                         value="#{actividadTbController.fechatemporal}" title="Fecha fin"  showOn="button" 
@@ -44,7 +45,8 @@
                                         requiredMessage="Introduzca fecha" locale="es"
                                         disabled="#{actividadTbController.selected.FFecha eq null}"/>
 
-                            <p:selectOneMenu id="tipo" value="#{actividadTbController.selected.CTipo}" required="true" requiredMessage="Debe seleccionar un tipo">
+                            <p:outputLabel value="Tipo de actividad: " for="tipo"/>
+                            <p:selectOneMenu id="tipo" value="#{actividadTbController.selected.CTipo}" disabled="true">
                                 <f:selectItem itemLabel="Seleccione" itemValue="" />
                                 <f:selectItem itemLabel="Materiales" itemValue="Materiales" />
                                 <f:selectItem itemLabel="Viaje" itemValue="Viaje" />
@@ -72,7 +74,7 @@
                                              value="Agregar"
                                              actionListener="#{actividadTbController.agregar()}"
                                              process="insumo cant costo unidad agregar"
-                                             update="insumos insumo cant costo unidad total"
+                                             update="insumos insumo cant costo unidad total :growl"
                                              />
                         </p:panelGrid>
                         <p:dataTable id="insumos"

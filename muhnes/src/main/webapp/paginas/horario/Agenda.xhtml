@@ -52,7 +52,20 @@
                             <h:outputText value="#{proyectoTbController.NombreNotificacion(item.MNombre, 130)}"/>
                         </p:column>
                         
-                        <p:column width="20%">
+                        <p:column filterBy="#{item.FFechaInicio}" filterStyle="display:none" width="25%" style="text-align: center">
+                            <f:facet name="header">
+                                <h:outputText value="fecha"/>
+                            </f:facet>
+                            <h:outputText value="#{item.FFechaInicio}">
+                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                            </h:outputText>
+                            <h:outputText value=" - "/>
+                            <h:outputText value="#{item.FFechaFin}">
+                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        
+                        <p:column width="15%">
                             <f:facet name="header">
                                 <h:outputText value="Progreso"/>
                             </f:facet>

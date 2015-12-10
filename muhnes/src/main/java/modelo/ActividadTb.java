@@ -183,11 +183,11 @@ public class ActividadTb implements Serializable {
         this.dGastoAdicional = dGastoAdicional;
     }
 
-    public Integer geteEstado() {
+    public Integer getEEstado() {
         return eEstado;
     }
 
-    public void seteEstado(Integer eEstado) {
+    public void setEEstado(Integer eEstado) {
         this.eEstado = eEstado;
     }
     

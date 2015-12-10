@@ -337,13 +337,13 @@ public class ProyectoTbController implements Serializable {
         }
         for (ActividadTb a : ListaActividad) {
             if (a.getEIdproyecto().getEIdproyecto() == proy.getEIdproyecto()) {
-                if (a.geteEstado() == 1) {
+                if (a.getEEstado() == 1) {
                     total = total + (cadaActividad * 0);
                 }
-                if (a.geteEstado() == 2) {
+                if (a.getEEstado() == 2) {
                     total = total + (cadaActividad / 2);
                 }
-                if (a.geteEstado() == 3) {
+                if (a.getEEstado() == 3) {
                     total = total + (cadaActividad);
                     i++;
                 }

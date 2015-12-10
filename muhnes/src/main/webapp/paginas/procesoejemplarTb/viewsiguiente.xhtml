@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog showEffect="explode" id="viewsiguienteDlg" widgetVar="viewsiguienteDialog" modal="true" resizable="false" appendTo="@(body)" header="Proceso cuarentena">
+        <p:dialog showEffect="explode" id="viewsiguienteDlg" widgetVar="viewsiguienteDialog" modal="true" resizable="false" appendTo="@(body)" header="Proceso Cuarentena">
             <h:form id="viewsiguienteForm">
                 <h:panelGroup id="display" rendered="#{procesoejemplarTbController.control}" >
                     <p:panelGrid columns="2">
@@ -57,22 +57,22 @@
                         <p:outputLabel value="#{bundle.CreateProcesoejemplarTbLabel_MDescripcion}" for="MDescripcion" />
                         <p:inputText id="MDescripcion" value="#{procesoejemplarTbController.selected.MDescripcion}" title="#{bundle.CreateProcesoejemplarTbTitle_MDescripcion}" />
 
-                        <p:outputLabel value="#{bundle.CreateProcesoejemplarTbLabel_DCantidad}" for="DCantidad" />
-                        <p:inputText id="DCantidad" value="#{procesoejemplarTbController.selected.ECantidad}" title="Introduzca valores entre 1 y #{procesoejemplarTbController.cantidad} "
-                                     required="true" requiredMessage="Introduzca cantidad">
-                            <f:validateLongRange minimum="1" maximum="#{procesoejemplarTbController.cantidad}"/>
-                        </p:inputText>
+                        <p:outputLabel value="#{bundle.CreateProcesoejemplarTbLabel_DCantidad}" for="DCantidad" rendered="#{procesoejemplarTbController.selected.EEstado==0}" />
+                        <h:panelGroup rendered="#{procesoejemplarTbController.selected.EEstado==0}">
+                            <p:inputText id="DCantidad" value="#{procesoejemplarTbController.selected.ECantidad}" readonly="#{facesContext.renderResponse}" title="Introduzca valores entre 1 y #{procesoejemplarTbController.cantidad}" required="true" requiredMessage="introduzca cantidad"/>
+                            <p:slider for="DCantidad" minValue="1" maxValue="#{procesoejemplarTbController.cantidad}" style="width: 155px"/>
+                        </h:panelGroup>
 
-                        <p:outputLabel value="Fecha de inicio:" for="FFecha" />
-                        <p:calendar locale="es" id="FFecha" 
+                        <p:outputLabel value="Fecha de inicio:" for="FFecha" rendered="#{procesoejemplarTbController.selected.EEstado==0}" />
+                        <p:calendar locale="es" id="FFecha" rendered="#{procesoejemplarTbController.selected.EEstado==0}"
                                     readonlyInput="true" pattern="dd MMMM yyyy" value="#{procesoejemplarTbController.selected.FFecha}" 
                                     mindate="#{procesoejemplarTbController.fechaSiguiente}"
                                     title="Fecha de inicio"  showOn="button" required="true" requiredMessage="Introduzca fecha inicio">
                             <p:ajax event="dateSelect" update="textfecha" listener="#{procesoejemplarTbController.calcularFechaFinCuarentena(procesoejemplarTbController.selected.FFecha)}"/>
                         </p:calendar>
 
-                        <p:outputLabel value="Fecha finalización:" />
-                        <p:outputLabel id="textfecha" value="#{procesoejemplarTbController.selected.FFechafin}">
+                        <p:outputLabel value="Fecha finalización:" rendered="#{procesoejemplarTbController.selected.EEstado==0}"/>
+                        <p:outputLabel id="textfecha" value="#{procesoejemplarTbController.selected.FFechafin}" rendered="#{procesoejemplarTbController.selected.EEstado==0}">
                             <f:convertDateTime pattern="dd MMMM yyyy" />
                         </p:outputLabel>
 

@@ -12,17 +12,14 @@
             <h:form id="ProyectoTbCreateForm">
                 <h:panelGroup id="display">
 
-                    <p:panelGrid columns="4" rendered="#{proyectoTbController.selected != null}" >
+                    <p:panelGrid columns="2" rendered="#{proyectoTbController.selected != null}" >
                         <p:outputLabel value="#{bundle.CreateProyectoTbLabel_CNombre}" for="MNombre" />
-                        <p:inputTextarea rows="2" cols="30" autoResize="false" id="MNombre" value="#{proyectoTbController.selected.MNombre}" title="#{bundle.CreateProyectoTbTitle_CNombre}" 
+                        <p:inputTextarea rows="2" cols="23" autoResize="false" id="MNombre" value="#{proyectoTbController.selected.MNombre}" title="#{bundle.CreateProyectoTbTitle_CNombre}" 
                                          required="true" requiredMessage="Introduzca el nombre del proyecto"/>
 
                         <p:outputLabel value="#{bundle.CreateProyectoTbLabel_MDescripcion}" for="MDescripcion" />
-                        <p:inputTextarea rows="2" cols="27" autoResize="" id="MDescripcion" value="#{proyectoTbController.selected.MDescripcion}" title="#{bundle.CreateProyectoTbTitle_MDescripcion}" />
+                        <p:inputTextarea rows="2" cols="23" autoResize="" id="MDescripcion" value="#{proyectoTbController.selected.MDescripcion}" title="#{bundle.CreateProyectoTbTitle_MDescripcion}" />
 
-                    </p:panelGrid>
-
-                    <p:panelGrid columns="4" rendered="#{proyectoTbController.selected != null}" >
                         <p:outputLabel value="#{bundle.CreateProyectoTbLabel_FFechaInicio}" for="FFechaInicio" />
                         <p:calendar id="FFechaInicio" size="15"
                                     pattern="dd MMMM yyyy" value="#{proyectoTbController.selected.FFechaInicio}" 

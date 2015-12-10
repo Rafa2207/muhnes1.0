@@ -32,7 +32,10 @@
 
                         <h:outputText value="#{bundle.ViewActividadTbLabel_EIdproyecto}"/>
                         <h:outputText value="#{actividadTbController.selected.EIdproyecto.MNombre}" title="#{bundle.ViewActividadTbTitle_EIdproyecto}"/>
-
+                        
+                        <h:outputText value="Gasto Adicional:" rendered="#{not empty actividadTbController.selected.MJustificacion}"/>
+                        <h:outputText value="#{actividadTbController.selected.MJustificacion}" title="Gasto Adicional" rendered="#{not empty actividadTbController.selected.MJustificacion}"/>
+                        
                     </p:panelGrid>
                     <p:dataTable id="insumos"
                                  editable="true"
@@ -46,10 +49,7 @@
                             #{insumo.MNombre}
                         </p:column>
                         <p:column headerText="Cantidad">
-                            #{insumo.DCantidad}
-                        </p:column>
-                        <p:column headerText="Unidades">
-                            #{insumo.MTiempo}
+                            #{insumo.DCantidad} #{insumo.MTiempo}
                         </p:column>
                         <p:column headerText="Costo Unitario">
                             $#{insumo.DGasto}

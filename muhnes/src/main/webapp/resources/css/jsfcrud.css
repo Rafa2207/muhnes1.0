@@ -90,3 +90,10 @@
     border:1px solid #003300;color:#ffffff;
     background-color:#003300;background:#003300}
 
+.ParaInputNumber input {
+   width: 100px;
+}
+
+.ParaInputNumberActividades input {
+   width: 50px;
+}
