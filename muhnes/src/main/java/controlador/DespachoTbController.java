@@ -134,6 +134,7 @@ public class DespachoTbController implements Serializable {
                 i.getMaterialTb().setDCantidad(i.getMaterialTb().getDCantidad() - i.getDCantidad());
                 materialFacade.edit(i.getMaterialTb());
             }
+            selected.setEEstado(1); //cuando se realizo un despacho de materiales
             persist(PersistAction.CREATE, ResourceBundle.getBundle("/BundleDespacho").getString("DespachoTbCreated"));
             if (!JsfUtil.isValidationFailed()) {
                 items = null;    // Invalidate list of items to trigger re-query.
@@ -313,5 +314,13 @@ public class DespachoTbController implements Serializable {
         selected.getMaterialDespachoTbList().remove(materialMD);
         materialDisponible.add(materialMD.getMaterialTb());
         material = null;
+    }
+    public void reingresoMaterial(){
+        for (MaterialDespachoTb i : selected.getMaterialDespachoTbList()) {
+            i.getMaterialTb().setDCantidad(i.getMaterialTb().getDCantidad() + i.getDRegreso());
+            materialFacade.edit(i.getMaterialTb());
+        }
+        selected.setEEstado(2); //cuando el se realizo el reingreso de material
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/BundleDespacho").getString("DespachoTbReingreso"));
     }
 }

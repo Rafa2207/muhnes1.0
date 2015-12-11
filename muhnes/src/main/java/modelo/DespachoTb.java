@@ -46,9 +46,17 @@ public class DespachoTb implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "m_descripcion")
     private String mDescripcion;
+    @Size(max = 2147483647)
+    @Column(name = "m_motivoreingreso")
+    private String mMotivoreingreso;
     @Column(name = "f_fecha")
     @Temporal(TemporalType.DATE)
     private Date fFecha;
+    @Column(name = "f_fechareingreso")
+    @Temporal(TemporalType.DATE)
+    private Date fFechareingreso;
+    @Column(name = "e_estado")
+    private Integer eEstado;
     @JoinColumn(name = "e_idproyecto", referencedColumnName = "e_idproyecto")
     @ManyToOne
     private ProyectoTb eIdproyecto;
@@ -56,6 +64,30 @@ public class DespachoTb implements Serializable {
     private List<MaterialDespachoTb> materialDespachoTbList;
 
     public DespachoTb() {
+    }
+
+    public Integer getEEstado() {
+        return eEstado;
+    }
+
+    public void setEEstado(Integer eEstado) {
+        this.eEstado = eEstado;
+    }
+
+    public String getMMotivoreingreso() {
+        return mMotivoreingreso;
+    }
+
+    public void setMMotivoreingreso(String mMotivoreingreso) {
+        this.mMotivoreingreso = mMotivoreingreso;
+    }
+
+    public Date getFFechareingreso() {
+        return fFechareingreso;
+    }
+
+    public void setFFechareingreso(Date fFechareingreso) {
+        this.fFechareingreso = fFechareingreso;
     }
 
     public DespachoTb(Integer eIddespacho) {

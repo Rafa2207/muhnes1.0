@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DespachoTbCreate2Dlg" widgetVar="DespachoTbCreate2Dialog" modal="true" resizable="false" appendTo="@(body)" header="Nuevo Despacho de Materiales">
+            <h:form id="DespachoTbCreate2Form">
+                <h:panelGroup id="display">
+                    <p:fieldset legend="Despacho">
+                        <p:panelGrid columns="2" rendered="#{despachoTbController.selected != null}">
+                            <h:outputText value="Descripción: "/>
+                            <h:outputText value="#{despachoTbController.selected.MDescripcion}" title="#{bundleDespacho.ViewDespachoTbTitle_MDescripcion}"/>
+                            <h:outputText value="Fecha: "/>
+                            <h:outputText value="#{despachoTbController.selected.FFecha}" title="#{bundleDespacho.ViewDespachoTbTitle_FFecha}">
+                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                            </h:outputText>
+                            <h:outputText value="Proyecto: "/>
+                            <h:outputText value="#{despachoTbController.selected.EIdproyecto.MNombre}" title="#{bundleDespacho.ViewDespachoTbTitle_EIdproyecto}"/>
+                            <p:outputLabel value="Fecha de Reingreso: " for="fechaR"/>
+                            <p:calendar id="fechaR" pattern="dd MMMM yyyy" value="#{despachoTbController.selected.FFechareingreso}" title="#{bundleDespacho.EditDespachoTbTitle_FFecha}"  showOn="button" locale="es" required="true" requiredMessage="Introduzca una fecha" mindate="0"/>
+                            <p:outputLabel value="Motivo Reingreso" for="motivoR" />
+                            <p:inputTextarea cols="30" rows="2" id="motivoR" value="#{despachoTbController.selected.MMotivoreingreso}" title="#{bundleDespacho.EditDespachoTbTitle_MDescripcion}" required="true" requiredMessage="Introduzca un motivo de reingreso"/>
+                        </p:panelGrid>
+                    </p:fieldset>
+                    <p:fieldset legend="Materiales">
+                        <p:dataTable id="materiales"
+                                     editable="true"
+                                     value="#{despachoTbController.selected.materialDespachoTbList}"
+                                     var="material"
+                                     scrollable="true"
+                                     scrollHeight="160"
+                                     emptyMessage="No ha agregado materiales"
+                                     tableStyle="width:500px">
+                            <p:column headerText="Material">
+                                #{material.materialTb.CNombre}
+                            </p:column>
+                            <p:column headerText="Cantidad">
+                                        #{material.DCantidad} #{material.materialTb.EIdunidad.CAbreviatura}
+                            </p:column>
+                            <p:column headerText="Reingreso">
+                                <p:inputText value="#{material.DRegreso}" size="4"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:fieldset>
+                    <p:commandButton actionListener="#{despachoTbController.reingresoMaterial}" value="#{bundle.Save}" update="display,:DespachoTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'DespachoTbCreate2Dialog');"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

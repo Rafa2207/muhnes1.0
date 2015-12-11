@@ -42,7 +42,9 @@ public class DonacionTbController implements Serializable {
     private List<EjemplarTb> listaEjemplares;
     private Integer cantidad;
     private EjemplarDonacionTb ejemplarDonacion;
-    private List<EjemplarDonacionTb> eliminados = new ArrayList<EjemplarDonacionTb>();;
+    private List<EjemplarDonacionTb> eliminados = new ArrayList<EjemplarDonacionTb>();
+
+    ;
 
     public DonacionTbController() {
     }
@@ -127,34 +129,44 @@ public class DonacionTbController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
-    
+
     public void create() {
-        try {
-            for (EjemplarDonacionTb ee : selected.getEjemplarDonacionTbList()) {
-                ejemplarFacade.edit(ee.getEjemplarTb());
+        if (selected.getEjemplarDonacionTbList().isEmpty()) {
+            JsfUtil.addErrorMessage("Debe agregar ejemplares para donación");
+            //oncomplete = "";
+        } else {
+            try {
+                for (EjemplarDonacionTb ee : selected.getEjemplarDonacionTbList()) {
+                    ejemplarFacade.edit(ee.getEjemplarTb());
+                }
+            } catch (Exception e) {
             }
-        } catch (Exception e) {
-        }
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("DonacionTbCreated"));
-        if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
+            persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("DonacionTbCreated"));
+            if (!JsfUtil.isValidationFailed()) {
+                items = null;    // Invalidate list of items to trigger re-query.
+            }
         }
     }
 
     public void update() {
-         try {
-            for (EjemplarDonacionTb ee : selected.getEjemplarDonacionTbList()) {
-                ejemplarFacade.edit(ee.getEjemplarTb());
+        if (selected.getEjemplarDonacionTbList().isEmpty()) {
+            JsfUtil.addErrorMessage("Debe agregar ejemplares para donación");
+            //oncomplete = "";
+        } else {
+            try {
+                for (EjemplarDonacionTb ee : selected.getEjemplarDonacionTbList()) {
+                    ejemplarFacade.edit(ee.getEjemplarTb());
+                }
+            } catch (Exception e) {
             }
-        } catch (Exception e) {
-        }
-         try {
-            for (EjemplarDonacionTb aa : eliminados) {
-                ejemplarFacade.edit(aa.getEjemplarTb());
+            try {
+                for (EjemplarDonacionTb aa : eliminados) {
+                    ejemplarFacade.edit(aa.getEjemplarTb());
+                }
+            } catch (Exception e) {
             }
-        } catch (Exception e) {
+            persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("DonacionTbUpdated"));
         }
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("DonacionTbUpdated"));
     }
 
     public void destroy() {
@@ -290,7 +302,7 @@ public class DonacionTbController implements Serializable {
         listaEjemplares.remove(ejemplar);
 
     }
-    
+
     public void anadirM() {
         EjemplarDonacionTb nuevo = new EjemplarDonacionTb();
         ejemplar.setECantDuplicado(ejemplar.getECantDuplicado() - cantidad);
@@ -313,6 +325,7 @@ public class DonacionTbController implements Serializable {
     public void remover() {
         selected.getEjemplarDonacionTbList().remove(ejemplarDonacion);
     }
+
     public void removerM() {
         ejemplarDonacion.getEjemplarTb().setECantDuplicado(ejemplarDonacion.getEjemplarTb().getECantDuplicado() + ejemplarDonacion.getECantidad());
         eliminados.add(ejemplarDonacion);
