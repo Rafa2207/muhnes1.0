@@ -16,6 +16,7 @@ import com.lowagie.text.pdf.PdfWriter;
 import modelo.AgenteTb;
 import controlador.util.JsfUtil;
 import controlador.util.JsfUtil.PersistAction;
+import controlador.util.TableHeader;
 import controlador.util.TableHeaderVertical;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -332,9 +333,9 @@ public class AgenteTbController implements Serializable {
                 ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
 
                 // Inicia reporte
-                Document document = new Document(PageSize.LETTER);
+                Document document = new Document(PageSize.LETTER.rotate());
                 PdfWriter writer = PdfWriter.getInstance(document, pdfOutputStream);
-                TableHeaderVertical event = new TableHeaderVertical();
+                TableHeader event = new TableHeader();
                 writer.setPageEvent(event);
                 document.open();
 
@@ -385,12 +386,23 @@ public class AgenteTbController implements Serializable {
                 fecha.setSpacingAfter(10);
                 document.add(fecha);
 
-                PdfPTable agentes = new PdfPTable(5);
+                PdfPTable agentes = new PdfPTable(6);
+                agentes.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                
+                int headerwidths[] = {13, 15, 15, 10, 12, 35};
+                try {
+                    agentes.setWidths(headerwidths);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+
+                agentes.setWidthPercentage(100);
                 agentes.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                 agentes.addCell(new Phrase("Iniciales", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 agentes.addCell(new Phrase("Nombre", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 agentes.addCell(new Phrase("Apellido", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 agentes.addCell(new Phrase("Ocupación", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                agentes.addCell(new Phrase("Télefono", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 agentes.addCell(new Phrase("Institución", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
 
                 List<AgenteTb> lista;
@@ -401,9 +413,11 @@ public class AgenteTbController implements Serializable {
                 }
 
                 for (AgenteTb l : lista) {
-
-                    agentes.addCell(new Phrase(l.getCIniciales(), FontFactory.getFont(FontFactory.TIMES, 12)));
-
+           
+                    PdfPCell celll = new PdfPCell(new Phrase(l.getCIniciales(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    celll.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    agentes.addCell(celll);
+                    
                     PdfPCell cell = new PdfPCell(new Phrase(l.getCNombre(), FontFactory.getFont(FontFactory.TIMES, 12)));
                     cell.setHorizontalAlignment(Element.ALIGN_LEFT);
                     agentes.addCell(cell);
@@ -412,16 +426,27 @@ public class AgenteTbController implements Serializable {
                     cell2.setHorizontalAlignment(Element.ALIGN_LEFT);
                     agentes.addCell(cell2);
 
-                     if (l.getCOcupacion().equals("")) {
+                    if (l.getCOcupacion().equals("")) {
                         PdfPCell cell3 = new PdfPCell(new Phrase("Sin ocupación", FontFactory.getFont(FontFactory.TIMES, 12)));
                         cell3.setHorizontalAlignment(Element.ALIGN_LEFT);
                         agentes.addCell(cell3);
-                        } else {
+                    } else {
                         PdfPCell cell3 = new PdfPCell(new Phrase(l.getCOcupacion(), FontFactory.getFont(FontFactory.TIMES, 12)));
                         cell3.setHorizontalAlignment(Element.ALIGN_LEFT);
                         agentes.addCell(cell3);
-                        }
+                    }
                     
+                    if (l.getCTelefono().equals("")) {
+                        PdfPCell cell31 = new PdfPCell(new Phrase("Sin teléfono", FontFactory.getFont(FontFactory.TIMES, 12)));
+                        cell31.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        agentes.addCell(cell31);
+                    } else {
+                        PdfPCell cell31 = new PdfPCell(new Phrase(l.getCTelefono(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                        cell31.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        agentes.addCell(cell31);
+                    }
+                    
+
                     try {
                         PdfPCell cell4 = new PdfPCell(new Phrase(l.getEIdinstitucion().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 12)));
                         cell4.setHorizontalAlignment(Element.ALIGN_LEFT);

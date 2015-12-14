@@ -354,9 +354,6 @@ public class MaterialTbController implements Serializable {
                 mat.addCell(new Phrase("Cantidad Min", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 mat.addCell(new Phrase("Descripción", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
 
-                mat.setSpacingBefore(10);
-                mat.setSpacingAfter(10);
-
                 List<MaterialTb> lista;
                 if (filtrar != null) {
                     lista = filtrar;
@@ -389,13 +386,13 @@ public class MaterialTbController implements Serializable {
                         mat.addCell(cell11);
                     }
 
-                    PdfPCell cell3 = new PdfPCell(new Phrase(String.valueOf(l.getDCantidad())+" "+ l.getEIdunidad().getCAbreviatura(), FontFactory.getFont(FontFactory.TIMES, 12)));
-                    cell3.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    PdfPCell cell3 = new PdfPCell(new Phrase(String.valueOf(l.getDCantidad())+" "+l.getEIdunidad().getCAbreviatura(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    cell3.setHorizontalAlignment(Element.ALIGN_CENTER);
                     cell3.setBorder(Rectangle.BOTTOM);
                     mat.addCell(cell3);
 
-                    PdfPCell cell4 = new PdfPCell(new Phrase(String.valueOf(l.getDCantidadmin())+" "+ l.getEIdunidad().getCAbreviatura(), FontFactory.getFont(FontFactory.TIMES, 12)));
-                    cell4.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    PdfPCell cell4 = new PdfPCell(new Phrase(String.valueOf(l.getDCantidadmin())+" "+l.getEIdunidad().getCAbreviatura(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    cell4.setHorizontalAlignment(Element.ALIGN_CENTER);
                     cell4.setBorder(Rectangle.BOTTOM);
                     mat.addCell(cell4);
 

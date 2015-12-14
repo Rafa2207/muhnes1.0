@@ -7,7 +7,7 @@ import modelo.EjemplarParticipaExhibicionTbPK;
 import modelo.EjemplarTb;
 import modelo.ExhibicionTb;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-12-11T17:07:39")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2015-12-14T15:12:59")
 @StaticMetamodel(EjemplarParticipaExhibicionTb.class)
 public class EjemplarParticipaExhibicionTb_ { 
 

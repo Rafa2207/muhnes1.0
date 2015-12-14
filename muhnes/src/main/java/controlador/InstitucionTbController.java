@@ -16,6 +16,7 @@ import com.lowagie.text.pdf.PdfWriter;
 import modelo.InstitucionTb;
 import controlador.util.JsfUtil;
 import controlador.util.JsfUtil.PersistAction;
+import controlador.util.TableHeader;
 import controlador.util.TableHeaderVertical;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -42,7 +43,6 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
 
-
 @Named("institucionTbController")
 @ViewScoped
 public class InstitucionTbController implements Serializable {
@@ -59,7 +59,6 @@ public class InstitucionTbController implements Serializable {
     public void setFiltrar(List<InstitucionTb> filtrar) {
         this.filtrar = filtrar;
     }
-
 
     public List<InstitucionTb> getFiltro() {
         return filtro;
@@ -201,21 +200,21 @@ public class InstitucionTbController implements Serializable {
             }
         }
 
-     }
+    }
 
-            public void reporte() {
-            FacesContext context = FacesContext.getCurrentInstance();
-            try {
-                Object response = context.getExternalContext().getResponse();
-                if (response instanceof HttpServletResponse) {
-                    HttpServletResponse hsr = (HttpServletResponse) response;
-                    hsr.setContentType("application/pdf");
-                    ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
+    public void reporte() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        try {
+            Object response = context.getExternalContext().getResponse();
+            if (response instanceof HttpServletResponse) {
+                HttpServletResponse hsr = (HttpServletResponse) response;
+                hsr.setContentType("application/pdf");
+                ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
 
-                    // Inicia reporte
-                Document document = new Document(PageSize.LETTER);
+                // Inicia reporte
+                Document document = new Document(PageSize.LETTER.rotate());
                 PdfWriter writer = PdfWriter.getInstance(document, pdfOutputStream);
-                TableHeaderVertical event = new TableHeaderVertical();
+                TableHeader event = new TableHeader();
                 writer.setPageEvent(event);
                 document.open();
 
@@ -255,63 +254,111 @@ public class InstitucionTbController implements Serializable {
                 document.add(encabezado);
 
                 Paragraph titulo = new Paragraph("Reporte de Instituciones", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
-                    titulo.setAlignment(Element.ALIGN_CENTER);
-                    titulo.setSpacingAfter(5);
-                    titulo.setSpacingBefore(10);
-                    document.add(titulo);
+                titulo.setAlignment(Element.ALIGN_CENTER);
+                titulo.setSpacingAfter(5);
+                titulo.setSpacingBefore(10);
+                document.add(titulo);
 
-                    Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
-                            FontFactory.getFont(FontFactory.TIMES, 10));
-                    fecha.setAlignment(Element.ALIGN_CENTER);
-                    fecha.setSpacingAfter(10);
-                    document.add(fecha);
+                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
+                        FontFactory.getFont(FontFactory.TIMES, 10));
+                fecha.setAlignment(Element.ALIGN_CENTER);
+                fecha.setSpacingAfter(10);
+                document.add(fecha);
 
-                    PdfPTable ins = new PdfPTable(4);
-                    ins.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-                    ins.addCell(new Phrase("Acrónimo", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-                    ins.addCell(new Phrase("Nombre", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-                    ins.addCell(new Phrase("Télefono", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-                    ins.addCell(new Phrase("Pais", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                PdfPTable ins = new PdfPTable(8);
+                ins.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
 
-                    List<InstitucionTb> lista;
-                    if (filtrar != null) {
-                        lista = filtrar;
-                    } else {
-                        lista = this.items;
-                    }
-
-                    for (InstitucionTb l : lista) {
-                        PdfPCell cell = new PdfPCell(new Phrase(l.getCAcronimo(), FontFactory.getFont(FontFactory.TIMES, 12)));
-                        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                        ins.addCell(cell);
-
-                        PdfPCell cell2 = new PdfPCell(new Phrase(l.getCNombre(), FontFactory.getFont(FontFactory.TIMES, 12)));
-                        cell2.setHorizontalAlignment(Element.ALIGN_LEFT);
-                        ins.addCell(cell2);
-
-                        PdfPCell cell3 = new PdfPCell(new Phrase(l.getCTelefono(), FontFactory.getFont(FontFactory.TIMES, 12)));
-                        cell3.setHorizontalAlignment(Element.ALIGN_LEFT);
-                        ins.addCell(cell3);
-
-                        PdfPCell cell4 = new PdfPCell(new Phrase(l.getEIdpais().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 12)));
-                        cell4.setHorizontalAlignment(Element.ALIGN_LEFT);
-                        ins.addCell(cell4);
-                    }
-                    document.add(ins);
-                    document.close();
-                    //Termina reporte
-
-                    hsr.setHeader("Expires", "0");
-                    hsr.setContentType("application/pdf");
-                    hsr.setContentLength(pdfOutputStream.size());
-                    ServletOutputStream responseOutputStream = hsr.getOutputStream();
-                    responseOutputStream.write(pdfOutputStream.toByteArray());
-                    responseOutputStream.flush();
-                    responseOutputStream.close();
-                    context.responseComplete();
+                int headerwidths[] = {10, 20, 10, 10, 10, 8, 12, 20};
+                try {
+                    ins.setWidths(headerwidths);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
                 }
-            } catch (DocumentException | IOException e) {
-                e.printStackTrace();
+
+                ins.setWidthPercentage(100);
+                ins.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                ins.addCell(new Phrase("Acrónimo", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                ins.addCell(new Phrase("Nombre", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                ins.addCell(new Phrase("Pais", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                ins.addCell(new Phrase("Télefono", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                ins.addCell(new Phrase("Fax", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                ins.addCell(new Phrase("Postal", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                ins.addCell(new Phrase("URL", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                ins.addCell(new Phrase("Dirección", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+
+                List<InstitucionTb> lista;
+                if (filtrar != null) {
+                    lista = filtrar;
+                } else {
+                    lista = this.items;
+                }
+
+                for (InstitucionTb l : lista) {
+                    PdfPCell cell = new PdfPCell(new Phrase(l.getCAcronimo(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    ins.addCell(cell);
+
+                    PdfPCell cell2 = new PdfPCell(new Phrase(l.getCNombre(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    cell2.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    ins.addCell(cell2);
+
+                    PdfPCell cell3 = new PdfPCell(new Phrase(l.getEIdpais().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    cell3.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    ins.addCell(cell3);
+
+                    PdfPCell cell4 = new PdfPCell(new Phrase(l.getCTelefono(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    cell4.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    ins.addCell(cell4);
+
+                    if (l.getCFax().equals("")) {
+                        PdfPCell cell5 = new PdfPCell(new Phrase("Sin Fax", FontFactory.getFont(FontFactory.TIMES, 12)));
+                        cell5.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        ins.addCell(cell5);
+                    } else {
+                        PdfPCell cell5 = new PdfPCell(new Phrase(l.getCFax(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                        cell5.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        ins.addCell(cell5);
+                    }
+
+                    if (l.getEPostal() != null) {
+                        PdfPCell cell6 = new PdfPCell(new Phrase(String.valueOf(l.getEPostal()), FontFactory.getFont(FontFactory.TIMES, 12)));
+                        cell6.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        ins.addCell(cell6);
+                    } else {
+                        PdfPCell cell6 = new PdfPCell(new Phrase("Sin Postal", FontFactory.getFont(FontFactory.TIMES, 12)));
+                        cell6.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        ins.addCell(cell6);
+                    }
+
+                    if (l.getCUrl().equals("")) {
+                    PdfPCell cell7 = new PdfPCell(new Phrase("Sin URL", FontFactory.getFont(FontFactory.TIMES, 12)));
+                    cell7.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    ins.addCell(cell7);
+                    } else {
+                    PdfPCell cell7 = new PdfPCell(new Phrase(l.getCUrl(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    cell7.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    ins.addCell(cell7);
+                    }
+
+                    PdfPCell cell8 = new PdfPCell(new Phrase(l.getMDireccion(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    cell8.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    ins.addCell(cell8);
+                }
+                document.add(ins);
+                document.close();
+                //Termina reporte
+
+                hsr.setHeader("Expires", "0");
+                hsr.setContentType("application/pdf");
+                hsr.setContentLength(pdfOutputStream.size());
+                ServletOutputStream responseOutputStream = hsr.getOutputStream();
+                responseOutputStream.write(pdfOutputStream.toByteArray());
+                responseOutputStream.flush();
+                responseOutputStream.close();
+                context.responseComplete();
             }
+        } catch (DocumentException | IOException e) {
+            e.printStackTrace();
         }
+    }
 }
