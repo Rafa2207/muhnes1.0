@@ -71,19 +71,19 @@ public class controlProyectos {
     }
 
     public ScheduleModel eventoActividad(ProyectoTb proy) {
-        listaActividad = FacadeActividad.findAll();
+        listaActividad = FacadeActividad.buscarAsc(proy);
         for (ActividadTb a : listaActividad) {
-            if (a.getEIdproyecto().getEIdproyecto() == proy.getEIdproyecto()) {
-                if (a.getEEstado() == 1) {
-                    eventModel.addEvent(new DefaultScheduleEvent("No iniciado: " + a.getMNombre(), a.getFFecha(), a.getFFechafin(), "NoIniciado"));
-                }
-                if (a.getEEstado() == 2) {
-                    eventModel.addEvent(new DefaultScheduleEvent("En proceso: " + a.getMNombre(), a.getFFechaInicioReal(), fechaActual, "EnProceso"));
-                }
-                if (a.getEEstado() == 3) {
-                    eventModel.addEvent(new DefaultScheduleEvent("Finalizado: " + a.getMNombre(), a.getFFechaInicioReal(), a.getFFechaFinReal(), "Finalizado"));
-                }
+
+            if (a.getEEstado() == 1) {
+                eventModel.addEvent(new DefaultScheduleEvent("No iniciado: " + a.getMNombre(), a.getFFecha(), a.getFFechafin(), "NoIniciado"));
             }
+            if (a.getEEstado() == 2) {
+                eventModel.addEvent(new DefaultScheduleEvent("En proceso: " + a.getMNombre(), a.getFFechaInicioReal(), fechaActual, "EnProceso"));
+            }
+            if (a.getEEstado() == 3) {
+                eventModel.addEvent(new DefaultScheduleEvent("Finalizado: " + a.getMNombre(), a.getFFechaInicioReal(), a.getFFechaFinReal(), "Finalizado"));
+            }
+
         }
         return eventModel;
     }

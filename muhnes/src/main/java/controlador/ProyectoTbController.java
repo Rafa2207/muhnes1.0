@@ -313,7 +313,9 @@ public class ProyectoTbController implements Serializable {
                 if (a.getDGastoAdicional() == null) {
                     a.setDGastoAdicional(0.0);
                 }
-                presupuesto = presupuesto + a.getDTotal() + a.getDGastoAdicional();
+                if (a.getEEstado() != 0) {
+                    presupuesto = presupuesto + a.getDTotal() + a.getDGastoAdicional();
+                }
             }
         }
         return presupuesto;
@@ -323,12 +325,14 @@ public class ProyectoTbController implements Serializable {
         int TotalActividades = 0, TotalEntero = 0, proyecto = proy.getEIdproyecto(), i = 0;
         double cadaActividad = 0, total = 0;
         ListaProyecto = getFacade().ProyectoGeneral();
-        ListaActividad = getFacadeActividad().findAll();
+        ListaActividad = getFacadeActividad().buscarAsc(proy);
 
         for (ActividadTb a : ListaActividad) {
-            if (a.getEIdproyecto().getEIdproyecto() == proy.getEIdproyecto()) {
+            if (a.getEEstado() == 0) {
+            } else {
                 TotalActividades++;
             }
+
         }
         try {
             cadaActividad = 100 / (float) TotalActividades;
@@ -336,17 +340,15 @@ public class ProyectoTbController implements Serializable {
             cadaActividad = 0;
         }
         for (ActividadTb a : ListaActividad) {
-            if (a.getEIdproyecto().getEIdproyecto() == proy.getEIdproyecto()) {
-                if (a.getEEstado() == 1) {
-                    total = total + (cadaActividad * 0);
-                }
-                if (a.getEEstado() == 2) {
-                    total = total + (cadaActividad / 2);
-                }
-                if (a.getEEstado() == 3) {
-                    total = total + (cadaActividad);
-                    i++;
-                }
+            if (a.getEEstado() == 1) {
+                total = total + (cadaActividad * 0);
+            }
+            if (a.getEEstado() == 2) {
+                total = total + (cadaActividad / 2);
+            }
+            if (a.getEEstado() == 3) {
+                total = total + (cadaActividad);
+                i++;
             }
         }
         TotalEntero = (int) total;

@@ -46,7 +46,7 @@ public class ExhibicionTbController implements Serializable {
     private servicio.UsuarioTbFacade usuarioFacade;
     @EJB
     private servicio.BitacoraTbFacade bitacoraFacade;
-    private List<ExhibicionTb> items = null, lista = null, filtro, itemsNotificacion = null;
+    private List<ExhibicionTb> items = null, lista = null, filtro, itemsNotificacion = null,itemsControlExhibiciones=null;
     private List<EjemplarTb> ejemplares,listaEjemplares;
     private List<EjemplarParticipaExhibicionTb> listaEliminados;
     private ExhibicionTb selected;
@@ -89,6 +89,15 @@ public class ExhibicionTbController implements Serializable {
 
     public void setNumeroDeNotificaciones(int NumeroDeNotificaciones) {
         this.NumeroDeNotificaciones = NumeroDeNotificaciones;
+    }
+
+    public List<ExhibicionTb> getItemsControlExhibiciones() {
+        itemsControlExhibiciones=getFacade().ExhibicionControl();
+        return itemsControlExhibiciones;
+    }
+
+    public void setItemsControlExhibiciones(List<ExhibicionTb> itemsControlExhibiciones) {
+        this.itemsControlExhibiciones = itemsControlExhibiciones;
     }
 
     public String getTipoTaxon() {

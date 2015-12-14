@@ -421,4 +421,31 @@ public class ActividadTbController implements Serializable {
         }
         return FechaMaxima;
     }
+
+    public String estadoNombresList(int estadoList) {
+        String mensaje = null;
+        if (estadoList == 0) {
+            mensaje = "Cancelado";
+        }
+        if (estadoList == 1) {
+            mensaje = "No iniciado";
+        }
+        if (estadoList == 2) {
+            mensaje = "En proceso";
+        }
+        if (estadoList == 3) {
+            mensaje = "Finalizado";
+        }
+
+        return mensaje;
+    }
+
+    public void desactivarActividad() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        selected.setEEstado(0);
+        
+        getFacade().edit(selected);
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Actividad Cancelada", "INFO"));
+
+    }
 }

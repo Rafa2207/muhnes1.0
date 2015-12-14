@@ -31,6 +31,9 @@
                     <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{actividadTbController.destroy}" update=":growl,datalist" disabled="#{empty actividadTbController.selected }">
                         <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
                     </p:commandButton>
+                    <p:commandButton id="desactivarButton" icon="ui-icon-cancel"  value="Desactivar" actionListener="#{actividadTbController.desactivarActividad()}" update=":growl,datalist" disabled="#{empty actividadTbController.selected || actividadTbController.selected.EEstado==0}">
+                        <p:confirm header="Confirmación" message="¿Está seguro que desea desactivar la actividad?" icon="ui-icon-alert" />
+                    </p:commandButton>
 
                     <p:dataTable id="datalist" value="#{actividadTbController.getItems(controladorSesion.proyecto)}" var="item"
                                  selectionMode="single" selection="#{actividadTbController.selected}"
@@ -44,8 +47,8 @@
                                  widgetVar="actividadTable"
                                  >
 
-                        <p:ajax event="rowSelect"   update=":ActividadTbListForm:createButton :ActividadTbListForm:viewButton :ActividadTbListForm:editButton :ActividadTbListForm:deleteButton"/>
-                        <p:ajax event="rowUnselect" update=":ActividadTbListForm:createButton :ActividadTbListForm:viewButton :ActividadTbListForm:editButton :ActividadTbListForm:deleteButton"/>
+                        <p:ajax event="rowSelect"   update=":ActividadTbListForm:desactivarButton :ActividadTbListForm:createButton :ActividadTbListForm:viewButton :ActividadTbListForm:editButton :ActividadTbListForm:deleteButton"/>
+                        <p:ajax event="rowUnselect" update=":ActividadTbListForm:desactivarButton :ActividadTbListForm:createButton :ActividadTbListForm:viewButton :ActividadTbListForm:editButton :ActividadTbListForm:deleteButton"/>
 
                         <p:column filterBy="#{item.MNombre}" filterStyle="display:none">
                             <f:facet name="header">
@@ -77,6 +80,13 @@
                                 <h:outputText value="#{bundle.ListActividadTbTitle_MDescripcion}"/>
                             </f:facet>
                             <h:outputText value="#{actividadTbController.NombreNotificacion(item.MDescripcion, 50)}"/>
+                        </p:column>
+                        
+                        <p:column filterBy="#{actividadTbController.estadoNombresList(item.EEstado)}" filterStyle="display:none" width="8%" style="text-align: center">
+                            <f:facet name="header">
+                                <h:outputText value="Estado"/>
+                            </f:facet>
+                            <h:outputText value="#{actividadTbController.estadoNombresList(item.EEstado)}"/>
                         </p:column>
 
                         <p:column filterBy="#{item.DTotal}" filterStyle="display:none" width="8%" style="text-align: right">
