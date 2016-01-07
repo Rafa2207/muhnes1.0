@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
 
     <ui:composition>
 
@@ -12,75 +13,82 @@
             <h:form id="DespachoTbEditForm">
                 <h:panelGroup id="display">
                     <p:fieldset legend="Despacho">
-                    <p:panelGrid columns="2"  rendered="#{despachoTbController.selected != null}">
-                        <p:outputLabel value="#{bundleDespacho.EditDespachoTbLabel_MDescripcion}" for="MDescripcion" />
-                        <p:inputTextarea cols="20" rows="4" id="MDescripcion" value="#{despachoTbController.selected.MDescripcion}" title="#{bundleDespacho.EditDespachoTbTitle_MDescripcion}" required="true" requiredMessage="Introduzca una descripción"/>
-                        <p:outputLabel value="#{bundleDespacho.EditDespachoTbLabel_FFecha}" for="FFecha" />
-                        <p:calendar id="FFecha" pattern="dd MMMM yyyy" value="#{despachoTbController.selected.FFecha}" title="#{bundleDespacho.EditDespachoTbTitle_FFecha}"  showOn="button" locale="es" required="true" requiredMessage="Introduzca una fecha" mindate="0"/>
-                        <p:outputLabel value="#{bundleDespacho.EditDespachoTbLabel_EIdproyecto}" for="EIdproyecto" />
-                        <p:selectOneMenu id="EIdproyecto" 
-                                         filterMatchMode="contains"
-                                         filter="true"
-                                         value="#{despachoTbController.selected.EIdproyecto}" 
-                                         style="width: 300px">
-                            <f:selectItem itemLabel="Seleccione..."/>
-                            <f:selectItems value="#{proyectoTbController.itemsAvailableSelectOne}"
-                                           var="EIdproyectoItem"
-                                           itemValue="#{EIdproyectoItem}"
-                                           itemLabel="#{EIdproyectoItem.MNombre}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                </p:fieldset>
-                    <p:fieldset legend="Materiales">
-                        <p:panelGrid columns="9" style="width: 750px">
-                            <p:outputLabel value="Material:" for="material" />
-                            <p:selectOneMenu id="material"
-                                             value="#{despachoTbController.material}" filter="true">
-                                <f:selectItem itemLabel="Seleccione uno..."
-                                              itemValue=""/>
-                                <f:selectItems value="#{despachoTbController.materialDisponible}"
-                                               var="mt"
-                                               itemLabel="#{mt.CNombre}"
-                                               itemValue="#{mt}"/>
-                                <p:ajax event="change" process="material" update="und cant cnd"/>
+                        <p:panelGrid columns="2"  rendered="#{despachoTbController.selected != null}">
+                            <p:outputLabel value="#{bundleDespacho.EditDespachoTbLabel_MDescripcion}" for="MDescripcion" />
+                            <p:inputTextarea autoResize="" cols="26" rows="2" id="MDescripcion" value="#{despachoTbController.selected.MDescripcion}" title="#{bundleDespacho.EditDespachoTbTitle_MDescripcion}" required="true" requiredMessage="Introduzca una descripción"/>
+                            <p:outputLabel value="#{bundleDespacho.EditDespachoTbLabel_FFecha}" for="FFecha" />
+                            <p:calendar id="FFecha" pattern="dd MMMM yyyy" value="#{despachoTbController.selected.FFecha}" title="#{bundleDespacho.EditDespachoTbTitle_FFecha}"  showOn="button" locale="es" required="true" requiredMessage="Introduzca una fecha" mindate="0"/>
+                            <p:outputLabel value="#{bundleDespacho.EditDespachoTbLabel_EIdproyecto}" for="EIdproyecto" />
+                            <p:selectOneMenu id="EIdproyecto" 
+                                             filterMatchMode="contains"
+                                             filter="true"
+                                             value="#{despachoTbController.selected.EIdproyecto}" 
+                                             style="width: 300px">
+                                <f:selectItem itemLabel="Seleccione..."/>
+                                <f:selectItems value="#{proyectoTbController.itemsAvailableSelectOne}"
+                                               var="EIdproyectoItem"
+                                               itemValue="#{EIdproyectoItem}"
+                                               itemLabel="#{EIdproyectoItem.MNombre}"/>
                             </p:selectOneMenu>
-                            <p:outputLabel value="Cantidad:" for="cant"/>
-                            <p:inputText id="cant" size="4" value="#{despachoTbController.cantidad}"/>
-                            <h:outputText id="und" value="#{despachoTbController.material.EIdunidad.CNombre}"/>
-                            <h:outputText id="cnd" value="Cantidad Máxima: #{despachoTbController.material.DCantidad}"/>
-                            <p:commandButton id="agregar"
-                                             value="Agregar"
-                                             actionListener="#{despachoTbController.agregarM()}"
-                                             process="cant material agregar"
-                                             update="cant material materiales und cnd"
-                                             />
                         </p:panelGrid>
-                        <p:dataTable id="materiales"
-                                     editable="true"
-                                     value="#{despachoTbController.selected.materialDespachoTbList}"
-                                     var="material"
-                                     scrollable="true"
-                                     scrollHeight="160"
-                                     emptyMessage="No ha agregado materiales"
-                                     tableStyle="width:750px">
-                            <p:column headerText="Material">
-                                #{material.materialTb.CNombre}
-                            </p:column>
-                            <p:column headerText="Cantidad">
-                                        #{material.DCantidad} #{material.materialTb.EIdunidad.CAbreviatura}
-                            </p:column>
-                            <p:column headerText="Acciones">
-                                <p:commandLink
-                                    styleClass="ui-icon ui-icon-trash"
-                                    action="#{despachoTbController.removerM()}"
-                                    process="materiales"
-                                    update="materiales, :DespachoTbEditForm:material">
-                                    <f:setPropertyActionListener value="#{material}" 
-                                                                 target="#{despachoTbController.materialMD}"/>
-                                </p:commandLink>
-                            </p:column>
-                        </p:dataTable>
                     </p:fieldset>
+                    <p:panelGrid rendered="#{despachoTbController.bandera}">
+                        <p:fieldset legend="Materiales">
+                            <p:panelGrid columns="9" style="width: 750px">
+                                <p:outputLabel value="Material:" for="material" />
+                                <p:selectOneMenu id="material"
+                                                 value="#{despachoTbController.material}" filter="true">
+                                    <f:selectItem itemLabel="Seleccione uno..."
+                                                  itemValue=""/>
+                                    <f:selectItems value="#{despachoTbController.materialDisponible}"
+                                                   var="mt"
+                                                   itemLabel="#{mt.CNombre}"
+                                                   itemValue="#{mt}"/>
+                                    <p:ajax event="change" process="material" update="cant cnd"/>
+                                </p:selectOneMenu>
+                                <p:outputLabel value="Cantidad:" for="cant"/>
+                                <pe:inputNumber decimalPlaces="1" styleClass="ParaInputNumberActividades" 
+                                                symbolPosition="s" 
+                                                symbol=" #{despachoTbController.material.EIdunidad.CAbreviatura}" 
+                                                id="cant" 
+                                                value="#{despachoTbController.cantidad}"
+                                                maxValue="#{despachoTbController.material.DCantidad}"
+                                                title="introduzca una cantidad entre 1 y #{despachoTbController.material.DCantidad}"/>                            
+                                <h:outputText id="cnd" value="Cantidad Máxima: #{despachoTbController.material.DCantidad}"/>
+                                <p:commandButton id="agregar"
+                                                 value="Agregar"
+                                                 actionListener="#{despachoTbController.agregarM()}"
+                                                 process="cant material agregar"
+                                                 update="cant material materiales cnd :growl"
+                                                 />
+                            </p:panelGrid>
+                            <p:dataTable id="materiales"
+                                         editable="true"
+                                         value="#{despachoTbController.selected.materialDespachoTbList}"
+                                         var="material"
+                                         scrollable="true"
+                                         scrollHeight="160"
+                                         emptyMessage="No ha agregado materiales"
+                                         tableStyle="width:750px">
+                                <p:column headerText="Material">
+                                    #{material.materialTb.CNombre}
+                                </p:column>
+                                <p:column headerText="Cantidad">
+                                    #{material.DCantidad} #{material.materialTb.EIdunidad.CAbreviatura}
+                                </p:column>
+                                <p:column headerText="Acciones">
+                                    <p:commandLink
+                                        styleClass="ui-icon ui-icon-trash"
+                                        action="#{despachoTbController.removerM()}"
+                                        process="materiales"
+                                        update="materiales, :DespachoTbEditForm:material">
+                                        <f:setPropertyActionListener value="#{material}" 
+                                                                     target="#{despachoTbController.materialMD}"/>
+                                    </p:commandLink>
+                                </p:column>
+                            </p:dataTable>
+                        </p:fieldset>
+                    </p:panelGrid>
                     <p:commandButton actionListener="#{despachoTbController.update}" value="#{bundleDespacho.Save}" update="display,:DespachoTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DespachoTbEditDialog');"/>
                     <p:commandButton value="#{bundleDespacho.Cancel}" onclick="DespachoTbEditDialog.hide()"/>
                 </h:panelGroup>

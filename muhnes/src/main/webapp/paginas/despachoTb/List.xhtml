@@ -26,7 +26,7 @@
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DespachoTbViewForm" oncomplete="PF('DespachoTbViewDialog').show()" disabled="#{empty despachoTbController.selected}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" actionListener="#{despachoTbController.prepareEdit}" update=":DespachoTbEditForm" oncomplete="PF('DespachoTbEditDialog').show()" disabled="#{empty despachoTbController.selected}"/>
                     <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{despachoTbController.destroy}" update=":growl,datalist" disabled="#{empty despachoTbController.selected}"/>
-                    <p:commandButton id="reingresoButton"   icon="ui-icon-pencil" value="Reingreso de Materiales" update=":DespachoTbCreate2Form" oncomplete="PF('DespachoTbCreate2Dialog').show()" disabled="#{empty despachoTbController.selected || despachoTbController.selected.EEstado==1}"/>
+                    <p:commandButton id="reingresoButton"   icon="ui-icon-pencil" value="Reingreso de Materiales" update=":DespachoTbCreate2Form" oncomplete="PF('DespachoTbCreate2Dialog').show()" disabled="#{empty despachoTbController.selected || despachoTbController.selected.EEstado==2}"/>
                     
                     <p:dataTable id="datalist" value="#{despachoTbController.items}" var="item"
                                  selectionMode="single" selection="#{despachoTbController.selected}"

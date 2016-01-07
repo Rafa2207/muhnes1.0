@@ -24,7 +24,9 @@
                             </p:selectOneMenu>
 
                             <p:outputLabel value="#{bundle.CreateEjemplarTbLabel_ECorrelativo}" for="ECorrelativo" />
-                            <p:inputText id="ECorrelativo" value="#{ejemplarTbController.selected.ECorrelativo}" size="6" title="#{bundle.CreateEjemplarTbTitle_ECorrelativo}" />
+                            <p:inputText id="ECorrelativo" value="#{ejemplarTbController.selected.ECorrelativo}" 
+                                         required="true" requiredMessage="introduzca correlativo"
+                                         size="6" title="#{bundle.CreateEjemplarTbTitle_ECorrelativo}" />
 
                             <p:outputLabel value="Información Taxonomica: " for="Taxon" />
                             <h:panelGroup>
@@ -47,7 +49,8 @@
                                 </p:selectOneMenu>
                             </h:panelGroup>
                             <p:outputLabel value="#{bundle.CreateEjemplarTbLabel_CCalificativo}" for="CCalificativo" />
-                            <p:selectOneMenu id="CCalificativo" value="#{ejemplarTbController.selected.CCalificativo}" required="true" >
+                            <p:selectOneMenu id="CCalificativo" value="#{ejemplarTbController.selected.CCalificativo}" 
+                                             required="true" requiredMessage="seleccione calificativo" >
                                 <f:selectItem itemLabel="Seleccione..." itemValue=""/>
                                 <f:selectItem itemLabel="aff." itemValue="aff."/>
                                 <f:selectItem itemLabel="-cf." itemValue="-cf."/>
@@ -74,9 +77,11 @@
                                         mindate="#{ejemplarTbController.selected.FFechaInicioIdent}"
                                         disabled="#{ejemplarTbController.selected.FFechaInicioIdent eq null}"/>
                             <p:outputLabel value="#{bundle.CreateEjemplarTbLabel_MDescripcion}" for="MDescripcion" />
-                            <p:inputTextarea cols="38" rows="2" id="MDescripcion" value="#{ejemplarTbController.selected.MDescripcion}" title="#{bundle.CreateEjemplarTbTitle_MDescripcion}" required="true" />
+                            <p:inputTextarea cols="38" rows="2" id="MDescripcion" value="#{ejemplarTbController.selected.MDescripcion}" 
+                                             title="#{bundle.CreateEjemplarTbTitle_MDescripcion}" required="true" requiredMessage="introduzca descripción" />
                             <p:outputLabel value="#{bundle.CreateEjemplarTbLabel_ECantDuplicado}" for="ECantDuplicado" />
-                            <p:inputText id="ECantDuplicado" value="#{ejemplarTbController.selected.ECantDuplicado}" size="5" title="#{bundle.CreateEjemplarTbTitle_ECantDuplicado}" required="true" />
+                            <p:inputText id="ECantDuplicado" value="#{ejemplarTbController.selected.ECantDuplicado}" size="5" title="#{bundle.CreateEjemplarTbTitle_ECantDuplicado}" 
+                                         required="true" requiredMessage="Introduzca cantidad de duplicados" />
                             <p:outputLabel value="Proyecto: " for="proy" />
                             <p:selectOneMenu id="proy" style="width: 260px" filter="true" value="#{ejemplarTbController.selected.EIdproyecto}" >
                                 <f:selectItem itemLabel="Seleccione..." itemValue=""/>
@@ -95,7 +100,8 @@
                                                itemValue="#{local}"/>
                             </p:selectOneMenu>
                             <p:outputLabel value="Codigo de entrada: " for="codEntrada" />
-                            <p:selectOneMenu id="codEntrada" value="#{ejemplarTbController.cod}">
+                            <p:selectOneMenu id="codEntrada" value="#{ejemplarTbController.cod}"
+                                             required="true" requiredMessage="seleccione codigo de entrada">
                                 <f:selectItem itemLabel="Seleccione..." itemValue=""/>
                                 <f:selectItem itemLabel="Algas" itemValue="10"/>
                                 <f:selectItem itemLabel="Líquenes. Musgos y Hepáticas" itemValue="11"/>

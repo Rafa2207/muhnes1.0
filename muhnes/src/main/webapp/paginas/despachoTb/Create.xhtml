@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
 
     <ui:composition>
 
@@ -14,7 +15,7 @@
                     <p:fieldset legend="Despacho">
                         <p:panelGrid columns="2" rendered="#{despachoTbController.selected != null}">
                             <p:outputLabel value="Descripción: " for="MDescripcion" />
-                            <p:inputTextarea cols="20" rows="4" id="MDescripcion" value="#{despachoTbController.selected.MDescripcion}" title="#{bundleDespacho.CreateDespachoTbTitle_MDescripcion}" required="true" requiredMessage="Introduzca una descripción"/>
+                            <p:inputTextarea autoResize="" cols="26" rows="2" id="MDescripcion" value="#{despachoTbController.selected.MDescripcion}" title="#{bundleDespacho.CreateDespachoTbTitle_MDescripcion}" required="true" requiredMessage="Introduzca una descripción"/>
                             <p:outputLabel value="Fecha: " for="FFecha" />
                             <p:calendar id="FFecha" pattern="dd MMMM yyyy" value="#{despachoTbController.selected.FFecha}" title="#{bundleDespacho.EditDespachoTbTitle_FFecha}"  showOn="button" locale="es" readonlyInput="true" required="true" requiredMessage="Introduzca una fecha" mindate="0"/>
                             <p:outputLabel value="Proyecto: " for="EIdproyecto" />
@@ -43,19 +44,22 @@
                                                var="mt"
                                                itemLabel="#{mt.CNombre}"
                                                itemValue="#{mt}"/>
-                                <p:ajax event="change" process="material" update="und cant cnd"/>
+                                <p:ajax event="change" process="material" update="cant cnd"/>
                             </p:selectOneMenu>
                             <p:outputLabel value="Cantidad:" for="cant"/>
-                            <p:inputText id="cant" size="4" value="#{despachoTbController.cantidad}" title="introduzca una cantidad entre 1 y #{despachoTbController.material.DCantidad}">
-      
-                            </p:inputText>
-                            <h:outputText id="und" value="#{despachoTbController.material.EIdunidad.CNombre}"/>
+                            <pe:inputNumber decimalPlaces="1" styleClass="ParaInputNumberActividades" 
+                                            symbolPosition="s" 
+                                            symbol=" #{despachoTbController.material.EIdunidad.CAbreviatura}" 
+                                            id="cant" 
+                                            value="#{despachoTbController.cantidad}"
+                                            maxValue="#{despachoTbController.material.DCantidad}"
+                                            title="introduzca una cantidad entre 1 y #{despachoTbController.material.DCantidad}"/>
                             <h:outputText id="cnd" value="Cantidad Máxima: #{despachoTbController.material.DCantidad}"/>
                             <p:commandButton id="agregar"
                                              value="Agregar"
                                              actionListener="#{despachoTbController.agregar()}"
                                              process="cant material agregar"
-                                             update="cant material materiales und cnd :growl"
+                                             update="cant material materiales cnd :growl"
                                              />
                         </p:panelGrid>
                         <p:dataTable id="materiales"
@@ -75,7 +79,7 @@
                                         #{material.DCantidad} #{material.materialTb.EIdunidad.CAbreviatura}
                                     </f:facet>
                                     <f:facet name="input">
-                                        <p:inputText value="#{material.DCantidad}"/>
+                                        <pe:inputNumber decimalPlaces="1" styleClass="ParaInputNumberActividades" maxValue="#{material.materialTb.DCantidad}" value="#{material.DCantidad}"/>
                                     </f:facet>
                                 </p:cellEditor>
                             </p:column>

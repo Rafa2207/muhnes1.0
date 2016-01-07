@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
 
     <ui:composition>
 
@@ -44,16 +45,16 @@
                             <p:column headerText="Material" >
                                 #{material.materialTb.CNombre}
                             </p:column>
-                            <p:column headerText="Cantidad" width="20%">
-                                #{material.DCantidad}                                   
+                            <p:column headerText="Solicitado" width="20%">
+                                #{material.DCantidad} #{material.materialTb.EIdunidad.CAbreviatura}                                
                             </p:column>
                             <p:column headerText="Cantidad Recibida" width="20%">
-                                <p:inputText size="10" value="#{material.DEntrada}" disabled="#{pedidoTbController.bandera}"/>
+                                <pe:inputNumber symbol=" #{material.materialTb.EIdunidad.CAbreviatura}" symbolPosition="s" maxValue="999.9" decimalPlaces="1" styleClass="ParaInputNumberActividades" value="#{material.DEntrada}" disabled="#{pedidoTbController.bandera}"/>
                             </p:column>
                             <p:column headerText="Fecha Recibido" width="25%">
                                 <p:calendar id="FechaRec" size="15" pattern="dd MMMM yyyy" value="#{material.FFechaRecibido}" title="Fecha recibido"  
                                             readonlyInput="true"
-                                            locale="es" 
+                                            locale="es"
                                             mindate="0" disabled="#{pedidoTbController.bandera}"/>
                             </p:column>
                         </p:dataTable>

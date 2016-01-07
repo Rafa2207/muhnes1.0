@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="MaterialPedidoTbViewDlg" widgetVar="MaterialPedidoTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="Ver Pedido">
+        <p:dialog id="MaterialPedidoTbViewDlg" widgetVar="MaterialPedidoTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="Visualizar Pedido">
             <h:form id="MaterialPedidoTbViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{pedidoTbController.selected != null}" style="width: 600px">
@@ -38,11 +38,11 @@
                             <p:column headerText="Material" >
                                 #{material.materialTb.CNombre}
                             </p:column>
-                            <p:column headerText="Cantidad" width="20%">
-                                #{material.DCantidad}                                   
+                            <p:column headerText="Solicitado" width="20%">
+                                #{material.DCantidad} #{material.materialTb.EIdunidad.CAbreviatura}                                   
                             </p:column>
-                            <p:column headerText="Catidad Recibida" width="20%">
-                                #{material.DEntrada}
+                            <p:column headerText="Cantidad Recibida" width="20%">
+                                #{material.DEntrada} #{material.materialTb.EIdunidad.CAbreviatura}
                             </p:column>
                             <p:column headerText="Fecha Recibido" width="25%">
                                 <h:outputText id="FechaRec" value="#{material.FFechaRecibido}">

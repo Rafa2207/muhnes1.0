@@ -40,6 +40,9 @@
                         <p:column headerText="Cantidad">
                             <h:outputText value="#{material.DCantidad}  #{material.materialTb.EIdunidad.CAbreviatura}"/>
                         </p:column>
+                        <p:column headerText="Reingreso">
+                            <h:outputText value="#{material.DRegreso}  #{material.materialTb.EIdunidad.CAbreviatura}"/>
+                        </p:column>
                     </p:dataTable>
                     <p:commandButton value="#{bundle.Close}" onclick="DespachoTbViewDialog.hide()"/>
                 </h:panelGroup>

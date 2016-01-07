@@ -26,18 +26,18 @@ public class UnidadesTbController implements Serializable {
 
     @EJB
     private servicio.UnidadesTbFacade ejbFacade;
-    private List<UnidadesTb> items = null;
-    private UnidadesTb selected, filtro;
+    private List<UnidadesTb> items = null, filtro;
+    private UnidadesTb selected;
 
-    public UnidadesTb getFiltro() {
+    public UnidadesTbController() {
+    }
+
+    public List<UnidadesTb> getFiltro() {
         return filtro;
     }
 
-    public void setFiltro(UnidadesTb filtro) {
+    public void setFiltro(List<UnidadesTb> filtro) {
         this.filtro = filtro;
-    }
-
-    public UnidadesTbController() {
     }
 
     public UnidadesTb getSelected() {

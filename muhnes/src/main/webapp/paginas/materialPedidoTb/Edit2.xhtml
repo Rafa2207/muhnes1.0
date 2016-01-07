@@ -25,9 +25,9 @@
                             </h:outputText>
                             <p:outputLabel for="estado" value="Estado del pedido:" />
                             <p:selectOneRadio required="true" requiredMessage="Debe seleccionar un estado" id="estado" value="#{pedidoTbController.selected.EEstado}">
+                                <f:selectItem itemLabel="En Proceso" itemValue="0" itemDisabled="#{pedidoTbController.bandera}" />
                                 <f:selectItem itemLabel="Recibido Parcialmente" itemValue="1" />
                                 <f:selectItem itemLabel="Recibido" itemValue="2" />
-                                <f:selectItem itemLabel="No se recibirá" itemValue="3" />
                             </p:selectOneRadio>
                         </p:panelGrid>
                     </p:fieldset>

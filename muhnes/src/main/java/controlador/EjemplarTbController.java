@@ -176,14 +176,22 @@ public class EjemplarTbController implements Serializable {
     }
 
     public void create() {
-        if (selected.getEIdinstitucion() != null) {
-            selected.setEEstado(2); //ejemplar que se recibió donado
+        if (selected.getAgenteIdentificaEjemplarTbList().isEmpty()) {
+            JsfUtil.addErrorMessage("Debe agregar recolectores");
+            // oncomplete = "";
+        } else if (selected.getAgenteIdentificaEjemplarTbIDList().isEmpty()) {
+            JsfUtil.addErrorMessage("Debe agregar identificadores");
+            // oncomplete = "";
         } else {
-            selected.setEEstado(1); //ejemplar que se recolectó
-        }
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("EjemplarTbCreated"));
-        if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
+            if (selected.getEIdinstitucion() != null) {
+                selected.setEEstado(2); //ejemplar que se recibió donado
+            } else {
+                selected.setEEstado(1); //ejemplar que se recolectó
+            }
+            persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("EjemplarTbCreated"));
+            if (!JsfUtil.isValidationFailed()) {
+                items = null;    // Invalidate list of items to trigger re-query.
+            }
         }
     }
 

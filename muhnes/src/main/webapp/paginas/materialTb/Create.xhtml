@@ -44,8 +44,7 @@
 
                         <p:outputLabel value="Código: " for="Codigo" />
                         <p:inputText readonly="true" id="Codigo" value="#{materialTbController.selected.MCodigobarras}" title="Código" 
-                                     required="true"
-                                     requiredMessage="Introduzca código de material" size="10" maxlength="10"/>
+                                     size="10" maxlength="10"/>
                         <p:outputLabel value="Tipo:" for="tipo" />
                         <p:selectOneMenu id="tipo" value="#{materialTbController.selected.ETipo}" required="true" requiredMessage="Seleccione el tipo de material">
                             <f:selectItem itemLabel="Seleccione" itemValue="" />
@@ -53,7 +52,7 @@
                             <f:selectItem itemLabel="Herramientas" itemValue="2" />
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateMaterialTbLabel_MDescripcion}" for="MDescripcion" />
-                        <p:inputTextarea autoResize=""  cols="30" id="MDescripcion" value="#{materialTbController.selected.MDescripcion}" title="#{bundle.CreateMaterialTbTitle_MDescripcion}" 
+                        <p:inputTextarea autoResize="" rows="2"  cols="26" id="MDescripcion" value="#{materialTbController.selected.MDescripcion}" title="#{bundle.CreateMaterialTbTitle_MDescripcion}" 
                                          requiredMessage="Introduzca descripción"/>
 
 

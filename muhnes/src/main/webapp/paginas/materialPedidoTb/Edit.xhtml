@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
 
     <ui:composition>
 
@@ -27,8 +28,6 @@
                             <p:selectOneRadio required="true" requiredMessage="Debe seleccionar un estado" id="estado" value="#{pedidoTbController.selected.EEstado}">
                                 <f:selectItem itemLabel="Recibido Parcialmente" itemValue="1" />
                                 <f:selectItem itemLabel="Recibido" itemValue="2" />
-                                <f:selectItem itemLabel="No se recibirá" itemValue="3" />
-                                <p:ajax event="change" process="estado" listener="#{pedidoTbController.desactivar()}" update="materiales"/>
                             </p:selectOneRadio>
                         </p:panelGrid>
                     </p:fieldset>
@@ -45,13 +44,13 @@
                                 #{material.materialTb.CNombre}
                             </p:column>
                             <p:column headerText="Solicitado" width="20%">
-                                #{material.DCantidad}                                   
+                                #{material.DCantidad} #{material.materialTb.EIdunidad.CAbreviatura}                                   
                             </p:column>
                             <p:column headerText="Cantidad Recibida" width="20%">
-                                #{material.DEntrada}                                   
+                                #{material.DEntrada} #{material.materialTb.EIdunidad.CAbreviatura}                              
                             </p:column>
                             <p:column headerText="Cantidad Adicional" width="20%">
-                                <p:inputText size="10" value="#{material.cantidad2}" disabled="#{pedidoTbController.bandera}"/>
+                                <pe:inputNumber symbol=" #{material.materialTb.EIdunidad.CAbreviatura}" symbolPosition="s" maxValue="999.9" decimalPlaces="1" styleClass="ParaInputNumberActividades" value="#{material.cantidad2}"/>
                             </p:column>
                             <p:column headerText="Fecha Recibido" width="25%">
                                 <p:calendar id="FechaRec" size="15" pattern="dd MMMM yyyy" value="#{material.FFechaRecibido}" title="Fecha recibido"  

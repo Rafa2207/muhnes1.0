@@ -181,7 +181,7 @@ public class PedidoTbController implements Serializable {
     public void create() {
         if (selected.getMaterialPedidoTbList().isEmpty()) {
             JsfUtil.addErrorMessage("Debe agregar materiales");
-            oncomplete = "";
+            //oncomplete = "";
         } else {
             //oncomplete = "handleSubmit(args,'PedidoTbCreateDialog');";
             persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PedidoTbCreated"));
@@ -387,12 +387,12 @@ public class PedidoTbController implements Serializable {
 
     public void actualizarPedido() {
         for (MaterialPedidoTb i : selected.getMaterialPedidoTbList()) {
-            i.setDEntrada(i.getDEntrada()+i.getCantidad2());
+            i.setDEntrada(i.getDEntrada() + i.getCantidad2());
             i.getMaterialTb().setDCantidad(i.getMaterialTb().getDCantidad() + i.getCantidad2());
             materialFacade.edit(i.getMaterialTb());
         }
         //selected.setEEstado(estado);
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("PedidoTbRecibido"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("PedidoTbActualizado"));
     }
 
     public void desactivar() {
@@ -401,5 +401,22 @@ public class PedidoTbController implements Serializable {
         } else {
             bandera = false;
         }
+    }
+
+    public void activarEnProceso() {
+        int a = 0;
+        for (MaterialPedidoTb i : selected.getMaterialPedidoTbList()) {
+            if (i.getDEntrada() > 0.0) {
+                a++;
+            }
+        }
+        if (a > 0) {
+            bandera = true;
+            //return bandera;
+        } else {
+            bandera = false;
+            //return bandera;
+        }
+
     }
 }
