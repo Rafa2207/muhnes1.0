@@ -5,6 +5,10 @@
     <role-name>Administrador</role-name>
     <group-name>Administrador</group-name>
   </security-role-mapping>
+  <security-role-mapping>
+    <role-name>Digitador</role-name>
+    <group-name>Digitador</group-name>
+  </security-role-mapping>
   <class-loader delegate="true"/>
   <jsp-config>
     <property name="keepgenerated" value="true">
