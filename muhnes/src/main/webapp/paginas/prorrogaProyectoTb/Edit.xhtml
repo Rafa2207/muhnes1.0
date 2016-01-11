@@ -27,7 +27,7 @@
                         <p:outputLabel value="#{bundleProrrogaProy.CreateProrrogaProyectoTbLabel_FFechaFin}" for="FFechaFin" />
                         <p:calendar id="FFechaFin" pattern="dd MMMM yyyy" value="#{prorrogaProyectoTbController.selected.FFechaFin}" title="#{bundleProrrogaProy.EditProrrogaProyectoTbTitle_FFechaFin}"
                                     showOn="button" size="15" locale="es" readonlyInput="true"
-                                    mindate="#{prorrogaProyectoTbController.selected.FFechaInicio}"
+                                    mindate="#{prorrogaProyectoTbController.fechaMinima(prorrogaProyectoTbController.selected.FFechaInicio)}"
                                     disabled="#{prorrogaProyectoTbController.selected.FFechaInicio.before(prorrogaProyectoTbController.fechaActual)}"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{prorrogaProyectoTbController.update}" value="#{bundleProrrogaProy.Save}" update="display,:ProrrogaProyectoTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ProrrogaProyectoTbEditDialog');"/>

@@ -70,11 +70,11 @@
                             </p:selectOneMenu>
                             <p:outputLabel value="Cantidad:" for="cant"/>
                             <pe:inputNumber id="cant" value="#{actividadTbController.cantidad}" title="Cantidad"
-                                            decimalPlaces="1" styleClass="ParaInputNumberActividades"/>
+                                            decimalPlaces="1" styleClass="ParaInputNumberActividades" maxValue="1000"/>
 
-                            <p:outputLabel value="Costo Unitario($):" for="costo" />
+                            <p:outputLabel value="Costo Unitario:" for="costo" />
                             <pe:inputNumber id="costo" value="#{actividadTbController.costo}" title="Costo"
-                                            decimalPlaces="2" symbol="$ " styleClass="ParaInputNumberActividades"/>
+                                            decimalPlaces="2" symbol="$ " styleClass="ParaInputNumberActividades" maxValue="100000"/>
 
                             <p:commandButton id="agregar"
                                              value="Agregar"
@@ -108,7 +108,7 @@
                                         #{insumo.DCantidad} #{insumo.MTiempo}
                                     </f:facet>
                                     <f:facet name="input">
-                                        <pe:inputNumber id="cant" value="#{insumo.DCantidad}" title="Cantidad"
+                                        <pe:inputNumber id="cant" value="#{insumo.DCantidad}" title="Cantidad" maxValue="1000"
                                                         decimalPlaces="1" styleClass="ParaInputNumberActividades"/>
                                     </f:facet>
                                 </p:cellEditor>
@@ -120,7 +120,7 @@
                                         $#{insumo.DGasto}
                                     </f:facet>
                                     <f:facet name="input">
-                                        <pe:inputNumber id="costo" value="#{insumo.DGasto}" title="Costo"
+                                        <pe:inputNumber id="costo" value="#{insumo.DGasto}" title="Costo" maxValue="100000"
                                                         decimalPlaces="2" symbol="$ " styleClass="ParaInputNumberActividades"/>
 
                                     </f:facet>

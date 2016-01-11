@@ -36,6 +36,36 @@
             <h:form id="modales">
                 <p:dialog widgetVar="dialogVer" header="Actividades" showEffect="clip" hideEffect="clip">
 
+                    <!-- Para Actividades Canceladas  -->
+                    <h:panelGroup id="Cancelado"  rendered="#{controlProyectos.comparador eq 'Cancelado'}" >
+                        <p:panelGrid columns="2" id="cancelado" style="width: 450px">
+
+                            <h:outputText value="Nombre:"/>
+                            <h:outputText value="#{controlProyectos.actividadView.MNombre}"/>
+
+                            <h:outputText value="Presupuesto:"/>
+                            <h:outputText value="#{controlProyectos.actividadView.DTotal}">
+                                <f:convertNumber type="number" groupingUsed="true" minFractionDigits="2" pattern="$#0.00"/>
+                            </h:outputText>
+
+                            <h:outputText value="Fecha inicio prevista:"/>
+                            <h:outputText value="#{controlProyectos.actividadView.FFecha}">
+                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                            </h:outputText>
+
+                            <h:outputText value="Fecha finalización prevista:"/>
+                            <h:outputText value="#{controlProyectos.actividadView.FFechafin}">
+                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                            </h:outputText>
+
+                        </p:panelGrid>
+                        <p:commandButton actionListener="#{controlProyectos.reactivarActividad()}" update="cancelado :ControlForm:agendaId :growl" value="Activar actividad" oncomplete="handleSubmit(args, 'dialogVer');" >
+                            <p:confirm header="Confirmación" message="¿Está seguro que desea activar la actividad?" icon="ui-icon-alert" />
+                        </p:commandButton>
+                    </h:panelGroup>
+
+                    <!-- Para actividades Canceladas  -->
+
                     <!-- Para Actividades no iniciadas  -->
                     <h:panelGroup id="NoIniciado"  rendered="#{controlProyectos.comparador eq 'No iniciado'}" >
                         <p:panelGrid columns="2" id="iniciar" style="width: 450px">
@@ -68,9 +98,10 @@
                             </p:calendar>
 
                         </p:panelGrid>
-                        <p:commandButton actionListener="#{controlProyectos.iniciarActividad()}" update="iniciar :ControlForm:agendaId  :growl" value="Iniciar actividad" oncomplete="handleSubmit(args, 'dialogVer');" >
+                        <p:commandButton actionListener="#{controlProyectos.iniciarActividad()}" update="iniciar :ControlForm:agendaId :growl" value="Iniciar actividad" oncomplete="handleSubmit(args, 'dialogVer');" >
                             <p:confirm header="Confirmación" message="¿Está seguro que desea iniciar actividad?" icon="ui-icon-alert" />
                         </p:commandButton>
+                        <p:commandButton value="Cancelar Actividad" style="float: right;background: #cc0000"></p:commandButton>
                     </h:panelGroup>
 
                     <!-- Para actividades en proceso  -->
@@ -128,6 +159,7 @@
                         <p:commandButton actionListener="#{controlProyectos.finalizarActividad()}" update="Proceso Proceso2 :ControlForm:agendaId  :growl" value="Finalizar actividad" oncomplete="handleSubmit(args, 'dialogVer');" >
                             <p:confirm header="Confirmación" message="¿Está seguro que desea finalizar actividad?" icon="ui-icon-alert" />
                         </p:commandButton>
+                        <p:commandButton value="Cancelar Actividad" style="float: right;background: #cc0000"></p:commandButton>
                     </h:panelGroup>
                     <!-- Fin Actividades en proceso-->
 
@@ -165,6 +197,8 @@
                                           rendered="#{controlProyectos.actividadView.MJustificacion != null}"/>
 
                         </p:panelGrid>
+                        <p:commandButton value="Modificar">
+                        </p:commandButton>
                     </h:panelGroup>
                     <!-- Fin Actividades finalizadas-->
 

@@ -48,6 +48,10 @@
     background: #53c10c;
 }
 
+.Cancelado .fc-event-inner {
+    background: #cc0000;
+}
+
 .NoIniciado .fc-event-inner {
     background: #666666;
 }

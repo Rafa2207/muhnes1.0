@@ -36,11 +36,6 @@
                         <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{proyectoTbController.selected}"/>
                     </p:commandButton>
 
-                    <p:commandButton id="FinalizarButton" icon="ui-icon-cancel"  value="Desactivar" 
-                                     update=":ProyectoTbDesactivarForm" oncomplete="PF('ProyectoTbDesactivarDialog').show()"
-                                     disabled="#{empty proyectoTbController.selected || proyectoTbController.selected.EEstado==2}"
-                                     actionListener="#{proyectoTbController.prepareFinalizar()}"/>
-
                     <p:commandButton id="ProrrogaProyectoButton" icon="ui-icon-alert"  value="Prórrogas" action="/paginas/prorrogaProyectoTb/List.xhtml" disabled="#{empty proyectoTbController.selected}" >
                         <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{proyectoTbController.selected}" />
                     </p:commandButton>
@@ -65,8 +60,8 @@
                                  filteredValue="#{proyectoTbController.filtro}"
                                  widgetVar="proyectoTable">
 
-                        <p:ajax event="rowSelect"   update=":ProyectoTbListForm:FinalizarButton :ProyectoTbListForm:ActividadButton :ProyectoTbListForm:createButton :ProyectoTbListForm:viewButton :ProyectoTbListForm:editButton :ProyectoTbListForm:deleteButton :ProyectoTbListForm:ProrrogaProyectoButton"/>
-                        <p:ajax event="rowUnselect" update=":ProyectoTbListForm:FinalizarButton :ProyectoTbListForm:ActividadButton :ProyectoTbListForm:createButton :ProyectoTbListForm:viewButton :ProyectoTbListForm:editButton :ProyectoTbListForm:deleteButton :ProyectoTbListForm:ProrrogaProyectoButton"/>
+                        <p:ajax event="rowSelect"   update=":ProyectoTbListForm:ActividadButton :ProyectoTbListForm:createButton :ProyectoTbListForm:viewButton :ProyectoTbListForm:editButton :ProyectoTbListForm:deleteButton :ProyectoTbListForm:ProrrogaProyectoButton"/>
+                        <p:ajax event="rowUnselect" update=":ProyectoTbListForm:ActividadButton :ProyectoTbListForm:createButton :ProyectoTbListForm:viewButton :ProyectoTbListForm:editButton :ProyectoTbListForm:deleteButton :ProyectoTbListForm:ProrrogaProyectoButton"/>
 
 
                         <p:column filterBy="#{item.MNombre}" filterStyle="display:none">
@@ -131,7 +126,6 @@
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
-            <ui:include src="desactivar.xhtml"/>
             <ui:include src="../Ayuda/List.xhtml"/>
         </ui:define>
     </ui:composition>

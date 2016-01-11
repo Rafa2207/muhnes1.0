@@ -262,6 +262,15 @@ public class ProrrogaProyectoTbController implements Serializable {
         selected.setFFechaInicio(fecha);
 
     }
+    
+    public Date fechaMinima(Date fecha){
+        Date fechafin;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fecha);
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        fechafin=calendar.getTime();
+        return fechafin;
+    }
 
     public void calcularFechaMinimaEdit(List<ProrrogaProyectoTb> p, ProyectoTb proy, int numeroProrroga) {
         int i = 1;

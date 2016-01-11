@@ -165,7 +165,7 @@ public class ActividadTbController implements Serializable {
         itemsNotificacion = getFacade().ActividadNotificaciones(fechaActual, fechaDeSemana);
         try {
             for (ActividadTb a : itemsNotificacion) {
-                if (a.getEEstado() == 3) {
+                if (a.getEEstado() == 3 || a.getEEstado() == 0) {
                     quitarFinalizados.add(a);
                 }
                 if (a.getEEstado() == 1) {
@@ -216,8 +216,12 @@ public class ActividadTbController implements Serializable {
     }
 
     public void update() {
-        selected.setFFechafin(fechatemporal);
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ActividadTbUpdated"));
+        if (selected.getInsumoTbList().isEmpty()) {
+            JsfUtil.addErrorMessage("Debe agregar insumos");
+        } else {
+            selected.setFFechafin(fechatemporal);
+            persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ActividadTbUpdated"));
+        }
     }
 
     public void destroy() {
@@ -371,7 +375,9 @@ public class ActividadTbController implements Serializable {
 
         for (ActividadTb act : getItems()) {
             if (act.getEIdproyecto().getEIdproyecto() == proy.getEIdproyecto()) {
-                totalProy = totalProy + act.getDTotal() + act.getDGastoAdicional();
+                if (act.getEEstado() != 0) {
+                    totalProy = totalProy + act.getDTotal() + act.getDGastoAdicional();
+                }
             }
         }
         return totalProy;
@@ -443,9 +449,15 @@ public class ActividadTbController implements Serializable {
     public void desactivarActividad() {
         FacesContext context = FacesContext.getCurrentInstance();
         selected.setEEstado(0);
-        
+
         getFacade().edit(selected);
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Actividad Cancelada", "INFO"));
 
+    }
+
+    public double totalMasGastoAd(ActividadTb a) {
+        double gastoTotal = 0;
+        gastoTotal = a.getDTotal() + a.getDGastoAdicional();
+        return gastoTotal;
     }
 }

@@ -22,12 +22,17 @@
                     </p:breadCrumb>
 
 
-                    <p:commandButton id="controlAgenda" icon="ui-icon-bookmark"  value="Agenda" action="/paginas/horario/controlProyectos.xhtml" disabled="#{empty proyectoTbController.selected}" >
+                    <p:commandButton id="controlAgenda" icon="ui-icon-bookmark"  value="Agenda" action="/paginas/horario/controlProyectos.xhtml" disabled="#{empty proyectoTbController.selected || proyectoTbController.selected.EEstado==3}" >
                         <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{proyectoTbController.selected}" />
                     </p:commandButton>
-                    
-                  <!--  <p:commandButton id="Calendarizacion" icon="ui-icon-bookmark"  value="Toda la calendarización" action="/paginas/horario/List.xhtml" />   -->               
-                                                          
+
+                    <p:commandButton id="FinalizarButton" icon="ui-icon-cancel"  value="Desactivar" 
+                                     update=":ProyectoTbDesactivarForm" oncomplete="PF('ProyectoTbDesactivarDialog').show()"
+                                     disabled="#{empty proyectoTbController.selected || proyectoTbController.selected.EEstado==2 || proyectoTbController.selected.EEstado==3}"
+                                     actionListener="#{proyectoTbController.prepareFinalizar()}" />
+
+                    <!--  <p:commandButton id="Calendarizacion" icon="ui-icon-bookmark"  value="Toda la calendarización" action="/paginas/horario/List.xhtml" />   -->               
+
                     <p:dataTable id="datalist" value="#{proyectoTbController.itemsProyecto}" var="item"
                                  selectionMode="single" selection="#{proyectoTbController.selected}"
                                  paginator="true"
@@ -37,12 +42,11 @@
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  emptyMessage="No se encontraron proyectos"
                                  filteredValue="#{proyectoTbController.filtro}"
-                                 widgetVar="proyectoTable"
-                                 
+                                 widgetVar="proyectoTable"                                 
                                  >
 
-                        <p:ajax event="rowSelect"   update=":ProyectoTbListForm:controlAgenda"/>
-                        <p:ajax event="rowUnselect" update=":ProyectoTbListForm:controlAgenda"/>
+                        <p:ajax event="rowSelect"   update=":ProyectoTbListForm:controlAgenda :ProyectoTbListForm:FinalizarButton"/>
+                        <p:ajax event="rowUnselect" update=":ProyectoTbListForm:controlAgenda :ProyectoTbListForm:FinalizarButton"/>
 
 
                         <p:column filterBy="#{item.MNombre}" filterStyle="display:none">
@@ -51,7 +55,7 @@
                             </f:facet>
                             <h:outputText value="#{proyectoTbController.NombreNotificacion(item.MNombre, 130)}"/>
                         </p:column>
-                        
+
                         <p:column filterBy="#{item.FFechaInicio}" filterStyle="display:none" width="25%" style="text-align: center">
                             <f:facet name="header">
                                 <h:outputText value="fecha"/>
@@ -64,15 +68,17 @@
                                 <f:convertDateTime pattern="dd MMMM yyyy" />
                             </h:outputText>
                         </p:column>
-                        
-                        <p:column width="15%">
+
+                        <p:column width="15%" style="text-align: center;font-weight: bold">
                             <f:facet name="header">
                                 <h:outputText value="Progreso"/>
                             </f:facet>
-                            <p:progressBar value="#{proyectoTbController.progresoProyecto(item)}" labelTemplate="{value}%" styleClass="animated" displayOnly="true"/>
+                            <p:progressBar value="#{proyectoTbController.progresoProyecto(item)}" labelTemplate="{value}%" styleClass="animated" displayOnly="true"
+                                           rendered="#{item.EEstado!=3}"/>
+                            <h:outputText value="Cancelado" rendered="#{item.EEstado==3}"/>
                         </p:column>
 
-                       
+
                         <f:facet name="header">
                             <p:outputPanel>
                                 <h:outputText value="Búsqueda: " />
@@ -83,7 +89,8 @@
                 </p:panel>
             </h:form>
 
-            
+            <ui:include src="desactivar.xhtml"/>
+
         </ui:define>
     </ui:composition>
 

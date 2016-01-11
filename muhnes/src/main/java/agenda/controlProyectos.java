@@ -73,7 +73,9 @@ public class controlProyectos {
     public ScheduleModel eventoActividad(ProyectoTb proy) {
         listaActividad = FacadeActividad.buscarAsc(proy);
         for (ActividadTb a : listaActividad) {
-
+            if (a.getEEstado() == 0) {
+                eventModel.addEvent(new DefaultScheduleEvent("Cancelado: " + a.getMNombre(), a.getFFecha(), a.getFFechafin(), "Cancelado"));
+            }
             if (a.getEEstado() == 1) {
                 eventModel.addEvent(new DefaultScheduleEvent("No iniciado: " + a.getMNombre(), a.getFFecha(), a.getFFechafin(), "NoIniciado"));
             }
@@ -89,12 +91,15 @@ public class controlProyectos {
     }
 
     public void seleccionEvento(SelectEvent eventoSeleccionado) {
+        checkbox = false;
         int DiasDuracionActividad, DiasTranscurridos;
         event = (ScheduleEvent) eventoSeleccionado.getObject();
         String[] cadena = event.getTitle().split(": ", 2);
         comparador = cadena[0];
         String titulo = cadena[1];
-
+        if (comparador.equals("Cancelado")) {
+            actividadView = getFacadeActividad().BuscarActividadNoIniciada(titulo, event.getStartDate(), event.getEndDate());
+        }
         if (comparador.equals("No iniciado")) {
             actividadView = getFacadeActividad().BuscarActividadNoIniciada(titulo, event.getStartDate(), event.getEndDate());
         }
@@ -299,5 +304,25 @@ public class controlProyectos {
         }
 
         init();
+    }
+    
+    public void reactivarActividad(){
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        if(actividadView.getFFechaInicioReal()==null){
+          actividadView.setEEstado(2);  
+        }
+        else{
+            actividadView.setEEstado(1);
+        }
+        
+        try {
+            getFacadeActividad().edit(actividadView);
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Actividad activada nuevamente", "INFO"));
+        } catch (Exception e) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error, no se puede activar la actividad", "INFO"));
+        }
+        init();
+        
     }
 }

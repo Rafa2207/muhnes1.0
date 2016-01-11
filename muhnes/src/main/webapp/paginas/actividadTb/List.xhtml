@@ -25,13 +25,13 @@
 
                     </p:breadCrumb>
 
-                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{actividadTbController.prepareCreate(controladorSesion.proyecto)}" update=":ActividadTbCreateForm" oncomplete="PF('ActividadTbCreateDialog').show()" disabled="#{controladorSesion.proyecto.EEstado==2}" />
+                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{actividadTbController.prepareCreate(controladorSesion.proyecto)}" update=":ActividadTbCreateForm" oncomplete="PF('ActividadTbCreateDialog').show()" rendered="#{controladorSesion.proyecto.EEstado==0}"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ActividadTbViewForm" oncomplete="PF('ActividadTbViewDialog').show()" disabled="#{empty actividadTbController.selected }"/>
-                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" actionListener="#{actividadTbController.prepareEdit()}" update=":ActividadTbEditForm :ActividadTbCreateForm" oncomplete="PF('ActividadTbEditDialog').show()" disabled="#{empty actividadTbController.selected }"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" actionListener="#{actividadTbController.prepareEdit()}" update=":ActividadTbEditForm :ActividadTbCreateForm" oncomplete="PF('ActividadTbEditDialog').show()" disabled="#{empty actividadTbController.selected || actividadTbController.selected.EEstado==0 || actividadTbController.selected.EEstado==3}"/>
                     <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{actividadTbController.destroy}" update=":growl,datalist" disabled="#{empty actividadTbController.selected }">
                         <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
                     </p:commandButton>
-                    <p:commandButton id="desactivarButton" icon="ui-icon-cancel"  value="Desactivar" actionListener="#{actividadTbController.desactivarActividad()}" update=":growl,datalist" disabled="#{empty actividadTbController.selected || actividadTbController.selected.EEstado==0}">
+                    <p:commandButton id="desactivarButton" icon="ui-icon-cancel"  value="Desactivar" actionListener="#{actividadTbController.desactivarActividad()}" update=":growl,datalist" disabled="#{empty actividadTbController.selected || actividadTbController.selected.EEstado==0 || actividadTbController.selected.EEstado==3}">
                         <p:confirm header="Confirmación" message="¿Está seguro que desea desactivar la actividad?" icon="ui-icon-alert" />
                     </p:commandButton>
 
@@ -89,11 +89,11 @@
                             <h:outputText value="#{actividadTbController.estadoNombresList(item.EEstado)}"/>
                         </p:column>
 
-                        <p:column filterBy="#{item.DTotal}" filterStyle="display:none" width="8%" style="text-align: right">
+                        <p:column filterBy="#{actividadTbController.totalMasGastoAd(item)}" filterStyle="display:none" width="8%" style="text-align: right">
                             <f:facet name="header">
                                 <h:outputText value="Presupuesto"/>
                             </f:facet>
-                            <h:outputText value="$"/><h:outputText value="#{item.DTotal}">
+                            <h:outputText value="$"/><h:outputText value="#{actividadTbController.totalMasGastoAd(item)}">
                                 <f:convertNumber groupingUsed="true" minFractionDigits="2"/>
                             </h:outputText>
                         </p:column>
