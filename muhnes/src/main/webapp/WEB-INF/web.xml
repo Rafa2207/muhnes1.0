@@ -44,6 +44,56 @@
         <web-resource-collection>
             <web-resource-name>resources</web-resource-name>
             <url-pattern>/paginas/*</url-pattern>
+            <url-pattern>/bienvenido.xhtml</url-pattern>
+            <url-pattern>/cambiarcontra.xhtml</url-pattern>
+            <url-pattern>/paginas/Ayuda/*</url-pattern>
+            <url-pattern>/paginas/ControlExhibicion/*</url-pattern>
+            <url-pattern>/paginas/MapaAreasProtegidas/*</url-pattern>
+            <url-pattern>/paginas/actividadTb/*</url-pattern>
+            <url-pattern>/paginas/actividadIdentificaEjemplarTb/*</url-pattern>
+            <url-pattern>/paginas/agentePerfilTb/*</url-pattern>
+            <url-pattern>/paginas/agenteTb/*</url-pattern>
+            <url-pattern>/paginas/areaprotegidaTb/*</url-pattern>
+            <url-pattern>/paginas/bitacoraTb/*</url-pattern>
+            <url-pattern>/paginas/cantonTb/*</url-pattern>
+            <url-pattern>/paginas/configuracion/*</url-pattern>
+            <url-pattern>/paginas/departamentoTb/*</url-pattern>
+            <url-pattern>/paginas/despachoTb/*</url-pattern>
+            <url-pattern>/paginas/disminuirEjemplarTb/*</url-pattern>
+            <url-pattern>/paginas/donacionTb/*</url-pattern>
+            <url-pattern>/paginas/ejemplarParticipaExhibicionTb/*</url-pattern>
+            <url-pattern>/paginas/ejemplarTb/*</url-pattern>
+            <url-pattern>/paginas/ejemplarVivoTb/*</url-pattern>
+            <url-pattern>/paginas/especieTb/*</url-pattern>
+            <url-pattern>/paginas/exhibicionTb/*</url-pattern>
+            <url-pattern>/paginas/familiaTb/*</url-pattern>
+            <url-pattern>/paginas/generoTb/*</url-pattern>
+            <url-pattern>/paginas/horario/*</url-pattern>
+            <url-pattern>/paginas/imagenTb/*</url-pattern>
+            <url-pattern>/paginas/institucionTb/*</url-pattern>
+            <url-pattern>/paginas/insumoTb/*</url-pattern>
+            <url-pattern>/paginas/localidadTb/*</url-pattern>
+            <url-pattern>/paginas/materialDespachoTb/*</url-pattern>
+            <url-pattern>/paginas/materialPedidoTb/*</url-pattern>
+            <url-pattern>/paginas/materialProyectoTb/*</url-pattern>
+            <url-pattern>/paginas/materialTb/*</url-pattern>
+            <url-pattern>/paginas/municipioTb/*</url-pattern>
+            <url-pattern>/paginas/nombrecomunTb/*</url-pattern>
+            <url-pattern>/paginas/notapreliminarTb/*</url-pattern>
+            <url-pattern>/paginas/paisTb/*</url-pattern>
+            <url-pattern>/paginas/pedidoTb/*</url-pattern>
+            <url-pattern>/paginas/perfilTb/*</url-pattern>
+            <url-pattern>/paginas/presupuestoTb/*</url-pattern>
+            <url-pattern>/paginas/procesoejemplarTb/*</url-pattern>
+            <url-pattern>/paginas/prorrogaProyectoTb/*</url-pattern>
+            <url-pattern>/paginas/proyectoTb/*</url-pattern>
+            <url-pattern>/paginas/subespecieTb/*</url-pattern>
+            <url-pattern>/paginas/taxonomiaTb/*</url-pattern>
+            <url-pattern>/paginas/unidadesTb/*</url-pattern>
+            <url-pattern>/paginas/usuarioTb/*</url-pattern>
+            <url-pattern>/paginas/usuariosInactivosTb/*</url-pattern>
+            <url-pattern>/paginas/variedadTb/*</url-pattern>
+             
             <!--Aqui es para desactivar el logueo-->
         </web-resource-collection>
         <auth-constraint>
@@ -57,7 +107,15 @@
         <display-name>digi1</display-name>
         <web-resource-collection>
             <web-resource-name>resources</web-resource-name>
-            <url-pattern>/paginas/*</url-pattern>
+            <url-pattern>/bienvenido.xhtml</url-pattern>
+            <url-pattern>/cambiarcontra.xhtml</url-pattern>
+            <url-pattern>/paginas/Ayuda/*</url-pattern>
+            <url-pattern>/paginas/MapaAreasProtegidas/*</url-pattern>
+            <url-pattern>/paginas/areaprotegidaTb/*</url-pattern>
+            <url-pattern>/paginas/ejemplarTb/*</url-pattern>
+            <url-pattern>/paginas/disminuirEjemplarTb/*</url-pattern>
+            <url-pattern>/paginas/imagenTb/*</url-pattern>
+            <url-pattern>/paginas/localidadTb/*</url-pattern>          
             <!--Aqui es para desactivar el logueo-->
         </web-resource-collection>
         <auth-constraint>
@@ -67,6 +125,21 @@
             <transport-guarantee>NONE</transport-guarantee>
         </user-data-constraint>
     </security-constraint>
+    <security-constraint>
+        <display-name>todos</display-name>
+        <web-resource-collection>
+            <web-resource-name>resources</web-resource-name>
+            <url-pattern>/paginas/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Administrador</role-name>
+            <role-name>Digitador</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    
     <login-config>
         <auth-method>FORM</auth-method>
         <realm-name>muhnesRealm</realm-name>
@@ -75,6 +148,7 @@
             <form-error-page>/error.xhtml</form-error-page>
         </form-login-config>
     </login-config>
+    
     <security-role>
         <description/>
         <role-name>Administrador</role-name>

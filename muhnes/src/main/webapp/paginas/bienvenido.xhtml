@@ -4,116 +4,130 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="body">
             <h:form>
                 <p:panel header="Bienvenido">
-                    <h:panelGroup id="notificaciones">
-                        <p:panelGrid columns="2">
-                            <p:carousel class="notificacionesProyecto" footerText="Existen #{proyectoTbController.numeroDeNotificaciones} proyectos a finalizar" 
-                                        style="width: 500px;background: #006666"  rendered="#{not proyectoTbController.itemsNotificacion.isEmpty()}"
-                                        value="#{proyectoTbController.itemsNotificacion}" circular="true" headerText="Proyectos" numVisible="1" var="proy">
+                    <c:if test="#{request.isUserInRole('Administrador')}">
+                        <h:panelGroup id="notificaciones">
+                            <p:panelGrid columns="2">
+                                <p:carousel class="notificacionesProyecto" footerText="Existen #{proyectoTbController.numeroDeNotificaciones} proyectos a finalizar" 
+                                            style="width: 500px;background: #006666"  rendered="#{not proyectoTbController.itemsNotificacion.isEmpty()}"
+                                            value="#{proyectoTbController.itemsNotificacion}" circular="true" headerText="Proyectos" numVisible="1" var="proy">
 
-                                <p:panelGrid columns="1" style="width: 500px;text-align: center;height: 100px">
-                                    <b>#{proyectoTbController.NombreNotificacion(proy.MNombre,200)}</b>
-                                    <h:panelGroup>
-                                        <h:outputText value="Fecha de finalización: "/>
-                                        <b>
-                                            <font color="red">
-                                                <h:outputText value="#{proy.FFechaFin}">
-                                                    <f:convertDateTime pattern="dd MMMM yyyy" />
-                                                </h:outputText>
-                                            </font>
-                                        </b>
-                                    </h:panelGroup>
-                                </p:panelGrid>
-                                <p:panelGrid columns="1" style="text-align: center" layout="grid">
-                                    <p:commandButton style="background: #006666; color: #ffffff" value="Ir a proyectos" icon="ui-icon-folder-open" action="/paginas/proyectoTb/List.xhtml" 
-                                                     rendered="#{not proyectoTbController.itemsNotificacion.isEmpty()}"/>
-                                </p:panelGrid>
-                            </p:carousel>
 
-                            <p:carousel class="notificacionesActividad" footerText="Existen #{actividadTbController.numeroDeNotificaciones} actividades a finalizar" 
-                                        style="width: 500px; background: #000066"  value="#{actividadTbController.itemsNotificacion}" 
-                                        circular="true" headerText="Actividades" numVisible="1" var="actividad"
-                                        rendered="#{not actividadTbController.itemsNotificacion.isEmpty()}">
-                                <p:panelGrid columns="1" style="width: 500px;text-align: center;height: 100px">
-                                    <b>#{actividadTbController.NombreNotificacion(actividad.MNombre,200)}</b>
-                                    <h:panelGroup>
-                                        <h:outputText value="Fecha de finalización: "/>
-                                        <b>
-                                            <font color="red">
-                                                <h:outputText value="#{actividad.FFechaFinReal}">
-                                                    <f:convertDateTime pattern="dd MMMM yyyy" />
-                                                </h:outputText>
-                                            </font>
-                                        </b>
-                                    </h:panelGroup>
-                                </p:panelGrid>
-                                <p:panelGrid columns="2" style="text-align: center" layout="grid">
-                                    <p:commandButton style="background: #000066; color: #ffffff"  value="Ir a actividad" icon="ui-icon-bookmark" action="/paginas/actividadTb/List.xhtml" rendered="#{not actividadTbController.itemsNotificacion.isEmpty()}">
-                                        <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{actividad.EIdproyecto}"/>
-                                    </p:commandButton>
-                                    <p:commandButton style="background: #000066;color: #ffffff" value="Ver agenda" icon="ui-icon-bookmark" action="/paginas/horario/controlProyectos.xhtml" rendered="#{not actividadTbController.itemsNotificacion.isEmpty()}">
-                                        <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{actividad.EIdproyecto}"/>
-                                    </p:commandButton>
-                                </p:panelGrid>
-                            </p:carousel>
+                                    <p:panelGrid columns="1" style="width: 500px;text-align: center;height: 100px">
+                                        <b>#{proyectoTbController.NombreNotificacion(proy.MNombre,200)}</b>
+                                        <h:panelGroup>
+                                            <h:outputText value="Fecha de finalización: "/>
+                                            <b>
+                                                <font color="red">
+                                                    <h:outputText value="#{proy.FFechaFin}">
+                                                        <f:convertDateTime pattern="dd MMMM yyyy" />
+                                                    </h:outputText>
+                                                </font>
+                                            </b>
+                                        </h:panelGroup>
+                                    </p:panelGrid>
+                                    <p:panelGrid columns="1" style="text-align: center" layout="grid">
+                                        <p:commandButton style="background: #006666; color: #ffffff" value="Ir a proyectos" icon="ui-icon-folder-open" action="/paginas/proyectoTb/List.xhtml" 
+                                                         rendered="#{not proyectoTbController.itemsNotificacion.isEmpty()}"/>
+                                    </p:panelGrid>
+                                </p:carousel>
 
-                            <p:carousel class="notificacionesProceso" style="width: 500px;background: #660000" 
-                                        value="#{procesoejemplarTbController.itemsNotificacion}"
-                                        circular="true" headerText="Proceso ejemplar" numVisible="1" var="proceso"
-                                        footerText="Existen #{procesoejemplarTbController.numeroDeNotificaciones} procesos de ejemplar a finalizar"
-                                        rendered="#{not procesoejemplarTbController.itemsNotificacion.isEmpty()}">
-                                <p:panelGrid columns="1" style="width: 500px;height: 100px;text-align: center">
-                                    <b>#{procesoejemplarTbController.NombreNotificacion(proceso)}</b>
-                                    <h:panelGroup>
-                                        <h:outputText value="Fecha de finalización: "/>
-                                        <b>
-                                            <font color="red">
-                                                <h:outputText value="#{proceso.FFechafin}">
-                                                    <f:convertDateTime pattern="dd MMMM yyyy" />
-                                                </h:outputText>
-                                            </font>
-                                        </b>
-                                    </h:panelGroup>
-                                </p:panelGrid>
-                                <p:panelGrid columns="1" style="text-align: center" layout="grid">
-                                    <p:commandButton style="background: #660000;color: #ffffff"  value="Ir al proceso del ejemplar" icon="ui-icon-clock" action="/paginas/procesoejemplarTb/List.xhtml" >
-                                        <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{proceso.EIdproyecto}"/>
-                                    </p:commandButton>
-                                </p:panelGrid>
-                            </p:carousel>
+                                <p:carousel class="notificacionesActividad" footerText="Existen #{actividadTbController.numeroDeNotificaciones} actividades a finalizar" 
+                                            style="width: 500px; background: #000066"  value="#{actividadTbController.itemsNotificacion}" 
+                                            circular="true" headerText="Actividades" numVisible="1" var="actividad"
+                                            rendered="#{not actividadTbController.itemsNotificacion.isEmpty()}">
+                                    <p:panelGrid columns="1" style="width: 500px;text-align: center;height: 100px">
+                                        <b>#{actividadTbController.NombreNotificacion(actividad.MNombre,200)}</b>
+                                        <h:panelGroup>
+                                            <h:outputText value="Fecha de finalización: "/>
+                                            <b>
+                                                <font color="red">
+                                                    <h:outputText value="#{actividad.FFechaFinReal}">
+                                                        <f:convertDateTime pattern="dd MMMM yyyy" />
+                                                    </h:outputText>
+                                                </font>
+                                            </b>
+                                        </h:panelGroup>
+                                    </p:panelGrid>
+                                    <p:panelGrid columns="2" style="text-align: center" layout="grid">
+                                        <p:commandButton style="background: #000066; color: #ffffff"  value="Ir a actividad" icon="ui-icon-bookmark" action="/paginas/actividadTb/List.xhtml" rendered="#{not actividadTbController.itemsNotificacion.isEmpty()}">
+                                            <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{actividad.EIdproyecto}"/>
+                                        </p:commandButton>
+                                        <p:commandButton style="background: #000066;color: #ffffff" value="Ver agenda" icon="ui-icon-bookmark" action="/paginas/horario/controlProyectos.xhtml" rendered="#{not actividadTbController.itemsNotificacion.isEmpty()}">
+                                            <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{actividad.EIdproyecto}"/>
+                                        </p:commandButton>
+                                    </p:panelGrid>
+                                </p:carousel>
 
-                            <p:carousel class="notificacionesExhibiciones" style="width: 500px;background: #003300"  
-                                        value="#{exhibicionTbController.itemsNotificacion}" 
-                                        footerText="Existen #{exhibicionTbController.numeroDeNotificaciones} exhibiciones a finalizar"
-                                        circular="true" headerText="Exhibiciones" numVisible="1" var="exhibicion"
-                                        rendered="#{not exhibicionTbController.itemsNotificacion.isEmpty()}">
-                                <p:panelGrid columns="1" style="width: 500px;height: 100px;text-align: center">
-                                    <b>#{exhibicionTbController.NombreNotificacion(exhibicion)}</b>
-                                    <h:panelGroup>
-                                        <h:outputText value="Fecha a recibir: "/>
-                                        <b>
-                                            <font color="red">
-                                                <h:outputText value="#{exhibicion.FFechaRecibido}">
-                                                    <f:convertDateTime pattern="dd MMMM yyyy" />
-                                                </h:outputText>
-                                            </font>
-                                        </b>
-                                    </h:panelGroup>
-                                </p:panelGrid>   
-                                <p:panelGrid columns="1" style="text-align: center" layout="grid">
-                                    <p:commandButton style="background: #003300;color: #ffffff" value="Ver exhibiciones" icon="ui-icon-calendar" 
-                                                     action="/paginas/exhibicionTb/List.xhtml"/>
-                                </p:panelGrid>
-                            </p:carousel>
-                        </p:panelGrid>
-                    </h:panelGroup>
-                    <h:panelGroup id="imagenMuhnes" rendered="#{proyectoTbController.itemsNotificacion.isEmpty() and actividadTbController.itemsNotificacion.isEmpty() 
-                                                                and procesoejemplarTbController.itemsNotificacion.isEmpty() and exhibicionTbController.itemsNotificacion.isEmpty()}">
+                                <p:carousel class="notificacionesProceso" style="width: 500px;background: #660000" 
+                                            value="#{procesoejemplarTbController.itemsNotificacion}"
+                                            circular="true" headerText="Proceso ejemplar" numVisible="1" var="proceso"
+                                            footerText="Existen #{procesoejemplarTbController.numeroDeNotificaciones} procesos de ejemplar a finalizar"
+                                            rendered="#{not procesoejemplarTbController.itemsNotificacion.isEmpty()}">
+                                    <p:panelGrid columns="1" style="width: 500px;height: 100px;text-align: center">
+                                        <b>#{procesoejemplarTbController.NombreNotificacion(proceso)}</b>
+                                        <h:panelGroup>
+                                            <h:outputText value="Fecha de finalización: "/>
+                                            <b>
+                                                <font color="red">
+                                                    <h:outputText value="#{proceso.FFechafin}">
+                                                        <f:convertDateTime pattern="dd MMMM yyyy" />
+                                                    </h:outputText>
+                                                </font>
+                                            </b>
+                                        </h:panelGroup>
+                                    </p:panelGrid>
+                                    <p:panelGrid columns="1" style="text-align: center" layout="grid">
+                                        <p:commandButton style="background: #660000;color: #ffffff"  value="Ir al proceso del ejemplar" icon="ui-icon-clock" action="/paginas/procesoejemplarTb/List.xhtml" >
+                                            <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{proceso.EIdproyecto}"/>
+                                        </p:commandButton>
+                                    </p:panelGrid>
+                                </p:carousel>
+
+                                <p:carousel class="notificacionesExhibiciones" style="width: 500px;background: #003300"  
+                                            value="#{exhibicionTbController.itemsNotificacion}" 
+                                            footerText="Existen #{exhibicionTbController.numeroDeNotificaciones} exhibiciones a finalizar"
+                                            circular="true" headerText="Exhibiciones" numVisible="1" var="exhibicion"
+                                            rendered="#{not exhibicionTbController.itemsNotificacion.isEmpty()}">
+                                    <p:panelGrid columns="1" style="width: 500px;height: 100px;text-align: center">
+                                        <b>#{exhibicionTbController.NombreNotificacion(exhibicion)}</b>
+                                        <h:panelGroup>
+                                            <h:outputText value="Fecha a recibir: "/>
+                                            <b>
+                                                <font color="red">
+                                                    <h:outputText value="#{exhibicion.FFechaRecibido}">
+                                                        <f:convertDateTime pattern="dd MMMM yyyy" />
+                                                    </h:outputText>
+                                                </font>
+                                            </b>
+                                        </h:panelGroup>
+                                    </p:panelGrid>   
+                                    <p:panelGrid columns="1" style="text-align: center" layout="grid">
+                                        <p:commandButton style="background: #003300;color: #ffffff" value="Ver exhibiciones" icon="ui-icon-calendar" 
+                                                         action="/paginas/exhibicionTb/List.xhtml"/>
+                                    </p:panelGrid>
+                                </p:carousel>
+                            </p:panelGrid>
+                        </h:panelGroup>
+
+                        <h:panelGroup id="imagenMuhnes" rendered="#{proyectoTbController.itemsNotificacion.isEmpty() and actividadTbController.itemsNotificacion.isEmpty() 
+                                                                    and procesoejemplarTbController.itemsNotificacion.isEmpty() and exhibicionTbController.itemsNotificacion.isEmpty()}">
+                            <div align="center">
+                                <p:imageSwitch  effect="fade" slideshowSpeed="5000" id="fadeEffect">
+                                    <ui:repeat value="#{imagenTbController.imagenes()}" var="image" id="fadeEffectImages">
+                                        <p:graphicImage name="images/galleria/#{image}" id="image" height="450" width="800" />
+                                    </ui:repeat>
+                                </p:imageSwitch>
+                            </div>
+                        </h:panelGroup>
+                    </c:if>
+                    <c:if test="#{request.isUserInRole('Digitador')}">
                         <div align="center">
                             <p:imageSwitch  effect="fade" slideshowSpeed="5000" id="fadeEffect">
                                 <ui:repeat value="#{imagenTbController.imagenes()}" var="image" id="fadeEffectImages">
@@ -121,7 +135,7 @@
                                 </ui:repeat>
                             </p:imageSwitch>
                         </div>
-                    </h:panelGroup>
+                    </c:if>
                 </p:panel>
             </h:form>
         </ui:define>

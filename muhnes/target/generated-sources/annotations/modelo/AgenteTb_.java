@@ -10,7 +10,7 @@ import modelo.AgentePerfilTb;
 import modelo.AgenteTaxonomiaTb;
 import modelo.InstitucionTb;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2016-01-11T16:52:58")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2016-01-12T12:05:51")
 @StaticMetamodel(AgenteTb.class)
 public class AgenteTb_ { 
 
