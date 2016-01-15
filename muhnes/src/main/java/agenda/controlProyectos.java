@@ -257,6 +257,7 @@ public class controlProyectos {
         FacesContext context = FacesContext.getCurrentInstance();
         eventModel.clear();
         actividadView.setEEstado(2);
+        actividadView.setEEstadoPermanente(actividadView.getEEstado());
         int DiasDuracionActividad = diasDuracionActividad(actividadView.getFFecha(), actividadView.getFFechafin());
         Date fechaFinal = calcularFechaFinEspectativa(actividadView.getFFechaInicioReal(), DiasDuracionActividad);
         actividadView.setFFechaFinReal(fechaFinal);
@@ -279,6 +280,7 @@ public class controlProyectos {
         Integer NumActividad = 0, TotalActTerminadas = 0;
         eventModel.clear();
         actividadView.setEEstado(3);
+        actividadView.setEEstadoPermanente(actividadView.getEEstado());
         try {
             getFacadeActividad().edit(actividadView);
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Actividad finalizada", "INFO"));
@@ -305,16 +307,11 @@ public class controlProyectos {
 
         init();
     }
-    
-    public void reactivarActividad(){
-        
+
+    public void reactivarActividad() {
+
         FacesContext context = FacesContext.getCurrentInstance();
-        if(actividadView.getFFechaInicioReal()==null){
-          actividadView.setEEstado(2);  
-        }
-        else{
-            actividadView.setEEstado(1);
-        }
+            actividadView.setEEstado(actividadView.getEEstadoPermanente());
         
         try {
             getFacadeActividad().edit(actividadView);
@@ -323,6 +320,16 @@ public class controlProyectos {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error, no se puede activar la actividad", "INFO"));
         }
         init();
-        
+
+    }
+
+    public void modificarFinalizados() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        try {
+            getFacadeActividad().edit(actividadView);
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Actividad modificada", "INFO"));
+        } catch (Exception e) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error, no se puede modificar la actividad", "INFO"));
+        }
     }
 }

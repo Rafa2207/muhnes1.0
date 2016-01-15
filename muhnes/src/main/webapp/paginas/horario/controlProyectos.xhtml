@@ -197,15 +197,14 @@
                                           rendered="#{controlProyectos.actividadView.MJustificacion != null}"/>
 
                         </p:panelGrid>
-                        <p:commandButton value="Modificar">
-                        </p:commandButton>
+                        <p:commandButton value="Modificar" icon="ui-icon-pencil" update=":ProyectoTbModificarFinForm" oncomplete="PF('ProyectoTbModificarFinDialog').show()"/>
                     </h:panelGroup>
                     <!-- Fin Actividades finalizadas-->
 
                 </p:dialog>    
             </h:form>
 
-
+            <ui:include src="modificarFinalizado.xhtml"/>
         </ui:define>
     </ui:composition>
 

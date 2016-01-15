@@ -30,6 +30,11 @@
                                      update=":ProyectoTbDesactivarForm" oncomplete="PF('ProyectoTbDesactivarDialog').show()"
                                      disabled="#{empty proyectoTbController.selected || proyectoTbController.selected.EEstado==2 || proyectoTbController.selected.EEstado==3}"
                                      actionListener="#{proyectoTbController.prepareFinalizar()}" />
+                    
+                    <p:commandButton id="ActivarButton" icon="ui-icon-unlocked" value="Activar"
+                                     update=":ProyectoTbActivarForm" oncomplete="PF('ProyectoTbActivarDialog').show()"
+                                     disabled="#{empty proyectoTbController.selected || proyectoTbController.selected.EEstado!=3}"
+                                     actionListener="#{proyectoTbController.prepareActivar()}"/>
 
                     <!--  <p:commandButton id="Calendarizacion" icon="ui-icon-bookmark"  value="Toda la calendarización" action="/paginas/horario/List.xhtml" />   -->               
 
@@ -45,8 +50,8 @@
                                  widgetVar="proyectoTable"                                 
                                  >
 
-                        <p:ajax event="rowSelect"   update=":ProyectoTbListForm:controlAgenda :ProyectoTbListForm:FinalizarButton"/>
-                        <p:ajax event="rowUnselect" update=":ProyectoTbListForm:controlAgenda :ProyectoTbListForm:FinalizarButton"/>
+                        <p:ajax event="rowSelect"   update=":ProyectoTbListForm:ActivarButton :ProyectoTbListForm:controlAgenda :ProyectoTbListForm:FinalizarButton"/>
+                        <p:ajax event="rowUnselect" update=":ProyectoTbListForm:ActivarButton :ProyectoTbListForm:controlAgenda :ProyectoTbListForm:FinalizarButton"/>
 
 
                         <p:column filterBy="#{item.MNombre}" filterStyle="display:none">
@@ -90,6 +95,7 @@
             </h:form>
 
             <ui:include src="desactivar.xhtml"/>
+            <ui:include src="activar.xhtml"/>
 
         </ui:define>
     </ui:composition>

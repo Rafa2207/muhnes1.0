@@ -8,28 +8,25 @@
 
     <ui:composition>
 
-        <p:dialog id="ProyectoTbDesactivarDlg" widgetVar="ProyectoTbDesactivarDialog" modal="true" resizable="false" appendTo="@(body)" header="Desactivar">
-            <h:form id="ProyectoTbDesactivarForm">
+        <p:dialog id="ProyectoTbActivarDlg" widgetVar="ProyectoTbActivarDialog" modal="true" resizable="false" appendTo="@(body)" header="Activar">
+            <h:form id="ProyectoTbActivarForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2">
-                        <p:outputLabel value="Justificación:" for="justificacion" />
-                        <p:inputTextarea rows="2" cols="27" autoResize="" id="justificacion" 
-                                         value="#{proyectoTbController.selected.MInformacionAdicional}" 
-                                         title="Justificación" required="true" requiredMessage="ingrese justificación" />
+                        
                         <p:outputLabel value="Fecha:" for="FFechaFin" />
                         <p:calendar id="FFechaFin"  size="15"
-                                    pattern="dd MMMM yyyy" value="#{proyectoTbController.prorroga.FFechaInicio}" 
+                                    pattern="dd MMMM yyyy" value="#{proyectoTbController.prorroga.FFechaFin}" 
                                     title="Fecha"  showOn="button"
                                     required="true"
                                     requiredMessage="Introduzca fecha fin"
                                     locale="es" readonlyInput="true"
-                                    mindate="#{proyectoTbController.fechaMaxima}">
+                                    mindate="#{proyectoTbController.prorroga.FFechaInicio}">
                         </p:calendar>
 
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{proyectoTbController.finalizarProyecto()}" 
+                    <p:commandButton actionListener="#{proyectoTbController.activarProyecto()}" 
                                      value="#{bundle.Save}" update="display,:ProyectoTbListForm:datalist,:growl" 
-                                     oncomplete="handleSubmit(args,'ProyectoTbDesactivarDialog');"/>
+                                     oncomplete="handleSubmit(args,'ProyectoTbActivarDialog');"/>
 
                 </h:panelGroup>
             </h:form>

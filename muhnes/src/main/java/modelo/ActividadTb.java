@@ -58,6 +58,9 @@ public class ActividadTb implements Serializable {
     @Column(name = "m_descripcion")
     private String mDescripcion;
     @Size(max = 2147483647)
+    @Column(name = "m_motivo")
+    private String mMotivo;
+    @Size(max = 2147483647)
     @Column(name = "m_nombre")
     private String mNombre;
     @Column(name = "f_fechafin")
@@ -82,6 +85,8 @@ public class ActividadTb implements Serializable {
     private Double dGastoAdicional;
     @Column(name = "e_estado")
     private Integer eEstado;
+    @Column(name = "e_estado_permanente")
+    private Integer eEstadoPermanente;
     @JoinColumn(name = "e_idproyecto", referencedColumnName = "e_idproyecto")
     @ManyToOne
     private ProyectoTb eIdproyecto;
@@ -190,9 +195,23 @@ public class ActividadTb implements Serializable {
     public void setEEstado(Integer eEstado) {
         this.eEstado = eEstado;
     }
-    
-    
 
+    public Integer getEEstadoPermanente() {
+        return eEstadoPermanente;
+    }
+
+    public void setEEstadoPermanente(Integer eEstadoPermanente) {
+        this.eEstadoPermanente = eEstadoPermanente;
+    }
+
+    public String getMMotivo() {
+        return mMotivo;
+    }
+
+    public void setMMotivo(String mMotivo) {
+        this.mMotivo = mMotivo;
+    }
+    
     public ProyectoTb getEIdproyecto() {
         return eIdproyecto;
     }

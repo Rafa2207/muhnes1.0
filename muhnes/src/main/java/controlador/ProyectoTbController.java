@@ -46,7 +46,7 @@ public class ProyectoTbController implements Serializable {
     private List<ProyectoTb> items = null, filtro, ListaProyecto = null, itemsProyecto = null, itemsNotificacion = null, listaNotificacion = null;
     private ProyectoTb selected;
     private ProrrogaProyectoTb prorroga;
-    private Date fechatemporal, fechaActual = new Date();
+    private Date fechatemporal, fechaActual = new Date(), FechaMaxima;
     int NumeroDeNotificaciones = 0;
     String agente;
     @PersistenceContext(unitName = "muhnes_muhnes_war_1.0-SNAPSHOTPU")
@@ -152,6 +152,14 @@ public class ProyectoTbController implements Serializable {
 
     public void setItemsNotificacion(List<ProyectoTb> itemsNotificacion) {
         this.itemsNotificacion = itemsNotificacion;
+    }
+
+    public Date getFechaMaxima() {
+        return FechaMaxima;
+    }
+
+    public void setFechaMaxima(Date FechaMaxima) {
+        this.FechaMaxima = FechaMaxima;
     }
 
     public List<ProyectoTb> getItemsNotificacion() {
@@ -384,12 +392,37 @@ public class ProyectoTbController implements Serializable {
         prorroga.setENumprorroga(1);
         selected.getProrrogaProyectoTbList().clear();
         selected.setProrrogaProyectoTbList(getFacadeProrroga().buscarProrroga(selected));
+        FechaMaxima = selected.getFFechaInicio();
+        for (ProrrogaProyectoTb p : selected.getProrrogaProyectoTbList()) {
+            try {
+                if (p.getFFechaFin().after(FechaMaxima)) {
+                    FechaMaxima = p.getFFechaFin();
+                }
+            } catch (Exception e) {
+            }
+        }
         initializeEmbeddableKey();
+    }
+
+    public void prepareActivar() {
+        int i = 0;
+        prorroga = new ProrrogaProyectoTb();
+        selected.getProrrogaProyectoTbList().clear();
+        selected.setProrrogaProyectoTbList(getFacadeProrroga().buscarProrroga(selected));
+        for (ProrrogaProyectoTb proProy : selected.getProrrogaProyectoTbList()) {
+            if (proProy.getENumprorroga() > i) {
+                i = proProy.getENumprorroga();
+                prorroga = proProy;
+            }
+        }
     }
 
     public void finalizarProyecto() {
         int i = 1;
         FacesContext context = FacesContext.getCurrentInstance();
+        selected.getActividadTbList().clear();
+        selected.setActividadTbList(getFacadeActividad().buscarAsc(selected));
+
         for (ProrrogaProyectoTb p : selected.getProrrogaProyectoTbList()) {
             i++;
             prorroga.setENumprorroga(i);
@@ -399,7 +432,28 @@ public class ProyectoTbController implements Serializable {
 
         getFacadeProrroga().create(prorroga);
         getFacade().edit(selected);
+        for (ActividadTb ac : selected.getActividadTbList()) {
+            ac.setEEstado(0);
+            getFacadeActividad().edit(ac);
+        }
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Proyecto Cancelado", "INFO"));
+    }
+
+    public void activarProyecto() {
+        FacesContext context = FacesContext.getCurrentInstance();
+
+        selected.getActividadTbList().clear();
+        selected.setActividadTbList(getFacadeActividad().buscarAsc(selected));
+        
+        selected.setEEstado(1);
+        getFacadeProrroga().edit(prorroga);
+        getFacade().edit(selected);
+        for (ActividadTb ac : selected.getActividadTbList()) {
+            ac.setEEstado(ac.getEEstadoPermanente());
+            getFacadeActividad().edit(ac);
+        }
+        
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Proyecto Activado", "INFO"));
     }
 
     public String NombreNotificacion(String p, int n) {

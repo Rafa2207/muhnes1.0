@@ -197,6 +197,7 @@ public class ActividadTbController implements Serializable {
         proyectos = proyecto;
         selected.setEIdproyecto(proyectos);
         selected.setEEstado(1);
+        selected.setEEstadoPermanente(selected.getEEstado());
         selected.setDGastoAdicional(0.0);
         selected.setInsumoTbList(new ArrayList<InsumoTb>());
         tActividad = false;
