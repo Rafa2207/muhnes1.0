@@ -48,6 +48,9 @@
                                 <f:convertNumber type="number" groupingUsed="true" minFractionDigits="2" pattern="$#0.00"/>
                             </h:outputText>
 
+                            <h:outputText value="Motivo de cancelación:"/>
+                            <h:outputText value="#{controlProyectos.actividadView.MMotivo}"/>
+
                             <h:outputText value="Fecha inicio prevista:"/>
                             <h:outputText value="#{controlProyectos.actividadView.FFecha}">
                                 <f:convertDateTime pattern="dd MMMM yyyy" />
@@ -59,7 +62,8 @@
                             </h:outputText>
 
                         </p:panelGrid>
-                        <p:commandButton actionListener="#{controlProyectos.reactivarActividad()}" update="cancelado :ControlForm:agendaId :growl" value="Activar actividad" oncomplete="handleSubmit(args, 'dialogVer');" >
+                        <p:commandButton actionListener="#{controlProyectos.reactivarActividad()}" update="cancelado :ControlForm:agendaId :growl" value="Activar actividad" oncomplete="handleSubmit(args, 'dialogVer');" 
+                                         rendered="#{controlProyectos.actividadView.EIdproyecto.EEstado!=2}">
                             <p:confirm header="Confirmación" message="¿Está seguro que desea activar la actividad?" icon="ui-icon-alert" />
                         </p:commandButton>
                     </h:panelGroup>
