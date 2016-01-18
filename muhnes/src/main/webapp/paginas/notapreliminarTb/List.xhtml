@@ -43,21 +43,21 @@
                         <p:ajax event="rowSelect"   update=":NotapreliminarTbListForm:createButton :NotapreliminarTbListForm:viewButton :NotapreliminarTbListForm:editButton :NotapreliminarTbListForm:deleteButton"/>
                         <p:ajax event="rowUnselect" update=":NotapreliminarTbListForm:createButton :NotapreliminarTbListForm:viewButton :NotapreliminarTbListForm:editButton :NotapreliminarTbListForm:deleteButton"/>
 
-                        <p:column filterBy="#{item.CNombre}" filterStyle="display:none">
+                        <p:column filterBy="#{item.CNombre}" filterStyle="display:none" width="25%">
                             <f:facet name="header">
                                 <h:outputText value="#{bundleNotas.ListNotapreliminarTbTitle_CNombre}"/>
                             </f:facet>
                             <h:outputText value="#{item.CNombre}"/>
                         </p:column>
 
-                        <p:column filterBy="#{item.MDescripcion}" filterStyle="display:none">
+                        <p:column filterBy="#{item.MDescripcion}" filterStyle="display:none" >
                             <f:facet name="header">
                                 <h:outputText value="#{bundleNotas.ListNotapreliminarTbTitle_MDescripcion}"/>
                             </f:facet>
-                            <h:outputText value="#{item.MDescripcion}"/>
+                            <h:outputText value="#{proyectoTbController.NombreNotificacion(item.MDescripcion, 60)}"/>
                         </p:column>
 
-                        <p:column filterBy="#{item.FFecha}" filterStyle="display:none">
+                        <p:column filterBy="#{item.FFecha}" filterStyle="display:none" width="15%" style="text-align: center">
                             <f:facet name="header">
                                 <h:outputText value="#{bundleNotas.ListNotapreliminarTbTitle_FFecha}"/>
                             </f:facet>
@@ -66,18 +66,11 @@
                             </h:outputText>
                         </p:column>
 
-                        <p:column filterBy="#{item.CUbicacion}" filterStyle="display:none">
+                        <p:column filterBy="#{item.CUbicacion}" filterStyle="display:none" width="20%">
                             <f:facet name="header">
                                 <h:outputText value="#{bundleNotas.ListNotapreliminarTbTitle_CUbicacion}"/>
                             </f:facet>
                             <h:outputText value="#{item.CUbicacion}"/>
-                        </p:column>
-
-                        <p:column filterBy="#{notapreliminarTbController.NombreUsuario(item.EIdusuario)}" filterStyle="display:none">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundleNotas.ListNotapreliminarTbTitle_EIdusuario}"/>
-                            </f:facet>
-                            <h:outputText value="#{notapreliminarTbController.NombreUsuario(item.EIdusuario)}"/>
                         </p:column>
 
                         <f:facet name="header">

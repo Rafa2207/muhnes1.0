@@ -99,14 +99,9 @@ public class NotapreliminarTbController implements Serializable {
     }
 
     public NotapreliminarTb prepareCreate(String usuario, ProyectoTb proyecto) {
-        
         selected = new NotapreliminarTb();
-       
         initializeEmbeddableKey();
-        user = getUsuarioFacade().BuscarUsuario(usuario);
         selected.setEIdproyecto(proyecto);
-        selected.setEIdusuario(user.getEIdusuario());
-        selected.setENumcorrelativo(getFacade().CorrelativoPorUsuario(user.getEIdusuario()));
         return selected;
     }
 

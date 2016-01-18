@@ -21,7 +21,8 @@
                         <p:inputTextarea cols="60" rows="2" autoResize="" id="MDescripcion" value="#{localidadTbController.selected.MDescripcion}" title="#{bundle.CreateLocalidadTbTitle_MDescripcion}" />
                     </p:panelGrid >
 
-                    <p:panelGrid columns="8" rendered="#{localidadTbController.selected != null}" >
+                    <p:panelGrid columns="9" rendered="#{localidadTbController.selected != null}" >
+                        <b>Latitud</b>
                         <p:outputLabel value="Grados:" for="Grados" />
                         <p:inputText id="Grados" value="#{localidadTbController.selected.ELatitudgrados}" maxlength="4" size="4"
                                      title="Rangos válidos: -360 a 360" required="true" requiredMessage="Introduzca grados de latitud" >
@@ -54,10 +55,12 @@
                                                 localidadTbController.selected.DLatitudsegundos)}" />
                         </p:inputText>
 
-                        <p:outputLabel value="Latitud:" for="Latitud" />
+                        <p:outputLabel value="Decimal:" for="Latitud" />
                         <p:inputText readonly="true" id="Latitud" value="#{localidadTbController.selected.DLatitudDecimal}" title="Latitud" 
                                      required="true" requiredMessage="Introduzca latitud decimal"/>
 
+                        <b>Longitud</b>
+                        
                         <p:outputLabel value="Grados:" for="Grados2" />
                         <p:inputText id="Grados2" value="#{localidadTbController.selected.ELongitudgrados}" maxlength="4" size="4"
                                      title="Rangos válidos: -360 a 360" required="true" requiredMessage="Introduzca grados de longitud">
@@ -90,7 +93,7 @@
                                                 localidadTbController.selected.DLongitudsegundos)}" />
                         </p:inputText>
 
-                        <p:outputLabel value="Longitud:" for="Longitud" />
+                        <p:outputLabel value="Decimal:" for="Longitud" />
                         <p:inputText readonly="true" id="Longitud" value="#{localidadTbController.selected.DLongitudDecimal}" title="Longitud" 
                                      required="true" requiredMessage="Introduzca longitud decimales"/>
                     </p:panelGrid>

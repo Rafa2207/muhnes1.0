@@ -292,7 +292,7 @@ public class controlProyectos {
         for (ActividadTb a : listaActividad) {
             if (a.getEIdproyecto().getEIdproyecto() == actividadView.getEIdproyecto().getEIdproyecto()) {
                 NumActividad++;
-                if (a.getEEstado() == 3) {
+                if (a.getEEstado() == 3 || a.getEEstado() == 0) {
                     TotalActTerminadas++;
                 }
             }
@@ -311,8 +311,8 @@ public class controlProyectos {
     public void reactivarActividad() {
 
         FacesContext context = FacesContext.getCurrentInstance();
-            actividadView.setEEstado(actividadView.getEEstadoPermanente());
-        
+        actividadView.setEEstado(actividadView.getEEstadoPermanente());
+
         try {
             getFacadeActividad().edit(actividadView);
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Actividad activada nuevamente", "INFO"));
@@ -331,5 +331,37 @@ public class controlProyectos {
         } catch (Exception e) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error, no se puede modificar la actividad", "INFO"));
         }
+    }
+
+    public void desactivarActividad() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        actividadView.setEEstado(0);
+        try {
+            getFacadeActividad().edit(actividadView);
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Actividad desactivada", "INFO"));
+        } catch (Exception e) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error, no se puede desactivar la actividad", "INFO"));
+        }
+
+        Integer NumActividad = 0, TotalActTerminadas = 0;
+
+        listaActividad = getFacadeActividad().findAll();
+        for (ActividadTb a : listaActividad) {
+            if (a.getEIdproyecto().getEIdproyecto() == actividadView.getEIdproyecto().getEIdproyecto()) {
+                NumActividad++;
+                if (a.getEEstado() == 3 || a.getEEstado() == 0) {
+                    TotalActTerminadas++;
+                }
+            }
+        }
+
+        if (TotalActTerminadas == NumActividad) {
+            actividadView.getEIdproyecto().setEEstado(2);
+            getFacadeProyecto().edit(actividadView.getEIdproyecto());
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Proyecto Finalizado", "INFO"));
+
+        }
+
+        init();
     }
 }

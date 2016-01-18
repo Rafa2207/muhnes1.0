@@ -13,13 +13,6 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" style="width: 450px" rendered="#{notapreliminarTbController.selected != null}">
                         
-                        <h:outputText value="Correlativo"/>
-                        <h:outputText value="#{notapreliminarTbController.selected.ENumcorrelativo}" title="#{bundleNotas.ViewNotapreliminarTbTitle_ENumcorrelativo}"/>
-                        
-                        <h:outputText value="Usuario:"/>
-                        <h:outputText value="#{notapreliminarTbController.NombreUsuario(notapreliminarTbController.selected.EIdusuario)}" title="#{bundleNotas.ViewNotapreliminarTbTitle_EIdusuario}"/>
-                        
-                        
                         <h:outputText value="Nombre:"/>
                         <h:outputText value="#{notapreliminarTbController.selected.CNombre}" title="#{bundleNotas.ViewNotapreliminarTbTitle_CNombre}"/>
                         
