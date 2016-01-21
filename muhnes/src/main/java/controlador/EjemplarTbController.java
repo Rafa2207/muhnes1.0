@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
+import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -22,6 +23,10 @@ import javax.faces.view.ViewScoped;
 import modelo.AgenteIdentificaEjemplarTb;
 import modelo.AgenteIdentificaEjemplarTbPK;
 import modelo.AgenteTb;
+import modelo.EjemplarDonacionTb;
+import modelo.EjemplarNombrecomunTb;
+import modelo.InstitucionTb;
+import modelo.NombrecomunTb;
 //import modelo.EspecieTb;
 
 @Named("ejemplarTbController")
@@ -32,16 +37,72 @@ public class EjemplarTbController implements Serializable {
     private servicio.EjemplarTbFacade ejbFacade;
     @EJB
     private servicio.AgenteTbFacade agenteFacade;
+    @EJB
+    private servicio.InstitucionTbFacade institucionFacade;
     private List<EjemplarTb> items = null, filtro;
     private EjemplarTb selected;
     private AgenteTb agente;
+    private NombrecomunTb nc;
     private List<AgenteTb> listaAgenteR, listaAgenteI;
+    private List<NombrecomunTb> listaNombreComun;
+    private List<InstitucionTb> listaInstitucion;
     private AgenteIdentificaEjemplarTb agenteIdentifica;
+    private EjemplarNombrecomunTb ejemplarnc;
+    private EjemplarDonacionTb ejemplarIns;
     private String tipoTaxon;
     private String cod;
     private boolean familia;
+    private InstitucionTb ins;
 
     public EjemplarTbController() {
+    }
+
+    public EjemplarDonacionTb getEjemplarIns() {
+        return ejemplarIns;
+    }
+
+    public void setEjemplarIns(EjemplarDonacionTb ejemplarIns) {
+        this.ejemplarIns = ejemplarIns;
+    }
+
+    public InstitucionTb getIns() {
+        return ins;
+    }
+
+    public void setIns(InstitucionTb ins) {
+        this.ins = ins;
+    }
+
+    public List<NombrecomunTb> getListaNombreComun() {
+        return listaNombreComun;
+    }
+
+    public void setListaNombreComun(List<NombrecomunTb> listaNombreComun) {
+        this.listaNombreComun = listaNombreComun;
+    }
+
+    public List<InstitucionTb> getListaInstitucion() {
+        return listaInstitucion;
+    }
+
+    public void setListaInstitucion(List<InstitucionTb> listaInstitucion) {
+        this.listaInstitucion = listaInstitucion;
+    }
+
+    public EjemplarNombrecomunTb getEjemplarnc() {
+        return ejemplarnc;
+    }
+
+    public void setEjemplarnc(EjemplarNombrecomunTb ejemplarnc) {
+        this.ejemplarnc = ejemplarnc;
+    }
+
+    public NombrecomunTb getNc() {
+        return nc;
+    }
+
+    public void setNc(NombrecomunTb nc) {
+        this.nc = nc;
     }
 
     public String getCod() {
@@ -130,7 +191,10 @@ public class EjemplarTbController implements Serializable {
         selected = new EjemplarTb();
         selected.setAgenteIdentificaEjemplarTbList(new ArrayList<AgenteIdentificaEjemplarTb>());
         selected.setAgenteIdentificaEjemplarTbIDList(new ArrayList<AgenteIdentificaEjemplarTb>());
+        selected.setEjemplarNombrecomunTbList(new ArrayList<EjemplarNombrecomunTb>());
+        selected.setEjemplarDonacionTbList(new ArrayList<EjemplarDonacionTb>()); //iniciar la lista para poder agregar informacion
         initializeEmbeddableKey();
+        listaInstitucion = institucionFacade.findAll();
         listaAgenteR = agenteFacade.agentesRecolectores();
         listaAgenteI = agenteFacade.agentesIdentificadores();
         return selected;
@@ -172,6 +236,13 @@ public class EjemplarTbController implements Serializable {
         if (selected.getEIdtaxonomia().getCTipo().equals("Variedad")) {
             tipoTaxon = "Variedad";
         }
+        //lista de nombres comunes.
+        
+        //lista de instituciones.
+        listaInstitucion = institucionFacade.findAll();
+        for (EjemplarDonacionTb i: selected.getEjemplarDonacionTbList()){
+            listaInstitucion.remove(institucionFacade.Institucion(i.getEIdinstitucion()));
+        }
         return selected;
     }
 
@@ -184,9 +255,9 @@ public class EjemplarTbController implements Serializable {
             // oncomplete = "";
         } else {
             if (selected.getEIdinstitucion() != null) {
-                selected.setEEstado(2); //ejemplar que se recibió donado
+                selected.setEEstado(2); //ejemplar que se recibiÃ³ donado
             } else {
-                selected.setEEstado(1); //ejemplar que se recolectó
+                selected.setEEstado(1); //ejemplar que se recolectÃ³
             }
             persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("EjemplarTbCreated"));
             if (!JsfUtil.isValidationFailed()) {
@@ -434,4 +505,57 @@ public class EjemplarTbController implements Serializable {
      }
      return especie;
      }*/
+    public void llenarNombreComun() {
+        if (selected.getEIdtaxonomia().getERango() >= 3) {
+            setListaNombreComun(getFacade().nombresComunes(selected.getEIdtaxonomia()));
+        }
+    }
+
+    public void anadirNombreComun() {
+        //int sec = 0;
+        EjemplarNombrecomunTb nuevo = new EjemplarNombrecomunTb();
+        nuevo.setCNombrecomun(nc.getCNombre());
+        nuevo.setEIdejemplar(selected);
+
+        selected.getEjemplarNombrecomunTbList().add(nuevo);
+
+        listaNombreComun.remove(nc);
+    }
+
+    public void removerNombrecomun() {
+        selected.getEjemplarNombrecomunTbList().remove(ejemplarnc);
+        //listaAgenteI.add(agenteIdentifica.getAgenteTb());
+    }
+
+    public void anadirInstitucion() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        if (selected.getECantDuplicado() == null) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "No ha ingresado cantidad de duplicados o no es una cantidad valida", "Alerta: "));
+        } else {
+            int a = selected.getECantDuplicado();
+            int b = selected.getEjemplarDonacionTbList().size();
+            if (a > b) {
+
+                EjemplarDonacionTb nuevo = new EjemplarDonacionTb();
+                nuevo.setEIdinstitucion(ins.getEIdinstitucion());
+                nuevo.setEEstado(0);
+                nuevo.setEIdejemplar(selected);
+
+                selected.getEjemplarDonacionTbList().add(nuevo);
+
+                listaInstitucion.remove(ins);
+            } else {
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "La cantidad es mayor a los duplicados disponibles", "Alerta: "));
+            }
+        }
+    }
+
+    public String nombreInstitucion(Integer id) {
+        return institucionFacade.nombreIns(id);
+    }
+
+    public void removerInstitucion() {
+        selected.getEjemplarDonacionTbList().remove(ejemplarIns);
+        listaInstitucion.add(institucionFacade.Institucion(ejemplarIns.getEIdinstitucion()));
+    }
 }

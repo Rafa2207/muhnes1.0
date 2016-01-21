@@ -7,17 +7,16 @@ package modelo;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -33,8 +32,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "DonacionTb.findAll", query = "SELECT d FROM DonacionTb d"),
     @NamedQuery(name = "DonacionTb.findByEIddonacion", query = "SELECT d FROM DonacionTb d WHERE d.eIddonacion = :eIddonacion"),
     @NamedQuery(name = "DonacionTb.findByMDescripcion", query = "SELECT d FROM DonacionTb d WHERE d.mDescripcion = :mDescripcion"),
-    @NamedQuery(name = "DonacionTb.findByFFecha", query = "SELECT d FROM DonacionTb d WHERE d.fFecha = :fFecha"),
-    @NamedQuery(name = "DonacionTb.findByEIdinstitucion", query = "SELECT d FROM DonacionTb d WHERE d.eIdinstitucion = :eIdinstitucion")})
+    @NamedQuery(name = "DonacionTb.findByFFecha", query = "SELECT d FROM DonacionTb d WHERE d.fFecha = :fFecha")})
 public class DonacionTb implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -48,10 +46,9 @@ public class DonacionTb implements Serializable {
     @Column(name = "f_fecha")
     @Temporal(TemporalType.DATE)
     private Date fFecha;
-    @Column(name = "e_idinstitucion")
-    private Integer eIdinstitucion;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "donacionTb")
-    private List<EjemplarDonacionTb> ejemplarDonacionTbList;
+    @JoinColumn(name = "e_idinstitucion", referencedColumnName = "e_idinstitucion")
+    @ManyToOne
+    private InstitucionTb eIdinstitucion;
 
     public DonacionTb() {
     }
@@ -84,20 +81,12 @@ public class DonacionTb implements Serializable {
         this.fFecha = fFecha;
     }
 
-    public Integer getEIdinstitucion() {
+    public InstitucionTb getEIdinstitucion() {
         return eIdinstitucion;
     }
 
-    public void setEIdinstitucion(Integer eIdinstitucion) {
+    public void setEIdinstitucion(InstitucionTb eIdinstitucion) {
         this.eIdinstitucion = eIdinstitucion;
-    }
-
-    public List<EjemplarDonacionTb> getEjemplarDonacionTbList() {
-        return ejemplarDonacionTbList;
-    }
-
-    public void setEjemplarDonacionTbList(List<EjemplarDonacionTb> ejemplarDonacionTbList) {
-        this.ejemplarDonacionTbList = ejemplarDonacionTbList;
     }
 
     @Override

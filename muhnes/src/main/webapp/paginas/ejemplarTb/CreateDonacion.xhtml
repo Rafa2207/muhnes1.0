@@ -215,8 +215,79 @@
                             </p:dataTable>
                         </p:tab>
                         <p:tab title="Nombre Común">
-                            <h:panelGrid columns="2" cellpadding="10">
-                            </h:panelGrid>
+                            <p:panelGrid columns="3">
+                                <p:outputLabel value="Nombre Común: " />
+                                <p:selectOneMenu id="nombreC" value="#{ejemplarTbController.nc}">
+                                    <f:selectItem itemValue="" itemLabel="Seleccione..."/>
+                                    <f:selectItems value="#{ejemplarTbController.listaNombreComun}"
+                                                   var="nombreComun"
+                                                   itemValue="#{nombreComun}"
+                                                   itemLabel="#{nombreComun.CNombre}"/>
+                                </p:selectOneMenu>
+                                <p:commandButton id="agregarNC" value="Agregar"
+                                                 actionListener="#{ejemplarTbController.anadirNombreComun()}"
+                                                 process="nombreC agregarNC"
+                                                 update="nombreC ejemplarNombreComun" />
+                            </p:panelGrid>
+                            <p:dataTable id="ejemplarNombreComun"
+                                         value="#{ejemplarTbController.selected.ejemplarNombrecomunTbList}"
+                                         var="nc"
+                                         editable="true"
+                                         tableStyle="width: 400px"
+                                         scrollable="true"
+                                         scrollHeight="80"
+                                         emptyMessage="No se han añadido nombres comunes"
+                                         >
+                                <p:column headerText="Nombre Común" width="60%">
+                                    <h:outputText value="#{nc.CNombrecomun}"/>
+                                </p:column>
+                                <p:column headerText="Acciones" width="40%">
+                                    <p:commandLink styleClass="ui-icon ui-icon-trash"
+                                                   action="#{ejemplarTbController.removerNombrecomun()}"
+                                                   process="ejemplarNombreComun"
+                                                   update="ejemplarNombreComun :EjemplarTbCreate2Form:detalleEjemplar:nombreC">
+                                        <f:setPropertyActionListener value="#{nc}" 
+                                                                     target="#{ejemplarTbController.ejemplarnc}"/>
+                                    </p:commandLink>
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>
+                        <p:tab title="Donaciones"><p:panelGrid columns="3">
+                                <p:outputLabel value="Institución: " />
+                                <p:selectOneMenu id="nombreIns" value="#{ejemplarTbController.ins}">
+                                    <f:selectItem itemValue="" itemLabel="Seleccione..."/>
+                                    <f:selectItems value="#{ejemplarTbController.listaInstitucion}"
+                                                   var="inst"
+                                                   itemValue="#{inst}"
+                                                   itemLabel="#{inst.CNombre}"/>
+                                </p:selectOneMenu>
+                                <p:commandButton id="agregarI" value="Agregar"
+                                                 actionListener="#{ejemplarTbController.anadirInstitucion()}"
+                                                 process=":EjemplarTbCreateForm:ECantDuplicado nombreIns agregarI"
+                                                 update="nombreIns ejemplarDonacionInstitucion :growl" />
+                            </p:panelGrid>
+                            <p:dataTable id="ejemplarDonacionInstitucion"
+                                         value="#{ejemplarTbController.selected.ejemplarDonacionTbList}"
+                                         var="institucion"
+                                         editable="true"
+                                         tableStyle="width: 500px"
+                                         scrollable="true"
+                                         scrollHeight="80"
+                                         emptyMessage="No se han añadido instituciones"
+                                         >
+                                <p:column headerText="Institución" width="60%">
+                                    <h:outputText value="#{ejemplarTbController.nombreInstitucion(institucion.EIdinstitucion)}"/>
+                                </p:column>
+                                <p:column headerText="Acciones" width="40%">
+                                    <p:commandLink styleClass="ui-icon ui-icon-trash"
+                                                   action="#{ejemplarTbController.removerInstitucion()}"
+                                                   process="ejemplarDonacionInstitucion"
+                                                   update="ejemplarDonacionInstitucion :EjemplarTbCreate2Form:detalleEjemplar:nombreIns">
+                                        <f:setPropertyActionListener value="#{institucion}" 
+                                                                     target="#{ejemplarTbController.ejemplarIns}"/>
+                                    </p:commandLink>
+                                </p:column>
+                            </p:dataTable>
                         </p:tab>
                     </p:tabView>
                     <p:commandButton actionListener="#{ejemplarTbController.create}" value="#{bundle.Save}" update="display,:EjemplarTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'EjemplarTbCreate2Dialog');"/>

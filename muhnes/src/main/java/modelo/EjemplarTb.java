@@ -47,7 +47,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "EjemplarTb.findByEEstado", query = "SELECT e FROM EjemplarTb e WHERE e.eEstado = :eEstado"),
     @NamedQuery(name = "EjemplarTb.findByEIdinstitucion", query = "SELECT e FROM EjemplarTb e WHERE e.eIdinstitucion = :eIdinstitucion")})
 public class EjemplarTb implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "ejemplarTb")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "eIdejemplar")
+    private List<EjemplarNombrecomunTb> ejemplarNombrecomunTbList;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "eIdejemplar")
     private List<EjemplarDonacionTb> ejemplarDonacionTbList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ejemplarTb")
     private List<EjemplarParticipaExhibicionTb> ejemplarParticipaExhibicionTbList;
@@ -281,6 +283,14 @@ public class EjemplarTb implements Serializable {
 
     public void setEjemplarDonacionTbList(List<EjemplarDonacionTb> ejemplarDonacionTbList) {
         this.ejemplarDonacionTbList = ejemplarDonacionTbList;
+    }
+
+    public List<EjemplarNombrecomunTb> getEjemplarNombrecomunTbList() {
+        return ejemplarNombrecomunTbList;
+    }
+
+    public void setEjemplarNombrecomunTbList(List<EjemplarNombrecomunTb> ejemplarNombrecomunTbList) {
+        this.ejemplarNombrecomunTbList = ejemplarNombrecomunTbList;
     }
     
 }

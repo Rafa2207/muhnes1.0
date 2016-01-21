@@ -51,7 +51,7 @@
                                          editable="true"
                                          tableStyle="width: 400px"
                                          scrollable="true"
-                                         scrollHeight="80"
+                                         scrollHeight="105"
                                          emptyMessage="No se han añadido agentes"
                                          >
                                 <p:column headerText="Agentes" width="60%">
@@ -69,7 +69,7 @@
                                          editable="true"
                                          tableStyle="width: 400px"
                                          scrollable="true"
-                                         scrollHeight="80"
+                                         scrollHeight="105"
                                          emptyMessage="No se han añadido agentes"
                                          >
                                 <p:column headerText="Agentes" width="60%">
@@ -81,8 +81,34 @@
                             </p:dataTable>
                         </p:tab>
                         <p:tab title="Nombre Común">
-                            <h:panelGrid columns="2" cellpadding="10">
-                            </h:panelGrid>
+                            <p:dataTable id="ejemplarNombreComun"
+                                         value="#{ejemplarTbController.selected.ejemplarNombrecomunTbList}"
+                                         var="nc"
+                                         editable="true"
+                                         tableStyle="width: 400px"
+                                         scrollable="true"
+                                         scrollHeight="105"
+                                         emptyMessage="No se han añadido nombres comunes"
+                                         >
+                                <p:column headerText="Nombre Común" width="60%">
+                                    <h:outputText value="#{nc.CNombrecomun}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>
+                        <p:tab title="Donaciones">
+                            <p:dataTable id="ejemplarDonacionInstitucion"
+                                         value="#{ejemplarTbController.selected.ejemplarDonacionTbList}"
+                                         var="institucion"
+                                         editable="true"
+                                         tableStyle="width: 500px"
+                                         scrollable="true"
+                                         scrollHeight="105"
+                                         emptyMessage="No se han añadido instituciones"
+                                         >
+                                <p:column headerText="Institución">
+                                    <h:outputText value="#{ejemplarTbController.nombreInstitucion(institucion.EIdinstitucion)}"/>
+                                </p:column>
+                            </p:dataTable>
                         </p:tab>
                     </p:tabView>
                     <p:commandButton value="#{bundle.Close}" onclick="EjemplarTbViewDialog.hide()"/>

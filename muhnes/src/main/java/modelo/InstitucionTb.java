@@ -38,6 +38,8 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "InstitucionTb.findByCFax", query = "SELECT i FROM InstitucionTb i WHERE i.cFax = :cFax"),
     @NamedQuery(name = "InstitucionTb.findByCUrl", query = "SELECT i FROM InstitucionTb i WHERE i.cUrl = :cUrl")})
 public class InstitucionTb implements Serializable {
+    @OneToMany(mappedBy = "eIdinstitucion")
+    private List<DonacionTb> donacionTbList;
     @Column(name = "b_estado")
     private Boolean bEstado;
     private static final long serialVersionUID = 1L;
@@ -190,6 +192,14 @@ public class InstitucionTb implements Serializable {
 
     public void setBEstado(Boolean bEstado) {
         this.bEstado = bEstado;
+    }
+
+    public List<DonacionTb> getDonacionTbList() {
+        return donacionTbList;
+    }
+
+    public void setDonacionTbList(List<DonacionTb> donacionTbList) {
+        this.donacionTbList = donacionTbList;
     }
     
 }

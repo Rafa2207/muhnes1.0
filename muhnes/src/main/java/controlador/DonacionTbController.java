@@ -21,7 +21,6 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
 import modelo.EjemplarDonacionTb;
-import modelo.EjemplarDonacionTbPK;
 import modelo.EjemplarTb;
 import modelo.InstitucionTb;
 import modelo.TaxonomiaTb;
@@ -125,13 +124,13 @@ public class DonacionTbController implements Serializable {
 
     public DonacionTb prepareCreate() {
         selected = new DonacionTb();
-        selected.setEjemplarDonacionTbList(new ArrayList<EjemplarDonacionTb>());
+       // selected.setEjemplarDonacionTbList(new ArrayList<EjemplarDonacionTb>());
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        if (selected.getEjemplarDonacionTbList().isEmpty()) {
+        /*if (selected.getEjemplarDonacionTbList().isEmpty()) {
             JsfUtil.addErrorMessage("Debe agregar ejemplares para donación");
             //oncomplete = "";
         } else {
@@ -140,16 +139,16 @@ public class DonacionTbController implements Serializable {
                     ejemplarFacade.edit(ee.getEjemplarTb());
                 }
             } catch (Exception e) {
-            }
+            }*/
             persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("DonacionTbCreated"));
             if (!JsfUtil.isValidationFailed()) {
                 items = null;    // Invalidate list of items to trigger re-query.
             }
-        }
+        //}
     }
 
     public void update() {
-        if (selected.getEjemplarDonacionTbList().isEmpty()) {
+        /*if (selected.getEjemplarDonacionTbList().isEmpty()) {
             JsfUtil.addErrorMessage("Debe agregar ejemplares para donación");
             //oncomplete = "";
         } else {
@@ -164,9 +163,9 @@ public class DonacionTbController implements Serializable {
                     ejemplarFacade.edit(aa.getEjemplarTb());
                 }
             } catch (Exception e) {
-            }
+            }*/
             persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("DonacionTbUpdated"));
-        }
+        //}
     }
 
     public void destroy() {
@@ -273,7 +272,7 @@ public class DonacionTbController implements Serializable {
         return nombre;
     }
 
-    public void ejemplares(TaxonomiaTb taxon) {
+/*    public void ejemplares(TaxonomiaTb taxon) {
         listaEjemplares = getFacade().BuscarEjemplares(taxon);
         for (EjemplarDonacionTb ee : selected.getEjemplarDonacionTbList()) {
             for (EjemplarTb aa : listaEjemplares) {
@@ -331,5 +330,5 @@ public class DonacionTbController implements Serializable {
         eliminados.add(ejemplarDonacion);
         selected.getEjemplarDonacionTbList().remove(ejemplarDonacion);
     }
-
+*/
 }

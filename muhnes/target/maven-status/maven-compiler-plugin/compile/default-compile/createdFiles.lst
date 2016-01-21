@@ -1,9 +1,11 @@
 servicio\EjemplarVivoTbFacade.class
 modelo\NotapreliminarTb.class
+modelo\EjemplarNombrecomunTb_.class
 controlador\AgenteIdentificaEjemplarTbController.class
 modelo\MunicipioTb.class
 modelo\InstitucionTb.class
 modelo\ProcesoejemplarTb.class
+modelo\EjemplarNombrecomunTb.class
 servicio\NotapreliminarTbFacade.class
 modelo\ProyectoTb.class
 controlador\CantonTbController.class
@@ -93,7 +95,6 @@ modelo\AgenteTaxonomiaTb.class
 controlador\LocalidadTbController$LocalidadTbControllerConverter.class
 servicio\UnidadesTbFacade.class
 controlador\PaisTbController.class
-modelo\EjemplarDonacionTbPK_.class
 modelo\AreaprotegidaTb_.class
 controlador\util\BackupDB.class
 modelo\AgentePerfilTb.class
@@ -208,4 +209,3 @@ servicio\LocalidadTbFacade.class
 servicio\ExhibicionTbFacade.class
 servicio\InstitucionTbFacade.class
 servicio\DonacionTbFacade.class
-modelo\EjemplarDonacionTbPK.class

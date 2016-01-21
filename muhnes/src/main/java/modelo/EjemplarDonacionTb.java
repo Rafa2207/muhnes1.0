@@ -6,14 +6,18 @@
 package modelo;
 
 import java.io.Serializable;
+import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -23,69 +27,85 @@ import javax.persistence.Table;
 @Table(name = "ejemplar_donacion_tb")
 @NamedQueries({
     @NamedQuery(name = "EjemplarDonacionTb.findAll", query = "SELECT e FROM EjemplarDonacionTb e"),
-    @NamedQuery(name = "EjemplarDonacionTb.findByEIddonacion", query = "SELECT e FROM EjemplarDonacionTb e WHERE e.ejemplarDonacionTbPK.eIddonacion = :eIddonacion"),
-    @NamedQuery(name = "EjemplarDonacionTb.findByEIdejemplar", query = "SELECT e FROM EjemplarDonacionTb e WHERE e.ejemplarDonacionTbPK.eIdejemplar = :eIdejemplar"),
-    @NamedQuery(name = "EjemplarDonacionTb.findByECantidad", query = "SELECT e FROM EjemplarDonacionTb e WHERE e.eCantidad = :eCantidad")})
+    @NamedQuery(name = "EjemplarDonacionTb.findByEIdejemplardonacion", query = "SELECT e FROM EjemplarDonacionTb e WHERE e.eIdejemplardonacion = :eIdejemplardonacion"),
+    @NamedQuery(name = "EjemplarDonacionTb.findByEIddonacion", query = "SELECT e FROM EjemplarDonacionTb e WHERE e.eIddonacion = :eIddonacion"),
+    @NamedQuery(name = "EjemplarDonacionTb.findByEEstado", query = "SELECT e FROM EjemplarDonacionTb e WHERE e.eEstado = :eEstado"),
+    @NamedQuery(name = "EjemplarDonacionTb.findByEIdinstitucion", query = "SELECT e FROM EjemplarDonacionTb e WHERE e.eIdinstitucion = :eIdinstitucion")})
 public class EjemplarDonacionTb implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected EjemplarDonacionTbPK ejemplarDonacionTbPK;
-    @Column(name = "e_cantidad")
-    private Integer eCantidad;
-    @JoinColumn(name = "e_idejemplar", referencedColumnName = "e_idejemplar", insertable = false, updatable = false)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "e_idejemplardonacion")
+    private Integer eIdejemplardonacion;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "e_iddonacion")
+    private int eIddonacion;
+    @Column(name = "e_estado")
+    private Integer eEstado;
+    @Column(name = "e_idinstitucion")
+    private Integer eIdinstitucion;
+    @JoinColumn(name = "e_idejemplar", referencedColumnName = "e_idejemplar")
     @ManyToOne(optional = false)
-    private EjemplarTb ejemplarTb;
-    @JoinColumn(name = "e_iddonacion", referencedColumnName = "e_iddonacion", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private DonacionTb donacionTb;
+    private EjemplarTb eIdejemplar;
 
     public EjemplarDonacionTb() {
     }
 
-    public EjemplarDonacionTb(EjemplarDonacionTbPK ejemplarDonacionTbPK) {
-        this.ejemplarDonacionTbPK = ejemplarDonacionTbPK;
+    public EjemplarDonacionTb(Integer eIdejemplardonacion) {
+        this.eIdejemplardonacion = eIdejemplardonacion;
     }
 
-    public EjemplarDonacionTb(int eIddonacion, int eIdejemplar) {
-        this.ejemplarDonacionTbPK = new EjemplarDonacionTbPK(eIddonacion, eIdejemplar);
+    public EjemplarDonacionTb(Integer eIdejemplardonacion, int eIddonacion) {
+        this.eIdejemplardonacion = eIdejemplardonacion;
+        this.eIddonacion = eIddonacion;
     }
 
-    public EjemplarDonacionTbPK getEjemplarDonacionTbPK() {
-        return ejemplarDonacionTbPK;
+    public Integer getEIdejemplardonacion() {
+        return eIdejemplardonacion;
     }
 
-    public void setEjemplarDonacionTbPK(EjemplarDonacionTbPK ejemplarDonacionTbPK) {
-        this.ejemplarDonacionTbPK = ejemplarDonacionTbPK;
+    public void setEIdejemplardonacion(Integer eIdejemplardonacion) {
+        this.eIdejemplardonacion = eIdejemplardonacion;
     }
 
-    public Integer getECantidad() {
-        return eCantidad;
+    public int getEIddonacion() {
+        return eIddonacion;
     }
 
-    public void setECantidad(Integer eCantidad) {
-        this.eCantidad = eCantidad;
+    public void setEIddonacion(int eIddonacion) {
+        this.eIddonacion = eIddonacion;
     }
 
-    public EjemplarTb getEjemplarTb() {
-        return ejemplarTb;
+    public Integer getEEstado() {
+        return eEstado;
     }
 
-    public void setEjemplarTb(EjemplarTb ejemplarTb) {
-        this.ejemplarTb = ejemplarTb;
+    public void setEEstado(Integer eEstado) {
+        this.eEstado = eEstado;
     }
 
-    public DonacionTb getDonacionTb() {
-        return donacionTb;
+    public Integer getEIdinstitucion() {
+        return eIdinstitucion;
     }
 
-    public void setDonacionTb(DonacionTb donacionTb) {
-        this.donacionTb = donacionTb;
+    public void setEIdinstitucion(Integer eIdinstitucion) {
+        this.eIdinstitucion = eIdinstitucion;
+    }
+
+    public EjemplarTb getEIdejemplar() {
+        return eIdejemplar;
+    }
+
+    public void setEIdejemplar(EjemplarTb eIdejemplar) {
+        this.eIdejemplar = eIdejemplar;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (ejemplarDonacionTbPK != null ? ejemplarDonacionTbPK.hashCode() : 0);
+        hash += (eIdejemplardonacion != null ? eIdejemplardonacion.hashCode() : 0);
         return hash;
     }
 
@@ -96,7 +116,7 @@ public class EjemplarDonacionTb implements Serializable {
             return false;
         }
         EjemplarDonacionTb other = (EjemplarDonacionTb) object;
-        if ((this.ejemplarDonacionTbPK == null && other.ejemplarDonacionTbPK != null) || (this.ejemplarDonacionTbPK != null && !this.ejemplarDonacionTbPK.equals(other.ejemplarDonacionTbPK))) {
+        if ((this.eIdejemplardonacion == null && other.eIdejemplardonacion != null) || (this.eIdejemplardonacion != null && !this.eIdejemplardonacion.equals(other.eIdejemplardonacion))) {
             return false;
         }
         return true;
@@ -104,7 +124,7 @@ public class EjemplarDonacionTb implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.EjemplarDonacionTb[ ejemplarDonacionTbPK=" + ejemplarDonacionTbPK + " ]";
+        return "modelo.EjemplarDonacionTb[ eIdejemplardonacion=" + eIdejemplardonacion + " ]";
     }
     
 }

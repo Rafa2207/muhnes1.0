@@ -14,6 +14,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import modelo.AgenteIdentificaEjemplarTb;
 import modelo.EjemplarTb;
+import modelo.NombrecomunTb;
 import modelo.TaxonomiaTb;
 
 /**
@@ -75,6 +76,11 @@ public class EjemplarTbFacade extends AbstractFacade<EjemplarTb> {
     }
     public List<EjemplarTb> BuscarEjemplares(TaxonomiaTb tax) {
         TypedQuery<EjemplarTb> query = em.createQuery("SELECT p FROM EjemplarTb p WHERE p.eIdtaxonomia=:t ORDER BY p.cCodigoentrada ASC", EjemplarTb.class);
+        query.setParameter("t", tax);
+        return query.getResultList();
+    }
+    public List<NombrecomunTb> nombresComunes(TaxonomiaTb tax){
+        TypedQuery<NombrecomunTb> query = em.createQuery("SELECT n FROM NombrecomunTb n WHERE n.eIdtaxonomia=:t", NombrecomunTb.class);
         query.setParameter("t", tax);
         return query.getResultList();
     }

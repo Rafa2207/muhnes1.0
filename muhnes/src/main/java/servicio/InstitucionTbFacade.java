@@ -8,6 +8,7 @@ package servicio;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import modelo.InstitucionTb;
 
 /**
@@ -26,6 +27,18 @@ public class InstitucionTbFacade extends AbstractFacade<InstitucionTb> {
 
     public InstitucionTbFacade() {
         super(InstitucionTb.class);
+    }
+    
+    public String nombreIns(Integer id){
+        TypedQuery<InstitucionTb> query = em.createQuery("SELECT p FROM InstitucionTb p WHERE p.eIdinstitucion=:h", InstitucionTb.class);
+       query.setParameter("h", id);
+       return query.getSingleResult().getCNombre();
+    }
+    
+    public InstitucionTb Institucion(Integer id){
+        TypedQuery<InstitucionTb> query = em.createQuery("SELECT p FROM InstitucionTb p WHERE p.eIdinstitucion=:h", InstitucionTb.class);
+       query.setParameter("h", id);
+       return query.getSingleResult();
     }
     
 }
