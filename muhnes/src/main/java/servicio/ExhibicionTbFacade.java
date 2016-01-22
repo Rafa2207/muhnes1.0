@@ -50,7 +50,7 @@ public class ExhibicionTbFacade extends AbstractFacade<ExhibicionTb> {
     
     public List<ExhibicionTb> ExhibicionControl() {
         em.clear();
-        TypedQuery<ExhibicionTb> query = em.createQuery("SELECT e FROM ExhibicionTb e WHERE e.eEstado!=1 order by e.fFechaPrestamo DESC", ExhibicionTb.class);
+        TypedQuery<ExhibicionTb> query = em.createQuery("SELECT e FROM ExhibicionTb e WHERE e.eEstado!=2 order by e.fFechaPrestamo DESC", ExhibicionTb.class);
         return query.getResultList();
     }
 

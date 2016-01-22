@@ -222,7 +222,7 @@ public class ExhibicionTbController implements Serializable {
             }
             //Bitacora inicio
             BitacoraTb bitacora = new BitacoraTb();
-            bitacora.setMDescripcion("Se realizó una exhibición: '" + selected.getMNombre() + "' de tipo '" + selected.getCTipo() + "' en el módulo: Exhibición");
+            bitacora.setMDescripcion("Realizada exhibición: '" + selected.getMNombre() + "' de tipo '" + selected.getCTipo() + "' en el módulo: Exhibición");
             String nick = JsfUtil.getRequest().getUserPrincipal().getName();
             UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
             bitacora.setEIdusuario(usuario);
@@ -256,7 +256,7 @@ public class ExhibicionTbController implements Serializable {
             }
             //Bitacora inicio
             BitacoraTb bitacora = new BitacoraTb();
-            bitacora.setMDescripcion("Se modificó la exhibición: '" + selected.getMNombre() + "' en el módulo: Exhibición");
+            bitacora.setMDescripcion("Modificada exhibición: '" + selected.getMNombre() + "' en el módulo: Exhibición");
             String nick = JsfUtil.getRequest().getUserPrincipal().getName();
             UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
             bitacora.setEIdusuario(usuario);
@@ -278,26 +278,46 @@ public class ExhibicionTbController implements Serializable {
 
     public void finExhibicion() {
         FacesContext context = FacesContext.getCurrentInstance();
-        selected.setEEstado(1);
+        selected.setEEstado(2);
         try {
             for (EjemplarParticipaExhibicionTb ee : listaEliminados) {
                 ejemplarFacade.edit(ee.getEjemplarTb());
             }
         } catch (Exception e) {
         }
+
+        //Para determinar estado de ejemplar
         try {
             for (EjemplarParticipaExhibicionTb ee : selected.getEjemplarParticipaExhibicionTbList()) {
                 if (ee.getEEstado() != 0) {
-                    ee.getEjemplarTb().setECantDuplicado(ee.getEjemplarTb().getECantDuplicado() + 1);
+                    ee.setFFecha(selected.getFFechaRecibido());
+                }
+                if (ee.getEEstado() != 0 || ee.getEEstado() != 3) {
+                    ee.getEjemplarTb().setEEstado(1);
                 }
                 ejemplarFacade.edit(ee.getEjemplarTb());
             }
 
         } catch (Exception e) {
         }
+        //Fin determinar estado de ejemplar
+
+        //Para determinar estado de exhibicion 
+        try {
+            for (EjemplarParticipaExhibicionTb ee : selected.getEjemplarParticipaExhibicionTbList()) {
+                if (ee.getEEstado() == 0) {
+                    selected.setEEstado(1);
+                    break;
+                }
+            }
+
+        } catch (Exception e) {
+        }
+        //Fin determinar estado de exhibicion
+
         //Bitacora inicio
         BitacoraTb bitacora = new BitacoraTb();
-        bitacora.setMDescripcion("Se recibieron los ejemplares de la exhibición: '" + selected.getMNombre() + "' en el módulo: Exhibición");
+        bitacora.setMDescripcion("Reingreso de ejemplares de la exhibición: '" + selected.getMNombre() + "' en el módulo: Exhibición");
         String nick = JsfUtil.getRequest().getUserPrincipal().getName();
         UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
         bitacora.setEIdusuario(usuario);
@@ -430,6 +450,9 @@ public class ExhibicionTbController implements Serializable {
             mensaje = "En préstamo";
         }
         if (estado == 1) {
+            mensaje = "Parcialmente Recibido";
+        }
+        if (estado == 2) {
             mensaje = "Recibido";
         }
         return mensaje;
@@ -446,9 +469,10 @@ public class ExhibicionTbController implements Serializable {
 
     public void anadir() {
         EjemplarParticipaExhibicionTb nuevo = new EjemplarParticipaExhibicionTb();
-        ejemplar.setECantDuplicado(ejemplar.getECantDuplicado() - 1);
+        ejemplar.setEEstado(0);
         nuevo.setEjemplarTb(ejemplar);
         nuevo.setExhibicionTb(selected);
+        nuevo.setEEstado(0);
 
         EjemplarParticipaExhibicionTbPK exhibicionpk = new EjemplarParticipaExhibicionTbPK();
 
@@ -464,7 +488,7 @@ public class ExhibicionTbController implements Serializable {
 
     public void anadirEdit() {
         EjemplarParticipaExhibicionTb nuevo = new EjemplarParticipaExhibicionTb();
-        ejemplar.setECantDuplicado(ejemplar.getECantDuplicado() - 1);
+        ejemplar.setEEstado(0);
         nuevo.setEjemplarTb(ejemplar);
         nuevo.setExhibicionTb(selected);
 
@@ -492,16 +516,70 @@ public class ExhibicionTbController implements Serializable {
     }
 
     public void remover() {
-        ejemplarExhibicion.getEjemplarTb().setECantDuplicado(ejemplarExhibicion.getEjemplarTb().getECantDuplicado() + 1);
+        ejemplarExhibicion.getEjemplarTb().setEEstado(1);
         selected.getEjemplarParticipaExhibicionTbList().remove(ejemplarExhibicion);
         listaEjemplares.add(ejemplarExhibicion.getEjemplarTb());
     }
 
     public void removerEdit() {
-        ejemplarExhibicion.getEjemplarTb().setECantDuplicado(ejemplarExhibicion.getEjemplarTb().getECantDuplicado() + 1);
+        ejemplarExhibicion.getEjemplarTb().setEEstado(1);
         selected.getEjemplarParticipaExhibicionTbList().remove(ejemplarExhibicion);
         listaEliminados.add(ejemplarExhibicion);
         listaEjemplares.add(ejemplarExhibicion.getEjemplarTb());
+    }
+
+    public void prepareRecibir() {
+        selected.setEEstado(0);
+    }
+
+    public void finExhibicionUpdate() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        selected.setEEstado(2);
+        try {
+            for (EjemplarParticipaExhibicionTb ee : listaEliminados) {
+                ejemplarFacade.edit(ee.getEjemplarTb());
+            }
+        } catch (Exception e) {
+        }
+
+        //Para determinar estado de ejemplar
+        try {
+            for (EjemplarParticipaExhibicionTb ee : selected.getEjemplarParticipaExhibicionTbList()) {
+                if (ee.getEEstado() != 0 || ee.getEEstado() != 3) {
+                    ee.getEjemplarTb().setEEstado(1);
+                }
+                ejemplarFacade.edit(ee.getEjemplarTb());
+            }
+
+        } catch (Exception e) {
+        }
+        //Fin determinar estado de ejemplar
+
+        //Para determinar estado de exhibicion 
+        try {
+            for (EjemplarParticipaExhibicionTb ee : selected.getEjemplarParticipaExhibicionTbList()) {
+                if (ee.getEEstado() == 0) {
+                    selected.setEEstado(1);
+                    break;
+                }
+            }
+
+        } catch (Exception e) {
+        }
+        //Fin determinar estado de exhibicion
+
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Reingreso de ejemplares de la exhibición: '" + selected.getMNombre() + "' en el módulo: Exhibición");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
+        getFacade().edit(selected);
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Recibido", "INFO"));
     }
 
 }

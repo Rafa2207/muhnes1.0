@@ -24,7 +24,7 @@
 
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{exhibicionTbController.prepareCreate}" update=":ExhibicionTbCreateForm" oncomplete="PF('ExhibicionTbCreateDialog').show()"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ExhibicionTbViewForm" oncomplete="PF('ExhibicionTbViewDialog').show()" disabled="#{empty exhibicionTbController.selected}"/>
-                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" actionListener="#{exhibicionTbController.prepareEdit}" update=":ExhibicionTbEditForm" oncomplete="PF('ExhibicionTbEditDialog').show()" disabled="#{empty exhibicionTbController.selected}"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" actionListener="#{exhibicionTbController.prepareEdit}" update=":ExhibicionTbEditForm" oncomplete="PF('ExhibicionTbEditDialog').show()" disabled="#{empty exhibicionTbController.selected || exhibicionTbController.selected.EEstado!=0}"/>
                     <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{exhibicionTbController.destroy}" update=":growl,datalist" disabled="#{empty exhibicionTbController.selected}"/>
 
 

@@ -22,11 +22,11 @@
                         <p:menuitem value="Control de exhibiciones" outcome="/paginas/ControlExhibicion/ControlExhibicion.xhtml" />
                     </p:breadCrumb>
 
-                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ExhibicionTbViewForm" oncomplete="PF('ExhibicionTbViewDialog').show()" disabled="#{empty exhibicionTbController.selected}"/>
-                    <p:commandButton id="RecibidoButton" icon="ui-icon-flag"  value="Reingreso" update=":ExhibicionTbRecibirForm" oncomplete="PF('ExhibicionTbRecibirDialog').show()" disabled="#{empty exhibicionTbController.selected || exhibicionTbController.selected.EEstado==1}">
-                     </p:commandButton>
-                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{exhibicionTbController.destroy}" update=":growl,datalist" disabled="#{empty exhibicionTbController.selected}"/>
+                    <p:commandButton id="RecibidoButton" icon="ui-icon-flag"  value="Reingreso" update=":ExhibicionTbRecibirForm" oncomplete="PF('ExhibicionTbRecibirDialog').show()" disabled="#{empty exhibicionTbController.selected || exhibicionTbController.selected.EEstado==1}"/>
 
+                    <p:commandButton id="ActualzarButton" icon="ui-icon-pencil" value="Actualizar Reingreso" update=":ExhibicionTbRecibirUpdateForm" oncomplete="PF('ExhibicionTbRecibirUpdateDialog').show()" disabled="#{empty exhibicionTbController.selected || exhibicionTbController.selected.EEstado==0}"/>
+
+                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ExhibicionTbViewForm" oncomplete="PF('ExhibicionTbViewDialog').show()" disabled="#{empty exhibicionTbController.selected}"/>
 
                     <p:dataTable id="datalist" value="#{exhibicionTbController.itemsControlExhibiciones}" var="item"
                                  selectionMode="single" selection="#{exhibicionTbController.selected}"
@@ -40,8 +40,8 @@
                                  widgetVar="exhibicionesTable"
                                  >
 
-                        <p:ajax event="rowSelect"   update=":ExhibicionTbListForm:RecibidoButton :ExhibicionTbListForm:viewButton :ExhibicionTbListForm:deleteButton"/>
-                        <p:ajax event="rowUnselect" update=":ExhibicionTbListForm:RecibidoButton :ExhibicionTbListForm:viewButton :ExhibicionTbListForm:deleteButton"/>
+                        <p:ajax event="rowSelect"   update=":ExhibicionTbListForm:ActualzarButton :ExhibicionTbListForm:RecibidoButton :ExhibicionTbListForm:viewButton"/>
+                        <p:ajax event="rowUnselect" update=":ExhibicionTbListForm:ActualzarButton :ExhibicionTbListForm:RecibidoButton :ExhibicionTbListForm:viewButton"/>
 
                         <p:column filterBy="#{item.MNombre}" filterStyle="display:none">
                             <f:facet name="header">
@@ -86,7 +86,7 @@
                                 <f:convertDateTime pattern="dd MMMM yyyy" />
                             </h:outputText>
                         </p:column>
-                        <p:column width="10%" filterBy="#{exhibicionTbController.EstadoList(item.EEstado)}" filterStyle="display:none">
+                        <p:column width="15%" filterBy="#{exhibicionTbController.EstadoList(item.EEstado)}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="Estado"/>
                             </f:facet>
@@ -106,6 +106,7 @@
 
             <ui:include src="../exhibicionTb/View.xhtml"/>
             <ui:include src="Recibir.xhtml"/>
+            <ui:include src="RecibirUpdate.xhtml"/>
         </ui:define>
     </ui:composition>
 

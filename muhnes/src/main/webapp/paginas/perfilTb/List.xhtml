@@ -46,7 +46,7 @@
                         <p:ajax event="rowUnselect" update=":PerfilTbListForm:createButton :PerfilTbListForm:viewButton :PerfilTbListForm:editButton :PerfilTbListForm:deleteButton"/>
 
 
-                        <p:column filterBy="#{item.CNombre}" filterStyle="display:none">
+                        <p:column width="25%" filterBy="#{item.CNombre}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPerfilTbTitle_CNombre}"/>
                             </f:facet>
@@ -69,11 +69,11 @@
             </h:form>
 
             <h:form target="_blank">
-                <div style="text-align: right"> 
+                <div style="text-align: left"> 
 
                     <p:commandLink actionListener="#{perfilTbController.reporte}" 
                                    ajax="false" title="Reporte de perfiles">
-                        <p:graphicImage name="images/pdf-icon.png" height="50px"/>
+                        <p:graphicImage name="images/pdf-icon.png" height="30px"/>
                     </p:commandLink>
                 </div> 
             </h:form>

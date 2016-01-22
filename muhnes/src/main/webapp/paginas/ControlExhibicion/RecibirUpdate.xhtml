@@ -8,8 +8,8 @@
 
     <ui:composition>
 
-        <p:dialog id="ExhibicionTbRecibirDlg" widgetVar="ExhibicionTbRecibirDialog" modal="true" resizable="false" appendTo="@(body)" header="Formulario de recibido">
-            <h:form id="ExhibicionTbRecibirForm">
+        <p:dialog id="ExhibicionTbRecibirUpdateDlg" widgetVar="ExhibicionTbRecibirUpdateDialog" modal="true" resizable="false" appendTo="@(body)" header="Formulario de recibido">
+            <h:form id="ExhibicionTbRecibirUpdateForm">
                 <h:panelGroup id="display">
 
                     <p:panelGrid columns="2" rendered="#{exhibicionTbController.selected != null}">
@@ -18,18 +18,15 @@
                         <p:inputTextarea rows="2" cols="40" autoResize="" id="MDescripcion" value="#{exhibicionTbController.selected.MObservaciones}" 
                                          title="Observaciones" required="true" requiredMessage="Escriba observaciones de recibido" />
 
-                        <p:outputLabel value="Fecha de recibido:" for="FFechaReingreso" />
-                        <p:calendar id="FFechaReingreso" pattern="dd MMMM yyyy" locale="es" readonlyInput="true"
-                                    value="#{exhibicionTbController.selected.FFechaRecibido}" size="15"
-                                    mindate="#{exhibicionTbController.selected.FFechaPrestamo}"
-                                    title="Recibido"  showOn="button" required="true" requiredMessage="Seleccione fecha de reingreso">
-                        </p:calendar>
-                        <p:outputLabel value="Hora de recibido:" for="HReingreso" />
-                        <p:calendar id="HReingreso" pattern="hh:mm a" locale="es" readonlyInput="true" minHour="8" maxHour="17"
-                                    value="#{exhibicionTbController.selected.HHoraPrestamo}" size="8" timeOnly="true"
-                                    title="Hora de préstamo" required="true" requiredMessage="Seleccione hora de recibido">
-                        </p:calendar>
-
+                        <p:outputLabel value="Fecha de recibido:"/>
+                        <h:panelGroup>
+                            <h:outputText value="#{exhibicionTbController.selected.FFechaRecibido}">
+                                <f:convertDateTime pattern="dd MMMM yyyy " />
+                            </h:outputText>
+                            <h:outputText value="#{exhibicionTbController.selected.HHoraPrestamo}">
+                                <f:convertDateTime pattern="HH:mm a" />
+                            </h:outputText>
+                        </h:panelGroup>
                     </p:panelGrid>
                     <p:panelGrid columns="1">
                         <p:dataTable id="tablaExhibicionEjemplar"
@@ -43,7 +40,7 @@
                                      >
 
                             <p:column headerText="Ejemplares" width="20%" style="text-align: center">
-                                <h:outputText value="#{exej.ejemplarTb.CCodigoentrada}"/>
+                                <h:outputText value="#{exej.ejemplarTb.CCodigoentrada}" />
                             </p:column>
                             <p:column headerText="Estado del ejemplar" style="text-align: center">
                                 <p:selectOneMenu id="CTipo" value="#{exej.EEstado}" style="width: 150px">
@@ -51,12 +48,19 @@
                                     <f:selectItem itemLabel="Sin observaciones" itemValue="1"/>
                                     <f:selectItem itemLabel="Dañado" itemValue="2"/>
                                     <f:selectItem itemLabel="Perdido" itemValue="3"/>
+                                    <p:ajax event="change" update="FFecha" process="CTipo"/>
                                 </p:selectOneMenu>
                             </p:column>
+                            <p:column headerText="Fecha" style="text-align: center">
+                                <p:calendar id="FFecha" pattern="dd MMMM yyyy" value="#{exej.FFecha}" title="Fecha" size="15" 
+                                            readonlyInput="true" locale="es" disabled="#{exej.EEstado==0}" mindate="#{exhibicionTbController.selected.FFechaRecibido}">
+                                </p:calendar>
+                            </p:column>
+
                         </p:dataTable>
                     </p:panelGrid>
 
-                    <p:commandButton actionListener="#{exhibicionTbController.finExhibicion()}" value="#{bundle.Save}" update="display,:ExhibicionTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'ExhibicionTbRecibirDialog');">
+                    <p:commandButton actionListener="#{exhibicionTbController.finExhibicionUpdate()}" value="#{bundle.Save}" update="display,:ExhibicionTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'ExhibicionTbRecibirUpdateDialog');">
                         <p:confirm header="Confirmación" message="¿Se han recibido los ejemplares?" icon="ui-icon-alert" />
                     </p:commandButton>
 

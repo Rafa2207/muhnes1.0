@@ -6,6 +6,7 @@
 package modelo;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -14,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -27,6 +30,9 @@ import javax.persistence.Table;
     @NamedQuery(name = "EjemplarParticipaExhibicionTb.findByEIdexhibicion", query = "SELECT e FROM EjemplarParticipaExhibicionTb e WHERE e.ejemplarParticipaExhibicionTbPK.eIdexhibicion = :eIdexhibicion"),
     @NamedQuery(name = "EjemplarParticipaExhibicionTb.findByEEstado", query = "SELECT e FROM EjemplarParticipaExhibicionTb e WHERE e.eEstado = :eEstado")})
 public class EjemplarParticipaExhibicionTb implements Serializable {
+    @Column(name = "f_fecha")
+    @Temporal(TemporalType.DATE)
+    private Date fFecha;
     @Column(name = "e_estado")
     private Integer eEstado;
     private static final long serialVersionUID = 1L;
@@ -106,6 +112,14 @@ public class EjemplarParticipaExhibicionTb implements Serializable {
 
     public void setEEstado(Integer eEstado) {
         this.eEstado = eEstado;
+    }
+
+    public Date getFFecha() {
+        return fFecha;
+    }
+
+    public void setFFecha(Date fFecha) {
+        this.fFecha = fFecha;
     }
     
 }
