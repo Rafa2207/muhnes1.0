@@ -13,6 +13,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import modelo.DonacionTb;
+import modelo.EjemplarDonacionTb;
 import modelo.EjemplarTb;
 import modelo.InstitucionTb;
 import modelo.TaxonomiaTb;
@@ -55,6 +56,16 @@ public class DonacionTbFacade extends AbstractFacade<DonacionTb> {
     public List<EjemplarTb> BuscarEjemplares(TaxonomiaTb tax) {
         TypedQuery<EjemplarTb> query = em.createQuery("SELECT p FROM EjemplarTb p WHERE p.eIdtaxonomia=:t AND p.eCantDuplicado > 1 ORDER BY p.cCodigoentrada ASC", EjemplarTb.class);
         query.setParameter("t", tax);
+        return query.getResultList();
+    }
+    public List<EjemplarDonacionTb> listaEjemplares(InstitucionTb Institucion){
+        TypedQuery<EjemplarDonacionTb> query = em.createQuery("SELECT p FROM EjemplarDonacionTb p WHERE p.eIdinstitucion=:t AND p.bEstado=false", EjemplarDonacionTb.class);
+        query.setParameter("t", Institucion.getEIdinstitucion());
+        return query.getResultList();
+    }
+    public List<EjemplarDonacionTb> listaEjemplaresEntregados(Integer donacion){
+        TypedQuery<EjemplarDonacionTb> query = em.createQuery("SELECT p FROM EjemplarDonacionTb p WHERE p.eIddonacion=:t AND p.bEstado=true", EjemplarDonacionTb.class);
+        query.setParameter("t", donacion);
         return query.getResultList();
     }
 }

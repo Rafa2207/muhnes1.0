@@ -33,6 +33,8 @@ public class DonacionTbController implements Serializable {
     private servicio.DonacionTbFacade ejbFacade;
     @EJB
     private servicio.EjemplarTbFacade ejemplarFacade;
+    @EJB
+    private servicio.EjemplarDonacionTbFacade ejemplarDonacionFacade;
     private List<DonacionTb> items = null, filtro;
     private DonacionTb selected;
     private String tipoTaxon;
@@ -41,11 +43,20 @@ public class DonacionTbController implements Serializable {
     private List<EjemplarTb> listaEjemplares;
     private Integer cantidad;
     private EjemplarDonacionTb ejemplarDonacion;
-    private List<EjemplarDonacionTb> eliminados = new ArrayList<EjemplarDonacionTb>();
+    //private List<EjemplarDonacionTb> eliminados = new ArrayList<EjemplarDonacionTb>();
+    private List<EjemplarDonacionTb> listaEjemplaresDonados, listaEjemplaresDonadosEntregados;
 
     ;
 
     public DonacionTbController() {
+    }
+
+    public List<EjemplarDonacionTb> getListaEjemplaresDonados() {
+        return listaEjemplaresDonados;
+    }
+
+    public void setListaEjemplaresDonados(List<EjemplarDonacionTb> listaEjemplaresDonados) {
+        this.listaEjemplaresDonados = listaEjemplaresDonados;
     }
 
     public EjemplarDonacionTb getEjemplarDonacion() {
@@ -54,6 +65,14 @@ public class DonacionTbController implements Serializable {
 
     public void setEjemplarDonacion(EjemplarDonacionTb ejemplarDonacion) {
         this.ejemplarDonacion = ejemplarDonacion;
+    }
+
+    public List<EjemplarDonacionTb> getListaEjemplaresDonadosEntregados() {
+        return listaEjemplaresDonadosEntregados;
+    }
+
+    public void setListaEjemplaresDonadosEntregados(List<EjemplarDonacionTb> listaEjemplaresDonadosEntregados) {
+        this.listaEjemplaresDonadosEntregados = listaEjemplaresDonadosEntregados;
     }
 
     public Integer getCantidad() {
@@ -128,10 +147,21 @@ public class DonacionTbController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
+    public DonacionTb prepareView() {
+       // selected = new DonacionTb();
+       // selected.setEjemplarDonacionTbList(new ArrayList<EjemplarDonacionTb>());
+        listaEjemplaresDonadosEntregados = ejbFacade.listaEjemplaresEntregados(selected.getEIddonacion());
+        initializeEmbeddableKey();
+        return selected;
+    }
 
     public void create() {
+        for (EjemplarDonacionTb i: listaEjemplaresDonados){
+            i.setEIddonacion(ejbFacade.siguienteId());
+            ejemplarDonacionFacade.edit(i);
+        }
         /*if (selected.getEjemplarDonacionTbList().isEmpty()) {
-            JsfUtil.addErrorMessage("Debe agregar ejemplares para donación");
+            JsfUtil.addErrorMessage("Debe agregar ejemplares para donaciÃ³n");
             //oncomplete = "";
         } else {
             try {
@@ -149,7 +179,7 @@ public class DonacionTbController implements Serializable {
 
     public void update() {
         /*if (selected.getEjemplarDonacionTbList().isEmpty()) {
-            JsfUtil.addErrorMessage("Debe agregar ejemplares para donación");
+            JsfUtil.addErrorMessage("Debe agregar ejemplares para donaciÃ³n");
             //oncomplete = "";
         } else {
             try {
@@ -271,6 +301,14 @@ public class DonacionTbController implements Serializable {
         nombre = institucion.getCNombre();
         return nombre;
     }
+    
+    public void llenarEjemplaresDonados(){
+        setListaEjemplaresDonados(getFacade().listaEjemplares(selected.getEIdinstitucion()));
+    }
+    
+    public void remover() {
+        listaEjemplaresDonados.remove(ejemplarDonacion);
+    }
 
 /*    public void ejemplares(TaxonomiaTb taxon) {
         listaEjemplares = getFacade().BuscarEjemplares(taxon);
@@ -320,11 +358,7 @@ public class DonacionTbController implements Serializable {
         listaEjemplares.remove(ejemplar);
 
     }
-
-    public void remover() {
-        selected.getEjemplarDonacionTbList().remove(ejemplarDonacion);
-    }
-
+    
     public void removerM() {
         ejemplarDonacion.getEjemplarTb().setECantDuplicado(ejemplarDonacion.getEjemplarTb().getECantDuplicado() + ejemplarDonacion.getECantidad());
         eliminados.add(ejemplarDonacion);

@@ -20,13 +20,13 @@
                                 <f:convertDateTime pattern="dd MMMM yyyy" />
                             </h:outputText>
                             <h:outputText value="#{bundle.ViewDonacionTbLabel_EIdinstitucion}"/>
-                            <h:outputText value="#{donacionTbController.calculaInsitucion(donacionTbController.selected.EIdinstitucion)}" title="#{bundle.ViewDonacionTbTitle_EIdinstitucion}"/>
+                            <h:outputText value="#{donacionTbController.selected.EIdinstitucion.CNombre}" title="#{bundle.ViewDonacionTbTitle_EIdinstitucion}"/>
                         </p:panelGrid>
                     </p:fieldset>
                     <br/>
                     <p:fieldset legend="Ejemplares">
                         <p:dataTable id="tablaEjemplares"
-                                     value="#{donacionTbController.selected.ejemplarDonacionTbList}"
+                                     value="#{donacionTbController.listaEjemplaresDonadosEntregados}"
                                      var="ejemplar"
                                      editable="true"
                                      tableStyle="width: 500px"
@@ -34,15 +34,11 @@
                                      scrollHeight="80" 
                                      emptyMessage="No se han seleccionado ejemplares"
                                      >
-
-                            <p:column headerText="taxonomia" >
-                                #{ejemplar.ejemplarTb.EIdtaxonomia.CNombre}
+                            <p:column headerText="Taxonomia" width="50%" >
+                                #{ejemplar.EIdejemplar.EIdtaxonomia.CNombre}
                             </p:column>
-                            <p:column headerText="Ejemplar" >
-                                #{ejemplar.ejemplarTb.CCodigoentrada}
-                            </p:column>
-                            <p:column headerText="Cantidad" >
-                                #{ejemplar.ECantidad}
+                            <p:column headerText="Ejemplar" width="50%">
+                                #{ejemplar.EIdejemplar.CCodigoentrada}
                             </p:column>
                         </p:dataTable>
                     </p:fieldset>

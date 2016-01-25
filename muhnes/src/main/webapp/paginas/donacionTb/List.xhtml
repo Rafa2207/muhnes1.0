@@ -23,7 +23,7 @@
                     </p:breadCrumb>
 
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{donacionTbController.prepareCreate}" update=":DonacionTbCreateForm" oncomplete="PF('DonacionTbCreateDialog').show()"/>
-                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DonacionTbViewForm" oncomplete="PF('DonacionTbViewDialog').show()" disabled="#{empty donacionTbController.selected}"/>
+                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" actionListener="#{donacionTbController.prepareView}" update=":DonacionTbViewForm" oncomplete="PF('DonacionTbViewDialog').show()" disabled="#{empty donacionTbController.selected}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":DonacionTbEditForm" oncomplete="PF('DonacionTbEditDialog').show()" disabled="#{empty donacionTbController.selected}"/>
                     <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{donacionTbController.destroy}" update=":growl,datalist" disabled="#{empty donacionTbController.selected}"/>
 
@@ -56,11 +56,11 @@
                                 <f:convertDateTime pattern= "dd MMMM yyyy" />
                             </h:outputText>
                         </p:column>
-                        <p:column filterBy="#{item.EIdinstitucion}" filterStyle="display:none">
+                        <p:column filterBy="#{item.EIdinstitucion.CNombre}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDonacionTbTitle_EIdinstitucion}"/>
                             </f:facet>
-                            <h:outputText value="#{donacionTbController.calculaInsitucion(item.EIdinstitucion)}"/>
+                            <h:outputText value="#{item.EIdinstitucion.CNombre}"/>
                         </p:column>
                         <f:facet name="header">
                             <p:outputPanel>

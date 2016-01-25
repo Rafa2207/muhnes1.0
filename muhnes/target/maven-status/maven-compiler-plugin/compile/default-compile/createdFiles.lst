@@ -45,6 +45,7 @@ controlador\util\RestorePostgresqlDatabase.class
 controlador\CantonTbController$CantonTbControllerConverter.class
 modelo\InsumoTb_.class
 modelo\LocalidadTb_.class
+servicio\EjemplarDonacionTbFacade.class
 controlador\EjemplarTbController$EjemplarTbControllerConverter.class
 modelo\UsuarioTb_.class
 servicio\MaterialPedidoTbFacade.class

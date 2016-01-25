@@ -538,7 +538,7 @@ public class EjemplarTbController implements Serializable {
 
                 EjemplarDonacionTb nuevo = new EjemplarDonacionTb();
                 nuevo.setEIdinstitucion(ins.getEIdinstitucion());
-                nuevo.setEEstado(0);
+                nuevo.setBEstado(false);
                 nuevo.setEIdejemplar(selected);
 
                 selected.getEjemplarDonacionTbList().add(nuevo);

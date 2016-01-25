@@ -29,7 +29,7 @@ import javax.validation.constraints.NotNull;
     @NamedQuery(name = "EjemplarDonacionTb.findAll", query = "SELECT e FROM EjemplarDonacionTb e"),
     @NamedQuery(name = "EjemplarDonacionTb.findByEIdejemplardonacion", query = "SELECT e FROM EjemplarDonacionTb e WHERE e.eIdejemplardonacion = :eIdejemplardonacion"),
     @NamedQuery(name = "EjemplarDonacionTb.findByEIddonacion", query = "SELECT e FROM EjemplarDonacionTb e WHERE e.eIddonacion = :eIddonacion"),
-    @NamedQuery(name = "EjemplarDonacionTb.findByEEstado", query = "SELECT e FROM EjemplarDonacionTb e WHERE e.eEstado = :eEstado"),
+    @NamedQuery(name = "EjemplarDonacionTb.findByBEstado", query = "SELECT e FROM EjemplarDonacionTb e WHERE e.bEstado = :bEstado"),
     @NamedQuery(name = "EjemplarDonacionTb.findByEIdinstitucion", query = "SELECT e FROM EjemplarDonacionTb e WHERE e.eIdinstitucion = :eIdinstitucion")})
 public class EjemplarDonacionTb implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -42,8 +42,8 @@ public class EjemplarDonacionTb implements Serializable {
     @NotNull
     @Column(name = "e_iddonacion")
     private int eIddonacion;
-    @Column(name = "e_estado")
-    private Integer eEstado;
+    @Column(name = "b_estado")
+    private boolean bEstado;
     @Column(name = "e_idinstitucion")
     private Integer eIdinstitucion;
     @JoinColumn(name = "e_idejemplar", referencedColumnName = "e_idejemplar")
@@ -78,12 +78,12 @@ public class EjemplarDonacionTb implements Serializable {
         this.eIddonacion = eIddonacion;
     }
 
-    public Integer getEEstado() {
-        return eEstado;
+    public boolean getBEstado() {
+        return bEstado;
     }
 
-    public void setEEstado(Integer eEstado) {
-        this.eEstado = eEstado;
+    public void setBEstado(boolean bEstado) {
+        this.bEstado = bEstado;
     }
 
     public Integer getEIdinstitucion() {
