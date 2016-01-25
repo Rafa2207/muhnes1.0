@@ -6,6 +6,7 @@
 package agenda;
 
 import controlador.util.ControladorSesion;
+import controlador.util.JsfUtil;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -17,7 +18,9 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import modelo.ActividadTb;
+import modelo.BitacoraTb;
 import modelo.ProyectoTb;
+import modelo.UsuarioTb;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
@@ -38,6 +41,10 @@ public class controlProyectos {
     private servicio.ProyectoTbFacade FacadeProyecto;
     @EJB
     private servicio.ActividadTbFacade FacadeActividad;
+    @EJB
+    private servicio.UsuarioTbFacade usuarioFacade;
+    @EJB
+    private servicio.BitacoraTbFacade bitacoraFacade;
     private List<ProyectoTb> listaProyecto = null;
     private List<ActividadTb> listaActividad = null;
     private ActividadTb actividadView;
@@ -272,6 +279,16 @@ public class controlProyectos {
         } catch (Exception e) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error, no se puede iniciar actividad ", "INFO"));
         }
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Iniciar actividad: '" + actividadView.getMNombre() + "' del proyecto: '"+ actividadView.getEIdproyecto().getMNombre() +"' en el módulo: Proyectos");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
         init();
     }
 
@@ -304,6 +321,16 @@ public class controlProyectos {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Proyecto Finalizado", "INFO"));
 
         }
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Finalizar actividad: '" + actividadView.getMNombre() + "' del proyecto: '"+ actividadView.getEIdproyecto().getMNombre() +"' en el módulo: Proyectos");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
 
         init();
     }
@@ -319,6 +346,16 @@ public class controlProyectos {
         } catch (Exception e) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error, no se puede activar la actividad", "INFO"));
         }
+         //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Reactivación la actividad: '" + actividadView.getMNombre() + "' del proyecto: '"+ actividadView.getEIdproyecto().getMNombre() +"' en el módulo: Proyectos");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
         init();
 
     }
@@ -331,6 +368,16 @@ public class controlProyectos {
         } catch (Exception e) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error, no se puede modificar la actividad", "INFO"));
         }
+         //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Modificado el monto gasto adicional de la actividad: '" + actividadView.getMNombre() + "' en el módulo: Proyectos");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
     }
 
     public void desactivarActividad() {
@@ -361,6 +408,16 @@ public class controlProyectos {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Proyecto Finalizado", "INFO"));
 
         }
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Cancelar actividad: '" + actividadView.getMNombre() + "' del proyecto: '"+ actividadView.getEIdproyecto().getMNombre() +"' en el módulo: Proyectos");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
 
         init();
     }

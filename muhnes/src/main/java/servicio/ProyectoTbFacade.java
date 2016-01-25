@@ -48,7 +48,16 @@ public class ProyectoTbFacade extends AbstractFacade<ProyectoTb> {
         TypedQuery<ProyectoTb> query = em.createQuery("SELECT p FROM ProyectoTb p ORDER BY p.fFechaFin DESC", ProyectoTb.class);
         return query.getResultList();
     }
-            
+
+    //consulta proyectos entre fechas 
+    public List<ProyectoTb> ProyectoReportesEntreFechas(Date f1, Date f2) {
+        em.clear();
+        TypedQuery<ProyectoTb> query = em.createQuery("SELECT p FROM ProyectoTb p WHERE p.fFechaInicio between :f1 and :f2 order by p.fFechaInicio DESC", ProyectoTb.class);
+        query.setParameter("f1", f1);
+        query.setParameter("f2", f2);
+        return query.getResultList();
+    }
+
     //Consulta para notificaciones
     public List<ProyectoTb> ProyectoNotificaciones(Date diaActual, Date Semana) {
         em.clear();
@@ -57,11 +66,11 @@ public class ProyectoTbFacade extends AbstractFacade<ProyectoTb> {
         query.setParameter("d2", Semana);
         return query.getResultList();
     }
-    
-     public List<ProyectoTb> ProyectoGeneralNotificacion() {
+
+    public List<ProyectoTb> ProyectoGeneralNotificacion() {
         em.clear();
         TypedQuery<ProyectoTb> query = em.createQuery("SELECT p FROM ProyectoTb p where p.eEstado!=2 ORDER BY p.fFechaFin ASC", ProyectoTb.class);
         return query.getResultList();
     }
-     
+
 }
