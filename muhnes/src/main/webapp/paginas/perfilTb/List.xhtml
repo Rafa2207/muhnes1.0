@@ -28,6 +28,19 @@
                     <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{perfilTbController.destroy}" update=":growl,datalist" disabled="#{empty perfilTbController.selected}">
                         <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
                     </p:commandButton>
+                    <div  style="float: right">
+                        
+                            <p:commandLink title="Reporte de perfiles" ajax="false" target="_blank"
+                                           actionListener="#{perfilTbController.reporte}">
+                                <p:graphicImage name="images/pdf-icon.png" height="35px"/>
+                            </p:commandLink>
+                        
+                            <p:commandLink title="Ayuda" update=":AyudaForm" oncomplete="PF('AyudaDialog').show()" >
+                                <p:graphicImage name="images/ayuda.png" height="35px" />
+                                <f:setPropertyActionListener target="#{controladorSesion.ayuda}" value="proyecto"/>
+                            </p:commandLink>
+                        
+                    </div>
 
                     <p:dataTable id="datalist" value="#{perfilTbController.items}" var="item"
                                  selectionMode="single" selection="#{perfilTbController.selected}"
@@ -68,19 +81,10 @@
                 </p:panel>
             </h:form>
 
-            <h:form target="_blank">
-                <div style="text-align: left"> 
-
-                    <p:commandLink actionListener="#{perfilTbController.reporte}" 
-                                   ajax="false" title="Reporte de perfiles">
-                        <p:graphicImage name="images/pdf-icon.png" height="30px"/>
-                    </p:commandLink>
-                </div> 
-            </h:form>
-
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
+            <ui:include src="../Ayuda/List.xhtml"/>
         </ui:define>
     </ui:composition>
 
