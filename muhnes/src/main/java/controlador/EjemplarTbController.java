@@ -1,12 +1,30 @@
 package controlador;
 
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Element;
+import com.lowagie.text.FontFactory;
+import com.lowagie.text.Image;
+import com.lowagie.text.PageSize;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.Phrase;
+import com.lowagie.text.Rectangle;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
 import modelo.EjemplarTb;
 import controlador.util.JsfUtil;
 import controlador.util.JsfUtil.PersistAction;
+import controlador.util.TableHeader;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import servicio.EjemplarTbFacade;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -20,6 +38,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import modelo.AgenteIdentificaEjemplarTb;
 import modelo.AgenteIdentificaEjemplarTbPK;
 import modelo.AgenteTb;
@@ -27,6 +48,7 @@ import modelo.EjemplarDonacionTb;
 import modelo.EjemplarNombrecomunTb;
 import modelo.InstitucionTb;
 import modelo.NombrecomunTb;
+import modelo.ProyectoTb;
 //import modelo.EspecieTb;
 
 @Named("ejemplarTbController")
@@ -557,5 +579,159 @@ public class EjemplarTbController implements Serializable {
     public void removerInstitucion() {
         selected.getEjemplarDonacionTbList().remove(ejemplarIns);
         listaInstitucion.add(institucionFacade.Institucion(ejemplarIns.getEIdinstitucion()));
+    }
+    
+    //********************************************REPORTES********************************************************//
+    public String calculaAgenteReporte(int b) {
+        AgenteTb agen;
+        agen = agenteFacade.agentePorId(b);
+        String agente = agen.getCNombre() + " " + agen.getCApellido();
+        return agente;
+    }
+    
+    public void reporteAll() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        try {
+            Object response = context.getExternalContext().getResponse();
+            if (response instanceof HttpServletResponse) {
+                HttpServletResponse hsr = (HttpServletResponse) response;
+                hsr.setContentType("application/pdf");
+                ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
+
+                // Inicia reporte
+                Document document = new Document(PageSize.LETTER.rotate());
+                PdfWriter writer = PdfWriter.getInstance(document, pdfOutputStream);
+                TableHeader event = new TableHeader();
+                writer.setPageEvent(event);
+                document.open();
+
+                //Encabezado
+                //ruta del sistema
+                ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+                //Referencia al logo
+                String logoPath = servletContext.getRealPath("") + File.separator + "resources"
+                        + File.separator + "images"
+                        + File.separator + "muhnes1.png";
+
+                //Tabla para  el encabezado
+                PdfPTable encabezado = new PdfPTable(3);
+                //Ancho de la tabla
+                encabezado.setWidthPercentage(100);
+                //Primera celda
+                PdfPCell cell1 = new PdfPCell();
+                //Instancia al logo
+                Image logo = Image.getInstance(logoPath);
+                //Indico tamaño del logo
+                logo.scaleToFit(80, 80);
+                //añado el primer logo a la celda
+                cell1.addElement(logo);
+                //Celda sin borde borde
+                cell1.setBorder(Rectangle.NO_BORDER);
+                //añado celda a la tabla
+                encabezado.addCell(cell1);
+                //celdas se alineen al centro
+                encabezado.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                encabezado.getDefaultCell().setVerticalAlignment(Element.ALIGN_CENTER);
+                //Siguientes celdas no tengan borde
+                encabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                //nueva celda con los datos del MUHNES
+                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de El Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+
+                encabezado.addCell("");
+                document.add(encabezado);
+
+                Paragraph titulo = new Paragraph("Reporte General de Ejemplares", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                titulo.setAlignment(Element.ALIGN_CENTER);
+                
+                titulo.setSpacingBefore(5);
+                document.add(titulo);
+
+
+                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
+                        FontFactory.getFont(FontFactory.TIMES, 10));
+                fecha.setAlignment(Element.ALIGN_CENTER);
+                fecha.setSpacingAfter(10);
+                document.add(fecha);
+
+                PdfPTable ejemplares = new PdfPTable(8);
+                ejemplares.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+
+                int headerwidths[] = {8, 20, 9, 15, 9, 20, 9, 10};
+                try {
+                    ejemplares.setWidths(headerwidths);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+
+                ejemplares.setWidthPercentage(100);
+                ejemplares.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                ejemplares.addCell(new Phrase("Codigo de Entrada", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                ejemplares.addCell(new Phrase("Responsable", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                ejemplares.addCell(new Phrase("Correlativo", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                ejemplares.addCell(new Phrase("Información Taxonómica", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                ejemplares.addCell(new Phrase("Calificativo", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                ejemplares.addCell(new Phrase("Descripción", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                ejemplares.addCell(new Phrase("Duplicados", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                ejemplares.addCell(new Phrase("Localidad", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+
+                List<EjemplarTb> ejemplarListaReporte = new ArrayList<EjemplarTb>();
+
+                //if (booleanoReporte == true) {
+                    ejemplarListaReporte = getFacade().ejemplarGeneral();
+                //} else {
+                //    proyectoListaReporte = getFacade().ProyectoReportesEntreFechas(f1, f2);
+               // }
+
+                for (EjemplarTb ejemplar : ejemplarListaReporte) {
+
+                    PdfPCell c1 = new PdfPCell(new Phrase(ejemplar.getCCodigoentrada(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    ejemplares.addCell(c1);
+
+                    PdfPCell c2 = new PdfPCell(new Phrase(calculaAgenteReporte(ejemplar.getEResponsable()), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    c2.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    ejemplares.addCell(c2);
+
+                    PdfPCell c3 = new PdfPCell(new Phrase(String.valueOf(ejemplar.getECorrelativo()), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    c3.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    ejemplares.addCell(c3);
+
+                    PdfPCell c4 = new PdfPCell(new Phrase(ejemplar.getEIdtaxonomia().getCTipo() + ": " + ejemplar.getEIdtaxonomia().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    c4.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    ejemplares.addCell(c4);
+
+                    PdfPCell c5 = new PdfPCell(new Phrase(ejemplar.getCCalificativo(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    c5.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    ejemplares.addCell(c5);
+
+                    PdfPCell c6 = new PdfPCell(new Phrase(ejemplar.getMDescripcion(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    c6.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    ejemplares.addCell(c6);
+                    
+                    PdfPCell c7 = new PdfPCell(new Phrase(String.valueOf(ejemplar.getECantDuplicado()), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    c7.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    ejemplares.addCell(c7);
+                    
+                    PdfPCell c8 = new PdfPCell(new Phrase(ejemplar.getEIdlocalidad().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    c8.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    ejemplares.addCell(c8);
+
+                }
+                document.add(ejemplares);
+                document.close();
+                //Termina reporte
+
+                hsr.setHeader("Expires", "0");
+                hsr.setContentType("application/pdf");
+                hsr.setContentLength(pdfOutputStream.size());
+                ServletOutputStream responseOutputStream = hsr.getOutputStream();
+                responseOutputStream.write(pdfOutputStream.toByteArray());
+                responseOutputStream.flush();
+                responseOutputStream.close();
+                context.responseComplete();
+            }
+        } catch (DocumentException | IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -84,4 +84,9 @@ public class EjemplarTbFacade extends AbstractFacade<EjemplarTb> {
         query.setParameter("t", tax);
         return query.getResultList();
     }
+    public List<EjemplarTb> ejemplarGeneral() {
+        em.clear();
+        TypedQuery<EjemplarTb> query = em.createQuery("SELECT p FROM EjemplarTb p ORDER BY p.cCodigoentrada DESC", EjemplarTb.class);
+        return query.getResultList();
+    }
 }
