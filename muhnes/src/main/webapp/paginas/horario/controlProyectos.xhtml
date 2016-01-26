@@ -105,7 +105,7 @@
                         <p:commandButton actionListener="#{controlProyectos.iniciarActividad()}" update="iniciar :ControlForm:agendaId :growl" value="Iniciar actividad" oncomplete="handleSubmit(args, 'dialogVer');" >
                             <p:confirm header="Confirmación" message="¿Está seguro que desea iniciar actividad?" icon="ui-icon-alert" />
                         </p:commandButton>
-                        <p:commandButton value="Cancelar Actividad" update=":ProyectoTbDesactivarActividadForm" oncomplete="PF('ProyectoTbDesactivarActividadDialog').show()" style="float: right;background: #cc0000"></p:commandButton>
+                        <p:commandButton value="Cancelar actividad" update=":ProyectoTbDesactivarActividadForm" oncomplete="PF('ProyectoTbDesactivarActividadDialog').show()" style="float: right;background: #cc0000"></p:commandButton>
                     </h:panelGroup>
 
                     <!-- Para actividades en proceso  -->
@@ -163,7 +163,7 @@
                         <p:commandButton actionListener="#{controlProyectos.finalizarActividad()}" update="Proceso Proceso2 :ControlForm:agendaId  :growl" value="Finalizar actividad" oncomplete="handleSubmit(args, 'dialogVer');" >
                             <p:confirm header="Confirmación" message="¿Está seguro que desea finalizar actividad?" icon="ui-icon-alert" />
                         </p:commandButton>
-                        <p:commandButton value="Cancelar Actividad" update=":ProyectoTbDesactivarActividadForm" oncomplete="PF('ProyectoTbDesactivarActividadDialog').show()" style="float: right;background: #cc0000"></p:commandButton>
+                        <p:commandButton value="Cancelar actividad" update=":ProyectoTbDesactivarActividadForm" oncomplete="PF('ProyectoTbDesactivarActividadDialog').show()" style="float: right;background: #cc0000"></p:commandButton>
                     </h:panelGroup>
                     <!-- Fin Actividades en proceso-->
 
