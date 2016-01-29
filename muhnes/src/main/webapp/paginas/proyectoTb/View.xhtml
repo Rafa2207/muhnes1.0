@@ -12,17 +12,17 @@
             <h:form id="ProyectoTbViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{proyectoTbController.selected != null}" style="width: 450px">
-                        
+
                         <h:outputText value="#{bundle.ViewProyectoTbLabel_CNombre}"/>
                         <h:outputText value="#{proyectoTbController.selected.MNombre}" title="#{bundle.ViewProyectoTbTitle_CNombre}"/>
-                        
+
                         <h:outputText value="#{bundle.ViewProyectoTbLabel_CResponsable}"/>
                         <h:outputText value="#{proyectoTbController.calculaAgente(agenteTbController.items, proyectoTbController.selected.EResponsable)}" title="#{bundle.ViewProyectoTbTitle_CResponsable}"/>
-                        
+
                         <h:outputText value="#{bundle.ViewProyectoTbLabel_MDescripcion}"/>
                         <h:outputText  value="#{proyectoTbController.selected.MDescripcion}" title="#{bundle.ViewProyectoTbTitle_MDescripcion}"/>
-                       
-                        
+
+
                         <h:outputText value="#{bundle.ViewProyectoTbLabel_FFechaInicio}"/>
                         <h:outputText value="#{proyectoTbController.selected.FFechaInicio}" title="#{bundle.ViewProyectoTbTitle_FFechaInicio}">
                             <f:convertDateTime pattern="dd MMMM yyyy" />
@@ -32,7 +32,8 @@
                             <f:convertDateTime pattern="dd MMMM yyyy" />
                         </h:outputText>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="ProyectoTbViewDialog.hide()"/>
+                    <p:commandButton value="Imprimir Reporte" actionListener="#{proyectoTbController.reporteIndividual()}" ajax="false"
+                                     onclick="this.form.target = '_blank'"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

@@ -1,5 +1,6 @@
 package controlador;
 
+import com.google.zxing.pdf417.PDF417Writer;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
@@ -16,6 +17,7 @@ import modelo.ProyectoTb;
 import controlador.util.JsfUtil;
 import controlador.util.JsfUtil.PersistAction;
 import controlador.util.TableHeader;
+import controlador.util.TableHeaderVertical;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -48,6 +50,7 @@ import javax.servlet.http.HttpServletResponse;
 import modelo.ActividadTb;
 import modelo.AgenteTb;
 import modelo.BitacoraTb;
+import modelo.InsumoTb;
 import modelo.ProrrogaProyectoTb;
 import modelo.UsuarioTb;
 import org.primefaces.context.RequestContext;
@@ -632,7 +635,7 @@ public class ProyectoTbController implements Serializable {
 
                 Paragraph titulo = new Paragraph("Reporte General de Proyectos", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                 titulo.setAlignment(Element.ALIGN_CENTER);
-                
+
                 titulo.setSpacingBefore(5);
                 document.add(titulo);
 
@@ -642,7 +645,7 @@ public class ProyectoTbController implements Serializable {
                     titulo2.setSpacingAfter(5);
                     titulo2.setSpacingBefore(2);
                     document.add(titulo2);
-                } 
+                }
 
                 Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
@@ -722,4 +725,282 @@ public class ProyectoTbController implements Serializable {
         }
     }
 
+    public void reporteIndividual() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        try {
+            Object response = context.getExternalContext().getResponse();
+            if (response instanceof HttpServletResponse) {
+                HttpServletResponse hsr = (HttpServletResponse) response;
+                hsr.setContentType("application/pdf");
+                ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
+
+                // Inicia reporte
+                Document document = new Document(PageSize.LETTER);
+                PdfWriter writer = PdfWriter.getInstance(document, pdfOutputStream);
+                TableHeaderVertical event = new TableHeaderVertical();
+                writer.setPageEvent(event);
+                document.open();
+
+                //Encabezado
+                //ruta del sistema
+                ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+                //Referencia al logo
+                String logoPath = servletContext.getRealPath("") + File.separator + "resources"
+                        + File.separator + "images"
+                        + File.separator + "muhnes1.png";
+
+                //Tabla para  el encabezado
+                PdfPTable encabezado = new PdfPTable(3);
+                //Ancho de la tabla
+                encabezado.setWidthPercentage(100);
+                //Primera celda
+                PdfPCell cell1 = new PdfPCell();
+                //Instancia al logo
+                Image logo = Image.getInstance(logoPath);
+                //Indico tamaño del logo
+                logo.scaleToFit(80, 80);
+                //añado el primer logo a la celda
+                cell1.addElement(logo);
+                //Celda sin borde borde
+                cell1.setBorder(Rectangle.NO_BORDER);
+                //añado celda a la tabla
+                encabezado.addCell(cell1);
+                //celdas se alineen al centro
+                encabezado.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                encabezado.getDefaultCell().setVerticalAlignment(Element.ALIGN_CENTER);
+                //Siguientes celdas no tengan borde
+                encabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                //nueva celda con los datos del MUHNES
+                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de El Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+
+                encabezado.addCell("");
+                document.add(encabezado);
+
+                Paragraph titulo = new Paragraph("Reporte de Proyecto", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                titulo.setAlignment(Element.ALIGN_CENTER);
+                titulo.setSpacingAfter(5);
+                titulo.setSpacingBefore(10);
+                document.add(titulo);
+
+                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
+                        FontFactory.getFont(FontFactory.TIMES, 10));
+                fecha.setAlignment(Element.ALIGN_CENTER);
+                fecha.setSpacingAfter(15);
+                document.add(fecha);
+
+                int columnas[] = {25, 75};
+
+                PdfPTable TablaNombre = new PdfPTable(2);
+                TablaNombre.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
+                TablaNombre.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                TablaNombre.setWidths(columnas);
+                TablaNombre.setWidthPercentage(100);
+                TablaNombre.setSpacingAfter(5);
+                TablaNombre.setSpacingBefore(5);
+                TablaNombre.addCell(new Phrase("Nombre: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                TablaNombre.addCell(new Phrase(new Phrase(selected.getMNombre(), FontFactory.getFont(FontFactory.TIMES, 12))));
+                document.add(TablaNombre);
+
+                PdfPTable TablaDescripcion = new PdfPTable(2);
+                TablaDescripcion.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
+                TablaDescripcion.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                TablaDescripcion.setWidths(columnas);
+                TablaDescripcion.setWidthPercentage(100);
+                TablaDescripcion.setSpacingAfter(5);
+                TablaDescripcion.setSpacingBefore(5);
+                TablaDescripcion.addCell(new Phrase("Descripción: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                TablaDescripcion.addCell(new Phrase(new Phrase(selected.getMDescripcion(), FontFactory.getFont(FontFactory.TIMES, 12))));
+                document.add(TablaDescripcion);
+
+                PdfPTable TablaFecha = new PdfPTable(2);
+                TablaFecha.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
+                TablaFecha.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                TablaFecha.setWidths(columnas);
+                TablaFecha.setWidthPercentage(100);
+                TablaFecha.setSpacingAfter(5);
+                TablaFecha.setSpacingBefore(5);
+                TablaFecha.addCell(new Phrase("Tiempo de duración: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                TablaFecha.addCell(new Phrase(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(selected.getFFechaInicio()) + " - " + new SimpleDateFormat("dd MMMM yyyy").format(selected.getFFechaFin()), FontFactory.getFont(FontFactory.TIMES, 12))));
+                document.add(TablaFecha);
+
+                PdfPTable TablaResponsable = new PdfPTable(2);
+                TablaResponsable.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
+                TablaResponsable.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                TablaResponsable.setWidths(columnas);
+                TablaResponsable.setWidthPercentage(100);
+                TablaResponsable.setSpacingAfter(5);
+                TablaResponsable.setSpacingBefore(5);
+                TablaResponsable.addCell(new Phrase("Responsable: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                TablaResponsable.addCell(new Phrase(new Phrase(calculaAgenteReporte(selected.getEResponsable()), FontFactory.getFont(FontFactory.TIMES, 12))));
+                document.add(TablaResponsable);
+
+                Paragraph tituloActividades = new Paragraph("PRESUPUESTO", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                tituloActividades.setAlignment(Element.ALIGN_CENTER);
+                tituloActividades.setSpacingAfter(5);
+                tituloActividades.setSpacingBefore(5);
+                document.add(tituloActividades);
+
+                //Imprime las actividades detalladas con sus insumos
+                selected.getActividadTbList().clear();
+                selected.setActividadTbList(getFacadeActividad().buscarAsc(selected));
+                if (!selected.getActividadTbList().isEmpty()) {
+                    for (ActividadTb a : selected.getActividadTbList()) {
+
+                        //Nombre actividad
+                        Paragraph tituloNoActividades = new Paragraph(a.getMNombre(), FontFactory.getFont(FontFactory.TIMES_BOLD, 12));
+                        tituloNoActividades.setAlignment(Element.ALIGN_CENTER);
+                        tituloNoActividades.setSpacingBefore(5);
+                        document.add(tituloNoActividades);
+
+                        //Fecha de actividades
+                        Paragraph fechasActividades = new Paragraph(new SimpleDateFormat("dd MMMM yyyy").format(a.getFFecha()) + " - " + new SimpleDateFormat("dd MMMM yyyy").format(a.getFFechafin()), FontFactory.getFont(FontFactory.TIMES, 12));
+                        fechasActividades.setAlignment(Element.ALIGN_CENTER);
+                        fechasActividades.setSpacingAfter(5);
+                        document.add(fechasActividades);
+
+                        //Encabezado
+                        PdfPTable TablaInsumo1 = new PdfPTable(4);
+                        int numero[] = {40, 20, 20, 20};
+                        TablaInsumo1.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                        TablaInsumo1.setWidths(numero);
+                        TablaInsumo1.setWidthPercentage(80);
+                        TablaInsumo1.addCell(new Phrase("Insumo", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                        TablaInsumo1.addCell(new Phrase("Cantidad", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                        TablaInsumo1.addCell(new Phrase("Costo", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                        TablaInsumo1.addCell(new Phrase("Sub-Total", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                        document.add(TablaInsumo1);
+
+                        for (InsumoTb i : a.getInsumoTbList()) {
+                            PdfPTable TablaInsumo = new PdfPTable(4);
+                            TablaInsumo.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                            TablaInsumo.setWidths(numero);
+                            TablaInsumo.setWidthPercentage(80);
+
+                            PdfPCell c0 = new PdfPCell(new Phrase(i.getMNombre(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                            c0.setHorizontalAlignment(Element.ALIGN_LEFT);
+                            TablaInsumo.addCell(c0);
+
+                            PdfPCell c1 = new PdfPCell(new Phrase(String.valueOf(i.getDCantidad()) + " " + i.getMTiempo(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                            TablaInsumo.addCell(c1);
+
+                            PdfPCell c2 = new PdfPCell(new Phrase("$ " + String.valueOf(i.getDGasto()), FontFactory.getFont(FontFactory.TIMES, 12)));
+                            c2.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                            TablaInsumo.addCell(c2);
+
+                            PdfPCell c3 = new PdfPCell(new Phrase("$ " + String.valueOf(i.getDGasto() * i.getDCantidad()), FontFactory.getFont(FontFactory.TIMES, 12)));
+                            c3.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                            TablaInsumo.addCell(c3);
+
+                            document.add(TablaInsumo);
+                        }
+                        //Si hay gasto adicional
+                        if (a.getMJustificacion() != null) {
+                            PdfPTable TablaJustificacion = new PdfPTable(4);
+                            TablaJustificacion.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                            TablaJustificacion.setWidths(numero);
+                            TablaJustificacion.setWidthPercentage(80);
+                            TablaJustificacion.addCell(new Phrase("", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                            TablaJustificacion.addCell(new Phrase("", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                            TablaJustificacion.addCell(new Phrase("Gasto Adicional", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+
+                            PdfPCell c3 = new PdfPCell(new Phrase("$ " + String.valueOf(a.getDGastoAdicional()), FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                            c3.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                            TablaJustificacion.addCell(c3);
+
+                            document.add(TablaJustificacion);
+
+                        }
+
+                        //Totalizando
+                        PdfPTable TablaInsumo2 = new PdfPTable(4);
+                        TablaInsumo2.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                        TablaInsumo2.setWidths(numero);
+                        TablaInsumo2.setWidthPercentage(80);
+                        TablaInsumo2.addCell(new Phrase("", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                        TablaInsumo2.addCell(new Phrase("", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                        TablaInsumo2.addCell(new Phrase("Total", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+
+                        PdfPCell c3 = new PdfPCell(new Phrase("$ " + String.valueOf(a.getDTotal() + a.getDGastoAdicional()), FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                        c3.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                        TablaInsumo2.addCell(c3);
+
+                        document.add(TablaInsumo2);
+
+                        //Espacio
+                        Paragraph espacio = new Paragraph("", FontFactory.getFont(FontFactory.TIMES, 12));
+                        espacio.setAlignment(Element.ALIGN_CENTER);
+                        espacio.setSpacingAfter(5);
+                        espacio.setSpacingBefore(5);
+                        document.add(espacio);
+
+                    }
+
+                    Paragraph tituloPresupuestoTotal = new Paragraph("COSTO TOTAL", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                    tituloPresupuestoTotal.setAlignment(Element.ALIGN_CENTER);
+                    tituloPresupuestoTotal.setSpacingAfter(5);
+                    tituloPresupuestoTotal.setSpacingBefore(5);
+                    document.add(tituloPresupuestoTotal);
+                    int n[] = {75, 25};
+                    double total = 0;
+                    for (ActividadTb a : selected.getActividadTbList()) {
+
+                        PdfPTable TablaSubtotal = new PdfPTable(2);
+                        TablaSubtotal.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                        TablaSubtotal.setWidths(n);
+                        TablaSubtotal.setWidthPercentage(80);
+
+                        PdfPCell c0 = new PdfPCell(new Phrase(a.getMNombre(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                        c0.setHorizontalAlignment(Element.ALIGN_LEFT);
+                        TablaSubtotal.addCell(c0);
+
+                        PdfPCell c1 = new PdfPCell(new Phrase("$ " + String.valueOf(a.getDTotal() + a.getDGastoAdicional()), FontFactory.getFont(FontFactory.TIMES, 12)));
+                        c1.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                        TablaSubtotal.addCell(c1);
+
+                        document.add(TablaSubtotal);
+                        total = total + a.getDGastoAdicional() + a.getDTotal();
+
+                    }
+
+                    PdfPTable TablaTotal = new PdfPTable(2);
+                    TablaTotal.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                    TablaTotal.setWidths(n);
+                    TablaTotal.setWidthPercentage(80);
+
+                    PdfPCell c0 = new PdfPCell(new Phrase("TOTAL PROYECTO", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                    c0.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    TablaTotal.addCell(c0);
+
+                    PdfPCell c1 = new PdfPCell(new Phrase("$ " + String.valueOf(total), FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                    c1.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                    TablaTotal.addCell(c1);
+
+                    document.add(TablaTotal);
+
+                } else {
+                    Paragraph tituloNoActividades = new Paragraph("No se encontraron Actividades", FontFactory.getFont(FontFactory.TIMES, 12));
+                    tituloNoActividades.setAlignment(Element.ALIGN_CENTER);
+                    tituloNoActividades.setSpacingAfter(5);
+                    tituloNoActividades.setSpacingBefore(5);
+                    document.add(tituloNoActividades);
+                }
+
+                //Imprime el Total de todas las actividades
+                document.close();
+                //Termina reporte
+
+                hsr.setHeader("Expires", "0");
+                hsr.setContentType("application/pdf");
+                hsr.setContentLength(pdfOutputStream.size());
+                ServletOutputStream responseOutputStream = hsr.getOutputStream();
+                responseOutputStream.write(pdfOutputStream.toByteArray());
+                responseOutputStream.flush();
+                responseOutputStream.close();
+                context.responseComplete();
+            }
+        } catch (DocumentException | IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

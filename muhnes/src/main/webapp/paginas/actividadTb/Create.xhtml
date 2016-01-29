@@ -66,11 +66,11 @@
                                 <f:selectItems value="#{unidadesTbController.unidades(actividadTbController.selected.CTipo)}" 
                                                var="unidad" 
                                                itemLabel="#{unidad.CNombre}" 
-                                               itemValue="#{unidad.CNombre}"/>
+                                               itemValue="#{unidad.CAbreviatura}"/>
                             </p:selectOneMenu>
                             <p:outputLabel value="Cantidad:" for="cant"/>
                             <pe:inputNumber id="cant" value="#{actividadTbController.cantidad}" title="Cantidad"
-                                            decimalPlaces="1" styleClass="ParaInputNumberActividades" maxValue="1000"/>
+                                            decimalPlaces="2" styleClass="ParaInputNumberActividades" maxValue="1000"/>
 
                             <p:outputLabel value="Costo Unitario:" for="costo" />
                             <pe:inputNumber id="costo" value="#{actividadTbController.costo}" title="Costo"
@@ -109,7 +109,7 @@
                                     </f:facet>
                                     <f:facet name="input">
                                         <pe:inputNumber id="cant" value="#{insumo.DCantidad}" title="Cantidad" maxValue="1000"
-                                                        decimalPlaces="1" styleClass="ParaInputNumberActividades"/>
+                                                        decimalPlaces="2" styleClass="ParaInputNumberActividades"/>
                                     </f:facet>
                                 </p:cellEditor>
                             </p:column>
