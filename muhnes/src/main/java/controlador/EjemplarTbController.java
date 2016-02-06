@@ -65,18 +65,156 @@ public class EjemplarTbController implements Serializable {
     private EjemplarTb selected;
     private AgenteTb agente;
     private NombrecomunTb nc;
-    private List<AgenteTb> listaAgenteR, listaAgenteI;
+    private List<AgenteTb> listaAgenteR, listaAgenteI, listaResponsables, listaIdenficadores, listaRecolectores;
     private List<NombrecomunTb> listaNombreComun;
     private List<InstitucionTb> listaInstitucion;
     private AgenteIdentificaEjemplarTb agenteIdentifica;
     private EjemplarNombrecomunTb ejemplarnc;
     private EjemplarDonacionTb ejemplarIns;
-    private String tipoTaxon;
+    private String tipoTaxon, tipoReporte, codigo1, codigo2;
     private String cod;
-    private boolean familia;
+    private Integer responsable, identificador, recolector;
+    private boolean familia, booleanoReporte, booleanFecha, booleanCodigo, booleanResponsable, booleanIdentidicador, booleanRecolector;
     private InstitucionTb ins;
+    private Date f1, f2;
 
     public EjemplarTbController() {
+    }
+
+    public List<AgenteTb> getListaRecolectores() {
+        return listaRecolectores;
+    }
+
+    public void setListaRecolectores(List<AgenteTb> listaRecolectores) {
+        this.listaRecolectores = listaRecolectores;
+    }
+
+    public Integer getRecolector() {
+        return recolector;
+    }
+
+    public void setRecolector(Integer recolector) {
+        this.recolector = recolector;
+    }
+
+    public boolean isBooleanRecolector() {
+        return booleanRecolector;
+    }
+
+    public void setBooleanRecolector(boolean booleanRecolector) {
+        this.booleanRecolector = booleanRecolector;
+    }
+
+    public Integer getIdentificador() {
+        return identificador;
+    }
+
+    public void setIdentificador(Integer identificador) {
+        this.identificador = identificador;
+    }
+
+    public List<AgenteTb> getListaIdenficadores() {
+        return listaIdenficadores;
+    }
+
+    public void setListaIdenficadores(List<AgenteTb> listaIdenficadores) {
+        this.listaIdenficadores = listaIdenficadores;
+    }
+
+    public boolean isBooleanIdentidicador() {
+        return booleanIdentidicador;
+    }
+
+    public void setBooleanIdentidicador(boolean booleanIdentidicador) {
+        this.booleanIdentidicador = booleanIdentidicador;
+    }
+
+    public List<AgenteTb> getListaResponsables() {
+        return listaResponsables;
+    }
+
+    public void setListaResponsables(List<AgenteTb> listaResponsables) {
+        this.listaResponsables = listaResponsables;
+    }
+
+    public Integer getResponsable() {
+        return responsable;
+    }
+
+    public void setResponsable(Integer responsable) {
+        this.responsable = responsable;
+    }
+
+    public boolean isBooleanResponsable() {
+        return booleanResponsable;
+    }
+
+    public void setBooleanResponsable(boolean booleanResponsable) {
+        this.booleanResponsable = booleanResponsable;
+    }
+
+    public String getCodigo1() {
+        return codigo1;
+    }
+
+    public void setCodigo1(String codigo1) {
+        this.codigo1 = codigo1;
+    }
+
+    public String getCodigo2() {
+        return codigo2;
+    }
+
+    public void setCodigo2(String codigo2) {
+        this.codigo2 = codigo2;
+    }
+
+    public boolean isBooleanCodigo() {
+        return booleanCodigo;
+    }
+
+    public void setBooleanCodigo(boolean booleanCodigo) {
+        this.booleanCodigo = booleanCodigo;
+    }
+
+    public boolean isBooleanFecha() {
+        return booleanFecha;
+    }
+
+    public void setBooleanFecha(boolean booleanFecha) {
+        this.booleanFecha = booleanFecha;
+    }
+
+    public String getTipoReporte() {
+        return tipoReporte;
+    }
+
+    public void setTipoReporte(String tipoReporte) {
+        this.tipoReporte = tipoReporte;
+    }
+
+    public boolean isBooleanoReporte() {
+        return booleanoReporte;
+    }
+
+    public void setBooleanoReporte(boolean booleanoReporte) {
+        this.booleanoReporte = booleanoReporte;
+    }
+
+    public Date getF1() {
+        return f1;
+    }
+
+    public void setF1(Date f1) {
+        this.f1 = f1;
+    }
+
+    public Date getF2() {
+        return f2;
+    }
+
+    public void setF2(Date f2) {
+        this.f2 = f2;
     }
 
     public EjemplarDonacionTb getEjemplarIns() {
@@ -259,10 +397,10 @@ public class EjemplarTbController implements Serializable {
             tipoTaxon = "Variedad";
         }
         //lista de nombres comunes.
-        
+
         //lista de instituciones.
         listaInstitucion = institucionFacade.findAll();
-        for (EjemplarDonacionTb i: selected.getEjemplarDonacionTbList()){
+        for (EjemplarDonacionTb i : selected.getEjemplarDonacionTbList()) {
             listaInstitucion.remove(institucionFacade.Institucion(i.getEIdinstitucion()));
         }
         return selected;
@@ -277,9 +415,9 @@ public class EjemplarTbController implements Serializable {
             // oncomplete = "";
         } else {
             if (selected.getEIdinstitucion() != null) {
-                selected.setEEstado(2); //ejemplar que se recibiÃ³ donado
+                selected.setEEstado(2); //ejemplar que se recibiÃƒÂ³ donado
             } else {
-                selected.setEEstado(1); //ejemplar que se recolectÃ³
+                selected.setEEstado(1); //ejemplar que se recolectÃƒÂ³
             }
             persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("EjemplarTbCreated"));
             if (!JsfUtil.isValidationFailed()) {
@@ -580,7 +718,7 @@ public class EjemplarTbController implements Serializable {
         selected.getEjemplarDonacionTbList().remove(ejemplarIns);
         listaInstitucion.add(institucionFacade.Institucion(ejemplarIns.getEIdinstitucion()));
     }
-    
+
     //********************************************REPORTES********************************************************//
     public String calculaAgenteReporte(int b) {
         AgenteTb agen;
@@ -588,7 +726,55 @@ public class EjemplarTbController implements Serializable {
         String agente = agen.getCNombre() + " " + agen.getCApellido();
         return agente;
     }
-    
+
+    public void prepareReporte() {
+        booleanFecha = false;
+        booleanCodigo = false;
+        booleanoReporte = true;
+        booleanIdentidicador = false;
+        booleanResponsable = false;
+        listaResponsables = getFacade().responsables();
+        listaIdenficadores = getFacade().identificadores();
+        listaRecolectores = getFacade().recolectores();
+        f1 = null;
+        f2 = null;
+    }
+
+    public void actualizarVista() {
+        if (tipoReporte.equals("recoleccion") || tipoReporte.equals("identificacion")) {
+            booleanFecha = true;
+            booleanCodigo = false;
+            booleanoReporte = false;
+            booleanResponsable = false;
+            booleanIdentidicador = false;
+        } else if (tipoReporte.equals("entrada")) {
+            booleanCodigo = true;
+            booleanFecha = false;
+            booleanoReporte = false;
+            booleanResponsable = false;
+            booleanIdentidicador = false;
+        } else if (tipoReporte.equals("responsable")) {
+            booleanResponsable = true;
+            booleanCodigo = false;
+            booleanFecha = false;
+            booleanoReporte = false;
+            booleanIdentidicador = false;
+        } else if (tipoReporte.equals("identificador")) {
+            booleanResponsable = false;
+            booleanCodigo = false;
+            booleanFecha = false;
+            booleanoReporte = false;
+            booleanIdentidicador = true;
+        } else if (tipoReporte.equals("recolector")) {
+            booleanResponsable = false;
+            booleanCodigo = false;
+            booleanFecha = false;
+            booleanoReporte = false;
+            booleanIdentidicador = false;
+            booleanRecolector = true;
+        }
+    }
+
     public void reporteAll() {
         FacesContext context = FacesContext.getCurrentInstance();
         try {
@@ -621,13 +807,13 @@ public class EjemplarTbController implements Serializable {
                 PdfPCell cell1 = new PdfPCell();
                 //Instancia al logo
                 Image logo = Image.getInstance(logoPath);
-                //Indico tamaño del logo
+                //Indico tamaÃ±o del logo
                 logo.scaleToFit(80, 80);
-                //añado el primer logo a la celda
+                //aÃ±ado el primer logo a la celda
                 cell1.addElement(logo);
                 //Celda sin borde borde
                 cell1.setBorder(Rectangle.NO_BORDER);
-                //añado celda a la tabla
+                //aÃ±ado celda a la tabla
                 encabezado.addCell(cell1);
                 //celdas se alineen al centro
                 encabezado.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -642,10 +828,52 @@ public class EjemplarTbController implements Serializable {
 
                 Paragraph titulo = new Paragraph("Reporte General de Ejemplares", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                 titulo.setAlignment(Element.ALIGN_CENTER);
-                
+
                 titulo.setSpacingBefore(5);
                 document.add(titulo);
-
+                //fecha de generacion entre los reportes
+                if (booleanFecha == true && tipoReporte.equals("recoleccion")) {
+                    Paragraph titulo2 = new Paragraph("Fecha de Recolección: " + new SimpleDateFormat("dd MMMM yyyy").format(f1) + " - " + new SimpleDateFormat("dd MMMM yyyy").format(f2), FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                    titulo2.setAlignment(Element.ALIGN_CENTER);
+                    titulo2.setSpacingAfter(5);
+                    titulo2.setSpacingBefore(2);
+                    document.add(titulo2);
+                }
+                if (booleanFecha == true && tipoReporte.equals("identificacion")) {
+                    Paragraph titulo2 = new Paragraph("Fecha de Identificación: " + new SimpleDateFormat("dd MMMM yyyy").format(f1) + " - " + new SimpleDateFormat("dd MMMM yyyy").format(f2), FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                    titulo2.setAlignment(Element.ALIGN_CENTER);
+                    titulo2.setSpacingAfter(5);
+                    titulo2.setSpacingBefore(2);
+                    document.add(titulo2);
+                }
+                if (booleanCodigo == true) {
+                    Paragraph titulo2 = new Paragraph("Código de Entrada: Desde " + getCodigo1() + " Hasta " + getCodigo2(), FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                    titulo2.setAlignment(Element.ALIGN_CENTER);
+                    titulo2.setSpacingAfter(5);
+                    titulo2.setSpacingBefore(2);
+                    document.add(titulo2);
+                }
+                if (booleanResponsable == true) {
+                    Paragraph titulo2 = new Paragraph("Responsable: " + getFacade().nombreResposable(responsable), FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                    titulo2.setAlignment(Element.ALIGN_CENTER);
+                    titulo2.setSpacingAfter(5);
+                    titulo2.setSpacingBefore(2);
+                    document.add(titulo2);
+                }
+                if (booleanIdentidicador == true) {
+                    Paragraph titulo2 = new Paragraph("Identificador: " + getFacade().nombreResposable(identificador), FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                    titulo2.setAlignment(Element.ALIGN_CENTER);
+                    titulo2.setSpacingAfter(5);
+                    titulo2.setSpacingBefore(2);
+                    document.add(titulo2);
+                }
+                if (booleanRecolector == true) {
+                    Paragraph titulo2 = new Paragraph("Recolector: " + getFacade().nombreResposable(recolector), FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                    titulo2.setAlignment(Element.ALIGN_CENTER);
+                    titulo2.setSpacingAfter(5);
+                    titulo2.setSpacingBefore(2);
+                    document.add(titulo2);
+                }
 
                 Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
@@ -665,7 +893,7 @@ public class EjemplarTbController implements Serializable {
 
                 ejemplares.setWidthPercentage(100);
                 ejemplares.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-                ejemplares.addCell(new Phrase("Codigo de Entrada", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                ejemplares.addCell(new Phrase("Código de Entrada", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 ejemplares.addCell(new Phrase("Responsable", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 ejemplares.addCell(new Phrase("Correlativo", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 ejemplares.addCell(new Phrase("Información Taxonómica", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
@@ -676,11 +904,21 @@ public class EjemplarTbController implements Serializable {
 
                 List<EjemplarTb> ejemplarListaReporte = new ArrayList<EjemplarTb>();
 
-                //if (booleanoReporte == true) {
+                if (booleanoReporte == true) {
                     ejemplarListaReporte = getFacade().ejemplarGeneral();
-                //} else {
-                //    proyectoListaReporte = getFacade().ProyectoReportesEntreFechas(f1, f2);
-               // }
+                } else if (booleanFecha == true && tipoReporte.equals("recoleccion")) {
+                    ejemplarListaReporte = getFacade().ejemplarGeneralRecoleccion(f1, f2);
+                } else if (booleanFecha == true && tipoReporte.equals("identificacion")) {
+                    ejemplarListaReporte = getFacade().ejemplarGeneralIdentificacion(f1, f2);
+                } else if (booleanCodigo == true) {
+                    ejemplarListaReporte = getFacade().ejemplarGeneralEntrada(codigo1, codigo2);
+                } else if (booleanResponsable == true) {
+                    ejemplarListaReporte = getFacade().ejemplarGeneralResponsable(responsable);
+                } else if (booleanIdentidicador == true) {
+                    ejemplarListaReporte = getFacade().ejemplarGeneralIdentificador(identificador);
+                } else if (booleanRecolector == true) {
+                    ejemplarListaReporte = getFacade().ejemplarGeneralRecolector(recolector);
+                }
 
                 for (EjemplarTb ejemplar : ejemplarListaReporte) {
 
@@ -707,11 +945,11 @@ public class EjemplarTbController implements Serializable {
                     PdfPCell c6 = new PdfPCell(new Phrase(ejemplar.getMDescripcion(), FontFactory.getFont(FontFactory.TIMES, 12)));
                     c6.setHorizontalAlignment(Element.ALIGN_LEFT);
                     ejemplares.addCell(c6);
-                    
+
                     PdfPCell c7 = new PdfPCell(new Phrase(String.valueOf(ejemplar.getECantDuplicado()), FontFactory.getFont(FontFactory.TIMES, 12)));
                     c7.setHorizontalAlignment(Element.ALIGN_CENTER);
                     ejemplares.addCell(c7);
-                    
+
                     PdfPCell c8 = new PdfPCell(new Phrase(ejemplar.getEIdlocalidad().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 12)));
                     c8.setHorizontalAlignment(Element.ALIGN_LEFT);
                     ejemplares.addCell(c8);
