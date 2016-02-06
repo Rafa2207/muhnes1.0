@@ -486,7 +486,7 @@ public class AgenteTbController implements Serializable {
                 ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
 
                 // Inicia reporte
-                Document document = new Document(PageSize.LETTER);
+                Document document = new Document(PageSize.A4);
                 PdfWriter writer = PdfWriter.getInstance(document, pdfOutputStream);
                 TableHeaderVertical event = new TableHeaderVertical();
                 writer.setPageEvent(event);

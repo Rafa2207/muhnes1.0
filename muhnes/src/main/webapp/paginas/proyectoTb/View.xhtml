@@ -32,7 +32,10 @@
                             <f:convertDateTime pattern="dd MMMM yyyy" />
                         </h:outputText>
                     </p:panelGrid>
-                    <p:commandButton value="Imprimir Reporte" actionListener="#{proyectoTbController.reporteIndividual()}" ajax="false"
+                    <p:commandButton value="Reporte planificado" actionListener="#{proyectoTbController.reporteIndividual()}" ajax="false"
+                                     onclick="this.form.target = '_blank'"/>
+                    
+                    <p:commandButton value="Reporte final" actionListener="#{proyectoTbController.reporteIndividualProcesado()}" ajax="false"
                                      onclick="this.form.target = '_blank'"/>
                 </h:panelGroup>
             </h:form>

@@ -32,6 +32,20 @@
                         <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
                     </p:commandButton>
                     
+                    <div  style="float: right">
+
+                        <p:commandLink title="Reporte de proyectos" ajax="false" target="_blank"
+                                       actionListener="#{actividadTbController.reporteAll(controladorSesion.proyecto)}">
+                            <p:graphicImage name="images/pdf-icon.png" height="35px"/>
+                        </p:commandLink>
+
+                        <p:commandLink title="Ayuda" update=":AyudaForm" oncomplete="PF('AyudaDialog').show()" >
+                            <p:graphicImage name="images/ayuda.png" height="35px" />
+                            <f:setPropertyActionListener target="#{controladorSesion.ayuda}" value="proyecto"/>
+                        </p:commandLink>
+
+                    </div>
+                    
 
                     <p:dataTable id="datalist" value="#{actividadTbController.getItems(controladorSesion.proyecto)}" var="item"
                                  selectionMode="single" selection="#{actividadTbController.selected}"
@@ -115,6 +129,7 @@
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
+            <ui:include src="../Ayuda/List.xhtml"/>
         </ui:define>
     </ui:composition>
 
