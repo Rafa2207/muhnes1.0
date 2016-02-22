@@ -13,7 +13,8 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2">
                         <p:outputLabel value="Reporte:" for="check" />
-                        <p:selectOneMenu id="check" value="#{ejemplarTbController.tipoReporte}">
+                        <p:selectOneMenu id="check" value="#{ejemplarTbController.tipoReporte}"
+                                         required="true" requiredMessage="Seleccione tipo de reporte">
                             <f:selectItem itemLabel="Seleccione..." itemValue=""/>
                             <f:selectItem itemLabel="Reporte General" itemValue="general"/>
                             <f:selectItem itemLabel="Fecha de Recolección" itemValue="recoleccion"/>
@@ -103,7 +104,7 @@
                                            itemLabel="#{responsable.CNombre} #{responsable.CApellido}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{ejemplarTbController.reporteAll()}" onclick="this.form.target = '_blank'"
+                    <p:commandButton actionListener="#{ejemplarTbController.reporteAll()}" update="display" onclick="this.form.target = '_blank'"
                                      value="Imprimir reporte" ajax="false" icon="ui-icon-print" />
 
                 </h:panelGroup>

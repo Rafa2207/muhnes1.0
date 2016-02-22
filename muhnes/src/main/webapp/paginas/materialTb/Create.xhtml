@@ -43,7 +43,8 @@
                         </p:inputText>
 
                         <p:outputLabel value="Código: " for="Codigo" />
-                        <p:inputText readonly="true" id="Codigo" value="#{materialTbController.selected.MCodigobarras}" title="Código" 
+                        <p:inputText readonly="true" id="Codigo" value="#{materialTbController.selected.MCodigobarras}" 
+                                     title="Código" required="true" requiredMessage="Debe ingresar código" 
                                      size="10" maxlength="10"/>
                         <p:outputLabel value="Tipo:" for="tipo" />
                         <p:selectOneMenu id="tipo" value="#{materialTbController.selected.ETipo}" required="true" requiredMessage="Seleccione el tipo de material">

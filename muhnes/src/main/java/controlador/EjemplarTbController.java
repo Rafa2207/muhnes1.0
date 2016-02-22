@@ -73,7 +73,7 @@ public class EjemplarTbController implements Serializable {
     private EjemplarDonacionTb ejemplarIns;
     private String tipoTaxon, tipoReporte, codigo1, codigo2;
     private String cod;
-    private Integer responsable, identificador, recolector;
+    private Integer responsable, identificador, recolector, columnas;
     private boolean familia, booleanoReporte, booleanFecha, booleanCodigo, booleanResponsable, booleanIdentidicador, booleanRecolector;
     private InstitucionTb ins;
     private Date f1, f2;
@@ -415,9 +415,9 @@ public class EjemplarTbController implements Serializable {
             // oncomplete = "";
         } else {
             if (selected.getEIdinstitucion() != null) {
-                selected.setEEstado(2); //ejemplar que se recibiÃƒÂ³ donado
+                selected.setEEstado(2); //ejemplar que se recibiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³ donado
             } else {
-                selected.setEEstado(1); //ejemplar que se recolectÃƒÂ³
+                selected.setEEstado(1); //ejemplar que se recolectÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³
             }
             persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("EjemplarTbCreated"));
             if (!JsfUtil.isValidationFailed()) {
@@ -731,6 +731,7 @@ public class EjemplarTbController implements Serializable {
         booleanFecha = false;
         booleanCodigo = false;
         booleanoReporte = true;
+        booleanRecolector = false;
         booleanIdentidicador = false;
         booleanResponsable = false;
         listaResponsables = getFacade().responsables();
@@ -741,29 +742,40 @@ public class EjemplarTbController implements Serializable {
     }
 
     public void actualizarVista() {
-        if (tipoReporte.equals("recoleccion") || tipoReporte.equals("identificacion")) {
+        if (tipoReporte.equals("general")) {
+            booleanFecha = false;
+            booleanCodigo = false;
+            booleanoReporte = true;
+            booleanResponsable = false;
+            booleanRecolector = false;
+            booleanIdentidicador = false;
+        } else if (tipoReporte.equals("recoleccion") || tipoReporte.equals("identificacion")) {
             booleanFecha = true;
             booleanCodigo = false;
             booleanoReporte = false;
             booleanResponsable = false;
+            booleanRecolector = false;
             booleanIdentidicador = false;
         } else if (tipoReporte.equals("entrada")) {
             booleanCodigo = true;
             booleanFecha = false;
             booleanoReporte = false;
             booleanResponsable = false;
+            booleanRecolector = false;
             booleanIdentidicador = false;
         } else if (tipoReporte.equals("responsable")) {
             booleanResponsable = true;
             booleanCodigo = false;
             booleanFecha = false;
             booleanoReporte = false;
+            booleanRecolector = false;
             booleanIdentidicador = false;
         } else if (tipoReporte.equals("identificador")) {
             booleanResponsable = false;
             booleanCodigo = false;
             booleanFecha = false;
             booleanoReporte = false;
+            booleanRecolector = false;
             booleanIdentidicador = true;
         } else if (tipoReporte.equals("recolector")) {
             booleanResponsable = false;
@@ -807,13 +819,13 @@ public class EjemplarTbController implements Serializable {
                 PdfPCell cell1 = new PdfPCell();
                 //Instancia al logo
                 Image logo = Image.getInstance(logoPath);
-                //Indico tamaÃ±o del logo
+                //Indico tamaÃƒÆ’Ã‚Â±o del logo
                 logo.scaleToFit(80, 80);
-                //aÃ±ado el primer logo a la celda
+                //aÃƒÆ’Ã‚Â±ado el primer logo a la celda
                 cell1.addElement(logo);
                 //Celda sin borde borde
                 cell1.setBorder(Rectangle.NO_BORDER);
-                //aÃ±ado celda a la tabla
+                //aÃƒÆ’Ã‚Â±ado celda a la tabla
                 encabezado.addCell(cell1);
                 //celdas se alineen al centro
                 encabezado.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -833,21 +845,21 @@ public class EjemplarTbController implements Serializable {
                 document.add(titulo);
                 //fecha de generacion entre los reportes
                 if (booleanFecha == true && tipoReporte.equals("recoleccion")) {
-                    Paragraph titulo2 = new Paragraph("Fecha de Recolección: " + new SimpleDateFormat("dd MMMM yyyy").format(f1) + " - " + new SimpleDateFormat("dd MMMM yyyy").format(f2), FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                    Paragraph titulo2 = new Paragraph("Fecha de RecolecciÃ³n: " + new SimpleDateFormat("dd MMMM yyyy").format(f1) + " - " + new SimpleDateFormat("dd MMMM yyyy").format(f2), FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                     titulo2.setAlignment(Element.ALIGN_CENTER);
                     titulo2.setSpacingAfter(5);
                     titulo2.setSpacingBefore(2);
                     document.add(titulo2);
                 }
                 if (booleanFecha == true && tipoReporte.equals("identificacion")) {
-                    Paragraph titulo2 = new Paragraph("Fecha de Identificación: " + new SimpleDateFormat("dd MMMM yyyy").format(f1) + " - " + new SimpleDateFormat("dd MMMM yyyy").format(f2), FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                    Paragraph titulo2 = new Paragraph("Fecha de IdentificaciÃ³n: " + new SimpleDateFormat("dd MMMM yyyy").format(f1) + " - " + new SimpleDateFormat("dd MMMM yyyy").format(f2), FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                     titulo2.setAlignment(Element.ALIGN_CENTER);
                     titulo2.setSpacingAfter(5);
                     titulo2.setSpacingBefore(2);
                     document.add(titulo2);
                 }
                 if (booleanCodigo == true) {
-                    Paragraph titulo2 = new Paragraph("Código de Entrada: Desde " + getCodigo1() + " Hasta " + getCodigo2(), FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                    Paragraph titulo2 = new Paragraph("CÃ³digo de Entrada: Desde " + getCodigo1() + " Hasta " + getCodigo2(), FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                     titulo2.setAlignment(Element.ALIGN_CENTER);
                     titulo2.setSpacingAfter(5);
                     titulo2.setSpacingBefore(2);
@@ -875,13 +887,15 @@ public class EjemplarTbController implements Serializable {
                     document.add(titulo2);
                 }
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha de generaciÃ³n: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 fecha.setSpacingAfter(10);
                 document.add(fecha);
-
-                PdfPTable ejemplares = new PdfPTable(8);
+                if(booleanResponsable == true){
+                    columnas = 7;
+                }else {columnas = 8;}
+                PdfPTable ejemplares = new PdfPTable(columnas);
                 ejemplares.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
 
                 int headerwidths[] = {8, 20, 9, 15, 9, 20, 9, 10};
@@ -893,14 +907,16 @@ public class EjemplarTbController implements Serializable {
 
                 ejemplares.setWidthPercentage(100);
                 ejemplares.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-                ejemplares.addCell(new Phrase("Código de Entrada", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-                ejemplares.addCell(new Phrase("Responsable", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-                ejemplares.addCell(new Phrase("Correlativo", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-                ejemplares.addCell(new Phrase("Información Taxonómica", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-                ejemplares.addCell(new Phrase("Calificativo", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-                ejemplares.addCell(new Phrase("Descripción", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-                ejemplares.addCell(new Phrase("Duplicados", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-                ejemplares.addCell(new Phrase("Localidad", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                ejemplares.addCell(new Phrase("CÃ³digo de Entrada", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                if(booleanResponsable == false){
+                ejemplares.addCell(new Phrase("Responsable", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                }
+                ejemplares.addCell(new Phrase("Correlativo", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                ejemplares.addCell(new Phrase("InformaciÃ³n TaxonÃ³mica", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                ejemplares.addCell(new Phrase("Calificativo", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                ejemplares.addCell(new Phrase("DescripciÃ³n", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                ejemplares.addCell(new Phrase("Duplicados", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                ejemplares.addCell(new Phrase("Localidad", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
 
                 List<EjemplarTb> ejemplarListaReporte = new ArrayList<EjemplarTb>();
 
@@ -922,35 +938,35 @@ public class EjemplarTbController implements Serializable {
 
                 for (EjemplarTb ejemplar : ejemplarListaReporte) {
 
-                    PdfPCell c1 = new PdfPCell(new Phrase(ejemplar.getCCodigoentrada(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    PdfPCell c1 = new PdfPCell(new Phrase(ejemplar.getCCodigoentrada(), FontFactory.getFont(FontFactory.TIMES, 11)));
                     c1.setHorizontalAlignment(Element.ALIGN_CENTER);
                     ejemplares.addCell(c1);
-
-                    PdfPCell c2 = new PdfPCell(new Phrase(calculaAgenteReporte(ejemplar.getEResponsable()), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    if (booleanResponsable == false){
+                    PdfPCell c2 = new PdfPCell(new Phrase(calculaAgenteReporte(ejemplar.getEResponsable()), FontFactory.getFont(FontFactory.TIMES, 11)));
                     c2.setHorizontalAlignment(Element.ALIGN_LEFT);
                     ejemplares.addCell(c2);
-
-                    PdfPCell c3 = new PdfPCell(new Phrase(String.valueOf(ejemplar.getECorrelativo()), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    }
+                    PdfPCell c3 = new PdfPCell(new Phrase(String.valueOf(ejemplar.getECorrelativo()), FontFactory.getFont(FontFactory.TIMES, 11)));
                     c3.setHorizontalAlignment(Element.ALIGN_CENTER);
                     ejemplares.addCell(c3);
 
-                    PdfPCell c4 = new PdfPCell(new Phrase(ejemplar.getEIdtaxonomia().getCTipo() + ": " + ejemplar.getEIdtaxonomia().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    PdfPCell c4 = new PdfPCell(new Phrase(ejemplar.getEIdtaxonomia().getCTipo() + ": " + ejemplar.getEIdtaxonomia().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 11)));
                     c4.setHorizontalAlignment(Element.ALIGN_LEFT);
                     ejemplares.addCell(c4);
 
-                    PdfPCell c5 = new PdfPCell(new Phrase(ejemplar.getCCalificativo(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    PdfPCell c5 = new PdfPCell(new Phrase(ejemplar.getCCalificativo(), FontFactory.getFont(FontFactory.TIMES, 11)));
                     c5.setHorizontalAlignment(Element.ALIGN_CENTER);
                     ejemplares.addCell(c5);
 
-                    PdfPCell c6 = new PdfPCell(new Phrase(ejemplar.getMDescripcion(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    PdfPCell c6 = new PdfPCell(new Phrase(ejemplar.getMDescripcion(), FontFactory.getFont(FontFactory.TIMES, 11)));
                     c6.setHorizontalAlignment(Element.ALIGN_LEFT);
                     ejemplares.addCell(c6);
 
-                    PdfPCell c7 = new PdfPCell(new Phrase(String.valueOf(ejemplar.getECantDuplicado()), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    PdfPCell c7 = new PdfPCell(new Phrase(String.valueOf(ejemplar.getECantDuplicado()), FontFactory.getFont(FontFactory.TIMES, 11)));
                     c7.setHorizontalAlignment(Element.ALIGN_CENTER);
                     ejemplares.addCell(c7);
 
-                    PdfPCell c8 = new PdfPCell(new Phrase(ejemplar.getEIdlocalidad().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    PdfPCell c8 = new PdfPCell(new Phrase(ejemplar.getEIdlocalidad().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 11)));
                     c8.setHorizontalAlignment(Element.ALIGN_LEFT);
                     ejemplares.addCell(c8);
 
