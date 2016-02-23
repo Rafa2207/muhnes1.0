@@ -63,4 +63,12 @@ public class ExhibicionTbFacade extends AbstractFacade<ExhibicionTb> {
             return 0;
         }
     }
+    
+    public List<ExhibicionTb> ExhibicionesReporteAll(Date f1, Date f2) {
+        em.clear();
+        TypedQuery<ExhibicionTb> query = em.createQuery("SELECT e FROM ExhibicionTb e where e.fFechaPrestamo between :d1 and :d2 order by e.fFechaPrestamo DESC", ExhibicionTb.class);
+        query.setParameter("d1", f1);
+        query.setParameter("d2", f2);
+        return query.getResultList();
+    }
 }

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ExhibicionTbReporteAllDlg" widgetVar="ExhibicionTbReporteAllDialog" modal="true" resizable="false" appendTo="@(body)" header="Reporte de exhibiciones">
+            <h:form id="ExhibicionTbReporteAllForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="Reporte General:" for="check" /> 
+                        <p:selectBooleanCheckbox id="check" value="#{exhibicionTbController.booleanoReporte}">
+                                <p:ajax event="change" update="desde hasta"/>
+                        </p:selectBooleanCheckbox>
+                    </p:panelGrid>
+                    <p:panelGrid columns="4">
+                        <p:outputLabel value="Desde:" for="desde" /> 
+                        <p:calendar id="desde"  size="15"
+                                    pattern="dd MMMM yyyy" value="#{exhibicionTbController.f1}" 
+                                    title="Fecha" showOn="button"
+                                    required="true" disabled="#{exhibicionTbController.booleanoReporte==true}" 
+                                    requiredMessage="Introduzca fecha inicio"
+                                    locale="es" readonlyInput="true">
+                            <p:ajax event="dateSelect" update="hasta"/>
+                        </p:calendar>
+                        
+                        <p:outputLabel value="Hasta:" for="hasta" /> 
+                        <p:calendar id="hasta"  size="15"
+                                    pattern="dd MMMM yyyy" value="#{exhibicionTbController.f2}" 
+                                    title="Fecha" showOn="button"
+                                    required="true" disabled="#{exhibicionTbController.booleanoReporte==true}"
+                                    requiredMessage="Introduzca fecha fin"
+                                    locale="es" readonlyInput="true"
+                                    mindate="#{exhibicionTbController.f1}">
+                        </p:calendar>
+
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{exhibicionTbController.reporteAll()}" onclick="this.form.target = '_blank'"
+                                     value="Imprimir reporte" ajax="false" icon="ui-icon-print" />
+
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

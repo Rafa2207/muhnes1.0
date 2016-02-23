@@ -22,7 +22,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
+import modelo.BitacoraTb;
 import modelo.ProyectoTb;
+import modelo.UsuarioTb;
 
 @Named("prorrogaProyectoTbController")
 @ViewScoped
@@ -30,6 +32,10 @@ public class ProrrogaProyectoTbController implements Serializable {
 
     @EJB
     private servicio.ProrrogaProyectoTbFacade ejbFacade;
+    @EJB
+    private servicio.UsuarioTbFacade usuarioFacade;
+    @EJB
+    private servicio.BitacoraTbFacade bitacoraFacade;
     private List<ProrrogaProyectoTb> items = null, filtro;
     private ProrrogaProyectoTb selected;
     private ProyectoTb proyectos;
@@ -124,10 +130,31 @@ public class ProrrogaProyectoTbController implements Serializable {
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Creada nueva prórroga: '" + selected.getMJustificacion() + "' del proyecto: '" + selected.getEIdproyecto().getMNombre() + "' en el módulo: Proyectos");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
     }
 
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/BundleProrrogaProy").getString("ProrrogaProyectoTbUpdated"));
+
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Modificada prórroga: '" + selected.getMJustificacion() + "' del proyecto: '" + selected.getEIdproyecto().getMNombre() + "' en el módulo: Proyectos");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
     }
 
     public void destroy() {
@@ -136,6 +163,7 @@ public class ProrrogaProyectoTbController implements Serializable {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
+
     }
 
     public List<ProrrogaProyectoTb> getItems(ProyectoTb proyecto) {
@@ -257,18 +285,18 @@ public class ProrrogaProyectoTbController implements Serializable {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(fechaMinimaTemporal);
         calendar.add(Calendar.DAY_OF_YEAR, 1);
-        Date fecha=calendar.getTime();
+        Date fecha = calendar.getTime();
         //fin calculo de siguiente dia
         selected.setFFechaInicio(fecha);
 
     }
-    
-    public Date fechaMinima(Date fecha){
+
+    public Date fechaMinima(Date fecha) {
         Date fechafin;
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(fecha);
         calendar.add(Calendar.DAY_OF_YEAR, 1);
-        fechafin=calendar.getTime();
+        fechafin = calendar.getTime();
         return fechafin;
     }
 
@@ -296,12 +324,25 @@ public class ProrrogaProyectoTbController implements Serializable {
                 i++;
             }
         }
-
+        FacesContext context = FacesContext.getCurrentInstance();
         //&& fechaPro.after(FechaActual)
         if (pro >= i && fechaPro.after(FechaActual)) {
-            destroy();
+            String nombreprorroga=selected.getMJustificacion();
+            String nombreproyecto=selected.getEIdproyecto().getMNombre();
+            getFacade().remove(selected);
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Prórroga eliminada correctamente.", "INFO"));
+            //Bitacora inicio
+            BitacoraTb bitacora = new BitacoraTb();
+            bitacora.setMDescripcion("Eliminada prórroga: '" + nombreprorroga + "' del proyecto: '" + nombreproyecto + "' en el módulo: Proyectos");
+            String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+            UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+            bitacora.setEIdusuario(usuario);
+            Date fecha = new Date();
+            bitacora.setTFecha(fecha);
+            bitacoraFacade.create(bitacora);
+            //Bitacora fin
         } else {
-            FacesContext context = FacesContext.getCurrentInstance();
+
             if (fechaPro.after(FechaActual)) {
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error, elimine primero la última prórroga ", "ERROR"));
             } else {

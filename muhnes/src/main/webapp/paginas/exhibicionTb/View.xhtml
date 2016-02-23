@@ -70,7 +70,11 @@
                             </p:column>
                         </p:dataTable>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="ExhibicionTbViewDialog.hide()"/>
+                    <p:commandButton value="Reporte préstamo" actionListener="#{exhibicionTbController.reportePrestamo()}" ajax="false"
+                                     onclick="this.form.target = '_blank'"/>
+                    
+                    <p:commandButton value="Reporte reingreso" actionListener="#{proyectoTbController.reporteIndividualProcesado()}" ajax="false"
+                                     onclick="this.form.target = '_blank'"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

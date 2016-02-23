@@ -1,11 +1,29 @@
 package controlador;
 
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Element;
+import com.lowagie.text.FontFactory;
+import com.lowagie.text.Image;
+import com.lowagie.text.PageSize;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.Phrase;
+import com.lowagie.text.Rectangle;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
 import modelo.ExhibicionTb;
 import controlador.util.JsfUtil;
 import controlador.util.JsfUtil.PersistAction;
+import controlador.util.TableHeader;
+import controlador.util.TableHeaderVertical;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import servicio.ExhibicionTbFacade;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -23,6 +41,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import modelo.AgenteTb;
 import modelo.BitacoraTb;
 import modelo.EjemplarParticipaExhibicionTb;
@@ -50,7 +71,8 @@ public class ExhibicionTbController implements Serializable {
     private List<EjemplarTb> ejemplares, listaEjemplares;
     private List<EjemplarParticipaExhibicionTb> listaEliminados;
     private ExhibicionTb selected;
-    private Date fechaActual = new Date();
+    private Date fechaActual = new Date(), f1, f2;
+    private boolean booleanoReporte;
     private int NumeroDeNotificaciones = 0, CantidadEjemplar = 1;
     private String tipoTaxon = null;
     private TaxonomiaTb taxonomia;
@@ -130,6 +152,30 @@ public class ExhibicionTbController implements Serializable {
 
     public void setEjemplar(EjemplarTb ejemplar) {
         this.ejemplar = ejemplar;
+    }
+
+    public Date getF1() {
+        return f1;
+    }
+
+    public void setF1(Date f1) {
+        this.f1 = f1;
+    }
+
+    public Date getF2() {
+        return f2;
+    }
+
+    public void setF2(Date f2) {
+        this.f2 = f2;
+    }
+
+    public boolean isBooleanoReporte() {
+        return booleanoReporte;
+    }
+
+    public void setBooleanoReporte(boolean booleanoReporte) {
+        this.booleanoReporte = booleanoReporte;
     }
 
     private ExhibicionTbFacade getFacade() {
@@ -580,6 +626,340 @@ public class ExhibicionTbController implements Serializable {
         //Bitacora fin
         getFacade().edit(selected);
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Recibido", "INFO"));
+    }
+
+    public void prepareReporte() {
+        booleanoReporte = true;
+        f1 = null;
+        f2 = null;
+    }
+
+    public void reporteAll() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        try {
+            Object response = context.getExternalContext().getResponse();
+            if (response instanceof HttpServletResponse) {
+                HttpServletResponse hsr = (HttpServletResponse) response;
+                hsr.setContentType("application/pdf");
+                ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
+
+                // Inicia reporte
+                Document document = new Document(PageSize.LETTER.rotate());
+                PdfWriter writer = PdfWriter.getInstance(document, pdfOutputStream);
+                TableHeader event = new TableHeader();
+                writer.setPageEvent(event);
+                document.open();
+
+                //Encabezado
+                //ruta del sistema
+                ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+                //Referencia al logo
+                String logoPath = servletContext.getRealPath("") + File.separator + "resources"
+                        + File.separator + "images"
+                        + File.separator + "muhnes1.png";
+
+                //Tabla para  el encabezado
+                PdfPTable encabezado = new PdfPTable(3);
+                //Ancho de la tabla
+                encabezado.setWidthPercentage(100);
+                //Primera celda
+                PdfPCell cell1 = new PdfPCell();
+                //Instancia al logo
+                Image logo = Image.getInstance(logoPath);
+                //Indico tamaÃƒÂ±o del logo
+                logo.scaleToFit(80, 80);
+                //aÃƒÂ±ado el primer logo a la celda
+                cell1.addElement(logo);
+                //Celda sin borde borde
+                cell1.setBorder(Rectangle.NO_BORDER);
+                //aÃƒÂ±ado celda a la tabla
+                encabezado.addCell(cell1);
+                //celdas se alineen al centro
+                encabezado.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                encabezado.getDefaultCell().setVerticalAlignment(Element.ALIGN_CENTER);
+                //Siguientes celdas no tengan borde
+                encabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                //nueva celda con los datos del MUHNES
+                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de El Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+
+                encabezado.addCell("");
+                document.add(encabezado);
+
+                Paragraph titulo = new Paragraph("Reporte General de exhibiciones", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                titulo.setAlignment(Element.ALIGN_CENTER);
+
+                titulo.setSpacingBefore(5);
+                document.add(titulo);
+
+                if (booleanoReporte == false) {
+                    Paragraph titulo2 = new Paragraph(new SimpleDateFormat("dd MMMM yyyy").format(f1) + " - " + new SimpleDateFormat("dd MMMM yyyy").format(f2), FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                    titulo2.setAlignment(Element.ALIGN_CENTER);
+                    titulo2.setSpacingAfter(5);
+                    titulo2.setSpacingBefore(2);
+                    document.add(titulo2);
+                }
+
+                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
+                        FontFactory.getFont(FontFactory.TIMES, 10));
+                fecha.setAlignment(Element.ALIGN_CENTER);
+                fecha.setSpacingAfter(10);
+                document.add(fecha);
+
+                PdfPTable proyectos = new PdfPTable(6);
+                proyectos.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+
+                int headerwidths[] = {30, 15, 15, 10, 15, 15};
+                try {
+                    proyectos.setWidths(headerwidths);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+
+                proyectos.setWidthPercentage(100);
+                proyectos.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                proyectos.addCell(new Phrase("Nombre", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                proyectos.addCell(new Phrase("Responsable", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                proyectos.addCell(new Phrase("Destino", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                proyectos.addCell(new Phrase("Estado", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                proyectos.addCell(new Phrase("Fecha préstamo", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                proyectos.addCell(new Phrase("Fecha reingreso", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+
+                List<ExhibicionTb> exhibicionListaReporte = new ArrayList<ExhibicionTb>();
+
+                if (booleanoReporte == true) {
+                    exhibicionListaReporte = getFacade().ExhibicionGeneral();
+                } else {
+                    exhibicionListaReporte = getFacade().ExhibicionesReporteAll(f1, f2);
+                }
+
+                for (ExhibicionTb proy : exhibicionListaReporte) {
+
+                    PdfPCell c1 = new PdfPCell(new Phrase(proy.getMNombre(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    proyectos.addCell(c1);
+
+                    PdfPCell c2 = new PdfPCell(new Phrase(calculaAgente(proy.getEIdResponsable()), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    c2.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    proyectos.addCell(c2);
+
+                    PdfPCell c3 = new PdfPCell(new Phrase(proy.getMDestino(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    c3.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    proyectos.addCell(c3);
+
+                    PdfPCell c4 = new PdfPCell(new Phrase(EstadoList(proy.getEEstado()), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    c4.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    proyectos.addCell(c4);
+
+                    PdfPCell c5 = new PdfPCell(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(proy.getFFechaPrestamo()), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    c5.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    proyectos.addCell(c5);
+
+                    PdfPCell c6 = new PdfPCell(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(proy.getFFechaRecibido()), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    c6.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    proyectos.addCell(c6);
+
+                }
+                document.add(proyectos);
+                document.close();
+                //Termina reporte
+
+                hsr.setHeader("Expires", "0");
+                hsr.setContentType("application/pdf");
+                hsr.setContentLength(pdfOutputStream.size());
+                ServletOutputStream responseOutputStream = hsr.getOutputStream();
+                responseOutputStream.write(pdfOutputStream.toByteArray());
+                responseOutputStream.flush();
+                responseOutputStream.close();
+                context.responseComplete();
+            }
+        } catch (DocumentException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void reportePrestamo() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        try {
+            Object response = context.getExternalContext().getResponse();
+            if (response instanceof HttpServletResponse) {
+                HttpServletResponse hsr = (HttpServletResponse) response;
+                hsr.setContentType("application/pdf");
+                ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
+
+                // Inicia reporte
+                Document document = new Document(PageSize.A4);
+                PdfWriter writer = PdfWriter.getInstance(document, pdfOutputStream);
+                TableHeaderVertical event = new TableHeaderVertical();
+                writer.setPageEvent(event);
+                document.open();
+
+                //Encabezado
+                //ruta del sistema
+                ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+                //Referencia al logo
+                String logoPath = servletContext.getRealPath("") + File.separator + "resources"
+                        + File.separator + "images"
+                        + File.separator + "muhnes1.png";
+
+                //Tabla para  el encabezado
+                PdfPTable encabezado = new PdfPTable(3);
+                //Ancho de la tabla
+                encabezado.setWidthPercentage(100);
+                //Primera celda
+                PdfPCell cell1 = new PdfPCell();
+                //Instancia al logo
+                Image logo = Image.getInstance(logoPath);
+                //Indico tamaÃƒÂ±o del logo
+                logo.scaleToFit(80, 80);
+                //aÃƒÂ±ado el primer logo a la celda
+                cell1.addElement(logo);
+                //Celda sin borde borde
+                cell1.setBorder(Rectangle.NO_BORDER);
+                //aÃƒÂ±ado celda a la tabla
+                encabezado.addCell(cell1);
+                //celdas se alineen al centro
+                encabezado.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                encabezado.getDefaultCell().setVerticalAlignment(Element.ALIGN_CENTER);
+                //Siguientes celdas no tengan borde
+                encabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                //nueva celda con los datos del MUHNES
+                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de El Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+
+                encabezado.addCell("");
+                document.add(encabezado);
+
+                Paragraph titulo = new Paragraph("Salida de ejemplares", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                titulo.setAlignment(Element.ALIGN_CENTER);
+                titulo.setSpacingBefore(5);
+                document.add(titulo);
+                
+                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
+                        FontFactory.getFont(FontFactory.TIMES, 10));
+                fecha.setAlignment(Element.ALIGN_CENTER);
+                fecha.setSpacingAfter(10);
+                document.add(fecha);
+                
+                Paragraph espacio=new Paragraph("");
+                espacio.setSpacingAfter(15);
+                document.add(espacio);
+
+                
+                PdfPTable descripcionTabla = new PdfPTable(1);
+                descripcionTabla.setWidthPercentage(80);
+                descripcionTabla.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                descripcionTabla.getRowspanHeight(2,4);
+                espacio.add(new Phrase("holaaaa"));
+                espacio.add(new Phrase("holaaaa   kjdiohe   "));
+
+                descripcionTabla.addCell(new Paragraph("Fecha de Salida: "
+                        + new SimpleDateFormat("dd MMMM yyyy").format(selected.getFFechaPrestamo())
+                        +". Hora:"
+                        + new SimpleDateFormat("hh:mm a").format(selected.getHHoraPrestamo())
+                        + ". Solicitante de salida: "
+                        + selected.getMSolicitante()
+                        + " probando por ahi", FontFactory.getFont(FontFactory.TIMES, 13)));
+                
+                document.add(descripcionTabla);
+                
+                
+
+                
+                document.close();
+                //Termina reporte
+
+                hsr.setHeader("Expires", "0");
+                hsr.setContentType("application/pdf");
+                hsr.setContentLength(pdfOutputStream.size());
+                ServletOutputStream responseOutputStream = hsr.getOutputStream();
+                responseOutputStream.write(pdfOutputStream.toByteArray());
+                responseOutputStream.flush();
+                responseOutputStream.close();
+                context.responseComplete();
+            }
+        } catch (DocumentException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void reporteReingreso() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        try {
+            Object response = context.getExternalContext().getResponse();
+            if (response instanceof HttpServletResponse) {
+                HttpServletResponse hsr = (HttpServletResponse) response;
+                hsr.setContentType("application/pdf");
+                ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
+
+                // Inicia reporte
+                Document document = new Document(PageSize.A4);
+                PdfWriter writer = PdfWriter.getInstance(document, pdfOutputStream);
+                TableHeaderVertical event = new TableHeaderVertical();
+                writer.setPageEvent(event);
+                document.open();
+
+                //Encabezado
+                //ruta del sistema
+                ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+                //Referencia al logo
+                String logoPath = servletContext.getRealPath("") + File.separator + "resources"
+                        + File.separator + "images"
+                        + File.separator + "muhnes1.png";
+
+                //Tabla para  el encabezado
+                PdfPTable encabezado = new PdfPTable(3);
+                //Ancho de la tabla
+                encabezado.setWidthPercentage(100);
+                //Primera celda
+                PdfPCell cell1 = new PdfPCell();
+                //Instancia al logo
+                Image logo = Image.getInstance(logoPath);
+                //Indico tamaÃƒÂ±o del logo
+                logo.scaleToFit(80, 80);
+                //aÃƒÂ±ado el primer logo a la celda
+                cell1.addElement(logo);
+                //Celda sin borde borde
+                cell1.setBorder(Rectangle.NO_BORDER);
+                //aÃƒÂ±ado celda a la tabla
+                encabezado.addCell(cell1);
+                //celdas se alineen al centro
+                encabezado.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                encabezado.getDefaultCell().setVerticalAlignment(Element.ALIGN_CENTER);
+                //Siguientes celdas no tengan borde
+                encabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                //nueva celda con los datos del MUHNES
+                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de El Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+
+                encabezado.addCell("");
+                document.add(encabezado);
+
+                Paragraph titulo = new Paragraph("Reingreso de ejemplares", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                titulo.setAlignment(Element.ALIGN_CENTER);
+                titulo.setSpacingBefore(5);
+                document.add(titulo);
+
+
+                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
+                        FontFactory.getFont(FontFactory.TIMES, 10));
+                fecha.setAlignment(Element.ALIGN_CENTER);
+                fecha.setSpacingAfter(10);
+                document.add(fecha);
+
+                
+                document.close();
+                //Termina reporte
+
+                hsr.setHeader("Expires", "0");
+                hsr.setContentType("application/pdf");
+                hsr.setContentLength(pdfOutputStream.size());
+                ServletOutputStream responseOutputStream = hsr.getOutputStream();
+                responseOutputStream.write(pdfOutputStream.toByteArray());
+                responseOutputStream.flush();
+                responseOutputStream.close();
+                context.responseComplete();
+            }
+        } catch (DocumentException | IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

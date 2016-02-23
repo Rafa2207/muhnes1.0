@@ -7,7 +7,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 import modelo.DepartamentoTb;
 import modelo.InstitucionTb;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2016-02-16T16:43:40")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2016-02-23T15:55:35")
 @StaticMetamodel(PaisTb.class)
 public class PaisTb_ { 
 

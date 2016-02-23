@@ -927,6 +927,21 @@ public class ProyectoTbController implements Serializable {
                     document.add(tituloPresupuestoTotal);
                     int n[] = {75, 25};
                     double total = 0;
+                    
+                    PdfPTable TablaSubtotalEncabezado = new PdfPTable(2);
+                    TablaSubtotalEncabezado.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                    TablaSubtotalEncabezado.setWidths(n);
+                    TablaSubtotalEncabezado.setWidthPercentage(80);
+
+                    PdfPCell c0Encabezado = new PdfPCell(new Phrase("Actividades", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                    c0Encabezado.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    TablaSubtotalEncabezado.addCell(c0Encabezado);
+
+                    PdfPCell c1Encabezado = new PdfPCell(new Phrase("Presupuesto", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                    c1Encabezado.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    TablaSubtotalEncabezado.addCell(c1Encabezado);
+
+                    document.add(TablaSubtotalEncabezado);
                     for (ActividadTb a : selected.getActividadTbList()) {
 
                         PdfPTable TablaSubtotal = new PdfPTable(2);

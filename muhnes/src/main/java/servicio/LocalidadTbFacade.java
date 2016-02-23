@@ -1,9 +1,11 @@
 
 package servicio;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import modelo.LocalidadTb;
 
 
@@ -19,6 +21,13 @@ public class LocalidadTbFacade extends AbstractFacade<LocalidadTb> {
 
     public LocalidadTbFacade() {
         super(LocalidadTb.class);
+    }
+    
+    //Consulta general
+    public List<LocalidadTb> LocalidadGeneral() {
+        em.clear();
+        TypedQuery<LocalidadTb> query = em.createQuery("SELECT p FROM LocalidadTb p ORDER BY P.cNombre ASC", LocalidadTb.class);
+        return query.getResultList();
     }
     
 }

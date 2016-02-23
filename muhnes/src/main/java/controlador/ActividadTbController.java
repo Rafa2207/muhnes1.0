@@ -44,9 +44,11 @@ import javax.faces.view.ViewScoped;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import modelo.BitacoraTb;
 import modelo.InsumoTb;
 import modelo.ProrrogaProyectoTb;
 import modelo.ProyectoTb;
+import modelo.UsuarioTb;
 
 @Named("actividadTbController")
 @ViewScoped
@@ -56,6 +58,10 @@ public class ActividadTbController implements Serializable {
     private servicio.ActividadTbFacade ejbFacade;
     @EJB
     private servicio.ProrrogaProyectoTbFacade FacadeProrroga;
+    @EJB
+    private servicio.UsuarioTbFacade usuarioFacade;
+    @EJB
+    private servicio.BitacoraTbFacade bitacoraFacade;
     private List<ActividadTb> items = null, filtro, itemsNotificacion = null;
     private ActividadTb selected;
     private ProyectoTb proyectos;
@@ -234,6 +240,16 @@ public class ActividadTbController implements Serializable {
             if (!JsfUtil.isValidationFailed()) {
                 items = null;    // Invalidate list of items to trigger re-query.
             }
+            //Bitacora inicio
+            BitacoraTb bitacora = new BitacoraTb();
+            bitacora.setMDescripcion("Creada nueva actividad: '" + selected.getMNombre() + "' del proyecto: '"+ selected.getEIdproyecto().getMNombre() +"' en el módulo: Proyectos");
+            String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+            UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+            bitacora.setEIdusuario(usuario);
+            Date fecha = new Date();
+            bitacora.setTFecha(fecha);
+            bitacoraFacade.create(bitacora);
+            //Bitacora fin
         }
     }
 
@@ -243,6 +259,17 @@ public class ActividadTbController implements Serializable {
         } else {
             selected.setFFechafin(fechatemporal);
             persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ActividadTbUpdated"));
+            
+            //Bitacora inicio
+            BitacoraTb bitacora = new BitacoraTb();
+            bitacora.setMDescripcion("Modificada actividad: '" + selected.getMNombre() + "' del proyecto: '"+ selected.getEIdproyecto().getMNombre() +"' en el módulo: Proyectos");
+            String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+            UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+            bitacora.setEIdusuario(usuario);
+            Date fecha = new Date();
+            bitacora.setTFecha(fecha);
+            bitacoraFacade.create(bitacora);
+            //Bitacora fin
         }
     }
 
