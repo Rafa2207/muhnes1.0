@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+
+
+    <p:dialog id="AyudaDlg" widgetVar="AyudaDialog" modal="true" resizable="false" appendTo="@(body)" header="Ayuda proyectos" >
+        <h:form id="AyudaForm" style=" width: 970px; height: 500px">
+            <p:tabView>
+                <p:tab title="Administrar" >
+                    <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" >     
+                        <p:outputPanel style="width: 900px">
+                            <b>Permite realizar diferentes acciones sobre los proyectos como por ejemplo: registrar, visualizar, modificar o generar reportes de manera individual 
+                                o general, así como también administrar actividades o prórrogas del proyecto seleccionado.</b>
+                        </p:outputPanel>
+                        <h:graphicImage library="images" name="ayuda/proyectos/administrar.JPG" width="900px"/> 
+                    </h:panelGrid>
+                    <h:panelGrid  columns="2" cellpadding="2" style="text-align: justify;">
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Nuevo: </b><br/>Registra un nuevo proyecto.</p>
+                            <p><b>Visualizar: </b><br/>Muestra el contenido del proyecto seleccionado, además permite generar reporte planificado y final.</p>
+                            <p><b>Modificar: </b><br/>Edita los datos ingresados anteriormente en el proyecto seleccionado.</p>
+                        </p:outputPanel>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Actividad: </b><br/>Permite gestionar(registrar, visualizar y modificar) las actividades del proyecto seleccionado.</p>
+                            <p><b>Prórrogas: </b><br/>Ofrece al usuario la gestión sobre las prórrogas del proyecto seleccionado,en esta opción el usuario podrá registrar, visualizar y modificar prórrogas.</p>
+                        </p:outputPanel>
+
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="Nuevo" >
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+                        <h:graphicImage library="images" name="ayuda/proyectos/nuevo.JPG" width="390px"/>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Nombre: </b><br/>Ingrese el nombre del nuevo proyecto.</p>
+                            <p><b>Descripción: </b><br/>Digite una breve descripción del proyecto que está registrando</p>
+                            <p><b>Fecha de inicio: </b><br/> Seleccione la fecha en la que dará inicio el proyecto, mediante un pequeño calendario que aparece al momento de dar clic en el campo.</p>
+                            <p><b>Fecha de finalización: </b><br/>Seleccione la fecha en la finalizara el proyecto, el campo aparecerá deshabilitado mientras no se haya seleccionado una fecha de inicio, posteriormente se presentara un pequeño calendario al momento de dar clic en el campo.</p>
+                            <p><b>Responsable: </b><br/>Seleccione el responsable del proyecto. Para seleccionar un responsable tiene que dar clic en el campo para realizar dicha acción.</p>
+                            <p><b>Guardar: </b><br/>Almacena a la base de datos la información ingresada en el formulario.</p>
+                            <p><b>(*) Campo requerido: </b><br/>Al aparecer este símbolo en alguna etiqueta quiere dar a entender que el campo es requerido u obligatorio. En otras palabras si no es ingresado el dato solicitado en el campo, no se podrá almacenar en la base de datos del sistema.</p>
+                        </p:outputPanel>
+
+                    </h:panelGrid>
+
+                </p:tab>
+            </p:tabView>
+        </h:form>
+
+    </p:dialog>
+
+
+
+</html>
