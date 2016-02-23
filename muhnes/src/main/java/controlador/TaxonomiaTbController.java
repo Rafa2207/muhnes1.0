@@ -13,6 +13,7 @@ import servicio.TaxonomiaTbFacade;
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -33,9 +34,11 @@ import javax.mail.Part;
 import modelo.AgenteTaxonomiaTb;
 import modelo.AgenteTaxonomiaTbPK;
 import modelo.AgenteTb;
+import modelo.BitacoraTb;
 import modelo.ImagenTb;
 import modelo.NombrecomunTb;
 import modelo.PaisTb;
+import modelo.UsuarioTb;
 import org.apache.commons.io.IOUtils;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -50,6 +53,10 @@ public class TaxonomiaTbController implements Serializable {
     private servicio.AgenteTbFacade agenteFacade;
     @EJB
     private servicio.PaisTbFacade paisFacade;
+    @EJB
+    private servicio.UsuarioTbFacade usuarioFacade;
+    @EJB
+    private servicio.BitacoraTbFacade bitacoraFacade;
     private List<TaxonomiaTb> items = null, items2 = null, items3 = null, filtro, itemsTaxonomia = null;
     private TaxonomiaTb selected;
     private boolean autor;
@@ -246,6 +253,16 @@ public class TaxonomiaTbController implements Serializable {
     public void createFamilia() {
         selected.setERango(1);
         selected.setCTipo("Familia");
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Creada " + selected.getCTipo() + "  '" + selected.getCNombre() + "' en el módulo: Información Taxonómica");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("FamiliaTbCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -256,6 +273,16 @@ public class TaxonomiaTbController implements Serializable {
         selected.setEIdniveltaxonomia(tx);
         selected.setERango(2);
         selected.setCTipo("Genero");
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Creado " + selected.getCTipo() + "  '" + selected.getCNombre() + "' en el módulo: Información Taxonómica");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("GeneroTbCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -266,6 +293,16 @@ public class TaxonomiaTbController implements Serializable {
         selected.setEIdniveltaxonomia(tx);
         selected.setERango(3);
         selected.setCTipo("Especie");
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Creada " + selected.getCTipo() + "  '" + selected.getCNombre() + "' en el módulo: Información Taxonómica");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("EspecieTbCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -276,6 +313,16 @@ public class TaxonomiaTbController implements Serializable {
         selected.setEIdniveltaxonomia(tx);
         selected.setERango(4);
         selected.setCTipo("Subespecie");
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Creada " + selected.getCTipo() + "  '" + selected.getCNombre() + "' en el módulo: Información Taxonómica");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("SubespecieTbCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -286,6 +333,16 @@ public class TaxonomiaTbController implements Serializable {
         selected.setEIdniveltaxonomia(tx);
         selected.setERango(4);
         selected.setCTipo("Variedad");
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Creada " + selected.getCTipo() + "  '" + selected.getCNombre() + "' en el módulo: Información Taxonómica");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("VariedadTbCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -293,10 +350,30 @@ public class TaxonomiaTbController implements Serializable {
     }
 
     public void update() {
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Modificado " + selected.getCTipo() + "  '" + selected.getCNombre() + "' en el módulo: Información Taxonómica");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("GeneroTbUpdated"));
     }
 
     public void destroy() {
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Eliminado "+ selected.getCTipo() +"  '" + selected.getCNombre() + "' en el módulo: Información Taxonómica");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/BundleTaxonomia").getString("TaxonomiaTbDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection

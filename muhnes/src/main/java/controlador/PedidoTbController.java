@@ -22,9 +22,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
+import modelo.BitacoraTb;
 import modelo.MaterialPedidoTb;
 import modelo.MaterialPedidoTbPK;
 import modelo.MaterialTb;
+import modelo.UsuarioTb;
 
 @Named("pedidoTbController")
 @ViewScoped
@@ -34,6 +36,10 @@ public class PedidoTbController implements Serializable {
     private servicio.MaterialTbFacade materialFacade;
     @EJB
     private servicio.PedidoTbFacade ejbFacade;
+    @EJB
+    private servicio.UsuarioTbFacade usuarioFacade;
+    @EJB
+    private servicio.BitacoraTbFacade bitacoraFacade;
     private List<PedidoTb> items = null, filtro;
     private MaterialTb material;
     private List<MaterialTb> materialDisponible;
@@ -184,6 +190,16 @@ public class PedidoTbController implements Serializable {
             //oncomplete = "";
         } else {
             //oncomplete = "handleSubmit(args,'PedidoTbCreateDialog');";
+            //Bitacora inicio
+            BitacoraTb bitacora = new BitacoraTb();
+            bitacora.setMDescripcion("Creado Pedido '" + selected.getMDescripcion() + "' en el módulo: Materiales");
+            String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+            UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+            bitacora.setEIdusuario(usuario);
+            Date fecha = new Date();
+            bitacora.setTFecha(fecha);
+            bitacoraFacade.create(bitacora);
+            //Bitacora fin
             persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PedidoTbCreated"));
             if (!JsfUtil.isValidationFailed()) {
                 items = null;    // Invalidate list of items to trigger re-query.
@@ -196,11 +212,31 @@ public class PedidoTbController implements Serializable {
             JsfUtil.addErrorMessage("Debe agregar materiales");
             oncomplete = "";
         } else {
+            //Bitacora inicio
+            BitacoraTb bitacora = new BitacoraTb();
+            bitacora.setMDescripcion("Modificado Pedido '" + selected.getMDescripcion() + "' en el módulo: Materiales");
+            String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+            UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+            bitacora.setEIdusuario(usuario);
+            Date fecha = new Date();
+            bitacora.setTFecha(fecha);
+            bitacoraFacade.create(bitacora);
+            //Bitacora fin
             persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("PedidoTbUpdated"));
         }
     }
 
     public void destroy() {
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Eliminado Pedido '" + selected.getMDescripcion() + "' en el módulo: Materiales");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("PedidoTbDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
@@ -382,6 +418,16 @@ public class PedidoTbController implements Serializable {
             i.getMaterialTb().setDCantidad(i.getMaterialTb().getDCantidad() + i.getDEntrada());
             materialFacade.edit(i.getMaterialTb());
         }
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Recibido Pedido '" + selected.getMDescripcion() + "' en el módulo: Materiales");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("PedidoTbRecibido"));
     }
 
@@ -392,6 +438,16 @@ public class PedidoTbController implements Serializable {
             materialFacade.edit(i.getMaterialTb());
         }
         //selected.setEEstado(estado);
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Actualizado Pedido '" + selected.getMDescripcion() + "' en el módulo: Materiales");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("PedidoTbActualizado"));
     }
 

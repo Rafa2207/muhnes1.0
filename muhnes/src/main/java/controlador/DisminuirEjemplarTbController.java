@@ -6,6 +6,7 @@ import controlador.util.JsfUtil.PersistAction;
 import servicio.DisminuirEjemplarTbFacade;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -18,7 +19,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import modelo.BitacoraTb;
 import modelo.EjemplarVivoTb;
+import modelo.UsuarioTb;
 
 @Named("disminuirEjemplarTbController")
 @SessionScoped
@@ -28,6 +31,10 @@ public class DisminuirEjemplarTbController implements Serializable {
     private servicio.DisminuirEjemplarTbFacade ejbFacade;
     @EJB
     private servicio.EjemplarVivoTbFacade ejemplarVivoFacade;
+    @EJB
+    private servicio.UsuarioTbFacade usuarioFacade;
+    @EJB
+    private servicio.BitacoraTbFacade bitacoraFacade;
     private List<DisminuirEjemplarTb> items = null, filtro;
     private DisminuirEjemplarTb selected;
 
@@ -72,6 +79,16 @@ public class DisminuirEjemplarTbController implements Serializable {
         int cantidadBaja = selected.getECantidad();
         selected.getEIdejemplarVivo().setECantidad(cantidad-cantidadBaja);
         ejemplarVivoFacade.edit(selected.getEIdejemplarVivo());
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Dado de baja Ejemplar Vivo: '" + selected.getEIdejemplarVivo().getCNombre() + "' la cantidad de: '"+ cantidadBaja +"' unidades en el módulo: Ejemplar");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/BundleEjemplarVivo").getString("DisminuirEjemplarTbCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.

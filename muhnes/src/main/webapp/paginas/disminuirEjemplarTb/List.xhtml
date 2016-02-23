@@ -23,7 +23,6 @@
                         <p:menuitem value="Ver Bajas" outcome="/paginas/disminuirEjemplarTb/List.xhtml" />
                     </p:breadCrumb>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundleEjemplarVivo.View}" update=":DisminuirEjemplarTbViewForm" oncomplete="PF('DisminuirEjemplarTbViewDialog').show()" disabled="#{empty disminuirEjemplarTbController.selected}"/>
-                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundleEjemplarVivo.Edit}" update=":DisminuirEjemplarTbEditForm" oncomplete="PF('DisminuirEjemplarTbEditDialog').show()" disabled="#{empty disminuirEjemplarTbController.selected}"/>
                     <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundleEjemplarVivo.Delete}" actionListener="#{disminuirEjemplarTbController.destroy}" update=":growl,datalist" disabled="#{empty disminuirEjemplarTbController.selected}"/>
 
                     <p:dataTable id="datalist" value="#{disminuirEjemplarTbController.items}" var="item"
@@ -38,8 +37,8 @@
                                  emptyMessage="No se encontro bajas de ejemplar"
                                  >
 
-                        <p:ajax event="rowSelect"   update=":DisminuirEjemplarTbListForm:viewButton :DisminuirEjemplarTbListForm:editButton :DisminuirEjemplarTbListForm:deleteButton"/>
-                        <p:ajax event="rowUnselect" update=":DisminuirEjemplarTbListForm:viewButton :DisminuirEjemplarTbListForm:editButton :DisminuirEjemplarTbListForm:deleteButton"/>
+                        <p:ajax event="rowSelect"   update=":DisminuirEjemplarTbListForm:viewButton :DisminuirEjemplarTbListForm:deleteButton"/>
+                        <p:ajax event="rowUnselect" update=":DisminuirEjemplarTbListForm:viewButton :DisminuirEjemplarTbListForm:deleteButton"/>
 
                         <p:column>
                             <f:facet name="header">
@@ -68,7 +67,7 @@
                     </p:dataTable>
                 </p:panel>
             </h:form>
-            <ui:include src="Edit.xhtml"/>
+            
             <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>

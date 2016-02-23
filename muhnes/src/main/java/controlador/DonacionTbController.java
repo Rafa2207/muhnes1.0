@@ -7,6 +7,7 @@ import servicio.DonacionTbFacade;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -20,10 +21,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
+import modelo.BitacoraTb;
 import modelo.EjemplarDonacionTb;
 import modelo.EjemplarTb;
 import modelo.InstitucionTb;
 import modelo.TaxonomiaTb;
+import modelo.UsuarioTb;
 
 @Named("donacionTbController")
 @ViewScoped
@@ -35,6 +38,10 @@ public class DonacionTbController implements Serializable {
     private servicio.EjemplarTbFacade ejemplarFacade;
     @EJB
     private servicio.EjemplarDonacionTbFacade ejemplarDonacionFacade;
+    @EJB
+    private servicio.UsuarioTbFacade usuarioFacade;
+    @EJB
+    private servicio.BitacoraTbFacade bitacoraFacade;
     private List<DonacionTb> items = null, filtro;
     private DonacionTb selected;
     private String tipoTaxon;
@@ -143,62 +150,93 @@ public class DonacionTbController implements Serializable {
 
     public DonacionTb prepareCreate() {
         selected = new DonacionTb();
-       // selected.setEjemplarDonacionTbList(new ArrayList<EjemplarDonacionTb>());
+        // selected.setEjemplarDonacionTbList(new ArrayList<EjemplarDonacionTb>());
         initializeEmbeddableKey();
         return selected;
     }
+
     public DonacionTb prepareView() {
        // selected = new DonacionTb();
-       // selected.setEjemplarDonacionTbList(new ArrayList<EjemplarDonacionTb>());
+        // selected.setEjemplarDonacionTbList(new ArrayList<EjemplarDonacionTb>());
         listaEjemplaresDonadosEntregados = ejbFacade.listaEjemplaresEntregados(selected.getEIddonacion());
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        for (EjemplarDonacionTb i: listaEjemplaresDonados){
+        for (EjemplarDonacionTb i : listaEjemplaresDonados) {
             i.setEIddonacion(ejbFacade.siguienteId());
             ejemplarDonacionFacade.edit(i);
         }
         /*if (selected.getEjemplarDonacionTbList().isEmpty()) {
-            JsfUtil.addErrorMessage("Debe agregar ejemplares para donaciÃ³n");
-            //oncomplete = "";
-        } else {
-            try {
-                for (EjemplarDonacionTb ee : selected.getEjemplarDonacionTbList()) {
-                    ejemplarFacade.edit(ee.getEjemplarTb());
-                }
-            } catch (Exception e) {
-            }*/
-            persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("DonacionTbCreated"));
-            if (!JsfUtil.isValidationFailed()) {
-                items = null;    // Invalidate list of items to trigger re-query.
-            }
+         JsfUtil.addErrorMessage("Debe agregar ejemplares para donaciÃ³n");
+         //oncomplete = "";
+         } else {
+         try {
+         for (EjemplarDonacionTb ee : selected.getEjemplarDonacionTbList()) {
+         ejemplarFacade.edit(ee.getEjemplarTb());
+         }
+         } catch (Exception e) {
+         }*/
+        //inicio bitacora
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Creada Donación para insitución: '" + selected.getEIdinstitucion().getCNombre() + "' en el módulo: Ejemplar");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("DonacionTbCreated"));
+        if (!JsfUtil.isValidationFailed()) {
+            items = null;    // Invalidate list of items to trigger re-query.
+        }
         //}
     }
 
     public void update() {
         /*if (selected.getEjemplarDonacionTbList().isEmpty()) {
-            JsfUtil.addErrorMessage("Debe agregar ejemplares para donaciÃ³n");
-            //oncomplete = "";
-        } else {
-            try {
-                for (EjemplarDonacionTb ee : selected.getEjemplarDonacionTbList()) {
-                    ejemplarFacade.edit(ee.getEjemplarTb());
-                }
-            } catch (Exception e) {
-            }
-            try {
-                for (EjemplarDonacionTb aa : eliminados) {
-                    ejemplarFacade.edit(aa.getEjemplarTb());
-                }
-            } catch (Exception e) {
-            }*/
-            persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("DonacionTbUpdated"));
+         JsfUtil.addErrorMessage("Debe agregar ejemplares para donaciÃ³n");
+         //oncomplete = "";
+         } else {
+         try {
+         for (EjemplarDonacionTb ee : selected.getEjemplarDonacionTbList()) {
+         ejemplarFacade.edit(ee.getEjemplarTb());
+         }
+         } catch (Exception e) {
+         }
+         try {
+         for (EjemplarDonacionTb aa : eliminados) {
+         ejemplarFacade.edit(aa.getEjemplarTb());
+         }
+         } catch (Exception e) {
+         }*/
+        //inicio bitacora
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Modificada Donación para institución: '" + selected.getEIdinstitucion().getCNombre() + "' en el módulo: Ejemplar");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("DonacionTbUpdated"));
         //}
     }
 
     public void destroy() {
+        //inicio bitacora
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Eliminada Donación para institución: '" + selected.getEIdinstitucion().getCNombre() + "' en el módulo: Ejemplar");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("DonacionTbDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
@@ -301,68 +339,68 @@ public class DonacionTbController implements Serializable {
         nombre = institucion.getCNombre();
         return nombre;
     }
-    
-    public void llenarEjemplaresDonados(){
+
+    public void llenarEjemplaresDonados() {
         setListaEjemplaresDonados(getFacade().listaEjemplares(selected.getEIdinstitucion()));
     }
-    
+
     public void remover() {
         listaEjemplaresDonados.remove(ejemplarDonacion);
     }
 
-/*    public void ejemplares(TaxonomiaTb taxon) {
-        listaEjemplares = getFacade().BuscarEjemplares(taxon);
-        for (EjemplarDonacionTb ee : selected.getEjemplarDonacionTbList()) {
-            for (EjemplarTb aa : listaEjemplares) {
-                if ((ee.getEjemplarTb().getEIdejemplar()) == aa.getEIdejemplar()) {
-                    listaEjemplares.remove(ee.getEjemplarTb());
-                }
-            }
-        }
-    }
+    /*    public void ejemplares(TaxonomiaTb taxon) {
+     listaEjemplares = getFacade().BuscarEjemplares(taxon);
+     for (EjemplarDonacionTb ee : selected.getEjemplarDonacionTbList()) {
+     for (EjemplarTb aa : listaEjemplares) {
+     if ((ee.getEjemplarTb().getEIdejemplar()) == aa.getEIdejemplar()) {
+     listaEjemplares.remove(ee.getEjemplarTb());
+     }
+     }
+     }
+     }
 
-    public void anadir() {
-        EjemplarDonacionTb nuevo = new EjemplarDonacionTb();
-        ejemplar.setECantDuplicado(ejemplar.getECantDuplicado() - cantidad);
-        nuevo.setEjemplarTb(ejemplar);
-        nuevo.setECantidad(cantidad);
-        nuevo.setDonacionTb(selected);
+     public void anadir() {
+     EjemplarDonacionTb nuevo = new EjemplarDonacionTb();
+     ejemplar.setECantDuplicado(ejemplar.getECantDuplicado() - cantidad);
+     nuevo.setEjemplarTb(ejemplar);
+     nuevo.setECantidad(cantidad);
+     nuevo.setDonacionTb(selected);
 
-        EjemplarDonacionTbPK exhibicionpk = new EjemplarDonacionTbPK();
+     EjemplarDonacionTbPK exhibicionpk = new EjemplarDonacionTbPK();
 
-        exhibicionpk.setEIddonacion(getFacade().siguienteId());
-        exhibicionpk.setEIdejemplar(ejemplar.getEIdejemplar());
+     exhibicionpk.setEIddonacion(getFacade().siguienteId());
+     exhibicionpk.setEIdejemplar(ejemplar.getEIdejemplar());
 
-        nuevo.setEjemplarDonacionTbPK(exhibicionpk);
+     nuevo.setEjemplarDonacionTbPK(exhibicionpk);
 
-        selected.getEjemplarDonacionTbList().add(nuevo);
-        listaEjemplares.remove(ejemplar);
+     selected.getEjemplarDonacionTbList().add(nuevo);
+     listaEjemplares.remove(ejemplar);
 
-    }
+     }
 
-    public void anadirM() {
-        EjemplarDonacionTb nuevo = new EjemplarDonacionTb();
-        ejemplar.setECantDuplicado(ejemplar.getECantDuplicado() - cantidad);
-        nuevo.setEjemplarTb(ejemplar);
-        nuevo.setECantidad(cantidad);
-        nuevo.setDonacionTb(selected);
+     public void anadirM() {
+     EjemplarDonacionTb nuevo = new EjemplarDonacionTb();
+     ejemplar.setECantDuplicado(ejemplar.getECantDuplicado() - cantidad);
+     nuevo.setEjemplarTb(ejemplar);
+     nuevo.setECantidad(cantidad);
+     nuevo.setDonacionTb(selected);
 
-        EjemplarDonacionTbPK exhibicionpk = new EjemplarDonacionTbPK();
+     EjemplarDonacionTbPK exhibicionpk = new EjemplarDonacionTbPK();
 
-        exhibicionpk.setEIddonacion(selected.getEIddonacion());
-        exhibicionpk.setEIdejemplar(ejemplar.getEIdejemplar());
+     exhibicionpk.setEIddonacion(selected.getEIddonacion());
+     exhibicionpk.setEIdejemplar(ejemplar.getEIdejemplar());
 
-        nuevo.setEjemplarDonacionTbPK(exhibicionpk);
+     nuevo.setEjemplarDonacionTbPK(exhibicionpk);
 
-        selected.getEjemplarDonacionTbList().add(nuevo);
-        listaEjemplares.remove(ejemplar);
+     selected.getEjemplarDonacionTbList().add(nuevo);
+     listaEjemplares.remove(ejemplar);
 
-    }
+     }
     
-    public void removerM() {
-        ejemplarDonacion.getEjemplarTb().setECantDuplicado(ejemplarDonacion.getEjemplarTb().getECantDuplicado() + ejemplarDonacion.getECantidad());
-        eliminados.add(ejemplarDonacion);
-        selected.getEjemplarDonacionTbList().remove(ejemplarDonacion);
-    }
-*/
+     public void removerM() {
+     ejemplarDonacion.getEjemplarTb().setECantDuplicado(ejemplarDonacion.getEjemplarTb().getECantDuplicado() + ejemplarDonacion.getECantidad());
+     eliminados.add(ejemplarDonacion);
+     selected.getEjemplarDonacionTbList().remove(ejemplarDonacion);
+     }
+     */
 }

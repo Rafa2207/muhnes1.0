@@ -7,6 +7,7 @@ import servicio.DespachoTbFacade;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -20,9 +21,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
+import modelo.BitacoraTb;
 import modelo.MaterialDespachoTb;
 import modelo.MaterialDespachoTbPK;
 import modelo.MaterialTb;
+import modelo.UsuarioTb;
 
 @Named("despachoTbController")
 @ViewScoped
@@ -32,6 +35,10 @@ public class DespachoTbController implements Serializable {
     private servicio.MaterialTbFacade materialFacade;
     @EJB
     private servicio.DespachoTbFacade ejbFacade;
+    @EJB
+    private servicio.UsuarioTbFacade usuarioFacade;
+    @EJB
+    private servicio.BitacoraTbFacade bitacoraFacade;
     private List<DespachoTb> items = null, filtro;
     private DespachoTb selected;
     private MaterialTb material;
@@ -134,7 +141,7 @@ public class DespachoTbController implements Serializable {
         //para saber si ya se hizo reingreso
         int a = 0;
         for (MaterialDespachoTb i : selected.getMaterialDespachoTbList()) {
-            if (i.getDRegreso()> 0.0) {
+            if (i.getDRegreso() > 0.0) {
                 a++;
             }
         }
@@ -156,6 +163,16 @@ public class DespachoTbController implements Serializable {
                 materialFacade.edit(i.getMaterialTb());
             }
             selected.setEEstado(1); //cuando se realizo un despacho de materiales
+            //Bitacora inicio
+            BitacoraTb bitacora = new BitacoraTb();
+            bitacora.setMDescripcion("Creado Despacho '" + selected.getMDescripcion() + "' en el módulo: Materiales");
+            String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+            UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+            bitacora.setEIdusuario(usuario);
+            Date fecha = new Date();
+            bitacora.setTFecha(fecha);
+            bitacoraFacade.create(bitacora);
+            //Bitacora fin
             persist(PersistAction.CREATE, ResourceBundle.getBundle("/BundleDespacho").getString("DespachoTbCreated"));
             if (!JsfUtil.isValidationFailed()) {
                 items = null;    // Invalidate list of items to trigger re-query.
@@ -173,11 +190,31 @@ public class DespachoTbController implements Serializable {
                 }
             } catch (Exception e) {
             }
+            //Bitacora inicio
+            BitacoraTb bitacora = new BitacoraTb();
+            bitacora.setMDescripcion("Modificado Despacho '" + selected.getMDescripcion() + "' en el módulo: Materiales");
+            String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+            UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+            bitacora.setEIdusuario(usuario);
+            Date fecha = new Date();
+            bitacora.setTFecha(fecha);
+            bitacoraFacade.create(bitacora);
+            //Bitacora fin
             persist(PersistAction.UPDATE, ResourceBundle.getBundle("/BundleDespacho").getString("DespachoTbUpdated"));
         }
     }
 
     public void destroy() {
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Eliminado Despacho '" + selected.getMDescripcion() + "' en el módulo: Materiales");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/BundleDespacho").getString("DespachoTbDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
@@ -353,6 +390,16 @@ public class DespachoTbController implements Serializable {
             materialFacade.edit(i.getMaterialTb());
         }
         selected.setEEstado(2); //cuando el se realizo el reingreso de material
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Reingreso de materiales en Despacho '" + selected.getMDescripcion() + "' en el módulo: Materiales");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/BundleDespacho").getString("DespachoTbReingreso"));
     }
 }

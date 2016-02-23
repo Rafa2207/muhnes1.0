@@ -44,11 +44,13 @@ import javax.servlet.http.HttpServletResponse;
 import modelo.AgenteIdentificaEjemplarTb;
 import modelo.AgenteIdentificaEjemplarTbPK;
 import modelo.AgenteTb;
+import modelo.BitacoraTb;
 import modelo.EjemplarDonacionTb;
 import modelo.EjemplarNombrecomunTb;
 import modelo.InstitucionTb;
 import modelo.NombrecomunTb;
 import modelo.ProyectoTb;
+import modelo.UsuarioTb;
 //import modelo.EspecieTb;
 
 @Named("ejemplarTbController")
@@ -61,6 +63,10 @@ public class EjemplarTbController implements Serializable {
     private servicio.AgenteTbFacade agenteFacade;
     @EJB
     private servicio.InstitucionTbFacade institucionFacade;
+    @EJB
+    private servicio.UsuarioTbFacade usuarioFacade;
+    @EJB
+    private servicio.BitacoraTbFacade bitacoraFacade;
     private List<EjemplarTb> items = null, filtro;
     private EjemplarTb selected;
     private AgenteTb agente;
@@ -419,6 +425,16 @@ public class EjemplarTbController implements Serializable {
             } else {
                 selected.setEEstado(1); //ejemplar que se recolectÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³
             }
+            //Bitacora inicio
+            BitacoraTb bitacora = new BitacoraTb();
+            bitacora.setMDescripcion("Creado Ejemplar: '" + selected.getCCodigoentrada() + "' en el módulo: Ejemplar");
+            String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+            UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+            bitacora.setEIdusuario(usuario);
+            Date fecha = new Date();
+            bitacora.setTFecha(fecha);
+            bitacoraFacade.create(bitacora);
+            //Bitacora fin
             persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("EjemplarTbCreated"));
             if (!JsfUtil.isValidationFailed()) {
                 items = null;    // Invalidate list of items to trigger re-query.
@@ -427,10 +443,30 @@ public class EjemplarTbController implements Serializable {
     }
 
     public void update() {
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Modificado Ejemplar: '" + selected.getCCodigoentrada() + "' en el módulo: Ejemplar");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("EjemplarTbUpdated"));
     }
 
     public void destroy() {
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Eliminado Ejemplar: '" + selected.getCCodigoentrada() + "' en el módulo: Ejemplar");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("EjemplarTbDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
@@ -892,9 +928,11 @@ public class EjemplarTbController implements Serializable {
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 fecha.setSpacingAfter(10);
                 document.add(fecha);
-                if(booleanResponsable == true){
+                if (booleanResponsable == true) {
                     columnas = 7;
-                }else {columnas = 8;}
+                } else {
+                    columnas = 8;
+                }
                 PdfPTable ejemplares = new PdfPTable(columnas);
                 ejemplares.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
 
@@ -908,8 +946,8 @@ public class EjemplarTbController implements Serializable {
                 ejemplares.setWidthPercentage(100);
                 ejemplares.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                 ejemplares.addCell(new Phrase("CÃ³digo de Entrada", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
-                if(booleanResponsable == false){
-                ejemplares.addCell(new Phrase("Responsable", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                if (booleanResponsable == false) {
+                    ejemplares.addCell(new Phrase("Responsable", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                 }
                 ejemplares.addCell(new Phrase("Correlativo", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                 ejemplares.addCell(new Phrase("InformaciÃ³n TaxonÃ³mica", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
@@ -941,10 +979,10 @@ public class EjemplarTbController implements Serializable {
                     PdfPCell c1 = new PdfPCell(new Phrase(ejemplar.getCCodigoentrada(), FontFactory.getFont(FontFactory.TIMES, 11)));
                     c1.setHorizontalAlignment(Element.ALIGN_CENTER);
                     ejemplares.addCell(c1);
-                    if (booleanResponsable == false){
-                    PdfPCell c2 = new PdfPCell(new Phrase(calculaAgenteReporte(ejemplar.getEResponsable()), FontFactory.getFont(FontFactory.TIMES, 11)));
-                    c2.setHorizontalAlignment(Element.ALIGN_LEFT);
-                    ejemplares.addCell(c2);
+                    if (booleanResponsable == false) {
+                        PdfPCell c2 = new PdfPCell(new Phrase(calculaAgenteReporte(ejemplar.getEResponsable()), FontFactory.getFont(FontFactory.TIMES, 11)));
+                        c2.setHorizontalAlignment(Element.ALIGN_LEFT);
+                        ejemplares.addCell(c2);
                     }
                     PdfPCell c3 = new PdfPCell(new Phrase(String.valueOf(ejemplar.getECorrelativo()), FontFactory.getFont(FontFactory.TIMES, 11)));
                     c3.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -983,6 +1021,16 @@ public class EjemplarTbController implements Serializable {
                 responseOutputStream.flush();
                 responseOutputStream.close();
                 context.responseComplete();
+                //Bitacora inicio
+                BitacoraTb bitacora = new BitacoraTb();
+                bitacora.setMDescripcion("Creado Reporte general de Ejemplares en el módulo: Ejemplar");
+                String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+                UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+                bitacora.setEIdusuario(usuario);
+                Date fecha1 = new Date();
+                bitacora.setTFecha(fecha1);
+                bitacoraFacade.create(bitacora);
+                //Bitacora fin
             }
         } catch (DocumentException | IOException e) {
             e.printStackTrace();

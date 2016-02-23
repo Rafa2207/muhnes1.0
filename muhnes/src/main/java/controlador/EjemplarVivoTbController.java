@@ -6,6 +6,7 @@ import controlador.util.JsfUtil.PersistAction;
 import servicio.EjemplarVivoTbFacade;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -19,6 +20,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
+import modelo.BitacoraTb;
+import modelo.UsuarioTb;
 
 @Named("ejemplarVivoTbController")
 @ViewScoped
@@ -26,6 +29,10 @@ public class EjemplarVivoTbController implements Serializable {
 
     @EJB
     private servicio.EjemplarVivoTbFacade ejbFacade;
+    @EJB
+    private servicio.UsuarioTbFacade usuarioFacade;
+    @EJB
+    private servicio.BitacoraTbFacade bitacoraFacade;
     private List<EjemplarVivoTb> items = null, items2 = null, filtro;
     private EjemplarVivoTb selected;
 
@@ -65,6 +72,16 @@ public class EjemplarVivoTbController implements Serializable {
     }
 
     public void create() {
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Creado Ejemplar Vivo: '" + selected.getCNombre() + "' en el módulo: Ejemplar");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/BundleEjemplarVivo").getString("EjemplarVivoTbCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -72,10 +89,30 @@ public class EjemplarVivoTbController implements Serializable {
     }
 
     public void update() {
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Modificado Ejemplar Vivo: '" + selected.getCNombre() + "' en el módulo: Ejemplar");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/BundleEjemplarVivo").getString("EjemplarVivoTbUpdated"));
     }
 
     public void destroy() {
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Eliminado Ejemplar Vivo: '" + selected.getCNombre() + "' en el módulo: Ejemplar");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/BundleEjemplarVivo").getString("EjemplarVivoTbDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
@@ -89,7 +126,7 @@ public class EjemplarVivoTbController implements Serializable {
         }
         return items;
     }
-    
+
     public List<EjemplarVivoTb> getItems2() {
         if (items2 == null) {
             items2 = getFacade().buscarEjemplarSinExistencia();
