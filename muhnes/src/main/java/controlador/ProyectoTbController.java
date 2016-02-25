@@ -1491,21 +1491,21 @@ public class ProyectoTbController implements Serializable {
                         document.add(NotaFecha);
 
                         //Acompañantes
-                        PdfPTable NotaAcompañantes = new PdfPTable(2);
-                        NotaAcompañantes.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-                        NotaAcompañantes.setWidths(tamanocuerpo);
-                        NotaAcompañantes.setWidthPercentage(80);
+                        PdfPTable NotaAcompanantes = new PdfPTable(2);
+                        NotaAcompanantes.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                        NotaAcompanantes.setWidths(tamanocuerpo);
+                        NotaAcompanantes.setWidthPercentage(80);
 
                         PdfPCell c111 = new PdfPCell(new Phrase("Acompañantes:", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                         c111.setBorder(Rectangle.LEFT);
                         c111.setHorizontalAlignment(Element.ALIGN_LEFT);
-                        NotaAcompañantes.addCell(c111);
+                        NotaAcompanantes.addCell(c111);
 
                         PdfPCell c222 = new PdfPCell(new Phrase(nota.getMAcompanantes(), FontFactory.getFont(FontFactory.TIMES, 12)));
                         c222.setBorder(Rectangle.RIGHT);
                         c222.setHorizontalAlignment(Element.ALIGN_LEFT);
-                        NotaAcompañantes.addCell(c222);
-                        document.add(NotaAcompañantes);
+                        NotaAcompanantes.addCell(c222);
+                        document.add(NotaAcompanantes);
 
                         //Ubicación
                         PdfPTable NotaUbicacion = new PdfPTable(2);

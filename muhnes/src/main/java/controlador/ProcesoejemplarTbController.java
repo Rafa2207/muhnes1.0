@@ -23,12 +23,18 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
+import modelo.BitacoraTb;
 import modelo.ProyectoTb;
+import modelo.UsuarioTb;
 
 @Named("procesoejemplarTbController")
 @ViewScoped
 public class ProcesoejemplarTbController implements Serializable {
 
+    @EJB
+    private servicio.BitacoraTbFacade bitacoraFacade;
+    @EJB
+    private servicio.UsuarioTbFacade usuarioFacade;
     @EJB
     private servicio.ProcesoejemplarTbFacade ejbFacade;
     private List<ProcesoejemplarTb> items = null, lista = null, itemsNotificacion = null;
@@ -193,10 +199,30 @@ public class ProcesoejemplarTbController implements Serializable {
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Creado nuevo proceso ejemplar: '" + selected.getMNombre() + "' Tipo: '"+selected.getCTipo()+"' en el módulo: Proyectos");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
     }
 
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ProcesoejemplarTbUpdated"));
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Modificado proceso ejemplar: '" + selected.getMNombre() + "' Tipo: '"+selected.getCTipo()+"' en el módulo: Proyectos");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
     }
 
     public void destroy() {

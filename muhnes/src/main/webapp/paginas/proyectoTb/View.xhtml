@@ -11,7 +11,7 @@
         <p:dialog id="ProyectoTbViewDlg" widgetVar="ProyectoTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="Visualizar Proyecto">
             <h:form id="ProyectoTbViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{proyectoTbController.selected != null}" style="width: 450px">
+                    <p:panelGrid columns="2" rendered="#{proyectoTbController.selected != null}" style="width: 450px;text-align: justify">
 
                         <h:outputText value="#{bundle.ViewProyectoTbLabel_CNombre}"/>
                         <h:outputText value="#{proyectoTbController.selected.MNombre}" title="#{bundle.ViewProyectoTbTitle_CNombre}"/>

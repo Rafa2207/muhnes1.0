@@ -44,7 +44,9 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import modelo.AgentePerfilTb;
 import modelo.AgentePerfilTbPK;
+import modelo.BitacoraTb;
 import modelo.PerfilTb;
+import modelo.UsuarioTb;
 
 @Named("agenteTbController")
 @ViewScoped
@@ -54,6 +56,10 @@ public class AgenteTbController implements Serializable {
     private servicio.AgenteTbFacade ejbFacade;
     @EJB
     private servicio.PerfilTbFacade perfilFacade;
+    @EJB
+    private servicio.UsuarioTbFacade usuarioFacade;
+    @EJB
+    private servicio.BitacoraTbFacade bitacoraFacade;
     private List<AgenteTb> items = null, filtrado = null, filtro, AgenteCustodio;
     private AgenteTb selected;
     private PerfilTb perfil;
@@ -180,10 +186,31 @@ public class AgenteTbController implements Serializable {
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Creado nuevo agente: '" + selected.getCNombre() + "' en el módulo: Agentes e instituciones");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
     }
 
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("AgenteTbUpdated"));
+        
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Modificado agente: '" + selected.getCNombre() + "' en el módulo: Agentes e instituciones");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
     }
 
     public void destroy() {

@@ -41,6 +41,7 @@ import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import modelo.BitacoraTb;
 import modelo.ProrrogaProyectoTb;
 import modelo.ProyectoTb;
 import modelo.UsuarioTb;
@@ -57,6 +58,8 @@ public class NotapreliminarTbController implements Serializable {
     private servicio.UsuarioTbFacade usuarioFacade;
     @EJB
     private servicio.ProrrogaProyectoTbFacade FacadeProrroga;
+    @EJB
+    private servicio.BitacoraTbFacade bitacoraFacade;
     private List<NotapreliminarTb> items = null, filtro, NotasAll = null, Notas = null;
     private NotapreliminarTb selected;
     private UsuarioTb user = null;
@@ -146,10 +149,30 @@ public class NotapreliminarTbController implements Serializable {
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Creada nueva nota: '" + selected.getCNombre() + "' en el módulo: Proyectos");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
     }
 
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/BundleNotas").getString("NotapreliminarTbUpdated"));
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Modificada nota: '" + selected.getCNombre() + "' en el módulo: Proyectos");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
     }
 
     public void destroy() {
