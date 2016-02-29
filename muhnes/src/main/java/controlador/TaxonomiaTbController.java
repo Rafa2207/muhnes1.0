@@ -1,9 +1,24 @@
 package controlador;
 
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Element;
+import com.lowagie.text.FontFactory;
+import com.lowagie.text.Image;
+import com.lowagie.text.PageSize;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.Phrase;
+import com.lowagie.text.Rectangle;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
 import modelo.TaxonomiaTb;
 import controlador.util.JsfUtil;
 import controlador.util.JsfUtil.PersistAction;
+import controlador.util.TableHeader;
+import controlador.util.TableHeaderVertical;
 import controlador.util.UtilPath;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -12,6 +27,7 @@ import servicio.TaxonomiaTbFacade;
 
 import java.io.Serializable;
 import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -31,6 +47,9 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
 import javax.mail.MessagingException;
 import javax.mail.Part;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import modelo.AgenteTaxonomiaTb;
 import modelo.AgenteTaxonomiaTbPK;
 import modelo.AgenteTb;
@@ -38,6 +57,7 @@ import modelo.BitacoraTb;
 import modelo.ImagenTb;
 import modelo.NombrecomunTb;
 import modelo.PaisTb;
+import modelo.ProyectoTb;
 import modelo.UsuarioTb;
 import org.apache.commons.io.IOUtils;
 import org.primefaces.event.FileUploadEvent;
@@ -69,6 +89,8 @@ public class TaxonomiaTbController implements Serializable {
     private List<String> idiomas;
     private Part photo;
     private ImagenTb img;
+    Integer columnas; 
+    //int matriz[] = new int[];
 
     public TaxonomiaTbController() {
     }
@@ -213,6 +235,7 @@ public class TaxonomiaTbController implements Serializable {
 
     public TaxonomiaTb prepareCreate() {
         selected = new TaxonomiaTb();
+        selected.setCTipo("Familia");
         initializeEmbeddableKey();
         return selected;
     }
@@ -366,7 +389,7 @@ public class TaxonomiaTbController implements Serializable {
     public void destroy() {
         //Bitacora inicio
         BitacoraTb bitacora = new BitacoraTb();
-        bitacora.setMDescripcion("Eliminado "+ selected.getCTipo() +"  '" + selected.getCNombre() + "' en el módulo: Información Taxonómica");
+        bitacora.setMDescripcion("Eliminado " + selected.getCTipo() + "  '" + selected.getCNombre() + "' en el módulo: Información Taxonómica");
         String nick = JsfUtil.getRequest().getUserPrincipal().getName();
         UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
         bitacora.setEIdusuario(usuario);
@@ -695,7 +718,7 @@ public class TaxonomiaTbController implements Serializable {
         String cadena1 = "", cadena2 = "";
         for (AgenteTaxonomiaTb i : getFacade().buscarEspecieSecuencia(List.getEIdtaxonomia())) {
             if (i.getBAutorbasionimio() == true) {
-                cadena1 = cadena1 + i.getAgenteTb().getCIniciales() + " " + i.getCConector() + " ";
+                cadena1 = cadena1 + i.getAgenteTb().getCIniciales() + " " + i.getCConector();
             }
             if (i.getBAutorbasionimio() == false) {
                 cadena2 = cadena2 + i.getAgenteTb().getCIniciales() + " ";
@@ -735,6 +758,303 @@ public class TaxonomiaTbController implements Serializable {
             return null;
         }
         return autores;
+    }
+
+    //************************************************REPORTES****************************************************//
+    public void reporteAll() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        try {
+            Object response = context.getExternalContext().getResponse();
+            if (response instanceof HttpServletResponse) {
+                HttpServletResponse hsr = (HttpServletResponse) response;
+                hsr.setContentType("application/pdf");
+                ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
+
+                // Inicia reporte
+                Document document = new Document(PageSize.LETTER);
+                PdfWriter writer = PdfWriter.getInstance(document, pdfOutputStream);
+                TableHeaderVertical event = new TableHeaderVertical();
+                writer.setPageEvent(event);
+                document.open();
+
+                //Encabezado
+                //ruta del sistema
+                ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+                //Referencia al logo
+                String logoPath = servletContext.getRealPath("") + File.separator + "resources"
+                        + File.separator + "images"
+                        + File.separator + "muhnes1.png";
+
+                //Tabla para  el encabezado
+                PdfPTable encabezado = new PdfPTable(3);
+                //Ancho de la tabla
+                encabezado.setWidthPercentage(100);
+                //Primera celda
+                PdfPCell cell1 = new PdfPCell();
+                //Instancia al logo
+                Image logo = Image.getInstance(logoPath);
+                //Indico tamaÃ±o del logo
+                logo.scaleToFit(80, 80);
+                //aÃ±ado el primer logo a la celda
+                cell1.addElement(logo);
+                //Celda sin borde borde
+                cell1.setBorder(Rectangle.NO_BORDER);
+                //aÃ±ado celda a la tabla
+                encabezado.addCell(cell1);
+                //celdas se alineen al centro
+                encabezado.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                encabezado.getDefaultCell().setVerticalAlignment(Element.ALIGN_CENTER);
+                //Siguientes celdas no tengan borde
+                encabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                //nueva celda con los datos del MUHNES
+                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de El Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+
+                encabezado.addCell("");
+                document.add(encabezado);
+
+                Paragraph titulo = new Paragraph("Reporte General de Información Taxonómica", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                titulo.setAlignment(Element.ALIGN_CENTER);
+
+                titulo.setSpacingBefore(5);
+                document.add(titulo);
+
+                Paragraph titulo2 = new Paragraph(new Phrase("Reporte de Familias", FontFactory.getFont(FontFactory.TIMES_BOLD, 13)));
+                titulo2.setAlignment(Element.ALIGN_CENTER);
+                titulo2.setSpacingAfter(5);
+                titulo2.setSpacingBefore(2);
+                document.add(titulo2);
+
+                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
+                        FontFactory.getFont(FontFactory.TIMES, 10));
+                fecha.setAlignment(Element.ALIGN_CENTER);
+                fecha.setSpacingAfter(10);
+                document.add(fecha);
+
+                PdfPTable proyectos = new PdfPTable(2);
+                proyectos.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+
+                int headerwidths[] = {10, 40};
+                try {
+                    proyectos.setWidths(headerwidths);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+
+                proyectos.setWidthPercentage(60);
+                proyectos.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                proyectos.addCell(new Phrase("Correlativo", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                proyectos.addCell(new Phrase("Nombre", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                //proyectos.addCell(new Phrase("Estado", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                //proyectos.addCell(new Phrase("Autores", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+
+                List<TaxonomiaTb> taxonomiaListaReporte = new ArrayList<TaxonomiaTb>();
+
+                taxonomiaListaReporte = getFacade().buscarFamiliaAsc();
+                int i = 0;
+                for (TaxonomiaTb taxon : taxonomiaListaReporte) {
+                    i++;
+                    PdfPCell c1 = new PdfPCell(new Phrase("" + i + "", FontFactory.getFont(FontFactory.TIMES, 12)));
+                    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    proyectos.addCell(c1);
+
+                    PdfPCell c2 = new PdfPCell(new Phrase(taxon.getCNombre(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    c2.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    proyectos.addCell(c2);
+
+                    /*PdfPCell c3 = new PdfPCell(new Phrase(taxon.getCEstado(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                     c3.setHorizontalAlignment(Element.ALIGN_CENTER);
+                     proyectos.addCell(c3);
+
+                     PdfPCell c4 = new PdfPCell(new Phrase(taxon.getCEstado(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                     c4.setHorizontalAlignment(Element.ALIGN_CENTER);
+                     proyectos.addCell(c4);*/
+                }
+                document.add(proyectos);
+                document.close();
+                //Termina reporte
+
+                hsr.setHeader("Expires", "0");
+                hsr.setContentType("application/pdf");
+                hsr.setContentLength(pdfOutputStream.size());
+                ServletOutputStream responseOutputStream = hsr.getOutputStream();
+                responseOutputStream.write(pdfOutputStream.toByteArray());
+                responseOutputStream.flush();
+                responseOutputStream.close();
+                context.responseComplete();
+            }
+        } catch (DocumentException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void reporteAll(TaxonomiaTb tax, int n) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        try {
+            Object response = context.getExternalContext().getResponse();
+            if (response instanceof HttpServletResponse) {
+                HttpServletResponse hsr = (HttpServletResponse) response;
+                hsr.setContentType("application/pdf");
+                ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
+
+                // Inicia reporte
+                Document document = new Document(PageSize.LETTER);
+                PdfWriter writer = PdfWriter.getInstance(document, pdfOutputStream);
+                TableHeaderVertical event = new TableHeaderVertical();
+                writer.setPageEvent(event);
+                document.open();
+
+                //Encabezado
+                //ruta del sistema
+                ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+                //Referencia al logo
+                String logoPath = servletContext.getRealPath("") + File.separator + "resources"
+                        + File.separator + "images"
+                        + File.separator + "muhnes1.png";
+
+                //Tabla para  el encabezado
+                PdfPTable encabezado = new PdfPTable(3);
+                //Ancho de la tabla
+                encabezado.setWidthPercentage(100);
+                //Primera celda
+                PdfPCell cell1 = new PdfPCell();
+                //Instancia al logo
+                Image logo = Image.getInstance(logoPath);
+                //Indico tamaÃ±o del logo
+                logo.scaleToFit(80, 80);
+                //aÃ±ado el primer logo a la celda
+                cell1.addElement(logo);
+                //Celda sin borde borde
+                cell1.setBorder(Rectangle.NO_BORDER);
+                //aÃ±ado celda a la tabla
+                encabezado.addCell(cell1);
+                //celdas se alineen al centro
+                encabezado.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                encabezado.getDefaultCell().setVerticalAlignment(Element.ALIGN_CENTER);
+                //Siguientes celdas no tengan borde
+                encabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                //nueva celda con los datos del MUHNES
+                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de El Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+
+                encabezado.addCell("");
+                document.add(encabezado);
+
+                Paragraph titulo = new Paragraph("Reporte General de Información Taxonómica", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                titulo.setAlignment(Element.ALIGN_CENTER);
+
+                titulo.setSpacingBefore(5);
+                document.add(titulo);
+
+                if (tax.getCTipo().equals("Familia")) {
+                    Paragraph titulo2 = new Paragraph(new Phrase("Reporte de Género \n Familia: " + tax.getCNombre() + "", FontFactory.getFont(FontFactory.TIMES_BOLD, 13)));
+                    titulo2.setAlignment(Element.ALIGN_CENTER);
+                    titulo2.setSpacingAfter(5);
+                    titulo2.setSpacingBefore(2);
+                    document.add(titulo2);
+                } else if (tax.getCTipo().equals("Genero")) {
+                    Paragraph titulo2 = new Paragraph(new Phrase("Reporte de Especies \n Género: "+ tax.getCNombre() +"", FontFactory.getFont(FontFactory.TIMES_BOLD, 13)));
+                    titulo2.setAlignment(Element.ALIGN_CENTER);
+                    titulo2.setSpacingAfter(5);
+                    titulo2.setSpacingBefore(2);
+                    document.add(titulo2);
+                } else if (tax.getCTipo().equals("Especie") && n==1) {
+                    Paragraph titulo2 = new Paragraph(new Phrase("Reporte de Subespecies \n Especie: "+ tax.getCNombre() +"", FontFactory.getFont(FontFactory.TIMES_BOLD, 13)));
+                    titulo2.setAlignment(Element.ALIGN_CENTER);
+                    titulo2.setSpacingAfter(5);
+                    titulo2.setSpacingBefore(2);
+                    document.add(titulo2);
+                } else if (tax.getCTipo().equals("Especie") && n==2) {
+                    Paragraph titulo2 = new Paragraph(new Phrase("Reporte de Variedades \n Especie: "+ tax.getCNombre() +"", FontFactory.getFont(FontFactory.TIMES_BOLD, 13)));
+                    titulo2.setAlignment(Element.ALIGN_CENTER);
+                    titulo2.setSpacingAfter(5);
+                    titulo2.setSpacingBefore(2);
+                    document.add(titulo2);
+                }
+
+                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
+                        FontFactory.getFont(FontFactory.TIMES, 10));
+                fecha.setAlignment(Element.ALIGN_CENTER);
+                fecha.setSpacingAfter(10);
+                document.add(fecha);
+                if(tax.getCTipo().equals("Familia")){
+                    int headerwidths[] = {10, 40};
+                    columnas = 2;
+                }else{ columnas = 4;
+                int headerwidths[] = {10, 30, 30, 30};}
+                PdfPTable proyectos = new PdfPTable(columnas);
+                proyectos.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+
+                
+                try {
+                    if(tax.getCTipo().equals("Familia")){
+                    int headerwidths[] = {10, 40};
+                    proyectos.setWidths(headerwidths);}
+                    else{
+                        int headerwidths[] = {15, 30, 20, 35};
+                        proyectos.setWidths(headerwidths);
+                    }
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                if(tax.getCTipo().equals("Familia")){
+                proyectos.setWidthPercentage(60);}
+                else{proyectos.setWidthPercentage(90);}
+                proyectos.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                proyectos.addCell(new Phrase("Correlativo", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                proyectos.addCell(new Phrase("Nombre", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                if (!tax.getCTipo().equals("Familia")){proyectos.addCell(new Phrase("Estado", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));}
+                if (!tax.getCTipo().equals("Familia")){proyectos.addCell(new Phrase("Autores", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));}
+
+                List<TaxonomiaTb> taxonomiaListaReporte = new ArrayList<TaxonomiaTb>();
+
+                if (tax.getCTipo().equals("Familia")) {
+                    taxonomiaListaReporte = getFacade().buscarGeneroAsc(tax.getEIdtaxonomia());
+
+                } else if (tax.getCTipo().equals("Genero")) {
+                    taxonomiaListaReporte = getFacade().buscarEspecieAsc(tax.getEIdtaxonomia());
+
+                }else if (tax.getCTipo().equals("Especie") && n==1) {
+                    taxonomiaListaReporte = getFacade().buscarSubEspecieAsc(tax.getEIdtaxonomia());
+
+                }else if (tax.getCTipo().equals("Especie") && n==2) {
+                    taxonomiaListaReporte = getFacade().buscarVariedadAsc(tax.getEIdtaxonomia());
+
+                }
+                
+                int i = 0;
+                for (TaxonomiaTb taxon : taxonomiaListaReporte) {
+                    i++;
+                    PdfPCell c1 = new PdfPCell(new Phrase("" + i + "", FontFactory.getFont(FontFactory.TIMES, 12)));
+                    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    proyectos.addCell(c1);
+
+                    PdfPCell c2 = new PdfPCell(new Phrase(taxon.getCNombre(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    c2.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    proyectos.addCell(c2);
+
+                    if (!tax.getCTipo().equals("Familia")){PdfPCell c3 = new PdfPCell(new Phrase(taxon.getCEstado(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                     c3.setHorizontalAlignment(Element.ALIGN_CENTER);
+                     proyectos.addCell(c3);}
+
+                     if (!tax.getCTipo().equals("Familia")){PdfPCell c4 = new PdfPCell(new Phrase(autoresBList(taxon), FontFactory.getFont(FontFactory.TIMES, 12)));
+                     c4.setHorizontalAlignment(Element.ALIGN_CENTER);
+                     proyectos.addCell(c4);}
+                }
+                document.add(proyectos);
+                document.close();
+                //Termina reporte
+
+                hsr.setHeader("Expires", "0");
+                hsr.setContentType("application/pdf");
+                hsr.setContentLength(pdfOutputStream.size());
+                ServletOutputStream responseOutputStream = hsr.getOutputStream();
+                responseOutputStream.write(pdfOutputStream.toByteArray());
+                responseOutputStream.flush();
+                responseOutputStream.close();
+                context.responseComplete();
+            }
+        } catch (DocumentException | IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

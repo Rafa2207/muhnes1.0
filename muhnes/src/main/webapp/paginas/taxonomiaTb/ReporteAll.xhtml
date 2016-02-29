@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EjemplarTbReporteAllDlg" widgetVar="EjemplarTbReporteAllDialog" modal="true" resizable="false" appendTo="@(body)" header="Reporte de Ejemplares">
+            <h:form id="EjemplarTbReporteAllForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="Reporte:" for="check" />
+                        <p:selectOneMenu id="check" value="#{ejemplarTbController.tipoReporte}"
+                                         required="true" requiredMessage="Seleccione tipo de reporte">
+                            <f:selectItem itemLabel="Seleccione..." itemValue=""/>
+                            <f:selectItem itemLabel="Reporte General" itemValue="general"/>
+                            <f:selectItem itemLabel="Fecha de Recolección" itemValue="recoleccion"/>
+                            <f:selectItem itemLabel="Fecha Identificación" itemValue="identificacion"/>
+                            <f:selectItem itemLabel="Codigo de Entrada" itemValue="entrada"/>
+                            <f:selectItem itemLabel="Responsable" itemValue="responsable"/>
+                            <f:selectItem itemLabel="Recolector" itemValue="recolector"/>
+                            <f:selectItem itemLabel="Identificador" itemValue="identificador"/>
+                            <p:ajax event="change" listener="#{ejemplarTbController.actualizarVista()}" 
+                                    update="reporteFecha, reporteEntrada, reporteResponsable, reporteIdentificador, reporteRecolector" process="check"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:panelGrid columns="4" id="reporteFecha">
+                        <p:outputLabel value="Desde:" for="desde" rendered="#{ejemplarTbController.booleanFecha}" /> 
+                        <p:calendar id="desde"  size="15" rendered="#{ejemplarTbController.booleanFecha}"
+                                    pattern="dd MMMM yyyy" value="#{ejemplarTbController.f1}" 
+                                    title="Fecha" showOn="button"
+                                    required="true" 
+                                    requiredMessage="Introduzca fecha inicio"
+                                    locale="es" readonlyInput="true">
+                            <p:ajax event="dateSelect" update="hasta"/>
+                        </p:calendar>
+
+                        <p:outputLabel value="Hasta:" for="hasta" rendered="#{ejemplarTbController.booleanFecha}" /> 
+                        <p:calendar id="hasta"  size="15"
+                                    pattern="dd MMMM yyyy" rendered="#{ejemplarTbController.booleanFecha}" 
+                                    value="#{ejemplarTbController.f2}" 
+                                    title="Fecha" showOn="button"
+                                    required="true"
+                                    requiredMessage="Introduzca fecha fin"
+                                    locale="es" readonlyInput="true"
+                                    mindate="#{ejemplarTbController.f1}">
+                        </p:calendar>
+                    </p:panelGrid>
+                    <p:panelGrid columns="4" id="reporteEntrada">
+                        <p:outputLabel value="Desde:" for="desdeCodigo" rendered="#{ejemplarTbController.booleanCodigo}" /> 
+                        <p:inputText value="#{ejemplarTbController.codigo1}" id="desdeCodigo" 
+                                     rendered="#{ejemplarTbController.booleanCodigo}"
+                                     required="true"
+                                     requiredMessage="Debe codigo de entrada"/>
+
+                        <p:outputLabel value="Hasta:" for="hastaCodigo" rendered="#{ejemplarTbController.booleanCodigo}" /> 
+                        <p:inputText value="#{ejemplarTbController.codigo2}" id="hastaCodigo" 
+                                     rendered="#{ejemplarTbController.booleanCodigo}"
+                                     required="true"
+                                     requiredMessage="Debe codigo de entrada"/>
+                    </p:panelGrid>
+                    <p:panelGrid columns="2" id="reporteResponsable">
+                        <p:outputLabel value="Responsable:" for="responsable" 
+                                       rendered="#{ejemplarTbController.booleanResponsable}" /> 
+                        <p:selectOneMenu id="responsable" value="#{ejemplarTbController.responsable}"
+                                         rendered="#{ejemplarTbController.booleanResponsable}"
+                                         required="true"
+                                         requiredMessage="Seleccione Responsable">
+                            <f:selectItem itemValue="" itemLabel="Seleccione..."/>
+                            <f:selectItems value="#{ejemplarTbController.listaResponsables}"
+                                           var="responsable"
+                                           itemValue="#{responsable.EIdagente}"
+                                           itemLabel="#{responsable.CNombre} #{responsable.CApellido}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:panelGrid columns="2" id="reporteIdentificador">
+                        <p:outputLabel value="Responsable:" for="identificador" 
+                                       rendered="#{ejemplarTbController.booleanIdentidicador}" /> 
+                        <p:selectOneMenu id="identificador" value="#{ejemplarTbController.identificador}"
+                                         rendered="#{ejemplarTbController.booleanIdentidicador}"
+                                         required="true"
+                                         requiredMessage="Seleccione Identificador">
+                            <f:selectItem itemValue="" itemLabel="Seleccione..."/>
+                            <f:selectItems value="#{ejemplarTbController.listaIdenficadores}"
+                                           var="responsable"
+                                           itemValue="#{responsable.EIdagente}"
+                                           itemLabel="#{responsable.CNombre} #{responsable.CApellido}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:panelGrid columns="2" id="reporteRecolector">
+                        <p:outputLabel value="Responsable:" for="recolector" 
+                                       rendered="#{ejemplarTbController.booleanRecolector}" /> 
+                        <p:selectOneMenu id="recolector" value="#{ejemplarTbController.recolector}"
+                                         rendered="#{ejemplarTbController.booleanRecolector}"
+                                         required="true"
+                                         requiredMessage="Seleccione Identificador">
+                            <f:selectItem itemValue="" itemLabel="Seleccione..."/>
+                            <f:selectItems value="#{ejemplarTbController.listaRecolectores}"
+                                           var="responsable"
+                                           itemValue="#{responsable.EIdagente}"
+                                           itemLabel="#{responsable.CNombre} #{responsable.CApellido}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ejemplarTbController.reporteAll()}" update="display" onclick="this.form.target = '_blank'"
+                                     value="Imprimir reporte" ajax="false" icon="ui-icon-print" />
+
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
