@@ -189,6 +189,17 @@ public class ProcesoejemplarTbController implements Serializable {
             getFacade().edit(proceso);
             getFacade().create(selected);
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "El proceso ha cambiado a cuarentena exitosamente", "INFO"));
+
+            //Bitacora inicio
+            BitacoraTb bitacora = new BitacoraTb();
+            bitacora.setMDescripcion("Cambio de proceso del ejemplar: '" + selected.getMNombre() + "' del proceso 'Secado' al tipo de proceso: '" + selected.getCTipo() + "' en el módulo: Proyectos");
+            String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+            UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+            bitacora.setEIdusuario(usuario);
+            Date fecha = new Date();
+            bitacora.setTFecha(fecha);
+            bitacoraFacade.create(bitacora);
+            //Bitacora fin
         } else {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ha ocurrido un problema, porfavor recarga la página", "INFO"));
         }
@@ -201,7 +212,7 @@ public class ProcesoejemplarTbController implements Serializable {
         }
         //Bitacora inicio
         BitacoraTb bitacora = new BitacoraTb();
-        bitacora.setMDescripcion("Creado nuevo proceso ejemplar: '" + selected.getMNombre() + "' Tipo: '"+selected.getCTipo()+"' en el módulo: Proyectos");
+        bitacora.setMDescripcion("Creado nuevo proceso ejemplar: '" + selected.getMNombre() + "' Tipo: '" + selected.getCTipo() + "' en el módulo: Proyectos");
         String nick = JsfUtil.getRequest().getUserPrincipal().getName();
         UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
         bitacora.setEIdusuario(usuario);
@@ -215,7 +226,7 @@ public class ProcesoejemplarTbController implements Serializable {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ProcesoejemplarTbUpdated"));
         //Bitacora inicio
         BitacoraTb bitacora = new BitacoraTb();
-        bitacora.setMDescripcion("Modificado proceso ejemplar: '" + selected.getMNombre() + "' Tipo: '"+selected.getCTipo()+"' en el módulo: Proyectos");
+        bitacora.setMDescripcion("Modificado proceso ejemplar: '" + selected.getMNombre() + "' Tipo: '" + selected.getCTipo() + "' en el módulo: Proyectos");
         String nick = JsfUtil.getRequest().getUserPrincipal().getName();
         UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
         bitacora.setEIdusuario(usuario);
@@ -391,6 +402,17 @@ public class ProcesoejemplarTbController implements Serializable {
         selected.setEEstado(1);
         getFacade().edit(selected);
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Cuarentena Finalizada", "INFO"));
+        
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Finalizado proceso ejemplar: '" + selected.getMNombre() + " en el módulo: Proyectos");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
     }
 
     public String NombreNotificacion(ProcesoejemplarTb a) {

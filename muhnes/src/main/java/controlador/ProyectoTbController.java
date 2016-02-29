@@ -629,7 +629,7 @@ public class ProyectoTbController implements Serializable {
                 //Siguientes celdas no tengan borde
                 encabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                 //nueva celda con los datos del MUHNES
-                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de El Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de\n El Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
 
                 encabezado.addCell("");
                 document.add(encabezado);
@@ -792,7 +792,7 @@ public class ProyectoTbController implements Serializable {
                 int columnas[] = {25, 75};
 
                 PdfPTable TablaNombre = new PdfPTable(2);
-                TablaNombre.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
+                TablaNombre.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
                 TablaNombre.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                 TablaNombre.setWidths(columnas);
                 TablaNombre.setWidthPercentage(100);
@@ -803,7 +803,7 @@ public class ProyectoTbController implements Serializable {
                 document.add(TablaNombre);
 
                 PdfPTable TablaDescripcion = new PdfPTable(2);
-                TablaDescripcion.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
+                TablaDescripcion.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
                 TablaDescripcion.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                 TablaDescripcion.setWidths(columnas);
                 TablaDescripcion.setWidthPercentage(100);
@@ -1069,7 +1069,7 @@ public class ProyectoTbController implements Serializable {
                 int columnas[] = {25, 75};
 
                 PdfPTable TablaNombre = new PdfPTable(2);
-                TablaNombre.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
+                TablaNombre.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
                 TablaNombre.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                 TablaNombre.setWidths(columnas);
                 TablaNombre.setWidthPercentage(100);
@@ -1080,7 +1080,7 @@ public class ProyectoTbController implements Serializable {
                 document.add(TablaNombre);
 
                 PdfPTable TablaDescripcion = new PdfPTable(2);
-                TablaDescripcion.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
+                TablaDescripcion.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
                 TablaDescripcion.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                 TablaDescripcion.setWidths(columnas);
                 TablaDescripcion.setWidthPercentage(100);
