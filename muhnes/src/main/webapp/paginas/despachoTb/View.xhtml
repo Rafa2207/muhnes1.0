@@ -44,7 +44,8 @@
                             <h:outputText value="#{material.DRegreso}  #{material.materialTb.EIdunidad.CAbreviatura}"/>
                         </p:column>
                     </p:dataTable>
-                    <p:commandButton value="#{bundle.Close}" onclick="DespachoTbViewDialog.hide()"/>
+                    <p:commandButton value="Reporte" actionListener="#{despachoTbController.reporteIndividual()}" ajax="false"
+                                     onclick="this.form.target = '_blank'"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

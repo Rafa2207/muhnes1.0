@@ -320,7 +320,7 @@ public class MaterialTbController implements Serializable {
                 //Celdas sin bordes
                 encabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                 //Celdas con datos de institución
-                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de El Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de \nEl Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
                 encabezado.addCell("");
                 document.add(encabezado);
 

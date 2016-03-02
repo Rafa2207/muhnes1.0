@@ -41,7 +41,10 @@
                             <h:outputText value="#{material.DCantidad}  #{material.materialTb.EIdunidad.CAbreviatura}"/>
                         </p:column>
                     </p:dataTable>
-                    <p:commandButton value="#{bundle.Close}" onclick="PedidoTbViewDialog.hide()"/>
+                    <p:commandButton value="Reporte Solicitado" actionListener="#{pedidoTbController.reporteIndividual()}" ajax="false"
+                                     onclick="this.form.target = '_blank'"/>
+                    <p:commandButton value="Reporte Completo" actionListener="#{pedidoTbController.reporteIndividualProcesado()}" ajax="false"
+                                     onclick="this.form.target = '_blank'"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

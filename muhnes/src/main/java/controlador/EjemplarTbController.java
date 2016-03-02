@@ -881,21 +881,21 @@ public class EjemplarTbController implements Serializable {
                 document.add(titulo);
                 //fecha de generacion entre los reportes
                 if (booleanFecha == true && tipoReporte.equals("recoleccion")) {
-                    Paragraph titulo2 = new Paragraph("Fecha de RecolecciÃ³n: " + new SimpleDateFormat("dd MMMM yyyy").format(f1) + " - " + new SimpleDateFormat("dd MMMM yyyy").format(f2), FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                    Paragraph titulo2 = new Paragraph("Fecha de Recolección: " + new SimpleDateFormat("dd MMMM yyyy").format(f1) + " - " + new SimpleDateFormat("dd MMMM yyyy").format(f2), FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                     titulo2.setAlignment(Element.ALIGN_CENTER);
                     titulo2.setSpacingAfter(5);
                     titulo2.setSpacingBefore(2);
                     document.add(titulo2);
                 }
                 if (booleanFecha == true && tipoReporte.equals("identificacion")) {
-                    Paragraph titulo2 = new Paragraph("Fecha de IdentificaciÃ³n: " + new SimpleDateFormat("dd MMMM yyyy").format(f1) + " - " + new SimpleDateFormat("dd MMMM yyyy").format(f2), FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                    Paragraph titulo2 = new Paragraph("Fecha de Identificación: " + new SimpleDateFormat("dd MMMM yyyy").format(f1) + " - " + new SimpleDateFormat("dd MMMM yyyy").format(f2), FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                     titulo2.setAlignment(Element.ALIGN_CENTER);
                     titulo2.setSpacingAfter(5);
                     titulo2.setSpacingBefore(2);
                     document.add(titulo2);
                 }
                 if (booleanCodigo == true) {
-                    Paragraph titulo2 = new Paragraph("CÃ³digo de Entrada: Desde " + getCodigo1() + " Hasta " + getCodigo2(), FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                    Paragraph titulo2 = new Paragraph("Código de Entrada: Desde " + getCodigo1() + " Hasta " + getCodigo2(), FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                     titulo2.setAlignment(Element.ALIGN_CENTER);
                     titulo2.setSpacingAfter(5);
                     titulo2.setSpacingBefore(2);
@@ -923,7 +923,7 @@ public class EjemplarTbController implements Serializable {
                     document.add(titulo2);
                 }
 
-                Paragraph fecha = new Paragraph("Fecha de generaciÃ³n: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 fecha.setSpacingAfter(10);
@@ -945,14 +945,14 @@ public class EjemplarTbController implements Serializable {
 
                 ejemplares.setWidthPercentage(100);
                 ejemplares.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-                ejemplares.addCell(new Phrase("CÃ³digo de Entrada", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                ejemplares.addCell(new Phrase("Código de Entrada", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                 if (booleanResponsable == false) {
                     ejemplares.addCell(new Phrase("Responsable", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                 }
                 ejemplares.addCell(new Phrase("Correlativo", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
-                ejemplares.addCell(new Phrase("InformaciÃ³n TaxonÃ³mica", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                ejemplares.addCell(new Phrase("Información Taxonómica", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                 ejemplares.addCell(new Phrase("Calificativo", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
-                ejemplares.addCell(new Phrase("DescripciÃ³n", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                ejemplares.addCell(new Phrase("Descripción", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                 ejemplares.addCell(new Phrase("Duplicados", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                 ejemplares.addCell(new Phrase("Localidad", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
 
