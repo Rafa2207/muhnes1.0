@@ -39,7 +39,6 @@
                         
                             <p:commandLink title="Ayuda" update=":AyudaForm" oncomplete="PF('AyudaDialog').show()" >
                                 <p:graphicImage name="images/ayuda.png" height="35px" />
-                                <f:setPropertyActionListener target="#{controladorSesion.ayuda}" value="proyecto"/>
                             </p:commandLink>
                         
                     </div>
@@ -116,7 +115,7 @@
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
-            <ui:include src="../Ayuda/List.xhtml"/>
+            <ui:include src="../Ayuda/agentes.xhtml"/>
         </ui:define>
     </ui:composition>
 

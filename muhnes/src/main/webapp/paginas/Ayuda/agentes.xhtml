@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+
+
+    <p:dialog id="AyudaDlg" widgetVar="AyudaDialog" modal="true" resizable="false" appendTo="@(body)" header="Ayuda agentes" >
+        <h:form id="AyudaForm" style=" width: 970px; height: 500px">
+            <p:tabView>
+                <p:tab title="Administrar" >
+                    <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" >     
+                        <p:outputPanel style="width: 900px">
+                            <b>Permite realizar diferentes acciones sobre los agentes como por ejemplo: registrar, visualizar, modificar o generar reportes de manera individual 
+                                o general.</b>
+                        </p:outputPanel>
+                        <h:graphicImage library="images" name="ayuda/agentes/administrar.png" width="900px"/> 
+                    </h:panelGrid>
+                    <h:panelGrid  columns="2" cellpadding="2" style="text-align: justify;">
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Nuevo: </b><br/>Registra un nuevo agente.</p>
+                            <p><b>Visualizar: </b><br/>Muestra el contenido del agente seleccionado, además permite generar reporte detallado de ese agente.</p>
+                        </p:outputPanel>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Modificar: </b><br/>Edita los datos ingresados anteriormente del agente seleccionado.</p>
+
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="Nuevo" >
+                    <p:panelGrid layout="grid" columns="1" style="text-align: center;"  >
+                        <h:graphicImage  library="images" name="ayuda/agentes/nuevo.png" width="500px"/>
+
+                    </p:panelGrid>
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Nombre: </b><br/>Ingrese el nombre del nuevo agente.</p>
+                            <p><b>Apellido: </b><br/>Ingrese el apellido del nuevo agente.</p>
+                            <p><b>Iniciales: </b><br/>Ingrese las iniciales con las que se dirigirá al nuevo agente.</p>
+                            <p><b>Ocupación: </b><br/>Ingrese la ocupación del nuevo agente.</p>
+                            <p><b>Email: </b><br/>Ingrese la dirección de correo electrónico de contacto del agente.</p>
+                            <p><b>Código postal: </b><br/>Ingrese código postal.</p>
+                            <p><b>Teléfono: </b><br/>Ingrese numero de teléfono de contacto del nuevo agente.</p>
+                            <p><b>Fax: </b><br/>Ingrese numero de FAX si la hay.</p>
+                            <p><b>Nacimiento: </b><br/>Seleccione la fecha de nacimiento del nuevo agente.</p>
+
+                        </p:outputPanel>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Fallecimiento: </b><br/>Seleccione la fecha de fallecimiento del nuevo agente si es necesario.</p>
+
+                            <p><b>Institución: </b><br/>Seleccione la institución de donde procede el agente.</p>  
+                            <p><b>Perfiles: </b><br/>Seleccione el perfil adecuado para el nuevo agente.</p>
+                            <p><b>Botón agregar: </b><br/>Añade el perfil seleccionado a la lista de perfiles para el agente. </p>
+                            <p><b>Tabla de perfiles: </b><br/>Muestra un listado de perfiles asignados al agente; el ícono de basurero en las acciones de la tabla sirve para eliminar el perfil no deseado del agente. </p>
+                            <p><b>Guardar: </b><br/>Almacena a la base de datos la información ingresada en el formulario.</p>
+                            <p><b>(X)Cerrar: </b><br/>Cierra el formulario sin almacenar los datos ingresados.</p>
+                            <p><b>(*) Campo requerido: </b><br/>Al aparecer este símbolo en alguna etiqueta significa que el campo es requerido u obligatorio. En otras palabras si no es ingresado el dato solicitado en el campo, no se podrá almacenar en la base de datos del sistema.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+
+                </p:tab>
+                <p:tab title="Visualizar" >
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+                        <h:graphicImage library="images" name="ayuda/agentes/visualizar.png" width="430px"/>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Pasos para visualizar el contenido del agente.</b></p>
+                            <p><b>Paso 1: </b><br/>Seleccióne el agente que desea visualizar.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Visualizar</b> para luego hacer clic y ver la información del agente seleccionado.</p>
+                            <p><b>Paso 3: </b><br/>Si desea generar algun reporte debera dar clic ya sea en el botón <b>Imprimir reporte</b>.</p>
+                            <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="Modificar" >
+                    <p:panelGrid layout="grid" columns="1" style="text-align: center;"  >
+                        <h:graphicImage  library="images" name="ayuda/agentes/modificar.png" width="500px"/>
+
+                    </p:panelGrid>
+                    <p:panelGrid columns="1" style="text-align: justify;" >     
+                        <p:outputPanel >
+                            <p><b>Pasos para modificar los datos del agente.</b></p>
+                            <p><b>Paso 1: </b><br/>Seleccione el agente que desea modificar o actualizar la información.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Modificar</b>,luego hacer clic y el formulario mostrara los datos del agente para que puedan ser editados.</p>
+                            <p><b>Paso 3: </b><br/>Realize los cambios que desea y haga clic en el botón <b>Guardar</b>.</p>
+                            <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
+                        </p:outputPanel>
+                    </p:panelGrid>
+                </p:tab>
+               
+            </p:tabView>
+        </h:form>
+
+    </p:dialog>
+
+
+
+</html>
