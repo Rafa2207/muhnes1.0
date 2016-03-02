@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+
+
+    <p:dialog id="AyudaDlg" widgetVar="AyudaDialog" modal="true" resizable="false" appendTo="@(body)" header="Ayuda actividades" >
+        <h:form id="AyudaForm" style=" width: 970px; height: 500px">
+            <p:tabView>
+                <p:tab title="Administrar" >
+                    <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" >     
+                        <p:outputPanel style="width: 900px">
+                            <b>Permite realizar diferentes acciones sobre los actividades como por ejemplo: registrar, visualizar, modificar o generar reportes de manera individual y general.</b>
+                        </p:outputPanel>
+                        <h:graphicImage library="images" name="ayuda/proyectos/administrar_act.PNG" width="900px"/> 
+                    </h:panelGrid>
+                    <h:panelGrid  columns="2" cellpadding="2" style="text-align: justify;">
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Nuevo: </b><br/>Registra una nueva actividad.</p>
+                            <p><b>Visualizar: </b><br/>Muestra el contenido de la actividad seleccionada, además permite generar reporte individual.</p>
+                        </p:outputPanel>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Modificar: </b><br/>Edita los datos ingresados anteriormente en la actividad seleccionada.</p>     
+                        </p:outputPanel>
+
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="Nuevo" >
+                    <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" >        
+                        <h:graphicImage library="images" name="ayuda/actividades/nuevo.PNG" width="900px"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Nombre: </b><br/>Ingrese el nombre de la nueva actividad.</p>
+                            <p><b>Descripción: </b><br/>Digite una breve descripción de la actividad que está registrando</p>
+                            <p><b>Fecha: </b><br/> Seleccione la fecha en la que dará inicio la actividad, mediante un pequeño calendario que aparece al momento de hacer clic en el campo.</p>
+                            <p><b>Fecha de finalización: </b><br/>Seleccione la fecha en la finalizara la actividad, el campo aparecerá deshabilitado mientras no se haya seleccionado una fecha de inicio, posteriormente se presentara un pequeño calendario al momento de hacer clic en el campo.</p>
+                            <p><b>Tipo de actividad: </b><br/>Seleccione el tipo de actividad, esta puede ser de material o viaje. Para seleccionar el tipo de actividad debe de hacer clic en el campo para realizar dicha acción.</p>
+                            <p><b>Insumo: </b><br/>Ingrese el nombre del insumo.</p>
+                        </p:outputPanel>
+                           <p:outputPanel style="width: 430px">
+                            <p><b>Unidad: </b><br/>Seleccione la unidad del insumo, esta puede ser de material(unidad, kilogramos, litros, etc.) o viaje(dias o noches). Para seleccionar la unidad del insumo debe de hacer clic en el campo para realizar dicha acción.</p>
+                            <p><b>Cantidad: </b><br/>Ingrese la cantidad del insumo.</p>
+                            <p><b>Costo unitario: </b><br/>Ingrese el costo unitario del insumo.</p>
+                            <p><b>Guardar: </b><br/>Almacena a la base de datos la información ingresada en el formulario.</p>
+                            <p><b>(X)Cerrar: </b><br/>Cierra el formulario sin almacenar los datos ingresados.</p>
+                            <p><b>(*) Campo requerido: </b><br/>Al aparecer este símbolo en alguna etiqueta quiere dar a entender que el campo es requerido u obligatorio. En otras palabras si no es ingresado el dato solicitado en el campo, no se podrá almacenar en la base de datos del sistema.</p>
+                        </p:outputPanel>
+                        </h:panelGrid>
+                </p:tab>
+                
+                <p:tab title="Visualizar" >
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+                        <h:graphicImage library="images" name="ayuda/actividades/visualizar.PNG" width="450px"/>
+                        <p:outputPanel style="width: 450px">
+                            <p><b>Pasos para visualizar el contenido de la actividad.</b></p>
+                            <p><b>Paso 1: </b><br/>Seleccióne la actividad que desea visualizar.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Visualizar</b> para luego hacer clic y ver la información de la actividad seleccionada.</p>
+                            <p><b>Paso 3: </b><br/>Si desea generar algun reporte debera dar clic ya sea en el botón <b>Reporte</b>.</p>
+                            <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+                
+                <p:tab title="Modificar" >
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+                        <h:graphicImage library="images" name="ayuda/actividades/modificar.PNG" width="900px"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" > 
+                        <p:outputPanel style="width: 900px">
+                            <p><b>Pasos para modificar los datos de la actividad.</b></p>
+                            <p><b>Paso 1: </b><br/>Seleccióne la actividad que desea modificar o actualizar la información.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Modificar</b>,luego hacer clic y el formulario mostrara los datos de la actividad para que puedan ser editados.</p>
+                            <p><b>Paso 3: </b><br/>Realize los cambios que desea y haga clic en el botón <b>Guardar</b>.</p>
+                            <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+
+    </p:dialog>
+
+
+
+</html>

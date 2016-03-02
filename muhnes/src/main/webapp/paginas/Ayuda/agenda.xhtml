@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+
+
+    <p:dialog id="AyudaDlg" widgetVar="AyudaDialog" modal="true" resizable="false" appendTo="@(body)" header="Ayuda controlar proyectos" >
+        <h:form id="AyudaForm" style=" width: 970px; height: 500px">
+            <p:tabView>
+                <p:tab title="Administrar" >
+                    <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" >     
+                        <p:outputPanel style="width: 900px">
+                            <b>Permite realizar diferentes acciones sobre el control de los proyecto, entre estas estan: visualizar el porcentaje de desarrollo de los proyectos, dirigirse a la agenda donde se controlarán las actividades y proyectos, si el proyecto se encuentra activo podrá desactivarlo en caso contrario tendrá la opción de activarlo.</b>
+                        </p:outputPanel>
+                        <h:graphicImage library="images" name="ayuda/cproyectos/administrar.PNG" width="900px"/> 
+                    </h:panelGrid>
+                    <h:panelGrid  columns="2" cellpadding="2" style="text-align: justify;">
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Agenda: </b><br/>Permite controlar, visualizar y agregar prórrogas a las actividades del proyecto seleccionado.</p>
+                            <p><b>Desactivar: </b><br/>Deshabilita el proyecto seleccionado por el usuario.</p>
+                        </p:outputPanel>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Activar: </b><br/>Si el proyecto se encuentra desactivado se habilitara esta opción, para poder reestablecer el estado en el que originalmente permanecio antes de desactivar dicho proyecto. En caso contrario esta acción permanecera deshabilitada.</p>     
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+
+                <p:tab title="Agenda" >
+                    <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" >    
+                        <p:outputPanel style="width: 900px">
+                            <p><b>Pasos para dirigirse a la agenda.</b></p>
+                            <p><b>Paso 1: </b><br/>Seleccióne el proyecto.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Agenda</b> para luego hacer clic y dirigirse a la agenda.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                    <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" >     
+                        <h:graphicImage library="images" name="ayuda/cproyectos/agenda.PNG" width="900px"/>
+                    </h:panelGrid>    
+                </p:tab>
+                <p:tab title="Desactivar" >
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+                        <h:graphicImage library="images" name="ayuda/cproyectos/desactivar.PNG" width="450px"/>
+                        <p:outputPanel style="width: 450px">
+                            <p><b>Pasos para desactivar el proyecto.</b></p>
+                            <p><b>Paso 1: </b><br/>Seleccióne el proyecto que desea desactivar.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Desactivar</b>, luego hacer clic y se presentara el formulario. En caso contrario el botón aparecera deshabilitado.</p>
+                            <p><b>Paso 2: </b><br/>Ingresa los datos que debe digitar en el formulario, luego hacer clic en botón <b>Guardar</b>.</p>
+                            <p><b>Paso 3: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b> o <b>Cerrar</b>.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="Activar" >
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+                        <h:graphicImage library="images" name="ayuda/cproyectos/activar.PNG" width="450px"/>
+                        <p:outputPanel style="width: 450px">
+                            <p><b>Pasos para activar el proyecto.</b></p>
+                            <p><b>Paso 1: </b><br/>Seleccióne el proyecto que desea activar.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Activar</b>, luego hacer clic y se presentara el formulario. En caso contrario el botón aparecera deshabilitado.</p>
+                            <p><b>Paso 2: </b><br/>Ingresa los datos que debe digitar en el formulario, luego hacer clic en botón <b>Guardar</b>.</p>
+                            <p><b>Paso 3: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b> o <b>Cerrar</b>.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+
+    </p:dialog>
+
+
+
+</html>

@@ -30,7 +30,7 @@
                                      update=":ProyectoTbDesactivarForm" oncomplete="PF('ProyectoTbDesactivarDialog').show()"
                                      disabled="#{empty proyectoTbController.selected || proyectoTbController.selected.EEstado==2 || proyectoTbController.selected.EEstado==3}"
                                      actionListener="#{proyectoTbController.prepareFinalizar()}" />
-                    
+
                     <p:commandButton id="ActivarButton" icon="ui-icon-unlocked" value="Activar"
                                      update=":ProyectoTbActivarForm" oncomplete="PF('ProyectoTbActivarDialog').show()"
                                      disabled="#{empty proyectoTbController.selected || proyectoTbController.selected.EEstado!=3}"
@@ -38,6 +38,13 @@
 
                     <!--  <p:commandButton id="Calendarizacion" icon="ui-icon-bookmark"  value="Toda la calendarización" action="/paginas/horario/List.xhtml" />   -->               
 
+                    <div  style="float: right">
+                        <p:commandLink title="Ayuda" update=":AyudaForm" oncomplete="PF('AyudaDialog').show()" >
+                            <p:graphicImage name="images/ayuda.png" height="35px" />
+                            <f:setPropertyActionListener target="#{controladorSesion.ayuda}" value="agenda"/>
+                        </p:commandLink>
+
+                    </div>
                     <p:dataTable id="datalist" value="#{proyectoTbController.itemsProyecto}" var="item"
                                  selectionMode="single" selection="#{proyectoTbController.selected}"
                                  paginator="true"
@@ -96,6 +103,7 @@
 
             <ui:include src="desactivar.xhtml"/>
             <ui:include src="activar.xhtml"/>
+            <ui:include src="../Ayuda/agenda.xhtml"/>
 
         </ui:define>
     </ui:composition>
