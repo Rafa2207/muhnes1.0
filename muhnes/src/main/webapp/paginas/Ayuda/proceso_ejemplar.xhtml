@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+
+
+    <p:dialog id="AyudaDlg" widgetVar="AyudaDialog" modal="true" resizable="false" appendTo="@(body)" header="Ayuda proceso ejemplar" >
+        <h:form id="AyudaForm" style=" width: 970px; height: 500px">
+            <p:tabView>
+                <p:tab title="Administrar" >
+                    <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" >     
+                        <p:outputPanel style="width: 900px">
+                            <b>Permite realizar diferentes acciones sobre el proceso ejemplar como por ejemplo: registrar, visualizar, modificar, siguiente proceso, 
+                                visualizar proceso cuarentena, modificar proceso cuarentena y finalmente finalizar proceso cuarentena.</b>
+                        </p:outputPanel>
+                        <h:graphicImage library="images" name="ayuda/proceso_e/administrar.PNG" width="900px"/> 
+                    </h:panelGrid>
+                    <h:panelGrid  columns="2" cellpadding="2" style="text-align: justify;">
+                        <p:outputPanel style="width: 430px">
+                            <p><b>1. Nuevo: </b><br/>Registra un nuevo proceso de secado .</p>
+                            <p><b>2. Visualizar: </b><br/>Muestra el contenido del proceso seleccionado.</p>
+                            <p><b>3. Modificar: </b><br/>Edita los datos ingresados anteriormente en el proceso seleccionado.</p>
+                            <p><b>4. Siguiente proceso: </b><br/>Permite cambiar el proceso secado a cuarentena del ejemplar.</p>
+                        </p:outputPanel>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>5. Visualizar proceso cuarentena: </b><br/>Muestra el contenido del proceso cuarentena.</p>
+                            <p><b>6. Modificar proceso cuarentena: </b><br/>Edita los datos ingresados anteriormente en el proceso cuarentena.</p>
+                            <p><b>7. Finalizar proceso cuarentena: </b><br/>Termina el proceso de cuarentena del proceso seleccionado.</p>
+                        </p:outputPanel>
+
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="1. Nuevo" >
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+                        <h:graphicImage library="images" name="ayuda/proceso_e/nuevo.PNG" width="390px"/>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Tipo: </b><br/>Es el proceso en que se encuentra el ejemplar.</p>
+                            <p><b>Nombre: </b><br/>Ingrese el nombre del proceso ejemplar.</p>
+                            <p><b>Descripción: </b><br/>Digite una breve descripción del proceso ejemplar que está registrando.</p>
+                            <p><b>Cantidad: </b><br/>Ingrese o desplaze la barra arrastrandola hacia la derecha para agregar la cantidad de ejemplares.</p>
+                            <p><b>Fecha de inicio: </b><br/> Seleccione la fecha en la que dará inicio el proceso, mediante un pequeño calendario que aparece al momento de dar clic en el campo.</p>
+                            <p><b>Fecha de finalización: </b><br/>Seleccione la fecha en la finalizara el proceso, posteriormente se presentara un pequeño calendario al momento de dar clic en el campo.</p>
+                            <p><b>Guardar: </b><br/>Almacena a la base de datos la información ingresada en el formulario.</p>
+                            <p><b>(X)Cerrar: </b><br/>Cierra el formulario sin almacenar los datos ingresados.</p>
+                            <p><b>(*) Campo requerido: </b><br/>Al aparecer este símbolo en alguna etiqueta quiere dar a entender que el campo es requerido u obligatorio. En otras palabras si no es ingresado el dato solicitado en el campo, no se podrá almacenar en la base de datos del sistema.</p>
+                        </p:outputPanel>
+
+                    </h:panelGrid>
+
+                </p:tab>
+                <p:tab title="2. Visualizar" >
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+                        <h:graphicImage library="images" name="ayuda/proceso_e/visualizar.PNG" width="470px"/>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Pasos para visualizar el contenido del proceso.</b></p>
+                            <p><b>Paso 1: </b><br/>Seleccióne el proceso que desea visualizar.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Visualizar</b> para luego hacer clic y ver la información del proceso seleccionado.</p>
+                            <p><b>Paso 3: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="3. Modificar" >
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+                        <h:graphicImage library="images" name="ayuda/proceso_e/modificar.PNG" width="390px"/>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Pasos para modificar los datos del proceso.</b></p>
+                            <p><b>Paso 1: </b><br/>Seleccióne el proceso que desea modificar o actualizar la información.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Modificar</b>,luego hacer clic y el formulario mostrara los datos del proyecto para que puedan ser editados.</p>
+                            <p><b>Paso 3: </b><br/>Realize los cambios que desea y haga clic en el botón <b>Guardar</b>.</p>
+                            <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="4. Siguiente proceso" >
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" > 
+                        <h:graphicImage library="images" name="ayuda/proceso_e/siguiente.PNG" width="390px"/>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Pasos para cambiar al proceso ejemplar cuarentena.</b></p>
+                            <p><b>Paso 1: </b><br/>Seleccióne el proceso ejemplar que desea cambiar a proceso cuarentena, haciendo clic en el icono que aparece al lado derecho del proceso en la columna de acción.</p>
+                            <p><b>Paso 2: </b><br/>Ingrese los datos que solicita el sistema y hacer clic en el botón <b>Guardar</b>.</p>
+                            <p><b>Paso 3: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="5. Visualizar proceso cuarentena" >
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >
+                        <h:graphicImage library="images" name="ayuda/proceso_e/visualizarc.PNG" width="470px"/>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Pasos para visualizar el contenido del proceso cuarentena.</b></p>
+                            <p><b>Paso 1: </b><br/>Seleccióne el proceso ejemplar que desea cambiar a proceso cuarentena, haciendo clic en el icono de la <b>Lupa</b> que aparece al lado derecho del proceso en la columna de acción.</p>
+                            <p><b>Paso 2: </b><br/>Se abrira el formulario, en el se mostrara la información del proceso seleccionado.</p>
+                            <p><b>Paso 3: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="6. Modificar proceso cuarentena" >
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >
+                        <h:graphicImage library="images" name="ayuda/proceso_e/modificarc.PNG" width="390px"/>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Pasos para modificar el contenido del proceso cuarentena.</b></p>
+                            <p><b>Paso 1: </b><br/>Seleccióne el proceso ejemplar que desea cambiar a proceso cuarentena, haciendo clic en el icono de la <b>Lupa</b> que aparece al lado derecho del proceso en la columna de acción.</p>
+                            <p><b>Paso 2: </b><br/>Se abrira el formulario, luego hacer clic en el botón <b>Modificar</b>.</p>
+                            <p><b>Paso 4: </b><br/>Realize los cambios que desea y haga clic en el botón <b>Guardar</b>.</p>
+                            <p><b>Paso 3: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="7. Finalizar proceso cuarentena" >
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >
+                        <h:graphicImage library="images" name="ayuda/proceso_e/visualizarc.PNG" width="470px"/>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Pasos para modificar el contenido del proceso cuarentena.</b></p>
+                            <p><b>Paso 1: </b><br/>Seleccióne el proceso ejemplar que desea cambiar a proceso cuarentena, haciendo clic en el icono de la <b>Lupa</b> que aparece al lado derecho del proceso en la columna de acción.</p>
+                            <p><b>Paso 2: </b><br/>Se abrira el formulario, luego hacer clic en el botón <b>Finalizar cuarentena</b>.</p>
+                            <p><b>Paso 4: </b><br/>El sistema le advertirá si esta seguro de finalizar el proceso cuarentena, hacer clic en el botón <b>Sí</b> de lo contrario <b>No</b>.</p>
+                            <p><b>Paso 3: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+
+    </p:dialog>
+
+
+
+</html>

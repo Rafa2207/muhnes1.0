@@ -28,7 +28,13 @@
                     <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{procesoejemplarTbController.destroy}" update=":growl,datalist" disabled="#{empty procesoejemplarTbController.selected}">
                         <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
                     </p:commandButton>
+                    <div  style="float: right">
+                        <p:commandLink title="Ayuda" update=":AyudaForm" oncomplete="PF('AyudaDialog').show()" >
+                            <p:graphicImage name="images/ayuda.png" height="35px" />
+                            <f:setPropertyActionListener target="#{controladorSesion.ayuda}" value="proceso_ejemplar"/>
+                        </p:commandLink>
 
+                    </div>
                     <p:dataTable id="datalist" value="#{procesoejemplarTbController.getItems(controladorSesion.proyecto)}" var="item"
                                  selectionMode="single" selection="#{procesoejemplarTbController.selected}"
                                  paginator="true"
@@ -57,7 +63,7 @@
                             </f:facet>
                             <h:outputText value="#{item.MDescripcion}"/>
                         </p:column>
-                        
+
                         <p:column filterBy="#{item.ECantidad}" filterStyle="display:none" style="text-align: center" width="8%">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProcesoejemplarTbTitle_DCantidad}"/>
@@ -114,6 +120,7 @@
             <ui:include src="View.xhtml"/>
             <ui:include src="siguiente.xhtml"/>
             <ui:include src="viewsiguiente.xhtml"/>
+            <ui:include src="../Ayuda/proceso_ejemplar.xhtml"/> 
         </ui:define>
     </ui:composition>
 
