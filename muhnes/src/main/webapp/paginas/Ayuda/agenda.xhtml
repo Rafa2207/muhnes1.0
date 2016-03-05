@@ -19,48 +19,124 @@
                     </h:panelGrid>
                     <h:panelGrid  columns="2" cellpadding="2" style="text-align: justify;">
                         <p:outputPanel style="width: 430px">
-                            <p><b>Agenda: </b><br/>Permite controlar, visualizar y agregar prórrogas a las actividades del proyecto seleccionado.</p>
-                            <p><b>Desactivar: </b><br/>Deshabilita el proyecto seleccionado por el usuario.</p>
+                            <p><b>1. Agenda: </b><br/>Permite visualizar, modificar, iniciar y actividades del proyecto seleccionado.</p>
+                            <p><b>2. Desactivar: </b><br/>Deshabilita el proyecto seleccionado por el usuario.</p>
                         </p:outputPanel>
                         <p:outputPanel style="width: 430px">
-                            <p><b>Activar: </b><br/>Si el proyecto se encuentra desactivado se habilitara esta opción, para poder reestablecer el estado en el que originalmente permanecio antes de desactivar dicho proyecto. En caso contrario esta acción permanecera deshabilitada.</p>     
+                            <p><b>3. Activar: </b><br/>Si el proyecto se encuentra desactivado se habilitara esta opción, para poder reestablecer el estado en el que originalmente permanecio antes de desactivar dicho proyecto. En caso contrario esta acción permanecera deshabilitada.</p>     
                         </p:outputPanel>
                     </h:panelGrid>
                 </p:tab>
 
-                <p:tab title="Agenda" >
-                    <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" >    
-                        <p:outputPanel style="width: 900px">
-                            <p><b>Pasos para dirigirse a la agenda.</b></p>
-                            <p><b>Paso 1: </b><br/>Seleccióne el proyecto.</p>
-                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Agenda</b> para luego hacer clic y dirigirse a la agenda.</p>
-                        </p:outputPanel>
-                    </h:panelGrid>
-                    <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" >     
-                        <h:graphicImage library="images" name="ayuda/cproyectos/agenda.PNG" width="900px"/>
-                    </h:panelGrid>    
+                <p:tab title="1. Agenda" >
+                    <p:tabView>
+                        <p:tab title="Visualizar agenda" >
+                            <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" >
+                                <p:outputPanel style="width: 900px">
+                                    <p><b>Pasos para dirigirse a la agenda.</b></p>
+                                    <p><b>Paso 1: </b><br/>Seleccióne el proyecto.</p>
+                                    <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Agenda</b> para luego hacer clic y dirigirse a la agenda.</p>
+                                </p:outputPanel>
+                            </h:panelGrid>
+                            <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" >     
+                                <h:graphicImage library="images" name="ayuda/cproyectos/agenda.PNG" width="900px"/>
+                            </h:panelGrid>    
+                        </p:tab>
+                        <p:tab title="Visualizar actividad" >
+                            <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+                                <h:graphicImage library="images" name="ayuda/cproyectos/visualizar.PNG" width="450px"/>
+                                <p:outputPanel style="width: 450px">
+                                    <p><b>Pasos para visualizar la actividad.</b></p>
+                                    <p><b>Paso 1: </b><br/>Seleccióne haciendo clic sobre la actividad que se encuentra en la agenda.</p>
+                                    <p><b>Paso 2: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b></p>
+                                </p:outputPanel>
+                            </h:panelGrid>
+                        </p:tab>
+                        <p:tab title="Iniciar actividad" >
+                            <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+                                <h:graphicImage library="images" name="ayuda/cproyectos/visualizar.PNG" width="400px"/>
+                                <p:outputPanel style="width: 450px">
+                                    <p><b>Pasos para iniciar la actividad.</b></p>
+                                    <p><b>Paso 1: </b><br/>Seleccióne haciendo clic sobre la actividad que se encuentra en la agenda.</p>
+                                    <p><b>Paso 2: </b><br/>Seleccione la fecha en la que iniciara realmente la actividad, se presentara un pequeño calendario al momento de dar clic en el campo para seleccionar la fecha.</p>
+                                    <p><b>Paso 3: </b><br/>El usuario deberá hacer clic en el botón <b>Iniciar actividad</b>.</p>
+                                    <p><b>Paso 4: </b><br/>El sistema le advertira si esta seguro de iniciar la actividad, hacer clic en el botón <b>Sí</b> de lo contrario <b>No</b>.</p>
+                                    <p><b>Paso 5: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b> o <b>Cerrar</b>.</p>
+                                </p:outputPanel>
+                            </h:panelGrid>
+                        </p:tab>
+                        <p:tab title="Finalizar actividad" >
+                            <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+                                <h:graphicImage library="images" name="ayuda/cproyectos/finalizar.PNG" width="550px"/>
+                                <p:outputPanel style="width: 300px">
+                                    <p><b>Pasos para finalizar la actividad.</b></p>
+                                    <p><b>Paso 1: </b><br/>Seleccióne haciendo clic sobre la actividad que se encuentra en la agenda.</p>
+                                    <p><b>Paso 2: </b><br/>Seleccione la fecha en la que finalizara realmente la actividad, se presentara un pequeño calendario al momento de dar clic en el campo para seleccionar la fecha.</p>
+                                    <p><b>Paso 3: </b><br/>Si se ha realizado un gasto adicional en la actividad el usuario debera de hacer clic en el <b>Caja de selección</b>, luego ingresar la cantidad y la justificación. Posteriormente hacer clic en el botón <b>Finalizar actividad</b>.</p>
+                                    <p><b>Paso 4: </b><br/>El sistema le advertirá si esta seguro de finalizar la actividad, hacer clic en el botón <b>Sí</b> de lo contrario <b>No</b>.</p>
+                                    <p><b>Paso 5: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b> o <b>Cerrar</b>.</p>
+                                </p:outputPanel>
+                            </h:panelGrid>
+                        </p:tab>
+                        <p:tab title="Cancelar actividad" >
+                            <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+                                <h:graphicImage library="images" name="ayuda/cproyectos/visualizar.PNG" width="400px"/>
+                                <p:outputPanel style="width: 450px">
+                                    <p><b>Pasos para cancelar la actividad.</b></p>
+                                    <p><b>Paso 1: </b><br/>Seleccióne haciendo clic sobre la actividad que se encuentra en la agenda.</p>
+                                    <p><b>Paso 2: </b><br/>Hacer clic en el botón <b>Cancelar actividad</b>.</p>
+                                    <p><b>Paso 3: </b><br/>Ingresar el mótivo por el cual se cancela la actividad y luego hacer clic en el botón <b>Guardar</b>.</p>
+                                    <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b></p>
+                                </p:outputPanel>
+                            </h:panelGrid>
+                        </p:tab>
+                        <p:tab title="Activar actividad" >
+                            <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+                                <h:graphicImage library="images" name="ayuda/cproyectos/activar_a.PNG" width="400px"/>
+                                <p:outputPanel style="width: 450px">
+                                    <p><b>Pasos para activar la actividad.</b></p>
+                                    <p><b>Paso 1: </b><br/>Seleccióne haciendo clic sobre la actividad que se encuentra en la agenda.</p>
+                                    <p><b>Paso 2: </b><br/>Hacer clic en el botón <b>Activar actividad</b>.</p>
+                                    <p><b>Paso 3: </b><br/>El sistema le advertirá si esta seguro de activar la actividad, hacer clic en el botón <b>Sí</b> de lo contrario <b>No</b>.</p>
+                                    <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b></p>
+                                </p:outputPanel>
+                            </h:panelGrid>
+                        </p:tab>
+                        <p:tab title="Modificar actividad" >
+                            <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+                                <h:graphicImage library="images" name="ayuda/cproyectos/modificar.PNG" width="400px"/>
+                                <p:outputPanel style="width: 450px">
+                                    <p><b>Pasos para modificar el gasto adicional y justificación de la actividad.</b></p>
+                                    <p><b>Paso 1: </b><br/>Seleccióne haciendo clic sobre la actividad que se encuentra en la agenda.</p>
+                                    <p><b>Paso 2: </b><br/>Hacer clic en el botón <b>Modificar</b>.</p>
+                                    <p><b>Paso 3: </b><br/>Modificar los datos del gasto adicional y la justificación, luego hacer clic en el botón <b>Modificar</b>.</p>
+                                    <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b></p>
+                                </p:outputPanel>
+                            </h:panelGrid>
+                        </p:tab>
+                    </p:tabView>
                 </p:tab>
-                <p:tab title="Desactivar" >
+                <p:tab title="2. Desactivar" >
                     <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
                         <h:graphicImage library="images" name="ayuda/cproyectos/desactivar.PNG" width="450px"/>
                         <p:outputPanel style="width: 450px">
                             <p><b>Pasos para desactivar el proyecto.</b></p>
                             <p><b>Paso 1: </b><br/>Seleccióne el proyecto que desea desactivar.</p>
                             <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Desactivar</b>, luego hacer clic y se presentara el formulario. En caso contrario el botón aparecera deshabilitado.</p>
-                            <p><b>Paso 2: </b><br/>Ingresa los datos que debe digitar en el formulario, luego hacer clic en botón <b>Guardar</b>.</p>
-                            <p><b>Paso 3: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b> o <b>Cerrar</b>.</p>
+                            <p><b>Paso 3: </b><br/>Ingresa los datos que debe digitar en el formulario, luego hacer clic en botón <b>Guardar</b>.</p>
+                            <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b> o <b>Cerrar</b>.</p>
                         </p:outputPanel>
                     </h:panelGrid>
                 </p:tab>
-                <p:tab title="Activar" >
+                <p:tab title="3. Activar" >
                     <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
                         <h:graphicImage library="images" name="ayuda/cproyectos/activar.PNG" width="450px"/>
                         <p:outputPanel style="width: 450px">
                             <p><b>Pasos para activar el proyecto.</b></p>
                             <p><b>Paso 1: </b><br/>Seleccióne el proyecto que desea activar.</p>
                             <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Activar</b>, luego hacer clic y se presentara el formulario. En caso contrario el botón aparecera deshabilitado.</p>
-                            <p><b>Paso 2: </b><br/>Ingresa los datos que debe digitar en el formulario, luego hacer clic en botón <b>Guardar</b>.</p>
-                            <p><b>Paso 3: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b> o <b>Cerrar</b>.</p>
+                            <p><b>Paso 3: </b><br/>Ingresa los datos que debe digitar en el formulario, luego hacer clic en botón <b>Guardar</b>.</p>
+                            <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b> o <b>Cerrar</b>.</p>
                         </p:outputPanel>
                     </h:panelGrid>
                 </p:tab>

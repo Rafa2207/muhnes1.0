@@ -19,16 +19,31 @@
                     </h:panelGrid>
                     <h:panelGrid  columns="2" cellpadding="2" style="text-align: justify;">
                         <p:outputPanel style="width: 430px">
-                            <p><b>Visualizar: </b><br/>Muestra el contenido de la prórroga seleccionada.</p>
+                            <p><b>1. Nuevo: </b><br/>Registra una nueva prórroga.</p>
+                            <p><b>2. Visualizar: </b><br/>Muestra el contenido de la prórroga seleccionada.</p>
                         </p:outputPanel>
                         <p:outputPanel style="width: 430px">
-                            <p><b>Modificar: </b><br/>Actualiza los datos ingresados anteriormente en la prórroga seleccionada.</p>     
+                            <p><b>3. Modificar: </b><br/>Actualiza los datos ingresados anteriormente en la prórroga seleccionada.</p>     
                         </p:outputPanel>
 
                     </h:panelGrid>
                 </p:tab>
-               
-                <p:tab title="Visualizar" >
+                <p:tab title="1. Nuevo" >
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+                        <h:graphicImage library="images" name="ayuda/prorrogas/nuevo.PNG" width="390px"/>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Justificación: </b><br/>Digite el motivo por el que se está realizando la prórroga</p>
+                            <p><b>Fecha de inicio: </b><br/>La fecha en la que iniciara la prórroga aparecerá deshabilitada y esta la proveerá el sistema.</p>
+                            <p><b>Fecha de finalización: </b><br/>Seleccione la fecha en la que finalizara la prórroga,  se presentara un pequeño calendario al momento de dar clic en el campo.</p>
+                            <p><b>Guardar: </b><br/>Almacena a la base de datos la información ingresada en el formulario.</p>
+                            <p><b>(X)Cerrar: </b><br/>Cierra el formulario sin almacenar los datos ingresados.</p>
+                            <p><b>(*) Campo requerido: </b><br/>Al aparecer este símbolo en alguna etiqueta quiere dar a entender que el campo es requerido u obligatorio. En otras palabras si no es ingresado el dato solicitado en el campo, no se podrá almacenar en la base de datos del sistema.</p>
+                        </p:outputPanel>
+
+                    </h:panelGrid>
+
+                </p:tab>
+                <p:tab title="2. Visualizar" >
                     <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
                         <h:graphicImage library="images" name="ayuda/prorrogas/visualizar.PNG" width="450px"/>
                         <p:outputPanel style="width: 450px">
@@ -39,8 +54,8 @@
                         </p:outputPanel>
                     </h:panelGrid>
                 </p:tab>
-                
-                <p:tab title="Modificar" >
+
+                <p:tab title="3. Modificar" >
                     <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
                         <h:graphicImage library="images" name="ayuda/prorrogas/modificar.PNG" width="390px"/>
                         <p:outputPanel style="width: 430px">
