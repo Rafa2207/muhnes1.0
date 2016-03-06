@@ -68,4 +68,8 @@ public class DonacionTbFacade extends AbstractFacade<DonacionTb> {
         query.setParameter("t", donacion);
         return query.getResultList();
     }
+    public List<DonacionTb> donacionesPorFecha() {
+        TypedQuery<DonacionTb> query = em.createQuery("SELECT p FROM DonacionTb p ORDER BY p.fFecha ASC", DonacionTb.class);
+        return query.getResultList();
+    }
 }

@@ -27,6 +27,17 @@
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":DonacionTbEditForm" oncomplete="PF('DonacionTbEditDialog').show()" disabled="#{empty donacionTbController.selected}"/>
                     <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{donacionTbController.destroy}" update=":growl,datalist" disabled="#{empty donacionTbController.selected}"/>
 
+                    <div style="float: right"> 
+                        <p:commandLink title="Reporte de donaciones" target="_blank" ajax="false"
+                                       actionListener="#{donacionTbController.reporteAll}">
+                            <p:graphicImage name="images/pdf-icon.png" height="35px"/>
+                        </p:commandLink>
+                        <p:commandLink title="Ayuda" update=":AyudaForm" oncomplete="PF('AyudaDialog').show()" >
+                            <p:graphicImage name="images/ayuda.png" height="35px" />
+                            <f:setPropertyActionListener target="#{controladorSesion.ayuda}" value="Donacion"/>
+                        </p:commandLink>
+                    </div>
+                    
                     <p:dataTable id="datalist" value="#{donacionTbController.items}" var="item"
                                  selectionMode="single" selection="#{donacionTbController.selected}"
                                  paginator="true"
@@ -75,6 +86,7 @@
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
+            <ui:include src="../Ayuda/List.xhtml"/>
         </ui:define>
     </ui:composition>
 

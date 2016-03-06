@@ -41,6 +41,17 @@
                                      value="Ver Ejemplares Sin Existencias" 
                                      action="/paginas/ejemplarVivoTb/List2.xhtml"/>
                     
+                    <div style="float: right"> 
+                        <p:commandLink title="Reporte de ejemplare vivos" target="_blank" ajax="false"
+                                       actionListener="#{ejemplarVivoTbController.reporteAll(1)}">
+                            <p:graphicImage name="images/pdf-icon.png" height="35px"/>
+                        </p:commandLink>
+                        <p:commandLink title="Ayuda" update=":AyudaForm" oncomplete="PF('AyudaDialog').show()" >
+                            <p:graphicImage name="images/ayuda.png" height="35px" />
+                            <f:setPropertyActionListener target="#{controladorSesion.ayuda}" value="Pedido"/>
+                        </p:commandLink>
+                    </div>
+                    
                     <p:dataTable id="datalist" value="#{ejemplarVivoTbController.items}" var="item"
                                  selectionMode="single" selection="#{ejemplarVivoTbController.selected}"
                                  paginator="true"
@@ -108,6 +119,7 @@
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
             <ui:include src="/paginas/disminuirEjemplarTb/Create.xhtml"/>
+            <ui:include src="../Ayuda/List.xhtml"/>
         </ui:define>
     </ui:composition>
 
