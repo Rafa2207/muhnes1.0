@@ -416,7 +416,7 @@ public class NotapreliminarTbController implements Serializable {
                         document.add(TablaFecha);
                     }
                 }
-                
+
                 PdfPTable TablaResponsable = new PdfPTable(2);
                 TablaResponsable.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
                 TablaResponsable.getDefaultCell().setBorder(Rectangle.NO_BORDER);
@@ -434,6 +434,9 @@ public class NotapreliminarTbController implements Serializable {
                 tituloNota.setSpacingAfter(5);
                 tituloNota.setSpacingBefore(5);
                 document.add(tituloNota);
+
+                proyecto.getNotapreliminarTbList().clear();
+                proyecto.setNotapreliminarTbList(getFacade().buscarPorProyecto(proyecto));
 
                 if (!proyecto.getNotapreliminarTbList().isEmpty()) {
                     for (NotapreliminarTb nota : proyecto.getNotapreliminarTbList()) {

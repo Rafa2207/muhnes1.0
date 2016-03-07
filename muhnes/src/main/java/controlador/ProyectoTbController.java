@@ -74,6 +74,8 @@ public class ProyectoTbController implements Serializable {
     private servicio.BitacoraTbFacade bitacoraFacade;
     @EJB
     private servicio.AgenteTbFacade FacadeAgente;
+    @EJB
+    private servicio.NotapreliminarTbFacade FacadeNotas;
     private List<ActividadTb> ListaActividad = null;
     private List<ProyectoTb> items = null, filtro, ListaProyecto = null, itemsProyecto = null, itemsNotificacion = null, listaNotificacion = null;
     private ProyectoTb selected;
@@ -736,7 +738,7 @@ public class ProyectoTbController implements Serializable {
                 ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
 
                 // Inicia reporte
-                Document document = new Document(PageSize.A4);
+                Document document = new Document(PageSize.LETTER);
                 PdfWriter writer = PdfWriter.getInstance(document, pdfOutputStream);
                 TableHeaderVertical event = new TableHeaderVertical();
                 writer.setPageEvent(event);
@@ -1374,6 +1376,9 @@ public class ProyectoTbController implements Serializable {
                 tituloProrroga.setSpacingAfter(5);
                 tituloProrroga.setSpacingBefore(5);
                 document.add(tituloProrroga);
+                
+                selected.getProrrogaProyectoTbList().clear();
+                selected.setProrrogaProyectoTbList(getFacadeProrroga().buscarProrroga(selected));
 
                 if (!selected.getProrrogaProyectoTbList().isEmpty()) {
 
@@ -1438,6 +1443,9 @@ public class ProyectoTbController implements Serializable {
                 tituloNota.setSpacingAfter(5);
                 tituloNota.setSpacingBefore(5);
                 document.add(tituloNota);
+                
+                selected.getNotapreliminarTbList().clear();
+                selected.setNotapreliminarTbList(FacadeNotas.buscarPorProyecto(selected));
 
                 if (!selected.getNotapreliminarTbList().isEmpty()) {
                     for (NotapreliminarTb nota : selected.getNotapreliminarTbList()) {
