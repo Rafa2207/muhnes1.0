@@ -236,7 +236,6 @@ public class ProyectoTbController implements Serializable {
                 } else if (p.getFFechaFin().after(fecha)) {
                     quitarFinalizados.add(p);
                 }
-
             }
 
             itemsNotificacion.removeAll(quitarFinalizados);

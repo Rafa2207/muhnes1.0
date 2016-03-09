@@ -37,6 +37,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
@@ -49,7 +50,7 @@ import servicio.ProrrogaProyectoTbFacade;
 import servicio.UsuarioTbFacade;
 
 @Named("notapreliminarTbController")
-@SessionScoped
+@ViewScoped
 public class NotapreliminarTbController implements Serializable {
 
     @EJB
