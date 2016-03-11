@@ -67,9 +67,11 @@ public class ExhibicionTbController implements Serializable {
     private servicio.UsuarioTbFacade usuarioFacade;
     @EJB
     private servicio.BitacoraTbFacade bitacoraFacade;
+    @EJB
+    private servicio.EjemplarParticipaExhibicionTbFacade ejemplarparticipaExhibicionFacade;
     private List<ExhibicionTb> items = null, lista = null, filtro, itemsNotificacion = null, itemsControlExhibiciones = null;
     private List<EjemplarTb> ejemplares, listaEjemplares;
-    private List<EjemplarParticipaExhibicionTb> listaEliminados;
+    private List<EjemplarParticipaExhibicionTb> listaEliminados, listaAunNoRecibidos = null;
     private ExhibicionTb selected;
     private Date fechaActual = new Date(), f1, f2;
     private boolean booleanoReporte;
@@ -214,6 +216,15 @@ public class ExhibicionTbController implements Serializable {
         this.ejemplarExhibicion = ejemplarExhibicion;
     }
 
+    public List<EjemplarParticipaExhibicionTb> getListaAunNoRecibidos() {
+        listaAunNoRecibidos = ejemplarparticipaExhibicionFacade.exhibicionesAunNoRecibidos(selected);
+        return listaAunNoRecibidos;
+    }
+
+    public void setListaAunNoRecibidos(List<EjemplarParticipaExhibicionTb> listaAunNoRecibidos) {
+        this.listaAunNoRecibidos = listaAunNoRecibidos;
+    }
+
     public List<ExhibicionTb> getItemsNotificacion() {
         List<ExhibicionTb> quitarFinalizados = new ArrayList<ExhibicionTb>();
         Calendar calendar = Calendar.getInstance();
@@ -223,10 +234,10 @@ public class ExhibicionTbController implements Serializable {
         itemsNotificacion = getFacade().ExhibicionesNotificaciones(fechaActual, fecha);
         try {
             for (ExhibicionTb e : itemsNotificacion) {
-                if (e.getEEstado() == 1) {
+                if (e.getEEstado() == 2) {
                     quitarFinalizados.add(e);
                 }
-                if (e.getEEstado() == 0) {
+                if (e.getEEstado() != 2) {
                     if (e.getFFechaRecibido().after(fecha)) {
                         quitarFinalizados.add(e);
                     }
@@ -634,6 +645,22 @@ public class ExhibicionTbController implements Serializable {
         f2 = null;
     }
 
+    public String estadoEjemplar(int a) {
+        if (a == 0) {
+            return "Pendiente de recibir";
+        }
+        if (a == 1) {
+            return "Sin observaciones";
+        }
+        if (a == 2) {
+            return "Dañado";
+        }
+        if (a == 3) {
+            return "Perdido";
+        }
+        return "";
+    }
+
     public void reporteAll() {
         FacesContext context = FacesContext.getCurrentInstance();
         try {
@@ -776,7 +803,7 @@ public class ExhibicionTbController implements Serializable {
             e.printStackTrace();
         }
     }
-    
+
     public void reportePrestamo() {
         FacesContext context = FacesContext.getCurrentInstance();
         try {
@@ -787,10 +814,10 @@ public class ExhibicionTbController implements Serializable {
                 ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
 
                 // Inicia reporte
-                Document document = new Document(PageSize.A4);
-                PdfWriter writer = PdfWriter.getInstance(document, pdfOutputStream);
-                TableHeaderVertical event = new TableHeaderVertical();
-                writer.setPageEvent(event);
+                Document document = new Document(PageSize.LETTER);
+
+                //Sin pie de página
+                PdfWriter.getInstance(document, pdfOutputStream);
                 document.open();
 
                 //Encabezado
@@ -832,38 +859,136 @@ public class ExhibicionTbController implements Serializable {
                 titulo.setAlignment(Element.ALIGN_CENTER);
                 titulo.setSpacingBefore(5);
                 document.add(titulo);
-                
+
                 Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 fecha.setSpacingAfter(10);
                 document.add(fecha);
-                
-                Paragraph espacio=new Paragraph("");
+
+                Paragraph espacio = new Paragraph("");
                 espacio.setSpacingAfter(15);
                 document.add(espacio);
 
-                
-                PdfPTable descripcionTabla = new PdfPTable(1);
-                descripcionTabla.setWidthPercentage(80);
-                descripcionTabla.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-                descripcionTabla.getRowspanHeight(2,4);
-                espacio.add(new Phrase("holaaaa"));
-                espacio.add(new Phrase("holaaaa   kjdiohe   "));
+                int columnas[] = {25, 75};
 
-                descripcionTabla.addCell(new Paragraph("Fecha de Salida: "
-                        + new SimpleDateFormat("dd MMMM yyyy").format(selected.getFFechaPrestamo())
-                        +". Hora:"
-                        + new SimpleDateFormat("hh:mm a").format(selected.getHHoraPrestamo())
-                        + ". Solicitante de salida: "
-                        + selected.getMSolicitante()
-                        + " probando por ahi", FontFactory.getFont(FontFactory.TIMES, 13)));
-                
-                document.add(descripcionTabla);
-                
-                
+                PdfPTable TablaNombre = new PdfPTable(2);
+                TablaNombre.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+                TablaNombre.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                TablaNombre.setWidths(columnas);
+                TablaNombre.setWidthPercentage(80);
+                TablaNombre.setSpacingAfter(5);
+                TablaNombre.setSpacingBefore(5);
+                TablaNombre.addCell(new Phrase("Nombre: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                TablaNombre.addCell(new Phrase(new Phrase(selected.getMNombre(), FontFactory.getFont(FontFactory.TIMES, 12))));
+                document.add(TablaNombre);
 
-                
+                PdfPTable Tabladescripcion = new PdfPTable(2);
+                Tabladescripcion.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+                Tabladescripcion.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                Tabladescripcion.setWidths(columnas);
+                Tabladescripcion.setWidthPercentage(80);
+                Tabladescripcion.setSpacingAfter(5);
+                Tabladescripcion.setSpacingBefore(5);
+                Tabladescripcion.addCell(new Phrase("Descripción: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                Tabladescripcion.addCell(new Phrase(new Phrase(selected.getMDescripcion(), FontFactory.getFont(FontFactory.TIMES, 12))));
+                document.add(Tabladescripcion);
+
+                PdfPTable Tablatipo = new PdfPTable(2);
+                Tablatipo.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+                Tablatipo.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                Tablatipo.setWidths(columnas);
+                Tablatipo.setWidthPercentage(80);
+                Tablatipo.setSpacingAfter(5);
+                Tablatipo.setSpacingBefore(5);
+                Tablatipo.addCell(new Phrase("Tipo de exhibición: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                Tablatipo.addCell(new Phrase(new Phrase(selected.getCTipo(), FontFactory.getFont(FontFactory.TIMES, 12))));
+                document.add(Tablatipo);
+
+                PdfPTable Tablafecha = new PdfPTable(2);
+                Tablafecha.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+                Tablafecha.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                Tablafecha.setWidths(columnas);
+                Tablafecha.setWidthPercentage(80);
+                Tablafecha.setSpacingAfter(5);
+                Tablafecha.setSpacingBefore(5);
+                Tablafecha.addCell(new Phrase("Fecha de préstamo: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                Tablafecha.addCell(new Phrase(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(selected.getFFechaPrestamo()) + " " + new SimpleDateFormat("hh:mm a").format(selected.getHHoraPrestamo()), FontFactory.getFont(FontFactory.TIMES, 12))));
+                document.add(Tablafecha);
+
+                PdfPTable Tablafechareingreso = new PdfPTable(2);
+                Tablafechareingreso.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+                Tablafechareingreso.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                Tablafechareingreso.setWidths(columnas);
+                Tablafechareingreso.setWidthPercentage(80);
+                Tablafechareingreso.setSpacingAfter(5);
+                Tablafechareingreso.setSpacingBefore(5);
+                Tablafechareingreso.addCell(new Phrase("Fecha de reingreso: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                Tablafechareingreso.addCell(new Phrase(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(selected.getFFechaRecibido()) + " " + new SimpleDateFormat("hh:mm a").format(selected.getHHoraRecibido()), FontFactory.getFont(FontFactory.TIMES, 12))));
+                document.add(Tablafechareingreso);
+
+                PdfPTable Tablasolicitante = new PdfPTable(2);
+                Tablasolicitante.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+                Tablasolicitante.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                Tablasolicitante.setWidths(columnas);
+                Tablasolicitante.setWidthPercentage(80);
+                Tablasolicitante.setSpacingAfter(5);
+                Tablasolicitante.setSpacingBefore(5);
+                Tablasolicitante.addCell(new Phrase("Solicitante: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                Tablasolicitante.addCell(new Phrase(new Phrase(selected.getMSolicitante(), FontFactory.getFont(FontFactory.TIMES, 12))));
+                document.add(Tablasolicitante);
+
+                PdfPTable Tabladestino = new PdfPTable(2);
+                Tabladestino.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+                Tabladestino.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                Tabladestino.setWidths(columnas);
+                Tabladestino.setWidthPercentage(80);
+                Tabladestino.setSpacingAfter(5);
+                Tabladestino.setSpacingBefore(5);
+                Tabladestino.addCell(new Phrase("Destino: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                Tabladestino.addCell(new Phrase(new Phrase(selected.getMDestino(), FontFactory.getFont(FontFactory.TIMES, 12))));
+                document.add(Tabladestino);
+
+                String Ejemplares = "";
+                String puntoycoma = "";
+                for (EjemplarParticipaExhibicionTb ejemplar : selected.getEjemplarParticipaExhibicionTbList()) {
+                    Ejemplares = Ejemplares + puntoycoma + ejemplar.getEjemplarTb().getCCodigoentrada();
+                    puntoycoma = ", ";
+                }
+                Ejemplares = Ejemplares + ".";
+
+                PdfPTable TablaEjemplaresPrestamo = new PdfPTable(2);
+                TablaEjemplaresPrestamo.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+                TablaEjemplaresPrestamo.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                TablaEjemplaresPrestamo.setWidths(columnas);
+                TablaEjemplaresPrestamo.setWidthPercentage(80);
+                TablaEjemplaresPrestamo.setSpacingAfter(5);
+                TablaEjemplaresPrestamo.setSpacingBefore(5);
+                TablaEjemplaresPrestamo.addCell(new Phrase("Ejemplares: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                TablaEjemplaresPrestamo.addCell(new Phrase(new Phrase(Ejemplares, FontFactory.getFont(FontFactory.TIMES, 12))));
+                document.add(TablaEjemplaresPrestamo);
+
+                document.add(espacio);
+                document.add(espacio);
+                document.add(espacio);
+
+                int columnasfirmas[] = {33, 33, 34};
+
+                PdfPTable TablaFirmas = new PdfPTable(3);
+                TablaFirmas.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                TablaFirmas.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                TablaFirmas.setWidths(columnasfirmas);
+                TablaFirmas.setWidthPercentage(100);
+                TablaFirmas.setSpacingAfter(5);
+                TablaFirmas.setSpacingBefore(5);
+                TablaFirmas.addCell(new Phrase("F ______________________ \n\n"
+                        + calculaAgente(selected.getEIdResponsable()) + "\n\nEncargado", FontFactory.getFont(FontFactory.TIMES, 12)));
+                TablaFirmas.addCell(new Phrase("F ______________________ \n\n"
+                        + calculaAgente(selected.getECustodio()) + "\n\nCustodio", FontFactory.getFont(FontFactory.TIMES, 12)));
+                TablaFirmas.addCell(new Phrase("F ______________________ \n\n"
+                        + selected.getMSolicitante() + "\n\nSolicitante", FontFactory.getFont(FontFactory.TIMES, 12)));
+                document.add(TablaFirmas);
+
                 document.close();
                 //Termina reporte
 
@@ -880,7 +1005,7 @@ public class ExhibicionTbController implements Serializable {
             e.printStackTrace();
         }
     }
-    
+
     public void reporteReingreso() {
         FacesContext context = FacesContext.getCurrentInstance();
         try {
@@ -891,10 +1016,10 @@ public class ExhibicionTbController implements Serializable {
                 ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
 
                 // Inicia reporte
-                Document document = new Document(PageSize.A4);
-                PdfWriter writer = PdfWriter.getInstance(document, pdfOutputStream);
-                TableHeaderVertical event = new TableHeaderVertical();
-                writer.setPageEvent(event);
+                Document document = new Document(PageSize.LETTER);
+                PdfWriter.getInstance(document, pdfOutputStream);
+
+                //Sin pie de pagina
                 document.open();
 
                 //Encabezado
@@ -937,14 +1062,260 @@ public class ExhibicionTbController implements Serializable {
                 titulo.setSpacingBefore(5);
                 document.add(titulo);
 
-
                 Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 fecha.setSpacingAfter(10);
                 document.add(fecha);
 
-                
+                Paragraph espacio = new Paragraph("");
+                espacio.setSpacingAfter(15);
+                document.add(espacio);
+
+                int columnas[] = {25, 75};
+
+                PdfPTable TablaNombre = new PdfPTable(2);
+                TablaNombre.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+                TablaNombre.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                TablaNombre.setWidths(columnas);
+                TablaNombre.setWidthPercentage(80);
+                TablaNombre.setSpacingAfter(5);
+                TablaNombre.setSpacingBefore(5);
+                TablaNombre.addCell(new Phrase("Nombre: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                TablaNombre.addCell(new Phrase(new Phrase(selected.getMNombre(), FontFactory.getFont(FontFactory.TIMES, 12))));
+                document.add(TablaNombre);
+
+                PdfPTable Tabladescripcion = new PdfPTable(2);
+                Tabladescripcion.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+                Tabladescripcion.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                Tabladescripcion.setWidths(columnas);
+                Tabladescripcion.setWidthPercentage(80);
+                Tabladescripcion.setSpacingAfter(5);
+                Tabladescripcion.setSpacingBefore(5);
+                Tabladescripcion.addCell(new Phrase("Observaciones: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                Tabladescripcion.addCell(new Phrase(new Phrase(selected.getMObservaciones(), FontFactory.getFont(FontFactory.TIMES, 12))));
+                document.add(Tabladescripcion);
+
+                PdfPTable Tablatipo = new PdfPTable(2);
+                Tablatipo.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+                Tablatipo.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                Tablatipo.setWidths(columnas);
+                Tablatipo.setWidthPercentage(80);
+                Tablatipo.setSpacingAfter(5);
+                Tablatipo.setSpacingBefore(5);
+                Tablatipo.addCell(new Phrase("Tipo de exhibición: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                Tablatipo.addCell(new Phrase(new Phrase(selected.getCTipo(), FontFactory.getFont(FontFactory.TIMES, 12))));
+                document.add(Tablatipo);
+
+                PdfPTable Tablasestado = new PdfPTable(2);
+                Tablasestado.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+                Tablasestado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                Tablasestado.setWidths(columnas);
+                Tablasestado.setWidthPercentage(80);
+                Tablasestado.setSpacingAfter(5);
+                Tablasestado.setSpacingBefore(5);
+                Tablasestado.addCell(new Phrase("Estado exhibición: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                Tablasestado.addCell(new Phrase(new Phrase(EstadoList(selected.getEEstado()), FontFactory.getFont(FontFactory.TIMES, 12))));
+                document.add(Tablasestado);
+
+                PdfPTable Tablafecha = new PdfPTable(2);
+                Tablafecha.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+                Tablafecha.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                Tablafecha.setWidths(columnas);
+                Tablafecha.setWidthPercentage(80);
+                Tablafecha.setSpacingAfter(5);
+                Tablafecha.setSpacingBefore(5);
+                Tablafecha.addCell(new Phrase("Fecha de préstamo: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                Tablafecha.addCell(new Phrase(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(selected.getFFechaPrestamo()) + " " + new SimpleDateFormat("hh:mm a").format(selected.getHHoraPrestamo()), FontFactory.getFont(FontFactory.TIMES, 12))));
+                document.add(Tablafecha);
+
+                PdfPTable Tablafechareingreso = new PdfPTable(2);
+                Tablafechareingreso.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+                Tablafechareingreso.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                Tablafechareingreso.setWidths(columnas);
+                Tablafechareingreso.setWidthPercentage(80);
+                Tablafechareingreso.setSpacingAfter(5);
+                Tablafechareingreso.setSpacingBefore(5);
+                Tablafechareingreso.addCell(new Phrase("Fecha de reingreso: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                Tablafechareingreso.addCell(new Phrase(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(selected.getFFechaRecibido()) + " " + new SimpleDateFormat("hh:mm a").format(selected.getHHoraRecibido()), FontFactory.getFont(FontFactory.TIMES, 12))));
+                document.add(Tablafechareingreso);
+
+                PdfPTable Tablasolicitante = new PdfPTable(2);
+                Tablasolicitante.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+                Tablasolicitante.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                Tablasolicitante.setWidths(columnas);
+                Tablasolicitante.setWidthPercentage(80);
+                Tablasolicitante.setSpacingAfter(5);
+                Tablasolicitante.setSpacingBefore(5);
+                Tablasolicitante.addCell(new Phrase("Solicitante: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                Tablasolicitante.addCell(new Phrase(new Phrase(selected.getMSolicitante(), FontFactory.getFont(FontFactory.TIMES, 12))));
+                document.add(Tablasolicitante);
+
+                PdfPTable Tabladestino = new PdfPTable(2);
+                Tabladestino.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+                Tabladestino.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                Tabladestino.setWidths(columnas);
+                Tabladestino.setWidthPercentage(80);
+                Tabladestino.setSpacingAfter(5);
+                Tabladestino.setSpacingBefore(5);
+                Tabladestino.addCell(new Phrase("Viene desde: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                Tabladestino.addCell(new Phrase(new Phrase(selected.getMDestino(), FontFactory.getFont(FontFactory.TIMES, 12))));
+                document.add(Tabladestino);
+
+                //SI LOS EJEMPLARES HAN SIDO RECIBIDOS PARCIALMENTE
+                if (selected.getEEstado() == 1) {
+                    boolean verificadorRecibidos = false, verificadorAunNo = false;
+
+                    //listado para los que no han sido recibidos
+                    PdfPTable per = new PdfPTable(1);
+                    for (EjemplarParticipaExhibicionTb ep : selected.getEjemplarParticipaExhibicionTbList()) {
+                        if (ep.getEEstado() == 0) {
+                            verificadorAunNo = true;
+                            PdfPCell cell0 = new PdfPCell(new Phrase("" + ep.getEjemplarTb().getCCodigoentrada() + ".  " + estadoEjemplar(ep.getEEstado()) + ".", FontFactory.getFont(FontFactory.TIMES, 12)));
+                            cell0.setBorder(Rectangle.ALIGN_LEFT | Rectangle.ALIGN_RIGHT);
+                            cell0.setHorizontalAlignment(Element.ALIGN_LEFT);
+                            per.addCell(cell0);
+                        }
+                    }
+                    //listado para los que ya se recibieron
+                    PdfPTable per1 = new PdfPTable(1);
+                    for (EjemplarParticipaExhibicionTb ep : selected.getEjemplarParticipaExhibicionTbList()) {
+                        if (ep.getEEstado() != 0) {
+                            verificadorRecibidos = true;
+                            PdfPCell cell0 = new PdfPCell(new Phrase("" + ep.getEjemplarTb().getCCodigoentrada() + ".  " + estadoEjemplar(ep.getEEstado()) + ". Fecha de recibido: " + new SimpleDateFormat("dd MMMM yyyy").format(ep.getFFecha()) + ".", FontFactory.getFont(FontFactory.TIMES, 12)));
+                            cell0.setBorder(Rectangle.ALIGN_LEFT | Rectangle.ALIGN_RIGHT);
+                            cell0.setHorizontalAlignment(Element.ALIGN_LEFT);
+                            per1.addCell(cell0);
+                        }
+                    }
+
+                    if (verificadorAunNo == true) {
+                        PdfPTable tablaNombrePendienteARecibir = new PdfPTable(1);
+                        tablaNombrePendienteARecibir.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+                        tablaNombrePendienteARecibir.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                        tablaNombrePendienteARecibir.setWidthPercentage(80);
+                        tablaNombrePendienteARecibir.setSpacingBefore(5);
+                        tablaNombrePendienteARecibir.addCell(new Phrase("Ejemplares pendientes a recibir: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                        document.add(tablaNombrePendienteARecibir);
+
+                        PdfPTable Tablapedienterecibir = new PdfPTable(1);
+                        Tablapedienterecibir.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+                        Tablapedienterecibir.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                        Tablapedienterecibir.setWidthPercentage(70);
+                        Tablapedienterecibir.setSpacingAfter(5);
+                        Tablapedienterecibir.setSpacingBefore(5);
+                        Tablapedienterecibir.addCell(per);
+                        document.add(Tablapedienterecibir);
+                    }
+
+                    if (verificadorRecibidos == true) {
+                        PdfPTable tablaNombreRecibidos = new PdfPTable(1);
+                        tablaNombreRecibidos.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+                        tablaNombreRecibidos.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                        tablaNombreRecibidos.setWidthPercentage(80);
+                        tablaNombreRecibidos.setSpacingBefore(5);
+                        tablaNombreRecibidos.addCell(new Phrase("Ejemplares recibidos: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                        document.add(tablaNombreRecibidos);
+
+                        PdfPTable TablaRecibidos = new PdfPTable(1);
+                        TablaRecibidos.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+                        TablaRecibidos.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                        TablaRecibidos.setWidthPercentage(70);
+                        TablaRecibidos.setSpacingAfter(5);
+                        TablaRecibidos.setSpacingBefore(5);
+                        TablaRecibidos.addCell(per1);
+                        document.add(TablaRecibidos);
+                    }
+                }
+
+                //SI LOS EJEMPLARES HAN SIDO RECIBIDOS EN SU TOTALIDAD
+                if (selected.getEEstado() == 2) {
+
+                    boolean verificadorRecibidos = false, verificadorPerdidos = false;
+
+                    //listado para los que fueron recibidos sin ningun problema
+                    PdfPTable per = new PdfPTable(1);
+                    for (EjemplarParticipaExhibicionTb ep : selected.getEjemplarParticipaExhibicionTbList()) {
+                        if (ep.getEEstado() == 1 || ep.getEEstado() == 2) {
+                            verificadorRecibidos = true;
+                            PdfPCell cell0 = new PdfPCell(new Phrase("" + ep.getEjemplarTb().getCCodigoentrada() + ".  " + estadoEjemplar(ep.getEEstado()) + ". Fecha de recibido: " + new SimpleDateFormat("dd MMMM yyyy").format(ep.getFFecha()) + ".", FontFactory.getFont(FontFactory.TIMES, 12)));
+                            cell0.setBorder(Rectangle.ALIGN_LEFT | Rectangle.ALIGN_RIGHT);
+                            cell0.setHorizontalAlignment(Element.ALIGN_LEFT);
+                            per.addCell(cell0);
+                        }
+                    }
+                    //listado para los que se perdieron
+                    PdfPTable per1 = new PdfPTable(1);
+                    for (EjemplarParticipaExhibicionTb ep : selected.getEjemplarParticipaExhibicionTbList()) {
+                        if (ep.getEEstado() == 3) {
+                            verificadorPerdidos = true;
+                            PdfPCell cell0 = new PdfPCell(new Phrase("" + ep.getEjemplarTb().getCCodigoentrada() + ".  " + estadoEjemplar(ep.getEEstado()) + ". Fecha de aviso de perdido: " + new SimpleDateFormat("dd MMMM yyyy").format(ep.getFFecha()) + ".", FontFactory.getFont(FontFactory.TIMES, 12)));
+                            cell0.setBorder(Rectangle.ALIGN_LEFT | Rectangle.ALIGN_RIGHT);
+                            cell0.setHorizontalAlignment(Element.ALIGN_LEFT);
+                            per1.addCell(cell0);
+                        }
+                    }
+
+                    if (verificadorRecibidos == true) {
+                        PdfPTable tablaNombrePendienteARecibir = new PdfPTable(1);
+                        tablaNombrePendienteARecibir.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+                        tablaNombrePendienteARecibir.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                        tablaNombrePendienteARecibir.setWidthPercentage(80);
+                        tablaNombrePendienteARecibir.setSpacingBefore(5);
+                        tablaNombrePendienteARecibir.addCell(new Phrase("Ejemplares recibidos: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                        document.add(tablaNombrePendienteARecibir);
+
+                        PdfPTable Tablapedienterecibir = new PdfPTable(1);
+                        Tablapedienterecibir.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+                        Tablapedienterecibir.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                        Tablapedienterecibir.setWidthPercentage(70);
+                        Tablapedienterecibir.setSpacingAfter(5);
+                        Tablapedienterecibir.setSpacingBefore(5);
+                        Tablapedienterecibir.addCell(per);
+                        document.add(Tablapedienterecibir);
+                    }
+
+                    if (verificadorPerdidos == true) {
+                        PdfPTable tablaNombreRecibidos = new PdfPTable(1);
+                        tablaNombreRecibidos.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+                        tablaNombreRecibidos.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                        tablaNombreRecibidos.setWidthPercentage(80);
+                        tablaNombreRecibidos.setSpacingBefore(5);
+                        tablaNombreRecibidos.addCell(new Phrase("Ejemplares perdidos:", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                        document.add(tablaNombreRecibidos);
+
+                        PdfPTable TablaRecibidos = new PdfPTable(1);
+                        TablaRecibidos.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+                        TablaRecibidos.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                        TablaRecibidos.setWidthPercentage(70);
+                        TablaRecibidos.setSpacingAfter(5);
+                        TablaRecibidos.setSpacingBefore(5);
+                        TablaRecibidos.addCell(per1);
+                        document.add(TablaRecibidos);
+                    }
+                }
+
+                document.add(espacio);
+                document.add(espacio);
+                document.add(espacio);
+
+                int columnasfirmas[] = {33, 33, 34};
+
+                PdfPTable TablaFirmas = new PdfPTable(3);
+                TablaFirmas.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                TablaFirmas.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                TablaFirmas.setWidths(columnasfirmas);
+                TablaFirmas.setWidthPercentage(100);
+                TablaFirmas.setSpacingAfter(5);
+                TablaFirmas.setSpacingBefore(5);
+                TablaFirmas.addCell(new Phrase("F ______________________ \n\n"
+                        + calculaAgente(selected.getEIdResponsable()) + "\n\nEncargado", FontFactory.getFont(FontFactory.TIMES, 12)));
+                TablaFirmas.addCell(new Phrase("F ______________________ \n\n"
+                        + calculaAgente(selected.getECustodio()) + "\n\nCustodio", FontFactory.getFont(FontFactory.TIMES, 12)));
+                TablaFirmas.addCell(new Phrase("F ______________________ \n\n"
+                        + selected.getMSolicitante() + "\n\nSolicitante", FontFactory.getFont(FontFactory.TIMES, 12)));
+                document.add(TablaFirmas);
+
                 document.close();
                 //Termina reporte
 

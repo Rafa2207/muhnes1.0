@@ -36,7 +36,7 @@ public class ExhibicionTbFacade extends AbstractFacade<ExhibicionTb> {
 
     public List<ExhibicionTb> ExhibicionesNotificaciones(Date diaActual, Date Semana) {
         em.clear();
-        TypedQuery<ExhibicionTb> query = em.createQuery("SELECT e FROM ExhibicionTb e where e.eEstado=0 or e.fFechaRecibido between :d1 and :d2 order by e.fFechaRecibido ASC", ExhibicionTb.class);
+        TypedQuery<ExhibicionTb> query = em.createQuery("SELECT e FROM ExhibicionTb e where e.eEstado=0 and e.eEstado=1 or e.fFechaRecibido between :d1 and :d2 order by e.fFechaRecibido ASC", ExhibicionTb.class);
         query.setParameter("d1", diaActual);
         query.setParameter("d2", Semana);
         return query.getResultList();

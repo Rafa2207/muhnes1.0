@@ -43,7 +43,7 @@
                                 <h:outputText value="#{exej.ejemplarTb.CCodigoentrada}" />
                             </p:column>
                             <p:column headerText="Estado del ejemplar" style="text-align: center">
-                                <p:selectOneMenu id="CTipo" value="#{exej.EEstado}" style="width: 150px">
+                                <p:selectOneMenu id="CTipo" value="#{exej.EEstado}" style="width: 150px" disabled="#{exej.EEstado!=0}">
                                     <f:selectItem itemLabel="Pendiente de recibir" itemValue="0"/>
                                     <f:selectItem itemLabel="Sin observaciones" itemValue="1"/>
                                     <f:selectItem itemLabel="Dañado" itemValue="2"/>
@@ -53,7 +53,8 @@
                             </p:column>
                             <p:column headerText="Fecha" style="text-align: center">
                                 <p:calendar id="FFecha" pattern="dd MMMM yyyy" value="#{exej.FFecha}" title="Fecha" size="15" 
-                                            readonlyInput="true" locale="es" disabled="#{exej.EEstado==0}" mindate="#{exhibicionTbController.selected.FFechaRecibido}">
+                                            readonlyInput="true" locale="es" disabled="#{exej.EEstado==0}" mindate="#{exhibicionTbController.selected.FFechaRecibido}"
+                                            required="true" requiredMessage="Agregue la fecha">
                                 </p:calendar>
                             </p:column>
 

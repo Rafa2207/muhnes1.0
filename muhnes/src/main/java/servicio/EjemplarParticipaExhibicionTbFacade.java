@@ -5,15 +5,14 @@
  */
 package servicio;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import modelo.EjemplarParticipaExhibicionTb;
+import modelo.ExhibicionTb;
 
-/**
- *
- * @author Rafa
- */
 @Stateless
 public class EjemplarParticipaExhibicionTbFacade extends AbstractFacade<EjemplarParticipaExhibicionTb> {
     @PersistenceContext(unitName = "muhnes_muhnes_war_1.0-SNAPSHOTPU")
@@ -26,6 +25,12 @@ public class EjemplarParticipaExhibicionTbFacade extends AbstractFacade<Ejemplar
 
     public EjemplarParticipaExhibicionTbFacade() {
         super(EjemplarParticipaExhibicionTb.class);
+    }
+    
+    public List<EjemplarParticipaExhibicionTb> exhibicionesAunNoRecibidos(ExhibicionTb exhibicion) {
+        TypedQuery<EjemplarParticipaExhibicionTb> query = em.createQuery("SELECT p FROM EjemplarParticipaExhibicionTb p WHERE p.exhibicionTb=:e and p.eEstado=0", EjemplarParticipaExhibicionTb.class);
+        query.setParameter("e", exhibicion);
+        return query.getResultList();
     }
     
 }
