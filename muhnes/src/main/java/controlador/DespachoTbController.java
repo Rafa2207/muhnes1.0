@@ -333,10 +333,10 @@ public class DespachoTbController implements Serializable {
 
     public String estadoDespacho(Integer estado) {
         if (estado == 1) {
-            return "Reigresado";
+            return "No";
         }
         if (estado == 2) {
-            return "Despachado (Reingreso de Materiales)";
+            return "Sí";
         }
         return "";
     }
@@ -511,10 +511,10 @@ public class DespachoTbController implements Serializable {
 
                 pedidos.setWidthPercentage(100);
                 pedidos.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-                pedidos.addCell(new Phrase("Descrpción", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                pedidos.addCell(new Phrase("Descripción", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                 pedidos.addCell(new Phrase("Fecha de despacho", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                 pedidos.addCell(new Phrase("Proyecto", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
-                pedidos.addCell(new Phrase("Estado", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                pedidos.addCell(new Phrase("Reingreso", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
 
                 List<DespachoTb> despachoListaReporte = new ArrayList<DespachoTb>();
 
@@ -630,7 +630,7 @@ public class DespachoTbController implements Serializable {
                 fecha.setSpacingAfter(15);
                 document.add(fecha);
 
-                int columnas[] = {25, 75};
+                int columnas[] = {30, 70};
 
                 PdfPTable TablaNombre = new PdfPTable(2);
                 TablaNombre.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
@@ -639,7 +639,7 @@ public class DespachoTbController implements Serializable {
                 TablaNombre.setWidthPercentage(100);
                 TablaNombre.setSpacingAfter(5);
                 TablaNombre.setSpacingBefore(5);
-                TablaNombre.addCell(new Phrase("Descrpción: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                TablaNombre.addCell(new Phrase("Descripción: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 TablaNombre.addCell(new Phrase(new Phrase(selected.getMDescripcion(), FontFactory.getFont(FontFactory.TIMES, 12))));
                 document.add(TablaNombre);
 
@@ -672,7 +672,7 @@ public class DespachoTbController implements Serializable {
                 TablaResponsable.setWidthPercentage(100);
                 TablaResponsable.setSpacingAfter(5);
                 TablaResponsable.setSpacingBefore(5);
-                TablaResponsable.addCell(new Phrase("Estado: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                TablaResponsable.addCell(new Phrase("Materiales Reingresados: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 TablaResponsable.addCell(new Phrase(new Phrase(estadoDespacho(selected.getEEstado()), FontFactory.getFont(FontFactory.TIMES, 12))));
                 document.add(TablaResponsable);
 
@@ -685,21 +685,21 @@ public class DespachoTbController implements Serializable {
                 if (!selected.getMaterialDespachoTbList().isEmpty()) {
                     //Encabezado
                     PdfPTable TablaInsumo1 = new PdfPTable(4);
-                    int numero[] = {40, 20, 20, 20};
+                    int numero[] = {30, 18, 25, 27};
                     TablaInsumo1.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                     TablaInsumo1.setWidths(numero);
-                    TablaInsumo1.setWidthPercentage(80);
+                    TablaInsumo1.setWidthPercentage(90);
                     TablaInsumo1.addCell(new Phrase("Material", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                     TablaInsumo1.addCell(new Phrase("Marca", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-                    TablaInsumo1.addCell(new Phrase("Cantidad", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-                    TablaInsumo1.addCell(new Phrase("Reingreso", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                    TablaInsumo1.addCell(new Phrase("Cantidad Solicitda", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                    TablaInsumo1.addCell(new Phrase("Cantidad Reingresada", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                     document.add(TablaInsumo1);
 
                     for (MaterialDespachoTb i : selected.getMaterialDespachoTbList()) {
                         PdfPTable TablaInsumo = new PdfPTable(4);
                         TablaInsumo.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                         TablaInsumo.setWidths(numero);
-                        TablaInsumo.setWidthPercentage(80);
+                        TablaInsumo.setWidthPercentage(90);
 
                         PdfPCell c0 = new PdfPCell(new Phrase(i.getMaterialTb().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 12)));
                         c0.setHorizontalAlignment(Element.ALIGN_LEFT);

@@ -575,7 +575,7 @@ public class PedidoTbController implements Serializable {
 
                 pedidos.setWidthPercentage(100);
                 pedidos.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-                pedidos.addCell(new Phrase("Descrpción", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                pedidos.addCell(new Phrase("Descripción", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                 pedidos.addCell(new Phrase("Fecha de pedido", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                 pedidos.addCell(new Phrase("Fecha a recibir", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                 pedidos.addCell(new Phrase("Estado", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
@@ -703,7 +703,7 @@ public class PedidoTbController implements Serializable {
                 TablaNombre.setWidthPercentage(100);
                 TablaNombre.setSpacingAfter(5);
                 TablaNombre.setSpacingBefore(5);
-                TablaNombre.addCell(new Phrase("Descrpción: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                TablaNombre.addCell(new Phrase("Descripción: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 TablaNombre.addCell(new Phrase(new Phrase(selected.getMDescripcion(), FontFactory.getFont(FontFactory.TIMES, 12))));
                 document.add(TablaNombre);
 
@@ -883,7 +883,7 @@ public class PedidoTbController implements Serializable {
                 TablaNombre.setWidthPercentage(100);
                 TablaNombre.setSpacingAfter(5);
                 TablaNombre.setSpacingBefore(5);
-                TablaNombre.addCell(new Phrase("Descrpción: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                TablaNombre.addCell(new Phrase("Descripción: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 TablaNombre.addCell(new Phrase(new Phrase(selected.getMDescripcion(), FontFactory.getFont(FontFactory.TIMES, 12))));
                 document.add(TablaNombre);
 

@@ -85,7 +85,8 @@
                             </p:dataTable>
                         </p:tab>
                     </p:tabView>
-                    <p:commandButton value="#{bundle.Close}" onclick="SubespecieTbViewDialog.hide()"/>
+                    <p:commandButton value="Reporte" actionListener="#{taxonomiaTbController.reporteIndividual()}" ajax="false"
+                                     onclick="this.form.target = '_blank'"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

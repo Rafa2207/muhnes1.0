@@ -50,6 +50,7 @@ import modelo.EjemplarNombrecomunTb;
 import modelo.InstitucionTb;
 import modelo.NombrecomunTb;
 import modelo.ProyectoTb;
+import modelo.TaxonomiaTb;
 import modelo.UsuarioTb;
 //import modelo.EspecieTb;
 
@@ -762,6 +763,53 @@ public class EjemplarTbController implements Serializable {
         String agente = agen.getCNombre() + " " + agen.getCApellido();
         return agente;
     }
+    public String calcularTaxonomia(TaxonomiaTb tax){
+        if (tax.getERango()==1){
+            return "-";
+        }
+        if(tax.getERango()==2){
+            String genero = tax.getCNombre(); 
+            return genero;
+        }
+        if(tax.getERango()==3){
+            String genero = tax.getEIdniveltaxonomia().getCNombre();
+            String especie = tax.getCNombre();
+            return  genero+ ", " +especie; 
+        }
+        if(tax.getERango()==4 && tax.getCTipo().equals("Subespecie")){
+            String genero=tax.getEIdniveltaxonomia().getEIdniveltaxonomia().getCNombre();
+            String especie=tax.getEIdniveltaxonomia().getCNombre();
+            String subespecie=tax.getCNombre();
+            return genero + ", " + especie + " sub. " + subespecie;
+        }
+        if(tax.getERango()==4 && tax.getCTipo().equals("Variedad")){
+            String genero=tax.getEIdniveltaxonomia().getEIdniveltaxonomia().getCNombre();
+            String especie=tax.getEIdniveltaxonomia().getCNombre();
+            String variedad=tax.getCNombre();
+            return genero + ", " + especie + " var. " + variedad;
+        }
+        return "";
+    }
+    
+    public String calcularFamilia(TaxonomiaTb tax){
+        if (tax.getERango()==1){
+            String fam = tax.getCNombre();
+            return fam;
+        }
+        if(tax.getERango()==2){
+            String fam = tax.getEIdniveltaxonomia().getCNombre(); 
+            return fam;
+        }
+        if(tax.getERango()==3){
+            String fam = tax.getEIdniveltaxonomia().getEIdniveltaxonomia().getCNombre();
+            return  fam; 
+        }
+        if(tax.getERango()==4){
+            String fam = tax.getEIdniveltaxonomia().getEIdniveltaxonomia().getEIdniveltaxonomia().getCNombre();
+            return fam;
+        }
+        return "";
+    }
 
     public void prepareReporte() {
         booleanFecha = false;
@@ -869,7 +917,7 @@ public class EjemplarTbController implements Serializable {
                 //Siguientes celdas no tengan borde
                 encabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                 //nueva celda con los datos del MUHNES
-                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de El Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de \nEl Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
 
                 encabezado.addCell("");
                 document.add(encabezado);
@@ -929,14 +977,14 @@ public class EjemplarTbController implements Serializable {
                 fecha.setSpacingAfter(10);
                 document.add(fecha);
                 if (booleanResponsable == true) {
-                    columnas = 7;
+                    columnas = 6;
                 } else {
-                    columnas = 8;
+                    columnas = 7;
                 }
                 PdfPTable ejemplares = new PdfPTable(columnas);
                 ejemplares.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
 
-                int headerwidths[] = {8, 20, 9, 15, 9, 20, 9, 10};
+                int headerwidths[] = {8, 18, 9, 10, 24, 17, 14};
                 try {
                     ejemplares.setWidths(headerwidths);
                 } catch (Exception e) {
@@ -950,10 +998,11 @@ public class EjemplarTbController implements Serializable {
                     ejemplares.addCell(new Phrase("Responsable", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                 }
                 ejemplares.addCell(new Phrase("Correlativo", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                ejemplares.addCell(new Phrase("Familia", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                 ejemplares.addCell(new Phrase("Información Taxonómica", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
-                ejemplares.addCell(new Phrase("Calificativo", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                //ejemplares.addCell(new Phrase("Calificativo", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                 ejemplares.addCell(new Phrase("Descripción", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
-                ejemplares.addCell(new Phrase("Duplicados", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                //ejemplares.addCell(new Phrase("Duplicados", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                 ejemplares.addCell(new Phrase("Localidad", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
 
                 List<EjemplarTb> ejemplarListaReporte = new ArrayList<EjemplarTb>();
@@ -988,25 +1037,21 @@ public class EjemplarTbController implements Serializable {
                     c3.setHorizontalAlignment(Element.ALIGN_CENTER);
                     ejemplares.addCell(c3);
 
-                    PdfPCell c4 = new PdfPCell(new Phrase(ejemplar.getEIdtaxonomia().getCTipo() + ": " + ejemplar.getEIdtaxonomia().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 11)));
+                    PdfPCell c4 = new PdfPCell(new Phrase(calcularFamilia(ejemplar.getEIdtaxonomia()), FontFactory.getFont(FontFactory.TIMES, 11)));
                     c4.setHorizontalAlignment(Element.ALIGN_LEFT);
                     ejemplares.addCell(c4);
-
-                    PdfPCell c5 = new PdfPCell(new Phrase(ejemplar.getCCalificativo(), FontFactory.getFont(FontFactory.TIMES, 11)));
-                    c5.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    
+                    PdfPCell c5 = new PdfPCell(new Phrase( calcularTaxonomia(ejemplar.getEIdtaxonomia()), FontFactory.getFont(FontFactory.TIMES, 11)));
+                    c5.setHorizontalAlignment(Element.ALIGN_LEFT);
                     ejemplares.addCell(c5);
 
                     PdfPCell c6 = new PdfPCell(new Phrase(ejemplar.getMDescripcion(), FontFactory.getFont(FontFactory.TIMES, 11)));
                     c6.setHorizontalAlignment(Element.ALIGN_LEFT);
                     ejemplares.addCell(c6);
 
-                    PdfPCell c7 = new PdfPCell(new Phrase(String.valueOf(ejemplar.getECantDuplicado()), FontFactory.getFont(FontFactory.TIMES, 11)));
-                    c7.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    PdfPCell c7 = new PdfPCell(new Phrase(ejemplar.getEIdlocalidad().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 11)));
+                    c7.setHorizontalAlignment(Element.ALIGN_LEFT);
                     ejemplares.addCell(c7);
-
-                    PdfPCell c8 = new PdfPCell(new Phrase(ejemplar.getEIdlocalidad().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 11)));
-                    c8.setHorizontalAlignment(Element.ALIGN_LEFT);
-                    ejemplares.addCell(c8);
 
                 }
                 document.add(ejemplares);
