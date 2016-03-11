@@ -31,6 +31,9 @@
                 <p:tab title="1. Agenda" >
                     <p:tabView>
                         <p:tab title="Visualizar agenda" >
+                            <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" >     
+                                <h:graphicImage library="images" name="ayuda/cproyectos/agenda.PNG" width="850px"/>
+                            </h:panelGrid>
                             <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" >
                                 <p:outputPanel style="width: 900px">
                                     <p><b>Pasos para dirigirse a la agenda.</b></p>
@@ -38,9 +41,6 @@
                                     <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Agenda</b> para luego hacer clic y dirigirse a la agenda.</p>
                                 </p:outputPanel>
                             </h:panelGrid>
-                            <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" >     
-                                <h:graphicImage library="images" name="ayuda/cproyectos/agenda.PNG" width="900px"/>
-                            </h:panelGrid>    
                         </p:tab>
                         <p:tab title="Visualizar actividad" >
                             <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
@@ -66,13 +66,17 @@
                             </h:panelGrid>
                         </p:tab>
                         <p:tab title="Finalizar actividad" >
-                            <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
-                                <h:graphicImage library="images" name="ayuda/cproyectos/finalizar.PNG" width="550px"/>
-                                <p:outputPanel style="width: 300px">
+                            <p:panelGrid columns="1" style="text-align: center;"  layout="grid" >     
+                                <h:graphicImage library="images" name="ayuda/cproyectos/finalizar.PNG" width="600px"/>
+                            </p:panelGrid>
+                            <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >
+                                <p:outputPanel style="width: 430px">
                                     <p><b>Pasos para finalizar la actividad.</b></p>
                                     <p><b>Paso 1: </b><br/>Seleccióne haciendo clic sobre la actividad que se encuentra en la agenda.</p>
                                     <p><b>Paso 2: </b><br/>Seleccione la fecha en la que finalizara realmente la actividad, se presentara un pequeño calendario al momento de dar clic en el campo para seleccionar la fecha.</p>
                                     <p><b>Paso 3: </b><br/>Si se ha realizado un gasto adicional en la actividad el usuario debera de hacer clic en el <b>Caja de selección</b>, luego ingresar la cantidad y la justificación. Posteriormente hacer clic en el botón <b>Finalizar actividad</b>.</p>
+                                </p:outputPanel>   
+                                <p:outputPanel style="width: 430px">
                                     <p><b>Paso 4: </b><br/>El sistema le advertirá si esta seguro de finalizar la actividad, hacer clic en el botón <b>Sí</b> de lo contrario <b>No</b>.</p>
                                     <p><b>Paso 5: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b> o <b>Cerrar</b>.</p>
                                 </p:outputPanel>
