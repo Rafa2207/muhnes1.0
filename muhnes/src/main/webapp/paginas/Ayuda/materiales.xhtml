@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+
+
+    <p:dialog id="AyudaDlg" widgetVar="AyudaDialog" modal="true" resizable="false" appendTo="@(body)" header="Ayuda materiales" >
+        <h:form id="AyudaForm" style=" width: 970px; height: 500px">
+            <p:tabView>
+                <p:tab title="Administrar" >
+                    <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" >     
+                        <p:outputPanel style="width: 900px">
+                            <b>Permite realizar diferentes acciones sobre las notas preliminares como registrar, visualizar, modificar o generar reportes de manera general.</b>
+                        </p:outputPanel>
+                        <h:graphicImage library="images" name="ayuda/materiales/administrar.PNG" width="900px"/> 
+                    </h:panelGrid>
+                    <h:panelGrid  columns="2" cellpadding="2" style="text-align: justify;">
+                        <p:outputPanel style="width: 430px">
+                            <p><b>1. Nuevo: </b><br/>Registra un nuevo material.</p>
+                            <p><b>2. Visualizar: </b><br/>Muestra el contenido del material.</p>
+                        </p:outputPanel>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>3. Modificar: </b><br/>Actualiza los datos ingresados anteriormente en el material.</p>     
+                        </p:outputPanel>
+
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="1. Nuevo" >
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >
+                        <h:graphicImage library="images" name="ayuda/materiales/nuevo.PNG" width="430px"/>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Nombre: </b><br/>Ingrese el nombre de la nota preliminar.</p>
+                            <p><b>Unidad: </b><br/>Seleccione la unidad de medida para el material que se este registrando, mediante una caja desplegable con diferentes opciones al momento de dar clic en el campo.</p>
+                            <p><b>Marca: </b><br/>Ingrese nombre de la marca que construyo el material.</p>
+                            <p><b>Cantidad minima: </b><br/>Ingrese la cantidad del nuevo material que se añadira al inventario.</p>
+                            <p><b>Código: </b><br/>El sistema automáticamente generara el código del nuevo material ingresado.</p>
+                            <p><b>Tipo: </b><br/>Seleccione el tipo del nuevo material mediante una caja desplegable haciendo clic en el campo, este se encuentra comprendido unicamente por dos tipos: <b>Consumibles</b>(No retornarán al inventario) y <b>Herramientas</b>(Retornarán al inventario).</p>
+                            <p><b>Descripción: </b><br/>Digite una breve descripción del material que se esta registrando.</p>
+                            <p><b>Guardar: </b><br/>Almacena a la base de datos la información ingresada en el formulario.</p>
+                            <p><b>(X)Cerrar: </b><br/>Cierra el formulario sin almacenar los datos ingresados.</p>
+                            <p><b>(*) Campo requerido: </b><br/>Al aparecer este símbolo en alguna etiqueta quiere dar a entender que el campo es requerido u obligatorio. En otras palabras si no es ingresado el dato solicitado en el campo, no se podrá almacenar en la base de datos del sistema.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+
+                </p:tab>
+                <p:tab title="2. Visualizar" >
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+                        <h:graphicImage library="images" name="ayuda/materiales/visualizar.PNG" width="450px"/>
+                        <p:outputPanel style="width: 450px">
+                            <p><b>Pasos para visualizar el material.</b></p>
+                            <p><b>Paso 1: </b><br/>Seleccióne el material que desea visualizar.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Visualizar</b> para luego hacer clic y ver la información del material seleccionada.</p>
+                            <p><b>Paso 3: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b> o <b>Cerrar</b>.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+
+                <p:tab title="3. Modificar" >
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+                        <h:graphicImage library="images" name="ayuda/materiales/modificar.PNG" width="390px"/>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Pasos para modificar los datos de la nota preliminar.</b></p>
+                            <p><b>Paso 1: </b><br/>Seleccióne el material que desea modificar o actualizar la información.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Modificar</b>,luego hacer clic y el formulario mostrara los datos del material para que puedan ser editados.</p>
+                            <p><b>Paso 3: </b><br/>Realize los cambios que desea y haga clic en el botón <b>Guardar</b>.</p>
+                            <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+
+    </p:dialog>
+
+
+
+</html>
