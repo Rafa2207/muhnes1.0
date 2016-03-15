@@ -1,12 +1,30 @@
 package controlador;
 
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Element;
+import com.lowagie.text.FontFactory;
+import com.lowagie.text.Image;
+import com.lowagie.text.PageSize;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.Phrase;
+import com.lowagie.text.Rectangle;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
 import modelo.UsuarioTb;
 import controlador.util.JsfUtil;
 import controlador.util.JsfUtil.PersistAction;
+import controlador.util.TableHeaderVertical;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import servicio.UsuarioTbFacade;
 
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -22,6 +40,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import modelo.BitacoraTb;
 
 @Named("usuarioTbController")
 @ViewScoped
@@ -29,11 +51,16 @@ public class UsuarioTbController implements Serializable {
 
     @EJB
     private servicio.UsuarioTbFacade ejbFacade;
+    @EJB
+    private servicio.UsuarioTbFacade usuarioFacade;
+    @EJB
+    private servicio.BitacoraTbFacade bitacoraFacade;
     private List<UsuarioTb> items = null, filtro;
     private UsuarioTb selected;
     private String pass1;
     private String anterior;
     private String respaldo;
+    private Integer columnas;
 
     public UsuarioTbController() {
     }
@@ -273,4 +300,162 @@ public class UsuarioTbController implements Serializable {
         update();
         items = null;
     }
+    
+    //////////////////////////////////////////////REPORTE//////////////////////////////////////////////////////
+    public void reporteAll(Integer n) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        try {
+            Object response = context.getExternalContext().getResponse();
+            if (response instanceof HttpServletResponse) {
+                HttpServletResponse hsr = (HttpServletResponse) response;
+                hsr.setContentType("application/pdf");
+                ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
+
+                // Inicia reporte
+                Document document = new Document(PageSize.LETTER);
+                PdfWriter writer = PdfWriter.getInstance(document, pdfOutputStream);
+                TableHeaderVertical event = new TableHeaderVertical();
+                writer.setPageEvent(event);
+                document.open();
+
+                //Encabezado
+                //ruta del sistema
+                ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+                //Referencia al logo
+                String logoPath = servletContext.getRealPath("") + File.separator + "resources"
+                        + File.separator + "images"
+                        + File.separator + "muhnes1.png";
+
+                //Tabla para  el encabezado
+                PdfPTable encabezado = new PdfPTable(3);
+                //Ancho de la tabla
+                encabezado.setWidthPercentage(100);
+                //Primera celda
+                PdfPCell cell1 = new PdfPCell();
+                //Instancia al logo
+                Image logo = Image.getInstance(logoPath);
+                //Indico tamaÃƒÆ’Ã‚Â±o del logo
+                logo.scaleToFit(80, 80);
+                //aÃƒÆ’Ã‚Â±ado el primer logo a la celda
+                cell1.addElement(logo);
+                //Celda sin borde borde
+                cell1.setBorder(Rectangle.NO_BORDER);
+                //aÃƒÆ’Ã‚Â±ado celda a la tabla
+                encabezado.addCell(cell1);
+                //celdas se alineen al centro
+                encabezado.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                encabezado.getDefaultCell().setVerticalAlignment(Element.ALIGN_CENTER);
+                //Siguientes celdas no tengan borde
+                encabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                //nueva celda con los datos del MUHNES
+                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de El Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+
+                encabezado.addCell("");
+                document.add(encabezado);
+                if(n==1){
+                Paragraph titulo = new Paragraph("Reporte General de Usuarios", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                titulo.setAlignment(Element.ALIGN_CENTER);
+                titulo.setSpacingBefore(5);
+                document.add(titulo);
+                }
+                if(n==2){
+                Paragraph titulo = new Paragraph("Reporte General de Usuarios Inactivos", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                titulo.setAlignment(Element.ALIGN_CENTER);
+                titulo.setSpacingBefore(5);
+                document.add(titulo);
+                }
+                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
+                        FontFactory.getFont(FontFactory.TIMES, 10));
+                fecha.setAlignment(Element.ALIGN_CENTER);
+                fecha.setSpacingAfter(10);
+                document.add(fecha);
+                columnas =5;
+                PdfPTable ejemplares = new PdfPTable(columnas);
+                //indicando el ancho de las columnas
+                int headerwidths[] = {25, 32, 15, 13, 15};
+                        try {
+                            ejemplares.setWidths(headerwidths);
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+                    
+                //Lista que llenara la tabla
+                List<UsuarioTb> usuarioListaReporte = new ArrayList<UsuarioTb>();
+                if(n==1){
+                    usuarioListaReporte = getFacade().buscarActivos();
+                }
+                if(n==2){
+                    usuarioListaReporte = getFacade().buscarInactivos();
+                }
+                
+                //cabeceras de las columnas
+                if (!usuarioListaReporte.isEmpty()) {
+                    ejemplares.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                    ejemplares.setWidthPercentage(100);
+                    ejemplares.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                    ejemplares.addCell(new Phrase("Nombre", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                    ejemplares.addCell(new Phrase("Correo", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                    ejemplares.addCell(new Phrase("Usuario", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                    ejemplares.addCell(new Phrase("DUI", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                    ejemplares.addCell(new Phrase("Tipo", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                    
+                    //llenado de la tabla con la informacion
+                    for (UsuarioTb usuario : usuarioListaReporte) {
+
+                        PdfPCell c1 = new PdfPCell(new Phrase(usuario.getCNombre() + " " + usuario.getCApellido(), FontFactory.getFont(FontFactory.TIMES, 11)));
+                        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+                        ejemplares.addCell(c1);
+                        
+                        PdfPCell c3 = new PdfPCell(new Phrase(usuario.getMEmail(), FontFactory.getFont(FontFactory.TIMES, 11)));
+                        c3.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+                        ejemplares.addCell(c3);
+                        
+                        PdfPCell c4 = new PdfPCell(new Phrase(usuario.getCNick(), FontFactory.getFont(FontFactory.TIMES, 11)));
+                        c4.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+                        ejemplares.addCell(c4);
+                        
+                        PdfPCell c5 = new PdfPCell(new Phrase(usuario.getCDui(), FontFactory.getFont(FontFactory.TIMES, 11)));
+                        c5.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        ejemplares.addCell(c5);
+                        
+                        PdfPCell c6 = new PdfPCell(new Phrase(usuario.getCTipo(), FontFactory.getFont(FontFactory.TIMES, 11)));
+                        c6.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        ejemplares.addCell(c6);
+
+                    }
+                    document.add(ejemplares);
+                } else {
+                    Paragraph titulo3 = new Paragraph("No se encontraron usuarios.", FontFactory.getFont(FontFactory.TIMES_ROMAN, 11));
+                    titulo3.setAlignment(Element.ALIGN_CENTER);
+                    titulo3.setSpacingAfter(5);
+                    titulo3.setSpacingBefore(2);
+                    document.add(titulo3);
+                }
+                document.close();
+                //Termina reporte
+
+                hsr.setHeader("Expires", "0");
+                hsr.setContentType("application/pdf");
+                hsr.setContentLength(pdfOutputStream.size());
+                ServletOutputStream responseOutputStream = hsr.getOutputStream();
+                responseOutputStream.write(pdfOutputStream.toByteArray());
+                responseOutputStream.flush();
+                responseOutputStream.close();
+                context.responseComplete();
+                //Bitacora inicio
+                BitacoraTb bitacora = new BitacoraTb();
+                bitacora.setMDescripcion("Creado Reporte general de Usuarios en el módulo: Seguridad");
+                String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+                UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+                bitacora.setEIdusuario(usuario);
+                Date fecha1 = new Date();
+                bitacora.setTFecha(fecha1);
+                bitacoraFacade.create(bitacora);
+                //Bitacora fin
+            }
+        } catch (DocumentException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
 }

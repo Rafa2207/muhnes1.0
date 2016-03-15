@@ -31,6 +31,17 @@
 
                     <p:commandButton id="InactivosButton" icon="ui-icon-circle-close"  value="Usuarios inactivos" action="/paginas/usuariosInactivosTb/List.xhtml"/>
                     
+                    <div  style="float: right">
+                        <p:commandLink title="Reporte de Usuarios" target="_blank" ajax="false"
+                                       actionListener="#{usuarioTbController.reporteAll(1)}">
+                            <p:graphicImage name="images/pdf-icon.png" height="35px"/>
+                        </p:commandLink>
+                        <p:commandLink title="Ayuda" update=":AyudaForm" oncomplete="PF('AyudaDialog').show()" >
+                            <p:graphicImage name="images/ayuda.png" height="35px" />
+                            <f:setPropertyActionListener target="#{controladorSesion.ayuda}" value="usuario"/>
+                        </p:commandLink>
+                    </div>
+                    
                     <p:dataTable id="datalist" value="#{usuarioTbController.activos}" var="item"
                                  selectionMode="single" selection="#{usuarioTbController.selected}"
                                  paginator="true"
@@ -83,6 +94,7 @@
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
+            <ui:include src="../Ayuda/List.xhtml"/>
         </ui:define>
     </ui:composition>
 

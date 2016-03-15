@@ -26,6 +26,17 @@
                     <p:commandButton id="altaButton" icon="ui-icon-circle-arrow-n"  value="Dar de Alta" actionListener="#{usuarioTbController.cambioAct()}" update=":UsuarioTbListForm:datalist,:growl" disabled="#{empty usuarioTbController.selected}">
                         <p:confirm header="Confirmación" message="¿Está seguro dar de alta a este usuario?" icon="ui-icon-alert" />
                     </p:commandButton>
+                    
+                    <div  style="float: right">
+                        <p:commandLink title="Reporte de Usuarios" target="_blank" ajax="false"
+                                       actionListener="#{usuarioTbController.reporteAll(2)}">
+                            <p:graphicImage name="images/pdf-icon.png" height="35px"/>
+                        </p:commandLink>
+                        <p:commandLink title="Ayuda" update=":AyudaForm" oncomplete="PF('AyudaDialog').show()" >
+                            <p:graphicImage name="images/ayuda.png" height="35px" />
+                            <f:setPropertyActionListener target="#{controladorSesion.ayuda}" value="usuario"/>
+                        </p:commandLink>
+                    </div>
 
                     <p:dataTable id="datalist" value="#{usuarioTbController.inactivos}" var="item"
                                  selectionMode="single" selection="#{usuarioTbController.selected}"
@@ -77,6 +88,7 @@
             </h:form>
 
             <ui:include src="View.xhtml"/>
+            <ui:include src="../Ayuda/List.xhtml"/>
         </ui:define>
     </ui:composition>
 
