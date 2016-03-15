@@ -21,7 +21,7 @@
                                       #{localidadTbController.selected.EIdcanton.EIdmunicipio.EIddepto.CNombre}/
                                       #{localidadTbController.selected.EIdcanton.EIdmunicipio.CNombre}/
                                       #{localidadTbController.selected.EIdcanton.CNombre}" 
-                                           title="#{bundle.ViewLocalidadTbTitle_EIdcanton}"/>
+                                      title="#{bundle.ViewLocalidadTbTitle_EIdcanton}"/>
                         <h:outputText value="Ubicación geográfica:"/>
                         <h:outputText value="#{localidadTbController.latitudList(localidadTbController.selected)} #{localidadTbController.longitudList(localidadTbController.selected)}"/>
                     </p:panelGrid>
@@ -30,9 +30,11 @@
                                 model="#{mapaAreasProtegidas.localidades(localidadTbController.selected.DLatitudDecimal, 
                                          localidadTbController.selected.DLongitudDecimal, 
                                          localidadTbController.selected.CNombre)}" />
-                
+
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="LocalidadTbViewDialog.hide()"/>
+                    <p:commandButton value="Reporte" actionListener="#{localidadTbController.reporte()}" ajax="false"
+                                     onclick="this.form.target = '_blank'"/>
+
                 </h:panelGroup>
             </h:form>
         </p:dialog>

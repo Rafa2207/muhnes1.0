@@ -34,7 +34,8 @@
                                          areaprotegidaTbController.selected.DLongituddecimal, 
                                          areaprotegidaTbController.selected.CNombre)}" />                   
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="AreaprotegidaTbViewDialog.hide()"/>
+                    <p:commandButton value="Reporte" actionListener="#{areaprotegidaTbController.reporte()}" ajax="false"
+                                     onclick="this.form.target = '_blank'"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

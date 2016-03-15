@@ -74,7 +74,7 @@
                                      onclick="this.form.target = '_blank'"/>
                     
                     <p:commandButton value="Reporte reingreso" actionListener="#{exhibicionTbController.reporteReingreso()}" ajax="false"
-                                     onclick="this.form.target = '_blank'"/>
+                                     rendered="#{exhibicionTbController.selected.EEstado!=0}" onclick="this.form.target = '_blank'"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

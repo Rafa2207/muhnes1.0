@@ -6,6 +6,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import modelo.AreaprotegidaTb;
+import modelo.EjemplarTb;
 import modelo.LocalidadTb;
 
 
@@ -27,6 +29,14 @@ public class LocalidadTbFacade extends AbstractFacade<LocalidadTb> {
     public List<LocalidadTb> LocalidadGeneral() {
         em.clear();
         TypedQuery<LocalidadTb> query = em.createQuery("SELECT p FROM LocalidadTb p ORDER BY P.cNombre ASC", LocalidadTb.class);
+        return query.getResultList();
+    }
+    
+    //consulta de los ejemplares que tienen esas localidades
+    public List<EjemplarTb> EjemplaresPorLocalidad(LocalidadTb l) {
+        em.clear();
+        TypedQuery<EjemplarTb> query = em.createQuery("SELECT p FROM EjemplarTb p where p.eIdlocalidad=:l ORDER BY p.cCodigoentrada ASC", EjemplarTb.class);
+        query.setParameter("l", l);
         return query.getResultList();
     }
     

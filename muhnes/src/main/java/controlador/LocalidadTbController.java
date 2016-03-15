@@ -39,10 +39,13 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import modelo.BitacoraTb;
+import modelo.EjemplarParticipaExhibicionTb;
+import modelo.EjemplarTb;
 import modelo.UsuarioTb;
 
 @Named("localidadTbController")
@@ -57,6 +60,8 @@ public class LocalidadTbController implements Serializable {
     private servicio.BitacoraTbFacade bitacoraFacade;
     private List<LocalidadTb> items = null, filtro;
     private LocalidadTb selected;
+    @Inject
+    EjemplarTbController controladorEjemplarTb;
 
     public List<LocalidadTb> getFiltro() {
         return filtro;
@@ -359,13 +364,12 @@ public class LocalidadTbController implements Serializable {
                 Tabla.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                 Tabla.setWidths(columnas);
                 Tabla.setWidthPercentage(100);
-                
+
                 Tabla.addCell(new Phrase("Nombre", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 Tabla.addCell(new Phrase("Descripción", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 Tabla.addCell(new Phrase("Latitud", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 Tabla.addCell(new Phrase("Longitud", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 Tabla.addCell(new Phrase("Lugar", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-
 
                 for (LocalidadTb l : localidadListaReporte) {
 
@@ -391,6 +395,198 @@ public class LocalidadTbController implements Serializable {
                 }
 
                 document.add(Tabla);
+
+                document.close();
+                //Termina reporte
+
+                hsr.setHeader("Expires", "0");
+                hsr.setContentType("application/pdf");
+                hsr.setContentLength(pdfOutputStream.size());
+                ServletOutputStream responseOutputStream = hsr.getOutputStream();
+                responseOutputStream.write(pdfOutputStream.toByteArray());
+                responseOutputStream.flush();
+                responseOutputStream.close();
+                context.responseComplete();
+            }
+        } catch (DocumentException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void reporte() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        try {
+            Object response = context.getExternalContext().getResponse();
+            if (response instanceof HttpServletResponse) {
+                HttpServletResponse hsr = (HttpServletResponse) response;
+                hsr.setContentType("application/pdf");
+                ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
+
+                // Inicia reporte
+                Document document = new Document(PageSize.LETTER);
+                PdfWriter writer = PdfWriter.getInstance(document, pdfOutputStream);
+                TableHeaderVertical event = new TableHeaderVertical();
+                writer.setPageEvent(event);
+                document.open();
+
+                //Encabezado
+                //ruta del sistema
+                ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+                //Referencia al logo
+                String logoPath = servletContext.getRealPath("") + File.separator + "resources"
+                        + File.separator + "images"
+                        + File.separator + "muhnes1.png";
+
+                //Tabla para  el encabezado
+                PdfPTable encabezado = new PdfPTable(3);
+                //Ancho de la tabla
+                encabezado.setWidthPercentage(100);
+                //Primera celda
+                PdfPCell cell1 = new PdfPCell();
+                //Instancia al logo
+                Image logo = Image.getInstance(logoPath);
+                //Indico tamaÃƒÂ±o del logo
+                logo.scaleToFit(80, 80);
+                //aÃƒÂ±ado el primer logo a la celda
+                cell1.addElement(logo);
+                //Celda sin borde borde
+                cell1.setBorder(Rectangle.NO_BORDER);
+                //aÃƒÂ±ado celda a la tabla
+                encabezado.addCell(cell1);
+                //celdas se alineen al centro
+                encabezado.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                encabezado.getDefaultCell().setVerticalAlignment(Element.ALIGN_CENTER);
+                //Siguientes celdas no tengan borde
+                encabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                //nueva celda con los datos del MUHNES
+                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de El Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+
+                encabezado.addCell("");
+                document.add(encabezado);
+
+                Paragraph titulo = new Paragraph("Reporte de localidad", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                titulo.setAlignment(Element.ALIGN_CENTER);
+                titulo.setSpacingBefore(5);
+                document.add(titulo);
+
+                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
+                        FontFactory.getFont(FontFactory.TIMES, 10));
+                fecha.setAlignment(Element.ALIGN_CENTER);
+                fecha.setSpacingAfter(10);
+                document.add(fecha);
+
+                Paragraph espacio = new Paragraph("");
+                espacio.setSpacingAfter(15);
+                document.add(espacio);
+
+                int columnas[] = {25, 75};
+
+                PdfPTable TablaNombre = new PdfPTable(2);
+                TablaNombre.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+                TablaNombre.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                TablaNombre.setWidths(columnas);
+                TablaNombre.setWidthPercentage(100);
+                TablaNombre.setSpacingAfter(5);
+                TablaNombre.setSpacingBefore(5);
+                TablaNombre.addCell(new Phrase("Nombre: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                TablaNombre.addCell(new Phrase(new Phrase(selected.getCNombre(), FontFactory.getFont(FontFactory.TIMES, 12))));
+                document.add(TablaNombre);
+
+                PdfPTable Tabladescripcion = new PdfPTable(2);
+                Tabladescripcion.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+                Tabladescripcion.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                Tabladescripcion.setWidths(columnas);
+                Tabladescripcion.setWidthPercentage(100);
+                Tabladescripcion.setSpacingAfter(5);
+                Tabladescripcion.setSpacingBefore(5);
+                Tabladescripcion.addCell(new Phrase("Descripción: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                Tabladescripcion.addCell(new Phrase(new Phrase(selected.getMDescripcion(), FontFactory.getFont(FontFactory.TIMES, 12))));
+                document.add(Tabladescripcion);
+
+                PdfPTable Tablacanton = new PdfPTable(2);
+                Tablacanton.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
+                Tablacanton.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                Tablacanton.setWidths(columnas);
+                Tablacanton.setWidthPercentage(100);
+                Tablacanton.setSpacingAfter(5);
+                Tablacanton.setSpacingBefore(5);
+                Tablacanton.addCell(new Phrase("Unidad política-adiministrativa:", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                Tablacanton.addCell(new Phrase(new Phrase(selected.getEIdcanton().getEIdmunicipio().getEIddepto().getEIdpais().getCNombre()
+                        + ", " + selected.getEIdcanton().getEIdmunicipio().getEIddepto().getCNombre()
+                        + ", " + selected.getEIdcanton().getEIdmunicipio().getCNombre()
+                        + ", " + selected.getEIdcanton().getCNombre() + ".", FontFactory.getFont(FontFactory.TIMES, 12))));
+                document.add(Tablacanton);
+
+                PdfPTable Tablaubicacion = new PdfPTable(2);
+                Tablaubicacion.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+                Tablaubicacion.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                Tablaubicacion.setWidths(columnas);
+                Tablaubicacion.setWidthPercentage(100);
+                Tablaubicacion.setSpacingAfter(5);
+                Tablaubicacion.setSpacingBefore(5);
+                Tablaubicacion.addCell(new Phrase("Ubicación geográfica: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                Tablaubicacion.addCell(new Phrase(new Phrase(latitudList(selected) + ", " + longitudList(selected) + ".", FontFactory.getFont(FontFactory.TIMES, 12))));
+                document.add(Tablaubicacion);
+
+                Paragraph tituloejemplares = new Paragraph("EJEMPLARES RECOLECTADOS EN ESTA LOCALIDAD", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                tituloejemplares.setAlignment(Element.ALIGN_CENTER);
+                tituloejemplares.setSpacingAfter(5);
+                tituloejemplares.setSpacingBefore(5);
+                document.add(tituloejemplares);
+                
+                document.add(espacio);
+
+                List<EjemplarTb> ejemplarListaReporte = new ArrayList<EjemplarTb>();
+                ejemplarListaReporte = getFacade().EjemplaresPorLocalidad(selected);
+
+                if (!ejemplarListaReporte.isEmpty()) {
+                    int columnasa[] = {10, 20, 10, 17, 20, 23};
+                    PdfPTable ejemplares = new PdfPTable(6);
+                    ejemplares.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                    ejemplares.setWidthPercentage(100);
+                    ejemplares.setWidths(columnasa);
+
+                    ejemplares.addCell(new Phrase("Código de Entrada", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                    ejemplares.addCell(new Phrase("Responsable", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                    ejemplares.addCell(new Phrase("Correlativo", FontFactory.getFont(FontFactory.TIMES_BOLD, 10)));
+                    ejemplares.addCell(new Phrase("Familia", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                    ejemplares.addCell(new Phrase("Información Taxonómica", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                    ejemplares.addCell(new Phrase("Descripción", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+
+                    for (EjemplarTb ejemplar : ejemplarListaReporte) {
+
+                        PdfPCell c1 = new PdfPCell(new Phrase(ejemplar.getCCodigoentrada(), FontFactory.getFont(FontFactory.TIMES, 11)));
+                        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        ejemplares.addCell(c1);
+
+                        PdfPCell c2 = new PdfPCell(new Phrase(controladorEjemplarTb.calculaAgenteReporte(ejemplar.getEResponsable()), FontFactory.getFont(FontFactory.TIMES, 11)));
+                        c2.setHorizontalAlignment(Element.ALIGN_LEFT);
+                        ejemplares.addCell(c2);
+
+                        PdfPCell c3 = new PdfPCell(new Phrase(String.valueOf(ejemplar.getECorrelativo()), FontFactory.getFont(FontFactory.TIMES, 11)));
+                        c3.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        ejemplares.addCell(c3);
+
+                        PdfPCell c4 = new PdfPCell(new Phrase(controladorEjemplarTb.calcularFamilia(ejemplar.getEIdtaxonomia()), FontFactory.getFont(FontFactory.TIMES, 11)));
+                        c4.setHorizontalAlignment(Element.ALIGN_LEFT);
+                        ejemplares.addCell(c4);
+
+                        PdfPCell c5 = new PdfPCell(new Phrase(controladorEjemplarTb.calcularTaxonomia(ejemplar.getEIdtaxonomia()), FontFactory.getFont(FontFactory.TIMES, 11)));
+                        c5.setHorizontalAlignment(Element.ALIGN_LEFT);
+                        ejemplares.addCell(c5);
+
+                        PdfPCell c6 = new PdfPCell(new Phrase(ejemplar.getMDescripcion(), FontFactory.getFont(FontFactory.TIMES, 11)));
+                        c6.setHorizontalAlignment(Element.ALIGN_LEFT);
+                        ejemplares.addCell(c6);
+                    }
+                    document.add(ejemplares);
+                } else {
+                    Paragraph tituloNo = new Paragraph("No se encontraron ejemplares encontrados a esta localidad.", FontFactory.getFont(FontFactory.TIMES, 12));
+                    tituloNo.setAlignment(Element.ALIGN_CENTER);
+                    tituloNo.setSpacingAfter(5);
+                    tituloNo.setSpacingBefore(5);
+                    document.add(tituloNo);
+                }
 
                 document.close();
                 //Termina reporte

@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import modelo.AreaprotegidaTb;
+import modelo.LocalidadTb;
 
 /**
  *
@@ -33,6 +34,13 @@ public class AreaprotegidaTbFacade extends AbstractFacade<AreaprotegidaTb> {
     public List<AreaprotegidaTb> AreaProtegidaOrdenNombreAsc() {
         em.clear();
         TypedQuery<AreaprotegidaTb> query = em.createQuery("SELECT p FROM AreaprotegidaTb p ORDER BY p.cNombre ASC", AreaprotegidaTb.class);
+        return query.getResultList();
+    }
+    
+    public List<LocalidadTb> ListaDeLocalidadesPorArea(AreaprotegidaTb a) {
+        em.clear();
+        TypedQuery<LocalidadTb> query = em.createQuery("SELECT p FROM LocalidadTb p where p.eIdarea=:a ORDER BY p.cNombre ASC", LocalidadTb.class);
+        query.setParameter("a", a);
         return query.getResultList();
     }
     
