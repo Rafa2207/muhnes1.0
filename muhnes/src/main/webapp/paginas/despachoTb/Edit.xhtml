@@ -9,7 +9,7 @@
 
     <ui:composition>
 
-        <p:dialog id="DespachoTbEditDlg" widgetVar="DespachoTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleDespacho.EditDespachoTbTitle}">
+        <p:dialog id="DespachoTbEditDlg" widgetVar="DespachoTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Modificar despacho de materiales">
             <h:form id="DespachoTbEditForm">
                 <h:panelGroup id="display">
                     <p:fieldset legend="Despacho">
@@ -90,7 +90,6 @@
                         </p:fieldset>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{despachoTbController.update}" value="#{bundleDespacho.Save}" update="display,:DespachoTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DespachoTbEditDialog');"/>
-                    <p:commandButton value="#{bundleDespacho.Cancel}" onclick="DespachoTbEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

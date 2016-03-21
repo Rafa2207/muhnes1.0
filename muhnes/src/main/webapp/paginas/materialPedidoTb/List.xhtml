@@ -16,7 +16,7 @@
         <ui:define name="body">
             <h:form id="MaterialPedidoTbListForm">
                 <p:panel header="Control de pedidos">
-                    
+
                     <p:breadCrumb>
                         <p:menuitem value="casita" outcome="/paginas/bienvenido.xhtml"/>
                         <p:menuitem value="Control de pedidos" outcome="/paginas/materialPedidoTb/List.xhtml" />
@@ -25,8 +25,15 @@
                     <p:commandButton id="createButton" icon="ui-icon-tag"   value="Recibir Pedido" update=":MaterialPedidoTbCreateForm" oncomplete="PF('MaterialPedidoTbCreateDialog').show()" disabled="#{empty pedidoTbController.selected || pedidoTbController.selected.EEstado!=0}"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":MaterialPedidoTbViewForm" oncomplete="PF('MaterialPedidoTbViewDialog').show()" disabled="#{empty pedidoTbController.selected}"/>
                     <p:commandButton id="modificarButton"   icon="ui-icon-pencil" value="Modificar" actionListener="#{pedidoTbController.activarEnProceso()}" update=":MaterialPedidoTbCreate2Form" oncomplete="PF('MaterialPedidoTbCreate2Dialog').show()" disabled="#{empty pedidoTbController.selected || pedidoTbController.selected.EEstado==0}"/>
-                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Actualizar pedido" update=":MaterialPedidoTbEditForm" oncomplete="PF('MaterialPedidoTbEditDialog').show()" disabled="#{empty pedidoTbController.selected || pedidoTbController.selected.EEstado!=1}"/>
-                    
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Actualizar pedido recibido" update=":MaterialPedidoTbEditForm" oncomplete="PF('MaterialPedidoTbEditDialog').show()" disabled="#{empty pedidoTbController.selected || pedidoTbController.selected.EEstado!=1}"/>
+
+                    <div style="float: right"> 
+                        <p:commandLink title="Ayuda" update=":AyudaForm" oncomplete="PF('AyudaDialog').show()" >
+                            <p:graphicImage name="images/ayuda.png" height="35px" />
+                            <f:setPropertyActionListener target="#{controladorSesion.ayuda}" value="Pedido"/>
+                        </p:commandLink>
+                    </div>
+
                     <p:dataTable id="datalist" value="#{pedidoTbController.items}" var="item"
                                  selectionMode="single" selection="#{pedidoTbController.selected}"
                                  paginator="true"
@@ -42,7 +49,7 @@
                         <p:ajax event="rowSelect"   update=":MaterialPedidoTbListForm:createButton :MaterialPedidoTbListForm:viewButton :MaterialPedidoTbListForm:modificarButton :MaterialPedidoTbListForm:editButton"/>
                         <p:ajax event="rowUnselect" update=":MaterialPedidoTbListForm:createButton :MaterialPedidoTbListForm:viewButton :MaterialPedidoTbListForm:modificarButton :MaterialPedidoTbListForm:editButton"/>
 
-                        
+
                         <p:column width="50%" filterBy="#{item.MDescripcion}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPedidoTbTitle_MDescripcion}"/>
@@ -64,7 +71,7 @@
                             <h:outputText  value="#{pedidoTbController.estadoPedido(item.EEstado)}"/>
                         </p:column>
                         <f:facet name="header">
-                               <p:outputPanel>
+                            <p:outputPanel>
                                 <h:outputText value="Búsqueda: " />
                                 <p:inputText id="globalFilter" onkeyup="PF('pedidosTable').filter()" placeholder="Escriba aquí"/>
                             </p:outputPanel>
@@ -77,6 +84,7 @@
             <ui:include src="Edit2.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
+            <ui:include src="../Ayuda/control_pedidos.xhtml"/>
         </ui:define>
     </ui:composition>
 
