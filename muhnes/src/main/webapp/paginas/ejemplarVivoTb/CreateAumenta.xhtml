@@ -8,10 +8,10 @@
 
     <ui:composition>
 
-        <p:dialog id="EjemplarVivoTbCreateAumentaDlg" widgetVar="EjemplarVivoTbCreateAumentaDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleEjemplarVivo.EditEjemplarVivoTbTitle}">
+        <p:dialog id="EjemplarVivoTbCreateAumentaDlg" widgetVar="EjemplarVivoTbCreateAumentaDialog" modal="true" resizable="false" appendTo="@(body)" header="Agregar ejemplar sin existencia">
             <h:form id="EjemplarVivoTbCreateAumentaForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{ejemplarVivoTbController.selected != null}">
+                    <p:panelGrid columns="2" rendered="#{ejemplarVivoTbController.selected != null}" style="width: 450px;text-align: justify">
                         <p:outputLabel value="#{bundleEjemplarVivo.EditEjemplarVivoTbLabel_CNombre}"/>
                         <p:outputLabel style="font-weight: bold" value="#{ejemplarVivoTbController.selected.CNombre}" title="#{bundleEjemplarVivo.EditEjemplarVivoTbTitle_CNombre}" />
                         <p:outputLabel value="#{bundleEjemplarVivo.EditEjemplarVivoTbLabel_MDescripcion}" />
@@ -27,7 +27,6 @@
                         <p:outputLabel value="#{ejemplarVivoTbController.selected.EIdtaxonomia.CNombre}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{ejemplarVivoTbController.update}" value="#{bundleEjemplarVivo.Save}" update="display,:EjemplarVivoTbList2Form:datalist,:growl" oncomplete="handleSubmit(args, 'EjemplarVivoTbCreateAumentaDialog');"/>
-                    <p:commandButton value="#{bundleEjemplarVivo.Cancel}" onclick="EjemplarVivoTbEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

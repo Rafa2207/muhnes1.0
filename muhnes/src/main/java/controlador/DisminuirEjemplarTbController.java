@@ -32,11 +32,11 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.view.ViewScoped;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -45,7 +45,7 @@ import modelo.EjemplarVivoTb;
 import modelo.UsuarioTb;
 
 @Named("disminuirEjemplarTbController")
-@SessionScoped
+@ViewScoped
 public class DisminuirEjemplarTbController implements Serializable {
 
     @EJB

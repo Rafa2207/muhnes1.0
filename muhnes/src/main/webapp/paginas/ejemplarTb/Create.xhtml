@@ -28,7 +28,7 @@
                                      required="true" requiredMessage="introduzca correlativo"
                                      size="6" title="#{bundle.CreateEjemplarTbTitle_ECorrelativo}" />
 
-                        <p:outputLabel value="Información Taxonomica: " for="Taxon" />
+                        <p:outputLabel value="Información Taxonómica: " for="Taxon" />
                         <h:panelGroup>
                             <p:selectOneMenu id="Taxon" value="#{ejemplarTbController.tipoTaxon}" required="true" requiredMessage="Seleccione taxón">
                                 <f:selectItem itemLabel="Seleccione..." itemValue=""/>
@@ -101,7 +101,7 @@
                                            itemLabel="#{local.CNombre} (#{localidadTbController.latitudList(local)}'', #{localidadTbController.longitudList(local)}'')"
                                            itemValue="#{local}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="Codigo de entrada: " for="codEntrada" />
+                        <p:outputLabel value="Código de entrada: " for="codEntrada" />
                         <p:selectOneMenu id="codEntrada" value="#{ejemplarTbController.cod}"
                                          required="true" requiredMessage="seleccione codigo de entrada">
                             <f:selectItem itemLabel="Seleccione..." itemValue=""/>

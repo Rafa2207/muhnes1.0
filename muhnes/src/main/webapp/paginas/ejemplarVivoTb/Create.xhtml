@@ -8,14 +8,14 @@
 
     <ui:composition>
 
-        <p:dialog id="EjemplarVivoTbCreateDlg" widgetVar="EjemplarVivoTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleEjemplarVivo.CreateEjemplarVivoTbTitle}">
+        <p:dialog id="EjemplarVivoTbCreateDlg" widgetVar="EjemplarVivoTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Nuevo ejemplar vivo">
             <h:form id="EjemplarVivoTbCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{ejemplarVivoTbController.selected != null}">
                         <p:outputLabel value="#{bundleEjemplarVivo.CreateEjemplarVivoTbLabel_CNombre}" for="CNombre" />
                         <p:inputText id="CNombre" value="#{ejemplarVivoTbController.selected.CNombre}" title="#{bundleEjemplarVivo.CreateEjemplarVivoTbTitle_CNombre}" required="true" requiredMessage="Introduzca nombre del ejemplar"/>
                         <p:outputLabel value="#{bundleEjemplarVivo.CreateEjemplarVivoTbLabel_MDescripcion}" for="MDescripcion" />
-                        <p:inputText id="MDescripcion" value="#{ejemplarVivoTbController.selected.MDescripcion}" title="#{bundleEjemplarVivo.CreateEjemplarVivoTbTitle_MDescripcion}" />
+                        <p:inputTextarea rows="2" cols="23" autoResize="" id="MDescripcion" value="#{ejemplarVivoTbController.selected.MDescripcion}" title="#{bundleEjemplarVivo.CreateEjemplarVivoTbTitle_MDescripcion}" />
                         <p:outputLabel value="#{bundleEjemplarVivo.CreateEjemplarVivoTbLabel_FFechaLlegada}" for="FFechaLlegada" />
                         <p:calendar id="FFechaLlegada" pattern="dd MMMM yyyy" value="#{ejemplarVivoTbController.selected.FFecha}" title="#{bundleEjemplarVivo.EditEjemplarVivoTbTitle_FFechaLlegada}" required="true" requiredMessage="Seleccione una fecha de llegada" locale="es" showOn="button"/>
                         <p:outputLabel value="#{bundleEjemplarVivo.CreateEjemplarVivoTbLabel_ECantidad}" for="ECantidad" />
@@ -51,8 +51,7 @@
                         </h:panelGroup>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{ejemplarVivoTbController.create}" value="#{bundleEjemplarVivo.Save}" update="display,:EjemplarVivoTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'EjemplarVivoTbCreateDialog');"/>
-                    <p:commandButton value="#{bundleEjemplarVivo.Cancel}" onclick="EjemplarVivoTbCreateDialog.hide()"/>
-                </h:panelGroup>
+                    </h:panelGroup>
             </h:form>
         </p:dialog>
 

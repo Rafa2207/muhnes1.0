@@ -8,16 +8,18 @@
 
     <ui:composition>
 
-        <p:dialog id="DisminuirEjemplarTbViewDlg" widgetVar="DisminuirEjemplarTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleEjemplarVivo.ViewDisminuirEjemplarTbTitle}">
+        <p:dialog id="DisminuirEjemplarTbViewDlg" widgetVar="DisminuirEjemplarTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="Visualizar ejemplar dado de baja">
             <h:form id="DisminuirEjemplarTbViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{disminuirEjemplarTbController.selected != null}">
+                    <p:panelGrid columns="2" rendered="#{disminuirEjemplarTbController.selected != null}" style="width: 450px;text-align: justify">
                         <h:outputText value="#{bundleEjemplarVivo.ViewDisminuirEjemplarTbLabel_MMotivo}"/>
                         <h:outputText value="#{disminuirEjemplarTbController.selected.MMotivo}" title="#{bundleEjemplarVivo.ViewDisminuirEjemplarTbTitle_MMotivo}"/>
                         <h:outputText value="#{bundleEjemplarVivo.ViewDisminuirEjemplarTbLabel_ECantidad}"/>
                         <h:outputText value="#{disminuirEjemplarTbController.selected.ECantidad}" title="#{bundleEjemplarVivo.ViewDisminuirEjemplarTbTitle_ECantidad}"/>
-                        <h:outputText value="#{bundleEjemplarVivo.ViewDisminuirEjemplarTbLabel_EIdejemplarVivo}"/>
-                        <h:outputText value="#{disminuirEjemplarTbController.selected.EIdejemplarVivo.CNombre}" title="#{bundleEjemplarVivo.ViewDisminuirEjemplarTbTitle_EIdejemplarVivo}"/>
+                        <h:outputText value="#{bundleEjemplarVivo.ViewEjemplarVivoTbLabel_FFechaLlegada}"/>
+                        <h:outputText value="#{disminuirEjemplarTbController.selected.FFecha}" title="#{bundleEjemplarVivo.ViewEjemplarVivoTbTitle_FFechaLlegada}">
+                            <f:convertDateTime pattern="dd MMMM yyyy" />
+                        </h:outputText>
                     </p:panelGrid>
                     <p:commandButton value="#{bundleEjemplarVivo.Close}" onclick="DisminuirEjemplarTbViewDialog.hide()"/>
                 </h:panelGroup>

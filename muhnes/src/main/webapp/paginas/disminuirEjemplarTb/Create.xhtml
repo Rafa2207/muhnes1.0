@@ -17,7 +17,7 @@
                         <p:outputLabel value="#{bundleEjemplarVivo.CreateDisminuirEjemplarTbLabel_MMotivo}" for="MMotivo" />
                         <p:panelGrid columns="1">
                             <p:outputLabel value=""/>
-                            <p:inputText id="MMotivo" value="#{disminuirEjemplarTbController.selected.MMotivo}" title="#{bundleEjemplarVivo.CreateDisminuirEjemplarTbTitle_MMotivo}" required="true" requiredMessage="Introduzca el motivo"/>
+                            <p:inputTextarea rows="2" cols="23" autoResize="" id="MMotivo" value="#{disminuirEjemplarTbController.selected.MMotivo}" title="#{bundleEjemplarVivo.CreateDisminuirEjemplarTbTitle_MMotivo}" required="true" requiredMessage="Introduzca el motivo"/>
                         </p:panelGrid>
                         <p:outputLabel value="#{bundleEjemplarVivo.CreateEjemplarVivoTbLabel_FFechaLlegada}" for="FFechaLlegada" />
                         <p:panelGrid columns="1">
@@ -31,7 +31,6 @@
                         </p:panelGrid>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{disminuirEjemplarTbController.create}" value="#{bundleEjemplarVivo.Save}" update="display,:EjemplarVivoTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'DisminuirEjemplarTbCreateDialog');"/>
-                    <p:commandButton value="#{bundleEjemplarVivo.Cancel}" onclick="DisminuirEjemplarTbCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

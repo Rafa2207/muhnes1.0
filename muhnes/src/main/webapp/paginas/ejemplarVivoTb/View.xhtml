@@ -8,10 +8,10 @@
 
     <ui:composition>
 
-        <p:dialog id="EjemplarVivoTbViewDlg" widgetVar="EjemplarVivoTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleEjemplarVivo.ViewEjemplarVivoTbTitle}">
+        <p:dialog id="EjemplarVivoTbViewDlg" widgetVar="EjemplarVivoTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="Visualizar ejemplar vivo">
             <h:form id="EjemplarVivoTbViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{ejemplarVivoTbController.selected != null}">
+                    <p:panelGrid columns="2" rendered="#{ejemplarVivoTbController.selected != null}" style="width: 450px;text-align: justify">
                         <h:outputText value="#{bundleEjemplarVivo.ViewEjemplarVivoTbLabel_CNombre}"/>
                         <h:outputText value="#{ejemplarVivoTbController.selected.CNombre}" title="#{bundleEjemplarVivo.ViewEjemplarVivoTbTitle_CNombre}"/>
                         <h:outputText value="#{bundleEjemplarVivo.ViewEjemplarVivoTbLabel_MDescripcion}"/>
