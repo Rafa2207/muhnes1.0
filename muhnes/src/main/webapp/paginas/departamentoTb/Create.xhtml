@@ -8,11 +8,11 @@
 
     <ui:composition>
 
-        <p:dialog id="DepartamentoTbCreateDlg" widgetVar="DepartamentoTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDepartamentoTbTitle}">
+        <p:dialog id="DepartamentoTbCreateDlg" widgetVar="DepartamentoTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Nuevo Departamento/Estado">
             <h:form id="DepartamentoTbCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{departamentoTbController.selected != null}">
-                       <p:outputLabel value="#{bundle.CreateDepartamentoTbLabel_CNombre}" for="CNombre" />
+                       <p:outputLabel value="Departamento/Estado:" for="CNombre" />
                         <p:inputText id="CNombre" 
                                      value="#{departamentoTbController.selected.CNombre}" 
                                      title="#{bundle.CreateDepartamentoTbTitle_CNombre}"

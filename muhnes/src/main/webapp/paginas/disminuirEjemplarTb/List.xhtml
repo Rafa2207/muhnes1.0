@@ -29,11 +29,7 @@
                         <p:commandLink title="Reporte de bajas ejemplares vivos" target="_blank" ajax="false"
                                        actionListener="#{disminuirEjemplarTbController.reporteAll}">
                             <p:graphicImage name="images/pdf-icon.png" height="35px"/>
-                        </p:commandLink>
-                        <p:commandLink title="Ayuda" update=":AyudaForm" oncomplete="PF('AyudaDialog').show()" >
-                            <p:graphicImage name="images/ayuda.png" height="35px" />
-                            <f:setPropertyActionListener target="#{controladorSesion.ayuda}" value="Pedido"/>
-                        </p:commandLink>
+                        </p:commandLink>                   
                     </div>
                     
                     <p:dataTable id="datalist" value="#{disminuirEjemplarTbController.items}" var="item"

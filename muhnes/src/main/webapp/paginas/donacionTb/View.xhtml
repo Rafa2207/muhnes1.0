@@ -8,11 +8,11 @@
 
     <ui:composition>
 
-        <p:dialog id="DonacionTbViewDlg" widgetVar="DonacionTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewDonacionTbTitle}">
+        <p:dialog id="DonacionTbViewDlg" widgetVar="DonacionTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="Visualizar donación">
             <h:form id="DonacionTbViewForm">
                 <h:panelGroup id="display">
                     <p:fieldset legend="Infomación General">
-                                <p:panelGrid columns="2" rendered="#{donacionTbController.selected != null}">
+                                <p:panelGrid columns="2" rendered="#{donacionTbController.selected != null}" style="width: 450px;text-align: justify">
                             <h:outputText value="#{bundle.ViewDonacionTbLabel_MDescripcion}"/>
                             <h:outputText value="#{donacionTbController.selected.MDescripcion}" title="#{bundle.ViewDonacionTbTitle_MDescripcion}"/>
                             <h:outputText value="#{bundle.ViewDonacionTbLabel_FFecha}"/>

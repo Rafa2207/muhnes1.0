@@ -29,10 +29,16 @@
                         <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
                     </p:commandButton>
 
-                    <p:commandButton id="DeptoButton" icon="ui-icon-arrowthick-1-e"  value="Departamento/Estados" action="/paginas/departamentoTb/List.xhtml" disabled="#{empty paisTbController.selected}" >
+                    <p:commandButton id="DeptoButton" icon="ui-icon-arrowthick-1-e"  value="Departamentos/Estados" action="/paginas/departamentoTb/List.xhtml" disabled="#{empty paisTbController.selected}" >
                         <f:setPropertyActionListener target="#{controladorSesion.pais}" value="#{paisTbController.selected}"/>
                     </p:commandButton>
 
+                    <div style="float: right"> 
+                        <p:commandLink title="Ayuda" update=":AyudaForm" oncomplete="PF('AyudaDialog').show()" >
+                            <p:graphicImage name="images/ayuda.png" height="35px" />
+                            <f:setPropertyActionListener target="#{controladorSesion.ayuda}" value="Donacion"/>
+                        </p:commandLink>
+                    </div>
                     <p:dataTable id="datalist" value="#{paisTbController.items}" var="item"
                                  selectionMode="single" selection="#{paisTbController.selected}"
                                  paginator="true"
@@ -73,13 +79,14 @@
                         </f:facet>
 
                     </p:dataTable>
-                    
+
                 </p:panel>
             </h:form>
 
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
+            <ui:include src="../Ayuda/pais.xhtml"/>
         </ui:define>
     </ui:composition>
 

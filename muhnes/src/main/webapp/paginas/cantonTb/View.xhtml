@@ -8,11 +8,11 @@
 
     <ui:composition>
 
-        <p:dialog id="CantonTbViewDlg" widgetVar="CantonTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewCantonTbTitle}">
+        <p:dialog id="CantonTbViewDlg" widgetVar="CantonTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="Visualizar Cantón/Distrito:">
             <h:form id="CantonTbViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{cantonTbController.selected != null}">
-                        <h:outputText value="#{bundle.ViewCantonTbLabel_CNombre}"/>
+                        <h:outputText value="Cantón/Distrito:"/>
                         <h:outputText value="#{cantonTbController.selected.CNombre}" title="#{bundle.ViewCantonTbTitle_CNombre}"/>
                         <h:outputText value="#{bundle.ViewCantonTbLabel_EIdmunicipio}"/>
                         <h:outputText value="#{cantonTbController.selected.EIdmunicipio.CNombre}" title="#{bundle.ViewCantonTbTitle_EIdmunicipio}"/>

@@ -12,7 +12,7 @@
             <h:form id="CantonTbCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{cantonTbController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateCantonTbLabel_CNombre}" for="CNombre" />
+                        <p:outputLabel value="Cantón/Distrito:" for="CNombre" />
                         <p:inputText id="CNombre" value="#{cantonTbController.selected.CNombre}" title="#{bundle.CreateCantonTbTitle_CNombre}" 
                                      required="true"  requiredMessage="Introduzca nombre"/>
                   

@@ -8,11 +8,11 @@
 
     <ui:composition>
 
-        <p:dialog id="CantonTbEditDlg" widgetVar="CantonTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditCantonTbTitle}">
+        <p:dialog id="CantonTbEditDlg" widgetVar="CantonTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Modificar Cantón/Distrito:">
             <h:form id="CantonTbEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{cantonTbController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditCantonTbLabel_CNombre}" for="CNombre" />
+                        <p:outputLabel value="Cantón/Distrito:" for="CNombre" />
                         <p:inputText id="CNombre" value="#{cantonTbController.selected.CNombre}" title="#{bundle.EditCantonTbTitle_CNombre}" 
                                      required="true"  requiredMessage="Introduzca nombre"/>
                         
@@ -26,7 +26,6 @@
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{cantonTbController.update}" value="#{bundle.Save}" update="display,:CantonTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CantonTbEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="CantonTbEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

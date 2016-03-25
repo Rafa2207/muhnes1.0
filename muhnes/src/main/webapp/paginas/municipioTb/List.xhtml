@@ -31,15 +31,18 @@
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{municipioTbController.prepareCreate(controladorSesion.departamento)}" update=":MunicipioTbCreateForm" oncomplete="PF('MunicipioTbCreateDialog').show()" />
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":MunicipioTbViewForm" oncomplete="PF('MunicipioTbViewDialog').show()" disabled="#{empty municipioTbController.selected }"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":MunicipioTbEditForm" oncomplete="PF('MunicipioTbEditDialog').show()" disabled="#{empty municipioTbController.selected }"/>
-                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{municipioTbController.destroy}" update=":growl,datalist" disabled="#{empty municipioTbController.selected }">
-                     <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
-                    </p:commandButton>
+
                     
-                    <p:commandButton id="cantonButton" icon="ui-icon-arrowthick-1-e"  value="Cantón/Distrito" action="/paginas/cantonTb/List.xhtml" disabled="#{empty municipioTbController.selected}" >
+                    <p:commandButton id="cantonButton" icon="ui-icon-arrowthick-1-e"  value="Cantones/Distritos" action="/paginas/cantonTb/List.xhtml" disabled="#{empty municipioTbController.selected}" >
                         <f:setPropertyActionListener target="#{controladorSesion.municipio}" value="#{municipioTbController.selected}"/>
                     </p:commandButton>
 
-
+                    <div style="float: right"> 
+                        <p:commandLink title="Ayuda" update=":AyudaForm" oncomplete="PF('AyudaDialog').show()" >
+                            <p:graphicImage name="images/ayuda.png" height="35px" />
+                            <f:setPropertyActionListener target="#{controladorSesion.ayuda}" value="Donacion"/>
+                        </p:commandLink>
+                    </div>
                     <p:dataTable id="datalist" value="#{municipioTbController.getItems(controladorSesion.departamento)}" var="item"
                                  selectionMode="single" selection="#{municipioTbController.selected}"
                                  paginator="true"
@@ -52,8 +55,8 @@
                                  widgetVar="municipioTable"
                                  >
 
-                        <p:ajax event="rowSelect"   update=":MunicipioTbListForm:cantonButton :MunicipioTbListForm:createButton :MunicipioTbListForm:viewButton :MunicipioTbListForm:editButton :MunicipioTbListForm:deleteButton"/>
-                        <p:ajax event="rowUnselect" update=":MunicipioTbListForm:cantonButton :MunicipioTbListForm:createButton :MunicipioTbListForm:viewButton :MunicipioTbListForm:editButton :MunicipioTbListForm:deleteButton"/>
+                        <p:ajax event="rowSelect"   update=":MunicipioTbListForm:cantonButton :MunicipioTbListForm:createButton :MunicipioTbListForm:viewButton :MunicipioTbListForm:editButton"/>
+                        <p:ajax event="rowUnselect" update=":MunicipioTbListForm:cantonButton :MunicipioTbListForm:createButton :MunicipioTbListForm:viewButton :MunicipioTbListForm:editButton"/>
 
 
                         <p:column filterBy="#{item.CNombre}" filterStyle="display:none">
@@ -76,6 +79,7 @@
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
+            <ui:include src="../Ayuda/municipios.xhtml"/>
         </ui:define>
     </ui:composition>
 

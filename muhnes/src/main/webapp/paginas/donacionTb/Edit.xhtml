@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="DonacionTbEditDlg" widgetVar="DonacionTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditDonacionTbTitle}">
+        <p:dialog id="DonacionTbEditDlg" widgetVar="DonacionTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Modificar donación">
             <h:form id="DonacionTbEditForm">
                 <h:panelGroup id="display">
                     <p:fieldset legend="Información General">
@@ -21,7 +21,6 @@
                             <p:outputLabel value="#{donacionTbController.selected.EIdinstitucion.CNombre}"/>                        </p:panelGrid>
                     </p:fieldset>
                     <p:commandButton actionListener="#{donacionTbController.update}" value="#{bundle.Save}" update="display,:DonacionTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DonacionTbEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="DonacionTbEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

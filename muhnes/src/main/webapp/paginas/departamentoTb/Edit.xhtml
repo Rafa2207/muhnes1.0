@@ -8,11 +8,11 @@
 
     <ui:composition>
 
-        <p:dialog id="DepartamentoTbEditDlg" widgetVar="DepartamentoTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditDepartamentoTbTitle}">
+        <p:dialog id="DepartamentoTbEditDlg" widgetVar="DepartamentoTbEditDialog" modal="true" resizable="false" appendTo="@(body)" header=" Modificar Departamento/Estado:">
             <h:form id="DepartamentoTbEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{departamentoTbController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditDepartamentoTbLabel_CNombre}" for="CNombre" />
+                        <p:outputLabel value="Departamento/Estado:" for="CNombre" />
                         <p:inputText id="CNombre" 
                                      value="#{departamentoTbController.selected.CNombre}" 
                                      title="#{bundle.EditDepartamentoTbTitle_CNombre}"
@@ -30,7 +30,6 @@
                         
                     </p:panelGrid>
                     <p:commandButton actionListener="#{departamentoTbController.update}" value="#{bundle.Save}" update="display,:DepartamentoTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DepartamentoTbEditDialog');"/>
-                    <p:commandButton ajax="true" value="#{bundle.Cancel}" onclick="DepartamentoTbEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

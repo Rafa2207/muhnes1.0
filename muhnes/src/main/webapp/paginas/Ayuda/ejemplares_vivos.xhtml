@@ -7,7 +7,7 @@
 
 
 
-    <p:dialog id="AyudaDlg" widgetVar="AyudaDialog" modal="true" resizable="false" appendTo="@(body)" header="Ayuda ejemplares Vivos" >
+    <p:dialog id="AyudaDlg" widgetVar="AyudaDialog" modal="true" resizable="false" appendTo="@(body)" header="Ayuda ejemplares vivos" >
         <h:form id="AyudaForm" style=" width: 970px; height: 500px">
             <p:tabView>
                 <p:tab title="Administrar" >
@@ -19,22 +19,28 @@
                     </h:panelGrid>
                     <h:panelGrid  columns="2" cellpadding="2" style="text-align: justify;">
                         <p:outputPanel style="width: 430px">
-                            <p><b>1. Nuevo: </b><br/>Registra una nueva unidad.</p>
-                            <p><b>2. Visualizar: </b><br/>Muestra el contenido de la unidad.</p>
+                            <p><b>1. Nuevo: </b><br/>Registra una nuevo ejemplar vivo.</p>
+                            <p><b>2. Visualizar: </b><br/>Muestra el contenido del ejemplar vivo.</p>
+                            <p><b>3. Modificar: </b><br/>Actualiza los datos ingresados anteriormente en el ejemplar.</p>
                         </p:outputPanel>
                         <p:outputPanel style="width: 430px">
-                            <p><b>3. Modificar: </b><br/>Actualiza los datos ingresados anteriormente en la unidad.</p>     
+                            <p><b>4. Dar de baja: </b><br/>Da de baja al ejemplar vivo seleccionado.</p>
+                            <p><b>5. Ver bajas: </b><br/>Muestra las bajas que se han realizado en los ejemplares vivos.</p>
+                            <p><b>5. Ver ejemplares sin existencias: </b><br/>Muestra los ejemplares que se encuentran sin existencias, con la opción de agregar existencias a los ejemplares.</p>
                         </p:outputPanel>
 
                     </h:panelGrid>
                 </p:tab>
                 <p:tab title="1. Nuevo" >
                     <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >
-                        <h:graphicImage library="images" name="ayuda/unidades/nuevo.PNG" width="430px"/>
+                        <h:graphicImage library="images" name="ayuda/ejemplaresv/nuevo.PNG" width="430px"/>
                         <p:outputPanel style="width: 430px">
-                            <p><b>Nombre: </b><br/>Ingrese el nombre de la .</p>
-                            <p><b>Abreviatura: </b><br/>Ingrese la abreviatura de la unidad.</p>
-                            <p><b>Tipo: </b><br/>Seleccione el tipo de unidad, ya sea de Material o Viaje.</p>
+                            <p><b>Nombre: </b><br/>Ingrese el nombre del ejemplar vivo .</p>
+                            <p><b>Descripción: </b><br/>Digite una breve descripción del ejemplar vivo.</p>
+                            <p><b>Fecha: </b><br/>Seleccione la fecha que ingresaron los ejemplares vivos, posteriormente se presentara un pequeño calendario al momento de hacer clic en el campo.</p>
+                            <p><b>Cantidad: </b><br/>Arrastre o ingrese la cantidad de ejemplares.</p>
+                            <p><b>Jardín: </b><br/>Seleccione el jardín que sera asignado para los ejemplares vivos.</p>
+                            <p><b>Taxonomía: </b><br/>En el primer campo, seleccione ya sea Familia, Género, Especie, Subespecie o Variedad. En el segundo campo, seleccione del listado el nombre de lo que anteriormente selecciono en el primer campo.</p>
                             <p><b>Guardar: </b><br/>Almacena a la base de datos la información ingresada en el formulario.</p>
                             <p><b>(X)Cerrar: </b><br/>Cierra el formulario sin almacenar los datos ingresados.</p>
                             <p><b>(*) Campo requerido: </b><br/>Al aparecer este símbolo en alguna etiqueta quiere dar a entender que el campo es requerido u obligatorio. En otras palabras si no es ingresado el dato solicitado en el campo, no se podrá almacenar en la base de datos del sistema.</p>
@@ -44,11 +50,11 @@
                 </p:tab>
                 <p:tab title="2. Visualizar" >
                     <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
-                        <h:graphicImage library="images" name="ayuda/unidades/visualizar.PNG" width="450px"/>
+                        <h:graphicImage library="images" name="ayuda/ejemplaresv/visualizar.PNG" width="450px"/>
                         <p:outputPanel style="width: 430px">
-                            <p><b>Pasos para visualizar la unidad.</b></p>
-                            <p><b>Paso 1: </b><br/>Seleccióne la unidad desea visualizar.</p>
-                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Visualizar</b> para luego hacer clic y ver la información de la unidad seleccionada.</p>
+                            <p><b>Pasos para visualizar el ejemplar.</b></p>
+                            <p><b>Paso 1: </b><br/>Seleccióne el ejemplar que desea visualizar.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Visualizar</b> para luego hacer clic y ver la información del ejemplar seleccionado.</p>
                             <p><b>Paso 3: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b> o <b>Cerrar</b>.</p>
                         </p:outputPanel>
                     </h:panelGrid>
@@ -56,15 +62,98 @@
 
                 <p:tab title="3. Modificar" >
                     <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
-                        <h:graphicImage library="images" name="ayuda/unidades/modificar.PNG" width="390px"/>
+                        <h:graphicImage library="images" name="ayuda/ejemplaresv/modificar.PNG" width="390px"/>
                         <p:outputPanel style="width: 430px">
-                            <p><b>Pasos para modificar los datos de la unidad.</b></p>
-                            <p><b>Paso 1: </b><br/>Seleccióne la unidad que desea modificar o actualizar la información.</p>
-                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Modificar</b>,luego hacer clic y el formulario mostrara los datos de la unidad para que puedan ser editados.</p>
+                            <p><b>Pasos para modificar los datos del ejemplar vivo.</b></p>
+                            <p><b>Paso 1: </b><br/>Seleccióne el ejemplar vivo que desea modificar o actualizar la información.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Modificar</b>,luego hacer clic y el formulario mostrara los datos del ejemplar para que puedan ser editados.</p>
                             <p><b>Paso 3: </b><br/>Realize los cambios que desea y haga clic en el botón <b>Guardar</b>.</p>
                             <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
                         </p:outputPanel>
                     </h:panelGrid>
+                </p:tab>
+                <p:tab title="4. Dar de baja" >
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+                        <h:graphicImage library="images" name="ayuda/ejemplaresv/dardebaja.PNG" width="390px"/>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Pasos realizar la baja de un ejemplar vivo.</b></p>
+                            <p><b>Paso 1: </b><br/>Seleccióne el ejemplar vivo que desea dar de baja.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Dar de baja</b>, luego hacer clic y el formulario aparecera para ingresar los datos solicitados por el sistema.</p>
+                            <p><b>Paso 3: </b><br/>Ingrese los datos solicitados y haga clic en el botón <b>Guardar</b>.</p>
+                            <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="Ver bajas" >
+                    <p:tabView>
+                        <p:tab title="Bajas" >
+                        <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" >     
+                        <p:outputPanel style="width: 900px">
+                            <b>Permite visualizar los ejemplares dados de baja y generar reportes de manera general.</b>
+                        </p:outputPanel>
+                        <h:graphicImage library="images" name="ayuda/ejemplaresv/administrara.PNG" width="900px"/> 
+                    </h:panelGrid>
+                    <h:panelGrid  columns="2" cellpadding="2" style="text-align: justify;">
+                        <p:outputPanel style="width: 430px">
+                            <p><b>1. Visualizar: </b><br/>Muestra el contenido del ejemplar vivo.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                            </p:tab>
+                        <p:tab title="1. Visualizar" >
+                            <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+                                <h:graphicImage library="images" name="ayuda/ejemplaresv/visualizarb.PNG" width="450px"/>
+                                <p:outputPanel style="width: 430px">
+                                    <p><b>Pasos para visualizar el ejemplar.</b></p>
+                                    <p><b>Paso 1: </b><br/>Seleccióne el ejemplar que desea visualizar.</p>
+                                    <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Visualizar</b> para luego hacer clic y ver la información del ejemplar seleccionado.</p>
+                                    <p><b>Paso 3: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b> o <b>Cerrar</b>.</p>
+                                </p:outputPanel>
+                            </h:panelGrid>
+                        </p:tab>     
+                    </p:tabView>
+                </p:tab>
+                <p:tab title="Ver ejemplares sin existencias" >
+                    <p:tabView>
+                        <p:tab title="Ejemplares sin existencias" >
+                        <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" >     
+                        <p:outputPanel style="width: 900px">
+                            <b>Permite visualizar y agregar cantidad a los ejemplares sin existencia, ademas generar reportes de manera general.</b>
+                        </p:outputPanel>
+                        <h:graphicImage library="images" name="ayuda/ejemplaresv/administrare.PNG" width="900px"/> 
+                    </h:panelGrid>
+                    <h:panelGrid  columns="2" cellpadding="2" style="text-align: justify;">
+                        <p:outputPanel style="width: 430px">
+                            <p><b>1. Visualizar: </b><br/>Muestra el contenido del ejemplar vivo.</p>
+                        </p:outputPanel>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>2. Agregar ejemplares: </b><br/>Agrega nuevos ejemplares vivos con las mismas carácteristicas.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                            </p:tab>
+                        <p:tab title="1. Visualizar" >
+                            <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+                                <h:graphicImage library="images" name="ayuda/ejemplaresv/visualizare.PNG" width="450px"/>
+                                <p:outputPanel style="width: 430px">
+                                    <p><b>Pasos para visualizar el ejemplar.</b></p>
+                                    <p><b>Paso 1: </b><br/>Seleccióne el ejemplar que desea visualizar.</p>
+                                    <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Visualizar</b> para luego hacer clic y ver la información del ejemplar seleccionado.</p>
+                                    <p><b>Paso 3: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b> o <b>Cerrar</b>.</p>
+                                </p:outputPanel>
+                            </h:panelGrid>
+                        </p:tab>     
+                        <p:tab title="2. Agregar ejemplares" >
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+                        <h:graphicImage library="images" name="ayuda/ejemplaresv/agregar.PNG" width="390px"/>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Pasos para agregar ejemplares a un ejemplar vivo sin existencias.</b></p>
+                            <p><b>Paso 1: </b><br/>Seleccióne el ejemplar vivo que agregar más ejemplares.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Agregar ejemplares</b>, luego hacer clic.</p>
+                            <p><b>Paso 3: </b><br/>Ingrese o arrastre la cantidad que desea agregar y haga clic en el botón <b>Guardar</b>.</p>
+                            <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+                    </p:tabView>
                 </p:tab>
             </p:tabView>
         </h:form>

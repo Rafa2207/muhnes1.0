@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+
+
+    <p:dialog id="AyudaDlg" widgetVar="AyudaDialog" modal="true" resizable="false" appendTo="@(body)" header="Ayuda Municipios/Provincias" >
+        <h:form id="AyudaForm" style=" width: 970px; height: 500px">
+            <p:tabView>
+                <p:tab title="Administrar" >
+                    <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" >     
+                        <p:outputPanel style="width: 900px">
+                            <b>Permite realizar diferentes acciones en los municipios/provincias como registrar, visualizar y modificar, así como tambien administrar los cantones/distritos.</b>
+                        </p:outputPanel>
+                        <h:graphicImage library="images" name="ayuda/departamentos/administrarm.PNG" width="900px"/> 
+                    </h:panelGrid>
+                    <h:panelGrid  columns="2" cellpadding="2" style="text-align: justify;">
+                        <p:outputPanel style="width: 430px">
+                            <p><b>1. Nuevo: </b><br/>Registra una nuevo municipio/provincia.</p>
+                            <p><b>2. Visualizar: </b><br/>Muestra el contenido del municipio/provincia.</p>
+                        </p:outputPanel>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>3. Modificar: </b><br/>Actualiza los datos ingresados anteriormente del municipio/provincia seleccionado.</p>
+                            <p><b>4. Cantones/Distritos: </b><br/>Permite gestionar(registrar, visualizar y modificar) los cantones/distritos del municipio/provincia seleccionado.</p>
+                        </p:outputPanel>
+
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="1. Nuevo" >
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >
+                        <h:graphicImage library="images" name="ayuda/municipios/nuevo.PNG" width="300px"/>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Municipio/Provincia: </b><br/>Ingrese el nombre del municipio/provincia.</p>
+                            <p><b>Guardar: </b><br/>Almacena a la base de datos la información ingresada en el formulario.</p>
+                            <p><b>(X)Cerrar: </b><br/>Cierra el formulario sin almacenar los datos ingresados.</p>
+                            <p><b>(*) Campo requerido: </b><br/>Al aparecer este símbolo en alguna etiqueta quiere dar a entender que el campo es requerido u obligatorio. En otras palabras si no es ingresado el dato solicitado en el campo, no se podrá almacenar en la base de datos del sistema.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="2. Visualizar" >
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+                        <h:graphicImage library="images" name="ayuda/municipios/visualizar.PNG" width="300px"/>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Pasos para visualizar el municipio/provincia.</b></p>
+                            <p><b>Paso 1: </b><br/>Seleccióne el municipio/provincia que desea visualizar.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Visualizar</b> para luego hacer clic y ver la información del municipio/provincia seleccionado.</p>
+                            <p><b>Paso 3: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b> o <b>Cerrar</b>.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="3. Modificar" >
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+                        <h:graphicImage library="images" name="ayuda/municipios/modificar.PNG" width="300px"/>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Pasos para modificar los datos del municipio/provincia seleccionado.</b></p>
+                            <p><b>Paso 1: </b><br/>Seleccióne el municipio/provincia que desea modificar o actualizar la información.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Modificar</b>, luego hacer clic y el formulario mostrara los datos del municipio/provincia para que puedan ser editados.</p>
+                            <p><b>Paso 3: </b><br/>Realize los cambios que desea y haga clic en el botón <b>Guardar</b>.</p>
+                            <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="4. Cantones/Distritos" >
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >
+                        <h:graphicImage library="images" name="ayuda/municipios/administrarc.PNG" width="900px"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+                        <p:outputPanel style="width: 900px">
+                            <p><b>Pasos para administrar los cantones/distritos del municipio/provincia.</b></p>
+                            <p><b>Paso 1: </b><br/>Seleccióne el municipio/provincia en el que desea administrar los cantones/distritos.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Cantones/Distritos</b>, luego hacer clic y este sera redireccionado a la administracíon de los cantones/distritos.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+
+    </p:dialog>
+
+
+
+</html>

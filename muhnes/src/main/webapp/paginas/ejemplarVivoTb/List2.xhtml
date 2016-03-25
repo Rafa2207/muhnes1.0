@@ -32,10 +32,6 @@
                                        actionListener="#{ejemplarVivoTbController.reporteAll(2)}">
                             <p:graphicImage name="images/pdf-icon.png" height="35px"/>
                         </p:commandLink>
-                        <p:commandLink title="Ayuda" update=":AyudaForm" oncomplete="PF('AyudaDialog').show()" >
-                            <p:graphicImage name="images/ayuda.png" height="35px" />
-                            <f:setPropertyActionListener target="#{controladorSesion.ayuda}" value="Pedido"/>
-                        </p:commandLink>
                     </div>
                     
                     <p:dataTable id="datalist" value="#{ejemplarVivoTbController.items2}" var="item"
