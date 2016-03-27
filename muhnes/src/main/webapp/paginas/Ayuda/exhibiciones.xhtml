@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+
+
+    <p:dialog id="AyudaDlg" widgetVar="AyudaDialog" modal="true" resizable="false" appendTo="@(body)" header="Ayuda exhibiciones" >
+        <h:form id="AyudaForm" style=" width: 970px; height: 500px">
+            <p:tabView>
+                <p:tab title="Administrar" >
+                    <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" >     
+                        <p:outputPanel style="width: 900px">
+                            <b>Permite realizar diferentes acciones en las exhibiciones como registrar, visualizar, modificar, así como tambien generar reportes de manera individual, general o por fechas.</b>
+                        </p:outputPanel>
+                        <h:graphicImage library="images" name="ayuda/exhibiciones/administrar.PNG" width="900px"/> 
+                    </h:panelGrid>
+                    <h:panelGrid  columns="2" cellpadding="2" style="text-align: justify;">
+                        <p:outputPanel style="width: 430px">
+                            <p><b>1. Nuevo: </b><br/>Registra una nueva exhibición.</p>
+                            <p><b>3. Visualizar: </b><br/>Muestra el contenido de la exhibición seleccionada.</p>
+                        </p:outputPanel>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>4. Modificar: </b><br/>Actualiza los datos de la exhibición.</p>     
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="1. Nuevo" >
+                    <p:panelGrid columns="1"  style="text-align: center;"  layout="grid">        
+                        <h:graphicImage library="images" name="ayuda/exhibiciones/nuevo.PNG" width="600px"/>
+                    </p:panelGrid>
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Nombre: </b><br/>Ingrese el nombre de la exhibición.</p>
+                            <p><b>Destino: </b><br/>Ingrese el destino a la que ira dirigida la exhibición.</p>
+                            <p><b>Tipo: </b><br/>Seleccione del listado el tipo de exhibición.</p>
+                            <p><b>Fecha de Préstamo: </b><br/>Seleccione la fecha que se realiza el préstamo, posteriormente se presentara un pequeño calendario al momento de hacer clic en el campo.</p>
+                            <p><b>Fecha de Reingreso: </b><br/>Seleccione la fecha que se devolverán los ejemplares, posteriormente se presentara un pequeño calendario al momento de hacer clic en el campo.</p>
+                            <p><b>Custodio: </b><br/>Seleccione del listado al custodio de la exhibición.</p>
+                            <p><b>Descripción: </b><br/>Ingrese una breve descripción de la exhibición.</p>
+                            <p><b>Solicitante: </b><br/>Ingrese el nombre del solicitante.</p>
+                        </p:outputPanel>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Responsable: </b><br/>Seleccione del listado al responsable de la exhibición.</p>
+                            <p><b>Hora de préstamo: </b><br/>Arrastre para seleccionar la hora de prestamo.</p>
+                            <p><b>Hora de recibido: </b><br/>Arrastre para seleccionar la hora de recibido.</p>
+                            <p><b>Ejemplar: </b><br/>En el primer campo, seleccione ya sea Familia, Género, Especie, Subespecie o Variedad. En el segundo campo, seleccione del listado el nombre de lo que anteriormente selecciono en el primer campo. En el tercer campo seleccione el código.</p>
+                            <p><b>Guardar: </b><br/>Almacena a la base de datos la información ingresada en el formulario.</p>
+                            <p><b>(X)Cerrar: </b><br/>Cierra el formulario sin almacenar los datos ingresados.</p>
+                            <p><b>(*) Campo requerido: </b><br/>Al aparecer este símbolo en alguna etiqueta quiere dar a entender que el campo es requerido u obligatorio. En otras palabras si no es ingresado el dato solicitado en el campo, no se podrá almacenar en la base de datos del sistema.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+
+                </p:tab>
+                               <p:tab title="2. Visualizar" >
+                    <p:panelGrid columns="1"  style="text-align: center;"  layout="grid">        
+                        <h:graphicImage library="images" name="ayuda/exhibiciones/visualizar.PNG" width="400px"/>
+                    </p:panelGrid>
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+                        <p:outputPanel style="width: 900px">
+                            <p><b>Pasos para visualizar la exhibición.</b></p>
+                            <p><b>Paso 1: </b><br/>Seleccióne la exhibición que desea visualizar.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Visualizar</b> para luego hacer clic y ver la información de la exhibición seleccionada.</p>
+                            <p><b>Paso 3: </b><br/>Si desea generar reporte debera dar clic en el botón <b>Reporte préstamo</b>.</p>
+                            <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b> o <b>Cerrar</b>.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+
+                <p:tab title="3. Modificar" >
+                    <p:panelGrid columns="1"  style="text-align: center;"  layout="grid">        
+                        <h:graphicImage library="images" name="ayuda/exhibiciones/modificar.PNG" width="600px"/>
+                    </p:panelGrid>
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+                        <p:outputPanel style="width: 900px">
+                            <p><b>Pasos para modificar la exhibición.</b></p>
+                            <p><b>Paso 1: </b><br/>Seleccióne la exhibición que desea modificar.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Modificar</b>,luego hacer clic y el formulario mostrara los datos de la exhibición para que puedan ser editados. Además en la parte de los ejemplares, pueden quitarse haciendo clic en el icono del <b>Bote de basura</b>.</p>
+                            <p><b>Paso 3: </b><br/>Realize los cambios que desea y haga clic en el botón <b>Guardar</b>.</p>
+                            <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+
+    </p:dialog>
+
+
+
+</html>

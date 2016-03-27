@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+
+
+    <p:dialog id="AyudaDlg" widgetVar="AyudaDialog" modal="true" resizable="false" appendTo="@(body)" header="Ayuda control de exhibiciones" >
+        <h:form id="AyudaForm" style=" width: 970px; height: 500px">
+            <p:tabView>
+                <p:tab title="Administrar" >
+                    <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" >     
+                        <p:outputPanel style="width: 900px">
+                            <b>Permite realizar diferentes acciones sobre el control de las exhibiciónes como reingreso, actualizar reingreso y visualizar.</b>
+                        </p:outputPanel>
+                        <h:graphicImage library="images" name="ayuda/controle/administrar.PNG" width="900px"/> 
+                    </h:panelGrid>
+                    <h:panelGrid  columns="2" cellpadding="2" style="text-align: justify;">
+                        <p:outputPanel style="width: 430px">
+                            <p><b>1. Reingreso: </b><br/>Registra el reingreso de los ejemplares que fueron prestados en la exhibición.</p>
+                            <p><b>2. Actualizar reingreso: </b><br/>Actualiza los datos del reingreso de los ejemplares.</p>     
+                        </p:outputPanel>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>3. Visualizar: </b><br/>Muestra los datos del reingreso.</p>
+                        </p:outputPanel>
+
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="1. Reingreso" >
+                    <p:panelGrid columns="1"  style="text-align: center;"  layout="grid">        
+                        <h:graphicImage library="images" name="ayuda/controle/reingreso.PNG" width="450px"/>
+                    </p:panelGrid>
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Observaciónes: </b><br/>Ingrese las observaciones pertinentes sobre la devolución de los ejemplares.</p>
+                            <p><b>Fecha de recibido: </b><br/>Seleccione la fecha que se reciben los ejemplares devueltos, posteriormente se presentara un pequeño calendario al momento de hacer clic en el campo.</p>
+                            <p><b>Hora de recibido: </b><br/>Arrastre para seleccionar la hora de recibido.</p>
+                        </p:outputPanel>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Estado del ejemplar: </b><br/>Seleccione del listado el estado que se devuelve el ejemplar.</p>                            
+                            <p><b>Guardar: </b><br/>Almacena a la base de datos la información ingresada en el formulario.</p>
+                            <p><b>(X)Cerrar: </b><br/>Cierra el formulario sin almacenar los datos ingresados.</p>
+                            <p><b>(*) Campo requerido: </b><br/>Al aparecer este símbolo en alguna etiqueta quiere dar a entender que el campo es requerido u obligatorio. En otras palabras si no es ingresado el dato solicitado en el campo, no se podrá almacenar en la base de datos del sistema.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+
+                </p:tab>
+
+                <p:tab title="2. Actualizar reingreso" >
+                    <p:panelGrid columns="1"  style="text-align: center;"  layout="grid">        
+                        <h:graphicImage library="images" name="ayuda/controle/actualizar.PNG" width="450px"/>
+                    </p:panelGrid>
+                    <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" >     
+                        <p:outputPanel style="width: 900px">
+                            <p><b>Pasos para modificar los datos del reingreso.</b></p>
+                            <p><b>Paso 1: </b><br/>Seleccióne la exhibición que desea modificar o actualizar la información.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Actualizar reingreso</b>, luego hacer clic y el formulario mostrara los datos del reingreso de la exhibición para que puedan ser editados.</p>
+                            <p><b>Paso 3: </b><br/>Realize los cambios que desea y haga clic en el botón <b>Guardar</b>.</p>
+                            <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+                
+                <p:tab title="3. Visualizar" >
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+                        <h:graphicImage library="images" name="ayuda/controle/visualizar.PNG" width="400px"/>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Pasos para visualizar los datos del reingreso.</b></p>
+                            <p><b>Paso 1: </b><br/>Seleccióne la exhibición que desea visualizar.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Visualizar</b> para luego hacer clic y ver la información de la exhibición seleccionada.</p>
+                            <p><b>Paso 3: </b><br/>Si desea generar reporte debera dar clic ya sea en el botón <b>Reporte préstamo</b> o <b>Reporte reingreso</b>.</p>
+                            <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+
+    </p:dialog>
+
+
+
+</html>

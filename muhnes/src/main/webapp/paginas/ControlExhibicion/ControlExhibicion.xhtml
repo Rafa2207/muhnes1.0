@@ -28,6 +28,12 @@
 
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ExhibicionTbViewForm" oncomplete="PF('ExhibicionTbViewDialog').show()" disabled="#{empty exhibicionTbController.selected}"/>
 
+                    <div  style="float: right">
+                        <p:commandLink title="Ayuda" update=":AyudaForm" oncomplete="PF('AyudaDialog').show()" >
+                            <p:graphicImage name="images/ayuda.png" height="35px" />
+                            <f:setPropertyActionListener target="#{controladorSesion.ayuda}" value="proyecto"/>
+                        </p:commandLink>
+                    </div>
                     <p:dataTable id="datalist" value="#{exhibicionTbController.itemsControlExhibiciones}" var="item"
                                  selectionMode="single" selection="#{exhibicionTbController.selected}"
                                  paginator="true"
@@ -107,6 +113,7 @@
             <ui:include src="../exhibicionTb/View.xhtml"/>
             <ui:include src="Recibir.xhtml"/>
             <ui:include src="RecibirUpdate.xhtml"/>
+            <ui:include src="../Ayuda/controle.xhtml"/>
         </ui:define>
     </ui:composition>
 
