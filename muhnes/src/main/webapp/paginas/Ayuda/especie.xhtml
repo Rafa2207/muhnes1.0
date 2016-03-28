@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+
+
+    <p:dialog id="AyudaDlg" widgetVar="AyudaDialog" modal="true" resizable="false" appendTo="@(body)" header="Ayuda especie" >
+        <h:form id="AyudaForm" style=" width: 970px; height: 500px">
+            <p:tabView>
+                <p:tab title="Administrar" >
+                    <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" >     
+                        <p:outputPanel style="width: 900px">
+                            <b>Permite realizar diferentes acciones en las especies como registrar, visualizar y modificar, así como tambien administrar las subespecies y variedades. Ademas podrá generar reportes de manera individual o general.</b>
+                        </p:outputPanel>
+                        <h:graphicImage library="images" name="ayuda/generos/administrares.PNG" width="900px"/> 
+                    </h:panelGrid>
+                    <h:panelGrid  columns="2" cellpadding="2" style="text-align: justify;">
+                        <p:outputPanel style="width: 430px">
+                            <p><b>1. Nuevo: </b><br/>Registra una nueva especie.</p>
+                            <p><b>2. Visualizar: </b><br/>Muestra el contenido de la especie.</p>
+                        </p:outputPanel>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>3. Modificar: </b><br/>Actualiza los datos ingresados anteriormente de la especie seleccionada.</p>
+                            <p><b>4. Subespecie: </b><br/>Permite gestionar(registrar, visualizar y modificar) las subespecies de la especie seleccionada.</p>
+                            <p><b>5. Variedad: </b><br/>Permite gestionar(registrar, visualizar y modificar) las variedades de la especie seleccionada.</p>
+                        </p:outputPanel>
+
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="1. Nuevo" >
+                    <p:panelGrid columns="1"  style="text-align: center;"  layout="grid">        
+                        <h:graphicImage library="images" name="ayuda/especies/nuevo.PNG" width="600px"/>
+                    </p:panelGrid>
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Género: </b><br/>Nombre del género al que pertenece la especie.</p>
+                            <p><b>Nombre: </b><br/>Ingrese el nombre de la especie.</p>
+                            <p><b>Estado taxonómico: </b><br/>Seleccione del listado uno de los cuatro estados(Aceptado, Temporal, Sinónimo, En Desuso).</p>
+                            <p><b>Autores: </b><br/>En el primer campo seleccione del listado el nombre del autor. En el segundo campo seleccione el conector. En el tercer campo marque en el recuadro si es autor basonimio, en caso contrario dejarlo vacio.</p>
+                            <p><b>Nombres comunes: </b><br/>En el primer campo ingrese el o los nombres comunes que le denominan a la especie. En el segundo campo seleccione el idioma con que se le denomina el nombre común.</p>
+                        </p:outputPanel>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Imágenes: </b><br/>Para agregar una imágen a la especie, hacer clic en el botón <b>Seleccionar imágen</b> para luego elegir la imágen y hacer clic en el botón <b>Subir</b>.</p>
+                            <p><b>Guardar: </b><br/>Almacena a la base de datos la información ingresada en el formulario.</p>
+                            <p><b>(X)Cerrar: </b><br/>Cierra el formulario sin almacenar los datos ingresados.</p>
+                            <p><b>(*) Campo requerido: </b><br/>Al aparecer este símbolo en alguna etiqueta quiere dar a entender que el campo es requerido u obligatorio. En otras palabras si no es ingresado el dato solicitado en el campo, no se podrá almacenar en la base de datos del sistema.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+
+                </p:tab>
+                <p:tab title="2. Visualizar" >
+                    <p:panelGrid columns="1"  style="text-align: center;"  layout="grid">        
+                        <h:graphicImage library="images" name="ayuda/especies/visualizar.PNG" width="400px"/>
+                    </p:panelGrid>
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+                        <p:outputPanel style="width: 900px">
+                            <p><b>Pasos para visualizar la especie.</b></p>
+                            <p><b>Paso 1: </b><br/>Seleccióne la especie que desea visualizar.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Visualizar</b> para luego hacer clic y ver la información de la especie seleccionada.</p>
+                            <p><b>Paso 3: </b><br/>Si desea generar reporte debera dar clic en el botón <b>Reporte</b>.</p>
+                            <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+
+                <p:tab title="3. Modificar" >
+                    <p:panelGrid columns="1"  style="text-align: center;"  layout="grid">        
+                        <h:graphicImage library="images" name="ayuda/especies/modificar.PNG" width="600px"/>
+                    </p:panelGrid>
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+                        <p:outputPanel style="width: 900px">
+                            <p><b>Pasos para modificar la especie.</b></p>
+                            <p><b>Paso 1: </b><br/>Seleccióne la especie que desea modificar.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Modificar</b>,luego hacer clic y el formulario mostrara los datos de la especie para que puedan ser editados. Además en la parte de los autores, nombres comunes y imagenes, pueden editarse haciendo clic en el icono del <b>Lápiz</b> o quitarse haciendo clic en el icono del <b>Bote de basura</b>.</p>
+                            <p><b>Paso 3: </b><br/>Realize los cambios que desea y haga clic en el botón <b>Guardar</b>.</p>
+                            <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="4. Subespecie" >
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >
+                        <h:graphicImage library="images" name="ayuda/especies/administrars.PNG" width="900px"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+                        <p:outputPanel style="width: 900px">
+                            <p><b>Pasos para administrar las subespecies de la especie.</b></p>
+                            <p><b>Paso 1: </b><br/>Seleccióne la especie en el que desea administrar las subespecies.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Subespecie</b>, luego hacer clic y este sera redireccionado a la administracíon de las subespecies.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="5. Variedad" >
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >
+                        <h:graphicImage library="images" name="ayuda/especies/administrarv.PNG" width="900px"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+                        <p:outputPanel style="width: 900px">
+                            <p><b>Pasos para administrar las variedades de la subespecie.</b></p>
+                            <p><b>Paso 1: </b><br/>Seleccióne la especie en el que desea administrar las variedades.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Variedad</b>, luego hacer clic y este sera redireccionado a la administracíon de las variedades.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+
+    </p:dialog>
+
+
+
+</html>

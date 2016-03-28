@@ -13,7 +13,7 @@
                 <h:panelGroup id="display">
                     <p:fieldset legend="Especie">
                         <p:panelGrid  style="width: 780px" columns="6" rendered="#{taxonomiaTbController.selected != null}">
-                            <p:outputLabel value="Genero: " for="genero" />
+                            <p:outputLabel value="Género: " for="genero" />
                             <p:outputLabel style="font-weight: bold" id="genero" value="#{controladorSesion.genero.CNombre}" title="#{bundle.CreateEspecieTbTitle_CNombre}"/>
                             <p:outputLabel value="#{bundle.CreateEspecieTbLabel_CNombre}" for="CNombre" />
                             <p:inputText id="CNombre" value="#{taxonomiaTbController.selected.CNombre}" title="#{bundle.CreateEspecieTbTitle_CNombre}" required="true" requiredMessage="Introduzca un nombre" />

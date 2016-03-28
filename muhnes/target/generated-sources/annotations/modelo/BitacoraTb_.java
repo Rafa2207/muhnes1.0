@@ -6,7 +6,7 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import modelo.UsuarioTb;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2016-03-24T16:55:14")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2016-03-28T12:39:05")
 @StaticMetamodel(BitacoraTb.class)
 public class BitacoraTb_ { 
 
