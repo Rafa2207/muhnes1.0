@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="AgenteTbViewDlg" widgetVar="AgenteTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewAgenteTbTitle}">
+        <p:dialog id="AgenteTbViewDlg" widgetVar="AgenteTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="Visualizar Agente">
             <h:form id="AgenteTbViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="4" rendered="#{agenteTbController.selected != null}" style="width: 500px">
@@ -67,7 +67,7 @@
 
                     </p:panelGrid>
                     <h:form target="_blank">
-                        <p:commandButton value="Imprimir Reporte" actionListener="#{agenteTbController.reporteseleccionadocv}" ajax="false"
+                        <p:commandButton value="Reporte" actionListener="#{agenteTbController.reporteseleccionadocv}" ajax="false"
                                          onclick="this.form.target='_blank'"/>
                     </h:form>
                 </h:panelGroup>

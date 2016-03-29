@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+
+
+    <p:dialog id="AyudaDlg" widgetVar="AyudaDialog" modal="true" resizable="false" appendTo="@(body)" header="Ayuda usuario" >
+        <h:form id="AyudaForm" style=" width: 970px; height: 500px">
+            <p:tabView>
+                <p:tab title="Administrar" >
+                    <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" >     
+                        <p:outputPanel style="width: 900px">
+                            <b>Permite realizar diferentes acciones en los usuarios como registrar, visualizar y modificar, así como tambien podrá generar reportes de manera general.</b>
+                        </p:outputPanel>
+                        <h:graphicImage library="images" name="ayuda/usuarios/administrar.PNG" width="900px"/> 
+                    </h:panelGrid>
+                    <h:panelGrid  columns="2" cellpadding="2" style="text-align: justify;">
+                        <p:outputPanel style="width: 430px">
+                            <p><b>1. Nuevo: </b><br/>Registra un nuevo usuario.</p>
+                            <p><b>2. Visualizar: </b><br/>Muestra el contenido del usuario.</p>
+                            <p><b>3. Modificar: </b><br/>Actualiza los datos ingresados anteriormente del usuario seleccionado.</p>
+                        </p:outputPanel>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>4. Dar de Baja: </b><br/>Cambiar el estado del usuario activo a inactivo.</p>
+                            <p><b>5. Usuarios Inactivos: </b><br/>Muestra el listado de usuarios inactivos, ademas permite reestablecer el estado del usuario a activo.</p>
+                        </p:outputPanel>
+
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="1. Nuevo" >
+                    <p:panelGrid columns="1"  style="text-align: center;"  layout="grid">        
+                        <h:graphicImage library="images" name="ayuda/usuarios/nuevo.PNG" width="400px"/>
+                    </p:panelGrid>
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+
+                        <p:outputPanel style="width: 430px">                            
+                            <p><b>Nombre: </b><br/>Ingrese el nombre de la persona que utilizará el usuario.</p>
+                            <p><b>Apellido: </b><br/>Ingrese el apellido de la persona que utilizará el usuario.</p>
+                            <p><b>Email: </b><br/>Ingrese el correo del usuario.</p>
+                            <p><b>Nombre de usuario: </b><br/>Ingrese el nombre que le asignará al usuario.</p>
+                            <p><b>Contraseña: </b><br/>Ingrese la contraseña que le asignará al usuario, esta deberá llevar signos, numeros y letras para una mayor seguridad.</p>
+                            <p><b>Repita contraseña: </b><br/>Ingrese nuevamente la contraseña.</p>
+                        </p:outputPanel>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>DUI: </b><br/>Ingrese el DUI solamente si la persona es mayor de 18 años.</p>
+                            <p><b>Tipo: </b><br/>Seleccione el tipo de usuario. En el sistema existen dos tipos de usuarios: Administrador, permite acceder a todo el sistema completo; Digitador, permite acceder solamente al registro de ejemplares y localizaciones.</p>
+                            <p><b>Guardar: </b><br/>Almacena a la base de datos la información ingresada en el formulario.</p>
+                            <p><b>(X)Cerrar: </b><br/>Cierra el formulario sin almacenar los datos ingresados.</p>
+                            <p><b>(*) Campo requerido: </b><br/>Al aparecer este símbolo en alguna etiqueta quiere dar a entender que el campo es requerido u obligatorio. En otras palabras si no es ingresado el dato solicitado en el campo, no se podrá almacenar en la base de datos del sistema.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+
+                </p:tab>
+                <p:tab title="2. Visualizar" >
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >
+                        <h:graphicImage library="images" name="ayuda/usuarios/visualizar.PNG" width="350px"/>                        
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Pasos para visualizar el contenido del usuario.</b></p>
+                            <p><b>Paso 1: </b><br/>Seleccióne el usuario que desea visualizar.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Visualizar</b> para luego hacer clic y ver la información del usuario seleccionado.</p>
+                            <p><b>Paso 3: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+
+                <p:tab title="3. Modificar" >
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >            
+                        <h:graphicImage library="images" name="ayuda/usuarios/modificar.PNG" width="400px"/>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Pasos para modificar el usuario.</b></p>
+                            <p><b>Paso 1: </b><br/>Seleccióne el usuario que desea modificar.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Modificar</b>, luego hacer clic y el formulario mostrara los datos del usuario para que puedan ser editados.</p>
+                            <p><b>Paso 3: </b><br/>Realize los cambios que desea y haga clic en el botón <b>Guardar</b>.</p>
+                            <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="4. Dar de baja" >
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;">           
+                        <h:graphicImage library="images" name="ayuda/usuarios/dar.PNG" width="300px"/>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Pasos para dar de baja al usuario.</b></p>
+                            <p><b>Paso 1: </b><br/>Seleccióne el usuario que desea dar de baja.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Dar de Baja</b>, luego hacer clic y el formulario mostrara un mensaje.</p>
+                            <p><b>Paso 3: </b><br/>Hacer clic en el botón <b>Si</b>, caso contrario hacer clic en el botón <b>No</b>.</p>
+                            <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="5. Usuarios Inactivos" >
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >
+                        <h:graphicImage library="images" name="ayuda/usuarios/administraru.PNG" width="900px"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+                        <p:outputPanel style="width: 900px">
+                            <p><b>Paso para administrar los usuarios inactivos.</b></p>
+                            <p><b>Paso 1: </b><br/>Hacer clic en el botón <b>Usuarios Inactivos</b>, para dirigirse a los usuarios que se encuentran inactivos.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+
+    </p:dialog>
+
+
+
+</html>

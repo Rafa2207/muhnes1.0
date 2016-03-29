@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+
+
+    <p:dialog id="AyudaDlg" widgetVar="AyudaDialog" modal="true" resizable="false" appendTo="@(body)" header="Ayuda usuario inactivo" >
+        <h:form id="AyudaForm" style=" width: 970px; height: 500px">
+            <p:tabView>
+                <p:tab title="Administrar" >
+                    <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" >     
+                        <p:outputPanel style="width: 900px">
+                            <b>Permite realizar diferentes acciones en los usuarios inactivos como visualizar y dar de alta, así como tambien podrá generar reportes de manera general.</b>
+                        </p:outputPanel>
+                        <h:graphicImage library="images" name="ayuda/usuarios/administraru.PNG" width="900px"/> 
+                    </h:panelGrid>
+                    <h:panelGrid  columns="2" cellpadding="2" style="text-align: justify;">
+                        <p:outputPanel style="width: 430px">
+                            <p><b>1. Visualizar: </b><br/>Muestra el contenido del usuario.</p>
+                        </p:outputPanel>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>2. Dar de Alta: </b><br/>Cambia el estado del usuario inactivo a activo.</p>
+                        </p:outputPanel>
+
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="1. Visualizar" >
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >
+                        <h:graphicImage library="images" name="ayuda/usuariosi/visualizar.PNG" width="350px"/>                        
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Pasos para visualizar el contenido del usuario inactivo.</b></p>
+                            <p><b>Paso 1: </b><br/>Seleccióne el usuario inactivo que desea visualizar.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Visualizar</b> para luego hacer clic y ver la información del usuario inactivo seleccionado.</p>
+                            <p><b>Paso 3: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="2. Dar de baja" >
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;">           
+                        <h:graphicImage library="images" name="ayuda/usuariosi/alta.PNG" width="300px"/>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Pasos para dar de baja al usuario.</b></p>
+                            <p><b>Paso 1: </b><br/>Seleccióne el usuario que desea dar de alta.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Dar de Alta</b>, luego hacer clic y el formulario mostrara un mensaje.</p>
+                            <p><b>Paso 3: </b><br/>Hacer clic en el botón <b>Si</b>, caso contrario hacer clic en el botón <b>No</b>.</p>
+                            <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+
+    </p:dialog>
+
+
+
+</html>

@@ -11,7 +11,7 @@
         <p:dialog id="PerfilTbViewDlg" widgetVar="PerfilTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPerfilTbTitle}">
             <h:form id="PerfilTbViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{perfilTbController.selected != null}">
+                    <p:panelGrid columns="2" rendered="#{perfilTbController.selected != null}"  style="width: 450px;text-align: justify">
                         <h:outputText value="#{bundle.ViewPerfilTbLabel_CNombre}"/>
                         <h:outputText value="#{perfilTbController.selected.CNombre}" title="#{bundle.ViewPerfilTbTitle_CNombre}"/>
                        
