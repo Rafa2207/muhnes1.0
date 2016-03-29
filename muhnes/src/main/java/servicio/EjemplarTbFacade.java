@@ -64,7 +64,7 @@ public class EjemplarTbFacade extends AbstractFacade<EjemplarTb> {
         query.setParameter("recol", recolector);
         return query.getResultList();
     }
-
+    
     public List<AgenteIdentificaEjemplarTb> ejemplarIdentificador(Integer ejemplar, String identificador) {
 
         TypedQuery<AgenteIdentificaEjemplarTb> query = em.createQuery("SELECT p FROM AgenteIdentificaEjemplarTb p WHERE p.ejemplarTb.eIdejemplar=:h AND p.agenteIdentificaEjemplarTbPK.cTipo=:ident ORDER BY P.eSecuencia", AgenteIdentificaEjemplarTb.class);
@@ -72,7 +72,7 @@ public class EjemplarTbFacade extends AbstractFacade<EjemplarTb> {
         query.setParameter("ident", identificador);
         return query.getResultList();
     }
-
+    
     public List<EjemplarTb> EjemplarOrdenAsc() {
         TypedQuery<EjemplarTb> query = em.createQuery("SELECT p FROM EjemplarTb p ORDER BY p.cCodigoentrada ASC", EjemplarTb.class);
         return query.getResultList();
