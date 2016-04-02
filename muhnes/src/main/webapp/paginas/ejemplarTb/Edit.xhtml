@@ -47,6 +47,8 @@
                                                    var="taxon"
                                                    itemLabel="#{taxon.CNombre}"
                                                    itemValue="#{taxon}"/>
+                                    <p:ajax event="change" listener="#{ejemplarTbController.llenarNombreComun()}" 
+                                        process="fTaxon" update=":EjemplarTbEditForm:detalleEjemplar:nombreC" />
                                 </p:selectOneMenu>
                             </h:panelGroup>
                             <p:outputLabel value="#{bundle.EditEjemplarTbLabel_CCalificativo}" for="CCalificativo" />
