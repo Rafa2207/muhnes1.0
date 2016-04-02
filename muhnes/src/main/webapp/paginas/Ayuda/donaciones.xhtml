@@ -7,7 +7,7 @@
 
 
 
-    <p:dialog id="AyudaDlg" widgetVar="AyudaDialog" modal="true" resizable="false" appendTo="@(body)" header="Ayuda donaciones" >
+    <p:dialog id="AyudaDlg" widgetVar="AyudaDialog" modal="true" resizable="false" appendTo="@(body)" header="Ayuda Donaciones" >
         <h:form id="AyudaForm" style=" width: 970px; height: 500px">
             <p:tabView>
                 <p:tab title="Administrar" >
@@ -20,7 +20,7 @@
                     <h:panelGrid  columns="2" cellpadding="2" style="text-align: justify;">
                         <p:outputPanel style="width: 430px">
                             <p><b>1. Nuevo: </b><br/>Registra una nueva donacion.</p>
-                            <p><b>2. Visualizar: </b><br/>Muestra el contenido de la donación.</p>
+                            <p><b>2. Visualizar: </b><br/>Muestra el contenido de la donación, además permite generar reporte individual.</p>
                         </p:outputPanel>
                         <p:outputPanel style="width: 430px">
                             <p><b>3. Modificar: </b><br/>Actualiza los datos ingresados anteriormente la donación seleccionada.</p>
@@ -45,10 +45,11 @@
                     <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
                         <h:graphicImage library="images" name="ayuda/donaciones/visualizar.PNG" width="450px"/>
                         <p:outputPanel style="width: 430px">
-                            <p><b>Pasos para visualizar la donación.</b></p>
-                            <p><b>Paso 1: </b><br/>Seleccióne la donación que desea visualizar.</p>
-                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Visualizar</b> para luego hacer clic y ver la información de la donación seleccionado.</p>
-                            <p><b>Paso 3: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b> o <b>Cerrar</b>.</p>
+                            <p><b>Pasos para visualizar el contenido de la donación.</b></p>
+                            <p><b>Paso 1: </b><br/>Seleccione la donación que desea visualizar.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitará el botón <b>Visualizar</b> para luego hacer clic y ver la información de la donación seleccionada.</p>
+                            <p><b>Paso 3: </b><br/>Si desea generar reporte debera dar clic en el botón <b>Reporte</b>.</p>
+                            <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
                         </p:outputPanel>
                     </h:panelGrid>
                 </p:tab>
@@ -57,8 +58,8 @@
                         <h:graphicImage library="images" name="ayuda/donaciones/modificar.PNG" width="390px"/>
                         <p:outputPanel style="width: 430px">
                             <p><b>Pasos para modificar los datos de la donación seleccionada.</b></p>
-                            <p><b>Paso 1: </b><br/>Seleccióne la donación que desea modificar o actualizar la información.</p>
-                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Modificar</b>, luego hacer clic y el formulario mostrara los datos de la donación para que puedan ser editados.</p>
+                            <p><b>Paso 1: </b><br/>Seleccione la donación que desea modificar o actualizar la información.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitará el botón <b>Modificar</b>, luego hacer clic y el formulario mostrara los datos de la donación para que puedan ser editados.</p>
                             <p><b>Paso 3: </b><br/>Realize los cambios que desea y haga clic en el botón <b>Guardar</b>.</p>
                             <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
                         </p:outputPanel>

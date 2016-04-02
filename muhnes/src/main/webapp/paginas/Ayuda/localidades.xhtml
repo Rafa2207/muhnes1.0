@@ -3,81 +3,85 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
 
 
-    <p:dialog id="AyudaDlg" widgetVar="AyudaDialog" modal="true" resizable="false" appendTo="@(body)" header="Ayuda localidades" >
+    <p:dialog id="AyudaDlg" widgetVar="AyudaDialog" modal="true" resizable="false" appendTo="@(body)" header="Ayuda Localidades" >
         <h:form id="AyudaForm" style=" width: 970px; height: 500px">
-            <p:tabView>
-                <p:tab title="Administrar" >
-                    <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" >     
-                        <p:outputPanel style="width: 900px">
-                            <b>Permite realizar diferentes acciones sobre las localidades como registrar, visualizar, modificar y generar reportes de manera individual o general.</b>
-                        </p:outputPanel>
-                        <h:graphicImage library="images" name="ayuda/localidades/administrar.PNG" width="900px"/> 
-                    </h:panelGrid>
-                    <h:panelGrid  columns="2" cellpadding="2" style="text-align: justify;">
-                        <p:outputPanel style="width: 430px">
-                            <p><b>1. Nuevo: </b><br/>Registra una nueva localidad.</p>
-                            <p><b>2. Visualizar: </b><br/>Muestra el contenido de la localidad.</p>
-                        </p:outputPanel>
-                        <p:outputPanel style="width: 430px">
-                            <p><b>3. Modificar: </b><br/>Actualiza los datos ingresados anteriormente en la localidad.</p>     
-                        </p:outputPanel>
+            <c:if test="#{request.isUserInRole('Administrador') or request.isUserInRole('Digitador')}">
+                <p:tabView>
+                    <p:tab title="Administrar" >
+                        <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" >     
+                            <p:outputPanel style="width: 900px">
+                                <b>Permite realizar diferentes acciones sobre las localidades como registrar, visualizar, modificar y generar reportes de manera individual o general.</b>
+                            </p:outputPanel>
+                            <h:graphicImage library="images" name="ayuda/localidades/administrar.PNG" width="900px"/> 
+                        </h:panelGrid>
+                        <h:panelGrid  columns="2" cellpadding="2" style="text-align: justify;">
+                            <p:outputPanel style="width: 430px">
+                                <p><b>1. Nuevo: </b><br/>Registra una nueva localidad.</p>
+                                <p><b>2. Visualizar: </b><br/>Muestra el contenido de la localidad, además permite generar reporte individual.</p>
+                            </p:outputPanel>
+                            <p:outputPanel style="width: 430px">
+                                <p><b>3. Modificar: </b><br/>Actualiza los datos ingresados anteriormente en la localidad.</p>     
+                            </p:outputPanel>
 
-                    </h:panelGrid>
-                </p:tab>
-                <p:tab title="1. Nuevo" >
-                    <p:panelGrid columns="1"  style="text-align: center;"  layout="grid">        
-                        <h:graphicImage library="images" name="ayuda/localidades/nuevo.PNG" width="600px"/>
-                    </p:panelGrid>
-                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >
-                        <p:outputPanel style="width: 430px">
-                            <p><b>Nombre: </b><br/>Ingrese el nombre de la área protegida .</p>
-                            <p><b>Descripción: </b><br/>Ingrese una breve descripción de la área protegida.</p>
-                            <p><b>Latitud: </b><br/>Ingrese los grados, minutos, segundos de la latitud y el sistema generara la latitud decimal de la nueva área protegida.</p>
-                            <p><b>Longitud: </b><br/>Ingrese los grados, minutos, segundos de la longitud y el sistema generara la longitud decimal de la nueva área protegida.</p>
-                            <p><b>Altitud: </b><br/>Ingrese la altitud en la que se encuentra la localidad.</p>
-                        </p:outputPanel>
-                        <p:outputPanel style="width: 430px">
-                             <p><b>Cantón/Distrito: </b><br/>Seleccione el cantón/distrito que se encuentra la localidad.</p>
-                            <p><b>Área protegida: </b><br/>Seleccione la área protegida que se ubica la localidad, caso contrario seleccione la localidad como área no protegida.</p>
-                            <p><b>Guardar: </b><br/>Almacena a la base de datos la información ingresada en el formulario.</p>
-                            <p><b>(X)Cerrar: </b><br/>Cierra el formulario sin almacenar los datos ingresados.</p>
-                            <p><b>(*) Campo requerido: </b><br/>Al aparecer este símbolo en alguna etiqueta quiere dar a entender que el campo es requerido u obligatorio. En otras palabras si no es ingresado el dato solicitado en el campo, no se podrá almacenar en la base de datos del sistema.</p>
-                        </p:outputPanel>
-                    </h:panelGrid>
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="1. Nuevo" >
+                        <p:panelGrid columns="1"  style="text-align: center;"  layout="grid">        
+                            <h:graphicImage library="images" name="ayuda/localidades/nuevo.PNG" width="600px"/>
+                        </p:panelGrid>
+                        <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >
+                            <p:outputPanel style="width: 430px">
+                                <p><b>Nombre: </b><br/>Ingrese el nombre de la área protegida .</p>
+                                <p><b>Descripción: </b><br/>Ingrese una breve descripción de la área protegida.</p>
+                                <p><b>Latitud: </b><br/>Ingrese los grados, minutos, segundos de la latitud y el sistema generará la latitud decimal de la nueva área protegida.</p>
+                                <p><b>Longitud: </b><br/>Ingrese los grados, minutos, segundos de la longitud y el sistema generará la longitud decimal de la nueva área protegida.</p>
+                                <p><b>Altitud: </b><br/>Ingrese la altitud en la que se encuentra la localidad.</p>
+                            </p:outputPanel>
+                            <p:outputPanel style="width: 430px">
+                                <p><b>Cantón/Distrito: </b><br/>Seleccione el cantón/distrito que se encuentra la localidad.</p>
+                                <p><b>Área protegida: </b><br/>Seleccione la área protegida que se ubica la localidad, caso contrario seleccione la localidad como área no protegida.</p>
+                                <p><b>Guardar: </b><br/>Almacena a la base de datos la información ingresada en el formulario.</p>
+                                <p><b>(X)Cerrar: </b><br/>Cierra el formulario sin almacenar los datos ingresados.</p>
+                                <p><b>(*) Campo requerido: </b><br/>Al aparecer este símbolo en alguna etiqueta quiere dar a entender que el campo es requerido u obligatorio. En otras palabras si no es ingresado el dato solicitado en el campo, no se podrá almacenar en la base de datos del sistema.</p>
+                            </p:outputPanel>
+                        </h:panelGrid>
 
-                </p:tab>
-                <p:tab title="2. Visualizar" >
-                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
-                        <h:graphicImage library="images" name="ayuda/localidades/visualizar.PNG" width="400px"/>
-                        <p:outputPanel style="width: 430px">
-                            <p><b>Pasos para visualizar la localidad.</b></p>
-                            <p><b>Paso 1: </b><br/>Seleccióne la localidad que desea visualizar.</p>
-                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Visualizar</b> para luego hacer clic y ver la información de la localidad seleccionada.</p>
-                            <p><b>Paso 3: </b><br/>Si desea generar reporte debera dar clic ya sea en el botón <b>Reporte</b>.</p>
-                            <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
-                        </p:outputPanel>
-                    </h:panelGrid>
-                </p:tab>
-
-                <p:tab title="3. Modificar" >
-                    <p:panelGrid columns="1"  style="text-align: center;"  layout="grid">        
-                        <h:graphicImage library="images" name="ayuda/localidades/modificar.PNG" width="600px"/>
-                    </p:panelGrid>
-                    <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" >     
-                        <p:outputPanel style="width: 900px">
-                            <p><b>Pasos para modificar los datos de la localidad.</b></p>
-                            <p><b>Paso 1: </b><br/>Seleccióne la localidad que desea modificar o actualizar la información.</p>
-                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Modificar</b>, luego hacer clic y el formulario mostrara los datos de la localidad para que puedan ser editados.</p>
-                            <p><b>Paso 3: </b><br/>Realize los cambios que desea y haga clic en el botón <b>Guardar</b>.</p>
-                            <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
-                        </p:outputPanel>
-                    </h:panelGrid>
-                </p:tab>
-            </p:tabView>
+                    </p:tab>
+                    <p:tab title="2. Visualizar" >
+                        <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+                            <h:graphicImage library="images" name="ayuda/localidades/visualizar.PNG" width="400px"/>
+                            <p:outputPanel style="width: 430px">
+                                <p><b>Pasos para visualizar el contenido de la localidad.</b></p>
+                                <p><b>Paso 1: </b><br/>Seleccione la localidad que desea visualizar.</p>
+                                <p><b>Paso 2: </b><br/>Se habilitará el botón <b>Visualizar</b> para luego hacer clic y ver la información de la localidad seleccionada.</p>
+                                <p><b>Paso 3: </b><br/>Si desea generar reporte debera dar clic en el botón <b>Reporte</b>.</p>
+                                <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
+                            </p:outputPanel>
+                        </h:panelGrid>
+                    </p:tab>
+                    <c:if test="#{request.isUserInRole('Administrador')}">
+                        <p:tab title="3. Modificar" >
+                            <p:panelGrid columns="1"  style="text-align: center;"  layout="grid">        
+                                <h:graphicImage library="images" name="ayuda/localidades/modificar.PNG" width="600px"/>
+                            </p:panelGrid>
+                            <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" >     
+                                <p:outputPanel style="width: 900px">
+                                    <p><b>Pasos para modificar los datos de la localidad.</b></p>
+                                    <p><b>Paso 1: </b><br/>Seleccione la localidad que desea modificar o actualizar la información.</p>
+                                    <p><b>Paso 2: </b><br/>Se habilitará el botón <b>Modificar</b>, luego hacer clic y el formulario mostrará los datos de la localidad para que puedan ser editados.</p>
+                                    <p><b>Paso 3: </b><br/>Realize los cambios que desea y haga clic en el botón <b>Guardar</b>.</p>
+                                    <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
+                                </p:outputPanel>
+                            </h:panelGrid>
+                        </p:tab>
+                    </c:if>
+                </p:tabView>
+            </c:if>
         </h:form>
 
     </p:dialog>

@@ -47,6 +47,9 @@
             <url-pattern>/bienvenido.xhtml</url-pattern>
             <url-pattern>/cambiarcontra.xhtml</url-pattern>
             <url-pattern>/paginas/Ayuda/*</url-pattern>
+            <url-pattern>/paginas/Ayuda/ejemplares.xhtml</url-pattern>
+            <url-pattern>/paginas/Ayuda/localidades.xhtml</url-pattern>
+            <url-pattern>/paginas/Ayuda/areas.xhtml</url-pattern>
             <url-pattern>/paginas/ControlExhibicion/*</url-pattern>
             <url-pattern>/paginas/MapaAreasProtegidas/*</url-pattern>
             <url-pattern>/paginas/actividadTb/*</url-pattern>
@@ -109,7 +112,9 @@
             <web-resource-name>resources</web-resource-name>
             <url-pattern>/bienvenido.xhtml</url-pattern>
             <url-pattern>/cambiarcontra.xhtml</url-pattern>
-            <url-pattern>/paginas/Ayuda/*</url-pattern>
+            <url-pattern>/paginas/Ayuda/ejemplares.xhtml</url-pattern>
+            <url-pattern>/paginas/Ayuda/localidades.xhtml</url-pattern>
+            <url-pattern>/paginas/Ayuda/areas.xhtml</url-pattern>
             <url-pattern>/paginas/MapaAreasProtegidas/*</url-pattern>
             <url-pattern>/paginas/areaprotegidaTb/*</url-pattern>
             <url-pattern>/paginas/ejemplarTb/*</url-pattern>

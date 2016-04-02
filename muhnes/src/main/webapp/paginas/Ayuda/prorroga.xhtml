@@ -7,7 +7,7 @@
 
 
 
-    <p:dialog id="AyudaDlg" widgetVar="AyudaDialog" modal="true" resizable="false" appendTo="@(body)" header="Ayuda prórrogas" >
+    <p:dialog id="AyudaDlg" widgetVar="AyudaDialog" modal="true" resizable="false" appendTo="@(body)" header="Ayuda Prórroga" >
         <h:form id="AyudaForm" style=" width: 970px; height: 500px">
             <p:tabView>
                 <p:tab title="Administrar" >
@@ -34,24 +34,23 @@
                         <h:graphicImage library="images" name="ayuda/prorrogas/nuevo.PNG" width="390px"/>
                         <p:outputPanel style="width: 430px">
                             <p><b>Justificación: </b><br/>Digite el motivo por el que se está realizando la prórroga</p>
-                            <p><b>Fecha de inicio: </b><br/>La fecha en la que iniciara la prórroga aparecerá deshabilitada y esta la proveerá el sistema.</p>
-                            <p><b>Fecha de finalización: </b><br/>Seleccione la fecha en la que finalizara la prórroga,  se presentara un pequeño calendario al momento de dar clic en el campo.</p>
+                            <p><b>Fecha de inicio: </b><br/>La fecha en la que iniciará la prórroga aparecerá deshabilitada y esta la proveerá el sistema.</p>
+                            <p><b>Fecha de finalización: </b><br/>Seleccione la fecha en la que finalizará la prórroga, se presentará un pequeño calendario al momento de hacer clic en el campo.</p>
                             <p><b>Guardar: </b><br/>Almacena a la base de datos la información ingresada en el formulario.</p>
                             <p><b>(X)Cerrar: </b><br/>Cierra el formulario sin almacenar los datos ingresados.</p>
                             <p><b>(*) Campo requerido: </b><br/>Al aparecer este símbolo en alguna etiqueta quiere dar a entender que el campo es requerido u obligatorio. En otras palabras si no es ingresado el dato solicitado en el campo, no se podrá almacenar en la base de datos del sistema.</p>
                         </p:outputPanel>
-
                     </h:panelGrid>
-
                 </p:tab>
+                
                 <p:tab title="2. Visualizar" >
                     <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
                         <h:graphicImage library="images" name="ayuda/prorrogas/visualizar.PNG" width="450px"/>
                         <p:outputPanel style="width: 450px">
                             <p><b>Pasos para visualizar el contenido de la prórroga.</b></p>
-                            <p><b>Paso 1: </b><br/>Seleccióne la prórroga que desea visualizar.</p>
-                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Visualizar</b> para luego hacer clic y ver la información de la prórroga seleccionada.</p>
-                            <p><b>Paso 3: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b> o <b>Cerrar</b>.</p>
+                            <p><b>Paso 1: </b><br/>Seleccione la prórroga que desea visualizar.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitará el botón <b>Visualizar</b> para luego hacer clic y ver la información de la prórroga seleccionada.</p>
+                            <p><b>Paso 3: </b><br/>Si desea cerrar el formulario, hacer clic en el botón <b>X</b> o <b>Cerrar</b>.</p>
                         </p:outputPanel>
                     </h:panelGrid>
                 </p:tab>
@@ -61,22 +60,22 @@
                         <h:graphicImage library="images" name="ayuda/prorrogas/modificar.PNG" width="390px"/>
                         <p:outputPanel style="width: 430px">
                             <p><b>Pasos para modificar los datos de la prórroga.</b></p>
-                            <p><b>Paso 1: </b><br/>Seleccióne la prórroga que desea modificar o actualizar la información.</p>
-                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Modificar</b>, luego hacer clic y el formulario mostrara los datos de la prórroga para que puedan ser editados.</p>
-                            <p><b>Paso 3: </b><br/>Realize los cambios que desea y haga clic en el botón <b>Guardar</b>.</p>
-                            <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
+                            <p><b>Paso 1: </b><br/>Seleccione la prórroga que desea actualizar la información.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitará el botón <b>Modificar</b>, luego hacer clic y el formulario mostrará los datos de la prórroga para que puedan ser editados.</p>
+                            <p><b>Paso 3: </b><br/>Realize los cambios que desea y hacer clic en el botón <b>Guardar</b>.</p>
+                            <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, hacer clic en el botón <b>X</b>.</p>
                         </p:outputPanel>
                     </h:panelGrid>
                 </p:tab>
                 <p:tab title="4. Eliminar" >
                     <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
-                        <h:graphicImage library="images" name="ayuda/prorrogas/eliminar.PNG" width="390px"/>
+                        <h:graphicImage library="images" name="ayuda/prorrogas/eliminar.PNG" width="350px"/>
                         <p:outputPanel style="width: 430px">
                             <p><b>Pasos para eliminar la prórroga.</b></p>
                             <p><b>Paso 1: </b><br/>Seleccióne la prórroga que desea eliminar.</p>
-                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Eliminar</b> para luego hacer clic.</p>
-                            <p><b>Paso 3: </b><br/>El sistema le advertirá si esta seguro de eliminar la prórroga, hacer clic en el botón <b>Sí</b> de lo contrario <b>No</b>.</p>
-                            <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitará el botón <b>Eliminar</b> para luego hacer clic.</p>
+                            <p><b>Paso 3: </b><br/>El sistema le advertirá si esta seguro de eliminar la prórroga, hacer clic en el botón <b>Sí</b> de lo contrarío <b>No</b>.</p>
+                            <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, hacer clic en el botón <b>X</b>.</p>
                         </p:outputPanel>
                     </h:panelGrid>
                 </p:tab>

@@ -7,13 +7,13 @@
 
 
 
-    <p:dialog id="AyudaDlg" widgetVar="AyudaDialog" modal="true" resizable="false" appendTo="@(body)" header="Ayuda control de exhibiciones" >
+    <p:dialog id="AyudaDlg" widgetVar="AyudaDialog" modal="true" resizable="false" appendTo="@(body)" header="Ayuda Control de Exhibiciones" >
         <h:form id="AyudaForm" style=" width: 970px; height: 500px">
             <p:tabView>
                 <p:tab title="Administrar" >
                     <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" >     
                         <p:outputPanel style="width: 900px">
-                            <b>Permite realizar diferentes acciones sobre el control de las exhibiciónes como reingreso, actualizar reingreso y visualizar.</b>
+                            <b>Permite realizar diferentes acciones sobre el control de las exhibiciónes como reingreso, actualizar reingreso y visualizar, así como también generar reportes  de prestamo o reingreso.</b>
                         </p:outputPanel>
                         <h:graphicImage library="images" name="ayuda/controle/administrar.PNG" width="900px"/> 
                     </h:panelGrid>
@@ -23,7 +23,7 @@
                             <p><b>2. Actualizar reingreso: </b><br/>Actualiza los datos del reingreso de los ejemplares.</p>     
                         </p:outputPanel>
                         <p:outputPanel style="width: 430px">
-                            <p><b>3. Visualizar: </b><br/>Muestra los datos del reingreso.</p>
+                            <p><b>3. Visualizar: </b><br/>Muestra los datos del reingreso, así como también generar <b>Reporte prestamo</b> o <b>Reporte reingreso</b>.</p>
                         </p:outputPanel>
 
                     </h:panelGrid>
@@ -35,7 +35,7 @@
                     <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >
                         <p:outputPanel style="width: 430px">
                             <p><b>Observaciónes: </b><br/>Ingrese las observaciones pertinentes sobre la devolución de los ejemplares.</p>
-                            <p><b>Fecha de recibido: </b><br/>Seleccione la fecha que se reciben los ejemplares devueltos, posteriormente se presentara un pequeño calendario al momento de hacer clic en el campo.</p>
+                            <p><b>Fecha de recibido: </b><br/>Seleccione la fecha que se reciben los ejemplares devueltos, posteriormente se presentará un pequeño calendario al momento de hacer clic en el campo.</p>
                             <p><b>Hora de recibido: </b><br/>Arrastre para seleccionar la hora de recibido.</p>
                         </p:outputPanel>
                         <p:outputPanel style="width: 430px">
@@ -55,8 +55,8 @@
                     <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" >     
                         <p:outputPanel style="width: 900px">
                             <p><b>Pasos para modificar los datos del reingreso.</b></p>
-                            <p><b>Paso 1: </b><br/>Seleccióne la exhibición que desea modificar o actualizar la información.</p>
-                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Actualizar reingreso</b>, luego hacer clic y el formulario mostrara los datos del reingreso de la exhibición para que puedan ser editados.</p>
+                            <p><b>Paso 1: </b><br/>Seleccione la exhibición que desea modificar o actualizar la información.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitará el botón <b>Actualizar reingreso</b>, luego hacer clic y el formulario mostrará los datos del reingreso de la exhibición para que puedan ser editados.</p>
                             <p><b>Paso 3: </b><br/>Realize los cambios que desea y haga clic en el botón <b>Guardar</b>.</p>
                             <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
                         </p:outputPanel>
@@ -67,9 +67,9 @@
                     <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
                         <h:graphicImage library="images" name="ayuda/controle/visualizar.PNG" width="400px"/>
                         <p:outputPanel style="width: 430px">
-                            <p><b>Pasos para visualizar los datos del reingreso.</b></p>
-                            <p><b>Paso 1: </b><br/>Seleccióne la exhibición que desea visualizar.</p>
-                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Visualizar</b> para luego hacer clic y ver la información de la exhibición seleccionada.</p>
+                            <p><b>Pasos para visualizar el contenido de la exhibición.</b></p>
+                            <p><b>Paso 1: </b><br/>Seleccione la exhibición que desea visualizar.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitará el botón <b>Visualizar</b> para luego hacer clic y ver la información de la exhibición seleccionada.</p>
                             <p><b>Paso 3: </b><br/>Si desea generar reporte debera dar clic ya sea en el botón <b>Reporte préstamo</b> o <b>Reporte reingreso</b>.</p>
                             <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
                         </p:outputPanel>

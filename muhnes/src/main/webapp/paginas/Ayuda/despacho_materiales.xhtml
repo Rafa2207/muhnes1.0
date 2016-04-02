@@ -7,7 +7,7 @@
 
 
 
-    <p:dialog id="AyudaDlg" widgetVar="AyudaDialog" modal="true" resizable="false" appendTo="@(body)" header="Ayuda despacho de materiales" >
+    <p:dialog id="AyudaDlg" widgetVar="AyudaDialog" modal="true" resizable="false" appendTo="@(body)" header="Ayuda Despacho de Materiales">
         <h:form id="AyudaForm" style=" width: 970px; height: 500px">
             <p:tabView>
                 <p:tab title="Administrar" >
@@ -20,7 +20,7 @@
                     <h:panelGrid  columns="2" cellpadding="2" style="text-align: justify;">
                         <p:outputPanel style="width: 430px">
                             <p><b>1. Nuevo: </b><br/>Registra un nuevo despacho de materiales.</p>
-                            <p><b>2. Visualizar: </b><br/>Muestra el contenido del despacho.</p>
+                            <p><b>2. Visualizar: </b><br/>Muestra el contenido del despacho, además permite generar reporte individual.</p>
                         </p:outputPanel>
                         <p:outputPanel style="width: 430px">
                             <p><b>3. Modificar: </b><br/>Actualiza los materiales del despacho seleccionado.</p>     
@@ -37,7 +37,7 @@
 
                         <p:outputPanel style="width: 430px">
                             <p><b>Descripción: </b><br/>Digite una breve descripción del nuevo despacho que está registrando</p>
-                            <p><b>Fecha: </b><br/>Seleccione la fecha que registrara el despacho, posteriormente se presentara un pequeño calendario al momento de hacer clic en el campo.</p>
+                            <p><b>Fecha: </b><br/>Seleccione la fecha que registrará el despacho, posteriormente se presentará un pequeño calendario al momento de hacer clic en el campo.</p>
                             <p><b>Proyecto: </b><br/>Seleccione el proyecto para el nuevo despacho.</p>
                              <p><b>Material: </b><br/>Seleccione el material.</p>
                         </p:outputPanel>
@@ -56,11 +56,11 @@
                     </p:panelGrid>
                     <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
                         <p:outputPanel style="width: 900px">
-                            <p><b>Pasos para visualizar el despacho.</b></p>
+                            <p><b>Pasos para visualizar el contenido del despacho.</b></p>
                             <p><b>Paso 1: </b><br/>Seleccióne el despacho que desea visualizar.</p>
-                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Visualizar</b> para luego hacer clic y ver la información del despacho seleccionado.</p>
-                            <p><b>Paso 3: </b><br/>Si desea generar algun reporte debera dar clic ya sea en el botón <b>Reporte</b>.</p>
-                            <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b> o <b>Cerrar</b>.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitará el botón <b>Visualizar</b> para luego hacer clic y ver la información del despacho seleccionado.</p>
+                            <p><b>Paso 3: </b><br/>Si desea generar algun reporte deberá dar clic en el botón <b>Reporte</b>.</p>
+                            <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
                         </p:outputPanel>
                     </h:panelGrid>
                 </p:tab>
@@ -72,8 +72,8 @@
                     <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
                         <p:outputPanel style="width: 900px">
                             <p><b>Pasos para modificar el despacho.</b></p>
-                            <p><b>Paso 1: </b><br/>Seleccióne el despacho que desea modificar.</p>
-                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Modificar</b>,luego hacer clic y el formulario mostrara los datos del despacho para que puedan ser editados. Además en la parte de los materiales pueden quitarse haciendo clic en el icono del <b>Bote de basura</b>.</p>
+                            <p><b>Paso 1: </b><br/>Seleccione el despacho que desea modificar.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitará el botón <b>Modificar</b>, luego hacer clic y el formulario mostrará los datos del despacho para que puedan ser editados. Además en la parte de los materiales pueden quitarse haciendo clic en el icono del <b>Bote de basura</b>.</p>
                             <p><b>Paso 3: </b><br/>Realize los cambios que desea y haga clic en el botón <b>Guardar</b>.</p>
                             <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
                         </p:outputPanel>
@@ -86,8 +86,8 @@
                     <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
                         <p:outputPanel style="width: 900px">
                             <p><b>Pasos para el reingreso de los materiales.</b></p>
-                            <p><b>Paso 1: </b><br/>Seleccióne el pedido que desea recibir.</p>
-                            <p><b>Paso 2: </b><br/>El botón <b>Reingreso de materiales</b> será habilitado una vez que el despacho fue registrado, para luego hacer clic y el formulario mostrara los datos del despacho para que puedan ser actualizados.</p>
+                            <p><b>Paso 1: </b><br/>Seleccione el pedido que desea recibir.</p>
+                            <p><b>Paso 2: </b><br/>El botón <b>Reingreso de materiales</b> será habilitado una vez que el despacho fue registrado, para luego hacer clic y el formulario mostrará los datos del despacho para que puedan ser actualizados.</p>
                             <p><b>Paso 3: </b><br/>Realize los cambios que desea y haga clic en el botón <b>Guardar</b>.</p>
                             <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
                         </p:outputPanel>

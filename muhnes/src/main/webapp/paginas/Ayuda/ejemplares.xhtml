@@ -3,123 +3,127 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
 
 
-    <p:dialog id="AyudaDlg" widgetVar="AyudaDialog" modal="true" resizable="false" appendTo="@(body)" header="Ayuda ejemplares" >
+    <p:dialog id="AyudaDlg" widgetVar="AyudaDialog" modal="true" resizable="false" appendTo="@(body)" header="Ayuda Ejemplares" >
         <h:form id="AyudaForm" style=" width: 970px; height: 500px">
-            <p:tabView>
-                <p:tab title="Administrar" >
-                    <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" >     
-                        <p:outputPanel style="width: 900px">
-                            <b>Permite realizar diferentes acciones en los ejemplares como registrar, registrar ejemplar donado, visualizar, modificar, así como tambien generar reportes de manera general, fecha de recolección, fecha de identificación, código de entrada, responsable, recolector y finalmente por identificador.</b>
-                        </p:outputPanel>
-                        <h:graphicImage library="images" name="ayuda/ejemplares/administrar.PNG" width="900px"/> 
-                    </h:panelGrid>
-                    <h:panelGrid  columns="2" cellpadding="2" style="text-align: justify;">
-                        <p:outputPanel style="width: 430px">
-                            <p><b>1. Nuevo: </b><br/>Registra un nuevo ejemplar.</p>
-                            <p><b>2. Nuevo ejemplar donado: </b><br/>Registra un nuevo ejemplar que será donado.</p>
-                        </p:outputPanel>
-                        <p:outputPanel style="width: 430px">
-                            <p><b>3. Visualizar: </b><br/>Muestra el contenido del ejemplar seleccionado.</p>
-                            <p><b>4. Modificar: </b><br/>Actualiza los datos del ejemplar seleccionado.</p>     
-                        </p:outputPanel>
-                    </h:panelGrid>
-                </p:tab>
-                <p:tab title="1. Nuevo" >
-                    <p:panelGrid columns="1"  style="text-align: center;"  layout="grid">        
-                        <h:graphicImage library="images" name="ayuda/ejemplares/nuevo.PNG" width="600px"/>
-                    </p:panelGrid>
-                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
-
-                        <p:outputPanel style="width: 430px">
-                            <p><b>Responsable: </b><br/>Seleccione del listado al responsable del nuevo ejemplar.</p>
-                            <p><b>Información Taxonómica: </b><br/>En el primer campo, seleccione ya sea Familia, Género, Especie, Subespecie o Variedad. En el segundo campo, seleccione del listado el nombre de lo que anteriormente selecciono en el primer campo.</p>
-                            <p><b>Fecha de Recolección: </b><br/>Seleccione la fecha que se realizo la recolección, posteriormente se presentara un pequeño calendario al momento de hacer clic en el campo.</p>
-                            <p><b>Descripción: </b><br/>Digite una breve descripción del nuevo ejemplar.</p>
-                            <p><b>Proyecto: </b><br/>Seleccione el proyecto al que pertenece el nuevo ejemplar.</p>
-                            <p><b>Código de entrada: </b><br/>Seleccione del listado la catégoria del nuevo ejemplar para que el sistema genere el código de entrada.</p>
-                            <p><b>Correlativo: </b><br/>Ingrese el numero correlativo.</p>
-                            <p><b>Calificativo: </b><br/>Ingrese el calificativo del nuevo ejemplar.</p>
-                            <p><b>Fecha de Identificación: </b><br/>Seleccione la fecha que se realizo la identificación del nuevo ejemplar, posteriormente se presentara un pequeño calendario al momento de hacer clic en el campo.</p>
-                        </p:outputPanel>
-                        <p:outputPanel style="width: 430px">
-                            <p><b>Cantidad: </b><br/>Ingrese la cantidad de duplicados.</p>
-                            <p><b>Localidad: </b><br/>Seleccione del listado, la localidad en donde se recolecto o identifico el ejemplar.</p>
-                            <p><b>Recolectores: </b><br/>Seleccione los agentes que participaron en la recolección del ejemplar.</p>
-                            <p><b>Identificadores: </b><br/>Seleccione los agentes que participaron en la identificación del ejemplar.</p>
-                            <p><b>Nombre común: </b><br/>Seleccione el o los nombres comunes que desea agregar al ejemplar.</p>
-                            <p><b>Donaciones: </b><br/>Seleccione el o las instituciones que se realizarán donaciones.</p>
-                            <p><b>Guardar: </b><br/>Almacena a la base de datos la información ingresada en el formulario.</p>
-                            <p><b>(X)Cerrar: </b><br/>Cierra el formulario sin almacenar los datos ingresados.</p>
-                            <p><b>(*) Campo requerido: </b><br/>Al aparecer este símbolo en alguna etiqueta quiere dar a entender que el campo es requerido u obligatorio. En otras palabras si no es ingresado el dato solicitado en el campo, no se podrá almacenar en la base de datos del sistema.</p>
-                        </p:outputPanel>
-                    </h:panelGrid>
-
-                </p:tab>
-                <p:tab title="2. Nuevo ejemplar donado" >
-                    <p:panelGrid columns="1"  style="text-align: center;"  layout="grid">        
-                        <h:graphicImage library="images" name="ayuda/ejemplares/nuevod.PNG" width="600px"/>
-                    </p:panelGrid>
-                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
-
-                        <p:outputPanel style="width: 430px">
-                            <p><b>Responsable: </b><br/>Seleccione del listado al responsable del nuevo ejemplar.</p>
-                            <p><b>Información Taxonómica: </b><br/>En el primer campo, seleccione ya sea Familia, Género, Especie, Subespecie o Variedad. En el segundo campo, seleccione del listado el nombre de lo que anteriormente selecciono en el primer campo.</p>
-                            <p><b>Fecha de Recolección: </b><br/>Seleccione la fecha que se realizo la recolección, posteriormente se presentara un pequeño calendario al momento de hacer clic en el campo.</p>
-                            <p><b>Descripción: </b><br/>Digite una breve descripción del nuevo ejemplar.</p>
-                            <p><b>Proyecto: </b><br/>Seleccione el proyecto al que pertenece el nuevo ejemplar.</p>
-                            <p><b>Código de entrada: </b><br/>Seleccione del listado la catégoria del nuevo ejemplar para que el sistema genere el código de entrada.</p>
-                            <p><b>Institución: </b><br/>Seleccione la institución con la que ira directamente relacionada la donación.</p>
-                            <p><b>Correlativo: </b><br/>Ingrese el numero correlativo.</p>
-                            <p><b>Calificativo: </b><br/>Ingrese el calificativo del nuevo ejemplar.<br/><br/><br/></p>
+            <c:if test="#{request.isUserInRole('Administrador') or request.isUserInRole('Digitador')}">
+                <p:tabView>
+                    <p:tab title="Administrar" >
+                        <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" >     
+                            <p:outputPanel style="width: 900px">
+                                <b>Permite realizar diferentes acciones en los ejemplares como registrar, registrar ejemplar donado, visualizar, modificar, así como tambien generar reportes de manera general, fecha de recolección, fecha de identificación, código de entrada, responsable, recolector y finalmente por identificador.</b>
                             </p:outputPanel>
-                        <p:outputPanel style="width: 430px">
-                            <p><b>Fecha de Identificación: </b><br/>Seleccione la fecha que se realizó la identificación, posteriormente se presentara un pequeño calendario al momento de hacer clic en el campo.</p>
-                            <p><b>Cantidad: </b><br/>Ingrese la cantidad de duplicados.</p>
-                            <p><b>Localidad: </b><br/>Seleccione del listado, la localidad en donde se recolecto o identifico el ejemplar.</p>
-                            <p><b>Recolectores: </b><br/>Seleccione los agentes que participaron en la recolección del ejemplar.</p>
-                            <p><b>Identificadores: </b><br/>Seleccione los agentes que participaron en la identificación del ejemplar.</p>
-                            <p><b>Nombre común: </b><br/>Seleccione el o los nombres comunes que desea agregar al ejemplar.</p>
-                            <p><b>Donaciones: </b><br/>Seleccione el o las instituciones que se realizarán donaciones.</p>
-                            <p><b>Guardar: </b><br/>Almacena a la base de datos la información ingresada en el formulario.</p>
-                            <p><b>(X)Cerrar: </b><br/>Cierra el formulario sin almacenar los datos ingresados.</p>
-                            <p><b>(*) Campo requerido: </b><br/>Al aparecer este símbolo en alguna etiqueta quiere dar a entender que el campo es requerido u obligatorio. En otras palabras si no es ingresado el dato solicitado en el campo, no se podrá almacenar en la base de datos del sistema.</p>
-                        </p:outputPanel>
-                    </h:panelGrid>
+                            <h:graphicImage library="images" name="ayuda/ejemplares/administrar.PNG" width="900px"/> 
+                        </h:panelGrid>
+                        <h:panelGrid  columns="2" cellpadding="2" style="text-align: justify;">
+                            <p:outputPanel style="width: 430px">
+                                <p><b>1. Nuevo: </b><br/>Registra un nuevo ejemplar.</p>
+                                <p><b>2. Nuevo ejemplar donado: </b><br/>Registra un nuevo ejemplar que será donado.</p>
+                            </p:outputPanel>
+                            <p:outputPanel style="width: 430px">
+                                <p><b>3. Visualizar: </b><br/>Muestra el contenido del ejemplar seleccionado.</p>
+                                <p><b>4. Modificar: </b><br/>Actualiza los datos del ejemplar seleccionado.</p>     
+                            </p:outputPanel>
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="1. Nuevo" >
+                        <p:panelGrid columns="1"  style="text-align: center;"  layout="grid">        
+                            <h:graphicImage library="images" name="ayuda/ejemplares/nuevo.PNG" width="600px"/>
+                        </p:panelGrid>
+                        <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
 
-                </p:tab>
-                <p:tab title="3. Visualizar" >
-                    <p:panelGrid columns="1"  style="text-align: center;"  layout="grid">        
-                        <h:graphicImage library="images" name="ayuda/ejemplares/visualizar.PNG" width="600px"/>
-                    </p:panelGrid>
-                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
-                        <p:outputPanel style="width: 900px">
-                            <p><b>Pasos para visualizar el ejemplar.</b></p>
-                            <p><b>Paso 1: </b><br/>Seleccióne el ejemplar que desea visualizar.</p>
-                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Visualizar</b> para luego hacer clic y ver la información del ejemplar seleccionado.</p>
-                            <p><b>Paso 3: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b> o <b>Cerrar</b>.</p>
-                        </p:outputPanel>
-                    </h:panelGrid>
-                </p:tab>
+                            <p:outputPanel style="width: 430px">
+                                <p><b>Responsable: </b><br/>Seleccione del listado al responsable del nuevo ejemplar.</p>
+                                <p><b>Información Taxonómica: </b><br/>En el primer campo, seleccione ya sea Familia, Género, Especie, Subespecie o Variedad. En el segundo campo, seleccione del listado el nombre de lo que anteriormente selecciono en el primer campo.</p>
+                                <p><b>Fecha de Recolección: </b><br/>Seleccione la fecha que se realizo la recolección, posteriormente se presentará un pequeño calendario al momento de hacer clic en el campo.</p>
+                                <p><b>Descripción: </b><br/>Digite una breve descripción del nuevo ejemplar.</p>
+                                <p><b>Proyecto: </b><br/>Seleccione el proyecto al que pertenece el nuevo ejemplar.</p>
+                                <p><b>Código de entrada: </b><br/>Seleccione del listado la catégoria del nuevo ejemplar para que el sistema genere el código de entrada.</p>
+                                <p><b>Correlativo: </b><br/>Ingrese el numero correlativo.</p>
+                                <p><b>Calificativo: </b><br/>Ingrese el calificativo del nuevo ejemplar.</p>
+                                <p><b>Fecha de Identificación: </b><br/>Seleccione la fecha que se realizo la identificación del nuevo ejemplar, posteriormente se presentará un pequeño calendario al momento de hacer clic en el campo.</p>
+                            </p:outputPanel>
+                            <p:outputPanel style="width: 430px">
+                                <p><b>Cantidad: </b><br/>Ingrese la cantidad de duplicados.</p>
+                                <p><b>Localidad: </b><br/>Seleccione del listado, la localidad en donde se recolecto o identifico el ejemplar.</p>
+                                <p><b>Recolectores: </b><br/>Seleccione los agentes que participaron en la recolección del ejemplar.</p>
+                                <p><b>Identificadores: </b><br/>Seleccione los agentes que participaron en la identificación del ejemplar.</p>
+                                <p><b>Nombre común: </b><br/>Seleccione el o los nombres comunes que desea agregar al ejemplar.</p>
+                                <p><b>Donaciones: </b><br/>Seleccione el o las instituciones que se realizarán donaciones.</p>
+                                <p><b>Guardar: </b><br/>Almacena a la base de datos la información ingresada en el formulario.</p>
+                                <p><b>(X)Cerrar: </b><br/>Cierra el formulario sin almacenar los datos ingresados.</p>
+                                <p><b>(*) Campo requerido: </b><br/>Al aparecer este símbolo en alguna etiqueta quiere dar a entender que el campo es requerido u obligatorio. En otras palabras si no es ingresado el dato solicitado en el campo, no se podrá almacenar en la base de datos del sistema.</p>
+                            </p:outputPanel>
+                        </h:panelGrid>
 
-                <p:tab title="4. Modificar" >
-                    <p:panelGrid columns="1"  style="text-align: center;"  layout="grid">        
-                        <h:graphicImage library="images" name="ayuda/ejemplares/modificar.PNG" width="600px"/>
-                    </p:panelGrid>
-                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
-                        <p:outputPanel style="width: 900px">
-                            <p><b>Pasos para modificar el ejemplar.</b></p>
-                            <p><b>Paso 1: </b><br/>Seleccióne el ejemplar que desea modificar.</p>
-                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Modificar</b>,luego hacer clic y el formulario mostrara los datos del ejemplar para que puedan ser editados. Además en la parte de los recolectores, identificadores, nombre común y donaciones, pueden quitarse haciendo clic en el icono del <b>Bote de basura</b>.</p>
-                            <p><b>Paso 3: </b><br/>Realize los cambios que desea y haga clic en el botón <b>Guardar</b>.</p>
-                            <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
-                        </p:outputPanel>
-                    </h:panelGrid>
-                </p:tab>
-            </p:tabView>
+                    </p:tab>
+                    <p:tab title="2. Nuevo ejemplar donado" >
+                        <p:panelGrid columns="1"  style="text-align: center;"  layout="grid">        
+                            <h:graphicImage library="images" name="ayuda/ejemplares/nuevod.PNG" width="600px"/>
+                        </p:panelGrid>
+                        <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+
+                            <p:outputPanel style="width: 430px">
+                                <p><b>Responsable: </b><br/>Seleccione del listado al responsable del nuevo ejemplar.</p>
+                                <p><b>Información Taxonómica: </b><br/>En el primer campo, seleccione ya sea Familia, Género, Especie, Subespecie o Variedad. En el segundo campo, seleccione del listado el nombre de lo que anteriormente selecciono en el primer campo.</p>
+                                <p><b>Fecha de Recolección: </b><br/>Seleccione la fecha que se realizo la recolección, posteriormente se presentará un pequeño calendario al momento de hacer clic en el campo.</p>
+                                <p><b>Descripción: </b><br/>Digite una breve descripción del nuevo ejemplar.</p>
+                                <p><b>Proyecto: </b><br/>Seleccione el proyecto al que pertenece el nuevo ejemplar.</p>
+                                <p><b>Código de entrada: </b><br/>Seleccione del listado la catégoria del nuevo ejemplar para que el sistema genere el código de entrada.</p>
+                                <p><b>Institución: </b><br/>Seleccione la institución con la que ira directamente relacionada la donación.</p>
+                                <p><b>Correlativo: </b><br/>Ingrese el numero correlativo.</p>
+                                <p><b>Calificativo: </b><br/>Ingrese el calificativo del nuevo ejemplar.<br/><br/><br/></p>
+                            </p:outputPanel>
+                            <p:outputPanel style="width: 430px">
+                                <p><b>Fecha de Identificación: </b><br/>Seleccione la fecha que se realizó la identificación, posteriormente se presentará un pequeño calendario al momento de hacer clic en el campo.</p>
+                                <p><b>Cantidad: </b><br/>Ingrese la cantidad de duplicados.</p>
+                                <p><b>Localidad: </b><br/>Seleccione del listado, la localidad en donde se recolecto o identifico el ejemplar.</p>
+                                <p><b>Recolectores: </b><br/>Seleccione los agentes que participaron en la recolección del ejemplar.</p>
+                                <p><b>Identificadores: </b><br/>Seleccione los agentes que participaron en la identificación del ejemplar.</p>
+                                <p><b>Nombre común: </b><br/>Seleccione el o los nombres comunes que desea agregar al ejemplar.</p>
+                                <p><b>Donaciones: </b><br/>Seleccione el o las instituciones que se realizarán donaciones.</p>
+                                <p><b>Guardar: </b><br/>Almacena a la base de datos la información ingresada en el formulario.</p>
+                                <p><b>(X)Cerrar: </b><br/>Cierra el formulario sin almacenar los datos ingresados.</p>
+                                <p><b>(*) Campo requerido: </b><br/>Al aparecer este símbolo en alguna etiqueta quiere dar a entender que el campo es requerido u obligatorio. En otras palabras si no es ingresado el dato solicitado en el campo, no se podrá almacenar en la base de datos del sistema.</p>
+                            </p:outputPanel>
+                        </h:panelGrid>
+
+                    </p:tab>
+                    <p:tab title="3. Visualizar" >
+                        <p:panelGrid columns="1"  style="text-align: center;"  layout="grid">        
+                            <h:graphicImage library="images" name="ayuda/ejemplares/visualizar.PNG" width="600px"/>
+                        </p:panelGrid>
+                        <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+                            <p:outputPanel style="width: 900px">
+                                <p><b>Pasos para visualizar el contenido del ejemplar.</b></p>
+                                <p><b>Paso 1: </b><br/>Seleccione el ejemplar que desea visualizar.</p>
+                                <p><b>Paso 2: </b><br/>Se habilitará el botón <b>Visualizar</b> para luego hacer clic y ver la información del ejemplar seleccionado.</p>
+                                <p><b>Paso 3: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b> o <b>Cerrar</b>.</p>
+                            </p:outputPanel>
+                        </h:panelGrid>
+                    </p:tab>
+                    <c:if test="#{request.isUserInRole('Administrador')}">
+                        <p:tab title="4. Modificar" >
+                            <p:panelGrid columns="1"  style="text-align: center;"  layout="grid">        
+                                <h:graphicImage library="images" name="ayuda/ejemplares/modificar.PNG" width="600px"/>
+                            </p:panelGrid>
+                            <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+                                <p:outputPanel style="width: 900px">
+                                    <p><b>Pasos para modificar el ejemplar.</b></p>
+                                    <p><b>Paso 1: </b><br/>Seleccione el ejemplar que desea modificar.</p>
+                                    <p><b>Paso 2: </b><br/>Se habilitará el botón <b>Modificar</b>,luego hacer clic y el formulario mostrara los datos del ejemplar para que puedan ser editados. Además en la parte de los recolectores, identificadores, nombre común y donaciones, pueden quitarse haciendo clic en el icono del <b>Bote de basura</b>.</p>
+                                    <p><b>Paso 3: </b><br/>Realize los cambios que desea y haga clic en el botón <b>Guardar</b>.</p>
+                                    <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
+                                </p:outputPanel>
+                            </h:panelGrid>
+                        </p:tab>
+                    </c:if>
+                </p:tabView>
+            </c:if>
         </h:form>
 
     </p:dialog>

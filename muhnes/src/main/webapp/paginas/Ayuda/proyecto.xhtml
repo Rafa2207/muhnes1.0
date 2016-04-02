@@ -7,7 +7,7 @@
 
 
 
-    <p:dialog id="AyudaDlg" widgetVar="AyudaDialog" modal="true" resizable="false" appendTo="@(body)" header="Ayuda proyectos" >
+    <p:dialog id="AyudaDlg" widgetVar="AyudaDialog" modal="true" resizable="false" appendTo="@(body)" header="Ayuda Proyectos" >
         <h:form id="AyudaForm" style=" width: 970px; height: 500px">
             <p:tabView>
                 <p:tab title="Administrar" >
@@ -21,12 +21,12 @@
                     <h:panelGrid  columns="2" cellpadding="2" style="text-align: justify;">
                         <p:outputPanel style="width: 430px">
                             <p><b>1. Nuevo: </b><br/>Registra un nuevo proyecto.</p>
-                            <p><b>2. Visualizar: </b><br/>Muestra el contenido del proyecto seleccionado, además permite generar reporte planificado y final.</p>
+                            <p><b>2. Visualizar: </b><br/>Muestra el contenido del proyecto seleccionado, además permite generar reporte planificado o reporte final.</p>
                             <p><b>3. Modificar: </b><br/>Edita los datos ingresados anteriormente en el proyecto seleccionado.</p>
                         </p:outputPanel>
                         <p:outputPanel style="width: 430px">
                             <p><b>4. Actividad: </b><br/>Permite gestionar(registrar, visualizar y modificar) las actividades del proyecto seleccionado.</p>
-                            <p><b>5. Prórrogas: </b><br/>Ofrece al usuario la gestión sobre las prórrogas del proyecto seleccionado,en esta opción el usuario podrá registrar, visualizar y modificar prórrogas.</p>
+                            <p><b>5. Prórrogas: </b><br/>Ofrece al usuario la gestión sobre las prórrogas del proyecto seleccionado, en esta opción el usuario podrá registrar, visualizar y modificar prórrogas.</p>
                         </p:outputPanel>
 
                     </h:panelGrid>
@@ -36,10 +36,10 @@
                         <h:graphicImage library="images" name="ayuda/proyectos/nuevo.PNG" width="390px"/>
                         <p:outputPanel style="width: 430px">
                             <p><b>Nombre: </b><br/>Ingrese el nombre del nuevo proyecto.</p>
-                            <p><b>Descripción: </b><br/>Digite una breve descripción del proyecto que está registrando</p>
+                            <p><b>Descripción: </b><br/>Digite una breve descripción del proyecto que está registrando.</p>
                             <p><b>Fecha de inicio: </b><br/> Seleccione la fecha en la que dará inicio el proyecto, mediante un pequeño calendario que aparece al momento de dar clic en el campo.</p>
                             <p><b>Fecha de finalización: </b><br/>Seleccione la fecha en la finalizara el proyecto, el campo aparecerá deshabilitado mientras no se haya seleccionado una fecha de inicio, posteriormente se presentara un pequeño calendario al momento de dar clic en el campo.</p>
-                            <p><b>Responsable: </b><br/>Seleccione el responsable del proyecto. Para seleccionar un responsable tiene que dar clic en el campo para realizar dicha acción.</p>
+                            <p><b>Responsable: </b><br/>Seleccione el responsable del proyecto. Para seleccionar un responsable debe hacer clic en el campo para realizar dicha acción.</p>
                             <p><b>Guardar: </b><br/>Almacena a la base de datos la información ingresada en el formulario.</p>
                             <p><b>(X)Cerrar: </b><br/>Cierra el formulario sin almacenar los datos ingresados.</p>
                             <p><b>(*) Campo requerido: </b><br/>Al aparecer este símbolo en alguna etiqueta quiere dar a entender que el campo es requerido u obligatorio. En otras palabras si no es ingresado el dato solicitado en el campo, no se podrá almacenar en la base de datos del sistema.</p>
@@ -53,10 +53,10 @@
                         <h:graphicImage library="images" name="ayuda/proyectos/visualizar.PNG" width="390px"/>
                         <p:outputPanel style="width: 430px">
                             <p><b>Pasos para visualizar el contenido del proyecto.</b></p>
-                            <p><b>Paso 1: </b><br/>Seleccióne el proyecto que desea visualizar.</p>
-                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Visualizar</b> para luego hacer clic y ver la información del proyecto seleccionado.</p>
-                            <p><b>Paso 3: </b><br/>Si desea generar algun reporte debera dar clic ya sea en el botón <b>Reporte planificado</b> o <b>Reporte final</b>.</p>
-                            <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
+                            <p><b>Paso 1: </b><br/>Seleccione el proyecto que desea visualizar.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitará el botón <b>Visualizar</b> para luego hacer clic y ver la información del proyecto seleccionado.</p>
+                            <p><b>Paso 3: </b><br/>Si desea generar algún reporte deberá hacer clic ya sea en el botón <b>Reporte planificado</b> o <b>Reporte final</b>.</p>
+                            <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, hacer clic en el botón <b>X</b>.</p>
                         </p:outputPanel>
                     </h:panelGrid>
                 </p:tab>
@@ -65,10 +65,10 @@
                         <h:graphicImage library="images" name="ayuda/proyectos/modificar.PNG" width="390px"/>
                         <p:outputPanel style="width: 430px">
                             <p><b>Pasos para modificar los datos del proyecto.</b></p>
-                            <p><b>Paso 1: </b><br/>Seleccióne el proyecto que desea modificar o actualizar la información.</p>
-                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Modificar</b>, luego hacer clic y el formulario mostrara los datos del proyecto para que puedan ser editados.</p>
-                            <p><b>Paso 3: </b><br/>Realize los cambios que desea y haga clic en el botón <b>Guardar</b>.</p>
-                            <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, haga clic en el botón <b>X</b>.</p>
+                            <p><b>Paso 1: </b><br/>Seleccione el proyecto que desea modificar o actualizar la información.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitará el botón <b>Modificar</b>, luego hacer clic y el formulario mostrará los datos del proyecto para que puedan ser editados.</p>
+                            <p><b>Paso 3: </b><br/>Realize los cambios que desea y hacer clic en el botón <b>Guardar</b>.</p>
+                            <p><b>Paso 4: </b><br/>Si desea cerrar el formulario, hacer clic en el botón <b>X</b>.</p>
                         </p:outputPanel>
                     </h:panelGrid>
                 </p:tab>
@@ -79,8 +79,8 @@
                     <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
                         <p:outputPanel style="width: 900px">
                             <p><b>Pasos para administrar las actividades del proyecto.</b></p>
-                            <p><b>Paso 1: </b><br/>Seleccióne el proyecto en el que desea administrar las actividades.</p>
-                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Actividad</b>, luego hacer clic y este sera redireccionado a la administracíon de las actividades.</p>
+                            <p><b>Paso 1: </b><br/>Seleccione el proyecto en el que desea administrar las actividades.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitará el botón <b>Actividad</b>, luego hacer clic y este sera redireccionado a la administración de las actividades.</p>
                         </p:outputPanel>
                     </h:panelGrid>
                 </p:tab>
@@ -91,8 +91,8 @@
                     <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
                         <p:outputPanel style="width: 900px">
                             <p><b>Pasos para administrar las prorrogas del proyecto.</b></p>
-                            <p><b>Paso 1: </b><br/>Seleccióne el proyecto en el que desea administrar las prórrogas.</p>
-                            <p><b>Paso 2: </b><br/>Se habilitara el botón <b>Prórrogas</b>, luego hacer clic y este sera redireccionado a la administracíon de las prórrogas, en donde estas podran visualizarse o modificarse .</p>
+                            <p><b>Paso 1: </b><br/>Seleccione el proyecto en el que desea administrar las prórrogas.</p>
+                            <p><b>Paso 2: </b><br/>Se habilitará el botón <b>Prórrogas</b>, luego hacer clic y este sera redireccionado a la administración de las prórrogas, en donde estas podran visualizarse o modificarse .</p>
                         </p:outputPanel>
                     </h:panelGrid>
                 </p:tab>
