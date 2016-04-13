@@ -61,6 +61,13 @@
                                 <p:ajax listener="#{themeSwitcherBean.saveUserTheme()}" />
                             </p:themeSwitcher>  
                         </p:menuitem>
+                        <p:menuitem value="   "></p:menuitem>
+                        
+                        <p:menuitem>
+                            <p:commandLink title="Acerca de" update=":AcercaDeForm" oncomplete="PF('AcercaDeDialog').show()" >
+                                <p:graphicImage name="images/informacion.png"  height="25px" />
+                            </p:commandLink>
+                        </p:menuitem>
                     </p:menubar>
                 </h:form>
             </p:layoutUnit>
@@ -86,15 +93,15 @@
                             </p:submenu>
                         </c:if>
                         <c:if test="#{request.isUserInRole('Administrador') or request.isUserInRole('Digitador')}">
-                                <p:submenu label="Ejemplar">
-                                    <p:menuitem value="Ejemplares" outcome="/paginas/ejemplarTb/List.xhtml"/>
-                                    <c:if test="#{request.isUserInRole('Administrador')}">
-                                        <p:menuitem value="Ejemplares Vivos" outcome="/paginas/ejemplarVivoTb/List.xhtml" />
-                                        <p:menuitem value="Donaciones" outcome="/paginas/donacionTb/List.xhtml" />
-                                    </c:if>
-                                </p:submenu>
-                            </c:if>
-                        
+                            <p:submenu label="Ejemplar">
+                                <p:menuitem value="Ejemplares" outcome="/paginas/ejemplarTb/List.xhtml"/>
+                                <c:if test="#{request.isUserInRole('Administrador')}">
+                                    <p:menuitem value="Ejemplares Vivos" outcome="/paginas/ejemplarVivoTb/List.xhtml" />
+                                    <p:menuitem value="Donaciones" outcome="/paginas/donacionTb/List.xhtml" />
+                                </c:if>
+                            </p:submenu>
+                        </c:if>
+
                         <c:if test="#{request.isUserInRole('Administrador') or request.isUserInRole('Digitador')}">
                             <p:submenu label="Localización">
                                 <c:if test="#{request.isUserInRole('Administrador')}">
@@ -145,6 +152,7 @@
 
         </p:layout>
         <ui:include src="/paginas/cambiarcontra.xhtml"/>
+        <ui:include src="AcercaDe.xhtml"/>
     </h:body>
 
 </html>
