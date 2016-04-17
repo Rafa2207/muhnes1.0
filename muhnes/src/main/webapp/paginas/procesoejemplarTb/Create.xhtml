@@ -21,8 +21,8 @@
                                      required="true" requiredMessage="Introduzca el nombre"/>
 
                         <p:outputLabel value="#{bundle.CreateProcesoejemplarTbLabel_MDescripcion}" for="MDescripcion" />
-                        <p:inputText id="MDescripcion" value="#{procesoejemplarTbController.selected.MDescripcion}" title="#{bundle.CreateProcesoejemplarTbTitle_MDescripcion}" />
-
+                        <p:inputTextarea cols="21" rows="2" autoResize="" id="MDescripcion" value="#{procesoejemplarTbController.selected.MDescripcion}" title="#{bundle.CreateProcesoejemplarTbTitle_MDescripcion}" />
+                    
                         <p:outputLabel value="#{bundle.CreateProcesoejemplarTbLabel_DCantidad}" for="DCantidad" />
                         <h:panelGroup>
                         <p:inputText id="DCantidad" value="#{procesoejemplarTbController.selected.ECantidad}" title="Cantidad" required="true" requiredMessage="introduzca cantidad"/>

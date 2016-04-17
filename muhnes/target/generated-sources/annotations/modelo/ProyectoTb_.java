@@ -12,7 +12,7 @@ import modelo.NotapreliminarTb;
 import modelo.ProcesoejemplarTb;
 import modelo.ProrrogaProyectoTb;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2016-04-13T14:53:32")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2016-04-17T10:49:58")
 @StaticMetamodel(ProyectoTb.class)
 public class ProyectoTb_ { 
 
