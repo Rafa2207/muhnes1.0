@@ -101,3 +101,7 @@
 .ParaInputNumberActividades input {
    width: 50px;
 }
+
+.fondoGrande {
+    font-size: 15px !important;
+}

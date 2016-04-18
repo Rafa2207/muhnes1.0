@@ -39,6 +39,8 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "InstitucionTb.findByCUrl", query = "SELECT i FROM InstitucionTb i WHERE i.cUrl = :cUrl")})
 public class InstitucionTb implements Serializable {
     @OneToMany(mappedBy = "eIdinstitucion")
+    private List<BibliotecaTb> bibliotecaTbList;
+    @OneToMany(mappedBy = "eIdinstitucion")
     private List<DonacionTb> donacionTbList;
     @Column(name = "b_estado")
     private Boolean bEstado;
@@ -200,6 +202,14 @@ public class InstitucionTb implements Serializable {
 
     public void setDonacionTbList(List<DonacionTb> donacionTbList) {
         this.donacionTbList = donacionTbList;
+    }
+
+    public List<BibliotecaTb> getBibliotecaTbList() {
+        return bibliotecaTbList;
+    }
+
+    public void setBibliotecaTbList(List<BibliotecaTb> bibliotecaTbList) {
+        this.bibliotecaTbList = bibliotecaTbList;
     }
     
 }

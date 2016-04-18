@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MDlg" widgetVar="MDialog" modal="true" resizable="false" appendTo="@(body)" header="Misión">
+            <h:form id="MForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid rendered="#{bibliotecaTbController.selected != null}">
+                        <p:inputTextarea value="#{bibliotecaTbController.selected.MMision}" styleClass="fondoGrande" autoResize="false" rows="9" cols="95"  > </p:inputTextarea>
+                                             
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{bibliotecaTbController.update('misión')}" value="Guardar" update="display, :BibliotecaTbListForm :growl" oncomplete="handleSubmit(args,'MDialog');"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

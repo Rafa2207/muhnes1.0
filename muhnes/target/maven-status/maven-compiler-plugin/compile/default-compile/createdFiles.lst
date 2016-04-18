@@ -11,6 +11,7 @@ modelo\ProyectoTb.class
 controlador\CantonTbController.class
 controlador\ProyectoTbController.class
 controlador\util\ControladorSesion.class
+servicio\util\JsfUtil.class
 modelo\MaterialDespachoTbPK_.class
 servicio\EjemplarTbFacade.class
 servicio\MaterialTbFacade.class
@@ -54,6 +55,7 @@ controlador\util\ThemeSwitcherBean.class
 modelo\EjemplarDonacionTb_.class
 modelo\AgenteTaxonomiaTbPK_.class
 controlador\PedidoTbController$PedidoTbControllerConverter.class
+servicio\util\JsfUtil$PersistAction.class
 controlador\NotapreliminarTbController$NotapreliminarTbControllerConverter.class
 controlador\AgentePerfilTbController.class
 controlador\util\JsfUtil$PersistAction.class
@@ -97,6 +99,7 @@ controlador\LocalidadTbController$LocalidadTbControllerConverter.class
 servicio\UnidadesTbFacade.class
 controlador\PaisTbController.class
 modelo\AreaprotegidaTb_.class
+servicio\BibliotecaTbFacade.class
 controlador\util\BackupDB.class
 modelo\AgentePerfilTb.class
 servicio\DepartamentoTbFacade.class
@@ -118,6 +121,7 @@ controlador\MaterialPedidoTbController$MaterialPedidoTbControllerConverter.class
 modelo\ImagenTb_.class
 controlador\util\Correo.class
 servicio\MaterialDespachoTbFacade.class
+controlador\BibliotecaTbController$BibliotecaTbControllerConverter.class
 modelo\EjemplarParticipaExhibicionTbPK.class
 modelo\ExhibicionTb_.class
 controlador\AgenteTbController.class
@@ -135,6 +139,7 @@ controlador\ProrrogaProyectoTbController.class
 modelo\UnidadesTb_.class
 modelo\MaterialProyectoTbPK_.class
 controlador\PaisTbController$PaisTbControllerConverter.class
+modelo\BibliotecaTb.class
 controlador\NotapreliminarTbController.class
 modelo\AgenteTb.class
 modelo\EjemplarVivoTb.class
@@ -163,15 +168,17 @@ controlador\EjemplarParticipaExhibicionTbController.class
 modelo\DepartamentoTb_.class
 controlador\AgenteTbController$AgenteTbControllerConverter.class
 controlador\ProrrogaProyectoTbController$ProrrogaProyectoTbControllerConverter.class
+modelo\BibliotecaTb_.class
 controlador\MaterialTbController$MaterialTbControllerConverter.class
 modelo\LocalidadTb.class
 modelo\MaterialDespachoTb.class
-modelo\AgenteIdentificaEjemplarTb_.class
 servicio\AgentePerfilTbFacade.class
+modelo\AgenteIdentificaEjemplarTb_.class
 controlador\util\JsfUtil.class
 controlador\ExhibicionTbController$ExhibicionTbControllerConverter.class
 modelo\AgentePerfilTbPK_.class
 modelo\InsumoTb.class
+controlador\BibliotecaTbController.class
 modelo\DepartamentoTb.class
 modelo\MaterialPedidoTbPK.class
 modelo\MaterialDespachoTbPK.class
@@ -203,8 +210,8 @@ controlador\InstitucionTbController.class
 controlador\BitacoraTbController$BitacoraTbControllerConverter.class
 controlador\DonacionTbController$DonacionTbControllerConverter.class
 modelo\AgenteIdentificaEjemplarTbPK.class
-modelo\AgentePerfilTb_.class
 servicio\AreaprotegidaTbFacade.class
+modelo\AgentePerfilTb_.class
 modelo\DisminuirEjemplarTb_.class
 servicio\LocalidadTbFacade.class
 servicio\ExhibicionTbFacade.class

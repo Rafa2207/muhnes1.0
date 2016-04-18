@@ -40,5 +40,13 @@
             <base-name>/BundleEjemplarVivo</base-name>
             <var>bundleEjemplarVivo</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>/Bundle_biblioteca</base-name>
+            <var>bundle_biblioteca</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/Bundle_biblioteca</base-name>
+            <var>bundle_biblioteca</var>
+        </resource-bundle>
     </application>
 </faces-config>
