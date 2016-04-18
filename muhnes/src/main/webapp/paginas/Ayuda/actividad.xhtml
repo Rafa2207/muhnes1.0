@@ -29,9 +29,9 @@
                     </h:panelGrid>
                 </p:tab>
                 <p:tab title="1. Nuevo" >
-                    <p:panelGrid columns="1"  style="text-align: center;"  layout="grid">        
-                        <h:graphicImage library="images" name="ayuda/actividades/nuevo.PNG" width="600px"/>
-                    </p:panelGrid>
+                    <div align="center">
+                            <h:graphicImage library="images" name="ayuda/actividades/nuevo.PNG" width="600px"/>
+                    </div>
                     <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
 
                         <p:outputPanel style="width: 430px">
@@ -42,7 +42,7 @@
                             <p><b>Tipo de actividad: </b><br/>Seleccione el tipo de actividad, esta puede ser de material o viaje. Para seleccionar el tipo de actividad debe de hacer clic en el campo para realizar dicha acción.</p>
                             <p><b>Insumo: </b><br/>Ingrese el nombre del insumo.</p>
                         </p:outputPanel>
-                           <p:outputPanel style="width: 430px">
+                        <p:outputPanel style="width: 430px">
                             <p><b>Unidad: </b><br/>Seleccione la unidad del insumo, esta puede ser de material(unidad, kilogramos, litros, etc.) o viaje(dias o noches). Para seleccionar la unidad del insumo debe de hacer clic en el campo para realizar dicha acción.</p>
                             <p><b>Cantidad: </b><br/>Ingrese la cantidad del insumo.</p>
                             <p><b>Costo unitario: </b><br/>Ingrese el costo unitario del insumo.</p>
@@ -50,9 +50,9 @@
                             <p><b>(X)Cerrar: </b><br/>Cierra el formulario sin almacenar los datos ingresados.</p>
                             <p><b>(*) Campo requerido: </b><br/>Al aparecer este símbolo en alguna etiqueta quiere dar a entender que el campo es requerido u obligatorio. En otras palabras si no es ingresado el dato solicitado en el campo, no se podrá almacenar en la base de datos del sistema.</p>
                         </p:outputPanel>
-                        </h:panelGrid>
+                    </h:panelGrid>
                 </p:tab>
-                
+
                 <p:tab title="2. Visualizar" >
                     <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
                         <h:graphicImage library="images" name="ayuda/actividades/visualizar.PNG" width="450px"/>
@@ -65,11 +65,11 @@
                         </p:outputPanel>
                     </h:panelGrid>
                 </p:tab>
-                
+
                 <p:tab title="3. Modificar" >
-                    <p:panelGrid columns="1"  style="text-align: center;"  layout="grid">        
+                    <div align="center">
                         <h:graphicImage library="images" name="ayuda/actividades/modificar.PNG" width="600px"/>
-                    </p:panelGrid>
+                    </div>
                     <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" > 
                         <p:outputPanel style="width: 900px">
                             <p><b>Pasos para modificar los datos de la actividad.</b></p>
