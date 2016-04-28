@@ -50,6 +50,9 @@ public class BibliotecaTb implements Serializable {
     @Column(name = "m_historia")
     private String mHistoria;
     @Size(max = 2147483647)
+    @Column(name = "m_historiaB")
+    private String mHistoriaB;
+    @Size(max = 2147483647)
     @Column(name = "m_objetivo")
     private String mObjetivo;
     @Size(max = 2147483647)
@@ -80,6 +83,14 @@ public class BibliotecaTb implements Serializable {
 
     public void setMInformacion(String mInformacion) {
         this.mInformacion = mInformacion;
+    }
+
+    public String getMHistoriaB() {
+        return mHistoriaB;
+    }
+
+    public void setMHistoriaB(String mHistoriaB) {
+        this.mHistoriaB = mHistoriaB;
     }
     
     public String getMMision() {
