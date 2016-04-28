@@ -28,7 +28,10 @@
                         <p:panelGrid columns="1" style="text-align: center">
                             <!-- <p:commandButton action="#{backupDB.backup()}" value="Respaldar" ajax="false"/>-->
                             <h:outputLink value="#{request.contextPath}#{backupDB.url}" rendered="#{not empty backupDB.url}">
-                                <p:graphicImage title="Descargar" name="images/exitoDB.png"  height="40px" />
+                                <p:graphicImage title="Descargar" name="images/descargar.png"  height="40px" />
+                                <font size="4">
+                                    Descargar archivo.
+                                </font>
                                 
                             </h:outputLink>
 
