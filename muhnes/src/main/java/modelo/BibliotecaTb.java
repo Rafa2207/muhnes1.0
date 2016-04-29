@@ -31,8 +31,9 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "BibliotecaTb.findByMMision", query = "SELECT b FROM BibliotecaTb b WHERE b.mMision = :mMision"),
     @NamedQuery(name = "BibliotecaTb.findByMVision", query = "SELECT b FROM BibliotecaTb b WHERE b.mVision = :mVision"),
     @NamedQuery(name = "BibliotecaTb.findByMHistoria", query = "SELECT b FROM BibliotecaTb b WHERE b.mHistoria = :mHistoria"),
+    @NamedQuery(name = "BibliotecaTb.findByMObjetivo", query = "SELECT b FROM BibliotecaTb b WHERE b.mObjetivo = :mObjetivo"),
     @NamedQuery(name = "BibliotecaTb.findByMInformacion", query = "SELECT b FROM BibliotecaTb b WHERE b.mInformacion = :mInformacion"),
-    @NamedQuery(name = "BibliotecaTb.findByMObjetivo", query = "SELECT b FROM BibliotecaTb b WHERE b.mObjetivo = :mObjetivo")})
+    @NamedQuery(name = "BibliotecaTb.findByMHistoriab", query = "SELECT b FROM BibliotecaTb b WHERE b.mHistoriab = :mHistoriab")})
 public class BibliotecaTb implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -50,14 +51,14 @@ public class BibliotecaTb implements Serializable {
     @Column(name = "m_historia")
     private String mHistoria;
     @Size(max = 2147483647)
-    @Column(name = "m_historiaB")
-    private String mHistoriaB;
-    @Size(max = 2147483647)
     @Column(name = "m_objetivo")
     private String mObjetivo;
     @Size(max = 2147483647)
     @Column(name = "m_informacion")
     private String mInformacion;
+    @Size(max = 2147483647)
+    @Column(name = "m_historiab")
+    private String mHistoriab;
     @JoinColumn(name = "e_idinstitucion", referencedColumnName = "e_idinstitucion")
     @ManyToOne
     private InstitucionTb eIdinstitucion;
@@ -77,22 +78,6 @@ public class BibliotecaTb implements Serializable {
         this.eIdbiblioteca = eIdbiblioteca;
     }
 
-    public String getMInformacion() {
-        return mInformacion;
-    }
-
-    public void setMInformacion(String mInformacion) {
-        this.mInformacion = mInformacion;
-    }
-
-    public String getMHistoriaB() {
-        return mHistoriaB;
-    }
-
-    public void setMHistoriaB(String mHistoriaB) {
-        this.mHistoriaB = mHistoriaB;
-    }
-    
     public String getMMision() {
         return mMision;
     }
@@ -123,6 +108,22 @@ public class BibliotecaTb implements Serializable {
 
     public void setMObjetivo(String mObjetivo) {
         this.mObjetivo = mObjetivo;
+    }
+
+    public String getMInformacion() {
+        return mInformacion;
+    }
+
+    public void setMInformacion(String mInformacion) {
+        this.mInformacion = mInformacion;
+    }
+
+    public String getMHistoriab() {
+        return mHistoriab;
+    }
+
+    public void setMHistoriab(String mHistoriab) {
+        this.mHistoriab = mHistoriab;
     }
 
     public InstitucionTb getEIdinstitucion() {
