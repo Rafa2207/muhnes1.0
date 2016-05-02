@@ -8,13 +8,13 @@
 
     <ui:composition>
 
-        <p:dialog id="IDlg" widgetVar="IDialog" modal="true" resizable="false" appendTo="@(body)" header="Información">
-            <h:form id="IForm">
+        <p:dialog id="HHDlg" widgetVar="HHDialog" modal="true" resizable="false" appendTo="@(body)" header="Historia Herbario">
+            <h:form id="HHForm">
                 <h:panelGroup id="display">
                     <p:panelGrid rendered="#{bibliotecaTbController.selected != null}">
-                        <p:editor value="#{bibliotecaTbController.selected.MInformacion}" width="600"/>
+                        <p:editor value="#{bibliotecaTbController.selected.MHistoriab}" width="600"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{bibliotecaTbController.update('información')}" value="Guardar" update="display, :BibliotecaTbListForm :growl" oncomplete="handleSubmit(args,'IDialog');"/>
+                    <p:commandButton actionListener="#{bibliotecaTbController.update('historia del herbario')}" value="Guardar" update="display, :BibliotecaTbListForm :growl" oncomplete="handleSubmit(args,'HHDialog');"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

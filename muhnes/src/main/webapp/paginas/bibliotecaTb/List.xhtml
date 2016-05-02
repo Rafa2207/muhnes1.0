@@ -21,10 +21,10 @@
                             <p:panelGrid columns="1" style="text-align: center">
                                 <div align="center">
                                     <p:commandLink title="Historia" update=":historiaForm" actionListener="#{bibliotecaTbController.prepareDatos()}" oncomplete="PF('historiaDialog').show()" >
-                                        <p:graphicImage name="images/biblioteca/historia.png"  height="80px" />
+                                        <p:graphicImage name="images/biblioteca/historiaMuhnes.png"  height="80px" />
                                     </p:commandLink>
                                     <font size="4">
-                                        Historia
+                                        Historia museo
                                     </font>
                                 </div>
                             </p:panelGrid>
@@ -54,8 +54,19 @@
                             </p:panelGrid>
 
                         </p:panelGrid>
-                        <p:panelGrid columns="2">
+                        <p:panelGrid columns="3">
 
+                            <p:panelGrid columns="1" style="text-align: center">
+                                <div align="center">
+                                    <p:commandLink title="Historia herbario" update=":HHForm" actionListener="#{bibliotecaTbController.prepareDatos()}" oncomplete="PF('HHDialog').show()" >
+                                        <p:graphicImage name="images/biblioteca/historia.png"  height="80px" />
+                                    </p:commandLink>
+                                    <font size="4">
+                                        Historia herbario
+                                    </font>
+                                </div>
+                            </p:panelGrid>
+                            
                             <p:panelGrid columns="1" style="text-align: center">
                                 <div align="center">
                                     <p:commandLink title="Objetivo" update=":OForm" actionListener="#{bibliotecaTbController.prepareDatos()}" oncomplete="PF('ODialog').show()" >
@@ -89,6 +100,7 @@
             <ui:include src="Mision.xhtml"/>
             <ui:include src="Objetivo.xhtml"/>
             <ui:include src="Vision.xhtml"/>
+            <ui:include src="Historiaherbario.xhtml"/>
         </ui:define>
     </ui:composition>
 

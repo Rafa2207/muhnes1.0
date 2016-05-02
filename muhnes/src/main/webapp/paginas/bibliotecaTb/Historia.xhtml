@@ -12,7 +12,7 @@
             <h:form id="historiaForm">
                 <h:panelGroup id="display">
                     <p:panelGrid rendered="#{bibliotecaTbController.selected != null}">
-                        <p:inputTextarea value="#{bibliotecaTbController.selected.MHistoria}" styleClass="fondoGrande" autoResize="false" rows="9" cols="95" > </p:inputTextarea>
+                        <p:editor value="#{bibliotecaTbController.selected.MHistoria}" width="600"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{bibliotecaTbController.update('historia')}" value="Guardar" update="display, :BibliotecaTbListForm :growl" oncomplete="handleSubmit(args,'historiaDialog');"/>
                 </h:panelGroup>

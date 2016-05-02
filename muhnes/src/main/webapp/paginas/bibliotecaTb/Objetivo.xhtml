@@ -13,7 +13,7 @@
                 <h:panelGroup id="display">
                     <p:panelGrid rendered="#{bibliotecaTbController.selected != null}">
 
-                        <p:inputTextarea value="#{bibliotecaTbController.selected.MObjetivo}" autoResize="false" rows="9" cols="95" styleClass="fondoGrande"> </p:inputTextarea>
+                        <p:editor value="#{bibliotecaTbController.selected.MObjetivo}" width="600"/>
 
                     </p:panelGrid>
                     <p:commandButton actionListener="#{bibliotecaTbController.update('objetivo')}" value="Guardar" update="display, :BibliotecaTbListForm :growl" oncomplete="handleSubmit(args,'ODialog');"/>
