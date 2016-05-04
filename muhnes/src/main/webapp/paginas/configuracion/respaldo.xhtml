@@ -16,7 +16,7 @@
                     <div align="center">
                         <p:panelGrid columns="1" style="text-align: center">
                             <div align="center">
-                                <p:commandLink title="Misión" action="#{backupDB.backup()}" ajax="false">
+                                <p:commandLink title="Respaldar" action="#{backupDB.backup()}" ajax="false">
                                     <p:graphicImage name="images/respaldo.png"  height="80px" />
                                 </p:commandLink>
                                 <font size="4">
@@ -26,21 +26,15 @@
                             </div>
                         </p:panelGrid>
                         <p:panelGrid columns="1" style="text-align: center">
-                            <!-- <p:commandButton action="#{backupDB.backup()}" value="Respaldar" ajax="false"/>-->
                             <h:outputLink value="#{request.contextPath}#{backupDB.url}" rendered="#{not empty backupDB.url}">
                                 <p:graphicImage title="Descargar" name="images/descargar.png"  height="40px" />
                                 <font size="4">
                                     Descargar archivo.
                                 </font>
-                                
                             </h:outputLink>
-
                         </p:panelGrid>
                     </div>
 
-
-                    <br/>
-                    <p:fileUpload fileUploadListener="#{restoeDB.upload}" label="Restaurar" auto="true" update=":growl"/>
                 </p:panel>
             </h:form>
         </ui:define>
