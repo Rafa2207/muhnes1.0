@@ -26,8 +26,6 @@
 
                         <p:panelGrid columns="6" rendered="#{actividadTbController.selected != null}">
 
-
-
                             <p:outputLabel value="#{bundle.CreateActividadTbLabel_FFecha}" for="FFecha" />
                             <p:calendar mindate="#{actividadTbController.proyectos.FFechaInicio}" maxdate="#{actividadTbController.calcularFechaMaxima()}" id="FFecha" pattern="dd MMMM yyyy" value="#{actividadTbController.selected.FFecha}" title="#{bundle.EditActividadTbTitle_FFecha}"  showOn="button" 
                                         required="true" readonlyInput="true"
