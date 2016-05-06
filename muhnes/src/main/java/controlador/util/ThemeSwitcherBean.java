@@ -40,7 +40,9 @@ public class ThemeSwitcherBean {
       themes.put("Azul nuboso", "cupertino");
       themes.put("Azul vaquero", "hot-sneaks");
       themes.put("Cohete", "rocket");
+      themes.put("Delta", "delta");
       themes.put("Emotivo", "excite-bike");
+      themes.put("Espacio", "bootstrap");
       themes.put("Flora", "south-street");
       themes.put("Naranja", "ui-lightness");
       themes.put("Película", "flick");

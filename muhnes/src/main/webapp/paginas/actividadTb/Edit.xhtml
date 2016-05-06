@@ -125,7 +125,7 @@
                             <p:column headerText="Sub Total">
                                 <h:outputText value="$#{insumo.DCantidad*insumo.DGasto}"/>
                             </p:column>
-                            <p:column headerText="Acciones">
+                            <p:column headerText="Acciones" >
                                 <p:rowEditor/>
                                 <p:commandLink style="display: inline-block"
                                                styleClass="ui-icon ui-icon-trash"
@@ -134,7 +134,7 @@
                                                update="insumos, :ActividadTbEditForm:total">
                                     <f:setPropertyActionListener value="#{insumo}" 
                                                                  target="#{actividadTbController.insumo}"/>
-                                </p:commandLink>
+                                </p:commandLink>                                
                             </p:column>
                         </p:dataTable>
                         <h:outputLabel for="total" style="font-weight: bold" value="Total ($): "/>
