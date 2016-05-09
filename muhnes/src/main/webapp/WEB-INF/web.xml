@@ -57,6 +57,7 @@
             <url-pattern>/paginas/agentePerfilTb/*</url-pattern>
             <url-pattern>/paginas/agenteTb/*</url-pattern>
             <url-pattern>/paginas/areaprotegidaTb/*</url-pattern>
+            <url-pattern>/paginas/bibliotecaTb/*</url-pattern>
             <url-pattern>/paginas/bitacoraTb/*</url-pattern>
             <url-pattern>/paginas/cantonTb/*</url-pattern>
             <url-pattern>/paginas/configuracion/*</url-pattern>

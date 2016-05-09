@@ -13,7 +13,7 @@ import modelo.LocalidadTb;
 import modelo.ProyectoTb;
 import modelo.TaxonomiaTb;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2016-05-05T10:46:34")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2016-05-09T07:51:12")
 @StaticMetamodel(EjemplarTb.class)
 public class EjemplarTb_ { 
 

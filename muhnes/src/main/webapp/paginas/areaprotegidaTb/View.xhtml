@@ -11,7 +11,7 @@
         <p:dialog id="AreaprotegidaTbViewDlg" widgetVar="AreaprotegidaTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="Visualizar Área Protegida">
             <h:form id="AreaprotegidaTbViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{areaprotegidaTbController.selected != null}" style="width: 600px">
+                    <p:panelGrid columns="2" rendered="#{areaprotegidaTbController.selected != null}" style="width: 600px; text-align: justify">
                         <h:outputText value="#{bundle.ViewAreaprotegidaTbLabel_CNombre}"/>
                         <h:outputText value="#{areaprotegidaTbController.selected.CNombre}" title="#{bundle.ViewAreaprotegidaTbTitle_CNombre}"/>
 

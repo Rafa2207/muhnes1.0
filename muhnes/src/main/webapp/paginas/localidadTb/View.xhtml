@@ -11,7 +11,7 @@
         <p:dialog id="LocalidadTbViewDlg" widgetVar="LocalidadTbViewDialog" modal="true" resizable="false" appendTo="@(body)" header="Visualizar Localidad">
             <h:form id="LocalidadTbViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{localidadTbController.selected != null}" style="width: 600px">
+                    <p:panelGrid columns="2" rendered="#{localidadTbController.selected != null}" style="width: 600px; text-align: justify">
                         <h:outputText value="#{bundle.ViewLocalidadTbLabel_CNombre}"/>
                         <h:outputText value="#{localidadTbController.selected.CNombre}" title="#{bundle.ViewLocalidadTbTitle_CNombre}"/>
                         <h:outputText value="#{bundle.ViewLocalidadTbLabel_MDescripcion}"/>
