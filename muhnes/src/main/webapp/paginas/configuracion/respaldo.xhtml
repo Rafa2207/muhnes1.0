@@ -25,8 +25,8 @@
 
                             </div>
                         </p:panelGrid>
-                        <p:panelGrid columns="1" style="text-align: center">
-                            <h:outputLink value="#{request.contextPath}#{backupDB.url}" rendered="#{not empty backupDB.url}">
+                        <p:panelGrid columns="1" style="text-align: center" rendered="#{not empty backupDB.url}">
+                            <h:outputLink value="#{request.contextPath}#{backupDB.url}">
                                 <p:graphicImage title="Descargar" name="images/descargar.png"  height="40px" />
                             </h:outputLink>
                             <font size="4">

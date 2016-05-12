@@ -167,7 +167,7 @@ public class UnidadesTbController implements Serializable {
         return getFacade().findAll();
     }
     public List<UnidadesTb> getItemsMateriales() {
-        return getFacade().obtenerUnidadesMateriales();
+        return getFacade().obtenerUnidades();
     }
 
     @FacesConverter(forClass = UnidadesTb.class)
@@ -210,9 +210,9 @@ public class UnidadesTbController implements Serializable {
         }
 
     }
-    public List<UnidadesTb> unidades(String pre){
+    public List<UnidadesTb> unidades(){
         
-        items = getFacade().obtenerUnidades(pre);
+        items = getFacade().obtenerUnidades();
         
         return items;
     }

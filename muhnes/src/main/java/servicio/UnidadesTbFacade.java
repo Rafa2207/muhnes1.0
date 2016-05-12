@@ -31,10 +31,9 @@ public class UnidadesTbFacade extends AbstractFacade<UnidadesTb> {
         super(UnidadesTb.class);
     }
 
-    public List<UnidadesTb> obtenerUnidades(String proyecto) {
+    public List<UnidadesTb> obtenerUnidades() {
 
-        TypedQuery<UnidadesTb> query = em.createQuery("SELECT p FROM UnidadesTb p WHERE p.cTipo=:h ORDER BY p.cNombre ASC", UnidadesTb.class);
-        query.setParameter("h", proyecto);
+        TypedQuery<UnidadesTb> query = em.createQuery("SELECT p FROM UnidadesTb p ORDER BY p.cNombre ASC", UnidadesTb.class);
         return query.getResultList();
     }
     public List<UnidadesTb> obtenerUnidadesMateriales() {

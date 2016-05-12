@@ -24,7 +24,7 @@
                             <p:inputTextarea cols="70" rows="3" autoResize="" id="MDescripcion" value="#{actividadTbController.selected.MDescripcion}" />
                         </p:panelGrid>
 
-                        <p:panelGrid columns="6" rendered="#{actividadTbController.selected != null}">
+                        <p:panelGrid columns="4" rendered="#{actividadTbController.selected != null}">
 
                             <p:outputLabel value="#{bundle.CreateActividadTbLabel_FFecha}" for="FFecha" />
                             <p:calendar mindate="#{actividadTbController.proyectos.FFechaInicio}" maxdate="#{actividadTbController.calcularFechaMaxima()}" id="FFecha" pattern="dd MMMM yyyy" value="#{actividadTbController.selected.FFecha}" title="#{bundle.EditActividadTbTitle_FFecha}"  showOn="button" 
@@ -42,14 +42,6 @@
                                         requiredMessage="Introduzca fecha" locale="es"
                                         disabled="#{actividadTbController.selected.FFecha eq null}"/>
 
-
-                            <p:outputLabel value="Tipo de actividad: " for="tipo"/>
-                            <p:selectOneMenu id="tipo" value="#{actividadTbController.selected.CTipo}" required="true" requiredMessage="Debe seleccionar un tipo" disabled="#{actividadTbController.istActividad()}">
-                                <f:selectItem itemLabel="Seleccione" itemValue="" />
-                                <f:selectItem itemLabel="Materiales" itemValue="Materiales" />
-                                <f:selectItem itemLabel="Viaje" itemValue="Viaje" />
-                                <p:ajax event="change" update="unidad" process="tipo"/>
-                            </p:selectOneMenu>
                         </p:panelGrid>
 
 
@@ -61,7 +53,7 @@
                             <p:outputLabel value="Unidades:" for="unidad" />
                             <p:selectOneMenu id="unidad" style="width: 100px" filter="true" value="#{actividadTbController.tiempo}">
                                 <f:selectItem itemLabel="Seleccione" itemValue="" />
-                                <f:selectItems value="#{unidadesTbController.unidades(actividadTbController.selected.CTipo)}" 
+                                <f:selectItems value="#{unidadesTbController.unidades()}" 
                                                var="unidad" 
                                                itemLabel="#{unidad.CNombre}" 
                                                itemValue="#{unidad.CAbreviatura}"/>
@@ -78,7 +70,7 @@
                                              value="Agregar"
                                              actionListener="#{actividadTbController.agregar()}"
                                              process="insumo cant costo unidad agregar"
-                                             update="insumos insumo cant costo unidad total :growl tipo"
+                                             update="insumos insumo cant costo unidad total :growl "
                                              />
                         </p:panelGrid>
                         <p:dataTable id="insumos"
