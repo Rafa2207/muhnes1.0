@@ -13,14 +13,14 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{proyectoTbController.selected != null}" >
                         <p:outputLabel value="#{bundle.CreateProyectoTbLabel_CNombre}" for="MNombre" />
-                        <p:inputTextarea rows="2" cols="23" autoResize="false" id="MNombre" value="#{proyectoTbController.selected.MNombre}" title="#{bundle.CreateProyectoTbTitle_CNombre}" 
+                        <p:inputTextarea rows="4" cols="40" autoResize="false" id="MNombre" value="#{proyectoTbController.selected.MNombre}" title="#{bundle.CreateProyectoTbTitle_CNombre}" 
                                          required="true" requiredMessage="Introduzca el nombre del proyecto"/>
 
                         <p:outputLabel value="#{bundle.CreateProyectoTbLabel_MDescripcion}" for="MDescripcion" />
-                        <p:inputTextarea rows="2" cols="23" autoResize="" id="MDescripcion" value="#{proyectoTbController.selected.MDescripcion}" title="#{bundle.CreateProyectoTbTitle_MDescripcion}" />
+                        <p:inputTextarea rows="4" cols="40" autoResize="" id="MDescripcion" value="#{proyectoTbController.selected.MDescripcion}" title="#{bundle.CreateProyectoTbTitle_MDescripcion}" />
 
                         <p:outputLabel rendered="#{proyectoTbController.selected.EEstado  == 0}" value="#{bundle.EditProyectoTbLabel_FFechaInicio}" for="FFechaInicio" />
-                        <p:calendar rendered="#{proyectoTbController.selected.EEstado == 0}" id="FFechaInicio" pattern="dd MMMM yyyy" size="15" 
+                        <p:calendar rendered="#{proyectoTbController.selected.EEstado == 0}" id="FFechaInicio" pattern="dd MMMM yyyy" size="20" 
                                     value="#{proyectoTbController.selected.FFechaInicio}" 
                                     title="#{bundle.EditProyectoTbTitle_FFechaInicio}"  showOn="button"
                                     required="true"
@@ -31,7 +31,7 @@
                         </p:calendar>
 
                         <p:outputLabel rendered="#{proyectoTbController.selected.EEstado  == 0}" value="#{bundle.EditProyectoTbLabel_FFechaFin}" for="FFechaFin" />
-                        <p:calendar rendered="#{proyectoTbController.selected.EEstado  == 0}" id="FFechaFin" size="15"
+                        <p:calendar rendered="#{proyectoTbController.selected.EEstado  == 0}" id="FFechaFin" size="20"
                                     pattern="dd MMMM yyyy" value="#{proyectoTbController.fechatemporal}" 
                                     title="#{bundle.EditProyectoTbTitle_FFechaFin}"  showOn="button"
                                     required="true"
@@ -41,7 +41,7 @@
                         </p:calendar>
 
                         <p:outputLabel value="#{bundle.CreateProyectoTbLabel_CResponsable}" for="CResponsable" />   
-                        <p:selectOneMenu id="CResponsable" value="#{proyectoTbController.selected.EResponsable}" 
+                        <p:selectOneMenu id="CResponsable" style="width: 180px" value="#{proyectoTbController.selected.EResponsable}" 
                                          required="true" requiredMessage="Seleccione responsable" filter="true" filterMatchMode="contains">
                             <f:selectItem itemValue="" itemLabel="Seleccione.."/>
                             <f:selectItems value="#{agenteTbController.itemsAvailableSelectOne}"

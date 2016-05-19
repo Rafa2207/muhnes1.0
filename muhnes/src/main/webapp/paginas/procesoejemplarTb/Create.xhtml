@@ -18,10 +18,10 @@
 
                         <p:outputLabel value="Nombre:" for="Nombre" />
                         <p:inputText id="Nombre" value="#{procesoejemplarTbController.selected.MNombre}" title="Nombre" 
-                                     required="true" requiredMessage="Introduzca el nombre"/>
+                                     required="true" requiredMessage="Introduzca el nombre" size="25"/>
 
                         <p:outputLabel value="#{bundle.CreateProcesoejemplarTbLabel_MDescripcion}" for="MDescripcion" />
-                        <p:inputTextarea cols="21" rows="2" autoResize="" id="MDescripcion" value="#{procesoejemplarTbController.selected.MDescripcion}" title="#{bundle.CreateProcesoejemplarTbTitle_MDescripcion}" />
+                        <p:inputTextarea rows="4" cols="26" autoResize="" id="MDescripcion" value="#{procesoejemplarTbController.selected.MDescripcion}" title="#{bundle.CreateProcesoejemplarTbTitle_MDescripcion}" />
                     
                         <p:outputLabel value="#{bundle.CreateProcesoejemplarTbLabel_DCantidad}" for="DCantidad" />
                         <h:panelGroup>

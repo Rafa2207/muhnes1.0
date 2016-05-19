@@ -14,18 +14,18 @@
                     <p:panelGrid columns="2" rendered="#{prorrogaProyectoTbController.selected != null}">
                         
                         <p:outputLabel value="#{bundleProrrogaProy.CreateProrrogaProyectoTbLabel_MJustificacion}" for="MJustificacion" />
-                        <p:inputTextarea autoResize="false" id="MJustificacion" value="#{prorrogaProyectoTbController.selected.MJustificacion}" title="#{bundleProrrogaProy.CreateProrrogaProyectoTbTitle_MJustificacion}" 
+                        <p:inputTextarea autoResize="false" rows="4" cols="30" id="MJustificacion" value="#{prorrogaProyectoTbController.selected.MJustificacion}" title="#{bundleProrrogaProy.CreateProrrogaProyectoTbTitle_MJustificacion}" 
                                          required="true" requiredMessage="Introduzca justificación de la prórroga"/>
                         
                         <p:outputLabel value="#{bundleProrrogaProy.CreateProrrogaProyectoTbLabel_FFechaInicio}" for="FFechaInicio" />
                         <p:calendar id="FFechaInicio" pattern="dd MMMM yyyy" value="#{prorrogaProyectoTbController.selected.FFechaInicio}" title="#{bundleProrrogaProy.EditProrrogaProyectoTbTitle_FFechaInicio}"
-                                    showOn="button" size="15" locale="es" readonlyInput="true" disabled="true">
+                                    showOn="button" size="20" locale="es" readonlyInput="true" disabled="true">
                             <p:ajax event="dateSelect" update="FFechaFin"/>
                         </p:calendar>
                         
                         <p:outputLabel value="#{bundleProrrogaProy.CreateProrrogaProyectoTbLabel_FFechaFin}" for="FFechaFin" />
                         <p:calendar id="FFechaFin" pattern="dd MMMM yyyy" value="#{prorrogaProyectoTbController.selected.FFechaFin}" title="#{bundleProrrogaProy.EditProrrogaProyectoTbTitle_FFechaFin}"
-                                    showOn="button" size="15" locale="es" readonlyInput="true"
+                                    showOn="button" size="20" locale="es" readonlyInput="true"
                                     mindate="#{prorrogaProyectoTbController.fechaMinima(prorrogaProyectoTbController.selected.FFechaInicio)}"
                                     required="true" requiredMessage="Introduzca fecha fin de prórroga"/>
                         

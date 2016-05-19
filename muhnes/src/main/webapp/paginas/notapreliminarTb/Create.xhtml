@@ -11,11 +11,14 @@
         <p:dialog id="NotapreliminarTbCreateDlg" widgetVar="NotapreliminarTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Nueva Nota Preliminar">
             <h:form id="NotapreliminarTbCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="4" rendered="#{notapreliminarTbController.selected != null}">
+                    <p:panelGrid columns="2" rendered="#{notapreliminarTbController.selected != null}">
 
                         <p:outputLabel value="#{bundleNotas.CreateNotapreliminarTbLabel_CNombre}" for="CNombre" />
-                        <p:inputText id="CNombre" value="#{notapreliminarTbController.selected.CNombre}" title="#{bundleNotas.CreateNotapreliminarTbTitle_CNombre}"
+                        <p:inputText size="29" id="CNombre" value="#{notapreliminarTbController.selected.CNombre}" title="#{bundleNotas.CreateNotapreliminarTbTitle_CNombre}"
                                      required="true" requiredMessage="Ingrese nombre"/>
+
+                        <p:outputLabel value="#{bundleNotas.CreateNotapreliminarTbLabel_MDescripcion}" for="MDescripcion" />
+                        <p:inputTextarea rows="6" cols="30" autoResize="false" id="MDescripcion" value="#{notapreliminarTbController.selected.MDescripcion}" title="#{bundleNotas.CreateNotapreliminarTbTitle_MDescripcion}" />
 
                         <p:outputLabel value="#{bundleNotas.CreateNotapreliminarTbLabel_FFecha}" for="FFecha" />
                         <p:calendar id="FFecha" pattern="dd MMMM yyyy" value="#{notapreliminarTbController.selected.FFecha}"
@@ -23,16 +26,13 @@
                                     title="#{bundleNotas.CreateNotapreliminarTbLabel_FFecha}"
                                     locale="es" showOn="button" readonlyInput="true" required="true" requiredMessage="Ingrese fecha"/>
 
-                          <p:outputLabel value="#{bundleNotas.CreateNotapreliminarTbLabel_MDescripcion}" for="MDescripcion" />
-                        <p:inputTextarea autoResize="false" id="MDescripcion" value="#{notapreliminarTbController.selected.MDescripcion}" title="#{bundleNotas.CreateNotapreliminarTbTitle_MDescripcion}" />
-
                         <p:outputLabel value="#{bundleNotas.CreateNotapreliminarTbLabel_CUbicacion}" for="CUbicacion" />
                         <p:inputText id="CUbicacion" value="#{notapreliminarTbController.selected.CUbicacion}" title="#{bundleNotas.CreateNotapreliminarTbTitle_CUbicacion}" />
 
                         <p:outputLabel value="#{bundleNotas.CreateNotapreliminarTbLabel_MAcompanantes}" for="MAcompanantes" />
-                        <p:inputText id="MAcompanantes" value="#{notapreliminarTbController.selected.MAcompanantes}" title="#{bundleNotas.CreateNotapreliminarTbTitle_MAcompanantes}" />
+                        <p:inputTextarea rows="2" cols="30" autoResize="false" id="MAcompanantes" value="#{notapreliminarTbController.selected.MAcompanantes}" title="#{bundleNotas.CreateNotapreliminarTbTitle_MAcompanantes}" />
 
-                        
+
                     </p:panelGrid>
                     <p:commandButton actionListener="#{notapreliminarTbController.create}" value="#{bundleNotas.Save}" update="display,:NotapreliminarTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'NotapreliminarTbCreateDialog');"/>
                 </h:panelGroup>
