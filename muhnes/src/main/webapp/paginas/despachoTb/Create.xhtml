@@ -15,7 +15,7 @@
                     <p:fieldset legend="Despacho">
                         <p:panelGrid columns="2" rendered="#{despachoTbController.selected != null}">
                             <p:outputLabel value="Descripción: " for="MDescripcion" />
-                            <p:inputTextarea autoResize="" cols="26" rows="2" id="MDescripcion" value="#{despachoTbController.selected.MDescripcion}" title="#{bundleDespacho.CreateDespachoTbTitle_MDescripcion}" required="true" requiredMessage="Introduzca una descripción"/>
+                            <p:inputTextarea autoResize="" cols="50" rows="3" id="MDescripcion" value="#{despachoTbController.selected.MDescripcion}" title="#{bundleDespacho.CreateDespachoTbTitle_MDescripcion}" required="true" requiredMessage="Introduzca una descripción"/>
                             <p:outputLabel value="Fecha: " for="FFecha" />
                             <p:calendar id="FFecha" pattern="dd MMMM yyyy" value="#{despachoTbController.selected.FFecha}" title="#{bundleDespacho.EditDespachoTbTitle_FFecha}"  showOn="button" locale="es" readonlyInput="true" required="true" requiredMessage="Introduzca una fecha" mindate="0"/>
                             <p:outputLabel value="Proyecto: " for="EIdproyecto" />

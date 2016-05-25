@@ -15,7 +15,7 @@
                         <p:panelGrid columns="2" rendered="#{pedidoTbController.selected != null}">
 
                             <p:outputLabel value="#{bundle.CreatePedidoTbLabel_MDescripcion}" for="MDescripcion" />
-                            <p:inputTextarea autoResize="" id="MDescripcion" rows="2" cols="26" value="#{pedidoTbController.selected.MDescripcion}" title="#{bundle.CreatePedidoTbTitle_MDescripcion}" 
+                            <p:inputTextarea autoResize="" id="MDescripcion" rows="3" cols="50" value="#{pedidoTbController.selected.MDescripcion}" title="#{bundle.CreatePedidoTbTitle_MDescripcion}" 
                                              required="true" requiredMessage="Introduzca una descripción"
                                              />
                             <p:outputLabel value="Fecha de Pedido: " for="FechaActual"/>
