@@ -338,8 +338,16 @@ public class NotapreliminarTbController implements Serializable {
                 Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
-                fecha.setSpacingAfter(15);
                 document.add(fecha);
+                
+                String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+                UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+                
+                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() +" "+usuario.getCApellido(),
+                        FontFactory.getFont(FontFactory.TIMES, 10));
+                usuarioSis.setAlignment(Element.ALIGN_CENTER);
+                usuarioSis.setSpacingAfter(10);
+                document.add(usuarioSis);
 
                 int columnas[] = {25, 75};
 

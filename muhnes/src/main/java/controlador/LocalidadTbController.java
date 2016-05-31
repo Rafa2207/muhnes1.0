@@ -353,8 +353,16 @@ public class LocalidadTbController implements Serializable {
                 Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
-                fecha.setSpacingAfter(15);
                 document.add(fecha);
+                
+                String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+                UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+                
+                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() +" "+usuario.getCApellido(),
+                        FontFactory.getFont(FontFactory.TIMES, 10));
+                usuarioSis.setAlignment(Element.ALIGN_CENTER);
+                usuarioSis.setSpacingAfter(10);
+                document.add(usuarioSis);
 
                 List<LocalidadTb> localidadListaReporte = new ArrayList<LocalidadTb>();
                 localidadListaReporte = getFacade().LocalidadGeneral();
@@ -423,9 +431,9 @@ public class LocalidadTbController implements Serializable {
                 ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
 
                 // Inicia reporte
-                Document document = new Document(PageSize.LETTER);
+                Document document = new Document(PageSize.LETTER.rotate());
                 PdfWriter writer = PdfWriter.getInstance(document, pdfOutputStream);
-                TableHeaderVertical event = new TableHeaderVertical();
+                TableHeader event = new TableHeader();
                 writer.setPageEvent(event);
                 document.open();
 
@@ -472,12 +480,19 @@ public class LocalidadTbController implements Serializable {
                 Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
-                fecha.setSpacingAfter(10);
                 document.add(fecha);
+                
+                String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+                UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+                
+                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() +" "+usuario.getCApellido(),
+                        FontFactory.getFont(FontFactory.TIMES, 10));
+                usuarioSis.setAlignment(Element.ALIGN_CENTER);
+                usuarioSis.setSpacingAfter(10);
+                document.add(usuarioSis);
 
                 Paragraph espacio = new Paragraph("");
                 espacio.setSpacingAfter(15);
-                document.add(espacio);
 
                 int columnas[] = {25, 75};
 
@@ -540,8 +555,8 @@ public class LocalidadTbController implements Serializable {
                 ejemplarListaReporte = getFacade().EjemplaresPorLocalidad(selected);
 
                 if (!ejemplarListaReporte.isEmpty()) {
-                    int columnasa[] = {10, 20, 10, 17, 20, 23};
-                    PdfPTable ejemplares = new PdfPTable(6);
+                    int columnasa[] = {10, 15, 10, 10, 15, 25, 15};
+                    PdfPTable ejemplares = new PdfPTable(7);
                     ejemplares.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                     ejemplares.setWidthPercentage(100);
                     ejemplares.setWidths(columnasa);
@@ -552,6 +567,7 @@ public class LocalidadTbController implements Serializable {
                     ejemplares.addCell(new Phrase("Familia", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                     ejemplares.addCell(new Phrase("Información Taxonómica", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                     ejemplares.addCell(new Phrase("Descripción", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                    ejemplares.addCell(new Phrase("Fecha recolección", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
 
                     for (EjemplarTb ejemplar : ejemplarListaReporte) {
 
@@ -578,6 +594,10 @@ public class LocalidadTbController implements Serializable {
                         PdfPCell c6 = new PdfPCell(new Phrase(ejemplar.getMDescripcion(), FontFactory.getFont(FontFactory.TIMES, 11)));
                         c6.setHorizontalAlignment(Element.ALIGN_LEFT);
                         ejemplares.addCell(c6);
+                        
+                        PdfPCell c7 = new PdfPCell(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(ejemplar.getFFechaInicioIdent()), FontFactory.getFont(FontFactory.TIMES, 11)));
+                        c7.setHorizontalAlignment(Element.ALIGN_LEFT);
+                        ejemplares.addCell(c7);
                     }
                     document.add(ejemplares);
                 } else {

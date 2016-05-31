@@ -652,8 +652,16 @@ public class ProyectoTbController implements Serializable {
                 Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
-                fecha.setSpacingAfter(10);
                 document.add(fecha);
+
+                String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+                UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+                
+                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() +" "+usuario.getCApellido(),
+                        FontFactory.getFont(FontFactory.TIMES, 10));
+                usuarioSis.setAlignment(Element.ALIGN_CENTER);
+                usuarioSis.setSpacingAfter(10);
+                document.add(usuarioSis);
 
                 PdfPTable proyectos = new PdfPTable(6);
                 proyectos.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -787,8 +795,16 @@ public class ProyectoTbController implements Serializable {
                 Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
-                fecha.setSpacingAfter(15);
                 document.add(fecha);
+                
+                String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+                UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+                
+                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() +" "+usuario.getCApellido(),
+                        FontFactory.getFont(FontFactory.TIMES, 10));
+                usuarioSis.setAlignment(Element.ALIGN_CENTER);
+                usuarioSis.setSpacingAfter(10);
+                document.add(usuarioSis);
 
                 int columnas[] = {25, 75};
 
@@ -928,7 +944,7 @@ public class ProyectoTbController implements Serializable {
                     document.add(tituloPresupuestoTotal);
                     int n[] = {75, 25};
                     double total = 0;
-                    
+
                     PdfPTable TablaSubtotalEncabezado = new PdfPTable(2);
                     TablaSubtotalEncabezado.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                     TablaSubtotalEncabezado.setWidths(n);
@@ -1064,8 +1080,16 @@ public class ProyectoTbController implements Serializable {
                 Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
-                fecha.setSpacingAfter(15);
                 document.add(fecha);
+                
+                String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+                UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+                
+                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() +" "+usuario.getCApellido(),
+                        FontFactory.getFont(FontFactory.TIMES, 10));
+                usuarioSis.setAlignment(Element.ALIGN_CENTER);
+                usuarioSis.setSpacingAfter(10);
+                document.add(usuarioSis);
 
                 int columnas[] = {25, 75};
 
@@ -1375,7 +1399,7 @@ public class ProyectoTbController implements Serializable {
                 tituloProrroga.setSpacingAfter(5);
                 tituloProrroga.setSpacingBefore(5);
                 document.add(tituloProrroga);
-                
+
                 selected.getProrrogaProyectoTbList().clear();
                 selected.setProrrogaProyectoTbList(getFacadeProrroga().buscarProrroga(selected));
 
@@ -1442,7 +1466,7 @@ public class ProyectoTbController implements Serializable {
                 tituloNota.setSpacingAfter(5);
                 tituloNota.setSpacingBefore(5);
                 document.add(tituloNota);
-                
+
                 selected.getNotapreliminarTbList().clear();
                 selected.setNotapreliminarTbList(FacadeNotas.buscarPorProyecto(selected));
 
