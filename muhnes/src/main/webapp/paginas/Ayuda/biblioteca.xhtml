@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+
+
+    <p:dialog id="AyudaDlg" widgetVar="AyudaDialog" modal="true" resizable="false" appendTo="@(body)" header="Ayuda Biblioteca" >
+        <h:form id="AyudaForm" style=" width: 970px; height: 500px">
+            <p:tabView>
+                <p:tab title="Mantenimiento" >
+                    <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" >     
+                        <p:outputPanel style="width: 900px">
+                            <b>Permite editar la información de la historia del museo, historia del herbario, misión, visión, objetivo y contáctanos.</b>                          
+                        </p:outputPanel>
+                    </h:panelGrid>
+                    <div align="center">
+                        <h:graphicImage library="images" name="ayuda/biblioteca/mantenimiento.PNG" width="300px"/> 
+                    </div>
+                    <h:panelGrid  columns="2" cellpadding="2" style="text-align: justify;">
+                        <p:outputPanel style="width: 430px">
+                            <p><b>1. Historia Museo: </b><br/>Edita los datos ingresados de la historia del museo.</p>
+                            <p><b>2. Historia Herbario: </b><br/>Edita los datos ingresados de la historia del herbario.</p>
+                            <p><b>3. Misión: </b><br/>Edita los datos ingresados de la misión.</p>
+                        </p:outputPanel>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>4. Visión: </b><br/>Edita los datos ingresados de la visión.</p>
+                            <p><b>5. Objetivo: </b><br/>Edita los datos ingresados de los objetivos.</p>
+                            <p><b>6. Contactanos: </b><br/>Edita los datos ingresados de los contactos.</p>
+                        </p:outputPanel>
+
+                    </h:panelGrid>
+                </p:tab>
+
+                <p:tab title="1. Historia Museo" >
+                    <div align="center">
+                        <h:graphicImage library="images" name="ayuda/biblioteca/historia.PNG" width="600px"/>
+                    </div>
+                    <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" > 
+                        <p:outputPanel style="width: 900px">
+                            <p><b>Pasos para modificar los datos de la historia del museo.</b></p>
+                            <p><b>Paso 1: </b><br/>Hacer clic en botón <b>Historia Museo</b>.</p>
+                            <p><b>Paso 2: </b><br/>Realize los cambios que desea y hacer clic en el botón <b>Guardar</b>.</p>
+                            <p><b>Paso 3: </b><br/>Si desea cerrar el formulario, hacer clic en el botón <b>X</b>.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+
+                <p:tab title="2. Historia Herbario" >
+                    <div align="center">
+                        <h:graphicImage library="images" name="ayuda/biblioteca/herbario.PNG" width="600px"/>
+                    </div>
+                    <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" > 
+                        <p:outputPanel style="width: 900px">
+                            <p><b>Pasos para modificar los datos de la historia del herbario.</b></p>
+                            <p><b>Paso 1: </b><br/>Hacer clic en botón <b>Historia Herbario</b>.</p>
+                            <p><b>Paso 2: </b><br/>Realize los cambios que desea y hacer clic en el botón <b>Guardar</b>.</p>
+                            <p><b>Paso 3: </b><br/>Si desea cerrar el formulario, hacer clic en el botón <b>X</b>.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+
+                <p:tab title="3. Misión" >
+                    <div align="center">
+                        <h:graphicImage library="images" name="ayuda/biblioteca/mision.PNG" width="600px"/>
+                    </div>
+                    <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" > 
+                        <p:outputPanel style="width: 900px">
+                            <p><b>Pasos para modificar los datos de la misión.</b></p>
+                            <p><b>Paso 1: </b><br/>Hacer clic en botón <b>Misión</b>.</p>
+                            <p><b>Paso 2: </b><br/>Realize los cambios que desea y hacer clic en el botón <b>Guardar</b>.</p>
+                            <p><b>Paso 3: </b><br/>Si desea cerrar el formulario, hacer clic en el botón <b>X</b>.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+
+                <p:tab title="4. Visión" >
+                    <div align="center">
+                        <h:graphicImage library="images" name="ayuda/biblioteca/vision.PNG" width="600px"/>
+                    </div>
+                    <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" > 
+                        <p:outputPanel style="width: 900px">
+                            <p><b>Pasos para modificar los datos de la visión.</b></p>
+                            <p><b>Paso 1: </b><br/>Hacer clic en botón <b>Visión</b>.</p>
+                            <p><b>Paso 2: </b><br/>Realize los cambios que desea y hacer clic en el botón <b>Guardar</b>.</p>
+                            <p><b>Paso 3: </b><br/>Si desea cerrar el formulario, hacer clic en el botón <b>X</b>.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="5. Objetivo" >
+                    <div align="center">
+                        <h:graphicImage library="images" name="ayuda/biblioteca/objetivo.PNG" width="600px"/>
+                    </div>
+                    <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" > 
+                        <p:outputPanel style="width: 900px">
+                            <p><b>Pasos para modificar los datos de los objetivos.</b></p>
+                            <p><b>Paso 1: </b><br/>Hacer clic en botón <b>Objetivo</b>.</p>
+                            <p><b>Paso 2: </b><br/>Realize los cambios que desea y hacer clic en el botón <b>Guardar</b>.</p>
+                            <p><b>Paso 3: </b><br/>Si desea cerrar el formulario, hacer clic en el botón <b>X</b>.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+
+                <p:tab title="6. Contáctanos" >
+                    <div align="center">
+                        <h:graphicImage library="images" name="ayuda/biblioteca/contactanos.PNG" width="600px"/>
+                    </div>
+                    <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" > 
+                        <p:outputPanel style="width: 900px">
+                            <p><b>Pasos para modificar los datos de los contactos.</b></p>
+                            <p><b>Paso 1: </b><br/>Hacer clic en botón <b>Contáctanos</b>.</p>
+                            <p><b>Paso 2: </b><br/>Realize los cambios que desea y hacer clic en el botón <b>Guardar</b>.</p>
+                            <p><b>Paso 3: </b><br/>Si desea cerrar el formulario, hacer clic en el botón <b>X</b>.</p>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+
+            </p:tabView>
+        </h:form>
+
+    </p:dialog>
+
+
+
+</html>

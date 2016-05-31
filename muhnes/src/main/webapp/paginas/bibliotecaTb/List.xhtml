@@ -16,6 +16,13 @@
         <ui:define name="body">
             <h:form id="BibliotecaTbListForm">
                 <p:panel header="Biblioteca Virtual">
+                    <div  style="float: right">
+                        <p:commandLink title="Ayuda" update=":AyudaForm" oncomplete="PF('AyudaDialog').show()" >
+                            <p:graphicImage name="images/ayuda.png" height="35px" />
+                            <f:setPropertyActionListener target="#{controladorSesion.ayuda}" value="biblioteca"/>
+                        </p:commandLink>
+
+                    </div>
                     <div align="center">
                         <p:panelGrid columns="3">
                             <p:panelGrid columns="1" style="text-align: center">
@@ -24,7 +31,7 @@
                                         <p:graphicImage name="images/biblioteca/historiaMuhnes.png"  height="80px" />
                                     </p:commandLink>
                                     <font size="4">
-                                        Historia museo
+                                        Historia Museo
                                     </font>
                                 </div>
                             </p:panelGrid>
@@ -62,11 +69,11 @@
                                         <p:graphicImage name="images/biblioteca/historia.png"  height="80px" />
                                     </p:commandLink>
                                     <font size="4">
-                                        Historia herbario
+                                        Historia Herbario
                                     </font>
                                 </div>
                             </p:panelGrid>
-                            
+
                             <p:panelGrid columns="1" style="text-align: center">
                                 <div align="center">
                                     <p:commandLink title="Objetivo" update=":OForm" actionListener="#{bibliotecaTbController.prepareDatos()}" oncomplete="PF('ODialog').show()" >
@@ -80,12 +87,12 @@
 
                             <p:panelGrid columns="1">
                                 <div align="center">
-                                    <p:commandLink title="Información" update=":IForm" actionListener="#{bibliotecaTbController.prepareDatos()}" oncomplete="PF('IDialog').show()" >
+                                    <p:commandLink title="Contactanos" update=":IForm" actionListener="#{bibliotecaTbController.prepareDatos()}" oncomplete="PF('IDialog').show()" >
                                         <p:graphicImage name="images/informacion.png"  height="80px" />
                                     </p:commandLink>
 
                                     <font size="4">
-                                        Información
+                                        Contáctanos
                                     </font>
                                 </div>
                             </p:panelGrid>
@@ -101,6 +108,7 @@
             <ui:include src="Objetivo.xhtml"/>
             <ui:include src="Vision.xhtml"/>
             <ui:include src="Historiaherbario.xhtml"/>
+            <ui:include src="../Ayuda/biblioteca.xhtml"/>
         </ui:define>
     </ui:composition>
 
