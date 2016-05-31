@@ -73,4 +73,9 @@ public class AgenteTbFacade extends AbstractFacade<AgenteTb> {
         Query query = em.createNativeQuery(Sentencia, AgenteTb.class);
         return query.getResultList();
     }
+    
+    public List<AgenteTb> agentesGeneral() {
+        TypedQuery<AgenteTb> query = em.createQuery("SELECT p FROM AgenteTb p ORDER BY p.cApellido ASC", AgenteTb.class);
+        return query.getResultList();
+    }
 }

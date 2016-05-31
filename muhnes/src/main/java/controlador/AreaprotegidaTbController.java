@@ -364,8 +364,16 @@ public class AreaprotegidaTbController implements Serializable {
                 Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
-                fecha.setSpacingAfter(15);
                 document.add(fecha);
+                
+                String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+                UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+
+                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() + " " + usuario.getCApellido(),
+                        FontFactory.getFont(FontFactory.TIMES, 10));
+                usuarioSis.setAlignment(Element.ALIGN_CENTER);
+                usuarioSis.setSpacingAfter(10);
+                document.add(usuarioSis);
 
                 List<AreaprotegidaTb> AreaListaReporte = new ArrayList<AreaprotegidaTb>();
                 AreaListaReporte = getFacade().AreaProtegidaOrdenNombreAsc();
@@ -484,11 +492,11 @@ public class AreaprotegidaTbController implements Serializable {
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 document.add(fecha);
-                
+
                 String nick = JsfUtil.getRequest().getUserPrincipal().getName();
                 UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
-                
-                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() +" "+usuario.getCApellido(),
+
+                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() + " " + usuario.getCApellido(),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 usuarioSis.setAlignment(Element.ALIGN_CENTER);
                 usuarioSis.setSpacingAfter(10);
@@ -546,17 +554,17 @@ public class AreaprotegidaTbController implements Serializable {
                 Tablaubicacion.addCell(new Phrase(new Phrase(latitudList(selected) + ", " + longitudList(selected) + ".", FontFactory.getFont(FontFactory.TIMES, 12))));
                 document.add(Tablaubicacion);
 
-                Paragraph tituloejemplares = new Paragraph("EJEMPLARES RECOLECTADOS", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
-                tituloejemplares.setAlignment(Element.ALIGN_CENTER);
-                tituloejemplares.setSpacingAfter(5);
-                tituloejemplares.setSpacingBefore(5);
-                document.add(tituloejemplares);
-
-                document.add(espacio);
-
                 selected.getLocalidadTbList().clear();
                 selected.setLocalidadTbList(getFacade().ListaDeLocalidadesPorArea(selected));
 
+                if (!selected.getLocalidadTbList().isEmpty()) {
+                    Paragraph tituloejemplares = new Paragraph("EJEMPLARES RECOLECTADOS", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                    tituloejemplares.setAlignment(Element.ALIGN_CENTER);
+                    tituloejemplares.setSpacingAfter(5);
+                    tituloejemplares.setSpacingBefore(5);
+                    document.add(tituloejemplares);
+                }
+                
                 int e = 0;
                 for (LocalidadTb lo : selected.getLocalidadTbList()) {
                     if (!selected.getLocalidadTbList().isEmpty()) {
@@ -575,7 +583,7 @@ public class AreaprotegidaTbController implements Serializable {
 
                         if (!ejemplarListaReporte.isEmpty()) {
 
-                            int columnasa[] = {10, 20, 10, 17, 20, 23};
+                            int columnasa[] = {10, 20, 10, 15, 25, 20};
                             PdfPTable ejemplares = new PdfPTable(6);
                             ejemplares.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                             ejemplares.setWidthPercentage(100);
@@ -586,7 +594,7 @@ public class AreaprotegidaTbController implements Serializable {
                             ejemplares.addCell(new Phrase("Correlativo", FontFactory.getFont(FontFactory.TIMES_BOLD, 10)));
                             ejemplares.addCell(new Phrase("Familia", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                             ejemplares.addCell(new Phrase("Información Taxonómica", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
-                            ejemplares.addCell(new Phrase("Descripción", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                            ejemplares.addCell(new Phrase("Fecha Recolección", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
 
                             for (EjemplarTb ejemplar : ejemplarListaReporte) {
 
@@ -610,7 +618,7 @@ public class AreaprotegidaTbController implements Serializable {
                                 c5.setHorizontalAlignment(Element.ALIGN_LEFT);
                                 ejemplares.addCell(c5);
 
-                                PdfPCell c6 = new PdfPCell(new Phrase(ejemplar.getMDescripcion(), FontFactory.getFont(FontFactory.TIMES, 11)));
+                                PdfPCell c6 = new PdfPCell(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(ejemplar.getFFechaInicioIdent()), FontFactory.getFont(FontFactory.TIMES, 11)));
                                 c6.setHorizontalAlignment(Element.ALIGN_LEFT);
                                 ejemplares.addCell(c6);
                             }

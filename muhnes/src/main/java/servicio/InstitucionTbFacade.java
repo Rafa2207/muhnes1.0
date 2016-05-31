@@ -5,6 +5,7 @@
  */
 package servicio;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -39,6 +40,12 @@ public class InstitucionTbFacade extends AbstractFacade<InstitucionTb> {
         TypedQuery<InstitucionTb> query = em.createQuery("SELECT p FROM InstitucionTb p WHERE p.eIdinstitucion=:h", InstitucionTb.class);
        query.setParameter("h", id);
        return query.getSingleResult();
+    }
+    
+    public List<InstitucionTb> institucionGeneral() {
+        em.clear();
+        TypedQuery<InstitucionTb> query = em.createQuery("SELECT p FROM InstitucionTb p ORDER BY p.cNombre ASC", InstitucionTb.class);
+        return query.getResultList();
     }
     
 }

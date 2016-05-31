@@ -410,8 +410,16 @@ public class AgenteTbController implements Serializable {
                 Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
-                fecha.setSpacingAfter(10);
                 document.add(fecha);
+                
+                String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+                UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+                
+                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() +" "+usuario.getCApellido(),
+                        FontFactory.getFont(FontFactory.TIMES, 10));
+                usuarioSis.setAlignment(Element.ALIGN_CENTER);
+                usuarioSis.setSpacingAfter(10);
+                document.add(usuarioSis);
 
                 PdfPTable agentes = new PdfPTable(6);
                 agentes.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -426,32 +434,29 @@ public class AgenteTbController implements Serializable {
                 agentes.setWidthPercentage(100);
                 agentes.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                 agentes.addCell(new Phrase("Iniciales", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-                agentes.addCell(new Phrase("Nombre", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 agentes.addCell(new Phrase("Apellido", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                agentes.addCell(new Phrase("Nombre", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 agentes.addCell(new Phrase("Ocupación", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 agentes.addCell(new Phrase("Télefono", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 agentes.addCell(new Phrase("Institución", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
 
                 List<AgenteTb> lista;
-                if (filtrado != null) {
-                    lista = filtrado;
-                } else {
-                    lista = this.items;
-                }
-
+                
+                lista=getFacade().agentesGeneral();
+                
                 for (AgenteTb l : lista) {
            
                     PdfPCell celll = new PdfPCell(new Phrase(l.getCIniciales(), FontFactory.getFont(FontFactory.TIMES, 12)));
                     celll.setHorizontalAlignment(Element.ALIGN_LEFT);
                     agentes.addCell(celll);
-                    
-                    PdfPCell cell = new PdfPCell(new Phrase(l.getCNombre(), FontFactory.getFont(FontFactory.TIMES, 12)));
-                    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-                    agentes.addCell(cell);
 
                     PdfPCell cell2 = new PdfPCell(new Phrase(l.getCApellido(), FontFactory.getFont(FontFactory.TIMES, 12)));
                     cell2.setHorizontalAlignment(Element.ALIGN_LEFT);
                     agentes.addCell(cell2);
+                    
+                    PdfPCell cell = new PdfPCell(new Phrase(l.getCNombre(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    agentes.addCell(cell);
 
                     if (l.getCOcupacion().equals("")) {
                         PdfPCell cell3 = new PdfPCell(new Phrase("Sin ocupación", FontFactory.getFont(FontFactory.TIMES, 12)));
@@ -563,8 +568,16 @@ public class AgenteTbController implements Serializable {
                 Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
-                fecha.setSpacingAfter(15);
                 document.add(fecha);
+                
+                String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+                UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+                
+                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() +" "+usuario.getCApellido(),
+                        FontFactory.getFont(FontFactory.TIMES, 10));
+                usuarioSis.setAlignment(Element.ALIGN_CENTER);
+                usuarioSis.setSpacingAfter(10);
+                document.add(usuarioSis);
 
                 int i = 0;
                 for (AgentePerfilTb l : selected.getAgentePerfilTbList()) {

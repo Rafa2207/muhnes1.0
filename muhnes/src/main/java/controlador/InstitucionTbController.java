@@ -143,7 +143,7 @@ public class InstitucionTbController implements Serializable {
 
     public List<InstitucionTb> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = getFacade().institucionGeneral();
         }
         return items;
     }
@@ -289,8 +289,16 @@ public class InstitucionTbController implements Serializable {
                 Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
-                fecha.setSpacingAfter(10);
                 document.add(fecha);
+                
+                String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+                UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+                
+                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() +" "+usuario.getCApellido(),
+                        FontFactory.getFont(FontFactory.TIMES, 10));
+                usuarioSis.setAlignment(Element.ALIGN_CENTER);
+                usuarioSis.setSpacingAfter(10);
+                document.add(usuarioSis);
 
                 PdfPTable ins = new PdfPTable(8);
                 ins.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -314,11 +322,8 @@ public class InstitucionTbController implements Serializable {
                 ins.addCell(new Phrase("Dirección", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
 
                 List<InstitucionTb> lista;
-                if (filtrar != null) {
-                    lista = filtrar;
-                } else {
-                    lista = this.items;
-                }
+                
+                lista=getFacade().institucionGeneral();
 
                 for (InstitucionTb l : lista) {
                     PdfPCell cell = new PdfPCell(new Phrase(l.getCAcronimo(), FontFactory.getFont(FontFactory.TIMES, 12)));

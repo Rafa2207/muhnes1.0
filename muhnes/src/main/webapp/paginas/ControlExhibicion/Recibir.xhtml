@@ -22,6 +22,7 @@
                         <p:calendar id="FFechaReingreso" pattern="dd MMMM yyyy" locale="es" readonlyInput="true"
                                     value="#{exhibicionTbController.selected.FFechaRecibido}" size="15"
                                     mindate="#{exhibicionTbController.selected.FFechaPrestamo}"
+                                    maxdate="0"
                                     title="Recibido"  showOn="button" required="true" requiredMessage="Seleccione fecha de reingreso">
                         </p:calendar>
                         <p:outputLabel value="Hora de recibido:" for="HReingreso" />
