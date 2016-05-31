@@ -144,6 +144,8 @@
                                                update=":ExhibicionTbEditForm:ejemplar :ExhibicionTbEditForm:tablaEjemplares">
                                     <f:setPropertyActionListener value="#{ejem}" 
                                                                  target="#{exhibicionTbController.ejemplarExhibicion}"/>
+                                    
+                                    <p:confirm header="Confirmación" message="¿Desea quitar el ejemplar?" icon="ui-icon-alert" />
                                 </p:commandLink>
                             </p:column>
 

@@ -118,6 +118,7 @@
                                                update=":AgenteTbEditForm:perfil :AgenteTbEditForm:perfilesAgentes">
                                     <f:setPropertyActionListener value="#{per}" 
                                                                  target="#{agenteTbController.perfilAgente}"/>
+                                    <p:confirm header="Confirmación" message="¿Desea quitar el perfil?" icon="ui-icon-alert" />
                                 </p:commandLink>
                             </p:column>
                         

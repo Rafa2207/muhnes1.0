@@ -56,8 +56,8 @@
                         </p:inputText>
 
                         <p:outputLabel value="Decimal:" for="Latitud" />
-                        <p:inputText readonly="true" id="Latitud" value="#{areaprotegidaTbController.selected.DLatituddecimal}" title="Latitud" 
-                                     required="true" requiredMessage="Introduzca latitud decimal"/>
+                        <p:outputLabel id="Latitud" style="font-weight: bold" value="#{areaprotegidaTbController.selected.DLatituddecimal}"/>
+
 
                         <b>Longitud</b>
 
@@ -95,8 +95,8 @@
                         </p:inputText>
 
                         <p:outputLabel value="Decimal:" for="Longitud" />
-                        <p:inputText readonly="true" id="Longitud" value="#{areaprotegidaTbController.selected.DLongituddecimal}" title="Longitud" 
-                                     required="true" requiredMessage="Introduzca longitud decimal"/>
+                        <p:outputLabel id="Longitud" style="font-weight: bold" value="#{areaprotegidaTbController.selected.DLongituddecimal}"/>
+
                     </p:panelGrid>
 
 

@@ -96,6 +96,7 @@
                             <p:calendar id="FFechaInicio" size="15"
                                         pattern="dd MMMM yyyy" value="#{controlProyectos.actividadView.FFechaInicioReal}" 
                                         title="Fecha de inicio real" mindate="#{controlProyectos.actividadView.EIdproyecto.FFechaInicio}" 
+                                        maxdate="#{controlProyectos.calcularFechaMaximaActividad(controlProyectos.actividadView)}"
                                         showOn="button" required="true"
                                         requiredMessage="Introduzca fecha inicio de la actividad"
                                         locale="es" readonlyInput="true">
@@ -142,6 +143,7 @@
                             <p:calendar id="FFechaFina" size="15"
                                         pattern="dd MMMM yyyy" value="#{controlProyectos.actividadView.FFechaFinReal}" 
                                         title="Fecha de inicio real" mindate="#{controlProyectos.actividadView.FFechaInicioReal}"
+                                        maxdate="#{controlProyectos.calcularFechaMaximaActividad(controlProyectos.actividadView)}"
                                         showOn="button" required="true"
                                         requiredMessage="Introduzca fecha inicio de la actividad"
                                         locale="es" readonlyInput="true">

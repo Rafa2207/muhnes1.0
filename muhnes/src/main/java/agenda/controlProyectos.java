@@ -19,6 +19,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import modelo.ActividadTb;
 import modelo.BitacoraTb;
+import modelo.ProrrogaProyectoTb;
 import modelo.ProyectoTb;
 import modelo.UsuarioTb;
 import org.primefaces.event.SelectEvent;
@@ -45,6 +46,8 @@ public class controlProyectos {
     private servicio.UsuarioTbFacade usuarioFacade;
     @EJB
     private servicio.BitacoraTbFacade bitacoraFacade;
+    @EJB
+    private servicio.ProrrogaProyectoTbFacade FacadeProrroga;
     private List<ProyectoTb> listaProyecto = null;
     private List<ActividadTb> listaActividad = null;
     private ActividadTb actividadView;
@@ -420,5 +423,19 @@ public class controlProyectos {
         //Bitacora fin
 
         init();
+    }
+    
+    public Date calcularFechaMaximaActividad(ActividadTb a) {
+        Date FechaMaxima = a.getEIdproyecto().getFFechaFin();
+        a.getEIdproyecto().setProrrogaProyectoTbList(FacadeProrroga.buscarProrroga(a.getEIdproyecto()));
+        for (ProrrogaProyectoTb p : a.getEIdproyecto().getProrrogaProyectoTbList()) {
+            try {
+                if (p.getFFechaFin().after(FechaMaxima)) {
+                    FechaMaxima = p.getFFechaFin();
+                }
+            } catch (Exception e) {
+            }
+        }
+        return FechaMaxima;
     }
 }

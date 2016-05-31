@@ -17,9 +17,9 @@
                         <p:inputText id="CNombre" value="#{areaprotegidaTbController.selected.CNombre}" title="#{bundle.CreateAreaprotegidaTbTitle_CNombre}" 
                                      required="true" requiredMessage="Introduzca nombre del área protegida"/>
 
-                       <p:outputLabel value="#{bundle.CreateAreaprotegidaTbLabel_MDescripcion}" for="MDescripcion" />
-                       <p:inputTextarea cols="72" rows="2" autoResize="" id="MDescripcion" value="#{areaprotegidaTbController.selected.MDescripcion}" title="#{bundle.CreateAreaprotegidaTbTitle_MDescripcion}" />
-                     </p:panelGrid>
+                        <p:outputLabel value="#{bundle.CreateAreaprotegidaTbLabel_MDescripcion}" for="MDescripcion" />
+                        <p:inputTextarea cols="72" rows="2" autoResize="" id="MDescripcion" value="#{areaprotegidaTbController.selected.MDescripcion}" title="#{bundle.CreateAreaprotegidaTbTitle_MDescripcion}" />
+                    </p:panelGrid>
 
                     <p:panelGrid columns="9" rendered="#{areaprotegidaTbController.selected != null}" >
                         <b>Latitud</b>
@@ -54,8 +54,7 @@
                         </p:inputText>
 
                         <p:outputLabel value="Decimal:" for="Latitud" />
-                        <p:inputText readonly="true" id="Latitud" value="#{areaprotegidaTbController.selected.DLatituddecimal}" title="Latitud" 
-                                     required="true" requiredMessage="Introduzca latitud decimal"/>
+                        <p:outputLabel id="Latitud" style="font-weight: bold" value="#{areaprotegidaTbController.selected.DLatituddecimal}"/>
 
                         <b>Longitud</b>
 
@@ -93,8 +92,8 @@
                         </p:inputText>
 
                         <p:outputLabel value="Decimal:" for="Longitud" />
-                        <p:inputText readonly="true" id="Longitud" value="#{areaprotegidaTbController.selected.DLongituddecimal}" title="Longitud" 
-                                     required="true" requiredMessage="Introduzca longitud decimal"/>
+                        <p:outputLabel id="Longitud" style="font-weight: bold" value="#{areaprotegidaTbController.selected.DLongituddecimal}"/>
+
                     </p:panelGrid>
 
                     <p:panelGrid columns="2" rendered="#{areaprotegidaTbController.selected != null}"> 

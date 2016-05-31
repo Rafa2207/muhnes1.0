@@ -129,6 +129,7 @@
                                                update="insumos, :ActividadTbCreateForm:total">
                                     <f:setPropertyActionListener value="#{insumo}" 
                                                                  target="#{actividadTbController.insumo}"/>
+                                    <p:confirm header="Confirmación" message="¿Desea eliminar este insumo?" icon="ui-icon-alert" />
                                 </p:commandLink>
 
                             </p:column>

@@ -54,11 +54,10 @@
                         </p:inputText>
 
                         <p:outputLabel value="Decimal:" for="Latitud" />
-                        <p:inputText readonly="true" id="Latitud" value="#{localidadTbController.selected.DLatitudDecimal}" title="Latitud" 
-                                     required="true" requiredMessage="Introduzca latitud decimal"/>
+                        <p:outputLabel id="Latitud" style="font-weight: bold" value="#{localidadTbController.selected.DLatitudDecimal}"/>
 
                         <b>Longitud</b>
-                        
+
                         <p:outputLabel value="Grados:" for="Grados2" />
                         <p:inputText id="Grados2" value="#{localidadTbController.selected.ELongitudgrados}" maxlength="4" size="4"
                                      title="Rangos válidos: -360 a 360" required="true" requiredMessage="Introduzca grados de longitud">
@@ -90,16 +89,16 @@
                         </p:inputText>
 
                         <p:outputLabel value="Decimal:" for="Longitud" />
-                        <p:inputText readonly="true" id="Longitud" value="#{localidadTbController.selected.DLongitudDecimal}" title="Longitud" 
-                                     required="true" requiredMessage="Introduzca longitud decimales"/>
+                        <p:outputLabel id="Longitud" style="font-weight: bold" value="#{localidadTbController.selected.DLongitudDecimal}"/>
+
                     </p:panelGrid>
-                    
+
                     <p:panelGrid columns="6" rendered="#{localidadTbController.selected != null}"> 
                         <p:outputLabel value="Altitud:" for="AltitudMax" />
                         <pe:inputNumber id="AltitudMax" style="height: 4px" value="#{localidadTbController.selected.EAltitudMax}" title="Altitud"
                                         decimalPlaces="0" symbol=" m.s.n.m." symbolPosition="s" />
 
-                        
+
                         <p:outputLabel value="#{bundle.CreateLocalidadTbLabel_EIdcanton}" for="EIdcanton" />
                         <p:selectOneMenu id="EIdcanton" style="width: 100px" value="#{localidadTbController.selected.EIdcanton}" 
                                          required="true" requiredMessage="Seleccione cantón" filter="true" filterMatchMode="contains">
