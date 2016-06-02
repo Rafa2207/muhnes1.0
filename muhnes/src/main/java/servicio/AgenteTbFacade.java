@@ -78,4 +78,10 @@ public class AgenteTbFacade extends AbstractFacade<AgenteTb> {
         TypedQuery<AgenteTb> query = em.createQuery("SELECT p FROM AgenteTb p ORDER BY p.cApellido ASC", AgenteTb.class);
         return query.getResultList();
     }
+    
+    public List<AgenteTb> agentesResponsables() {
+       String Sentencia = "select * from agente_tb a inner join usuario_tb u on a.e_idagente=u.e_idagente order by a.c_apellido";
+        Query query = em.createNativeQuery(Sentencia, AgenteTb.class);
+        return query.getResultList();
+    }
 }

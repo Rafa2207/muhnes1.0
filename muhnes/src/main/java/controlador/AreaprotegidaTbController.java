@@ -44,8 +44,10 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import modelo.BitacoraTb;
+import modelo.CantonTb;
 import modelo.EjemplarTb;
 import modelo.LocalidadTb;
+import modelo.MunicipioTb;
 import modelo.UsuarioTb;
 
 @Named("areaprotegidaTbController")
@@ -60,7 +62,7 @@ public class AreaprotegidaTbController implements Serializable {
     private servicio.BitacoraTbFacade bitacoraFacade;
     @EJB
     private servicio.LocalidadTbFacade localidadFacade;
-    private List<AreaprotegidaTb> items = null, filtro, itemsAreaOrdenNombreAsc = null;
+    private List<AreaprotegidaTb> items = null, filtro, itemsAreaOrdenNombreAsc = null, itemsAreasPorDeptoCanton = null;
     private AreaprotegidaTb selected;
     @Inject
     EjemplarTbController controladorEjemplarTb;
@@ -101,6 +103,16 @@ public class AreaprotegidaTbController implements Serializable {
 
     public void setItemsAreaOrdenNombreAsc(List<AreaprotegidaTb> itemsAreaOrdenNombreAsc) {
         this.itemsAreaOrdenNombreAsc = itemsAreaOrdenNombreAsc;
+    }
+
+    public List<AreaprotegidaTb> itemsAreasPorDeptoCanton(CantonTb mu) {
+        try {
+
+            itemsAreasPorDeptoCanton = getFacade().AreaProtegidaPorMunicipio(mu.getEIdmunicipio());
+
+        } catch (Exception e) {
+        }
+        return itemsAreasPorDeptoCanton;
     }
 
     public AreaprotegidaTb prepareCreate() {
@@ -365,7 +377,7 @@ public class AreaprotegidaTbController implements Serializable {
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 document.add(fecha);
-                
+
                 String nick = JsfUtil.getRequest().getUserPrincipal().getName();
                 UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
 
@@ -564,7 +576,7 @@ public class AreaprotegidaTbController implements Serializable {
                     tituloejemplares.setSpacingBefore(5);
                     document.add(tituloejemplares);
                 }
-                
+
                 int e = 0;
                 for (LocalidadTb lo : selected.getLocalidadTbList()) {
                     if (!selected.getLocalidadTbList().isEmpty()) {

@@ -59,7 +59,7 @@
                         <p:outputLabel id="Latitud" style="font-weight: bold" value="#{localidadTbController.selected.DLatitudDecimal}"/>
 
                         <b>Longitud</b>
-                        
+
                         <p:outputLabel value="Grados:" for="Grados2" />
                         <p:inputText id="Grados2" value="#{localidadTbController.selected.ELongitudgrados}" maxlength="4" size="4"
                                      title="Rangos válidos: -360 a 360" required="true" requiredMessage="Introduzca grados de longitud">
@@ -97,14 +97,14 @@
 
                     </p:panelGrid>
 
-                    <p:panelGrid columns="6" rendered="#{localidadTbController.selected != null}"> 
+                    <p:panelGrid columns="4" rendered="#{localidadTbController.selected != null}"> 
                         <p:outputLabel value="Altitud:" for="AltitudMax" />
                         <pe:inputNumber id="AltitudMax" style="width: 100px" value="#{localidadTbController.selected.EAltitudMax}" title="Altitud"
                                         decimalPlaces="0" symbol=" m.s.n.m." symbolPosition="s" styleClass="ParaInputNumber" minValue="-100000" maxValue="100000"></pe:inputNumber>
 
-                        
+
                         <p:outputLabel value="#{bundle.CreateLocalidadTbLabel_EIdcanton}" for="EIdcanton" />
-                        <p:selectOneMenu id="EIdcanton" style="width: 100px" value="#{localidadTbController.selected.EIdcanton}" 
+                        <p:selectOneMenu id="EIdcanton" style="width: 400px" value="#{localidadTbController.selected.EIdcanton}" 
                                          required="true" requiredMessage="Seleccione cantón" filter="true" filterMatchMode="contains">
                             <f:selectItem itemValue="" itemLabel="Seleccione.."/>
                             <f:selectItems value="#{cantonTbController.itemsAvailableSelectOne}"
@@ -114,17 +114,21 @@
                                            #{EIdcantonItem.EIdmunicipio.EIddepto.CNombre}, 
                                            #{EIdcantonItem.EIdmunicipio.CNombre}, 
                                            #{EIdcantonItem.CNombre}"/>
+                            <p:ajax event="change" process="EIdcanton EIdarea" update="EIdarea"/>
                         </p:selectOneMenu>
 
+                    </p:panelGrid>
+                    <p:panelGrid columns="2" rendered="#{localidadTbController.selected != null}">
                         <p:outputLabel value="Área protegida:" for="EIdarea" />
-                        <p:selectOneMenu id="EIdarea" style="width: 150px" value="#{localidadTbController.selected.EIdarea}"
+                        <p:selectOneMenu id="EIdarea" value="#{localidadTbController.selected.EIdarea}"
                                          filter="true" filterMatchMode="contains">
-                            <f:selectItem itemValue="0" itemLabel="Área no protegida"/>
-                            <f:selectItems value="#{areaprotegidaTbController.itemsAvailableSelectOne}"
+                            <f:selectItem itemValue="" itemLabel="Área no protegida"/>
+                            <f:selectItems value="#{areaprotegidaTbController.itemsAreasPorDeptoCanton(localidadTbController.selected.EIdcanton)}"
                                            var="EIdareaItem"
                                            itemValue="#{EIdareaItem}"
                                            itemLabel="#{EIdareaItem.CNombre}"/>
                         </p:selectOneMenu>
+
                     </p:panelGrid>
                     <p:commandButton actionListener="#{localidadTbController.create}" value="#{bundle.Save}" update="display,:LocalidadTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'LocalidadTbCreateDialog');"/>
 

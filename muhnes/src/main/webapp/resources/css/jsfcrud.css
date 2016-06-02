@@ -53,15 +53,15 @@
 }
 
 .NoIniciado .fc-event-inner {
-    background: #666666;
+    background: black;
 }
 
 .EnProceso .fc-event-inner {
-    background: #6666ff;
+    background: blue;
 } 
 
 .Finalizado .fc-event-inner {
-    background: #53c10c;
+    background: darkgreen;
 }
 //fin de colores
 

@@ -22,13 +22,12 @@
                                         <b>#{proyectoTbController.NombreNotificacion(proy.MNombre,200)}</b>
                                         <h:panelGroup>
                                             <h:outputText value="Fecha de finalización: "/>
-                                            <b>
-                                                <font color="red">
-                                                    <h:outputText value="#{proy.FFechaFin}">
-                                                        <f:convertDateTime pattern="dd MMMM yyyy" />
-                                                    </h:outputText>
-                                                </font>
-                                            </b>
+                                            <font color="red">
+                                                <h:outputText style="font-weight: bold" value="#{proyectoTbController.calcularFechaMaxima(proy)}">
+                                                    <f:convertDateTime pattern="dd MMMM yyyy" />
+                                                </h:outputText>
+                                            </font>
+
                                         </h:panelGroup>
                                     </p:panelGrid>
                                     <p:panelGrid columns="1" style="text-align: center" layout="grid">

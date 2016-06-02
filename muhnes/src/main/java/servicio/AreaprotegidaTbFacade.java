@@ -9,9 +9,11 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import modelo.AreaprotegidaTb;
 import modelo.LocalidadTb;
+import modelo.MunicipioTb;
 
 /**
  *
@@ -41,6 +43,13 @@ public class AreaprotegidaTbFacade extends AbstractFacade<AreaprotegidaTb> {
         em.clear();
         TypedQuery<LocalidadTb> query = em.createQuery("SELECT p FROM LocalidadTb p where p.eIdarea=:a ORDER BY p.cNombre ASC", LocalidadTb.class);
         query.setParameter("a", a);
+        return query.getResultList();
+    }
+   
+    public List<AreaprotegidaTb> AreaProtegidaPorMunicipio(MunicipioTb m){
+        em.clear();
+        TypedQuery<AreaprotegidaTb> query = em.createQuery("SELECT p FROM AreaprotegidaTb p where p.eIdmunicipio=:a ORDER BY p.cNombre ASC", AreaprotegidaTb.class);
+        query.setParameter("a", m);
         return query.getResultList();
     }
     

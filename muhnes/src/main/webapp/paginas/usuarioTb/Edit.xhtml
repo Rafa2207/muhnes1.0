@@ -40,6 +40,16 @@
                             <f:selectItem itemValue="Administrador" itemLabel="Administrador"/>
                             <f:selectItem itemValue="Digitador" itemLabel="Digitador"/>
                         </p:selectOneMenu>
+                        
+                        <p:outputLabel value="Agente :" for="CAgente" />   
+                        <p:selectOneMenu id="CAgente" style="width: 180px" value="#{usuarioTbController.selected.EIdagente}" 
+                                         required="true" requiredMessage="Seleccione Agente" filter="true" filterMatchMode="contains">
+                            <f:selectItem itemValue="" itemLabel="Sin Agente"/>
+                            <f:selectItems value="#{agenteTbController.itemsAvailableSelectOne}"
+                                           var="EIdagenteItem"
+                                           itemValue="#{EIdagenteItem.EIdagente}"
+                                           itemLabel="#{EIdagenteItem.CNombre} #{EIdagenteItem.CApellido} (#{EIdagenteItem.CIniciales})"/>
+                        </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{usuarioTbController.update}" value="#{bundle.Save}" update="display,:UsuarioTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'UsuarioTbEditDialog');"/>
                 </h:panelGroup>

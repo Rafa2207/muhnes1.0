@@ -233,7 +233,7 @@ public class ProyectoTbController implements Serializable {
             for (ProyectoTb p : itemsNotificacion) {
                 if (p.getEEstado() == 2 || p.getEEstado() == 3) {
                     quitarFinalizados.add(p);
-                } else if (p.getFFechaFin().after(fecha)) {
+                } else if (calcularFechaMaxima(p).after(fecha)) {//p.getFFechaFin().after(fecha)
                     quitarFinalizados.add(p);
                 }
             }
@@ -244,6 +244,28 @@ public class ProyectoTbController implements Serializable {
         } catch (Exception e) {
         }
         return itemsNotificacion;
+    }
+
+    public int diasFaltantes(ProyectoTb proy) {
+        int DiasDuracion = 0, DiasTranscurridos = 0;
+        long fecha = proy.getFFechaFin().getTime() - proy.getFFechaInicio().getTime();
+        long obtenerDia = fecha / (1000 * 60 * 60 * 24);
+        int dia = (int) obtenerDia;
+        return dia;
+    }
+
+    public Date calcularFechaMaxima(ProyectoTb p) {
+        Date FechaMaxima = p.getFFechaFin();
+        p.setProrrogaProyectoTbList(FacadeProrroga.buscarProrroga(p));
+        for (ProrrogaProyectoTb proy : p.getProrrogaProyectoTbList()) {
+            try {
+                if (proy.getFFechaFin().after(FechaMaxima)) {
+                    FechaMaxima = proy.getFFechaFin();
+                }
+            } catch (Exception e) {
+            }
+        }
+        return FechaMaxima;
     }
 
     public void create() {
@@ -656,8 +678,8 @@ public class ProyectoTbController implements Serializable {
 
                 String nick = JsfUtil.getRequest().getUserPrincipal().getName();
                 UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
-                
-                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() +" "+usuario.getCApellido(),
+
+                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() + " " + usuario.getCApellido(),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 usuarioSis.setAlignment(Element.ALIGN_CENTER);
                 usuarioSis.setSpacingAfter(10);
@@ -796,11 +818,11 @@ public class ProyectoTbController implements Serializable {
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 document.add(fecha);
-                
+
                 String nick = JsfUtil.getRequest().getUserPrincipal().getName();
                 UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
-                
-                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() +" "+usuario.getCApellido(),
+
+                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() + " " + usuario.getCApellido(),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 usuarioSis.setAlignment(Element.ALIGN_CENTER);
                 usuarioSis.setSpacingAfter(10);
@@ -1081,11 +1103,11 @@ public class ProyectoTbController implements Serializable {
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 document.add(fecha);
-                
+
                 String nick = JsfUtil.getRequest().getUserPrincipal().getName();
                 UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
-                
-                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() +" "+usuario.getCApellido(),
+
+                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() + " " + usuario.getCApellido(),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 usuarioSis.setAlignment(Element.ALIGN_CENTER);
                 usuarioSis.setSpacingAfter(10);
@@ -1393,17 +1415,17 @@ public class ProyectoTbController implements Serializable {
                 espacio.setSpacingBefore(5);
                 document.add(espacio);
 
-                //Titulo de prórrogas
-                Paragraph tituloProrroga = new Paragraph("PRÓRROGAS", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
-                tituloProrroga.setAlignment(Element.ALIGN_CENTER);
-                tituloProrroga.setSpacingAfter(5);
-                tituloProrroga.setSpacingBefore(5);
-                document.add(tituloProrroga);
-
                 selected.getProrrogaProyectoTbList().clear();
                 selected.setProrrogaProyectoTbList(getFacadeProrroga().buscarProrroga(selected));
 
                 if (!selected.getProrrogaProyectoTbList().isEmpty()) {
+
+                    //Titulo de prórrogas
+                    Paragraph tituloProrroga = new Paragraph("PRÓRROGAS", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                    tituloProrroga.setAlignment(Element.ALIGN_CENTER);
+                    tituloProrroga.setSpacingAfter(5);
+                    tituloProrroga.setSpacingBefore(5);
+                    document.add(tituloProrroga);
 
                     int tamano[] = {10, 50, 40};
                     PdfPTable TablaProrrogaTitulo = new PdfPTable(3);
@@ -1450,27 +1472,21 @@ public class ProyectoTbController implements Serializable {
                             document.add(TablaProrroga);
                         }
                     }
-                } else {
-                    Paragraph tituloNoProrroga = new Paragraph("No se encontraron Prórrogas", FontFactory.getFont(FontFactory.TIMES, 12));
-                    tituloNoProrroga.setAlignment(Element.ALIGN_CENTER);
-                    tituloNoProrroga.setSpacingAfter(5);
-                    tituloNoProrroga.setSpacingBefore(5);
-                    document.add(tituloNoProrroga);
                 }
-
-                document.add(espacio);
-
-                //Titulo de prórrogas
-                Paragraph tituloNota = new Paragraph("NOTAS DE PROYECTO", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
-                tituloNota.setAlignment(Element.ALIGN_CENTER);
-                tituloNota.setSpacingAfter(5);
-                tituloNota.setSpacingBefore(5);
-                document.add(tituloNota);
 
                 selected.getNotapreliminarTbList().clear();
                 selected.setNotapreliminarTbList(FacadeNotas.buscarPorProyecto(selected));
 
                 if (!selected.getNotapreliminarTbList().isEmpty()) {
+                    document.add(espacio);
+
+                    //Titulo de prórrogas
+                    Paragraph tituloNota = new Paragraph("NOTAS DE PROYECTO", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                    tituloNota.setAlignment(Element.ALIGN_CENTER);
+                    tituloNota.setSpacingAfter(5);
+                    tituloNota.setSpacingBefore(5);
+                    document.add(tituloNota);
+
                     for (NotapreliminarTb nota : selected.getNotapreliminarTbList()) {
 
                         document.add(espacio);
@@ -1556,12 +1572,6 @@ public class ProyectoTbController implements Serializable {
                         document.add(NotaUbicacion);
                     }
 
-                } else {
-                    Paragraph tituloNotas = new Paragraph("No se encontraron notas en este proyecto", FontFactory.getFont(FontFactory.TIMES, 12));
-                    tituloNotas.setAlignment(Element.ALIGN_CENTER);
-                    tituloNotas.setSpacingAfter(5);
-                    tituloNotas.setSpacingBefore(5);
-                    document.add(tituloNotas);
                 }
 
                 document.close();

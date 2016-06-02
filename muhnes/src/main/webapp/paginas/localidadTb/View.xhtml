@@ -24,6 +24,10 @@
                                       title="#{bundle.ViewLocalidadTbTitle_EIdcanton}"/>
                         <h:outputText value="Ubicación geográfica:"/>
                         <h:outputText value="#{localidadTbController.latitudList(localidadTbController.selected)} #{localidadTbController.longitudList(localidadTbController.selected)}"/>
+                    
+                         <h:outputText value="Área Protegida:"/>
+                         <h:outputText value="#{localidadTbController.selected.EIdarea.CNombre}"/>
+                    
                     </p:panelGrid>
                     <p:panelGrid columns="1" rendered="#{localidadTbController.selected != null}">
                         <p:gmap center="#{localidadTbController.selected.DLatitudDecimal}, #{localidadTbController.selected.DLongitudDecimal}"  zoom="18" type="hybrid" style="width:580px;height:300px" 

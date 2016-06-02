@@ -47,7 +47,7 @@
                         <p:selectOneMenu id="CResponsable" style="width: 180px" value="#{proyectoTbController.selected.EResponsable}" 
                                          required="true" requiredMessage="Seleccione Responsable" filter="true" filterMatchMode="contains">
                             <f:selectItem itemValue="" itemLabel="Seleccione.."/>
-                            <f:selectItems value="#{agenteTbController.itemsAvailableSelectOne}"
+                            <f:selectItems value="#{agenteTbController.agentesResponsables}"
                                            var="EIdagenteItem"
                                            itemValue="#{EIdagenteItem.EIdagente}"
                                            itemLabel="#{EIdagenteItem.CNombre} #{EIdagenteItem.CApellido}"/>
