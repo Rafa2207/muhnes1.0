@@ -387,14 +387,23 @@ public class UsuarioTbController implements Serializable {
                 Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
-                fecha.setSpacingAfter(10);
                 document.add(fecha);
+
+                String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+                UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+
+                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() + " " + usuario.getCApellido(),
+                        FontFactory.getFont(FontFactory.TIMES, 10));
+                usuarioSis.setAlignment(Element.ALIGN_CENTER);
+                usuarioSis.setSpacingAfter(10);
+                document.add(usuarioSis);
+
                 columnas = 5;
-                PdfPTable ejemplares = new PdfPTable(columnas);
+                PdfPTable usuarios = new PdfPTable(columnas);
                 //indicando el ancho de las columnas
                 int headerwidths[] = {25, 32, 15, 13, 15};
                 try {
-                    ejemplares.setWidths(headerwidths);
+                    usuarios.setWidths(headerwidths);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
@@ -410,40 +419,45 @@ public class UsuarioTbController implements Serializable {
 
                 //cabeceras de las columnas
                 if (!usuarioListaReporte.isEmpty()) {
-                    ejemplares.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-                    ejemplares.setWidthPercentage(100);
-                    ejemplares.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-                    ejemplares.addCell(new Phrase("Nombre", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
-                    ejemplares.addCell(new Phrase("Correo", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
-                    ejemplares.addCell(new Phrase("Usuario", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
-                    ejemplares.addCell(new Phrase("DUI", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
-                    ejemplares.addCell(new Phrase("Tipo", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                    usuarios.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                    usuarios.setWidthPercentage(100);
+                    usuarios.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                    usuarios.addCell(new Phrase("Nombre", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                    usuarios.addCell(new Phrase("Correo", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                    usuarios.addCell(new Phrase("Usuario", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                    usuarios.addCell(new Phrase("DUI", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                    usuarios.addCell(new Phrase("Tipo", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
 
                     //llenado de la tabla con la informacion
-                    for (UsuarioTb usuario : usuarioListaReporte) {
+                    for (UsuarioTb u : usuarioListaReporte) {
 
-                        PdfPCell c1 = new PdfPCell(new Phrase(usuario.getCNombre() + " " + usuario.getCApellido(), FontFactory.getFont(FontFactory.TIMES, 11)));
+                        PdfPCell c1 = new PdfPCell(new Phrase(u.getCNombre() + " " + u.getCApellido(), FontFactory.getFont(FontFactory.TIMES, 11)));
                         c1.setHorizontalAlignment(Element.ALIGN_LEFT);
-                        ejemplares.addCell(c1);
+                        usuarios.addCell(c1);
 
-                        PdfPCell c3 = new PdfPCell(new Phrase(usuario.getMEmail(), FontFactory.getFont(FontFactory.TIMES, 11)));
+                        PdfPCell c3 = new PdfPCell(new Phrase(u.getMEmail(), FontFactory.getFont(FontFactory.TIMES, 12)));
                         c3.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
-                        ejemplares.addCell(c3);
+                        usuarios.addCell(c3);
 
-                        PdfPCell c4 = new PdfPCell(new Phrase(usuario.getCNick(), FontFactory.getFont(FontFactory.TIMES, 11)));
+                        PdfPCell c4 = new PdfPCell(new Phrase(u.getCNick(), FontFactory.getFont(FontFactory.TIMES, 12)));
                         c4.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
-                        ejemplares.addCell(c4);
+                        usuarios.addCell(c4);
 
-                        PdfPCell c5 = new PdfPCell(new Phrase(usuario.getCDui(), FontFactory.getFont(FontFactory.TIMES, 11)));
+                        if (u.getCDui().equals("")) {
+                        PdfPCell cell3 = new PdfPCell(new Phrase("Sin DUI", FontFactory.getFont(FontFactory.TIMES, 12)));
+                        cell3.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        usuarios.addCell(cell3);
+                        }else{
+                        PdfPCell c5 = new PdfPCell(new Phrase(u.getCDui(), FontFactory.getFont(FontFactory.TIMES, 12)));
                         c5.setHorizontalAlignment(Element.ALIGN_CENTER);
-                        ejemplares.addCell(c5);
+                        usuarios.addCell(c5);}
 
-                        PdfPCell c6 = new PdfPCell(new Phrase(usuario.getCTipo(), FontFactory.getFont(FontFactory.TIMES, 11)));
+                        PdfPCell c6 = new PdfPCell(new Phrase(u.getCTipo(), FontFactory.getFont(FontFactory.TIMES, 12)));
                         c6.setHorizontalAlignment(Element.ALIGN_CENTER);
-                        ejemplares.addCell(c6);
+                        usuarios.addCell(c6);
 
                     }
-                    document.add(ejemplares);
+                    document.add(usuarios);
                 } else {
                     Paragraph titulo3 = new Paragraph("No se encontraron usuarios.", FontFactory.getFont(FontFactory.TIMES_ROMAN, 11));
                     titulo3.setAlignment(Element.ALIGN_CENTER);
@@ -465,9 +479,8 @@ public class UsuarioTbController implements Serializable {
                 //Bitacora inicio
                 BitacoraTb bitacora = new BitacoraTb();
                 bitacora.setMDescripcion("Creado Reporte general de Usuarios en el módulo: Seguridad");
-                String nick = JsfUtil.getRequest().getUserPrincipal().getName();
-                UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
-                bitacora.setEIdusuario(usuario);
+                UsuarioTb user = usuarioFacade.BuscarUsuario(nick);
+                bitacora.setEIdusuario(user);
                 Date fecha1 = new Date();
                 bitacora.setTFecha(fecha1);
                 bitacoraFacade.create(bitacora);
