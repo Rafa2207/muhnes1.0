@@ -81,8 +81,8 @@
                             <p:submenu label="Proyectos">
                                 <p:menuitem value="Proyecto" outcome="/paginas/proyectoTb/List.xhtml"/>
                                 <p:menuitem value="Control de proyectos" outcome="/paginas/horario/Agenda.xhtml" />
+                                <p:menuitem value="Notas de proyecto" outcome="/paginas/notapreliminarTb/notapreliminar.xhtml"/>
                                 <p:menuitem value="Proceso Ejemplar" outcome="/paginas/procesoejemplarTb/ProcesoEjemplar.xhtml"/>
-                                <p:menuitem value="Notas preliminares" outcome="/paginas/notapreliminarTb/notapreliminar.xhtml"/>
                             </p:submenu>
                             <p:submenu label="Materiales">
                                 <p:menuitem value="Materiales" outcome="/paginas/materialTb/List.xhtml" />
@@ -92,6 +92,24 @@
                                 <p:menuitem value="Unidades" outcome="/paginas/unidadesTb/List.xhtml" />
                             </p:submenu>
                         </c:if>
+
+                        <c:if test="#{request.isUserInRole('Administrador') or request.isUserInRole('Digitador')}">
+                            <p:submenu label="Localización">
+                                <c:if test="#{request.isUserInRole('Administrador')}">
+                                    <p:menuitem value="Unidad política-administrativa" outcome="/paginas/paisTb/List.xhtml" />
+                                </c:if>
+                                <p:menuitem value="Localidad" outcome="/paginas/localidadTb/List.xhtml" />   
+                                <p:menuitem value="Área Protegida" outcome="/paginas/areaprotegidaTb/List.xhtml" />
+                                <p:menuitem value="Localidad de las áreas protegidas" outcome="/paginas/MapaAreasProtegidas/List.xhtml" />  
+                            </p:submenu>
+                        </c:if>
+
+                        <c:if test="#{request.isUserInRole('Administrador')}">
+                            <p:submenu label="Infomación Taxonómica">
+                                <p:menuitem value="Taxonomía" outcome="/paginas/familiaTb/List.xhtml" />
+                            </p:submenu>
+                        </c:if>
+
                         <c:if test="#{request.isUserInRole('Administrador') or request.isUserInRole('Digitador')}">
                             <p:submenu label="Ejemplar">
                                 <p:menuitem value="Ejemplares" outcome="/paginas/ejemplarTb/List.xhtml"/>
@@ -102,24 +120,13 @@
                             </p:submenu>
                         </c:if>
 
-                        <c:if test="#{request.isUserInRole('Administrador') or request.isUserInRole('Digitador')}">
-                            <p:submenu label="Localización">
-                                <c:if test="#{request.isUserInRole('Administrador')}">
-                                    <p:menuitem value="Unidad política-administrativa" outcome="/paginas/paisTb/List.xhtml" />
-                                </c:if>
-                                <p:menuitem value="Localidad de las áreas protegidas" outcome="/paginas/MapaAreasProtegidas/List.xhtml" />  
-                                <p:menuitem value="Área Protegida" outcome="/paginas/areaprotegidaTb/List.xhtml" />
-                                <p:menuitem value="Localidad" outcome="/paginas/localidadTb/List.xhtml" />   
-                            </p:submenu>
-                        </c:if>
+
                         <c:if test="#{request.isUserInRole('Administrador')}">
                             <p:submenu label="Exhibición">
                                 <p:menuitem value="Exhibición" outcome="/paginas/exhibicionTb/List.xhtml" />
                                 <p:menuitem value="Control de exhibiciones" outcome="/paginas/ControlExhibicion/ControlExhibicion.xhtml" />
                             </p:submenu>
-                            <p:submenu label="Infomación Taxonómica">
-                                <p:menuitem value="Taxonomía" outcome="/paginas/familiaTb/List.xhtml" />
-                            </p:submenu>
+
                             <p:submenu label="Agentes e Instituciones">
                                 <p:menuitem value="Agentes" outcome="/paginas/agenteTb/List.xhtml" />
                                 <p:menuitem value="Perfiles" outcome="/paginas/perfilTb/List.xhtml" />
@@ -130,8 +137,8 @@
                             </p:submenu>
                             <p:submenu label="Seguridad">
                                 <p:menuitem value="Usuario" outcome="/paginas/usuarioTb/List.xhtml" />
-                                <p:menuitem value="Bitácora" outcome="/paginas/bitacoraTb/List.xhtml" />
                                 <p:menuitem value="Crear Backup" outcome="/paginas/configuracion/respaldo.xhtml" />
+                                <p:menuitem value="Bitácora" outcome="/paginas/bitacoraTb/List.xhtml" />
                             </p:submenu>
 
                         </c:if>

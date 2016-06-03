@@ -60,7 +60,7 @@
                         <p:outputLabel value="#{bundle.CreateUsuarioTbLabel_CDui}" for="CDui" />
                         <p:inputMask id="CDui" value="#{usuarioTbController.selected.CDui}" title="#{bundle.CreateUsuarioTbTitle_CDui}" 
                                      mask="99999999-9" size="10"/>   
-                        
+
                         <p:outputLabel value="#{bundle.CreateUsuarioTbLabel_CTipo}" for="CTipo" />
                         <p:selectOneMenu id="CTipo" value="#{usuarioTbController.selected.CTipo}" 
                                          required="true" 
@@ -69,10 +69,10 @@
                             <f:selectItem itemValue="Administrador" itemLabel="Administrador"/>
                             <f:selectItem itemValue="Digitador" itemLabel="Digitador"/>
                         </p:selectOneMenu>
-                        
+
                         <p:outputLabel value="Agente :" for="CAgente" />   
                         <p:selectOneMenu id="CAgente" style="width: 180px" value="#{usuarioTbController.selected.EIdagente}" 
-                                         required="true" requiredMessage="Seleccione Agente" filter="true" filterMatchMode="contains">
+                                         filter="true" filterMatchMode="contains">
                             <f:selectItem itemValue="" itemLabel="Sin Agente"/>
                             <f:selectItems value="#{agenteTbController.itemsAvailableSelectOne}"
                                            var="EIdagenteItem"

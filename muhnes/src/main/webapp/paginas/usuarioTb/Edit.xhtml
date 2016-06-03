@@ -27,7 +27,7 @@
                         <p:inputText id="CNick" value="#{usuarioTbController.selected.CNick}" title="#{bundle.EditUsuarioTbTitle_CNick}" 
                                      required="true"
                                      requiredMessage="Introduzca nombre de usuario." size="15" maxlength="15"/>
-                        
+
                         <p:outputLabel value="#{bundle.EditUsuarioTbLabel_CDui}" for="CDui" />
                         <p:inputMask id="CDui" value="#{usuarioTbController.selected.CDui}" title="#{bundle.EditUsuarioTbTitle_CDui}" 
                                      mask="99999999-9" size="10"/>
@@ -40,10 +40,10 @@
                             <f:selectItem itemValue="Administrador" itemLabel="Administrador"/>
                             <f:selectItem itemValue="Digitador" itemLabel="Digitador"/>
                         </p:selectOneMenu>
-                        
+
                         <p:outputLabel value="Agente :" for="CAgente" />   
                         <p:selectOneMenu id="CAgente" style="width: 180px" value="#{usuarioTbController.selected.EIdagente}" 
-                                         required="true" requiredMessage="Seleccione Agente" filter="true" filterMatchMode="contains">
+                                         filter="true" filterMatchMode="contains">
                             <f:selectItem itemValue="" itemLabel="Sin Agente"/>
                             <f:selectItems value="#{agenteTbController.itemsAvailableSelectOne}"
                                            var="EIdagenteItem"
