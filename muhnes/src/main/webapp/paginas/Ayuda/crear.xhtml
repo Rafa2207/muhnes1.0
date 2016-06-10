@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+
+
+    <p:dialog id="AyudaDlg" widgetVar="AyudaDialog" modal="true" resizable="false" appendTo="@(body)" header="Ayuda Crear y Descargar Backup" >
+        <h:form id="AyudaForm" style=" width: 970px; height: 500px">
+            <p:tabView>
+                <p:tab title="Crear y descargar backup" >
+                    <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" >     
+                        <p:outputPanel style="width: 500px">
+                            <b>Permite crear y descargar respaldos de la base de datos.</b>                          
+                        </p:outputPanel>
+                    </h:panelGrid>
+                    <div align="center">
+                        <h:graphicImage library="images" name="ayuda/crear/crear.PNG" width="300px"/> 
+                    </div>
+                    <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" > 
+                        <p:outputPanel style="width: 900px">
+                            <p><b>Pasos para crear respaldo de la base de datos.</b></p>
+                            <p><b>Paso 1: </b><br/>Hacer clic en icono <b>Respaldar base de datos</b>.</p>
+                            <p><b>Paso 2: </b><br/>Aparecerá un mensaje <b>El respaldo se ha generado exitosamente</b>.</p>
+                            <div align="center">
+                                <h:graphicImage library="images" name="ayuda/crear/generado.PNG" width="600px"/> 
+                            </div>
+                            <p><b>Paso 3: </b><br/>Finalmente hacer clic en el botón <b>Descargar archivo</b>.</p>
+                            <div align="center">
+                                <h:graphicImage library="images" name="ayuda/crear/descargar.PNG" width="400px"/> 
+                            </div>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+
+    </p:dialog>
+
+
+
+</html>
