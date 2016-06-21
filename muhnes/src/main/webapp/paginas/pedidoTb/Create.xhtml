@@ -63,11 +63,11 @@
                                      scrollable="true"
                                      scrollHeight="160"
                                      emptyMessage="No ha agregado materiales"
-                                     tableStyle="width:800px">
-                            <p:column headerText="Material">
+                                     tableStyle="width:600px">
+                            <p:column headerText="Material" width="50%">
                                 #{material.materialTb.CNombre}
                             </p:column>
-                            <p:column headerText="Cantidad">
+                            <p:column headerText="Cantidad" width="30%">
                                 <p:cellEditor>
                                     <f:facet name="output">
                                         <h:outputText value="#{material.DCantidad}  #{material.materialTb.EIdunidad.CAbreviatura}"/>
@@ -78,7 +78,7 @@
 
                                 </p:cellEditor>
                             </p:column>
-                            <p:column headerText="Acciones">
+                            <p:column headerText="Acciones" width="20%">
                                 <p:rowEditor/>
                                 <p:commandLink
                                     style="display: inline-block;"
@@ -88,6 +88,7 @@
                                     update="materiales, :PedidoTbCreateForm:material">
                                     <f:setPropertyActionListener value="#{material}" 
                                                                  target="#{pedidoTbController.materialEL}"/>
+                                    <p:confirm header="Confirmación" message="¿Desea eliminar material?" icon="ui-icon-alert" />
                                 </p:commandLink>
                             </p:column>
                         </p:dataTable>

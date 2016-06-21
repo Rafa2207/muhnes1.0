@@ -23,7 +23,7 @@
                             <h:outputText value="Proyecto: "/>
                             <h:outputText value="#{despachoTbController.selected.EIdproyecto.MNombre}" title="#{bundleDespacho.ViewDespachoTbTitle_EIdproyecto}"/>
                             <p:outputLabel value="Fecha de Reingreso: " for="fechaR"/>
-                            <p:calendar id="fechaR" pattern="dd MMMM yyyy" value="#{despachoTbController.selected.FFechareingreso}" title="#{bundleDespacho.EditDespachoTbTitle_FFecha}"  showOn="button" locale="es" required="true" requiredMessage="Introduzca una fecha" mindate="#{despachoTbController.selected.FFecha}"/>
+                            <p:calendar id="fechaR" pattern="dd MMMM yyyy" value="#{despachoTbController.selected.FFechareingreso}" title="#{bundleDespacho.EditDespachoTbTitle_FFecha}"  showOn="button" locale="es" required="true" requiredMessage="Introduzca una fecha" mindate="#{despachoTbController.selected.FFecha}" maxdate="0"/>
                             <p:outputLabel value="Motivo Reingreso: " for="motivoR" />
                             <p:inputTextarea cols="50" autoResize="" rows="3" id="motivoR" value="#{despachoTbController.selected.MMotivoreingreso}" title="#{bundleDespacho.EditDespachoTbTitle_MDescripcion}" required="true" requiredMessage="Introduzca un motivo de reingreso"/>
                         </p:panelGrid>
@@ -48,7 +48,7 @@
                             </p:column>
                         </p:dataTable>
                     </p:fieldset>
-                    <p:commandButton actionListener="#{despachoTbController.reingresoMaterial}" value="#{bundle.Save}" update="display,:DespachoTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'DespachoTbCreate2Dialog');"/>
+                    <p:commandButton actionListener="#{despachoTbController.reingresoMaterial}" value="#{bundle.Save}" update="display,:DespachoTbListForm:,:growl" oncomplete="handleSubmit(args,'DespachoTbCreate2Dialog');"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

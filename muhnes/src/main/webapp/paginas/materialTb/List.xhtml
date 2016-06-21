@@ -61,7 +61,7 @@
                             </f:facet>
                             <h:outputText id="c" value="#{item.MCodigobarras}"/>
                             <p:tooltip for="c">
-                                <p:barcode value="#{item.MCodigobarras}" type="code39"/>
+                                <p:barcode value="#{item.MCodigobarras}" type="code128"/>
                             </p:tooltip>
                         </p:column>
                         <p:column width="20%" filterBy="#{item.CNombre}" filterStyle="display:none">
@@ -80,13 +80,13 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaterialTbTitle_DCantidad}"/>
                             </f:facet>
-                            <h:outputText value="#{item.DCantidad} #{item.EIdunidad.CAbreviatura}"/>
+                            <h:outputText style="#{materialTbController.fueraStock(item)}" value="#{item.DCantidad} #{item.EIdunidad.CAbreviatura}"/>
                         </p:column>
                         <p:column width="15%" filterBy="#{item.DCantidadmin} #{item.EIdunidad.CAbreviatura}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="Cantidad Mínima"/>
                             </f:facet>
-                            <h:outputText value="#{item.DCantidadmin} #{item.EIdunidad.CAbreviatura}"/>
+                            <h:outputText style="#{materialTbController.fueraStock(item)}" value="#{item.DCantidadmin} #{item.EIdunidad.CAbreviatura}"/>
                         </p:column>
                         <p:column filterBy="#{item.MDescripcion}" filterStyle="display:none">
                             <f:facet name="header">

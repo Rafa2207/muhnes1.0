@@ -46,6 +46,7 @@ import modelo.MaterialDespachoTb;
 import modelo.MaterialDespachoTbPK;
 import modelo.MaterialTb;
 import modelo.PedidoTb;
+import modelo.ProyectoTb;
 import modelo.UsuarioTb;
 
 @Named("despachoTbController")
@@ -248,6 +249,10 @@ public class DespachoTbController implements Serializable {
             items = getFacade().findAll();
         }
         return items;
+    }
+
+    public List<ProyectoTb> proyectosDisponibles() {
+        return getFacade().proyectosDisponibles();
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
@@ -496,9 +501,18 @@ public class DespachoTbController implements Serializable {
                 Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
-                fecha.setSpacingAfter(10);
+                //fecha.setSpacingAfter(10);
                 document.add(fecha);
 
+                String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+                UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+
+                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() + " " + usuario.getCApellido(),
+                        FontFactory.getFont(FontFactory.TIMES, 10));
+                usuarioSis.setAlignment(Element.ALIGN_CENTER);
+                usuarioSis.setSpacingAfter(10);
+                document.add(usuarioSis);
+                
                 PdfPTable pedidos = new PdfPTable(4);
                 pedidos.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
 
@@ -554,8 +568,8 @@ public class DespachoTbController implements Serializable {
                 //Bitacora inicio
                 BitacoraTb bitacora = new BitacoraTb();
                 bitacora.setMDescripcion("Creado Reporte general de pedidos en el módulo: Materiales");
-                String nick = JsfUtil.getRequest().getUserPrincipal().getName();
-                UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+                //String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+                //UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
                 bitacora.setEIdusuario(usuario);
                 Date fecha1 = new Date();
                 bitacora.setTFecha(fecha1);

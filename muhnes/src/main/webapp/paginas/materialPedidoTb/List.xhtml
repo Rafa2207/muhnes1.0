@@ -25,7 +25,7 @@
                     <p:commandButton id="createButton" icon="ui-icon-tag"   value="Recibir Pedido" update=":MaterialPedidoTbCreateForm" oncomplete="PF('MaterialPedidoTbCreateDialog').show()" disabled="#{empty pedidoTbController.selected || pedidoTbController.selected.EEstado!=0}"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":MaterialPedidoTbViewForm" oncomplete="PF('MaterialPedidoTbViewDialog').show()" disabled="#{empty pedidoTbController.selected}"/>
                     <p:commandButton id="modificarButton"   icon="ui-icon-pencil" value="Modificar" actionListener="#{pedidoTbController.activarEnProceso()}" update=":MaterialPedidoTbCreate2Form" oncomplete="PF('MaterialPedidoTbCreate2Dialog').show()" disabled="#{empty pedidoTbController.selected || pedidoTbController.selected.EEstado==0}"/>
-                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Actualizar pedido recibido" update=":MaterialPedidoTbEditForm" oncomplete="PF('MaterialPedidoTbEditDialog').show()" disabled="#{empty pedidoTbController.selected || pedidoTbController.selected.EEstado!=1}"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Actualizar pedido recibido" actionListener="#{pedidoTbController.prepareActualizar()}" update=":MaterialPedidoTbEditForm" oncomplete="PF('MaterialPedidoTbEditDialog').show()" disabled="#{empty pedidoTbController.selected || pedidoTbController.selected.EEstado!=1}"/>
 
                     <div style="float: right"> 
                         <p:commandLink title="Ayuda" update=":AyudaForm" oncomplete="PF('AyudaDialog').show()" >

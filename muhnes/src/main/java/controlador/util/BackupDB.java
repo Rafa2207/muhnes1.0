@@ -41,7 +41,8 @@ ServletContext ctx = (ServletContext) FacesContext.getCurrentInstance().getExter
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss");
             String strFilename = "bd_muhnes"+dateFormat.format(now);
             System.out.println(strFilename);
-            String command = "/usr/bin/pg_dump --host localhost --port 5432 --username \"postgres\" --role \"muhnes\" --no-password  --format custom --blobs --verbose \"bd_muhnes\" > " + txtPath + strFilename + ".sql";
+            String command = "PGUSER=muhnes PGPASSWORD=muhnes2015 /usr/bin/pg_dump -i -h localhost -p 5432 -d bd_muhnes -F c -b -v -f \""  + txtPath + strFilename + ".sql\"";
+            //String command = "/usr/bin/pg_dump --host localhost --port 5432 --username \"postgres\" --password \"root\" --role \"muhnes\" --password \"muhnes2015\"  --format custom --blobs --verbose \"bd_muhnes\" > " + txtPath + strFilename + ".sql";
             System.out.println(command);
             Process p = null;
             try {

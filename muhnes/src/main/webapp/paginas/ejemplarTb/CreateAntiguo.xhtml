@@ -8,8 +8,8 @@
 
     <ui:composition>
 
-        <p:dialog id="EjemplarTbCreateDlg" widgetVar="EjemplarTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateEjemplarTbTitle}">
-            <h:form id="EjemplarTbCreateForm">
+        <p:dialog id="EjemplarTbCreate3Dlg" widgetVar="EjemplarTbCreate3Dialog" modal="true" resizable="false" appendTo="@(body)" header="Nuevo Ejemplar Antigüo">
+            <h:form id="EjemplarTbCreate3Form">
                 <h:panelGroup id="display">
                     <p:panelGrid  columns="4" rendered="#{ejemplarTbController.selected != null}">
 
@@ -101,22 +101,11 @@
                                            itemLabel="#{local.CNombre} (#{localidadTbController.latitudList(local)}'', #{localidadTbController.longitudList(local)}'')"
                                            itemValue="#{local}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="Código de entrada: " for="codEntrada" />
-                        <p:selectOneMenu id="codEntrada" value="#{ejemplarTbController.cod}"
-                                         required="true" requiredMessage="seleccione codigo de entrada">
-                            <f:selectItem itemLabel="Seleccione..." itemValue=""/>
-                            <f:selectItem itemLabel="Algas" itemValue="10"/>
-                            <f:selectItem itemLabel="Líquenes. Musgos y Hepáticas" itemValue="11"/>
-                            <f:selectItem itemLabel="Helechos" itemValue="12"/>
-                            <f:selectItem itemLabel="Gimnospermas" itemValue="13"/>
-                            <f:selectItem itemLabel="Monocotiledóneas" itemValue="14"/>
-                            <f:selectItem itemLabel="Dicotiledóneas" itemValue="15"/>
-                            <f:selectItem itemLabel="Carpoteca" itemValue="16"/>
-                            <f:selectItem itemLabel="Hongos" itemValue="17"/>
-                            <p:ajax event="change" update="codigo"
-                                    listener="#{ejemplarTbController.generarCodigoEntrada()}"/>
-                        </p:selectOneMenu>
-                        <p:inputText id="codigo" readonly="true" required="true" requiredMessage="Seleccione rango taxonómico" size="8" maxlength="10" value="#{ejemplarTbController.selected.CCodigoentrada}"/>
+                        <p:outputLabel value="Código de entrada: " for="codigo" />
+                        <p:inputMask id="codigo" mask="99-9999" 
+                                     required="true" requiredMessage="Ingrese codigo de entrada" 
+                                     size="8" maxlength="10" 
+                                     value="#{ejemplarTbController.selected.CCodigoentrada}"/>
                         <p:outputLabel value=""/>
                     </p:panelGrid>
                     <p:tabView id="detalleEjemplar" >

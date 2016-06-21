@@ -165,6 +165,7 @@
                                                    update="EjemplarAgentes :EjemplarTbCreate2Form:detalleEjemplar:agenteRE">
                                         <f:setPropertyActionListener value="#{agentes}" 
                                                                      target="#{ejemplarTbController.agenteIdentifica}"/>
+                                        <p:confirm header="Confirmación" message="¿Desea eliminar agente?" icon="ui-icon-alert" />
                                     </p:commandLink>
                                 </p:column>
                             </p:dataTable>
@@ -210,6 +211,7 @@
                                                    update="EjemplarAgentes1 :EjemplarTbCreate2Form:detalleEjemplar:agenteID">
                                         <f:setPropertyActionListener value="#{agentes1}" 
                                                                      target="#{ejemplarTbController.agenteIdentifica}"/>
+                                        <p:confirm header="Confirmación" message="¿Desea eliminar agente?" icon="ui-icon-alert" />
                                     </p:commandLink>
                                 </p:column>
                             </p:dataTable>
@@ -248,6 +250,7 @@
                                                    update="ejemplarNombreComun :EjemplarTbCreate2Form:detalleEjemplar:nombreC">
                                         <f:setPropertyActionListener value="#{nc}" 
                                                                      target="#{ejemplarTbController.ejemplarnc}"/>
+                                        <p:confirm header="Confirmación" message="¿Desea eliminar nombre común?" icon="ui-icon-alert" />
                                     </p:commandLink>
                                 </p:column>
                             </p:dataTable>
@@ -285,6 +288,7 @@
                                                    update="ejemplarDonacionInstitucion :EjemplarTbCreate2Form:detalleEjemplar:nombreIns">
                                         <f:setPropertyActionListener value="#{institucion}" 
                                                                      target="#{ejemplarTbController.ejemplarIns}"/>
+                                        <p:confirm header="Confirmación" message="¿Desea eliminar institución?" icon="ui-icon-alert" />
                                     </p:commandLink>
                                 </p:column>
                             </p:dataTable>

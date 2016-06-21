@@ -84,6 +84,7 @@
                                         update="materiales, :DespachoTbEditForm:material">
                                         <f:setPropertyActionListener value="#{material}" 
                                                                      target="#{despachoTbController.materialMD}"/>
+                                        <p:confirm header="Confirmación" message="¿Desea eliminar material?" icon="ui-icon-alert" />
                                     </p:commandLink>
                                 </p:column>
                             </p:dataTable>

@@ -43,4 +43,9 @@ public class MaterialTbFacade extends AbstractFacade<MaterialTb> {
         TypedQuery<MaterialTb> query = em.createQuery("SELECT p FROM MaterialTb p ORDER BY p.cNombre ASC", MaterialTb.class);
         return query.getResultList();
     }
+     
+     public List<MaterialTb> ordenarMenosStock(){
+        TypedQuery<MaterialTb> query = em.createQuery("SELECT p FROM MaterialTb p ORDER BY p.dCantidad ASC", MaterialTb.class);
+        return query.getResultList();
+    }
 }

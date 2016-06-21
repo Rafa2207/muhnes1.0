@@ -15,4 +15,7 @@
       <description>Keep a copy of the generated servlet class' java code.</description>
     </property>
   </jsp-config>
+  <property name="alternatedocroot_1" value="from=/images/* dir=C:/"/>
+<!--<property name="alternatedocroot_2" value="from=/images/* dir=/home/rafa2207"/>-->
+<!-- para local esta línea, la sig. sin c: para servidor-->
 </glassfish-web-app>

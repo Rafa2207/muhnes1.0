@@ -90,7 +90,7 @@ public class TaxonomiaTbController implements Serializable {
     private List<String> idiomas;
     private Part photo;
     private ImagenTb img;
-    Integer columnas;
+    private Integer columnas, modificar;
     @Inject
     EjemplarTbController ejemplarControl;
     //int matriz[] = new int[];
@@ -252,6 +252,7 @@ public class TaxonomiaTbController implements Serializable {
         selected.setImagenTbList(new ArrayList<ImagenTb>());
         listaAutores = agenteFacade.agentesAutores();
         listaIdiomas = paisFacade.idiomas();
+        modificar = 0;
         autores = "";
         return selected;
     }
@@ -272,6 +273,7 @@ public class TaxonomiaTbController implements Serializable {
         selected.setAgenteTaxonomiaTbList(getFacade().buscarEspecieSecuencia(especie.getEIdtaxonomia()));
         autores = "(" + cadena1 + ") " + cadena2;
         listaIdiomas = paisFacade.idiomas();
+        modificar = 1;
         initializeEmbeddableKey();
         return selected;
     }
@@ -651,22 +653,46 @@ public class TaxonomiaTbController implements Serializable {
 
     public void anadirNombreComun() {
         NombrecomunTb nuevo = new NombrecomunTb();
-        nuevo.setCNombre(nombreComun);
-        nuevo.setCIdioma(idioma);
-        nuevo.setEIdtaxonomia(selected);
-        selected.getNombrecomunTbList().add(nuevo);
-        nombreComun = "";
-        idioma = "";
+        if (!nombreComun.equals("") && !idioma.equals("")) {
+            nuevo.setCNombre(nombreComun);
+            nuevo.setCIdioma(idioma);
+            nuevo.setEIdtaxonomia(selected);
+            selected.getNombrecomunTbList().add(nuevo);
+            nombreComun = "";
+            idioma = "";
+        } else {
+        }
+        FacesMessage error = new FacesMessage("Error al agregar nombre común");
+        FacesContext.getCurrentInstance().addMessage(null, error);
     }
 
     public void handleFileUpload(FileUploadEvent event) {
+        //ruta para debian
+        //ServletContext ctx = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+        //String basePath = ctx.getRealPath("/");
+        //String txtPath = basePath + "images";
+        //nueva ruta para servidor
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        String picture_directory = ctx.getExternalContext().getInitParameter("pictures_directory_path");
+        //******************************************
         UploadedFile file = event.getFile();
-        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        String realPath = UtilPath.getPathDefinida(ec.getRealPath("/"));
-        String pathDefinition = realPath + File.separator + "src" + File.separator + "main" + File.separator + "webapp" + File.separator + "images" + File.separator + file.getFileName();
-        String ruta = File.separator + "images" + File.separator + file.getFileName();
+        String ruta = "";// = File.separator + "images" + File.separator + file.getFileName();
+        //If directory exists ? do nothing : make directory
+        if (modificar == 1) {
+            ruta = picture_directory + selected.getEIdtaxonomia();
+            File storage_folder = new File(ruta);
+            if (!storage_folder.exists()) {
+                storage_folder.mkdir();
+            }
+        } else {
+            ruta = picture_directory + getFacade().siguienteId();
+            File storage_folder = new File(ruta);
+            if (!storage_folder.exists()) {
+                storage_folder.mkdir();
+            }
+        }
+        String pathDefinition = ruta + File.separator + file.getFileName();
         System.out.println("" + pathDefinition);
-
         try {
             FileInputStream in = (FileInputStream) file.getInputstream();
             FileOutputStream out = new FileOutputStream(pathDefinition);
@@ -688,7 +714,7 @@ public class TaxonomiaTbController implements Serializable {
         }
         ImagenTb nuevo = new ImagenTb();
         nuevo.setCNombre(file.getFileName());
-        nuevo.setCRuta(ruta);
+        nuevo.setCRuta(pathDefinition);
         nuevo.setEIdtaxonomia(selected);
         selected.getImagenTbList().add(nuevo);
         FacesMessage exito = new FacesMessage("imagen subida correctamente");
@@ -696,11 +722,14 @@ public class TaxonomiaTbController implements Serializable {
     }
 
     public void borrarImagen() {
-        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        String realPath = UtilPath.getPathDefinida(ec.getRealPath("/"));
-        String pathDefinition = realPath + File.separator + "src" + File.separator + "main" + File.separator + "webapp" + File.separator + "images" + File.separator + img.getCNombre();
+        //ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        //String realPath = UtilPath.getPathDefinida(ec.getRealPath("/"));
+        //////////////////////////////////
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        // String txtPath = ctx.getExternalContext().getInitParameter("pictures_directory_path");
+        String pathDefinition = ctx.getExternalContext().getInitParameter("pictures_directory_path") + img.getCNombre();
         try {
-            File imagen = new File(pathDefinition);
+            File imagen = new File(img.getCRuta());
             if (imagen.exists()) {
                 imagen.delete();
                 FacesMessage exito = new FacesMessage("imagen eliminada correctamente");
@@ -815,7 +844,7 @@ public class TaxonomiaTbController implements Serializable {
                 encabezado.addCell("");
                 document.add(encabezado);
 
-                Paragraph titulo = new Paragraph("Reporte General de InformaciÃ³n TaxonÃ³mica", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                Paragraph titulo = new Paragraph("Reporte General de Información Taxonómica", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                 titulo.setAlignment(Element.ALIGN_CENTER);
 
                 titulo.setSpacingBefore(5);
@@ -827,11 +856,19 @@ public class TaxonomiaTbController implements Serializable {
                 titulo2.setSpacingBefore(2);
                 document.add(titulo2);
 
-                Paragraph fecha = new Paragraph("Fecha de generaciÃ³n: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
-                fecha.setSpacingAfter(10);
                 document.add(fecha);
+
+                String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+                UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+
+                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() + " " + usuario.getCApellido(),
+                        FontFactory.getFont(FontFactory.TIMES, 10));
+                usuarioSis.setAlignment(Element.ALIGN_CENTER);
+                usuarioSis.setSpacingAfter(10);
+                document.add(usuarioSis);
 
                 PdfPTable proyectos = new PdfPTable(2);
                 proyectos.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -886,9 +923,9 @@ public class TaxonomiaTbController implements Serializable {
                 context.responseComplete();
                 //Bitacora inicio
                 BitacoraTb bitacora = new BitacoraTb();
-                bitacora.setMDescripcion("Creado Reporte general de Familias en el mÃ³dulo: Taxonomia");
-                String nick = JsfUtil.getRequest().getUserPrincipal().getName();
-                UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+                bitacora.setMDescripcion("Creado Reporte general de Familias en el módulo: Taxonomia");
+                //String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+                //UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
                 bitacora.setEIdusuario(usuario);
                 Date fecha1 = new Date();
                 bitacora.setTFecha(fecha1);
@@ -951,14 +988,14 @@ public class TaxonomiaTbController implements Serializable {
                 encabezado.addCell("");
                 document.add(encabezado);
 
-                Paragraph titulo = new Paragraph("Reporte General de InformaciÃ³n TaxonÃ³mica", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                Paragraph titulo = new Paragraph("Reporte General de Información Taxonómica", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                 titulo.setAlignment(Element.ALIGN_CENTER);
 
                 titulo.setSpacingBefore(5);
                 document.add(titulo);
 
                 if (tax.getCTipo().equals("Familia")) {
-                    Paragraph titulo2 = new Paragraph(new Phrase("Reporte de GÃ©nero \n Familia: " + tax.getCNombre() + "", FontFactory.getFont(FontFactory.TIMES_BOLD, 13)));
+                    Paragraph titulo2 = new Paragraph(new Phrase("Reporte de Género \n Familia: " + tax.getCNombre() + "", FontFactory.getFont(FontFactory.TIMES_BOLD, 13)));
                     titulo2.setAlignment(Element.ALIGN_CENTER);
                     titulo2.setSpacingAfter(5);
                     titulo2.setSpacingBefore(2);
@@ -983,11 +1020,20 @@ public class TaxonomiaTbController implements Serializable {
                     document.add(titulo2);
                 }
 
-                Paragraph fecha = new Paragraph("Fecha de generaciÃ³n: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
-                        FontFactory.getFont(FontFactory.TIMES, 10));
+                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 fecha.setSpacingAfter(10);
                 document.add(fecha);
+                
+                String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+                UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+
+                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() + " " + usuario.getCApellido(),
+                        FontFactory.getFont(FontFactory.TIMES, 10));
+                usuarioSis.setAlignment(Element.ALIGN_CENTER);
+                usuarioSis.setSpacingAfter(10);
+                document.add(usuarioSis);
+
                 if (tax.getCTipo().equals("Familia")) {
                     int headerwidths[] = {10, 40};
                     columnas = 2;
@@ -1078,8 +1124,8 @@ public class TaxonomiaTbController implements Serializable {
                 //Bitacora inicio
                 BitacoraTb bitacora = new BitacoraTb();
                 bitacora.setMDescripcion("Creado Reporte general de " + tax.getCTipo() + " en el mÃ³dulo: taxonomia");
-                String nick = JsfUtil.getRequest().getUserPrincipal().getName();
-                UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+                //String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+                //UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
                 bitacora.setEIdusuario(usuario);
                 Date fecha1 = new Date();
                 bitacora.setTFecha(fecha1);
@@ -1162,7 +1208,7 @@ public class TaxonomiaTbController implements Serializable {
                 celda.setBorder(Rectangle.NO_BORDER);
                 tablaEspacio.addCell(celda);
                 document.add(tablaEspacio);
-                
+
                 PdfPTable TablaNombre = new PdfPTable(2);
                 TablaNombre.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
                 TablaNombre.getDefaultCell().setBorder(Rectangle.NO_BORDER);
@@ -1288,12 +1334,11 @@ public class TaxonomiaTbController implements Serializable {
                 tituloImagenes.setSpacingBefore(5);
                 document.add(tituloImagenes);
                 //Mostrar imagenes
+                FacesContext ctx = FacesContext.getCurrentInstance();
+                String ruta = ctx.getExternalContext().getInitParameter("pictures_directory_path");
                 if (!selected.getImagenTbList().isEmpty()) {
                     for (ImagenTb i : selected.getImagenTbList()) {
-                        //String con la ruta de la imagen
-                        String Img = servletContext.getRealPath("")
-                                + File.separator + "images"
-                                + File.separator + i.getCNombre();
+                        String Img = ruta + i.getCNombre();
 
                         //Tabla para  las imagenes
                         PdfPTable tablaImg1 = new PdfPTable(1);

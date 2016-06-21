@@ -55,11 +55,12 @@
                                 <p:calendar id="FechaRec" size="15" pattern="dd MMMM yyyy" value="#{material.FFechaRecibido}" title="Fecha recibido"  
                                             readonlyInput="true"
                                             locale="es"
-                                            mindate="0" disabled="#{pedidoTbController.bandera}"/>
+                                            mindate="#{material.pedidoTb.FFecha}"
+                                            maxdate="0" disabled="#{pedidoTbController.bandera}"/>
                             </p:column>
                         </p:dataTable>
                     </p:fieldset>
-                    <p:commandButton actionListener="#{pedidoTbController.recibirPedido()}" value="#{bundle.Save}" update="display,:MaterialPedidoTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'MaterialPedidoTbCreateDialog');"/>
+                    <p:commandButton actionListener="#{pedidoTbController.recibirPedido()}" value="#{bundle.Save}" update="display,:MaterialPedidoTbListForm:,:growl" oncomplete="handleSubmit(args,'MaterialPedidoTbCreateDialog');"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

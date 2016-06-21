@@ -11,8 +11,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import modelo.DespachoTb;
 import modelo.MaterialTb;
+import modelo.ProyectoTb;
 
 /**
  *
@@ -50,5 +52,10 @@ public class DespachoTbFacade extends AbstractFacade<DespachoTb> {
         catch(NoResultException nre){
             return null;
         }
+    }
+    
+    public List<ProyectoTb> proyectosDisponibles(){
+        TypedQuery<ProyectoTb> query = em.createQuery("SELECT p FROM ProyectoTb p WHERE p.eEstado=0 OR p.eEstado=1 ORDER BY p.mNombre ASC", ProyectoTb.class);
+        return query.getResultList();
     }
 }

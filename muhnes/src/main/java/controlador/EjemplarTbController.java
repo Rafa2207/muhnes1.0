@@ -3,6 +3,7 @@ package controlador;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
+import com.lowagie.text.Font;
 import com.lowagie.text.FontFactory;
 import com.lowagie.text.Image;
 import com.lowagie.text.PageSize;
@@ -13,6 +14,7 @@ import com.lowagie.text.pdf.Barcode;
 import com.lowagie.text.pdf.Barcode128;
 import com.lowagie.text.pdf.Barcode39;
 import com.lowagie.text.pdf.BarcodeEAN;
+import com.lowagie.text.pdf.BaseFont;
 import com.lowagie.text.pdf.PdfContentByte;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
@@ -21,6 +23,7 @@ import modelo.EjemplarTb;
 import controlador.util.JsfUtil;
 import controlador.util.JsfUtil.PersistAction;
 import controlador.util.TableHeader;
+import controlador.util.UtilPath;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -39,6 +42,7 @@ import javax.ejb.EJBException;
 import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
@@ -791,19 +795,19 @@ public class EjemplarTbController implements Serializable {
         if (tax.getERango() == 3) {
             String genero = tax.getEIdniveltaxonomia().getCNombre();
             String especie = tax.getCNombre();
-            return genero + ", " + especie;
+            return genero + " " + especie.toLowerCase();
         }
         if (tax.getERango() == 4 && tax.getCTipo().equals("Subespecie")) {
             String genero = tax.getEIdniveltaxonomia().getEIdniveltaxonomia().getCNombre();
             String especie = tax.getEIdniveltaxonomia().getCNombre();
             String subespecie = tax.getCNombre();
-            return genero + ", " + especie + " sub. " + subespecie;
+            return genero + " " + especie.toLowerCase() + " subsp. " + subespecie.toLowerCase();
         }
         if (tax.getERango() == 4 && tax.getCTipo().equals("Variedad")) {
             String genero = tax.getEIdniveltaxonomia().getEIdniveltaxonomia().getCNombre();
             String especie = tax.getEIdniveltaxonomia().getCNombre();
             String variedad = tax.getCNombre();
-            return genero + ", " + especie + " var. " + variedad;
+            return genero + " " + especie.toLowerCase() + " var. " + variedad.toLowerCase();
         }
         return "";
     }
@@ -963,19 +967,19 @@ public class EjemplarTbController implements Serializable {
                     document.add(titulo);
                     //fecha de generacion entre los reportes
                     if (booleanFecha == true && tipoReporte.equals("recoleccion")) {
-                        Paragraph titulo2 = new Paragraph("Fecha de RecolecciÃ³n: " + new SimpleDateFormat("dd MMMM yyyy").format(f1) + " - " + new SimpleDateFormat("dd MMMM yyyy").format(f2), FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                        Paragraph titulo2 = new Paragraph("Fecha de Recolección: " + new SimpleDateFormat("dd MMMM yyyy").format(f1) + " - " + new SimpleDateFormat("dd MMMM yyyy").format(f2), FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                         titulo2.setAlignment(Element.ALIGN_CENTER);
                         titulo2.setSpacingAfter(5);
                         titulo2.setSpacingBefore(2);
                         document.add(titulo2);
                     } else if (booleanFecha == true && tipoReporte.equals("identificacion")) {
-                        Paragraph titulo2 = new Paragraph("Fecha de IdentificaciÃ³n: " + new SimpleDateFormat("dd MMMM yyyy").format(f1) + " - " + new SimpleDateFormat("dd MMMM yyyy").format(f2), FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                        Paragraph titulo2 = new Paragraph("Fecha de Identificación: " + new SimpleDateFormat("dd MMMM yyyy").format(f1) + " - " + new SimpleDateFormat("dd MMMM yyyy").format(f2), FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                         titulo2.setAlignment(Element.ALIGN_CENTER);
                         titulo2.setSpacingAfter(5);
                         titulo2.setSpacingBefore(2);
                         document.add(titulo2);
                     } else if (booleanCodigo == true) {
-                        Paragraph titulo2 = new Paragraph("CÃ³digo de Entrada: Desde " + getCodigo1() + " Hasta " + getCodigo2(), FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                        Paragraph titulo2 = new Paragraph("Código de Entrada: Desde " + getCodigo1() + " Hasta " + getCodigo2(), FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                         titulo2.setAlignment(Element.ALIGN_CENTER);
                         titulo2.setSpacingAfter(5);
                         titulo2.setSpacingBefore(2);
@@ -1000,11 +1004,21 @@ public class EjemplarTbController implements Serializable {
                         document.add(titulo2);
                     }
 
-                    Paragraph fecha = new Paragraph("Fecha de generaciÃ³n: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
+                    Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
                             FontFactory.getFont(FontFactory.TIMES, 10));
                     fecha.setAlignment(Element.ALIGN_CENTER);
-                    fecha.setSpacingAfter(10);
+                    //fecha.setSpacingAfter(10);
                     document.add(fecha);
+                    
+                    String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+                UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+
+                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() + " " + usuario.getCApellido(),
+                        FontFactory.getFont(FontFactory.TIMES, 10));
+                usuarioSis.setAlignment(Element.ALIGN_CENTER);
+                usuarioSis.setSpacingAfter(10);
+                document.add(usuarioSis);
+                    
                     if (booleanResponsable == true) {
                         columnas = 6;
                     } else {
@@ -1022,15 +1036,15 @@ public class EjemplarTbController implements Serializable {
 
                     ejemplares.setWidthPercentage(100);
                     ejemplares.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-                    ejemplares.addCell(new Phrase("CÃ³digo de Entrada", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                    ejemplares.addCell(new Phrase("Código de Entrada", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                     if (booleanResponsable == false) {
                         ejemplares.addCell(new Phrase("Responsable", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                     }
                     ejemplares.addCell(new Phrase("Correlativo", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                     ejemplares.addCell(new Phrase("Familia", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
-                    ejemplares.addCell(new Phrase("InformaciÃ³n TaxonÃ³mica", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                    ejemplares.addCell(new Phrase("Información Taxonómica", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                     //ejemplares.addCell(new Phrase("Calificativo", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
-                    ejemplares.addCell(new Phrase("DescripciÃ³n", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                    ejemplares.addCell(new Phrase("Descripción", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                     //ejemplares.addCell(new Phrase("Duplicados", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                     ejemplares.addCell(new Phrase("Localidad", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
 
@@ -1097,9 +1111,9 @@ public class EjemplarTbController implements Serializable {
                     context.responseComplete();
                     //Bitacora inicio
                     BitacoraTb bitacora = new BitacoraTb();
-                    bitacora.setMDescripcion("Creado Reporte general de Ejemplares en el mÃ³dulo: Ejemplar");
-                    String nick = JsfUtil.getRequest().getUserPrincipal().getName();
-                    UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+                    bitacora.setMDescripcion("Creado Reporte general de Ejemplares en el módulo: Ejemplar");
+                    //String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+                    //UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
                     bitacora.setEIdusuario(usuario);
                     Date fecha1 = new Date();
                     bitacora.setTFecha(fecha1);
@@ -1119,9 +1133,27 @@ public class EjemplarTbController implements Serializable {
                     ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
 
                     // Inicia reporte
-                    Document document = new Document(PageSize.A6.rotate(), 60, 60, 10, 10);
+                    Document document = new Document(PageSize.POSTCARD.rotate(), 60, 60, 10, 10);
                     PdfWriter writer = PdfWriter.getInstance(document, pdfOutputStream);
                     document.open();
+                    //agregar nueva fuente de letra
+                    ExternalContext ec= FacesContext.getCurrentInstance().getExternalContext();
+                    String realPath = UtilPath.getPathDefinida(ec.getRealPath("/"));
+                    String pathDefinition = realPath + File.separator + "src" + File.separator + "main" + File.separator + "webapp" + File.separator + "resources" + File.separator + "images" + File.separator ;
+                    BaseFont baseFont = BaseFont.createFont(pathDefinition + "arial.ttf", BaseFont.WINANSI, BaseFont.EMBEDDED);
+                    Font fuente = new Font(baseFont);
+                    fuente.setSize(12);
+                    fuente.setStyle(Font.BOLD);
+                    Font fuente2 = new Font(baseFont);
+                    fuente2.setSize(10);
+                    fuente2.setStyle(Font.BOLD);
+                    Font fuente3 = new Font(baseFont);
+                    fuente3.setSize(10);
+                    fuente3.setStyle(Font.BOLDITALIC);
+                    Font fuente4 = new Font(baseFont);
+                    fuente4.setSize(10);
+                    //fuente4.setStyle(Font.BOLDITALIC);
+                            //Paragraph titulo = new Paragraph("FLORA DE EL SALVADOR\n\n", fuente);
                     //inicio de etiquetas
                     List<EjemplarTb> ejemplarListaEtiqueta = new ArrayList<EjemplarTb>();
                     ejemplarListaEtiqueta = getFacade().ejemplarGeneralEntrada(codigo1, codigo2);
@@ -1135,14 +1167,14 @@ public class EjemplarTbController implements Serializable {
                             PdfPTable cod = new PdfPTable(1);
                             cod.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                             cod.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-                            int headerwidths2[] = {50};
+                            int headerwidths2[] = {30};
                             try {
                                 cod.setWidths(headerwidths2);
                             } catch (Exception e) {
                                 System.out.println(e.getMessage());
                             }
 
-                            cod.setWidthPercentage(35);
+                            cod.setWidthPercentage(30);
                             //CODIGO DE BARRAS
                             //cb sirve para obtener cÃ³digo de barras
                             PdfContentByte cb = writer.getDirectContent();
@@ -1154,9 +1186,9 @@ public class EjemplarTbController implements Serializable {
                             cod.addCell(cell0);
                             document.add(cod);
                             //////////
-                            Paragraph titulo = new Paragraph("FLORA DE EL SALVADOR\n\n", FontFactory.getFont(FontFactory.TIMES_BOLD, 10));
+                            Paragraph titulo = new Paragraph("FLORA DE EL SALVADOR\n", fuente);
                             titulo.setAlignment(Element.ALIGN_CENTER);
-                            titulo.setSpacingBefore(5);
+                            titulo.setSpacingBefore(-5);
                             document.add(titulo);
                             ///////////
                             PdfPTable familia1 = new PdfPTable(2);
@@ -1170,12 +1202,12 @@ public class EjemplarTbController implements Serializable {
                             }
 
                             familia1.setWidthPercentage(100);
-                            PdfPCell c1 = new PdfPCell(new Phrase(calcularFamilia(ej.getEIdtaxonomia()).toUpperCase(), FontFactory.getFont(FontFactory.TIMES_BOLD, 8)));
+                            PdfPCell c1 = new PdfPCell(new Phrase(calcularFamilia(ej.getEIdtaxonomia()).toUpperCase(),fuente3));
                             c1.setHorizontalAlignment(Element.ALIGN_LEFT);
                             c1.setBorder(Rectangle.NO_BORDER);
                             familia1.addCell(c1);
 
-                            PdfPCell c2 = new PdfPCell(new Phrase("Dup. = " + String.valueOf(ej.getECantDuplicado()), FontFactory.getFont(FontFactory.TIMES_ROMAN, 8)));
+                            PdfPCell c2 = new PdfPCell(new Phrase("Dup. = " + String.valueOf(ej.getECantDuplicado()), fuente4));
                             c2.setHorizontalAlignment(Element.ALIGN_RIGHT);
                             c2.setBorder(Rectangle.NO_BORDER);
                             familia1.addCell(c2);
@@ -1185,7 +1217,7 @@ public class EjemplarTbController implements Serializable {
                             taxonomia.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                             taxonomia.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                             taxonomia.setWidthPercentage(100);
-                            PdfPCell cc1 = new PdfPCell(new Phrase(calcularTaxonomia(ej.getEIdtaxonomia()), FontFactory.getFont(FontFactory.TIMES_BOLDITALIC, 8)));
+                            PdfPCell cc1 = new PdfPCell(new Phrase(calcularTaxonomia(ej.getEIdtaxonomia()), fuente4));
                             cc1.setHorizontalAlignment(Element.ALIGN_LEFT);
                             cc1.setBorder(Rectangle.NO_BORDER);
                             taxonomia.addCell(cc1);
@@ -1205,7 +1237,7 @@ public class EjemplarTbController implements Serializable {
                             ident.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                             ident.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                             ident.setWidthPercentage(100);
-                            PdfPCell ccc1 = new PdfPCell(new Phrase("Det. " + nombres + " " + new SimpleDateFormat("dd MMMM yyyy").format(ej.getFFechaFinIdent()), FontFactory.getFont(FontFactory.TIMES_ROMAN, 8)));
+                            PdfPCell ccc1 = new PdfPCell(new Phrase("Det. " + nombres + " " + new SimpleDateFormat("dd MMMM yyyy").format(ej.getFFechaFinIdent()), fuente4));
                             ccc1.setHorizontalAlignment(Element.ALIGN_LEFT);
                             ccc1.setBorder(Rectangle.NO_BORDER);
                             ident.addCell(ccc1);
@@ -1221,8 +1253,8 @@ public class EjemplarTbController implements Serializable {
                             localidad.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                             localidad.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                             localidad.setWidthPercentage(100);
-                            PdfPCell cccc1 = new PdfPCell(new Phrase(ej.getEIdlocalidad().getCNombre() + ", " + ej.getEIdlocalidad().getMDescripcion() + ". " + area, FontFactory.getFont(FontFactory.TIMES_ROMAN, 8)));
-                            cccc1.setHorizontalAlignment(Element.ALIGN_LEFT);
+                            PdfPCell cccc1 = new PdfPCell(new Phrase(ej.getEIdlocalidad().getCNombre() + ", " + ej.getEIdlocalidad().getMDescripcion() + ". " + area, fuente4));
+                            cccc1.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
                             cccc1.setBorder(Rectangle.NO_BORDER);
                             localidad.addCell(cccc1);
                             document.add(localidad);
@@ -1231,7 +1263,7 @@ public class EjemplarTbController implements Serializable {
                             coordenadas.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                             coordenadas.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                             coordenadas.setWidthPercentage(100);
-                            PdfPCell ccor1 = new PdfPCell(new Phrase(localidadControl.latitudList(ej.getEIdlocalidad()) + " " + localidadControl.longitudList(ej.getEIdlocalidad()) + ". " + ej.getEIdlocalidad().getEAltitudMax() + " m.s.n.m.\n\n\n", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8)));
+                            PdfPCell ccor1 = new PdfPCell(new Phrase(localidadControl.latitudList(ej.getEIdlocalidad()) + " " + localidadControl.longitudList(ej.getEIdlocalidad()) + ". " + ej.getEIdlocalidad().getEAltitudMax() + " m.s.n.m.\n\n", fuente4));
                             ccor1.setHorizontalAlignment(Element.ALIGN_LEFT);
                             ccor1.setBorder(Rectangle.NO_BORDER);
                             coordenadas.addCell(ccor1);
@@ -1251,7 +1283,7 @@ public class EjemplarTbController implements Serializable {
                             nombresc.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                             nombresc.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                             nombresc.setWidthPercentage(100);
-                            PdfPCell cnom1 = new PdfPCell(new Phrase(nombres2, FontFactory.getFont(FontFactory.TIMES_ROMAN, 8)));
+                            PdfPCell cnom1 = new PdfPCell(new Phrase(nombres2, fuente4));
                             cnom1.setHorizontalAlignment(Element.ALIGN_LEFT);
                             cnom1.setBorder(Rectangle.NO_BORDER);
                             nombresc.addCell(cnom1);
@@ -1271,7 +1303,7 @@ public class EjemplarTbController implements Serializable {
                             donacion.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                             donacion.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                             donacion.setWidthPercentage(100);
-                            PdfPCell cdon1 = new PdfPCell(new Phrase(nombres3, FontFactory.getFont(FontFactory.TIMES_ROMAN, 8)));
+                            PdfPCell cdon1 = new PdfPCell(new Phrase(nombres3, fuente4));
                             cdon1.setHorizontalAlignment(Element.ALIGN_LEFT);
                             cdon1.setBorder(Rectangle.NO_BORDER);
                             donacion.addCell(cdon1);
@@ -1281,11 +1313,11 @@ public class EjemplarTbController implements Serializable {
                             respon.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                             respon.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                             respon.setWidthPercentage(100);
-                            PdfPCell cres1 = new PdfPCell(new Phrase(agenteFacade.agentePorId(ej.getEResponsable()).getCIniciales() + " " + ej.getECorrelativo(), FontFactory.getFont(FontFactory.TIMES_ROMAN, 8)));
+                            PdfPCell cres1 = new PdfPCell(new Phrase(agenteFacade.agentePorId(ej.getEResponsable()).getCIniciales() + " " + ej.getECorrelativo(), fuente4));
                             cres1.setHorizontalAlignment(Element.ALIGN_LEFT);
                             cres1.setBorder(Rectangle.NO_BORDER);
                             respon.addCell(cres1);
-                            PdfPCell cres2 = new PdfPCell(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(ej.getFFechaInicioIdent()), FontFactory.getFont(FontFactory.TIMES_ROMAN, 8)));
+                            PdfPCell cres2 = new PdfPCell(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(ej.getFFechaInicioIdent()), fuente4));
                             cres2.setHorizontalAlignment(Element.ALIGN_RIGHT);
                             cres2.setBorder(Rectangle.NO_BORDER);
                             respon.addCell(cres2);
@@ -1305,7 +1337,7 @@ public class EjemplarTbController implements Serializable {
                             recol.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                             recol.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                             recol.setWidthPercentage(100);
-                            PdfPCell crecol1 = new PdfPCell(new Phrase(nombres1, FontFactory.getFont(FontFactory.TIMES_ROMAN, 8)));
+                            PdfPCell crecol1 = new PdfPCell(new Phrase(nombres1, fuente4));
                             crecol1.setHorizontalAlignment(Element.ALIGN_LEFT);
                             crecol1.setBorder(Rectangle.NO_BORDER);
                             recol.addCell(crecol1);
@@ -1315,7 +1347,7 @@ public class EjemplarTbController implements Serializable {
                             info.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                             info.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                             info.setWidthPercentage(100);
-                            PdfPCell cinfo1 = new PdfPCell(new Phrase("Herbario del Museo de Historia Natural de El Salvador \n MHES", FontFactory.getFont(FontFactory.TIMES_BOLD, 8)));
+                            PdfPCell cinfo1 = new PdfPCell(new Phrase("Herbario del Museo de Historia Natural de El Salvador \n MHES", fuente2));
                             cinfo1.setHorizontalAlignment(Element.ALIGN_CENTER);
                             cinfo1.setBorder(Rectangle.NO_BORDER);
                             info.addCell(cinfo1);

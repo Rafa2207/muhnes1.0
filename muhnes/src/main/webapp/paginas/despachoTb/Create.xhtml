@@ -26,7 +26,7 @@
                                              value="#{despachoTbController.selected.EIdproyecto}" 
                                              required="true" requiredMessage="Seleccione un proyecto">
                                 <f:selectItem itemLabel="Seleccione" itemValue="" />
-                                <f:selectItems value="#{proyectoTbController.itemsAvailableSelectOne}"
+                                <f:selectItems value="#{despachoTbController.proyectosDisponibles()}"
                                                var="EIdproyectoItem"
                                                itemValue="#{EIdproyectoItem}"
                                                itemLabel="#{EIdproyectoItem.MNombre}"/>
@@ -93,6 +93,7 @@
                                         update="materiales, :DespachoTbCreateForm:material">
                                         <f:setPropertyActionListener value="#{material}" 
                                                                      target="#{despachoTbController.materialMD}"/>
+                                        <p:confirm header="Confirmación" message="¿Desea eliminar material?" icon="ui-icon-alert" />
                                     </p:commandLink>
                             </p:column>
                         </p:dataTable>

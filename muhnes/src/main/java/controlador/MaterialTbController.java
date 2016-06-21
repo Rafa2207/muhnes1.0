@@ -9,6 +9,7 @@ import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.Phrase;
 import com.lowagie.text.Rectangle;
+import com.lowagie.text.pdf.Barcode128;
 import com.lowagie.text.pdf.PdfContentByte;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
@@ -157,7 +158,7 @@ public class MaterialTbController implements Serializable {
 
     public List<MaterialTb> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = getFacade().buscarTodosAZ();
         }
         return items;
     }
@@ -243,6 +244,14 @@ public class MaterialTbController implements Serializable {
 
     }
 
+    public String fueraStock(MaterialTb material){
+        String color="";
+        if(material.getDCantidad()<=material.getDCantidadmin()){
+        color = "color: #cc0000; font-weight: bold";
+        }
+        return color;
+    }
+    
     public String tipo(Integer tipo) {
         String Tipo = "";
         if (tipo == 1) {
@@ -333,8 +342,16 @@ public class MaterialTbController implements Serializable {
                 Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
-                fecha.setSpacingAfter(10);
                 document.add(fecha);
+                
+                String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+                UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+
+                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() + " " + usuario.getCApellido(),
+                        FontFactory.getFont(FontFactory.TIMES, 10));
+                usuarioSis.setAlignment(Element.ALIGN_CENTER);
+                usuarioSis.setSpacingAfter(10);
+                document.add(usuarioSis);
 
                 PdfPTable mat = new PdfPTable(6);
                 mat.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -362,7 +379,7 @@ public class MaterialTbController implements Serializable {
                 }
 
                 for (MaterialTb l : lista) {
-                    Barcode39 cod = new Barcode39();
+                    Barcode128 cod = new Barcode128();
                     cod.setCode(l.getMCodigobarras());
                     PdfPCell cell0 = new PdfPCell();
                     cell0.addElement(cod.createImageWithBarcode(cb, null, null));

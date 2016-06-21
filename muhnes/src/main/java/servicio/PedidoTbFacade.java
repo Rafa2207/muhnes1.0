@@ -49,4 +49,9 @@ public class PedidoTbFacade extends AbstractFacade<PedidoTb> {
         query.setParameter("h", pedido);
         return query.getResultList();
     }
+    
+    public List<PedidoTb> ordenarPedidoEstado(){
+        TypedQuery<PedidoTb> query = em.createQuery("SELECT p FROM PedidoTb p ORDER BY p.eEstado ASC", PedidoTb.class);
+        return query.getResultList();
+    }
 }
