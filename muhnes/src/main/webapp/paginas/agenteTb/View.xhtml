@@ -39,7 +39,7 @@
                             <f:convertDateTime pattern="dd MMMM yyyy" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewAgenteTbLabel_EIdinstitucion}"/>
-                        <h:outputText value="#{agenteTbController.selected.EIdinstitucion.CAcronimo}" title="#{bundle.ViewAgenteTbTitle_EIdinstitucion}"/>
+                        <h:outputText value="#{agenteTbController.sininstitucion(agenteTbController.selected)}" title="#{bundle.ViewAgenteTbTitle_EIdinstitucion}"/>
                     </p:panelGrid>
                     <p:panelGrid columns="1">
                         <p:dataTable id="perfilesAgentes"

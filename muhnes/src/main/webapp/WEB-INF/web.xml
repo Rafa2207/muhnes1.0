@@ -103,6 +103,16 @@
             <url-pattern>/paginas/usuarioTb/*</url-pattern>
             <url-pattern>/paginas/usuariosInactivosTb/*</url-pattern>
             <url-pattern>/paginas/variedadTb/*</url-pattern>
+            <url-pattern>/paginas/areaprotegidaTb/List.xhtml</url-pattern>
+            <url-pattern>/paginas/ejemplarTb/List.xhtml</url-pattern>
+            <url-pattern>/paginas/localidadTb/List.xhtml</url-pattern>
+            <url-pattern>/paginas/familiaTb/List.xhtml</url-pattern>
+            <url-pattern>/paginas/generoTb/List.xhtml</url-pattern>
+            <url-pattern>/paginas/especieTb/List.xhtml</url-pattern>
+            <url-pattern>/paginas/subespecieTb/List.xhtml</url-pattern>
+            <url-pattern>/paginas/variedadTb/List.xhtml</url-pattern>
+            <url-pattern>/paginas/agenteTb/List.xhtml</url-pattern>
+            <url-pattern>/paginas/institucionTb/List.xhtml</url-pattern> 
              
             <!--Aqui es para desactivar el logueo-->
         </web-resource-collection>
@@ -123,11 +133,16 @@
             <url-pattern>/paginas/Ayuda/localidades.xhtml</url-pattern>
             <url-pattern>/paginas/Ayuda/areas.xhtml</url-pattern>
             <url-pattern>/paginas/MapaAreasProtegidas/*</url-pattern>
-            <url-pattern>/paginas/areaprotegidaTb/*</url-pattern>
-            <url-pattern>/paginas/ejemplarTb/*</url-pattern>
-            <url-pattern>/paginas/disminuirEjemplarTb/*</url-pattern>
-            <url-pattern>/paginas/imagenTb/*</url-pattern>
-            <url-pattern>/paginas/localidadTb/*</url-pattern>          
+            <url-pattern>/paginas/areaprotegidaTb/List.xhtml</url-pattern>
+            <url-pattern>/paginas/ejemplarTb/List.xhtml</url-pattern>
+            <url-pattern>/paginas/localidadTb/List.xhtml</url-pattern>
+            <url-pattern>/paginas/familiaTb/List.xhtml</url-pattern>
+            <url-pattern>/paginas/generoTb/List.xhtml</url-pattern>
+            <url-pattern>/paginas/especieTb/List.xhtml</url-pattern>
+            <url-pattern>/paginas/subespecieTb/List.xhtml</url-pattern>
+            <url-pattern>/paginas/variedadTb/List.xhtml</url-pattern>
+            <url-pattern>/paginas/agenteTb/List.xhtml</url-pattern>
+            <url-pattern>/paginas/institucionTb/List.xhtml</url-pattern>          
             <!--Aqui es para desactivar el logueo-->
         </web-resource-collection>
         <auth-constraint>

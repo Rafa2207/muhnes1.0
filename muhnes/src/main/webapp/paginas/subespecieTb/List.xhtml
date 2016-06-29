@@ -27,7 +27,8 @@
 
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{taxonomiaTbController.prepareCreate(controladorSesion.especie)}" update=":SubespecieTbCreateForm" oncomplete="PF('SubespecieTbCreateDialog').show()"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":SubespecieTbViewForm" oncomplete="PF('SubespecieTbViewDialog').show()" disabled="#{empty taxonomiaTbController.selected}"/>
-                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" actionListener="#{taxonomiaTbController.prepareEdit(taxonomiaTbController.selected)}" update=":SubespecieTbEditForm" oncomplete="PF('SubespecieTbEditDialog').show()" disabled="#{empty taxonomiaTbController.selected}"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" actionListener="#{taxonomiaTbController.prepareEdit(taxonomiaTbController.selected)}" update=":SubespecieTbEditForm" oncomplete="PF('SubespecieTbEditDialog').show()" disabled="#{empty taxonomiaTbController.selected}"
+                                     rendered="#{request.isUserInRole('Administrador')}"/>
                     <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{taxonomiaTbController.destroy}" update=":growl,datalist" disabled="#{empty taxonomiaTbController.selected}">
                         <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
                     </p:commandButton>

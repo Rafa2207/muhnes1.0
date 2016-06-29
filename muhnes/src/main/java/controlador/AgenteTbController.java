@@ -45,6 +45,7 @@ import javax.servlet.http.HttpServletResponse;
 import modelo.AgentePerfilTb;
 import modelo.AgentePerfilTbPK;
 import modelo.BitacoraTb;
+import modelo.InstitucionTb;
 import modelo.PerfilTb;
 import modelo.UsuarioTb;
 
@@ -227,6 +228,18 @@ public class AgenteTbController implements Serializable {
         }
         return items;
     }
+    
+    
+    public String sininstitucion (AgenteTb sin){
+        String nombre= "";
+        if(sin.getEIdinstitucion()!=null){
+           nombre=sin.getEIdinstitucion().getCNombre();
+        } else {
+            nombre="Sin institución";
+        }
+        return nombre;
+    }
+    
 
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {

@@ -3,12 +3,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
 
 
     <p:dialog id="AyudaDlg" widgetVar="AyudaDialog" modal="true" resizable="false" appendTo="@(body)" header="Ayuda Género" >
         <h:form id="AyudaForm" style=" width: 970px; height: 500px">
+            <c:if test="#{request.isUserInRole('Administrador') or request.isUserInRole('Digitador')}">
             <p:tabView>
                 <p:tab title="Administrar" >
                     <h:panelGrid columns="1" cellpadding="2" style="text-align: justify;" >     
@@ -26,7 +28,6 @@
                             <p><b>3. Modificar: </b><br/>Actualiza los datos ingresados anteriormente del género seleccionado.</p>
                             <p><b>4. Especie: </b><br/>Permite gestionar(registrar, visualizar y modificar) las especies del género seleccionado.</p>
                         </p:outputPanel>
-
                     </h:panelGrid>
                 </p:tab>
                 <p:tab title="1. Nuevo" >
@@ -51,6 +52,7 @@
                         </p:outputPanel>
                     </h:panelGrid>
                 </p:tab>
+                <c:if test="#{request.isUserInRole('Administrador')}">
                 <p:tab title="3. Modificar" >
                     <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
                         <h:graphicImage library="images" name="ayuda/generos/modificar.PNG" width="300px"/>
@@ -63,6 +65,7 @@
                         </p:outputPanel>
                     </h:panelGrid>
                 </p:tab>
+                    </c:if>
                 <p:tab title="4. Especie" >
                     <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >
                         <h:graphicImage library="images" name="ayuda/generos/administrares.PNG" width="900px"/>
@@ -76,6 +79,7 @@
                     </h:panelGrid>
                 </p:tab>
             </p:tabView>
+                </c:if>
         </h:form>
 
     </p:dialog>

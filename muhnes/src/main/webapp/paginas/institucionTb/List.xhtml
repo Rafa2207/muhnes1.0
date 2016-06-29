@@ -24,7 +24,7 @@
 
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{institucionTbController.prepareCreate}" update=":InstitucionTbCreateForm" oncomplete="PF('InstitucionTbCreateDialog').show()"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":InstitucionTbViewForm" oncomplete="PF('InstitucionTbViewDialog').show()" disabled="#{empty institucionTbController.selected}"/>
-                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":InstitucionTbEditForm" oncomplete="PF('InstitucionTbEditDialog').show()" disabled="#{empty institucionTbController.selected}"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":InstitucionTbEditForm" oncomplete="PF('InstitucionTbEditDialog').show()" disabled="#{empty institucionTbController.selected}" rendered="#{request.isUserInRole('Administrador')}"/>
                     <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{institucionTbController.destroy}" update=":growl,datalist" disabled="#{empty institucionTbController.selected}">
                         <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
                     </p:commandButton>
@@ -62,22 +62,13 @@
                             </f:facet>
                             <h:outputText value="#{item.CNombre}"/>
                         </p:column>
-                        <p:column filterBy="#{item.CAcronimo}" filterStyle="display:none" width="15%" style="text-align: center">
+                        <p:column filterBy="#{item.CAcronimo}" filterStyle="display:none" width="20%" style="text-align: center">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListInstitucionTbTitle_CAcronimo}"/>
                             </f:facet>
                             <h:outputText value="#{item.CAcronimo}"/>
                         </p:column>
-
-
-                        <p:column filterBy="#{item.CTelefono}" filterStyle="display:none" width="10%" style="text-align: center">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListInstitucionTbTitle_CTelefono}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.CTelefono}"/>
-                        </p:column>
-
-                        <p:column filterBy="#{item.EIdpais.CNombre}" filterStyle="display:none" width="10%" style="text-align: center">
+                        <p:column filterBy="#{item.EIdpais.CNombre}" filterStyle="display:none" width="15%" style="text-align: center">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListInstitucionTbTitle_EIdpais}"/>
                             </f:facet>

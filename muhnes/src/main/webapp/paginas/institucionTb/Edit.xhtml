@@ -30,7 +30,7 @@
 
                         <p:outputLabel value="#{bundle.CreateInstitucionTbLabel_CTelefono}" for="CTelefono" />
                         <p:inputText id="CTelefono" value="#{institucionTbController.selected.CTelefono}" title="#{bundle.CreateInstitucionTbTitle_CTelefono}" 
-                                     required="true" requiredMessage="Introduzca el teléfono" onkeyup="$(this).val($(this).val().replace(/[^0-9]/g, ''));"/>
+                                     onkeyup="$(this).val($(this).val().replace(/[^0-9]/g, ''));"/>
 
                         <p:outputLabel value="#{bundle.CreateInstitucionTbLabel_CFax}" for="CFax" />
                         <p:inputText id="CFax" value="#{institucionTbController.selected.CFax}" title="#{bundle.CreateInstitucionTbTitle_CFax}" 

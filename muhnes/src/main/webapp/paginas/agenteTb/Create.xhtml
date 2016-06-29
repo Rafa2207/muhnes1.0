@@ -21,7 +21,7 @@
                                      required="true"
                                      requiredMessage="Introduzca apellido del agente"/>
 
-                        <p:outputLabel value="#{bundle.CreateAgenteTbLabel_CIniciales}" for="CIniciales" />
+                        <p:outputLabel value="Nombre corto:" for="CIniciales" />
                         <p:inputText id="CIniciales" value="#{agenteTbController.selected.CIniciales}" title="#{bundle.CreateAgenteTbTitle_CIniciales}" 
                                      required="true"
                                      requiredMessage="Introduzca nombre corto del agente"/>
@@ -61,7 +61,7 @@
                         <p:outputLabel value="#{bundle.CreateAgenteTbLabel_EIdinstitucion}" for="EIdinstitucion" />
                         <p:selectOneMenu id="EIdinstitucion" value="#{agenteTbController.selected.EIdinstitucion}" 
                                          filter="true" filterMatchMode="contains">
-                            <f:selectItem itemLabel="Sin Institución" itemValue=""  />
+                            <f:selectItem itemLabel="Sin Institución" itemValue="Sin institución"  />
                             <f:selectItems value="#{institucionTbController.itemsAvailableSelectOne}"
                                            var="EIdinstitucionItem"
                                            itemLabel="#{EIdinstitucionItem.CAcronimo}"

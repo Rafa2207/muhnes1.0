@@ -25,7 +25,8 @@
 
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{taxonomiaTbController.prepareCreate(controladorSesion.familia.EIdniveltaxonomia)}" update=":GeneroTbCreateForm" oncomplete="PF('GeneroTbCreateDialog').show()"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":GeneroTbViewForm" oncomplete="PF('GeneroTbViewDialog').show()" disabled="#{empty taxonomiaTbController.selected}"/>
-                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":GeneroTbEditForm" oncomplete="PF('GeneroTbEditDialog').show()" disabled="#{empty taxonomiaTbController.selected}"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":GeneroTbEditForm" oncomplete="PF('GeneroTbEditDialog').show()" disabled="#{empty taxonomiaTbController.selected}"
+                                     rendered="#{request.isUserInRole('Administrador')}"/>
                     <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{taxonomiaTbController.destroy}" update=":growl,datalist" disabled="#{empty taxonomiaTbController.selected}">
                         <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
                     </p:commandButton>

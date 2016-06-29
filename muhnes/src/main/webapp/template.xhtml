@@ -104,7 +104,7 @@
                             </p:submenu>
                         </c:if>
 
-                        <c:if test="#{request.isUserInRole('Administrador')}">
+                        <c:if test="#{request.isUserInRole('Administrador') or request.isUserInRole('Digitador')}">
                             <p:submenu label="Infomación Taxonómica">
                                 <p:menuitem value="Taxonomía" outcome="/paginas/familiaTb/List.xhtml" />
                             </p:submenu>
@@ -126,12 +126,19 @@
                                 <p:menuitem value="Exhibición" outcome="/paginas/exhibicionTb/List.xhtml" />
                                 <p:menuitem value="Control de exhibiciones" outcome="/paginas/ControlExhibicion/ControlExhibicion.xhtml" />
                             </p:submenu>
+                        </c:if>
 
+                        <c:if test="#{request.isUserInRole('Administrador') or request.isUserInRole('Digitador')}">
                             <p:submenu label="Agentes e Instituciones">
                                 <p:menuitem value="Agentes" outcome="/paginas/agenteTb/List.xhtml" />
-                                <p:menuitem value="Perfiles" outcome="/paginas/perfilTb/List.xhtml" />
-                                <p:menuitem value="Instituciones" outcome="/paginas/institucionTb/List.xhtml" />
+                                <c:if test="#{request.isUserInRole('Administrador')}">
+                                    <p:menuitem value="Perfiles" outcome="/paginas/perfilTb/List.xhtml" />
+                                </c:if>
+                                    <p:menuitem value="Instituciones" outcome="/paginas/institucionTb/List.xhtml" />
                             </p:submenu>
+                        </c:if>
+                        
+                        <c:if test="#{request.isUserInRole('Administrador')}">
                             <p:submenu label="Biblioteca Virtual">
                                 <p:menuitem value="Biblioteca" outcome="/paginas/bibliotecaTb/List.xhtml" />
                             </p:submenu>
@@ -140,7 +147,6 @@
                                 <p:menuitem value="Crear Backup" outcome="/paginas/configuracion/respaldo.xhtml" />
                                 <p:menuitem value="Bitácora" outcome="/paginas/bitacoraTb/List.xhtml" />
                             </p:submenu>
-
                         </c:if>
                     </p:slideMenu>
 

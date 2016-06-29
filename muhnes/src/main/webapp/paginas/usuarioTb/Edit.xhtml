@@ -22,6 +22,17 @@
                         <p:inputText id="CApellido" value="#{usuarioTbController.selected.CApellido}" title="#{bundle.EditUsuarioTbTitle_CApellido}" 
                                      required="true"
                                      requiredMessage="Introduzca apellido del usuario." size="25" maxlength="50"/>
+                        
+                        <p:outputLabel value="Email: " for="MEmail" />
+                        <p:inputText id="MEmail" value="#{usuarioTbController.selected.MEmail}" title="Email: " 
+                                     required="true"
+                                     requiredMessage="Introduzca el email."
+                                     validatorMessage="Formato invalido del email."
+                                     size="30">
+                            <p:ajax event="change" listener="#{usuarioTbController.compararEmail(usuarioTbController.selected.MEmail)}"
+                                    update="MEmail :growl"/>
+                            <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                        </p:inputText>
 
                         <p:outputLabel value="#{bundle.EditUsuarioTbLabel_CNick}" for="CNick" />
                         <p:inputText id="CNick" value="#{usuarioTbController.selected.CNick}" title="#{bundle.EditUsuarioTbTitle_CNick}" 
