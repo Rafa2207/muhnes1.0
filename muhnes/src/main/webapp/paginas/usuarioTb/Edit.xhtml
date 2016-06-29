@@ -22,7 +22,7 @@
                         <p:inputText id="CApellido" value="#{usuarioTbController.selected.CApellido}" title="#{bundle.EditUsuarioTbTitle_CApellido}" 
                                      required="true"
                                      requiredMessage="Introduzca apellido del usuario." size="25" maxlength="50"/>
-                        
+
                         <p:outputLabel value="Email: " for="MEmail" />
                         <p:inputText id="MEmail" value="#{usuarioTbController.selected.MEmail}" title="Email: " 
                                      required="true"
@@ -34,33 +34,37 @@
                             <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
                         </p:inputText>
 
-                        <p:outputLabel value="#{bundle.EditUsuarioTbLabel_CNick}" for="CNick" />
-                        <p:inputText id="CNick" value="#{usuarioTbController.selected.CNick}" title="#{bundle.EditUsuarioTbTitle_CNick}" 
+                        <p:outputLabel value="#{bundle.CreateUsuarioTbLabel_CNick}" for="CNick" />
+                        <p:inputText id="CNick" value="#{usuarioTbController.selected.CNick}" title="#{bundle.CreateUsuarioTbTitle_CNick}" 
                                      required="true"
-                                     requiredMessage="Introduzca nombre de usuario." size="15" maxlength="15"/>
+                                     requiredMessage="Introduzca nombre de usuario." size="15" maxlength="15"
+                                     validatorMessage="Formato invalido nombre del usuario">
+                            <p:ajax event="change" listener="#{usuarioTbController.compararUsuario(usuarioTbController.selected.CNick)}"
+                                    update="CNick :growl"/>
+                            <f:validateRegex pattern="^[A-Za-z0-9!#$@]\S*$"/>
 
-                        <p:outputLabel value="#{bundle.EditUsuarioTbLabel_CDui}" for="CDui" />
-                        <p:inputMask id="CDui" value="#{usuarioTbController.selected.CDui}" title="#{bundle.EditUsuarioTbTitle_CDui}" 
-                                     mask="99999999-9" size="10"/>
+                            <p:outputLabel value="#{bundle.EditUsuarioTbLabel_CDui}" for="CDui" />
+                            <p:inputMask id="CDui" value="#{usuarioTbController.selected.CDui}" title="#{bundle.EditUsuarioTbTitle_CDui}" 
+                                         mask="99999999-9" size="10"/>
 
-                        <p:outputLabel value="#{bundle.EditUsuarioTbLabel_CTipo}" for="CTipo" />
-                        <p:selectOneMenu id="CTipo" value="#{usuarioTbController.selected.CTipo}" 
-                                         required="true" 
-                                         requiredMessage="Seleccione el tipo de usuario.">
-                            <f:selectItem itemValue="" itemLabel="Seleccione tipo de usuario."/>
-                            <f:selectItem itemValue="Administrador" itemLabel="Administrador"/>
-                            <f:selectItem itemValue="Digitador" itemLabel="Digitador"/>
-                        </p:selectOneMenu>
+                            <p:outputLabel value="#{bundle.EditUsuarioTbLabel_CTipo}" for="CTipo" />
+                            <p:selectOneMenu id="CTipo" value="#{usuarioTbController.selected.CTipo}" 
+                                             required="true" 
+                                             requiredMessage="Seleccione el tipo de usuario.">
+                                <f:selectItem itemValue="" itemLabel="Seleccione tipo de usuario."/>
+                                <f:selectItem itemValue="Administrador" itemLabel="Administrador"/>
+                                <f:selectItem itemValue="Digitador" itemLabel="Digitador"/>
+                            </p:selectOneMenu>
 
-                        <p:outputLabel value="Agente :" for="CAgente" />   
-                        <p:selectOneMenu id="CAgente" style="width: 180px" value="#{usuarioTbController.selected.EIdagente}" 
-                                         filter="true" filterMatchMode="contains">
-                            <f:selectItem itemValue="" itemLabel="Sin Agente"/>
-                            <f:selectItems value="#{agenteTbController.itemsAvailableSelectOne}"
-                                           var="EIdagenteItem"
-                                           itemValue="#{EIdagenteItem.EIdagente}"
-                                           itemLabel="#{EIdagenteItem.CNombre} #{EIdagenteItem.CApellido} (#{EIdagenteItem.CIniciales})"/>
-                        </p:selectOneMenu>
+                            <p:outputLabel value="Agente :" for="CAgente" />   
+                            <p:selectOneMenu id="CAgente" style="width: 180px" value="#{usuarioTbController.selected.EIdagente}" 
+                                             filter="true" filterMatchMode="contains">
+                                <f:selectItem itemValue="" itemLabel="Sin Agente"/>
+                                <f:selectItems value="#{agenteTbController.itemsAvailableSelectOne}"
+                                               var="EIdagenteItem"
+                                               itemValue="#{EIdagenteItem.EIdagente}"
+                                               itemLabel="#{EIdagenteItem.CNombre} #{EIdagenteItem.CApellido} (#{EIdagenteItem.CIniciales})"/>
+                            </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{usuarioTbController.update}" value="#{bundle.Save}" update="display,:UsuarioTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'UsuarioTbEditDialog');"/>
                 </h:panelGroup>
