@@ -42,6 +42,7 @@
                             <p:ajax event="change" listener="#{usuarioTbController.compararUsuario(usuarioTbController.selected.CNick)}"
                                     update="CNick :growl"/>
                             <f:validateRegex pattern="^[A-Za-z0-9!#$@]\S*$"/>
+                        </p:inputText>
 
                             <p:outputLabel value="#{bundle.EditUsuarioTbLabel_CDui}" for="CDui" />
                             <p:inputMask id="CDui" value="#{usuarioTbController.selected.CDui}" title="#{bundle.EditUsuarioTbTitle_CDui}" 

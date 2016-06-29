@@ -10,14 +10,17 @@
 
         <p:dialog id="PerfilTbCreateDlg" widgetVar="PerfilTbCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePerfilTbTitle}">
             <h:form id="PerfilTbCreateForm">
-                
+
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{perfilTbController.selected != null}">
-                        
+
                         <p:outputLabel value="#{bundle.CreatePerfilTbLabel_CNombre}" for="CNombre" />
                         <p:inputText id="CNombre" value="#{perfilTbController.selected.CNombre}" title="#{bundle.CreatePerfilTbTitle_CNombre}" 
-                                     required="true" requiredMessage="Introduzca el nombre del perfil"/>
-                        
+                                     required="true" requiredMessage="Introduzca el nombre del perfil">
+                            <p:ajax event="change" listener="#{perfilTbController.compararPerfil(perfilTbController.selected.CNombre)}"
+                                    update="CNombre :growl"/>
+                        </p:inputText>                                     
+
                         <p:outputLabel value="#{bundle.CreatePerfilTbLabel_MDescripcion}" for="MDescripcion" />
                         <p:inputTextarea rows="4" cols="25" autoResize="" id="MDescripcion" value="#{perfilTbController.selected.MDescripcion}" title="#{bundle.CreatePerfilTbTitle_MDescripcion}"
                                          required="true" requiredMessage="Introduzca la descripción" 

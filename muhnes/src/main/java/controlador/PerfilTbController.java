@@ -36,6 +36,7 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -144,6 +145,16 @@ public class PerfilTbController implements Serializable {
             items = getFacade().findAll();
         }
         return items;
+    }
+    
+        public void compararPerfil(String c) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        for (PerfilTb u : items) {
+            if (u.getCNombre().equals(c)) {
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El nombre del perfil ya existe en el Sistema.", "advertencia"));
+                selected.setCNombre(null);
+            }
+        }
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
