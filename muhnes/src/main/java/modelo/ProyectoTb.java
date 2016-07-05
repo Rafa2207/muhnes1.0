@@ -38,6 +38,11 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "ProyectoTb.findByFFechaFin", query = "SELECT p FROM ProyectoTb p WHERE p.fFechaFin = :fFechaFin"),
     @NamedQuery(name = "ProyectoTb.findByEResponsable", query = "SELECT p FROM ProyectoTb p WHERE p.eResponsable = :eResponsable"),
     @NamedQuery(name = "ProyectoTb.findByMInformacionAdicional", query = "SELECT p FROM ProyectoTb p WHERE p.mInformacionAdicional = :mInformacionAdicional"),
+    @NamedQuery(name = "ProyectoTb.findByMColaboradores", query = "SELECT p FROM ProyectoTb p WHERE p.mColaboradores = :mColaboradores"),
+    @NamedQuery(name = "ProyectoTb.findByMObjetivoEspecifico", query = "SELECT p FROM ProyectoTb p WHERE p.mObjetivoEspecifico = :mObjetivoEspecifico"),
+    @NamedQuery(name = "ProyectoTb.findByMObjetivoGeneral", query = "SELECT p FROM ProyectoTb p WHERE p.mObjetivoGeneral = :mObjetivoGeneral"),
+    @NamedQuery(name = "ProyectoTb.findByMMetodologia", query = "SELECT p FROM ProyectoTb p WHERE p.mMetodologia = :mMetodologia"),
+    @NamedQuery(name = "ProyectoTb.findByMIntroduccion", query = "SELECT p FROM ProyectoTb p WHERE p.mIntroduccion = :mIntroduccion"),
     @NamedQuery(name = "ProyectoTb.findByEEstado", query = "SELECT p FROM ProyectoTb p WHERE p.eEstado = :eEstado")})
 public class ProyectoTb implements Serializable {
     @OneToMany(mappedBy = "eIdproyecto", orphanRemoval = true)
@@ -62,6 +67,21 @@ public class ProyectoTb implements Serializable {
     private Date fFechaFin;
     @Column(name = "e_responsable")
     private Integer eResponsable;
+    @Size(max = 2147483647)
+    @Column(name = "m_colaboradores")
+    private String mColaboradores;
+    @Size(max = 2147483647)
+    @Column(name = "m_objetivo_especifico")
+    private String mObjetivoEspecifico;
+    @Size(max = 2147483647)
+    @Column(name = "m_objetivo_general")
+    private String mObjetivoGeneral;
+    @Size(max = 2147483647)
+    @Column(name = "m_metodologia")
+    private String mMetodologia;
+    @Size(max = 2147483647)
+    @Column(name = "m_introduccion")
+    private String mIntroduccion;
     @Column(name = "e_estado")
     private Integer eEstado;
     @Size(max = 2147483647)
@@ -149,6 +169,46 @@ public class ProyectoTb implements Serializable {
         this.mInformacionAdicional = mInformacionAdicional;
     }
 
+    public String getMColaboradores() {
+        return mColaboradores;
+    }
+
+    public void setMColaboradores(String mColaboradores) {
+        this.mColaboradores = mColaboradores;
+    }
+
+    public String getMObjetivoEspecifico() {
+        return mObjetivoEspecifico;
+    }
+
+    public void setMObjetivoEspecifico(String mObjetivoEspecifico) {
+        this.mObjetivoEspecifico = mObjetivoEspecifico;
+    }
+
+    public String getMObjetivoGeneral() {
+        return mObjetivoGeneral;
+    }
+
+    public void setMObjetivoGeneral(String mObjetivoGeneral) {
+        this.mObjetivoGeneral = mObjetivoGeneral;
+    }    
+
+    public String getMMetodologia() {
+        return mMetodologia;
+    }
+
+    public void setMMetodologia(String mMetodologia) {
+        this.mMetodologia = mMetodologia;
+    }
+
+    public String getMIntroduccion() {
+        return mIntroduccion;
+    }
+
+    public void setMIntroduccion(String mIntroduccion) {
+        this.mIntroduccion = mIntroduccion;
+    }
+    
     public List<DespachoTb> getDespachoTbList() {
         return despachoTbList;
     }

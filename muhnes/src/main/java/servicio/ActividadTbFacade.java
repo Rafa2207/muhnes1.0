@@ -49,26 +49,29 @@ public class ActividadTbFacade extends AbstractFacade<ActividadTb> {
     }
 
     //Consulta para el control de los proyectos
-    public ActividadTb BuscarActividadNoIniciada(String titulo, Date fechaInicio, Date fechaFin) {
-        TypedQuery<ActividadTb> query = em.createQuery("SELECT p FROM ActividadTb p WHERE p.mNombre=:t and p.fFecha=:fi and p.fFechafin=:ff", ActividadTb.class);
+    public ActividadTb BuscarActividadNoIniciada(String titulo, Date fechaInicio, Date fechaFin,ProyectoTb proy) {
+        TypedQuery<ActividadTb> query = em.createQuery("SELECT p FROM ActividadTb p WHERE p.mNombre=:t and p.fFecha=:fi and p.fFechafin=:ff and p.eIdproyecto=:proyecto", ActividadTb.class);
         query.setParameter("t", titulo);
         query.setParameter("fi", fechaInicio);
         query.setParameter("ff", fechaFin);
+        query.setParameter("proyecto", proy);
         return query.getSingleResult();
     }
 
-    public ActividadTb BuscarActividadEnProceso(String titulo, Date fechaInicioReal) {
-        TypedQuery<ActividadTb> query = em.createQuery("SELECT p FROM ActividadTb p WHERE p.mNombre=:t and p.fFechaInicioReal=:fi", ActividadTb.class);
+    public ActividadTb BuscarActividadEnProceso(String titulo, Date fechaInicioReal,ProyectoTb proy) {
+        TypedQuery<ActividadTb> query = em.createQuery("SELECT p FROM ActividadTb p WHERE p.mNombre=:t and p.fFechaInicioReal=:fi and p.eIdproyecto=:proyecto", ActividadTb.class);
         query.setParameter("t", titulo);
         query.setParameter("fi", fechaInicioReal);
+        query.setParameter("proyecto", proy);
         return query.getSingleResult();
     }
 
-    public ActividadTb BuscarActividadFinalizada(String titulo, Date fechaInicioReal, Date fechaFinReal) {
-        TypedQuery<ActividadTb> query = em.createQuery("SELECT p FROM ActividadTb p WHERE p.mNombre=:t and p.fFechaInicioReal=:fi and p.fFechaFinReal=:ff", ActividadTb.class);
+    public ActividadTb BuscarActividadFinalizada(String titulo, Date fechaInicioReal, Date fechaFinReal, ProyectoTb proy) {
+        TypedQuery<ActividadTb> query = em.createQuery("SELECT p FROM ActividadTb p WHERE p.mNombre=:t and p.fFechaInicioReal=:fi and p.fFechaFinReal=:ff and p.eIdproyecto=:proyecto", ActividadTb.class);
         query.setParameter("t", titulo);
         query.setParameter("fi", fechaInicioReal);
         query.setParameter("ff", fechaFinReal);
+        query.setParameter("proyecto", proy);
         return query.getSingleResult();
     }
     

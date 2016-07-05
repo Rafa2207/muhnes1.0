@@ -17,7 +17,10 @@
                             <p:outputLabel value="#{bundle.CreateActividadTbLabel_CNombre}" for="CNombre" />
                             <p:inputTextarea cols="37" rows="3" autoResize="" id="CNombre" value="#{actividadTbController.selected.MNombre}" title="#{bundle.CreateActividadTbTitle_CNombre}" 
                                              required="true"
-                                             requiredMessage="Introduzca nombre de actividad"/>
+                                             requiredMessage="Introduzca nombre de actividad">
+                                <p:ajax event="change" listener="#{actividadTbController.compararNombreActividad(controladorSesion.proyecto,actividadTbController.selected.MNombre)}"
+                                        update="CNombre :growl"/>
+                            </p:inputTextarea>
                             <p:outputLabel value="#{bundle.CreateActividadTbLabel_MDescripcion}" for="MDescripcion" />
                             <p:inputTextarea cols="70" rows="3" autoResize="" id="MDescripcion" value="#{actividadTbController.selected.MDescripcion}" />
                         </p:panelGrid>
@@ -128,7 +131,7 @@
                                     <f:setPropertyActionListener value="#{insumo}" 
                                                                  target="#{actividadTbController.insumo}"/>
                                     <p:confirm header="Confirmación" message="¿Desea eliminar este insumo?" icon="ui-icon-alert" />
-                              
+
                                 </p:commandLink>                                
                             </p:column>
                         </p:dataTable>

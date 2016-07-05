@@ -352,6 +352,9 @@ public class ExhibicionTbController implements Serializable {
                 if (ee.getEEstado() != 0 || ee.getEEstado() != 3) {
                     ee.getEjemplarTb().setEEstado(1);
                 }
+                if(ee.getEEstado()==3){
+                    ee.getEjemplarTb().setEEstado(0);
+                }
                 ejemplarFacade.edit(ee.getEjemplarTb());
             }
 
@@ -604,6 +607,9 @@ public class ExhibicionTbController implements Serializable {
             for (EjemplarParticipaExhibicionTb ee : selected.getEjemplarParticipaExhibicionTbList()) {
                 if (ee.getEEstado() != 0 || ee.getEEstado() != 3) {
                     ee.getEjemplarTb().setEEstado(1);
+                }
+                if(ee.getEEstado()==3){
+                    ee.getEjemplarTb().setEEstado(0);
                 }
                 ejemplarFacade.edit(ee.getEjemplarTb());
             }

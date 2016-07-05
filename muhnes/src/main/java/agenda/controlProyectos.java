@@ -108,16 +108,16 @@ public class controlProyectos {
         comparador = cadena[0];
         String titulo = cadena[1];
         if (comparador.equals("Cancelado")) {
-            actividadView = getFacadeActividad().BuscarActividadNoIniciada(titulo, event.getStartDate(), event.getEndDate());
+            actividadView = getFacadeActividad().BuscarActividadNoIniciada(titulo, event.getStartDate(), event.getEndDate(),sesion.getProyecto());
         }
         if (comparador.equals("No iniciado")) {
-            actividadView = getFacadeActividad().BuscarActividadNoIniciada(titulo, event.getStartDate(), event.getEndDate());
+            actividadView = getFacadeActividad().BuscarActividadNoIniciada(titulo, event.getStartDate(), event.getEndDate(),sesion.getProyecto());
         }
         if (comparador.equals("En proceso")) {
-            actividadView = getFacadeActividad().BuscarActividadEnProceso(titulo, event.getStartDate());
+            actividadView = getFacadeActividad().BuscarActividadEnProceso(titulo, event.getStartDate(),sesion.getProyecto());
         }
         if (comparador.equals("Finalizado")) {
-            actividadView = getFacadeActividad().BuscarActividadFinalizada(titulo, event.getStartDate(), event.getEndDate());
+            actividadView = getFacadeActividad().BuscarActividadFinalizada(titulo, event.getStartDate(), event.getEndDate(),sesion.getProyecto());
         }
         try {
             DiasDuracionActividad = diasDuracionActividad(actividadView.getFFecha(), actividadView.getFFechafin());

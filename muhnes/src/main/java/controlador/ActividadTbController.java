@@ -899,4 +899,18 @@ public class ActividadTbController implements Serializable {
             e.printStackTrace();
         }
     }
+    
+    public void compararNombreActividad(ProyectoTb proyecto,String c) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        List<ActividadTb> actividadesLista=null;
+        actividadesLista=getFacade().buscarAsc(proyecto);
+        for (ActividadTb a : actividadesLista) {
+            if (c.equals(a.getMNombre())) {
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Ya existe el mismo nombre de actividad en este proyecto.", "advertencia"));
+                selected.setMNombre(null);
+                break;
+            }
+        }
+    }
+    
 }

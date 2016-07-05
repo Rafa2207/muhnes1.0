@@ -771,6 +771,7 @@ public class ProyectoTbController implements Serializable {
                 PdfWriter writer = PdfWriter.getInstance(document, pdfOutputStream);
                 TableHeaderVertical event = new TableHeaderVertical();
                 writer.setPageEvent(event);
+                document.setMargins(57,57,57,80);
                 document.open();
 
                 //Encabezado
@@ -829,52 +830,161 @@ public class ProyectoTbController implements Serializable {
                 document.add(usuarioSis);
 
                 int columnas[] = {25, 75};
+                
+                //Título del Proyecto
+                
+                Paragraph nombretitulo = new Paragraph(selected.getMNombre(),
+                        FontFactory.getFont(FontFactory.TIMES_BOLD, 14));
+                nombretitulo.setAlignment(Element.ALIGN_CENTER);
+                nombretitulo.setExtraParagraphSpace(5);
+                nombretitulo.setSpacingBefore(15);
+                nombretitulo.setSpacingAfter(30);
+                document.add(nombretitulo);
+                
+                
+               /* Paragraph Descripcion = new Paragraph("Descripción",
+                        FontFactory.getFont(FontFactory.TIMES_BOLD, 14));
+                Descripcion.setAlignment(Element.ALIGN_CENTER);
+                Descripcion.setSpacingAfter(5);
+                document.add(Descripcion);*/
 
-                PdfPTable TablaNombre = new PdfPTable(2);
-                TablaNombre.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
-                TablaNombre.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-                TablaNombre.setWidths(columnas);
-                TablaNombre.setWidthPercentage(100);
-                TablaNombre.setSpacingAfter(5);
-                TablaNombre.setSpacingBefore(5);
-                TablaNombre.addCell(new Phrase("Nombre: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-                TablaNombre.addCell(new Phrase(new Phrase(selected.getMNombre(), FontFactory.getFont(FontFactory.TIMES, 12))));
-                document.add(TablaNombre);
+                Paragraph descripcion = new Paragraph(selected.getMDescripcion(),
+                        FontFactory.getFont(FontFactory.TIMES, 12));
+                descripcion.setAlignment(Element.ALIGN_CENTER);
+                descripcion.setExtraParagraphSpace(5);
+                descripcion.setSpacingAfter(30);
+                document.add(descripcion);
+                                
+                Paragraph Duracion = new Paragraph("Tiempo de duración:",
+                        FontFactory.getFont(FontFactory.TIMES_BOLD, 12));
+                Duracion.setAlignment(Element.ALIGN_CENTER);
+                Duracion.setSpacingBefore(15);
+                Duracion.setSpacingAfter(5);
+                document.add(Duracion);
 
-                PdfPTable TablaDescripcion = new PdfPTable(2);
-                TablaDescripcion.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
-                TablaDescripcion.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-                TablaDescripcion.setWidths(columnas);
-                TablaDescripcion.setWidthPercentage(100);
-                TablaDescripcion.setSpacingAfter(5);
-                TablaDescripcion.setSpacingBefore(5);
-                TablaDescripcion.addCell(new Phrase("Descripción: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-                TablaDescripcion.addCell(new Phrase(new Phrase(selected.getMDescripcion(), FontFactory.getFont(FontFactory.TIMES, 12))));
-                document.add(TablaDescripcion);
-
-                PdfPTable TablaFecha = new PdfPTable(2);
-                TablaFecha.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
+                PdfPTable TablaFecha = new PdfPTable(1);
+                TablaFecha.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                 TablaFecha.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-                TablaFecha.setWidths(columnas);
-                TablaFecha.setWidthPercentage(100);
-                TablaFecha.setSpacingAfter(5);
+                TablaFecha.setWidthPercentage(80);
+                TablaFecha.setSpacingAfter(15);
                 TablaFecha.setSpacingBefore(5);
-                TablaFecha.addCell(new Phrase("Tiempo de duración: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-                TablaFecha.addCell(new Phrase(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(selected.getFFechaInicio()) + " - " + new SimpleDateFormat("dd MMMM yyyy").format(selected.getFFechaFin()), FontFactory.getFont(FontFactory.TIMES, 12))));
+                TablaFecha.addCell(new Phrase(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(selected.getFFechaInicio()) + " al " + new SimpleDateFormat("dd MMMM yyyy").format(selected.getFFechaFin()), FontFactory.getFont(FontFactory.TIMES, 12))));
                 document.add(TablaFecha);
+                
+                Paragraph Responsable = new Paragraph("Responsable de proyecto:",
+                        FontFactory.getFont(FontFactory.TIMES_BOLD, 12));
+                Responsable.setAlignment(Element.ALIGN_CENTER);
+                Responsable.setSpacingBefore(15);
+                Responsable.setSpacingAfter(5);
+                document.add(Responsable);
 
-                PdfPTable TablaResponsable = new PdfPTable(2);
-                TablaResponsable.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
+                PdfPTable TablaResponsable = new PdfPTable(1);
+                TablaResponsable.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                 TablaResponsable.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-                TablaResponsable.setWidths(columnas);
-                TablaResponsable.setWidthPercentage(100);
-                TablaResponsable.setSpacingAfter(5);
+                TablaResponsable.setWidthPercentage(80);
+                TablaResponsable.setSpacingAfter(12);
                 TablaResponsable.setSpacingBefore(5);
-                TablaResponsable.addCell(new Phrase("Responsable: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 TablaResponsable.addCell(new Phrase(new Phrase(calculaAgenteReporte(selected.getEResponsable()), FontFactory.getFont(FontFactory.TIMES, 12))));
                 document.add(TablaResponsable);
+                
+                Paragraph Colaboradores = new Paragraph("Colaboradores de proyecto:",
+                        FontFactory.getFont(FontFactory.TIMES_BOLD, 12));
+                Colaboradores.setAlignment(Element.ALIGN_CENTER);
+                Colaboradores.setSpacingBefore(15);
+                Colaboradores.setSpacingAfter(5);
+                document.add(Colaboradores);
+                
+                PdfPTable TablaColaboradores = new PdfPTable(1);
+                TablaColaboradores.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                TablaColaboradores.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                TablaColaboradores.setWidthPercentage(80);
+                TablaColaboradores.setSpacingAfter(12);
+                TablaColaboradores.setSpacingBefore(5);
+                TablaColaboradores.addCell(new Phrase(new Phrase(selected.getMColaboradores(), FontFactory.getFont(FontFactory.TIMES, 12))));
+                document.add(TablaColaboradores);
+                
+                //Salto de página
+                document.newPage();
 
-                Paragraph tituloActividades = new Paragraph("PRESUPUESTO", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                Paragraph Introduccion = new Paragraph("Introducción",
+                        FontFactory.getFont(FontFactory.TIMES_BOLD, 14));
+                Introduccion.setAlignment(Element.ALIGN_CENTER);
+                Introduccion.setSpacingAfter(10);
+                document.add(Introduccion);
+                
+                Paragraph Introduccion1 = new Paragraph(selected.getMIntroduccion(),
+                        FontFactory.getFont(FontFactory.TIMES, 12));
+                Introduccion1.setAlignment(Element.ALIGN_JUSTIFIED);
+                Introduccion1.setSpacingAfter(10);
+                Introduccion1.setExtraParagraphSpace(5);
+                document.add(Introduccion1);
+                
+                /*PdfPTable TablaIntro = new PdfPTable(1);
+                TablaIntro.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+                TablaIntro.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                TablaIntro.setWidthPercentage(100);
+                TablaIntro.setSpacingBefore(5);
+                TablaIntro.addCell(new Phrase(new Phrase(selected.getMIntroduccion(), FontFactory.getFont(FontFactory.TIMES, 12))));
+                document.add(TablaIntro);*/
+                
+                //Salto de página
+                document.newPage();
+
+                Paragraph Objetivos = new Paragraph("OBJETIVOS",
+                        FontFactory.getFont(FontFactory.TIMES_BOLD, 14));
+                Objetivos.setAlignment(Element.ALIGN_CENTER);
+                Objetivos.setSpacingAfter(30);
+                document.add(Objetivos);
+                
+                Paragraph Objetivog = new Paragraph("Objetivo general",
+                        FontFactory.getFont(FontFactory.TIMES_BOLD, 14));
+                Objetivog.setAlignment(Element.ALIGN_CENTER);
+                Objetivog.setSpacingAfter(10);
+                document.add(Objetivog);
+                
+                Paragraph Objetivog1 = new Paragraph(selected.getMObjetivoGeneral(),
+                        FontFactory.getFont(FontFactory.TIMES, 12));
+                Objetivog1.setAlignment(Element.ALIGN_CENTER);
+                Objetivog1.setSpacingAfter(30);
+                Objetivog1.setExtraParagraphSpace(5);
+                document.add(Objetivog1);
+                
+                Paragraph Objetivoe = new Paragraph("Objetivos específicos",
+                        FontFactory.getFont(FontFactory.TIMES_BOLD, 14));
+                Objetivoe.setAlignment(Element.ALIGN_CENTER);
+                Objetivoe.setSpacingBefore(15);
+                Objetivoe.setSpacingAfter(10);
+                document.add(Objetivoe);
+                
+                Paragraph Objetivoe1 = new Paragraph(selected.getMObjetivoEspecifico(),
+                        FontFactory.getFont(FontFactory.TIMES, 12));
+                Objetivoe1.setAlignment(Element.ALIGN_CENTER);
+                Objetivoe1.setSpacingAfter(10);
+                Objetivoe1.setExtraParagraphSpace(5);
+                document.add(Objetivoe1);
+                
+                //Salto de página
+                document.newPage();
+              
+                
+                Paragraph Metodologia = new Paragraph("Metodología",
+                        FontFactory.getFont(FontFactory.TIMES_BOLD, 14));
+                Metodologia.setAlignment(Element.ALIGN_CENTER);
+                Metodologia.setSpacingAfter(10);
+                document.add(Metodologia);
+                
+                Paragraph Metodologia1 = new Paragraph(selected.getMMetodologia(),
+                        FontFactory.getFont(FontFactory.TIMES, 12));
+                Metodologia1.setAlignment(Element.ALIGN_JUSTIFIED);
+                Metodologia1.setSpacingAfter(10);
+                Metodologia1.setExtraParagraphSpace(5);
+                document.add(Metodologia1);
+                                
+                
+                //Salto de página
+                document.newPage();
+
+                Paragraph tituloActividades = new Paragraph("Presupuesto", FontFactory.getFont(FontFactory.TIMES_BOLD, 14));
                 tituloActividades.setAlignment(Element.ALIGN_CENTER);
                 tituloActividades.setSpacingAfter(5);
                 tituloActividades.setSpacingBefore(5);
@@ -1224,6 +1334,17 @@ public class ProyectoTbController implements Serializable {
                 TablaResponsable.addCell(new Phrase("Responsable: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 TablaResponsable.addCell(new Phrase(new Phrase(calculaAgenteReporte(selected.getEResponsable()), FontFactory.getFont(FontFactory.TIMES, 12))));
                 document.add(TablaResponsable);
+                
+                PdfPTable TablaColaboradores = new PdfPTable(2);
+                TablaColaboradores.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+                TablaColaboradores.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                TablaColaboradores.setWidths(columnas);
+                TablaColaboradores.setWidthPercentage(100);
+                TablaColaboradores.setSpacingAfter(5);
+                TablaColaboradores.setSpacingBefore(5);
+                TablaColaboradores.addCell(new Phrase("Colaboradores: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                TablaColaboradores.addCell(new Phrase(new Phrase(selected.getMColaboradores(), FontFactory.getFont(FontFactory.TIMES, 12))));
+                document.add(TablaColaboradores);
 
                 Paragraph tituloActividades = new Paragraph("PRESUPUESTO", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                 tituloActividades.setAlignment(Element.ALIGN_CENTER);
@@ -1395,7 +1516,7 @@ public class ProyectoTbController implements Serializable {
                     c0.setHorizontalAlignment(Element.ALIGN_LEFT);
                     TablaTotal.addCell(c0);
 
-                    PdfPCell c1 = new PdfPCell(new Phrase("$ " + String.valueOf(total), FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                    PdfPCell c1 = new PdfPCell(new Phrase("$ " + total, FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                     c1.setHorizontalAlignment(Element.ALIGN_RIGHT);
                     TablaTotal.addCell(c1);
 
