@@ -32,18 +32,27 @@
                     </h:panelGrid>
                 </p:tab>
                 <p:tab title="1. Nuevo" >
-                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
-                        <h:graphicImage library="images" name="ayuda/proyectos/nuevo.PNG" width="390px"/>
+                    <div align="center">
+                    <h:graphicImage library="images" name="ayuda/proyectos/nuevo.PNG" width="390px"/>
+                    </div>
+                    <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >
                         <p:outputPanel style="width: 430px">
                             <p><b>Nombre: </b><br/>Ingrese el nombre del nuevo proyecto.</p>
                             <p><b>Descripción: </b><br/>Digite una breve descripción del proyecto que está registrando.</p>
                             <p><b>Fecha de inicio: </b><br/> Seleccione la fecha en la que dará inicio el proyecto, mediante un pequeño calendario que aparece al momento de dar clic en el campo.</p>
                             <p><b>Fecha de finalización: </b><br/>Seleccione la fecha en la finalizara el proyecto, el campo aparecerá deshabilitado mientras no se haya seleccionado una fecha de inicio, posteriormente se presentara un pequeño calendario al momento de dar clic en el campo.</p>
                             <p><b>Responsable: </b><br/>Seleccione el responsable del proyecto. Para seleccionar un responsable debe hacer clic en el campo para realizar dicha acción.</p>
+                            <p><b>Colaboradores: </b><br/>Digite a las personas que participan en el proyecto siendo de gran ayuda para el responsable.</p>
+                        </p:outputPanel>
+                        <p:outputPanel style="width: 430px">
+                            <p><b>Introducción: </b><br/>Seleccione esta pestaña para ingresar los datos de la introducción del proyecto.</p>
+                            <p><b>Objetivos: </b><br/>Seleccione esta pestaña para ingresar los datos de objetivos generales y especificos del proyecto.</p>
+                            <p><b>Metodología: </b><br/>Seleccione esta pestaña para ingresar los datos de la metodología del proyecto.</p>
                             <p><b>Guardar: </b><br/>Almacena a la base de datos la información ingresada en el formulario.</p>
                             <p><b>(X)Cerrar: </b><br/>Cierra el formulario sin almacenar los datos ingresados.</p>
                             <p><b>(*) Campo requerido: </b><br/>Al aparecer este símbolo en alguna etiqueta quiere dar a entender que el campo es requerido u obligatorio. En otras palabras si no es ingresado el dato solicitado en el campo, no se podrá almacenar en la base de datos del sistema.</p>
                         </p:outputPanel>
+
 
                     </h:panelGrid>
 
