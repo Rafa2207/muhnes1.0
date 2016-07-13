@@ -31,12 +31,14 @@
                         <p:outputLabel value="Fecha de inicio:" for="FFecha" />
                         <p:calendar locale="es" mindate="#{controladorSesion.proyecto.FFechaInicio}" id="FFecha" 
                                     readonlyInput="true" pattern="dd MMMM yyyy" value="#{procesoejemplarTbController.selected.FFecha}" 
-                                    title="Fecha de inicio"  showOn="button" required="true" requiredMessage="Introduzca fecha inicio">
+                                    title="Fecha de inicio"  showOn="button" required="true" requiredMessage="Introduzca fecha inicio"
+                                    maxdate="#{procesoejemplarTbController.fechaActual}">
                             <p:ajax event="dateSelect" update="FFechafin"/>
                         </p:calendar>
 
                         <p:outputLabel value="Fecha finalización: " for="FFechafin" />
                         <p:calendar locale="es" mindate="#{procesoejemplarTbController.selected.FFecha}" id="FFechafin" 
+                                    maxdate="#{procesoejemplarTbController.fechaActual}"
                                     readonlyInput="true" pattern="dd MMMM yyyy" value="#{procesoejemplarTbController.selected.FFechafin}" 
                                     title="Fecha fin" showOn="button" required="true" requiredMessage="Introduzca fecha fin"/>
 

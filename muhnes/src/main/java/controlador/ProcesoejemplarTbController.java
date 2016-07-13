@@ -46,6 +46,14 @@ public class ProcesoejemplarTbController implements Serializable {
     boolean valor, control;
     private String nombre;
 
+    public Date getFechaActual() {
+        return fechaActual;
+    }
+
+    public void setFechaActual(Date fechaActual) {
+        this.fechaActual = fechaActual;
+    }
+
     public int getCantidad() {
         return cantidad;
     }

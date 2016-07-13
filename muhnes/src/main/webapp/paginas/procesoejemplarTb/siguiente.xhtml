@@ -31,7 +31,8 @@
                         <p:calendar locale="es" mindate="#{procesoejemplarTbController.fechaSiguiente}" id="FFecha" 
                                     readonlyInput="true" pattern="dd MMMM yyyy" value="#{procesoejemplarTbController.selected.FFecha}" 
                                     title="#{bundle.EditProcesoejemplarTbTitle_FFecha}"  showOn="button"
-                                    required="true" requiredMessage="Introduzca fecha inicio">
+                                    required="true" requiredMessage="Introduzca fecha inicio"
+                                    maxdate="#{procesoejemplarTbController.fechaActual}">
                             <p:ajax event="dateSelect" update="textfecha" listener="#{procesoejemplarTbController.calcularFechaFinCuarentena(procesoejemplarTbController.selected.FFecha)}"/>
                         </p:calendar>
 
