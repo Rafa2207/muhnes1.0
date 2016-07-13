@@ -25,7 +25,7 @@
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{usuarioTbController.prepareCreate}" update=":UsuarioTbCreateForm" oncomplete="PF('UsuarioTbCreateDialog').show()"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":UsuarioTbViewForm" oncomplete="PF('UsuarioTbViewDialog').show()" disabled="#{empty usuarioTbController.selected}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":UsuarioTbEditForm" oncomplete="PF('UsuarioTbEditDialog').show()" disabled="#{empty usuarioTbController.selected}"/>
-                    <p:commandButton id="bajaButton" icon="ui-icon-circle-arrow-s"  value="Dar de Baja" actionListener="#{usuarioTbController.cambio()}" update=":UsuarioTbListForm:datalist,:growl" disabled="#{empty usuarioTbController.selected}">
+                    <p:commandButton id="bajaButton" icon="ui-icon-circle-arrow-s"  value="Dar de Baja" actionListener="#{usuarioTbController.cambio()}" update=":UsuarioTbListForm:datalist,:growl" disabled="#{empty usuarioTbController.selected || usuarioTbController.renderedDarBaja(request.userPrincipal.name)}">
                         <p:confirm header="Confirmación" message="¿Está seguro dar de baja a este usuario?" icon="ui-icon-alert" />
                     </p:commandButton>
 

@@ -31,7 +31,9 @@
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{municipioTbController.prepareCreate(controladorSesion.departamento)}" update=":MunicipioTbCreateForm" oncomplete="PF('MunicipioTbCreateDialog').show()" />
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":MunicipioTbViewForm" oncomplete="PF('MunicipioTbViewDialog').show()" disabled="#{empty municipioTbController.selected }"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":MunicipioTbEditForm" oncomplete="PF('MunicipioTbEditDialog').show()" disabled="#{empty municipioTbController.selected }"/>
-
+                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{municipioTbController.destroy}" update=":growl,datalist" disabled="#{empty municipioTbController.selected }">
+                        <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
+                    </p:commandButton>
                     
                     <p:commandButton id="cantonButton" icon="ui-icon-arrowthick-1-e"  value="Cantones/Distritos" action="/paginas/cantonTb/List.xhtml" disabled="#{empty municipioTbController.selected}" >
                         <f:setPropertyActionListener target="#{controladorSesion.municipio}" value="#{municipioTbController.selected}"/>
@@ -55,8 +57,8 @@
                                  widgetVar="municipioTable"
                                  >
 
-                        <p:ajax event="rowSelect"   update=":MunicipioTbListForm:cantonButton :MunicipioTbListForm:createButton :MunicipioTbListForm:viewButton :MunicipioTbListForm:editButton"/>
-                        <p:ajax event="rowUnselect" update=":MunicipioTbListForm:cantonButton :MunicipioTbListForm:createButton :MunicipioTbListForm:viewButton :MunicipioTbListForm:editButton"/>
+                        <p:ajax event="rowSelect"   update=":MunicipioTbListForm:cantonButton :MunicipioTbListForm:createButton :MunicipioTbListForm:viewButton :MunicipioTbListForm:editButton :MunicipioTbListForm:deleteButton"/>
+                        <p:ajax event="rowUnselect" update=":MunicipioTbListForm:cantonButton :MunicipioTbListForm:createButton :MunicipioTbListForm:viewButton :MunicipioTbListForm:editButton :MunicipioTbListForm:deleteButton"/>
 
 
                         <p:column filterBy="#{item.CNombre}" filterStyle="display:none">

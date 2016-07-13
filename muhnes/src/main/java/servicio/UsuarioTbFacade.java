@@ -58,6 +58,11 @@ public class UsuarioTbFacade extends AbstractFacade<UsuarioTb> {
         TypedQuery<UsuarioTb> query = em.createQuery("SELECT p FROM UsuarioTb p WHERE p.bEstado = 'TRUE' ORDER BY p.cNombre ASC ", UsuarioTb.class);
         return query.getResultList();
     }
+    
+    public List<UsuarioTb> buscarGeneral() {
+        TypedQuery<UsuarioTb> query = em.createQuery("SELECT p FROM UsuarioTb p ORDER BY p.cNombre ASC ", UsuarioTb.class);
+        return query.getResultList();
+    }
 
     public List<UsuarioTb> buscarInactivos() {
 

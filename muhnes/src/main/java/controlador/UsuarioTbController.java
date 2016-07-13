@@ -116,6 +116,16 @@ public class UsuarioTbController implements Serializable {
     public void prepareCambiarContra(String usuario) {
         selected = getFacade().BuscarUsuario(usuario);
         respaldo = selected.getMPassword();
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("El usuario : '" + selected.getCNick() + "' modificó su contraseña");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuarios = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuarios);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
     }
 
     public void create() {
@@ -301,6 +311,18 @@ public class UsuarioTbController implements Serializable {
         }
     }
 
+    public boolean renderedDarBaja(String c) {
+        boolean a = false;
+        try {
+            if (c.equals(selected.getCNick())) {
+                a = true;
+            }
+        } catch (Exception e) {
+        }
+
+        return a;
+    }
+
     public Date fechaActual() {
         return new Date();
     }
@@ -308,7 +330,17 @@ public class UsuarioTbController implements Serializable {
     public void cambio() {
         selected.setBEstado(false);
         selected.setMPassword(String.valueOf(fechaActual()));
-        update();
+        getFacade().edit(selected);
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("El usuario: '" + selected.getCNick() + "' a sido dado de baja en el módulo: Usuarios");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.        
@@ -317,7 +349,17 @@ public class UsuarioTbController implements Serializable {
 
     public void cambioAct() {
         selected.setBEstado(true);
-        update();
+        getFacade().edit(selected);
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("El usuario: '" + selected.getCNick() + "' a sido dado de alta en el módulo: Usuarios");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
         items = null;
     }
 
@@ -444,13 +486,14 @@ public class UsuarioTbController implements Serializable {
                         usuarios.addCell(c4);
 
                         if (u.getCDui().equals("")) {
-                        PdfPCell cell3 = new PdfPCell(new Phrase("Sin DUI", FontFactory.getFont(FontFactory.TIMES, 12)));
-                        cell3.setHorizontalAlignment(Element.ALIGN_CENTER);
-                        usuarios.addCell(cell3);
-                        }else{
-                        PdfPCell c5 = new PdfPCell(new Phrase(u.getCDui(), FontFactory.getFont(FontFactory.TIMES, 12)));
-                        c5.setHorizontalAlignment(Element.ALIGN_CENTER);
-                        usuarios.addCell(c5);}
+                            PdfPCell cell3 = new PdfPCell(new Phrase("Sin DUI", FontFactory.getFont(FontFactory.TIMES, 12)));
+                            cell3.setHorizontalAlignment(Element.ALIGN_CENTER);
+                            usuarios.addCell(cell3);
+                        } else {
+                            PdfPCell c5 = new PdfPCell(new Phrase(u.getCDui(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                            c5.setHorizontalAlignment(Element.ALIGN_CENTER);
+                            usuarios.addCell(c5);
+                        }
 
                         PdfPCell c6 = new PdfPCell(new Phrase(u.getCTipo(), FontFactory.getFont(FontFactory.TIMES, 12)));
                         c6.setHorizontalAlignment(Element.ALIGN_CENTER);
