@@ -21,7 +21,8 @@
                         <p:outputLabel value="Contraseña anterior: " for="anterior"/>
                         <p:password id="anterior"
                                     value="#{usuarioTbController.anterior}"
-                                    required="true"/>
+                                    required="true"
+                                    maxlength="15"/>
                         <p:outputLabel for="pwd1" value="Contraseña: " />
                         <p:password id="pwd1" value="#{usuarioTbController.selected.MPassword}" match="pwd2"  required="true" 
                                     requiredMessage="Introduzca contraseña 1."
@@ -35,7 +36,7 @@
                                     requiredMessage="Introduzca contraseña 2."
                                     feedback="true" inline="false"
                                     promptLabel="Por favor repita la contraseña." weakLabel="Corta."
-                                    goodLabel="Buena." strongLabel="Segura." size="20" maxlength="25" />
+                                    goodLabel="Buena." strongLabel="Segura." size="20" maxlength="15" />
                         <p:outputLabel value="Email: " for="MEmail"/>
                         <p:inputText id="MEmail"
                                      rendered="true"
@@ -45,6 +46,7 @@
                                      required="true"
                                      size="30">
                             <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                            <p:ajax event="change" update="MEmail" listener="#{usuarioTbController.cambioMinusculaEmail()}"/>
                         </p:inputText>
                         <p:watermark for="MEmail" value="Email *" />
                         <p:message for="MEmail" />

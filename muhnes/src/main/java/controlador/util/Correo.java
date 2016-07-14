@@ -47,7 +47,8 @@ public class Correo implements Serializable{
     }
     
     public void mandarcorreo(){
-    // email del destinatario
+        correo= correo.toLowerCase();
+        // email del destinatario
         String to = this.correo;
         
         //remitente

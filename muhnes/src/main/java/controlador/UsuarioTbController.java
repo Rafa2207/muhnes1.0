@@ -129,6 +129,7 @@ public class UsuarioTbController implements Serializable {
     }
 
     public void create() {
+        selected.setMEmail(selected.getMEmail().toLowerCase());
         selected.setBEstado(Boolean.TRUE);
         //Bitacora inicio
         BitacoraTb bitacora = new BitacoraTb();
@@ -147,6 +148,7 @@ public class UsuarioTbController implements Serializable {
     }
 
     public void cambiarContra() {
+        selected.setMEmail(selected.getMEmail().toLowerCase());
         try {
             if (JsfUtil.cifrar(anterior).equals(respaldo)) {
                 //busca si existe un usuario que puso el mismo email
@@ -168,8 +170,13 @@ public class UsuarioTbController implements Serializable {
             JsfUtil.addErrorMessage("No se pudo cifrar la nueva contraseña. Intentelo más tarde");
         }
     }
+    
+    public void cambioMinusculaEmail(){
+        selected.setMEmail(selected.getMEmail().toLowerCase());
+    }
 
     public void update() {
+        selected.setMEmail(selected.getMEmail().toLowerCase());
         //Bitacora inicio
         BitacoraTb bitacora = new BitacoraTb();
         bitacora.setMDescripcion("Modificado usuario: '" + selected.getCNick() + "' en el módulo: Usuarios");
@@ -292,6 +299,7 @@ public class UsuarioTbController implements Serializable {
     }
 
     public void compararEmail(String c) {
+        selected.setMEmail(selected.getMEmail().toLowerCase());
         FacesContext context = FacesContext.getCurrentInstance();
         for (UsuarioTb u : items) {
             if (u.getMEmail().equals(c)) {
@@ -533,5 +541,6 @@ public class UsuarioTbController implements Serializable {
             e.printStackTrace();
         }
     }
+    
 
 }

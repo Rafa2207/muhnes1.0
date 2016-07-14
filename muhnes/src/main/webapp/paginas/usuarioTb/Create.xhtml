@@ -16,12 +16,12 @@
                         <p:outputLabel value="#{bundle.CreateUsuarioTbLabel_CNombre}" for="CNombre" />
                         <p:inputText id="CNombre" value="#{usuarioTbController.selected.CNombre}" title="#{bundle.CreateUsuarioTbTitle_CNombre}" 
                                      required="true"
-                                     requiredMessage="Introduzca nombre del usuario." size="25" maxlength="50"/>
+                                     requiredMessage="Introduzca nombre del usuario." size="30" maxlength="50"/>
 
                         <p:outputLabel value="#{bundle.CreateUsuarioTbLabel_CApellido}" for="CApellido" />
                         <p:inputText id="CApellido" value="#{usuarioTbController.selected.CApellido}" title="#{bundle.CreateUsuarioTbTitle_CApellido}" 
                                      required="true"
-                                     requiredMessage="Introduzca apellido del usuario." size="25" maxlength="50"/>
+                                     requiredMessage="Introduzca apellido del usuario." size="30" maxlength="50"/>
 
                         <p:outputLabel value="Email: " for="MEmail" />
                         <p:inputText id="MEmail" value="#{usuarioTbController.selected.MEmail}" title="Email: " 
@@ -37,7 +37,7 @@
                         <p:outputLabel value="#{bundle.CreateUsuarioTbLabel_CNick}" for="CNick" />
                         <p:inputText id="CNick" value="#{usuarioTbController.selected.CNick}" title="#{bundle.CreateUsuarioTbTitle_CNick}" 
                                      required="true"
-                                     requiredMessage="Introduzca nombre de usuario." size="15" maxlength="15"
+                                     requiredMessage="Introduzca nombre de usuario." size="30" maxlength="15"
                                      validatorMessage="Formato invalido nombre del usuario">
                             <p:ajax event="change" listener="#{usuarioTbController.compararUsuario(usuarioTbController.selected.CNick)}"
                                     update="CNick :growl"/>
@@ -49,7 +49,7 @@
                                     requiredMessage="Introduzca contraseña 1."
                                     feedback="true" inline="false"
                                     promptLabel="Por favor introduzca una contraseña." weakLabel="Corta."
-                                    goodLabel="Buena." strongLabel="Segura." size="20" maxlength="15" 
+                                    goodLabel="Buena." strongLabel="Segura." size="30" maxlength="15" 
                                     validatorMessage="Contraseñas no coinciden"/>
 
                         <p:outputLabel for="pwd2" value="Repita Contraseña: " />
@@ -57,11 +57,11 @@
                                     requiredMessage="Introduzca contraseña 2."
                                     feedback="true" inline="false"
                                     promptLabel="Por favor repita la contraseña." weakLabel="Corta."
-                                    goodLabel="Buena." strongLabel="Segura." size="20" maxlength="25" />
+                                    goodLabel="Buena." strongLabel="Segura." size="30" maxlength="15" />
 
                         <p:outputLabel value="#{bundle.CreateUsuarioTbLabel_CDui}" for="CDui" />
                         <p:inputMask id="CDui" value="#{usuarioTbController.selected.CDui}" title="#{bundle.CreateUsuarioTbTitle_CDui}" 
-                                     mask="99999999-9" size="10"/>   
+                                     mask="99999999-9" size="30"/>   
 
                         <p:outputLabel value="#{bundle.CreateUsuarioTbLabel_CTipo}" for="CTipo" />
                         <p:selectOneMenu id="CTipo" value="#{usuarioTbController.selected.CTipo}" 
