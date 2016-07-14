@@ -16,8 +16,14 @@
                         <p:inputText id="CNombre" value="#{ejemplarVivoTbController.selected.CNombre}" title="#{bundleEjemplarVivo.CreateEjemplarVivoTbTitle_CNombre}" required="true" requiredMessage="Introduzca nombre del ejemplar"/>
                         <p:outputLabel value="#{bundleEjemplarVivo.CreateEjemplarVivoTbLabel_MDescripcion}" for="MDescripcion" />
                         <p:inputTextarea rows="2" cols="23" autoResize="" id="MDescripcion" value="#{ejemplarVivoTbController.selected.MDescripcion}" title="#{bundleEjemplarVivo.CreateEjemplarVivoTbTitle_MDescripcion}" />
+                        
                         <p:outputLabel value="#{bundleEjemplarVivo.CreateEjemplarVivoTbLabel_FFechaLlegada}" for="FFechaLlegada" />
-                        <p:calendar id="FFechaLlegada" pattern="dd MMMM yyyy" value="#{ejemplarVivoTbController.selected.FFecha}" title="#{bundleEjemplarVivo.EditEjemplarVivoTbTitle_FFechaLlegada}" required="true" requiredMessage="Seleccione una fecha de llegada" locale="es" showOn="button"/>
+                        <p:calendar id="FFechaLlegada" pattern="dd MMMM yyyy" 
+                                    value="#{ejemplarVivoTbController.selected.FFecha}" 
+                                    title="#{bundleEjemplarVivo.EditEjemplarVivoTbTitle_FFechaLlegada}" 
+                                    required="true" requiredMessage="Seleccione una fecha de llegada" locale="es" showOn="button"
+                                    maxdate="#{disminuirEjemplarTbController.fechaActual}"/>
+                        
                         <p:outputLabel value="#{bundleEjemplarVivo.CreateEjemplarVivoTbLabel_ECantidad}" for="ECantidad" />
                         <p:panelGrid columns="1">
                         <p:inputText id="ECantidad" value="#{ejemplarVivoTbController.selected.ECantidad}" title="#{bundleEjemplarVivo.CreateEjemplarVivoTbTitle_ECantidad}" required="true" requiredMessage="introduzca cantidad"/>

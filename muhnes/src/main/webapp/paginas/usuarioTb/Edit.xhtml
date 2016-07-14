@@ -44,28 +44,30 @@
                             <f:validateRegex pattern="^[A-Za-z0-9!#$@]\S*$"/>
                         </p:inputText>
 
-                            <p:outputLabel value="#{bundle.EditUsuarioTbLabel_CDui}" for="CDui" />
-                            <p:inputMask id="CDui" value="#{usuarioTbController.selected.CDui}" title="#{bundle.EditUsuarioTbTitle_CDui}" 
-                                         mask="99999999-9" size="10"/>
+                        <p:outputLabel value="#{bundle.EditUsuarioTbLabel_CDui}" for="CDui" />
+                        <p:inputMask id="CDui" value="#{usuarioTbController.selected.CDui}" title="#{bundle.EditUsuarioTbTitle_CDui}" 
+                                     mask="99999999-9" size="10"/>
 
-                            <p:outputLabel value="#{bundle.EditUsuarioTbLabel_CTipo}" for="CTipo" />
-                            <p:selectOneMenu id="CTipo" value="#{usuarioTbController.selected.CTipo}" 
-                                             required="true" 
-                                             requiredMessage="Seleccione el tipo de usuario.">
-                                <f:selectItem itemValue="" itemLabel="Seleccione tipo de usuario."/>
-                                <f:selectItem itemValue="Administrador" itemLabel="Administrador"/>
-                                <f:selectItem itemValue="Digitador" itemLabel="Digitador"/>
-                            </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditUsuarioTbLabel_CTipo}" for="CTipo" />
+                        <p:selectOneMenu id="CTipo" value="#{usuarioTbController.selected.CTipo}" 
+                                         required="true" 
+                                         requiredMessage="Seleccione el tipo de usuario.">
+                            <f:selectItem itemValue="" itemLabel="Seleccione tipo de usuario."/>
+                            <f:selectItem itemValue="Administrador" itemLabel="Administrador"/>
+                            <f:selectItem itemValue="Digitador" itemLabel="Digitador"/>
+                            <p:ajax event="change" process="CTipo" update="CAgente" />
+                        </p:selectOneMenu>
 
-                            <p:outputLabel value="Agente :" for="CAgente" />   
-                            <p:selectOneMenu id="CAgente" style="width: 180px" value="#{usuarioTbController.selected.EIdagente}" 
-                                             filter="true" filterMatchMode="contains">
-                                <f:selectItem itemValue="" itemLabel="Sin Agente"/>
-                                <f:selectItems value="#{agenteTbController.itemsAvailableSelectOne}"
-                                               var="EIdagenteItem"
-                                               itemValue="#{EIdagenteItem.EIdagente}"
-                                               itemLabel="#{EIdagenteItem.CNombre} #{EIdagenteItem.CApellido} (#{EIdagenteItem.CIniciales})"/>
-                            </p:selectOneMenu>
+                        <p:outputLabel value="Agente :" for="CAgente" />   
+                        <p:selectOneMenu id="CAgente" style="width: 180px" value="#{usuarioTbController.selected.EIdagente}" 
+                                         filter="true" filterMatchMode="contains"
+                                         disabled="#{usuarioTbController.selected.CTipo.equals('Digitador')}">
+                            <f:selectItem itemValue="" itemLabel="Sin Agente"/>
+                            <f:selectItems value="#{agenteTbController.itemsAvailableSelectOne}"
+                                           var="EIdagenteItem"
+                                           itemValue="#{EIdagenteItem.EIdagente}"
+                                           itemLabel="#{EIdagenteItem.CNombre} #{EIdagenteItem.CApellido} (#{EIdagenteItem.CIniciales})"/>
+                        </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{usuarioTbController.update}" value="#{bundle.Save}" update="display,:UsuarioTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'UsuarioTbEditDialog');"/>
                 </h:panelGroup>

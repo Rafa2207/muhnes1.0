@@ -22,7 +22,10 @@
                         <p:outputLabel value="#{bundleEjemplarVivo.CreateEjemplarVivoTbLabel_FFechaLlegada}" for="FFechaLlegada" />
                         <p:panelGrid columns="1">
                             <p:outputLabel value=""/>
-                            <p:calendar id="FFechaLlegada" pattern="dd MMMM yyyy" value="#{disminuirEjemplarTbController.selected.FFecha}" mindate="#{ejemplarVivoTbController.selected.FFecha}" title="#{bundleEjemplarVivo.EditEjemplarVivoTbTitle_FFechaLlegada}" required="true" requiredMessage="Seleccione una fecha" locale="es" showOn="button"/>
+                            <p:calendar id="FFechaLlegada" pattern="dd MMMM yyyy" value="#{disminuirEjemplarTbController.selected.FFecha}" 
+                                        mindate="#{ejemplarVivoTbController.selected.FFecha}" title="#{bundleEjemplarVivo.EditEjemplarVivoTbTitle_FFechaLlegada}" 
+                                        required="true" requiredMessage="Seleccione una fecha" locale="es" showOn="button"
+                                        maxdate="#{disminuirEjemplarTbController.fechaActual}"/>
                         </p:panelGrid>
                         <p:outputLabel value="#{bundleEjemplarVivo.CreateDisminuirEjemplarTbLabel_ECantidad}" for="ECantidad" />
                         <p:panelGrid columns="1">

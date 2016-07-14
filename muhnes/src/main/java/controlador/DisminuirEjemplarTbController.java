@@ -58,6 +58,7 @@ public class DisminuirEjemplarTbController implements Serializable {
     private servicio.BitacoraTbFacade bitacoraFacade;
     private List<DisminuirEjemplarTb> items = null, filtro;
     private DisminuirEjemplarTb selected;
+    private Date fechaActual = new Date();
 
     public DisminuirEjemplarTbController() {
     }
@@ -82,6 +83,14 @@ public class DisminuirEjemplarTbController implements Serializable {
     }
 
     protected void initializeEmbeddableKey() {
+    }
+
+    public Date getFechaActual() {
+        return fechaActual;
+    }
+
+    public void setFechaActual(Date fechaActual) {
+        this.fechaActual = fechaActual;
     }
 
     private DisminuirEjemplarTbFacade getFacade() {
