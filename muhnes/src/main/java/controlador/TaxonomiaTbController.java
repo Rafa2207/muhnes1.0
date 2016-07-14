@@ -601,7 +601,11 @@ public class TaxonomiaTbController implements Serializable {
                 cadena2 = cadena2 + i.getAgenteTb().getCIniciales() + " ";
             }
         }
+        if(cadena2.equals("")){
+            autores = cadena1;
+        }else{
         autores = "(" + cadena1 + ") " + cadena2;
+        }
     }
 
     public void anadirAutorM() {
@@ -672,6 +676,11 @@ public class TaxonomiaTbController implements Serializable {
         //String basePath = ctx.getRealPath("/");
         //String txtPath = basePath + "images";
         //nueva ruta para servidor
+        if(selected.getImagenTbList().size()>=3){
+            FacesMessage error = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Lacantidad máxima de imágenes es 3", "ERROR");
+            FacesContext.getCurrentInstance().addMessage(null, error);
+        }
+        else{
         FacesContext ctx = FacesContext.getCurrentInstance();
         String picture_directory = ctx.getExternalContext().getInitParameter("pictures_directory_path");
         //******************************************
@@ -719,6 +728,7 @@ public class TaxonomiaTbController implements Serializable {
         selected.getImagenTbList().add(nuevo);
         FacesMessage exito = new FacesMessage("imagen subida correctamente");
         FacesContext.getCurrentInstance().addMessage(null, exito);
+        }
     }
 
     public void borrarImagen() {
@@ -727,7 +737,7 @@ public class TaxonomiaTbController implements Serializable {
         //////////////////////////////////
         FacesContext ctx = FacesContext.getCurrentInstance();
         // String txtPath = ctx.getExternalContext().getInitParameter("pictures_directory_path");
-        String pathDefinition = ctx.getExternalContext().getInitParameter("pictures_directory_path") + img.getCNombre();
+        String pathDefinition = ctx.getExternalContext().getInitParameter("pictures_directory_path") + img.getEIdtaxonomia() + "/" + img.getCNombre();
         try {
             File imagen = new File(img.getCRuta());
             if (imagen.exists()) {
@@ -737,7 +747,7 @@ public class TaxonomiaTbController implements Serializable {
                 selected.getImagenTbList().remove(img);
             }
         } catch (Exception e) {
-            FacesMessage error = new FacesMessage("No se puede subir la imagen");
+            FacesMessage error = new FacesMessage("No se puede eliminar la imagen");
             FacesContext.getCurrentInstance().addMessage(null, error);
         }
     }
@@ -757,7 +767,15 @@ public class TaxonomiaTbController implements Serializable {
             }
         }
         //autores = "("+ cadena1 +") " + cadena2;
-        return "(" + cadena1 + ") " + cadena2;
+        if(cadena2.equals("")){
+                return cadena1;
+            }
+            else if(cadena1.equals("")){
+                return cadena2;
+            }
+            else{
+            return "(" + cadena1 + ") " + cadena2;
+            }
     }
 
     public List<AgenteTaxonomiaTb> ordenarSecuencia(TaxonomiaTb List) {
@@ -785,7 +803,15 @@ public class TaxonomiaTbController implements Serializable {
                     cadena2 = cadena2 + i.getAgenteTb().getCIniciales() + " ";
                 }
             }
+            if(cadena2.equals("")){
+                autores = cadena1;
+            }
+            else if(cadena1.equals("")){
+                autores = cadena2;
+            }
+            else{
             autores = "(" + cadena1 + ") " + cadena2;
+            }
         } catch (Exception e) {
             return null;
         }
@@ -1123,7 +1149,7 @@ public class TaxonomiaTbController implements Serializable {
                 context.responseComplete();
                 //Bitacora inicio
                 BitacoraTb bitacora = new BitacoraTb();
-                bitacora.setMDescripcion("Creado Reporte general de " + tax.getCTipo() + " en el mÃ³dulo: taxonomia");
+                bitacora.setMDescripcion("Creado Reporte general de " + tax.getCTipo() + " en el módulo: Taxonómia");
                 //String nick = JsfUtil.getRequest().getUserPrincipal().getName();
                 //UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
                 bitacora.setEIdusuario(usuario);
@@ -1336,9 +1362,10 @@ public class TaxonomiaTbController implements Serializable {
                 //Mostrar imagenes
                 FacesContext ctx = FacesContext.getCurrentInstance();
                 String ruta = ctx.getExternalContext().getInitParameter("pictures_directory_path");
+                String carpeta = selected.getEIdtaxonomia() + "/";
                 if (!selected.getImagenTbList().isEmpty()) {
                     for (ImagenTb i : selected.getImagenTbList()) {
-                        String Img = ruta + i.getCNombre();
+                        String Img = ruta + carpeta + i.getCNombre();
 
                         //Tabla para  las imagenes
                         PdfPTable tablaImg1 = new PdfPTable(1);

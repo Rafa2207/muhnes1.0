@@ -44,7 +44,8 @@
                                 <p:outputLabel value="conector: " for="conector"/>
                                 <p:selectOneMenu id="conector" 
                                                  value="#{taxonomiaTbController.conector}" >
-                                    <f:selectItem itemValue=" " itemLabel="Sin Conector"/>
+                                    <f:selectItem itemValue="" itemLabel="Sin Conector"/>
+                                    <f:selectItem itemValue="," itemLabel=","/>
                                     <f:selectItem itemValue="emend." itemLabel="emend."/>
                                     <f:selectItem itemValue="et." itemLabel="et."/>
                                     <f:selectItem itemValue="ex." itemLabel="ex."/>
@@ -97,7 +98,8 @@
                                         </f:facet>
                                         <f:facet name="input">
                                             <p:selectOneMenu style="width: 75px" value="#{autores.CConector}" >
-                                                <f:selectItem itemValue=" " itemLabel="Sin Conector"/>
+                                                <f:selectItem itemValue="" itemLabel="Sin Conector"/>
+                                                <f:selectItem itemValue="," itemLabel=","/>
                                                 <f:selectItem itemValue="emend." itemLabel="emend."/>
                                                 <f:selectItem itemValue="et." itemLabel="et."/>
                                                 <f:selectItem itemValue="ex." itemLabel="ex."/>
@@ -168,7 +170,8 @@
                             </p:dataTable>
                         </p:tab>
                         <p:tab title="Imágenes">
-                            <p:fileUpload  label="Seleccione imagen:" 
+                            <p:fileUpload  label="Seleccione imagen:"
+                                           id="subImagen"
                                            fileUploadListener="#{taxonomiaTbController.handleFileUpload}" 
                                            style="width: 760px; height: 150px;"
                                            mode="advanced" 
@@ -180,7 +183,7 @@
                                            fileLimitMessage="El máximo de imágenes es 3"  
                                            invalidFileMessage="Se debe seleccionar una imagen"
                                            cancelLabel="Cancelar" uploadLabel="Subir"
-                                           update="imagenes :growl" />
+                                           update="imagenes, subImagen :growl" />
                             <p:dataTable id="imagenes"
                                          value="#{taxonomiaTbController.selected.imagenTbList}"
                                          var="img"
@@ -191,13 +194,7 @@
                                          emptyMessage="No se han añadido imágenes"
                                          >
                                 <p:column headerText="Imagen">
-                                    <p:commandLink styleClass="ui-icon ui-icon-image" style="display: inline-block;" value="ver imagen" type="button" onclick="PF('#{img.CNombre}').show();"/>
-                                    <p:outputLabel value="  Ver imagen"/>
-                                    <p:dialog header="Imagen" resizable="true" showEffect="clip" widgetVar="#{img.CNombre}">
-                                        <p:panelGrid columns="1"  style="text-align: center; height: 550px; width: 800px" layout="grid">
-                                            <p:graphicImage value="/images/#{img.EIdtaxonomia.EIdtaxonomia}/#{img.CNombre}" width="500" />
-                                        </p:panelGrid>
-                                    </p:dialog>
+                                    <p:outputLabel value="Imagen"/>
                                 </p:column>
                                 <p:column headerText="Acciones">
                                     <p:commandLink styleClass="ui-icon ui-icon-trash"

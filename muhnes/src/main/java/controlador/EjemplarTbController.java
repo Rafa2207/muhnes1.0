@@ -1151,6 +1151,7 @@ public class EjemplarTbController implements Serializable {
                     fuente3.setSize(10);
                     fuente3.setStyle(Font.BOLDITALIC);
                     Font fuente4 = new Font(baseFont);
+                    fuente4.setStyle(Font.BOLD);
                     fuente4.setSize(10);
                     //fuente4.setStyle(Font.BOLDITALIC);
                             //Paragraph titulo = new Paragraph("FLORA DE EL SALVADOR\n\n", fuente);
@@ -1245,9 +1246,9 @@ public class EjemplarTbController implements Serializable {
                             /////////////////////////////////////////
                             String area = "";
                             if (ej.getEIdlocalidad().getEIdarea() == null) {
-                                area = "Sin area protegida, " + ej.getEIdlocalidad().getEIdcanton().getCNombre() + ", " + ej.getEIdlocalidad().getEIdcanton().getEIdmunicipio().getCNombre() + ", " + ej.getEIdlocalidad().getEIdcanton().getEIdmunicipio().getEIddepto().getCNombre() + ".";
+                                area = "Sin área protegida, " + ej.getEIdlocalidad().getEIdcanton().getCNombre() + ", " + ej.getEIdlocalidad().getEIdcanton().getEIdmunicipio().getCNombre() + ", " + ej.getEIdlocalidad().getEIdcanton().getEIdmunicipio().getEIddepto().getCNombre() + ".";
                             } else {
-                                area = "Area Protegida: " + ej.getEIdlocalidad().getEIdarea().getCNombre() + ", " + ej.getEIdlocalidad().getEIdarea().getEIdmunicipio().getCNombre() + ", " + ej.getEIdlocalidad().getEIdarea().getEIdmunicipio().getEIddepto().getCNombre() + ".";
+                                area = "Área Protegida: " + ej.getEIdlocalidad().getEIdarea().getCNombre() + ", " + ej.getEIdlocalidad().getEIdarea().getEIdmunicipio().getCNombre() + ", " + ej.getEIdlocalidad().getEIdarea().getEIdmunicipio().getEIddepto().getCNombre() + ".";
                             }
                             PdfPTable localidad = new PdfPTable(1);
                             localidad.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -1369,7 +1370,7 @@ public class EjemplarTbController implements Serializable {
                     context.responseComplete();
                     //Bitacora inicio
                     BitacoraTb bitacora = new BitacoraTb();
-                    bitacora.setMDescripcion("Creado Reporte de etiquetas de ejemplares en el mÃ³dulo: Ejemplar");
+                    bitacora.setMDescripcion("Creado Reporte de etiquetas de ejemplares en el módulo: Ejemplar");
                     String nick = JsfUtil.getRequest().getUserPrincipal().getName();
                     UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
                     bitacora.setEIdusuario(usuario);

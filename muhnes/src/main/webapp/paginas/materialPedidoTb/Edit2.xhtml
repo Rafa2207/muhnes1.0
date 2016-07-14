@@ -31,7 +31,7 @@
                             </p:selectOneRadio>
                         </p:panelGrid>
                     </p:fieldset>
-                    <p:commandButton actionListener="#{pedidoTbController.update()}" value="#{bundle.Save}" update="display,:MaterialPedidoTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'MaterialPedidoTbCreate2Dialog');"/>
+                    <p:commandButton actionListener="#{pedidoTbController.update()}" value="#{bundle.Save}" update="display,:MaterialPedidoTbListForm:,:growl" oncomplete="handleSubmit(args,'MaterialPedidoTbCreate2Dialog');"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

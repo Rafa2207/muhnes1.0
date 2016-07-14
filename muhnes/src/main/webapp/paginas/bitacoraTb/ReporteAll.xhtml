@@ -30,12 +30,12 @@
                         <p:selectOneMenu id="responsable" value="#{bitacoraTbController.usuario}"
                                          rendered="#{bitacoraTbController.booleanUsuario}"
                                          required="true"
-                                         requiredMessage="Seleccione Responsable">
+                                         requiredMessage="Seleccione Usuario">
                             <f:selectItem itemValue="" itemLabel="Seleccione..."/>
                             <f:selectItems value="#{bitacoraTbController.listaUsuarios}"
-                                           var="responsable"
-                                           itemValue="#{responsable.EIdagente}"
-                                           itemLabel="#{responsable.CNombre} #{responsable.CApellido}"/>
+                                           var="usuario"
+                                           itemValue="#{usuario}"
+                                           itemLabel="#{usuario.CNombre} #{usuario.CApellido}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:panelGrid columns="4" id="reporteFecha">

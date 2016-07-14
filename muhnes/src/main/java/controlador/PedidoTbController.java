@@ -531,13 +531,13 @@ public class PedidoTbController implements Serializable {
                 PdfPCell cell1 = new PdfPCell();
                 //Instancia al logo
                 Image logo = Image.getInstance(logoPath);
-                //Indico tamaÃƒÆ’Ã‚Â±o del logo
+                //Indico tamaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â±o del logo
                 logo.scaleToFit(80, 80);
-                //aÃƒÆ’Ã‚Â±ado el primer logo a la celda
+                //aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â±ado el primer logo a la celda
                 cell1.addElement(logo);
                 //Celda sin borde borde
                 cell1.setBorder(Rectangle.NO_BORDER);
-                //aÃƒÆ’Ã‚Â±ado celda a la tabla
+                //aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â±ado celda a la tabla
                 encabezado.addCell(cell1);
                 //celdas se alineen al centro
                 encabezado.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -633,7 +633,7 @@ public class PedidoTbController implements Serializable {
                 Date fecha1 = new Date();
                 bitacora.setTFecha(fecha1);
                 bitacoraFacade.create(bitacora);
-                //Bitacora fin
+                //Bitacora fin 125, 142, 158-167
             }
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
@@ -672,13 +672,13 @@ public class PedidoTbController implements Serializable {
                 PdfPCell cell1 = new PdfPCell();
                 //Instancia al logo
                 Image logo = Image.getInstance(logoPath);
-                //Indico tamaÃ±o del logo
+                //Indico tamaÃƒÂ±o del logo
                 logo.scaleToFit(80, 80);
-                //aÃ±ado el primer logo a la celda
+                //aÃƒÂ±ado el primer logo a la celda
                 cell1.addElement(logo);
                 //Celda sin borde borde
                 cell1.setBorder(Rectangle.NO_BORDER);
-                //aÃ±ado celda a la tabla
+                //aÃƒÂ±ado celda a la tabla
                 encabezado.addCell(cell1);
                 //celdas se alineen al centro
                 encabezado.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -697,7 +697,7 @@ public class PedidoTbController implements Serializable {
                 titulo.setSpacingBefore(10);
                 document.add(titulo);
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha de generaciÃ³n: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 //fecha.setSpacingAfter(15);
@@ -721,7 +721,7 @@ public class PedidoTbController implements Serializable {
                 TablaNombre.setWidthPercentage(100);
                 TablaNombre.setSpacingAfter(5);
                 TablaNombre.setSpacingBefore(5);
-                TablaNombre.addCell(new Phrase("Descripción: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                TablaNombre.addCell(new Phrase("DescripciÃ³n: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 TablaNombre.addCell(new Phrase(new Phrase(selected.getMDescripcion(), FontFactory.getFont(FontFactory.TIMES, 12))));
                 document.add(TablaNombre);
 
@@ -861,13 +861,13 @@ public class PedidoTbController implements Serializable {
                 PdfPCell cell1 = new PdfPCell();
                 //Instancia al logo
                 Image logo = Image.getInstance(logoPath);
-                //Indico tamaÃ±o del logo
+                //Indico tamaÃƒÂ±o del logo
                 logo.scaleToFit(80, 80);
-                //aÃ±ado el primer logo a la celda
+                //aÃƒÂ±ado el primer logo a la celda
                 cell1.addElement(logo);
                 //Celda sin borde borde
                 cell1.setBorder(Rectangle.NO_BORDER);
-                //aÃ±ado celda a la tabla
+                //aÃƒÂ±ado celda a la tabla
                 encabezado.addCell(cell1);
                 //celdas se alineen al centro
                 encabezado.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -886,7 +886,7 @@ public class PedidoTbController implements Serializable {
                 titulo.setSpacingBefore(10);
                 document.add(titulo);
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha de generaciÃ³n: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 fecha.setSpacingAfter(15);
@@ -901,7 +901,7 @@ public class PedidoTbController implements Serializable {
                 TablaNombre.setWidthPercentage(100);
                 TablaNombre.setSpacingAfter(5);
                 TablaNombre.setSpacingBefore(5);
-                TablaNombre.addCell(new Phrase("Descripción: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                TablaNombre.addCell(new Phrase("DescripciÃ³n: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 TablaNombre.addCell(new Phrase(new Phrase(selected.getMDescripcion(), FontFactory.getFont(FontFactory.TIMES, 12))));
                 document.add(TablaNombre);
 

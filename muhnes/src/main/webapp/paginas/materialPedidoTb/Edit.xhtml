@@ -40,19 +40,19 @@
                                      scrollHeight="210px"
                                      emptyMessage="No ha agregado materiales"
                                      tableStyle="width:750px">
-                            <p:column headerText="Material" >
+                            <p:column headerText="Material" width="20%">
                                 #{material.materialTb.CNombre}
                             </p:column>
-                            <p:column headerText="Solicitado" width="20%">
+                            <p:column headerText="Solicitado" width="18%">
                                 #{material.DCantidad} #{material.materialTb.EIdunidad.CAbreviatura}                                   
                             </p:column>
-                            <p:column headerText="Cantidad Recibida" width="20%">
+                            <p:column headerText="Cantidad Recibida" width="18%">
                                 #{material.DEntrada} #{material.materialTb.EIdunidad.CAbreviatura}                              
                             </p:column>
                             <p:column headerText="Cantidad Adicional" width="20%">
                                 <pe:inputNumber symbol=" #{material.materialTb.EIdunidad.CAbreviatura}" symbolPosition="s" maxValue="999.9" decimalPlaces="1" styleClass="ParaInputNumberActividades" value="#{material.cantidad2}"/>
                             </p:column>
-                            <p:column headerText="Fecha Recibido" width="25%">
+                            <p:column headerText="Fecha Recibido" width="24%">
                                 <p:calendar id="FechaRec" size="15" pattern="dd MMMM yyyy" value="#{material.FFechaRecibido}" title="Fecha recibido"  
                                             readonlyInput="true"
                                             locale="es"

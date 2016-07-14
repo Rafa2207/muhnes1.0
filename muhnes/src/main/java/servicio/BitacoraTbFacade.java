@@ -40,11 +40,13 @@ public class BitacoraTbFacade extends AbstractFacade<BitacoraTb> {
         return query.getResultList();
     }
     public List<UsuarioTb> listaUsuarios() {
+        em.clear();
         TypedQuery<UsuarioTb> query = em.createQuery("SELECT p FROM UsuarioTb p ORDER BY p.cNombre", UsuarioTb.class) ;
         //uery query = em.createNativeQuery(Sentencia, AgenteTb.class);
         return query.getResultList();
     }
     public List<BitacoraTb> bitacoraUsuario(UsuarioTb u) {
+        em.clear();
         TypedQuery<BitacoraTb> query = em.createQuery("SELECT p FROM BitacoraTb p WHERE p.eIdusuario=:u ORDER BY p.tFecha DESC", BitacoraTb.class) ;
         query.setParameter("u", u);
         return query.getResultList();
