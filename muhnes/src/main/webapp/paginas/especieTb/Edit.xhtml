@@ -173,7 +173,8 @@
                             </p:dataTable>
                         </p:tab>
                         <p:tab title="Imágenes">
-                            <p:fileUpload  label="Seleccione imagen:" 
+                            <p:fileUpload  label="Seleccione imagen:"
+                                           id="subImagen"
                                            fileUploadListener="#{taxonomiaTbController.handleFileUpload}" 
                                            style="width: 760px; height: 150px;"
                                            mode="advanced" 
@@ -185,7 +186,7 @@
                                            fileLimitMessage="El máximo de imágenes es 3"  
                                            invalidFileMessage="Se debe seleccionar una imagen"
                                            cancelLabel="Cancelar" uploadLabel="Subir"
-                                           update="imagenes :growl" />
+                                           update="imagenes, subImagen :growl" />
                             <p:dataTable id="imagenes"
                                          value="#{taxonomiaTbController.selected.imagenTbList}"
                                          var="img"
