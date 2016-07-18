@@ -811,6 +811,35 @@ public class EjemplarTbController implements Serializable {
         }
         return "";
     }
+    
+    public String calcularTaxonomia(TaxonomiaTb tax, int n) {
+        if (tax.getERango() == 1) {
+            String familia = tax.getCNombre();
+            return familia;
+        }
+        if (tax.getERango() == 2) {
+            String genero = tax.getCNombre();
+            return genero;
+        }
+        if (tax.getERango() == 3) {
+            String genero = tax.getEIdniveltaxonomia().getCNombre();
+            String especie = tax.getCNombre();
+            return genero + " " + especie.toLowerCase();
+        }
+        if (tax.getERango() == 4 && tax.getCTipo().equals("Subespecie")) {
+            String genero = tax.getEIdniveltaxonomia().getEIdniveltaxonomia().getCNombre();
+            String especie = tax.getEIdniveltaxonomia().getCNombre();
+            String subespecie = tax.getCNombre();
+            return genero + " " + especie.toLowerCase() + " subsp. " + subespecie.toLowerCase();
+        }
+        if (tax.getERango() == 4 && tax.getCTipo().equals("Variedad")) {
+            String genero = tax.getEIdniveltaxonomia().getEIdniveltaxonomia().getCNombre();
+            String especie = tax.getEIdniveltaxonomia().getCNombre();
+            String variedad = tax.getCNombre();
+            return genero + " " + especie.toLowerCase() + " var. " + variedad.toLowerCase();
+        }
+        return "";
+    }
 
     public String calcularFamilia(TaxonomiaTb tax) {
         if (tax.getERango() == 1) {
