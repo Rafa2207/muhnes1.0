@@ -15,11 +15,11 @@
 
                     <p:panelGrid columns="4" rendered="#{areaprotegidaTbController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateAreaprotegidaTbLabel_CNombre}" for="CNombre" />
-                        <p:inputText id="CNombre" value="#{areaprotegidaTbController.selected.CNombre}" title="#{bundle.CreateAreaprotegidaTbTitle_CNombre}" 
+                        <p:inputTextarea cols="25" rows="2" autoResize="" id="CNombre" value="#{areaprotegidaTbController.selected.CNombre}" title="#{bundle.CreateAreaprotegidaTbTitle_CNombre}" 
                                      required="true" requiredMessage="Introduzca nombre del área protegida"/>
 
                         <p:outputLabel value="#{bundle.CreateAreaprotegidaTbLabel_MDescripcion}" for="MDescripcion" />
-                        <p:inputTextarea  cols="72" rows="2" autoResize="" id="MDescripcion" value="#{areaprotegidaTbController.selected.MDescripcion}" title="#{bundle.CreateAreaprotegidaTbTitle_MDescripcion}" />
+                        <p:inputTextarea  cols="50" rows="2" autoResize="" id="MDescripcion" value="#{areaprotegidaTbController.selected.MDescripcion}" title="#{bundle.CreateAreaprotegidaTbTitle_MDescripcion}" />
                     </p:panelGrid>
 
 

@@ -65,38 +65,26 @@
                             </f:facet>
                             <h:outputText value="#{item.CNombre}"/>
                         </p:column>
-                        <p:column filterBy="#{item.MDescripcion}" filterStyle="display:none" style="text-align: justify">
+                        <p:column filterBy="#{item.MDescripcion}" filterStyle="display:none" style="text-align: justify; width: 40%">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListLocalidadTbTitle_MDescripcion}"/>
                             </f:facet>
                             <h:outputText value="#{item.MDescripcion}"/>
                         </p:column>
-                        <p:column filterBy="#{localidadTbController.latitudList(item)}" filterStyle="display:none">
+                        <p:column filterBy="#{localidadTbController.latitudList(item)}" filterStyle="display:none" style="width: 10%">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListLocalidadTbTitle_CLatitud}"/>
                             </f:facet>
                             <h:outputText value="#{localidadTbController.latitudList(item)}"/>
                         </p:column>
-                        <p:column filterBy="#{localidadTbController.longitudList(item)}" filterStyle="display:none">
+                        <p:column filterBy="#{localidadTbController.longitudList(item)}" filterStyle="display:none" style="width: 10%">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListLocalidadTbTitle_CLongitud}"/>
                             </f:facet>
                             <h:outputText value="#{localidadTbController.longitudList(item)}"/>
                         </p:column>
-                        <p:column filterBy="#{item.DLatitudDecimal}" filterStyle="display:none">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListLocalidadTbTitle_DLatitudDecimal}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.DLatitudDecimal}"/>
-                        </p:column>
-                        <p:column filterBy="#{item.DLongitudDecimal}" filterStyle="display:none">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListLocalidadTbTitle_DLongitudDecimal}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.DLongitudDecimal}"/>
-                        </p:column>
                         
-                        <p:column filterBy="#{item.EIdcanton.CNombre}" filterStyle="display:none">
+                        <p:column filterBy="#{item.EIdcanton.CNombre}" filterStyle="display:none" style="width: 15%">
                             <f:facet name="header">
                                 <h:outputText value="Lugar"/>
                             </f:facet>
