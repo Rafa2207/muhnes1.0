@@ -1123,7 +1123,9 @@ public class EjemplarTbController implements Serializable {
             } catch (DocumentException | IOException e) {
                 e.printStackTrace();
             }
-        } /*Reporte de etiquetas*/ else {
+        } 
+        /*********************************Reporte de etiquetas*******************************/ 
+        else {
             FacesContext context = FacesContext.getCurrentInstance();
             try {
                 Object response = context.getExternalContext().getResponse();
