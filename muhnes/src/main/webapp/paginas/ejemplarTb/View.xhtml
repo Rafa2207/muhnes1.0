@@ -22,7 +22,7 @@
                             <h:outputText value="#{bundle.ViewEjemplarTbLabel_MDescripcion}"/>
                             <h:outputText value="#{ejemplarTbController.selected.MDescripcion}" title="#{bundle.ViewEjemplarTbTitle_MDescripcion}"/>
                             <h:outputText value="#{ejemplarTbController.selected.EIdtaxonomia.CTipo}: "/>
-                            <h:outputText value="#{ejemplarTbController.selected.EIdtaxonomia.CNombre}" title="#{bundle.ViewEjemplarTbTitle_EIdfamilia}"/>
+                            <h:outputText value="#{ejemplarTbController.calcularTaxonomia(ejemplarTbController.selected.EIdtaxonomia, 1)}" title="#{bundle.ViewEjemplarTbTitle_EIdfamilia}"/>
                             <h:outputText value="#{bundle.ViewEjemplarTbLabel_CCalificativo}"/>
                             <h:outputText value="#{ejemplarTbController.selected.CCalificativo}" title="#{bundle.ViewEjemplarTbTitle_CCalificativo}"/>
                             <h:outputText value="Fecha de recolección: "/>

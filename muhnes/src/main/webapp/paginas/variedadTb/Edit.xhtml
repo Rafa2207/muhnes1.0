@@ -51,6 +51,7 @@
                                 <p:selectOneMenu id="conector" 
                                                  value="#{taxonomiaTbController.conector}" >
                                     <f:selectItem itemValue=" " itemLabel="Sin Conector"/>
+                                    <f:selectItem itemValue="," itemLabel=","/>
                                     <f:selectItem itemValue="emend." itemLabel="emend."/>
                                     <f:selectItem itemValue="et." itemLabel="et."/>
                                     <f:selectItem itemValue="ex." itemLabel="ex."/>
@@ -104,6 +105,7 @@
                                         <f:facet name="input">
                                             <p:selectOneMenu style="width: 75px" value="#{autores.CConector}" >
                                                 <f:selectItem itemValue=" " itemLabel="Sin Conector"/>
+                                                <f:selectItem itemValue="," itemLabel=","/>
                                                 <f:selectItem itemValue="emend." itemLabel="emend."/>
                                                 <f:selectItem itemValue="et." itemLabel="et."/>
                                                 <f:selectItem itemValue="ex." itemLabel="ex."/>
@@ -176,6 +178,7 @@
                         </p:tab>
                         <p:tab title="Imágenes">
                             <p:fileUpload  label="Seleccione imagen:" 
+                                           id="subImagen"
                                            fileUploadListener="#{taxonomiaTbController.handleFileUpload}" 
                                            style="width: 760px; height: 150px;"
                                            mode="advanced" 
@@ -187,7 +190,7 @@
                                            fileLimitMessage="El máximo de imágenes es 3"  
                                            invalidFileMessage="Se debe seleccionar una imagen"
                                            cancelLabel="Cancelar" uploadLabel="Subir"
-                                           update="imagenes :growl" />
+                                           update="imagenes, subImagen :growl" />
                             <p:dataTable id="imagenes"
                                          value="#{taxonomiaTbController.selected.imagenTbList}"
                                          var="img"

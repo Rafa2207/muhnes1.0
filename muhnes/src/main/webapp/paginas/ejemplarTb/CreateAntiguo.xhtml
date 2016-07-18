@@ -44,7 +44,7 @@
                                 <f:selectItem itemLabel="Seleccione..." itemValue=""/>
                                 <f:selectItems value="#{taxonomiaTbController.taxonomia(ejemplarTbController.tipoTaxon)}"
                                                var="taxon"
-                                               itemLabel="#{taxon.CNombre}"
+                                               itemLabel="#{ejemplarTbController.calcularTaxonomia(taxon, 1)}"
                                                itemValue="#{taxon}"/>
                                 <p:ajax event="change" listener="#{ejemplarTbController.llenarNombreComun()}" 
                                         process="fTaxon" update=":EjemplarTbCreateForm:detalleEjemplar:nombreC" /> 
