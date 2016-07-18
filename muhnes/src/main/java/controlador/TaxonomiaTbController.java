@@ -601,10 +601,10 @@ public class TaxonomiaTbController implements Serializable {
                 cadena2 = cadena2 + i.getAgenteTb().getCIniciales() + " ";
             }
         }
-        if (cadena2.equals("")) {
+        if(cadena2.equals("")){
             autores = cadena1;
-        } else {
-            autores = "(" + cadena1 + ") " + cadena2;
+        }else{
+        autores = "(" + cadena1 + ") " + cadena2;
         }
     }
 
@@ -665,9 +665,9 @@ public class TaxonomiaTbController implements Serializable {
             nombreComun = "";
             idioma = "";
         } else {
-            FacesMessage error = new FacesMessage("Error al agregar nombre común");
-            FacesContext.getCurrentInstance().addMessage(null, error);
         }
+        FacesMessage error = new FacesMessage("Error al agregar nombre común");
+        FacesContext.getCurrentInstance().addMessage(null, error);
     }
 
     public void handleFileUpload(FileUploadEvent event) {
@@ -676,57 +676,58 @@ public class TaxonomiaTbController implements Serializable {
         //String basePath = ctx.getRealPath("/");
         //String txtPath = basePath + "images";
         //nueva ruta para servidor
-        if (selected.getImagenTbList().size() >= 3) {
+        if(selected.getImagenTbList().size()>=3){
             FacesMessage error = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Lacantidad máxima de imágenes es 3", "ERROR");
             FacesContext.getCurrentInstance().addMessage(null, error);
+        }
+        else{
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        String picture_directory = ctx.getExternalContext().getInitParameter("pictures_directory_path");
+        //******************************************
+        UploadedFile file = event.getFile();
+        String ruta = "";// = File.separator + "images" + File.separator + file.getFileName();
+        //If directory exists ? do nothing : make directory
+        if (modificar == 1) {
+            ruta = picture_directory + selected.getEIdtaxonomia();
+            File storage_folder = new File(ruta);
+            if (!storage_folder.exists()) {
+                storage_folder.mkdir();
+            }
         } else {
-            FacesContext ctx = FacesContext.getCurrentInstance();
-            String picture_directory = ctx.getExternalContext().getInitParameter("pictures_directory_path");
-            //******************************************
-            UploadedFile file = event.getFile();
-            String ruta = "";// = File.separator + "images" + File.separator + file.getFileName();
-            //If directory exists ? do nothing : make directory
-            if (modificar == 1) {
-                ruta = picture_directory + selected.getEIdtaxonomia();
-                File storage_folder = new File(ruta);
-                if (!storage_folder.exists()) {
-                    storage_folder.mkdir();
-                }
-            } else {
-                ruta = picture_directory + getFacade().siguienteId();
-                File storage_folder = new File(ruta);
-                if (!storage_folder.exists()) {
-                    storage_folder.mkdir();
-                }
+            ruta = picture_directory + getFacade().siguienteId();
+            File storage_folder = new File(ruta);
+            if (!storage_folder.exists()) {
+                storage_folder.mkdir();
             }
-            String pathDefinition = ruta + File.separator + file.getFileName();
-            System.out.println("" + pathDefinition);
-            try {
-                FileInputStream in = (FileInputStream) file.getInputstream();
-                FileOutputStream out = new FileOutputStream(pathDefinition);
+        }
+        String pathDefinition = ruta + File.separator + file.getFileName();
+        System.out.println("" + pathDefinition);
+        try {
+            FileInputStream in = (FileInputStream) file.getInputstream();
+            FileOutputStream out = new FileOutputStream(pathDefinition);
 
-                byte[] buffer = new byte[(int) file.getSize()];
-                int contador = 0;
+            byte[] buffer = new byte[(int) file.getSize()];
+            int contador = 0;
 
-                while ((contador = in.read(buffer)) != -1) {
-                    out.write(buffer, 0, contador);
-                }
-                in.close();
-                out.close();
-
-            } catch (IOException ioe) {
-                ioe.printStackTrace();
-                FacesMessage error = new FacesMessage("No se puede subir la imagen");
-                FacesContext.getCurrentInstance().addMessage(null, error);
-
+            while ((contador = in.read(buffer)) != -1) {
+                out.write(buffer, 0, contador);
             }
-            ImagenTb nuevo = new ImagenTb();
-            nuevo.setCNombre(file.getFileName());
-            nuevo.setCRuta(pathDefinition);
-            nuevo.setEIdtaxonomia(selected);
-            selected.getImagenTbList().add(nuevo);
-            FacesMessage exito = new FacesMessage("imagen subida correctamente");
-            FacesContext.getCurrentInstance().addMessage(null, exito);
+            in.close();
+            out.close();
+
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            FacesMessage error = new FacesMessage("No se puede subir la imagen");
+            FacesContext.getCurrentInstance().addMessage(null, error);
+
+        }
+        ImagenTb nuevo = new ImagenTb();
+        nuevo.setCNombre(file.getFileName());
+        nuevo.setCRuta(pathDefinition);
+        nuevo.setEIdtaxonomia(selected);
+        selected.getImagenTbList().add(nuevo);
+        FacesMessage exito = new FacesMessage("imagen subida correctamente");
+        FacesContext.getCurrentInstance().addMessage(null, exito);
         }
     }
 
@@ -766,13 +767,15 @@ public class TaxonomiaTbController implements Serializable {
             }
         }
         //autores = "("+ cadena1 +") " + cadena2;
-        if (cadena2.equals("")) {
-            return cadena1;
-        } else if (cadena1.equals("")) {
-            return cadena2;
-        } else {
+        if(cadena2.equals("")){
+                return cadena1;
+            }
+            else if(cadena1.equals("")){
+                return cadena2;
+            }
+            else{
             return "(" + cadena1 + ") " + cadena2;
-        }
+            }
     }
 
     public List<AgenteTaxonomiaTb> ordenarSecuencia(TaxonomiaTb List) {
@@ -800,21 +803,19 @@ public class TaxonomiaTbController implements Serializable {
                     cadena2 = cadena2 + i.getAgenteTb().getCIniciales() + " ";
                 }
             }
-            if (cadena2.equals("")) {
+            if(cadena2.equals("")){
                 autores = cadena1;
-            } else if (cadena1.equals("")) {
+            }
+            else if(cadena1.equals("")){
                 autores = cadena2;
-            } else {
-                autores = "(" + cadena1 + ") " + cadena2;
+            }
+            else{
+            autores = "(" + cadena1 + ") " + cadena2;
             }
         } catch (Exception e) {
             return null;
         }
         return autores;
-    }
-
-    public void pasarMinusculas() {
-        selected.setCNombre(selected.getCNombre().toLowerCase());
     }
 
     //************************************************REPORTES****************************************************//
@@ -1026,7 +1027,7 @@ public class TaxonomiaTbController implements Serializable {
                     titulo2.setSpacingBefore(2);
                     document.add(titulo2);
                 } else if (tax.getCTipo().equals("Genero")) {
-                    Paragraph titulo2 = new Paragraph(new Phrase("Reporte de Especies \n Género: " + tax.getCNombre() + "", FontFactory.getFont(FontFactory.TIMES_BOLD, 13)));
+                    Paragraph titulo2 = new Paragraph(new Phrase("Reporte de Especies \n GÃ©nero: " + tax.getCNombre() + "", FontFactory.getFont(FontFactory.TIMES_BOLD, 13)));
                     titulo2.setAlignment(Element.ALIGN_CENTER);
                     titulo2.setSpacingAfter(5);
                     titulo2.setSpacingBefore(2);
@@ -1045,11 +1046,11 @@ public class TaxonomiaTbController implements Serializable {
                     document.add(titulo2);
                 }
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()), FontFactory.getFont(FontFactory.TIMES, 10));
+                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 fecha.setSpacingAfter(10);
                 document.add(fecha);
-
+                
                 String nick = JsfUtil.getRequest().getUserPrincipal().getName();
                 UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
 
@@ -1066,8 +1067,37 @@ public class TaxonomiaTbController implements Serializable {
                     columnas = 4;
                     int headerwidths[] = {10, 30, 30, 30};
                 }
+                PdfPTable proyectos = new PdfPTable(columnas);
+                proyectos.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+
+                try {
+                    if (tax.getCTipo().equals("Familia")) {
+                        int headerwidths[] = {10, 40};
+                        proyectos.setWidths(headerwidths);
+                    } else {
+                        int headerwidths[] = {15, 30, 20, 35};
+                        proyectos.setWidths(headerwidths);
+                    }
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                if (tax.getCTipo().equals("Familia")) {
+                    proyectos.setWidthPercentage(60);
+                } else {
+                    proyectos.setWidthPercentage(90);
+                }
+                proyectos.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                proyectos.addCell(new Phrase("Correlativo", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                proyectos.addCell(new Phrase("Nombre", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                if (!tax.getCTipo().equals("Familia")) {
+                    proyectos.addCell(new Phrase("Estado", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                }
+                if (!tax.getCTipo().equals("Familia")) {
+                    proyectos.addCell(new Phrase("Autores", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                }
 
                 List<TaxonomiaTb> taxonomiaListaReporte = new ArrayList<TaxonomiaTb>();
+
                 if (tax.getCTipo().equals("Familia")) {
                     taxonomiaListaReporte = getFacade().buscarGeneroAsc(tax.getEIdtaxonomia());
 
@@ -1082,68 +1112,30 @@ public class TaxonomiaTbController implements Serializable {
 
                 }
 
-                if (!taxonomiaListaReporte.isEmpty()) {
-                    PdfPTable proyectos = new PdfPTable(columnas);
-                    proyectos.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                int i = 0;
+                for (TaxonomiaTb taxon : taxonomiaListaReporte) {
+                    i++;
+                    PdfPCell c1 = new PdfPCell(new Phrase("" + i + "", FontFactory.getFont(FontFactory.TIMES, 12)));
+                    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    proyectos.addCell(c1);
 
-                    try {
-                        if (tax.getCTipo().equals("Familia")) {
-                            int headerwidths[] = {10, 40};
-                            proyectos.setWidths(headerwidths);
-                        } else {
-                            int headerwidths[] = {15, 30, 20, 35};
-                            proyectos.setWidths(headerwidths);
-                        }
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                    }
-                    if (tax.getCTipo().equals("Familia")) {
-                        proyectos.setWidthPercentage(60);
-                    } else {
-                        proyectos.setWidthPercentage(90);
-                    }
-                    proyectos.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-                    proyectos.addCell(new Phrase("Correlativo", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-                    proyectos.addCell(new Phrase("Nombre", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                    PdfPCell c2 = new PdfPCell(new Phrase(taxon.getCNombre(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    c2.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    proyectos.addCell(c2);
+
                     if (!tax.getCTipo().equals("Familia")) {
-                        proyectos.addCell(new Phrase("Estado", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                        PdfPCell c3 = new PdfPCell(new Phrase(taxon.getCEstado(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                        c3.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        proyectos.addCell(c3);
                     }
+
                     if (!tax.getCTipo().equals("Familia")) {
-                        proyectos.addCell(new Phrase("Autores", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                        PdfPCell c4 = new PdfPCell(new Phrase(autoresBList(taxon), FontFactory.getFont(FontFactory.TIMES, 12)));
+                        c4.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        proyectos.addCell(c4);
                     }
-
-                    int i = 0;
-                    for (TaxonomiaTb taxon : taxonomiaListaReporte) {
-                        i++;
-                        PdfPCell c1 = new PdfPCell(new Phrase("" + i + "", FontFactory.getFont(FontFactory.TIMES, 12)));
-                        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-                        proyectos.addCell(c1);
-
-                        PdfPCell c2 = new PdfPCell(new Phrase(taxon.getCNombre(), FontFactory.getFont(FontFactory.TIMES, 12)));
-                        c2.setHorizontalAlignment(Element.ALIGN_CENTER);
-                        proyectos.addCell(c2);
-
-                        if (!tax.getCTipo().equals("Familia")) {
-                            PdfPCell c3 = new PdfPCell(new Phrase(taxon.getCEstado(), FontFactory.getFont(FontFactory.TIMES, 12)));
-                            c3.setHorizontalAlignment(Element.ALIGN_CENTER);
-                            proyectos.addCell(c3);
-                        }
-
-                        if (!tax.getCTipo().equals("Familia")) {
-                            PdfPCell c4 = new PdfPCell(new Phrase(autoresBList(taxon), FontFactory.getFont(FontFactory.TIMES, 12)));
-                            c4.setHorizontalAlignment(Element.ALIGN_CENTER);
-                            proyectos.addCell(c4);
-                        }
-                    }
-                    document.add(proyectos);
-                } else {
-                    Paragraph noInfo = new Paragraph("No se encontro información taxonómica", FontFactory.getFont(FontFactory.TIMES, 12));
-                    noInfo.setAlignment(Element.ALIGN_CENTER);
-                    noInfo.setSpacingAfter(5);
-                    noInfo.setSpacingBefore(5);
-                    document.add(noInfo);
                 }
-
+                document.add(proyectos);
                 document.close();
                 //Termina reporte
 
@@ -1234,34 +1226,26 @@ public class TaxonomiaTbController implements Serializable {
                 fecha.setSpacingAfter(15);
                 document.add(fecha);
 
-                String nick = JsfUtil.getRequest().getUserPrincipal().getName();
-                UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
-
-                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() + " " + usuario.getCApellido(),
-                        FontFactory.getFont(FontFactory.TIMES, 10));
-                usuarioSis.setAlignment(Element.ALIGN_CENTER);
-                usuarioSis.setSpacingAfter(10);
-                document.add(usuarioSis);
-
                 int columnas[] = {30, 70};
                 //tabla para espacio entre las imagenes
-                /*PdfPTable tablaEspacio = new PdfPTable(1);
-                 PdfPCell celda = new PdfPCell();
-                 celda.addElement(new Paragraph(" ", FontFactory.getFont(FontFactory.TIMES_BOLD, 20)));
-                 celda.setBorder(Rectangle.NO_BORDER);
-                 tablaEspacio.addCell(celda);
-                 document.add(tablaEspacio);*/
+                PdfPTable tablaEspacio = new PdfPTable(1);
+                PdfPCell celda = new PdfPCell();
+                celda.addElement(new Paragraph(" ", FontFactory.getFont(FontFactory.TIMES_BOLD, 20)));
+                celda.setBorder(Rectangle.NO_BORDER);
+                tablaEspacio.addCell(celda);
+                document.add(tablaEspacio);
 
-                /*PdfPTable TablaNombre = new PdfPTable(2);
-                 TablaNombre.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
-                 TablaNombre.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-                 TablaNombre.setWidths(columnas);
-                 TablaNombre.setWidthPercentage(100);
-                 TablaNombre.setSpacingAfter(5);
-                 TablaNombre.setSpacingBefore(5);
-                 TablaNombre.addCell(new Phrase("Nombre: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-                 TablaNombre.addCell(new Phrase(new Phrase(selected.getCNombre(), FontFactory.getFont(FontFactory.TIMES, 12))));
-                 document.add(TablaNombre);*/
+                PdfPTable TablaNombre = new PdfPTable(2);
+                TablaNombre.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+                TablaNombre.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                TablaNombre.setWidths(columnas);
+                TablaNombre.setWidthPercentage(100);
+                TablaNombre.setSpacingAfter(5);
+                TablaNombre.setSpacingBefore(5);
+                TablaNombre.addCell(new Phrase("Nombre: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                TablaNombre.addCell(new Phrase(new Phrase(selected.getCNombre(), FontFactory.getFont(FontFactory.TIMES, 12))));
+                document.add(TablaNombre);
+
                 PdfPTable TablaDescripcion = new PdfPTable(2);
                 TablaDescripcion.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
                 TablaDescripcion.getDefaultCell().setBorder(Rectangle.NO_BORDER);
@@ -1270,31 +1254,32 @@ public class TaxonomiaTbController implements Serializable {
                 TablaDescripcion.setSpacingAfter(5);
                 TablaDescripcion.setSpacingBefore(5);
                 TablaDescripcion.addCell(new Phrase("Información taxonómica: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-                TablaDescripcion.addCell(new Phrase(new Phrase(ejemplarControl.calcularTaxonomia(selected) + " (" + autoresBList(selected) + ")", FontFactory.getFont(FontFactory.TIMES, 12))));
+                TablaDescripcion.addCell(new Phrase(new Phrase(ejemplarControl.calcularTaxonomia(selected), FontFactory.getFont(FontFactory.TIMES, 12))));
                 document.add(TablaDescripcion);
 
-                /*PdfPTable TablaFecha = new PdfPTable(2);
-                 TablaFecha.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
-                 TablaFecha.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-                 TablaFecha.setWidths(columnas);
-                 TablaFecha.setWidthPercentage(100);
-                 TablaFecha.setSpacingAfter(5);
-                 TablaFecha.setSpacingBefore(5);
-                 TablaFecha.addCell(new Phrase("Estado: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-                 TablaFecha.addCell(new Phrase(new Phrase(selected.getCEstado(), FontFactory.getFont(FontFactory.TIMES, 12))));
-                 document.add(TablaFecha);*/
+                PdfPTable TablaFecha = new PdfPTable(2);
+                TablaFecha.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
+                TablaFecha.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                TablaFecha.setWidths(columnas);
+                TablaFecha.setWidthPercentage(100);
+                TablaFecha.setSpacingAfter(5);
+                TablaFecha.setSpacingBefore(5);
+                TablaFecha.addCell(new Phrase("Estado: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                TablaFecha.addCell(new Phrase(new Phrase(selected.getCEstado(), FontFactory.getFont(FontFactory.TIMES, 12))));
+                document.add(TablaFecha);
 
-                /*PdfPTable TablaAutores = new PdfPTable(2);
-                 TablaAutores.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
-                 TablaAutores.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-                 TablaAutores.setWidths(columnas);
-                 TablaAutores.setWidthPercentage(100);
-                 TablaAutores.setSpacingAfter(5);
-                 TablaAutores.setSpacingBefore(5);
-                 TablaAutores.addCell(new Phrase("Autores: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-                 TablaAutores.addCell(new Phrase(new Phrase(autoresBList(selected), FontFactory.getFont(FontFactory.TIMES, 12))));
-                 document.add(TablaAutores);*/
+                PdfPTable TablaAutores = new PdfPTable(2);
+                TablaAutores.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
+                TablaAutores.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                TablaAutores.setWidths(columnas);
+                TablaAutores.setWidthPercentage(100);
+                TablaAutores.setSpacingAfter(5);
+                TablaAutores.setSpacingBefore(5);
+                TablaAutores.addCell(new Phrase("Autores: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                TablaAutores.addCell(new Phrase(new Phrase(autoresBList(selected), FontFactory.getFont(FontFactory.TIMES, 12))));
+                document.add(TablaAutores);
                 String nombres = "", coma = "";
+
                 if (!selected.getNombrecomunTbList().isEmpty()) {
                     for (NombrecomunTb i : selected.getNombrecomunTbList()) {
                         nombres = nombres + coma + i.getCNombre();
@@ -1316,12 +1301,13 @@ public class TaxonomiaTbController implements Serializable {
                 document.add(TablaNombres);
 
                 //tabla para espacio entre las imagenes
-                /*PdfPTable tablaEspacio1 = new PdfPTable(1);
-                 PdfPCell celdaa = new PdfPCell();
-                 celdaa.addElement(new Paragraph(" ", FontFactory.getFont(FontFactory.TIMES_BOLD, 10)));
-                 celdaa.setBorder(Rectangle.NO_BORDER);
-                 tablaEspacio1.addCell(celdaa);
-                 document.add(tablaEspacio1);*/
+                PdfPTable tablaEspacio1 = new PdfPTable(1);
+                PdfPCell celdaa = new PdfPCell();
+                celdaa.addElement(new Paragraph(" ", FontFactory.getFont(FontFactory.TIMES_BOLD, 10)));
+                celdaa.setBorder(Rectangle.NO_BORDER);
+                tablaEspacio1.addCell(celdaa);
+                document.add(tablaEspacio1);
+
                 Paragraph tituloAutores = new Paragraph("AUTORES", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                 tituloAutores.setAlignment(Element.ALIGN_CENTER);
                 tituloAutores.setSpacingAfter(5);
@@ -1367,9 +1353,13 @@ public class TaxonomiaTbController implements Serializable {
                     tituloNoActividades.setSpacingBefore(5);
                     document.add(tituloNoActividades);
                 }
-
+                //agregando las imagenes.
+                Paragraph tituloImagenes = new Paragraph("IMÁGENES", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                tituloImagenes.setAlignment(Element.ALIGN_CENTER);
+                tituloImagenes.setSpacingAfter(5);
+                tituloImagenes.setSpacingBefore(5);
+                document.add(tituloImagenes);
                 //Mostrar imagenes
-                document.add(new Paragraph(" ", FontFactory.getFont(FontFactory.TIMES, 10)));
                 FacesContext ctx = FacesContext.getCurrentInstance();
                 String ruta = ctx.getExternalContext().getInitParameter("pictures_directory_path");
                 String carpeta = selected.getEIdtaxonomia() + "/";

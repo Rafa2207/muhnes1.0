@@ -19,14 +19,13 @@
                             <p:outputLabel value="#{bundleDespacho.EditDespachoTbLabel_FFecha}" for="FFecha" />
                             <p:calendar id="FFecha" pattern="dd MMMM yyyy" value="#{despachoTbController.selected.FFecha}" title="#{bundleDespacho.EditDespachoTbTitle_FFecha}"  showOn="button" locale="es" required="true" requiredMessage="Introduzca una fecha" mindate="0"/>
                             <p:outputLabel value="#{bundleDespacho.EditDespachoTbLabel_EIdproyecto}" for="EIdproyecto" />
-                            <p:selectOneMenu id="EIdproyecto"
+                            <p:selectOneMenu id="EIdproyecto" 
                                              filterMatchMode="contains"
                                              filter="true"
-                                             style="width: 300px"
                                              value="#{despachoTbController.selected.EIdproyecto}" 
-                                             required="true" requiredMessage="Seleccione un proyecto">
-                                <f:selectItem itemLabel="Seleccione" itemValue="" />
-                                <f:selectItems value="#{despachoTbController.proyectosDisponibles()}"
+                                             style="width: 300px">
+                                <f:selectItem itemLabel="Seleccione..."/>
+                                <f:selectItems value="#{proyectoTbController.itemsAvailableSelectOne}"
                                                var="EIdproyectoItem"
                                                itemValue="#{EIdproyectoItem}"
                                                itemLabel="#{EIdproyectoItem.MNombre}"/>

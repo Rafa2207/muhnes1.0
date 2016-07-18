@@ -16,12 +16,7 @@
                             <p:outputLabel value="Género: " for="genero" />
                             <p:outputLabel style="font-weight: bold" id="genero" value="#{controladorSesion.genero.CNombre}" title="#{bundle.CreateEspecieTbTitle_CNombre}"/>
                             <p:outputLabel value="#{bundle.CreateEspecieTbLabel_CNombre}" for="CNombre" />
-                            <p:inputText id="CNombre" value="#{taxonomiaTbController.selected.CNombre}" 
-                                         title="#{bundle.CreateEspecieTbTitle_CNombre}" 
-                                         required="true" requiredMessage="Introduzca un nombre">
-                                <p:ajax event="change" listener="#{taxonomiaTbController.pasarMinusculas()}"
-                                    update="CNombre"/>
-                            </p:inputText>
+                            <p:inputText id="CNombre" value="#{taxonomiaTbController.selected.CNombre}" title="#{bundle.CreateEspecieTbTitle_CNombre}" required="true" requiredMessage="Introduzca un nombre" />
                             <p:outputLabel value="Estado taxonómico: " for="CEstado" />
                             <p:selectOneMenu id="CEstado" value="#{taxonomiaTbController.selected.CEstado}" required="true" requiredMessage="Seleccione un estado taxonomico">
                                 <f:selectItem itemValue="" itemLabel="Seleccione..."/>
@@ -39,8 +34,7 @@
                                 <p:outputLabel value="Nombre: " for="agenteAutor" />
                                 <p:selectOneMenu id="agenteAutor" 
                                                  value="#{taxonomiaTbController.agente}" 
-                                                 filter="true"
-                                                 filterMatchMode="contains">
+                                                 filter="true">
                                     <f:selectItem itemValue="" itemLabel="Seleccione..."/>
                                     <f:selectItems value="#{taxonomiaTbController.listaAutores}"
                                                    var="autor"
@@ -50,7 +44,7 @@
                                 <p:outputLabel value="conector: " for="conector"/>
                                 <p:selectOneMenu id="conector" 
                                                  value="#{taxonomiaTbController.conector}" >
-                                    <f:selectItem itemValue=" " itemLabel="Sin Conector"/>
+                                    <f:selectItem itemValue="" itemLabel="Sin Conector"/>
                                     <f:selectItem itemValue="," itemLabel=","/>
                                     <f:selectItem itemValue="emend." itemLabel="emend."/>
                                     <f:selectItem itemValue="et." itemLabel="et."/>
@@ -104,7 +98,7 @@
                                         </f:facet>
                                         <f:facet name="input">
                                             <p:selectOneMenu style="width: 75px" value="#{autores.CConector}" >
-                                                <f:selectItem itemValue=" " itemLabel="Sin Conector"/>
+                                                <f:selectItem itemValue="" itemLabel="Sin Conector"/>
                                                 <f:selectItem itemValue="," itemLabel=","/>
                                                 <f:selectItem itemValue="emend." itemLabel="emend."/>
                                                 <f:selectItem itemValue="et." itemLabel="et."/>
@@ -161,8 +155,7 @@
                                 <p:column headerText="Nombre Común">
                                     <h:outputText value="#{nombreComun.CNombre}"/>
                                 </p:column>
-                                <p:column headerText=0
-                                          "Idioma">
+                                <p:column headerText="Idioma">
                                     <h:outputText value="#{nombreComun.CIdioma}"/>
                                 </p:column>
                                 <p:column headerText="Acciones">
