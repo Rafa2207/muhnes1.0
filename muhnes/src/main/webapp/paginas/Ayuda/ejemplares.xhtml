@@ -93,7 +93,39 @@
                         </h:panelGrid>
 
                     </p:tab>
-                    <p:tab title="3. Visualizar" >
+                    <p:tab title="3. Nuevo ejemplar antiguo" >
+                        <div align="center">        
+                            <h:graphicImage library="images" name="ayuda/ejemplares/nuevoa.PNG" width="600px"/>
+                        </div>
+                        <h:panelGrid columns="2" cellpadding="2" style="text-align: justify;" >     
+
+                            <p:outputPanel style="width: 430px">
+                                <p><b>Responsable: </b><br/>Seleccione del listado al responsable del nuevo ejemplar.</p>
+                                <p><b>Información Taxonómica: </b><br/>En el primer campo, seleccione ya sea Familia, Género, Especie, Subespecie o Variedad. En el segundo campo, seleccione del listado el nombre de lo que anteriormente selecciono en el primer campo.</p>
+                                <p><b>Fecha de Recolección: </b><br/>Seleccione la fecha que se realizo la recolección, posteriormente se presentará un pequeño calendario al momento de hacer clic en el campo.</p>
+                                <p><b>Descripción: </b><br/>Digite una breve descripción del nuevo ejemplar.</p>
+                                <p><b>Proyecto: </b><br/>Seleccione el proyecto al que pertenece el nuevo ejemplar.</p>
+                                <p><b>Código de entrada: </b><br/>Digite el código de entrada del nuevo ejemplar antiguo.</p>
+                                <p><b>Institución: </b><br/>Seleccione la institución con la que ira directamente relacionada la donación.</p>
+                                <p><b>Correlativo: </b><br/>Ingrese el numero correlativo.</p>
+                                <p><b>Calificativo: </b><br/>Ingrese el calificativo del nuevo ejemplar.<br/><br/><br/></p>
+                            </p:outputPanel>
+                            <p:outputPanel style="width: 430px">
+                                <p><b>Fecha de Identificación: </b><br/>Seleccione la fecha que se realizó la identificación, posteriormente se presentará un pequeño calendario al momento de hacer clic en el campo.</p>
+                                <p><b>Cantidad: </b><br/>Ingrese la cantidad de duplicados.</p>
+                                <p><b>Localidad: </b><br/>Seleccione del listado, la localidad en donde se recolecto o identifico el ejemplar.</p>
+                                <p><b>Recolectores: </b><br/>Seleccione los agentes que participaron en la recolección del ejemplar.</p>
+                                <p><b>Identificadores: </b><br/>Seleccione los agentes que participaron en la identificación del ejemplar.</p>
+                                <p><b>Nombre común: </b><br/>Seleccione el o los nombres comunes que desea agregar al ejemplar.</p>
+                                <p><b>Donaciones: </b><br/>Seleccione el o las instituciones que se realizarán donaciones.</p>
+                                <p><b>Guardar: </b><br/>Almacena a la base de datos la información ingresada en el formulario.</p>
+                                <p><b>(X)Cerrar: </b><br/>Cierra el formulario sin almacenar los datos ingresados.</p>
+                                <p><b>(*) Campo requerido: </b><br/>Al aparecer este símbolo en alguna etiqueta quiere dar a entender que el campo es requerido u obligatorio. En otras palabras si no es ingresado el dato solicitado en el campo, no se podrá almacenar en la base de datos del sistema.</p>
+                            </p:outputPanel>
+                        </h:panelGrid>
+
+                    </p:tab>
+                    <p:tab title="4. Visualizar" >
                         <div align="center">       
                             <h:graphicImage library="images" name="ayuda/ejemplares/visualizar.PNG" width="600px"/>
                         </div>
@@ -107,7 +139,7 @@
                         </h:panelGrid>
                     </p:tab>
                     <c:if test="#{request.isUserInRole('Administrador')}">
-                        <p:tab title="4. Modificar" >
+                        <p:tab title="5. Modificar" >
                             <div align="center">   
                                 <h:graphicImage library="images" name="ayuda/ejemplares/modificar.PNG" width="600px"/>
                             </div>
