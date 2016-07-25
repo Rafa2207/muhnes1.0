@@ -25,9 +25,7 @@
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{agenteTbController.prepareCreate}" update=":AgenteTbCreateForm" oncomplete="PF('AgenteTbCreateDialog').show()"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":AgenteTbViewForm" oncomplete="PF('AgenteTbViewDialog').show()" disabled="#{empty agenteTbController.selected}" rendered="#{request.isUserInRole('Administrador')}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" actionListener="#{agenteTbController.prepareEdit()}" update=":AgenteTbEditForm" oncomplete="PF('AgenteTbEditDialog').show()" disabled="#{empty agenteTbController.selected}" rendered="#{request.isUserInRole('Administrador')}"/>
-                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{agenteTbController.destroy}" update=":growl,datalist" disabled="#{empty agenteTbController.selected}">
-                        <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
-                    </p:commandButton>
+                    
 
 
                     <div  style="float: right">
@@ -58,17 +56,17 @@
                                  emptyMessage="No se encontro agente"
                                  >
 
-                        <p:ajax event="rowSelect"   update=":AgenteTbListForm:createButton :AgenteTbListForm:viewButton :AgenteTbListForm:editButton :AgenteTbListForm:deleteButton"/>
-                        <p:ajax event="rowUnselect" update=":AgenteTbListForm:createButton :AgenteTbListForm:viewButton :AgenteTbListForm:editButton :AgenteTbListForm:deleteButton"/>
+                        <p:ajax event="rowSelect"   update=":AgenteTbListForm:createButton :AgenteTbListForm:viewButton :AgenteTbListForm:editButton "/>
+                        <p:ajax event="rowUnselect" update=":AgenteTbListForm:createButton :AgenteTbListForm:viewButton :AgenteTbListForm:editButton "/>
 
-                        <p:column filterBy="#{item.CNombre}" filterStyle="display:none" width="15%" style="text-align: center" >
+                        <p:column filterBy="#{item.CNombre}" filterStyle="display:none" width="15%" >
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAgenteTbTitle_CNombre}"/>
                             </f:facet>
                             <h:outputText value="#{item.CNombre}"/>
                         </p:column>
 
-                        <p:column filterBy="#{item.CApellido}" filterStyle="display:none" width="15%" style="text-align: center">
+                        <p:column filterBy="#{item.CApellido}" filterStyle="display:none" width="15%" >
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAgenteTbTitle_CApellido}"/>
                             </f:facet>
@@ -76,7 +74,7 @@
                         </p:column>
 
 
-                        <p:column filterBy="#{item.CIniciales}" filterStyle="display:none" width="15%" style="text-align: center">
+                        <p:column filterBy="#{item.CIniciales}" filterStyle="display:none" width="15%" >
                             <f:facet name="header">
                                 <h:outputText value="Nombre Corto"/>
                             </f:facet>

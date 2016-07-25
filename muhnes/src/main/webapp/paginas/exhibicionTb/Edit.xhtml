@@ -93,11 +93,11 @@
                             <f:selectItem itemLabel="Variedad" itemValue="Variedad"/>
                             <p:ajax event="change" update="fTaxon" process="Taxon"/>
                         </p:selectOneMenu>
-                        <p:selectOneMenu id="fTaxon" style="width: 130px" value="#{exhibicionTbController.taxonomia}" filter="true" >
+                        <p:selectOneMenu id="fTaxon" style="width: 130px" value="#{exhibicionTbController.taxonomia}" filter="true" filterMatchMode="contains" >
                             <f:selectItem itemLabel="Seleccione..." itemValue=""/>
                             <f:selectItems value="#{taxonomiaTbController.taxonomia(exhibicionTbController.tipoTaxon)}"
                                            var="taxon"
-                                           itemLabel="#{taxon.CNombre}"
+                                           itemLabel="#{ejemplarTbController.calcularTaxonomia(taxon, 1)}"
                                            itemValue="#{taxon}"/>
                             <p:ajax event="change" update="ejemplar" process="fTaxon" listener="#{exhibicionTbController.llenarEjemplares(exhibicionTbController.taxonomia)}"/>
                         </p:selectOneMenu>

@@ -25,9 +25,7 @@
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{prorrogaProyectoTbController.prepareCreate(prorrogaProyectoTbController.items,controladorSesion.proyecto)}" update=":ProrrogaProyectoTbCreateForm" oncomplete="PF('ProrrogaProyectoTbCreateDialog').show()" rendered="#{controladorSesion.proyecto.EEstado==1}"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ProrrogaProyectoTbViewForm" oncomplete="PF('ProrrogaProyectoTbViewDialog').show()" disabled="#{empty prorrogaProyectoTbController.selected}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" actionListener="#{prorrogaProyectoTbController.prepareEdit(prorrogaProyectoTbController.items,controladorSesion.proyecto , prorrogaProyectoTbController.selected.ENumprorroga)}" update=":ProrrogaProyectoTbEditForm" oncomplete="PF('ProrrogaProyectoTbEditDialog').show()" disabled="#{empty prorrogaProyectoTbController.selected}"/>
-                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{prorrogaProyectoTbController.eliminarProrroga(prorrogaProyectoTbController.items, controladorSesion.proyecto, prorrogaProyectoTbController.selected.ENumprorroga, prorrogaProyectoTbController.selected.FFechaInicio)}" update=":growl,datalist" disabled="#{empty prorrogaProyectoTbController.selected}">
-                        <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert"/>
-                    </p:commandButton>
+                    
 
                     <div  style="float: right">
                         <p:commandLink title="Reporte de Prórrogas" ajax="false" target="_blank"
@@ -53,8 +51,8 @@
                                  emptyMessage="No se encontraron prórrogas para este proyecto."
                                  >
 
-                        <p:ajax event="rowSelect"   update=":ProrrogaProyectoTbListForm:createButton :ProrrogaProyectoTbListForm:viewButton :ProrrogaProyectoTbListForm:editButton :ProrrogaProyectoTbListForm:deleteButton"/>
-                        <p:ajax event="rowUnselect" update=":ProrrogaProyectoTbListForm:createButton :ProrrogaProyectoTbListForm:viewButton :ProrrogaProyectoTbListForm:editButton :ProrrogaProyectoTbListForm:deleteButton"/>
+                        <p:ajax event="rowSelect"   update=":ProrrogaProyectoTbListForm:createButton :ProrrogaProyectoTbListForm:viewButton :ProrrogaProyectoTbListForm:editButton "/>
+                        <p:ajax event="rowUnselect" update=":ProrrogaProyectoTbListForm:createButton :ProrrogaProyectoTbListForm:viewButton :ProrrogaProyectoTbListForm:editButton "/>
 
                         <p:column filterBy="#{item.ENumprorroga}" filterStyle="display:none" width="8%" style="text-align: center">
                             <f:facet name="header">

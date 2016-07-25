@@ -26,8 +26,7 @@
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundleNotas.Create}" actionListener="#{notapreliminarTbController.prepareCreate(request.userPrincipal.name,controladorSesion.proyecto)}" update=":NotapreliminarTbCreateForm" oncomplete="PF('NotapreliminarTbCreateDialog').show()"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundleNotas.View}" update=":NotapreliminarTbViewForm" oncomplete="PF('NotapreliminarTbViewDialog').show()" disabled="#{empty notapreliminarTbController.selected}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundleNotas.Edit}" update=":NotapreliminarTbEditForm" oncomplete="PF('NotapreliminarTbEditDialog').show()" disabled="#{empty notapreliminarTbController.selected}"/>
-                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundleNotas.Delete}" actionListener="#{notapreliminarTbController.destroy}" update=":growl,datalist" disabled="#{empty notapreliminarTbController.selected}"/>
-
+                    
                     <div  style="float: right">
 
                         <p:commandLink title="Reporte de Notas" ajax="false" target="_blank"
@@ -53,8 +52,8 @@
                                  widgetVar="notasTable"
                                  >
 
-                        <p:ajax event="rowSelect"   update=":NotapreliminarTbListForm:createButton :NotapreliminarTbListForm:viewButton :NotapreliminarTbListForm:editButton :NotapreliminarTbListForm:deleteButton"/>
-                        <p:ajax event="rowUnselect" update=":NotapreliminarTbListForm:createButton :NotapreliminarTbListForm:viewButton :NotapreliminarTbListForm:editButton :NotapreliminarTbListForm:deleteButton"/>
+                        <p:ajax event="rowSelect"   update=":NotapreliminarTbListForm:createButton :NotapreliminarTbListForm:viewButton :NotapreliminarTbListForm:editButton"/>
+                        <p:ajax event="rowUnselect" update=":NotapreliminarTbListForm:createButton :NotapreliminarTbListForm:viewButton :NotapreliminarTbListForm:editButton"/>
 
                         <p:column filterBy="#{item.CNombre}" filterStyle="display:none" width="25%">
                             <f:facet name="header">

@@ -16,14 +16,16 @@
                             <p:outputLabel value="#{bundle.CreateDonacionTbLabel_MDescripcion}" for="MDescripcion" />
                             <p:inputTextarea id="MDescripcion" value="#{donacionTbController.selected.MDescripcion}" title="#{bundle.CreateDonacionTbTitle_MDescripcion}" 
                                              required="true" requiredMessage="Introduzca descripción"/>
+                            
                             <p:outputLabel value="#{bundle.CreateDonacionTbLabel_FFecha}" for="FFecha" />
                             <p:calendar id="FFecha" readonlyInput="true" pattern="dd MMMM yyyy" 
                                         value="#{donacionTbController.selected.FFecha}" locale="es" 
                                         title="#{bundle.EditDonacionTbTitle_FFecha}"  showOn="button"
                                         required="true" requiredMessage="Seleccione una fecha"/>
+                            
                             <p:outputLabel value="#{bundle.CreateDonacionTbLabel_EIdinstitucion}" for="EIdinstitucion" />
                             <p:selectOneMenu id="EIdinstitucion" value="#{donacionTbController.selected.EIdinstitucion}" 
-                                             required="true" requiredMessage="Seleccione una institución" >
+                                             required="true" requiredMessage="Seleccione una institución" filter="true" filterMatchMode="contains" >
                                 <f:selectItem itemLabel="Seleccione..." itemValue=""/>
                                 <f:selectItems value="#{institucionTbController.itemsAvailableSelectOne}"
                                                var="EIdinstitucionItem"

@@ -28,10 +28,7 @@
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{actividadTbController.prepareCreate(controladorSesion.proyecto)}" update=":ActividadTbCreateForm" oncomplete="PF('ActividadTbCreateDialog').show()" rendered="#{controladorSesion.proyecto.EEstado==0}"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ActividadTbViewForm" oncomplete="PF('ActividadTbViewDialog').show()" disabled="#{empty actividadTbController.selected }"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" actionListener="#{actividadTbController.prepareEdit()}" update=":ActividadTbEditForm :ActividadTbCreateForm" oncomplete="PF('ActividadTbEditDialog').show()" disabled="#{empty actividadTbController.selected || actividadTbController.selected.EEstado==0 || actividadTbController.selected.EEstado==3}"/>
-                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{actividadTbController.destroy}" update=":growl,datalist" disabled="#{empty actividadTbController.selected }">
-                        <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
-                    </p:commandButton>
-                    
+                                       
                     <div  style="float: right">
 
                         <p:commandLink title="Reporte de proyectos" ajax="false" target="_blank"
@@ -59,8 +56,8 @@
                                  widgetVar="actividadTable"
                                  >
 
-                        <p:ajax event="rowSelect"   update=":ActividadTbListForm:createButton :ActividadTbListForm:viewButton :ActividadTbListForm:editButton :ActividadTbListForm:deleteButton"/>
-                        <p:ajax event="rowUnselect" update=":ActividadTbListForm:createButton :ActividadTbListForm:viewButton :ActividadTbListForm:editButton :ActividadTbListForm:deleteButton"/>
+                        <p:ajax event="rowSelect"   update=":ActividadTbListForm:createButton :ActividadTbListForm:viewButton :ActividadTbListForm:editButton"/>
+                        <p:ajax event="rowUnselect" update=":ActividadTbListForm:createButton :ActividadTbListForm:viewButton :ActividadTbListForm:editButton"/>
 
                         <p:column filterBy="#{item.MNombre}" filterStyle="display:none">
                             <f:facet name="header">

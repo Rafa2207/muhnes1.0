@@ -23,8 +23,7 @@
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="Nuevo" actionListener="#{unidadesTbController.prepareCreate}" update=":UnidadesTbCreateForm" oncomplete="PF('UnidadesTbCreateDialog').show()"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="Visualizar" update=":UnidadesTbViewForm" oncomplete="PF('UnidadesTbViewDialog').show()" disabled="#{empty unidadesTbController.selected}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Modificar" update=":UnidadesTbEditForm" oncomplete="PF('UnidadesTbEditDialog').show()" disabled="#{empty unidadesTbController.selected}"/>
-                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="Eliminar" actionListener="#{unidadesTbController.destroy}" update=":growl,datalist" disabled="#{empty unidadesTbController.selected}"/>
-
+                    
                     <div style="float: right"> 
                        <p:commandLink title="Ayuda" update=":AyudaForm" oncomplete="PF('AyudaDialog').show()" >
                             <p:graphicImage name="images/ayuda.png" height="35px" />
@@ -43,8 +42,8 @@
                                  widgetVar="unidadesTable"
                                  >
 
-                        <p:ajax event="rowSelect"   update=":UnidadesTbListForm:createButton :UnidadesTbListForm:viewButton :UnidadesTbListForm:editButton :UnidadesTbListForm:deleteButton"/>
-                        <p:ajax event="rowUnselect" update=":UnidadesTbListForm:createButton :UnidadesTbListForm:viewButton :UnidadesTbListForm:editButton :UnidadesTbListForm:deleteButton"/>
+                        <p:ajax event="rowSelect"   update=":UnidadesTbListForm:createButton :UnidadesTbListForm:viewButton :UnidadesTbListForm:editButton "/>
+                        <p:ajax event="rowUnselect" update=":UnidadesTbListForm:createButton :UnidadesTbListForm:viewButton :UnidadesTbListForm:editButton "/>
 
                         <p:column filterBy="#{item.CNombre}" filterStyle="display:none">
                             <f:facet name="header">

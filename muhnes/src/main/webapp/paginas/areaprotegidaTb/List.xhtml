@@ -27,9 +27,7 @@
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":AreaprotegidaTbViewForm" oncomplete="PF('AreaprotegidaTbViewDialog').show()" disabled="#{empty areaprotegidaTbController.selected}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":AreaprotegidaTbEditForm" oncomplete="PF('AreaprotegidaTbEditDialog').show()" disabled="#{empty areaprotegidaTbController.selected}"
                                      rendered="#{request.isUserInRole('Administrador')}"/>
-                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{areaprotegidaTbController.destroy}" update=":growl,datalist" disabled="#{empty areaprotegidaTbController.selected}">
-                        <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
-                    </p:commandButton>
+                    
 
                     <div  style="float: right">
                         <p:commandLink title="Reporte de áreas protegidas" ajax="false" target="_blank"
@@ -54,8 +52,8 @@
                                  widgetVar="areaTable"
                                  >
 
-                        <p:ajax event="rowSelect"   update=":AreaprotegidaTbListForm:createButton :AreaprotegidaTbListForm:viewButton :AreaprotegidaTbListForm:editButton :AreaprotegidaTbListForm:deleteButton"/>
-                        <p:ajax event="rowUnselect" update=":AreaprotegidaTbListForm:createButton :AreaprotegidaTbListForm:viewButton :AreaprotegidaTbListForm:editButton :AreaprotegidaTbListForm:deleteButton"/>
+                        <p:ajax event="rowSelect"   update=":AreaprotegidaTbListForm:createButton :AreaprotegidaTbListForm:viewButton :AreaprotegidaTbListForm:editButton "/>
+                        <p:ajax event="rowUnselect" update=":AreaprotegidaTbListForm:createButton :AreaprotegidaTbListForm:viewButton :AreaprotegidaTbListForm:editButton "/>
 
 
                         <p:column filterBy="#{item.CNombre}" filterStyle="display:none" style="width: 20%">

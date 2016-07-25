@@ -25,9 +25,7 @@
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{perfilTbController.prepareCreate}" update=":PerfilTbCreateForm" oncomplete="PF('PerfilTbCreateDialog').show()"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PerfilTbViewForm" oncomplete="PF('PerfilTbViewDialog').show()" disabled="#{empty perfilTbController.selected}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":PerfilTbEditForm" oncomplete="PF('PerfilTbEditDialog').show()" disabled="#{empty perfilTbController.selected}"/>
-                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{perfilTbController.destroy}" update=":growl,datalist" disabled="#{empty perfilTbController.selected}">
-                        <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
-                    </p:commandButton>
+                    
                     <div  style="float: right">
                         
                             <p:commandLink title="Reporte de perfiles" ajax="false" target="_blank"
@@ -55,8 +53,8 @@
                                  emptyMessage="No se encontro perfil"
                                  >
 
-                        <p:ajax event="rowSelect"   update=":PerfilTbListForm:createButton :PerfilTbListForm:viewButton :PerfilTbListForm:editButton :PerfilTbListForm:deleteButton"/>
-                        <p:ajax event="rowUnselect" update=":PerfilTbListForm:createButton :PerfilTbListForm:viewButton :PerfilTbListForm:editButton :PerfilTbListForm:deleteButton"/>
+                        <p:ajax event="rowSelect"   update=":PerfilTbListForm:createButton :PerfilTbListForm:viewButton :PerfilTbListForm:editButton "/>
+                        <p:ajax event="rowUnselect" update=":PerfilTbListForm:createButton :PerfilTbListForm:viewButton :PerfilTbListForm:editButton "/>
 
 
                         <p:column width="25%" filterBy="#{item.CNombre}" filterStyle="display:none">

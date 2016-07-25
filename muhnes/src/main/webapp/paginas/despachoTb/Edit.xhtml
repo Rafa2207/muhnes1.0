@@ -38,7 +38,7 @@
                             <p:panelGrid columns="9" style="width: 750px">
                                 <p:outputLabel value="Material:" for="material" />
                                 <p:selectOneMenu id="material"
-                                                 value="#{despachoTbController.material}" filter="true">
+                                                 value="#{despachoTbController.material}" filter="true" filterMatchMode="contains">
                                     <f:selectItem itemLabel="Seleccione uno..."
                                                   itemValue=""/>
                                     <f:selectItems value="#{despachoTbController.materialDisponible}"

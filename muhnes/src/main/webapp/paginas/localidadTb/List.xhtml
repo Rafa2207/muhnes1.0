@@ -27,9 +27,7 @@
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":LocalidadTbViewForm" oncomplete="PF('LocalidadTbViewDialog').show()" disabled="#{empty localidadTbController.selected}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":LocalidadTbEditForm" oncomplete="PF('LocalidadTbEditDialog').show()" disabled="#{empty localidadTbController.selected}"
                                      rendered="#{request.isUserInRole('Administrador')}"/>
-                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{localidadTbController.destroy}" update=":growl,datalist" disabled="#{empty localidadTbController.selected}">
-                    <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
-                    </p:commandButton>
+                    
                     
                     <div  style="float: right">
                         <p:commandLink title="Reporte de localidades" ajax="false" target="_blank"
@@ -55,8 +53,8 @@
                                  widgetVar="localidadTable"
                                  >
 
-                        <p:ajax event="rowSelect"   update=":LocalidadTbListForm:createButton :LocalidadTbListForm:viewButton :LocalidadTbListForm:editButton :LocalidadTbListForm:deleteButton"/>
-                        <p:ajax event="rowUnselect" update=":LocalidadTbListForm:createButton :LocalidadTbListForm:viewButton :LocalidadTbListForm:editButton :LocalidadTbListForm:deleteButton"/>
+                        <p:ajax event="rowSelect"   update=":LocalidadTbListForm:createButton :LocalidadTbListForm:viewButton :LocalidadTbListForm:editButton "/>
+                        <p:ajax event="rowUnselect" update=":LocalidadTbListForm:createButton :LocalidadTbListForm:viewButton :LocalidadTbListForm:editButton "/>
 
                         
                         <p:column filterBy="#{item.CNombre}" filterStyle="display:none">

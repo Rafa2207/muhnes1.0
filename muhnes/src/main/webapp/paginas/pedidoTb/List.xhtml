@@ -24,9 +24,7 @@
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{pedidoTbController.prepareCreate}" update=":PedidoTbCreateForm" oncomplete="PF('PedidoTbCreateDialog').show()"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PedidoTbViewForm" oncomplete="PF('PedidoTbViewDialog').show()" disabled="#{empty pedidoTbController.selected}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" actionListener="#{pedidoTbController.prepareEdit}" update=":PedidoTbEditForm" oncomplete="PF('PedidoTbEditDialog').show()" disabled="#{empty pedidoTbController.selected || pedidoTbController.selected.EEstado!=0}"/>
-                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{pedidoTbController.destroy}" update=":growl,datalist" disabled="#{empty pedidoTbController.selected}">
-                            <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
-                    </p:commandButton>
+                   
                     
                     <div style="float: right"> 
                         <p:commandLink title="Reporte de pedidos" target="_blank" ajax="false"
@@ -51,8 +49,8 @@
                                  widgetVar="pedidosTable"
                                  >
 
-                        <p:ajax event="rowSelect"   update=":PedidoTbListForm:createButton :PedidoTbListForm:viewButton :PedidoTbListForm:editButton :PedidoTbListForm:deleteButton"/>
-                        <p:ajax event="rowUnselect" update=":PedidoTbListForm:createButton :PedidoTbListForm:viewButton :PedidoTbListForm:editButton :PedidoTbListForm:deleteButton"/>
+                        <p:ajax event="rowSelect"   update=":PedidoTbListForm:createButton :PedidoTbListForm:viewButton :PedidoTbListForm:editButton "/>
+                        <p:ajax event="rowUnselect" update=":PedidoTbListForm:createButton :PedidoTbListForm:viewButton :PedidoTbListForm:editButton "/>
 
                         
                         <p:column width="50%" filterBy="#{item.MDescripcion}" filterStyle="display:none">

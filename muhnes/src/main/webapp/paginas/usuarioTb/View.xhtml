@@ -12,7 +12,7 @@
             <h:form id="UsuarioTbViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{usuarioTbController.selected != null}">
-                        
+
                         <h:outputText value="#{bundle.ViewUsuarioTbLabel_CNombre}"/>
                         <h:outputText value="#{usuarioTbController.selected.CNombre}" title="#{bundle.ViewUsuarioTbTitle_CNombre}"/>
                         <h:outputText value="#{bundle.ViewUsuarioTbLabel_CApellido}"/>
@@ -25,6 +25,10 @@
                         <h:outputText value="#{usuarioTbController.selected.CDui}" title="#{bundle.ViewUsuarioTbTitle_CDui}"/>
                         <h:outputText value="#{bundle.ViewUsuarioTbLabel_CTipo}"/>
                         <h:outputText value="#{usuarioTbController.selected.CTipo}" title="#{bundle.ViewUsuarioTbTitle_CTipo}"/>
+
+                        <h:outputText value="Agente:"/>
+                        <h:outputText value="#{usuarioTbController.calculaAgente(usuarioTbController.selected.EIdagente)}" title="Agente"/>
+
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="UsuarioTbViewDialog.hide()"/>
                 </h:panelGroup>

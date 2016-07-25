@@ -14,7 +14,7 @@
                     <p:panelGrid rendered="#{bibliotecaTbController.selected != null}">
                         <p:editor value="#{bibliotecaTbController.selected.MInformacion}" width="600"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{bibliotecaTbController.update('información')}" value="Guardar" update="display, :BibliotecaTbListForm :growl" oncomplete="handleSubmit(args,'IDialog');"/>
+                    <p:commandButton actionListener="#{bibliotecaTbController.update('contáctanos')}" value="Guardar" update="display, :BibliotecaTbListForm :growl" oncomplete="handleSubmit(args,'IDialog');"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

@@ -54,7 +54,7 @@
                             <p:outputLabel value="Insumo:" for="insumo" />
                             <p:inputText id="insumo" value="#{actividadTbController.nombre}"/>
                             <p:outputLabel value="Unidades:" for="unidad" />
-                            <p:selectOneMenu id="unidad" style="width: 100px" filter="true" value="#{actividadTbController.tiempo}">
+                            <p:selectOneMenu id="unidad" style="width: 100px" filter="true" filterMatchMode="contains" value="#{actividadTbController.tiempo}">
                                 <f:selectItem itemLabel="Seleccione" itemValue="" />
                                 <f:selectItems value="#{unidadesTbController.unidades()}" 
                                                var="unidad" 

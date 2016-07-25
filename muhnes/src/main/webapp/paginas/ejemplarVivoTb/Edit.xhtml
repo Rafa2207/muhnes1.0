@@ -38,11 +38,11 @@
                                 <p:ajax event="change" update="fTaxon" process="Taxon"/>
                             </p:selectOneMenu>
                             <p:outputLabel value="    "/>
-                            <p:selectOneMenu id="fTaxon" style="width: 150px" value="#{ejemplarVivoTbController.selected.EIdtaxonomia}" filter="true" >
+                            <p:selectOneMenu id="fTaxon" style="width: 150px" value="#{ejemplarVivoTbController.selected.EIdtaxonomia}" filter="true" filterMatchMode="contains" >
                                 <f:selectItem itemLabel="Seleccione..." itemValue=""/>
                                 <f:selectItems value="#{taxonomiaTbController.taxonomia(ejemplarTbController.tipoTaxon)}"
                                                var="taxon"
-                                               itemLabel="#{taxon.CNombre}"
+                                               itemLabel="#{ejemplarTbController.calcularTaxonomia(taxon, 1)}"
                                                itemValue="#{taxon}"/>
                             </p:selectOneMenu>
                         </h:panelGroup>

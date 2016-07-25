@@ -22,7 +22,7 @@
                         </p:inputText>
 
                         <p:outputLabel value="Unidad:" for="unidad" />
-                        <p:selectOneMenu id="unidad" filter="true" value="#{materialTbController.selected.EIdunidad}"
+                        <p:selectOneMenu id="unidad" filter="true" filterMatchMode="contains" value="#{materialTbController.selected.EIdunidad}"
                                          required="true" requiredMessage="Debe seleccionar unidad">
                             <f:selectItem itemLabel="Seleccione" itemValue="" />
                             <f:selectItems value="#{unidadesTbController.itemsMateriales}" 

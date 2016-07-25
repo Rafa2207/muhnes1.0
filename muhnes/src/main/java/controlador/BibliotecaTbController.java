@@ -6,6 +6,7 @@ import controlador.util.JsfUtil.PersistAction;
 import servicio.BibliotecaTbFacade;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -18,11 +19,17 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import modelo.BitacoraTb;
+import modelo.UsuarioTb;
 
 @Named("bibliotecaTbController")
 @SessionScoped
 public class BibliotecaTbController implements Serializable {
 
+    @EJB
+    private servicio.UsuarioTbFacade usuarioFacade;
+    @EJB
+    private servicio.BitacoraTbFacade bitacoraFacade;
     @EJB
     private servicio.BibliotecaTbFacade ejbFacade;
     private List<BibliotecaTb> items = null;
@@ -76,6 +83,16 @@ public class BibliotecaTbController implements Serializable {
     public void update(String txt) {
         selected.setEIdbiblioteca(1);
         persist(PersistAction.UPDATE, "Se modificó "+txt+" a la biblioteca virtual.");
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Modificado : '" + txt + "' a la biblioteca virtual");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuarios = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuarios);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
     }
 
     public void destroy() {

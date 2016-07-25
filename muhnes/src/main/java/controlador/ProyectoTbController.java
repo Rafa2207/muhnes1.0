@@ -755,9 +755,21 @@ public class ProyectoTbController implements Serializable {
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
         }
+        
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Creado reporte general de proyecto en el módulo: Proyectos");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
     }
 
     public void reporteIndividual() {
+
         FacesContext context = FacesContext.getCurrentInstance();
         try {
             Object response = context.getExternalContext().getResponse();
@@ -1144,6 +1156,17 @@ public class ProyectoTbController implements Serializable {
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
         }
+
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Creado reporte del proyecto: " + selected.getMNombre() + ", en el módulo: Proyectos");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
     }
 
     public void reporteIndividualProcesado() {
@@ -1802,5 +1825,15 @@ public class ProyectoTbController implements Serializable {
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
         }
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Creado reporte del proyecto: " + selected.getMNombre() + ", en el módulo: Proyectos");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
     }
 }

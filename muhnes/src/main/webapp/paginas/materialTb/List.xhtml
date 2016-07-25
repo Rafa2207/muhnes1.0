@@ -25,9 +25,7 @@
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{materialTbController.prepareCreate}" update=":MaterialTbCreateForm" oncomplete="PF('MaterialTbCreateDialog').show()"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":MaterialTbViewForm" oncomplete="PF('MaterialTbViewDialog').show()" disabled="#{empty materialTbController.selected}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":MaterialTbEditForm" oncomplete="PF('MaterialTbEditDialog').show()" disabled="#{empty materialTbController.selected}"/>
-                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{materialTbController.destroy}" update=":growl,datalist" disabled="#{empty materialTbController.selected}">
-                        <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
-                    </p:commandButton>
+                    
 
                     <div style="float: right"> 
                         <p:commandLink title="Reporte de materiales" target="_blank" ajax="false"
@@ -52,8 +50,8 @@
                                  widgetVar="materialesTable"
                                  >
 
-                        <p:ajax event="rowSelect"   update=":MaterialTbListForm:createButton :MaterialTbListForm:viewButton :MaterialTbListForm:editButton :MaterialTbListForm:deleteButton"/>
-                        <p:ajax event="rowUnselect" update=":MaterialTbListForm:createButton :MaterialTbListForm:viewButton :MaterialTbListForm:editButton :MaterialTbListForm:deleteButton"/>
+                        <p:ajax event="rowSelect"   update=":MaterialTbListForm:createButton :MaterialTbListForm:viewButton :MaterialTbListForm:editButton "/>
+                        <p:ajax event="rowUnselect" update=":MaterialTbListForm:createButton :MaterialTbListForm:viewButton :MaterialTbListForm:editButton "/>
 
                         <p:column width="10%" filterBy="#{item.MCodigobarras}" filterStyle="display:none">
                             <f:facet name="header">

@@ -28,9 +28,7 @@
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{cantonTbController.prepareCreate(controladorSesion.municipio)}" update=":CantonTbCreateForm" oncomplete="PF('CantonTbCreateDialog').show()"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":CantonTbViewForm" oncomplete="PF('CantonTbViewDialog').show()" disabled="#{empty cantonTbController.selected}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":CantonTbEditForm" oncomplete="PF('CantonTbEditDialog').show()" disabled="#{empty cantonTbController.selected}"/>
-                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{cantonTbController.destroy}" update=":growl,datalist" disabled="#{empty cantonTbController.selected}">
-                        <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
-                    </p:commandButton>
+                    
 
                     <div style="float: right"> 
                         <p:commandLink title="Ayuda" update=":AyudaForm" oncomplete="PF('AyudaDialog').show()" >
@@ -50,8 +48,8 @@
                                  filteredValue="#{cantonTbController.filtro}"
                                  widgetVar="cantonTable">
 
-                        <p:ajax event="rowSelect"   update=":CantonTbListForm:createButton :CantonTbListForm:viewButton :CantonTbListForm:editButton :CantonTbListForm:deleteButton"/>
-                        <p:ajax event="rowUnselect" update=":CantonTbListForm:createButton :CantonTbListForm:viewButton :CantonTbListForm:editButton :CantonTbListForm:deleteButton"/>
+                        <p:ajax event="rowSelect"   update=":CantonTbListForm:createButton :CantonTbListForm:viewButton :CantonTbListForm:editButton "/>
+                        <p:ajax event="rowUnselect" update=":CantonTbListForm:createButton :CantonTbListForm:viewButton :CantonTbListForm:editButton "/>
 
 
                         <p:column filterBy="#{item.CNombre}" filterStyle="display:none">

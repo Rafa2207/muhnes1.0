@@ -25,9 +25,7 @@
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{institucionTbController.prepareCreate}" update=":InstitucionTbCreateForm" oncomplete="PF('InstitucionTbCreateDialog').show()"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":InstitucionTbViewForm" oncomplete="PF('InstitucionTbViewDialog').show()" disabled="#{empty institucionTbController.selected}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":InstitucionTbEditForm" oncomplete="PF('InstitucionTbEditDialog').show()" disabled="#{empty institucionTbController.selected}" rendered="#{request.isUserInRole('Administrador')}"/>
-                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{institucionTbController.destroy}" update=":growl,datalist" disabled="#{empty institucionTbController.selected}">
-                        <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
-                    </p:commandButton>
+                    
                     
                     <div  style="float: right">
                         
@@ -54,8 +52,8 @@
                                  emptyMessage="No se encontro institución"
                                  >
 
-                        <p:ajax event="rowSelect"   update=":InstitucionTbListForm:createButton :InstitucionTbListForm:viewButton :InstitucionTbListForm:editButton :InstitucionTbListForm:deleteButton"/>
-                        <p:ajax event="rowUnselect" update=":InstitucionTbListForm:createButton :InstitucionTbListForm:viewButton :InstitucionTbListForm:editButton :InstitucionTbListForm:deleteButton"/>
+                        <p:ajax event="rowSelect"   update=":InstitucionTbListForm:createButton :InstitucionTbListForm:viewButton :InstitucionTbListForm:editButton "/>
+                        <p:ajax event="rowUnselect" update=":InstitucionTbListForm:createButton :InstitucionTbListForm:viewButton :InstitucionTbListForm:editButton "/>
                         <p:column filterBy="#{item.CNombre}" filterStyle="display:none">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListInstitucionTbTitle_CNombre}"/>

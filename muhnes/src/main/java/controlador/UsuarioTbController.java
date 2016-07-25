@@ -43,6 +43,7 @@ import javax.faces.view.ViewScoped;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import modelo.AgenteTb;
 import modelo.BitacoraTb;
 
 @Named("usuarioTbController")
@@ -55,6 +56,8 @@ public class UsuarioTbController implements Serializable {
     private servicio.UsuarioTbFacade usuarioFacade;
     @EJB
     private servicio.BitacoraTbFacade bitacoraFacade;
+    @EJB
+    private servicio.AgenteTbFacade FacadeAgente;
     private List<UsuarioTb> items = null, filtro;
     private UsuarioTb selected;
     private String pass1;
@@ -116,16 +119,7 @@ public class UsuarioTbController implements Serializable {
     public void prepareCambiarContra(String usuario) {
         selected = getFacade().BuscarUsuario(usuario);
         respaldo = selected.getMPassword();
-        //Bitacora inicio
-        BitacoraTb bitacora = new BitacoraTb();
-        bitacora.setMDescripcion("El usuario : '" + selected.getCNick() + "' modificó su contraseña");
-        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
-        UsuarioTb usuarios = usuarioFacade.BuscarUsuario(nick);
-        bitacora.setEIdusuario(usuarios);
-        Date fecha = new Date();
-        bitacora.setTFecha(fecha);
-        bitacoraFacade.create(bitacora);
-        //Bitacora fin
+
     }
 
     public void create() {
@@ -158,7 +152,17 @@ public class UsuarioTbController implements Serializable {
                     usuario = null;
                 }
                 if (usuario == null) {
-                    persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioTbUpdated"));
+                    persist(PersistAction.UPDATE, "El usuario '" + selected.getCNick() + "'  ha modificado su información");
+                    //Bitacora inicio
+                    BitacoraTb bitacora = new BitacoraTb();
+                    bitacora.setMDescripcion("El usuario : '" + selected.getCNick() + "' modificó su información");
+                    String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+                    UsuarioTb usuarios = usuarioFacade.BuscarUsuario(nick);
+                    bitacora.setEIdusuario(usuarios);
+                    Date fecha = new Date();
+                    bitacora.setTFecha(fecha);
+                    bitacoraFacade.create(bitacora);
+                    //Bitacora fin
                 } else {
                     JsfUtil.addErrorMessage("El email ingresado ya se encuentra en uso por otro usuario");
                 }
@@ -170,8 +174,8 @@ public class UsuarioTbController implements Serializable {
             JsfUtil.addErrorMessage("No se pudo cifrar la nueva contraseña. Intentelo más tarde");
         }
     }
-    
-    public void cambioMinusculaEmail(){
+
+    public void cambioMinusculaEmail() {
         selected.setMEmail(selected.getMEmail().toLowerCase());
     }
 
@@ -541,6 +545,17 @@ public class UsuarioTbController implements Serializable {
             e.printStackTrace();
         }
     }
-    
+
+    public String calculaAgente(int b) {
+        String agente;
+        AgenteTb agen;
+        agen = FacadeAgente.find(b);
+        if (agen == null) {
+            agente = "Sin Agente";
+        } else {
+            agente = agen.getCNombre() + " " + agen.getCApellido();
+        }
+        return agente;
+    }
 
 }

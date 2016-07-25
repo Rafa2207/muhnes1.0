@@ -22,9 +22,8 @@ import javax.faces.view.ViewScoped;
 import modelo.BitacoraTb;
 import modelo.UsuarioTb;
 
-
 @Named("unidadesTbController")
-@ViewScoped 
+@ViewScoped
 public class UnidadesTbController implements Serializable {
 
     @EJB
@@ -121,9 +120,9 @@ public class UnidadesTbController implements Serializable {
     }
 
     public List<UnidadesTb> getItems() {
-        if (items == null) {
-            items = getFacade().findAll();
-        }
+
+        items = getFacade().obtenerUnidades();
+
         return items;
     }
 
@@ -166,6 +165,7 @@ public class UnidadesTbController implements Serializable {
     public List<UnidadesTb> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
+
     public List<UnidadesTb> getItemsMateriales() {
         return getFacade().obtenerUnidades();
     }
@@ -210,18 +210,21 @@ public class UnidadesTbController implements Serializable {
         }
 
     }
-    public List<UnidadesTb> unidades(){
-        
+
+    public List<UnidadesTb> unidades() {
+
         items = getFacade().obtenerUnidades();
-        
+
         return items;
     }
-    public String abreviatura(){
+
+    public String abreviatura() {
         String abrev;
-        if(selected==null){
-            abrev="";
+        if (selected == null) {
+            abrev = "";
+        } else {
+            abrev = selected.getCAbreviatura();
         }
-        else{abrev=selected.getCAbreviatura();}
         return abrev;
     }
 

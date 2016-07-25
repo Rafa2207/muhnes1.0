@@ -254,7 +254,7 @@
                         </p:tab>
                         <p:tab title="Donaciones"><p:panelGrid columns="3">
                                 <p:outputLabel value="Institución: " />
-                                <p:selectOneMenu id="nombreIns" value="#{ejemplarTbController.ins}">
+                                <p:selectOneMenu id="nombreIns" value="#{ejemplarTbController.ins}" filter="true" filterMatchMode="contains">
                                     <f:selectItem itemValue="" itemLabel="Seleccione..."/>
                                     <f:selectItems value="#{ejemplarTbController.listaInstitucion}"
                                                    var="inst"

@@ -562,6 +562,16 @@ public class NotapreliminarTbController implements Serializable {
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
         }
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Creado reporte general de notas del proyecto: " + proyecto.getMNombre() +", en el módulo: Proyectos");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
     }
 
 }

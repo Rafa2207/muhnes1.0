@@ -25,9 +25,7 @@
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{paisTbController.prepareCreate}" update=":PaisTbCreateForm" oncomplete="PF('PaisTbCreateDialog').show()"  />
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PaisTbViewForm" oncomplete="PF('PaisTbViewDialog').show()" disabled="#{empty paisTbController.selected}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":PaisTbEditForm" oncomplete="PF('PaisTbEditDialog').show()" disabled="#{empty paisTbController.selected}"/>
-                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{paisTbController.destroy}" update=":growl,datalist" disabled="#{empty paisTbController.selected}">
-                        <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
-                    </p:commandButton>
+                    
 
                     <p:commandButton id="DeptoButton" icon="ui-icon-arrowthick-1-e"  value="Departamentos/Estados" action="/paginas/departamentoTb/List.xhtml" disabled="#{empty paisTbController.selected}" >
                         <f:setPropertyActionListener target="#{controladorSesion.pais}" value="#{paisTbController.selected}"/>
@@ -52,8 +50,8 @@
                                  >
 
 
-                        <p:ajax event="rowSelect"   update=":PaisTbListForm:DeptoButton :PaisTbListForm:createButton :PaisTbListForm:viewButton :PaisTbListForm:editButton :PaisTbListForm:deleteButton"/>
-                        <p:ajax event="rowUnselect" update=":PaisTbListForm:DeptoButton :PaisTbListForm:createButton :PaisTbListForm:viewButton :PaisTbListForm:editButton :PaisTbListForm:deleteButton"/>
+                        <p:ajax event="rowSelect"   update=":PaisTbListForm:DeptoButton :PaisTbListForm:createButton :PaisTbListForm:viewButton :PaisTbListForm:editButton "/>
+                        <p:ajax event="rowUnselect" update=":PaisTbListForm:DeptoButton :PaisTbListForm:createButton :PaisTbListForm:viewButton :PaisTbListForm:editButton "/>
 
 
                         <p:column filterBy="#{item.CNombre}" filterStyle="display:none">

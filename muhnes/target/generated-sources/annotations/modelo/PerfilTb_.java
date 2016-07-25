@@ -6,7 +6,7 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import modelo.AgentePerfilTb;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2016-07-18T11:52:55")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2016-07-24T18:10:29")
 @StaticMetamodel(PerfilTb.class)
 public class PerfilTb_ { 
 

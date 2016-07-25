@@ -25,9 +25,7 @@
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{procesoejemplarTbController.prepareCreate(controladorSesion.proyecto)}" update=":ProcesoejemplarTbCreateForm" oncomplete="PF('ProcesoejemplarTbCreateDialog').show()"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ProcesoejemplarTbViewForm" oncomplete="PF('ProcesoejemplarTbViewDialog').show()" disabled="#{empty procesoejemplarTbController.selected}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ProcesoejemplarTbEditForm" oncomplete="PF('ProcesoejemplarTbEditDialog').show()" disabled="#{empty procesoejemplarTbController.selected}"/>
-                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{procesoejemplarTbController.destroy}" update=":growl,datalist" disabled="#{empty procesoejemplarTbController.selected}">
-                        <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
-                    </p:commandButton>
+                    
                     <div  style="float: right">
                         <p:commandLink title="Ayuda" update=":AyudaForm" oncomplete="PF('AyudaDialog').show()" >
                             <p:graphicImage name="images/ayuda.png" height="35px" />
@@ -47,8 +45,8 @@
                                  emptyMessage="No se encontraron procesos de ejemplares"
                                  >
 
-                        <p:ajax event="rowSelect"   update=":ProcesoejemplarTbListForm:createButton :ProcesoejemplarTbListForm:viewButton :ProcesoejemplarTbListForm:editButton :ProcesoejemplarTbListForm:deleteButton "/>
-                        <p:ajax event="rowUnselect" update=":ProcesoejemplarTbListForm:createButton :ProcesoejemplarTbListForm:viewButton :ProcesoejemplarTbListForm:editButton :ProcesoejemplarTbListForm:deleteButton "/>
+                        <p:ajax event="rowSelect"   update=":ProcesoejemplarTbListForm:createButton :ProcesoejemplarTbListForm:viewButton :ProcesoejemplarTbListForm:editButton"/>
+                        <p:ajax event="rowUnselect" update=":ProcesoejemplarTbListForm:createButton :ProcesoejemplarTbListForm:viewButton :ProcesoejemplarTbListForm:editButton"/>
 
                         <p:column filterBy="#{item.MNombre}" filterStyle="display:none" width="20%" >
                             <f:facet name="header">

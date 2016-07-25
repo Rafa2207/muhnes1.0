@@ -141,13 +141,11 @@ public class PerfilTbController implements Serializable {
     }
 
     public List<PerfilTb> getItems() {
-        if (items == null) {
-            items = getFacade().findAll();
-        }
+        items = getFacade().buscarTodosAZ();
         return items;
     }
-    
-        public void compararPerfil(String c) {
+
+    public void compararPerfil(String c) {
         FacesContext context = FacesContext.getCurrentInstance();
         for (PerfilTb u : items) {
             if (u.getCNombre().equals(c)) {
@@ -299,11 +297,11 @@ public class PerfilTbController implements Serializable {
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 document.add(fecha);
-                
+
                 String nick = JsfUtil.getRequest().getUserPrincipal().getName();
                 UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
-                
-                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() +" "+usuario.getCApellido(),
+
+                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() + " " + usuario.getCApellido(),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 usuarioSis.setAlignment(Element.ALIGN_CENTER);
                 usuarioSis.setSpacingAfter(10);
@@ -311,10 +309,9 @@ public class PerfilTbController implements Serializable {
 
                 PdfPTable per = new PdfPTable(2);
                 per.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-                per.setWidths(new int[]{75,175});
+                per.setWidths(new int[]{75, 175});
                 per.addCell(new Phrase("Nombre", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 per.addCell(new Phrase("Descripción", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-
 
                 List<PerfilTb> lista;
                 if (filtrar != null) {
@@ -345,6 +342,15 @@ public class PerfilTbController implements Serializable {
                 responseOutputStream.flush();
                 responseOutputStream.close();
                 context.responseComplete();
+                //Bitacora inicio
+                BitacoraTb bitacora = new BitacoraTb();
+                bitacora.setMDescripcion("Creado reporte general de perfiles en el módulo: Agentes e Instituciones");
+                UsuarioTb user = usuarioFacade.BuscarUsuario(nick);
+                bitacora.setEIdusuario(user);
+                Date fecha1 = new Date();
+                bitacora.setTFecha(fecha1);
+                bitacoraFacade.create(bitacora);
+                //Bitacora fin
             }
         } catch (DocumentException | IOException e) {
             e.printStackTrace();

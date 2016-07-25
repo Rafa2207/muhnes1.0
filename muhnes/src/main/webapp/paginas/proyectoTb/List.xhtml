@@ -28,9 +28,7 @@
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{proyectoTbController.prepareCreate}" update=":ProyectoTbCreateForm" oncomplete="PF('ProyectoTbCreateDialog').show()"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ProyectoTbViewForm" oncomplete="PF('ProyectoTbViewDialog').show()" disabled="#{empty proyectoTbController.selected}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" actionListener="#{proyectoTbController.prepareEdit}" update=":ProyectoTbEditForm" oncomplete="PF('ProyectoTbEditDialog').show()" disabled="#{empty proyectoTbController.selected}"/>
-                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{proyectoTbController.destroy}" update=":growl,datalist" disabled="#{empty proyectoTbController.selected}">
-                        <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
-                    </p:commandButton>
+                    
 
                     <p:commandButton id="ActividadButton" icon="ui-icon-calendar"  value="Actividad" action="/paginas/actividadTb/List.xhtml" disabled="#{empty proyectoTbController.selected}" >
                         <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{proyectoTbController.selected}"/>
@@ -65,8 +63,8 @@
                                  filteredValue="#{proyectoTbController.filtro}"
                                  widgetVar="proyectoTable">
 
-                        <p:ajax event="rowSelect"   update=":ProyectoTbListForm:ActividadButton :ProyectoTbListForm:createButton :ProyectoTbListForm:viewButton :ProyectoTbListForm:editButton :ProyectoTbListForm:deleteButton :ProyectoTbListForm:ProrrogaProyectoButton"/>
-                        <p:ajax event="rowUnselect" update=":ProyectoTbListForm:ActividadButton :ProyectoTbListForm:createButton :ProyectoTbListForm:viewButton :ProyectoTbListForm:editButton :ProyectoTbListForm:deleteButton :ProyectoTbListForm:ProrrogaProyectoButton"/>
+                        <p:ajax event="rowSelect"   update=":ProyectoTbListForm:ActividadButton :ProyectoTbListForm:createButton :ProyectoTbListForm:viewButton :ProyectoTbListForm:editButton :ProyectoTbListForm:ProrrogaProyectoButton"/>
+                        <p:ajax event="rowUnselect" update=":ProyectoTbListForm:ActividadButton :ProyectoTbListForm:createButton :ProyectoTbListForm:viewButton :ProyectoTbListForm:editButton :ProyectoTbListForm:ProrrogaProyectoButton"/>
 
 
                         <p:column filterBy="#{item.MNombre}" filterStyle="display:none">
