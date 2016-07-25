@@ -283,7 +283,7 @@ public class TaxonomiaTbController implements Serializable {
         selected.setCTipo("Familia");
         //Bitacora inicio
         BitacoraTb bitacora = new BitacoraTb();
-        bitacora.setMDescripcion("Creada " + selected.getCTipo() + "  '" + selected.getCNombre() + "' en el mÃ³dulo: InformaciÃ³n TaxonÃ³mica");
+        bitacora.setMDescripcion("Creada " + selected.getCTipo() + "  '" + selected.getCNombre() + "' en el módulo: Información Taxonómica");
         String nick = JsfUtil.getRequest().getUserPrincipal().getName();
         UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
         bitacora.setEIdusuario(usuario);
@@ -303,7 +303,7 @@ public class TaxonomiaTbController implements Serializable {
         selected.setCTipo("Genero");
         //Bitacora inicio
         BitacoraTb bitacora = new BitacoraTb();
-        bitacora.setMDescripcion("Creado " + selected.getCTipo() + "  '" + selected.getCNombre() + "' en el mÃ³dulo: InformaciÃ³n TaxonÃ³mica");
+        bitacora.setMDescripcion("Creado " + selected.getCTipo() + "  '" + selected.getCNombre() + "' en el módulo: Información Taxonómica");
         String nick = JsfUtil.getRequest().getUserPrincipal().getName();
         UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
         bitacora.setEIdusuario(usuario);
@@ -323,7 +323,7 @@ public class TaxonomiaTbController implements Serializable {
         selected.setCTipo("Especie");
         //Bitacora inicio
         BitacoraTb bitacora = new BitacoraTb();
-        bitacora.setMDescripcion("Creada " + selected.getCTipo() + "  '" + selected.getCNombre() + "' en el mÃ³dulo: InformaciÃ³n TaxonÃ³mica");
+        bitacora.setMDescripcion("Creada " + selected.getCTipo() + "  '" + selected.getCNombre() + "' en el módulo: Información Taxonómica");
         String nick = JsfUtil.getRequest().getUserPrincipal().getName();
         UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
         bitacora.setEIdusuario(usuario);
@@ -343,7 +343,7 @@ public class TaxonomiaTbController implements Serializable {
         selected.setCTipo("Subespecie");
         //Bitacora inicio
         BitacoraTb bitacora = new BitacoraTb();
-        bitacora.setMDescripcion("Creada " + selected.getCTipo() + "  '" + selected.getCNombre() + "' en el mÃ³dulo: InformaciÃ³n TaxonÃ³mica");
+        bitacora.setMDescripcion("Creada " + selected.getCTipo() + "  '" + selected.getCNombre() + "' en el módulo: Información Taxonómica");
         String nick = JsfUtil.getRequest().getUserPrincipal().getName();
         UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
         bitacora.setEIdusuario(usuario);
@@ -363,7 +363,7 @@ public class TaxonomiaTbController implements Serializable {
         selected.setCTipo("Variedad");
         //Bitacora inicio
         BitacoraTb bitacora = new BitacoraTb();
-        bitacora.setMDescripcion("Creada " + selected.getCTipo() + "  '" + selected.getCNombre() + "' en el mÃ³dulo: InformaciÃ³n TaxonÃ³mica");
+        bitacora.setMDescripcion("Creada " + selected.getCTipo() + "  '" + selected.getCNombre() + "' en el módulo: Información Taxonómica");
         String nick = JsfUtil.getRequest().getUserPrincipal().getName();
         UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
         bitacora.setEIdusuario(usuario);
@@ -380,7 +380,7 @@ public class TaxonomiaTbController implements Serializable {
     public void update() {
         //Bitacora inicio
         BitacoraTb bitacora = new BitacoraTb();
-        bitacora.setMDescripcion("Modificado " + selected.getCTipo() + "  '" + selected.getCNombre() + "' en el mÃ³dulo: InformaciÃ³n TaxonÃ³mica");
+        bitacora.setMDescripcion("Modificado " + selected.getCTipo() + "  '" + selected.getCNombre() + "' en el módulo: Información Taxonómica");
         String nick = JsfUtil.getRequest().getUserPrincipal().getName();
         UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
         bitacora.setEIdusuario(usuario);
@@ -394,7 +394,7 @@ public class TaxonomiaTbController implements Serializable {
     public void destroy() {
         //Bitacora inicio
         BitacoraTb bitacora = new BitacoraTb();
-        bitacora.setMDescripcion("Eliminado " + selected.getCTipo() + "  '" + selected.getCNombre() + "' en el mÃ³dulo: InformaciÃ³n TaxonÃ³mica");
+        bitacora.setMDescripcion("Eliminado " + selected.getCTipo() + "  '" + selected.getCNombre() + "' en el módulo: Información Taxonómica");
         String nick = JsfUtil.getRequest().getUserPrincipal().getName();
         UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
         bitacora.setEIdusuario(usuario);
@@ -864,7 +864,7 @@ public class TaxonomiaTbController implements Serializable {
                 //Siguientes celdas no tengan borde
                 encabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                 //nueva celda con los datos del MUHNES
-                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de El Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de \nEl Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
 
                 encabezado.addCell("");
                 document.add(encabezado);
@@ -948,7 +948,7 @@ public class TaxonomiaTbController implements Serializable {
                 context.responseComplete();
                 //Bitacora inicio
                 BitacoraTb bitacora = new BitacoraTb();
-                bitacora.setMDescripcion("Creado Reporte general de Familias en el módulo: Taxonomia");
+                bitacora.setMDescripcion("Creado Reporte general de familias en el módulo: Información Taxonómica");
                 //String nick = JsfUtil.getRequest().getUserPrincipal().getName();
                 //UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
                 bitacora.setEIdusuario(usuario);
@@ -1008,7 +1008,7 @@ public class TaxonomiaTbController implements Serializable {
                 //Siguientes celdas no tengan borde
                 encabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                 //nueva celda con los datos del MUHNES
-                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de El Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de \nEl Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
 
                 encabezado.addCell("");
                 document.add(encabezado);
@@ -1157,7 +1157,7 @@ public class TaxonomiaTbController implements Serializable {
                 context.responseComplete();
                 //Bitacora inicio
                 BitacoraTb bitacora = new BitacoraTb();
-                bitacora.setMDescripcion("Creado Reporte general de " + tax.getCTipo() + " en el módulo: Taxonómia");
+                bitacora.setMDescripcion("Creado reporte general de " + tax.getCTipo() + " en el módulo: Información Taxonómica");
                 //String nick = JsfUtil.getRequest().getUserPrincipal().getName();
                 //UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
                 bitacora.setEIdusuario(usuario);
@@ -1181,7 +1181,7 @@ public class TaxonomiaTbController implements Serializable {
                 ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
 
                 // Inicia reporte
-                Document document = new Document(PageSize.A4);
+                Document document = new Document(PageSize.LETTER);
                 PdfWriter writer = PdfWriter.getInstance(document, pdfOutputStream);
                 TableHeaderVertical event = new TableHeaderVertical();
                 writer.setPageEvent(event);
@@ -1217,7 +1217,7 @@ public class TaxonomiaTbController implements Serializable {
                 //Siguientes celdas no tengan borde
                 encabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                 //nueva celda con los datos del MUHNES
-                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de El Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de \nEl Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
 
                 encabezado.addCell("");
                 document.add(encabezado);
@@ -1336,7 +1336,7 @@ public class TaxonomiaTbController implements Serializable {
                     TablaInsumo1.setWidths(numero);
                     TablaInsumo1.setWidthPercentage(80);
                     TablaInsumo1.addCell(new Phrase("Autor", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-                    TablaInsumo1.addCell(new Phrase("Iniciales", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                    TablaInsumo1.addCell(new Phrase("Nombre corto", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                     TablaInsumo1.addCell(new Phrase("Autor Basionimio", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                     document.add(TablaInsumo1);
 
@@ -1417,6 +1417,15 @@ public class TaxonomiaTbController implements Serializable {
                 responseOutputStream.flush();
                 responseOutputStream.close();
                 context.responseComplete();
+                //Bitacora inicio
+                BitacoraTb bitacora = new BitacoraTb();
+                bitacora.setMDescripcion("Creado reporte individual de "+ selected.getCTipo() + " en el módulo: Información Taxonómica");
+                //String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+                //UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+                bitacora.setEIdusuario(usuario);
+                Date fecha1 = new Date();
+                bitacora.setTFecha(fecha1);
+                bitacoraFacade.create(bitacora);
             }
         } catch (DocumentException | IOException e) {
             e.printStackTrace();

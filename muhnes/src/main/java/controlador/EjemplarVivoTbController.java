@@ -97,7 +97,7 @@ public class EjemplarVivoTbController implements Serializable {
     public void create() {
         //Bitacora inicio
         BitacoraTb bitacora = new BitacoraTb();
-        bitacora.setMDescripcion("Creado Ejemplar Vivo: '" + selected.getCNombre() + "' en el módulo: Ejemplar");
+        bitacora.setMDescripcion("Creado ejemplar vivo: '" + selected.getCNombre() + "' en el módulo: Ejemplar");
         String nick = JsfUtil.getRequest().getUserPrincipal().getName();
         UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
         bitacora.setEIdusuario(usuario);
@@ -114,7 +114,7 @@ public class EjemplarVivoTbController implements Serializable {
     public void update() {
         //Bitacora inicio
         BitacoraTb bitacora = new BitacoraTb();
-        bitacora.setMDescripcion("Modificado Ejemplar Vivo: '" + selected.getCNombre() + "' en el módulo: Ejemplar");
+        bitacora.setMDescripcion("Modificado ejemplar vivo: '" + selected.getCNombre() + "' en el módulo: Ejemplar");
         String nick = JsfUtil.getRequest().getUserPrincipal().getName();
         UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
         bitacora.setEIdusuario(usuario);
@@ -128,7 +128,7 @@ public class EjemplarVivoTbController implements Serializable {
     public void destroy() {
         //Bitacora inicio
         BitacoraTb bitacora = new BitacoraTb();
-        bitacora.setMDescripcion("Eliminado Ejemplar Vivo: '" + selected.getCNombre() + "' en el módulo: Ejemplar");
+        bitacora.setMDescripcion("Eliminado ejemplar vivo: '" + selected.getCNombre() + "' en el módulo: Ejemplar");
         String nick = JsfUtil.getRequest().getUserPrincipal().getName();
         UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
         bitacora.setEIdusuario(usuario);
@@ -308,6 +308,15 @@ public class EjemplarVivoTbController implements Serializable {
                 fecha.setSpacingAfter(10);
                 document.add(fecha);
                 
+                String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+                    UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+
+                    Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() + " " + usuario.getCApellido(),
+                            FontFactory.getFont(FontFactory.TIMES, 10));
+                    usuarioSis.setAlignment(Element.ALIGN_CENTER);
+                    usuarioSis.setSpacingAfter(10);
+                    document.add(usuarioSis);
+                
                 List<EjemplarVivoTb> ejemplarVivoListaReporte = new ArrayList<EjemplarVivoTb>();
                 if (n == 1) {
                     ejemplarVivoListaReporte = getFacade().findAll();
@@ -384,9 +393,9 @@ public class EjemplarVivoTbController implements Serializable {
                 context.responseComplete();
                 //Bitacora inicio
                 BitacoraTb bitacora = new BitacoraTb();
-                bitacora.setMDescripcion("Creado Reporte general de ejemplares vivos en el módulo: Ejemplares");
-                String nick = JsfUtil.getRequest().getUserPrincipal().getName();
-                UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+                bitacora.setMDescripcion("Creado reporte general de ejemplares vivos en el módulo: Ejemplar");
+                //String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+                //UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
                 bitacora.setEIdusuario(usuario);
                 Date fecha1 = new Date();
                 bitacora.setTFecha(fecha1);

@@ -33,7 +33,7 @@
                             <p:slider for="ECantidad" minValue="0" maxValue="#{ejemplarVivoTbController.selected.ECantidad}"/>
                         </p:panelGrid>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{disminuirEjemplarTbController.create}" value="#{bundleEjemplarVivo.Save}" update="display,:EjemplarVivoTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'DisminuirEjemplarTbCreateDialog');"/>
+                    <p:commandButton actionListener="#{disminuirEjemplarTbController.create}" value="#{bundleEjemplarVivo.Save}" update="display,:EjemplarVivoTbListForm:,:growl" oncomplete="handleSubmit(args,'DisminuirEjemplarTbCreateDialog');"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

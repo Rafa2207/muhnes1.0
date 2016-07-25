@@ -14,7 +14,9 @@
                     <p:fieldset legend="Información General">
                         <p:panelGrid columns="2" rendered="#{donacionTbController.selected != null}">
                             <p:outputLabel value="#{bundle.CreateDonacionTbLabel_MDescripcion}" for="MDescripcion" />
-                            <p:inputTextarea id="MDescripcion" value="#{donacionTbController.selected.MDescripcion}" title="#{bundle.CreateDonacionTbTitle_MDescripcion}" 
+                            <p:inputTextarea id="MDescripcion" value="#{donacionTbController.selected.MDescripcion}" 
+                                             title="#{bundle.CreateDonacionTbTitle_MDescripcion}"
+                                             rows="3" cols="40"
                                              required="true" requiredMessage="Introduzca descripción"/>
                             
                             <p:outputLabel value="#{bundle.CreateDonacionTbLabel_FFecha}" for="FFecha" />
@@ -60,7 +62,7 @@
                             
                         </p:dataTable>
                     </p:fieldset>
-                    <p:commandButton actionListener="#{donacionTbController.create}" value="#{bundle.Save}" update="display,:DonacionTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'DonacionTbCreateDialog');"/>
+                    <p:commandButton actionListener="#{donacionTbController.create}" value="#{bundle.Save}" update="display,:DonacionTbListForm:,:growl" oncomplete="handleSubmit(args,'DonacionTbCreateDialog');"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

@@ -214,7 +214,7 @@ public class PedidoTbController implements Serializable {
             //oncomplete = "handleSubmit(args,'PedidoTbCreateDialog');";
             //Bitacora inicio
             BitacoraTb bitacora = new BitacoraTb();
-            bitacora.setMDescripcion("Creado Pedido '" + selected.getMDescripcion() + "' en el módulo: Materiales");
+            bitacora.setMDescripcion("Creado pedido '" + selected.getMDescripcion() + "' en el módulo: Materiales");
             String nick = JsfUtil.getRequest().getUserPrincipal().getName();
             UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
             bitacora.setEIdusuario(usuario);
@@ -236,7 +236,7 @@ public class PedidoTbController implements Serializable {
         } else {
             //Bitacora inicio
             BitacoraTb bitacora = new BitacoraTb();
-            bitacora.setMDescripcion("Modificado Pedido '" + selected.getMDescripcion() + "' en el módulo: Materiales");
+            bitacora.setMDescripcion("Modificado pedido '" + selected.getMDescripcion() + "' en el módulo: Materiales");
             String nick = JsfUtil.getRequest().getUserPrincipal().getName();
             UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
             bitacora.setEIdusuario(usuario);
@@ -251,7 +251,7 @@ public class PedidoTbController implements Serializable {
     public void destroy() {
         //Bitacora inicio
         BitacoraTb bitacora = new BitacoraTb();
-        bitacora.setMDescripcion("Eliminado Pedido '" + selected.getMDescripcion() + "' en el módulo: Materiales");
+        bitacora.setMDescripcion("Eliminado pedido '" + selected.getMDescripcion() + "' en el módulo: Materiales");
         String nick = JsfUtil.getRequest().getUserPrincipal().getName();
         UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
         bitacora.setEIdusuario(usuario);
@@ -442,7 +442,7 @@ public class PedidoTbController implements Serializable {
         }
         //Bitacora inicio
         BitacoraTb bitacora = new BitacoraTb();
-        bitacora.setMDescripcion("Recibido Pedido '" + selected.getMDescripcion() + "' en el módulo: Materiales");
+        bitacora.setMDescripcion("Recibido pedido '" + selected.getMDescripcion() + "' en el módulo: Materiales");
         String nick = JsfUtil.getRequest().getUserPrincipal().getName();
         UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
         bitacora.setEIdusuario(usuario);
@@ -462,7 +462,7 @@ public class PedidoTbController implements Serializable {
         //selected.setEEstado(estado);
         //Bitacora inicio
         BitacoraTb bitacora = new BitacoraTb();
-        bitacora.setMDescripcion("Actualizado Pedido '" + selected.getMDescripcion() + "' en el módulo: Materiales");
+        bitacora.setMDescripcion("Actualizado pedido '" + selected.getMDescripcion() + "' en el módulo: Materiales");
         String nick = JsfUtil.getRequest().getUserPrincipal().getName();
         UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
         bitacora.setEIdusuario(usuario);
@@ -545,7 +545,7 @@ public class PedidoTbController implements Serializable {
                 //Siguientes celdas no tengan borde
                 encabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                 //nueva celda con los datos del MUHNES
-                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de El Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de \nEl Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
 
                 encabezado.addCell("");
                 document.add(encabezado);
@@ -562,7 +562,7 @@ public class PedidoTbController implements Serializable {
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 //fecha.setSpacingAfter(10);
                 document.add(fecha);
-                
+
                 String nick = JsfUtil.getRequest().getUserPrincipal().getName();
                 UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
 
@@ -626,7 +626,7 @@ public class PedidoTbController implements Serializable {
                 context.responseComplete();
                 //Bitacora inicio
                 BitacoraTb bitacora = new BitacoraTb();
-                bitacora.setMDescripcion("Creado Reporte general de pedidos en el módulo: Materiales");
+                bitacora.setMDescripcion("Creado reporte general de pedidos en el módulo: Materiales");
                 //String nick = JsfUtil.getRequest().getUserPrincipal().getName();
                 //UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
                 bitacora.setEIdusuario(usuario);
@@ -686,7 +686,7 @@ public class PedidoTbController implements Serializable {
                 //Siguientes celdas no tengan borde
                 encabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                 //nueva celda con los datos del MUHNES
-                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de El Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de \nEl Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
 
                 encabezado.addCell("");
                 document.add(encabezado);
@@ -697,7 +697,7 @@ public class PedidoTbController implements Serializable {
                 titulo.setSpacingBefore(10);
                 document.add(titulo);
 
-                Paragraph fecha = new Paragraph("Fecha de generaciÃ³n: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 //fecha.setSpacingAfter(15);
@@ -711,7 +711,7 @@ public class PedidoTbController implements Serializable {
                 usuarioSis.setAlignment(Element.ALIGN_CENTER);
                 usuarioSis.setSpacingAfter(10);
                 document.add(usuarioSis);
-                
+
                 int columnas[] = {25, 75};
 
                 PdfPTable TablaNombre = new PdfPTable(2);
@@ -721,7 +721,7 @@ public class PedidoTbController implements Serializable {
                 TablaNombre.setWidthPercentage(100);
                 TablaNombre.setSpacingAfter(5);
                 TablaNombre.setSpacingBefore(5);
-                TablaNombre.addCell(new Phrase("DescripciÃ³n: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                TablaNombre.addCell(new Phrase("Descripción: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 TablaNombre.addCell(new Phrase(new Phrase(selected.getMDescripcion(), FontFactory.getFont(FontFactory.TIMES, 12))));
                 document.add(TablaNombre);
 
@@ -823,6 +823,15 @@ public class PedidoTbController implements Serializable {
                 responseOutputStream.flush();
                 responseOutputStream.close();
                 context.responseComplete();
+                //Bitacora inicio
+                BitacoraTb bitacora = new BitacoraTb();
+                bitacora.setMDescripcion("Creado reporte individual de pedido en el módulo: Materiales");
+                //String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+                //UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+                bitacora.setEIdusuario(usuario);
+                Date fecha1 = new Date();
+                bitacora.setTFecha(fecha1);
+                bitacoraFacade.create(bitacora);
             }
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
@@ -839,7 +848,7 @@ public class PedidoTbController implements Serializable {
                 ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
 
                 // Inicia reporte
-                Document document = new Document(PageSize.A4);
+                Document document = new Document(PageSize.LETTER);
                 PdfWriter writer = PdfWriter.getInstance(document, pdfOutputStream);
                 TableHeaderVertical event = new TableHeaderVertical();
                 writer.setPageEvent(event);
@@ -875,7 +884,7 @@ public class PedidoTbController implements Serializable {
                 //Siguientes celdas no tengan borde
                 encabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                 //nueva celda con los datos del MUHNES
-                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de El Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de \nEl Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
 
                 encabezado.addCell("");
                 document.add(encabezado);
@@ -886,11 +895,19 @@ public class PedidoTbController implements Serializable {
                 titulo.setSpacingBefore(10);
                 document.add(titulo);
 
-                Paragraph fecha = new Paragraph("Fecha de generaciÃ³n: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 fecha.setSpacingAfter(15);
                 document.add(fecha);
+
+                String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+                UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() + " " + usuario.getCApellido(),
+                        FontFactory.getFont(FontFactory.TIMES, 10));
+                usuarioSis.setAlignment(Element.ALIGN_CENTER);
+                usuarioSis.setSpacingAfter(10);
+                document.add(usuarioSis);
 
                 int columnas[] = {25, 75};
 
@@ -901,7 +918,7 @@ public class PedidoTbController implements Serializable {
                 TablaNombre.setWidthPercentage(100);
                 TablaNombre.setSpacingAfter(5);
                 TablaNombre.setSpacingBefore(5);
-                TablaNombre.addCell(new Phrase("DescripciÃ³n: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                TablaNombre.addCell(new Phrase("Descripción: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 TablaNombre.addCell(new Phrase(new Phrase(selected.getMDescripcion(), FontFactory.getFont(FontFactory.TIMES, 12))));
                 document.add(TablaNombre);
 
@@ -1010,6 +1027,15 @@ public class PedidoTbController implements Serializable {
                 responseOutputStream.flush();
                 responseOutputStream.close();
                 context.responseComplete();
+                //Bitacora inicio
+                BitacoraTb bitacora = new BitacoraTb();
+                bitacora.setMDescripcion("Creado reporte individual en proceso de pedido en el módulo: Materiales");
+                //String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+                //UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+                bitacora.setEIdusuario(usuario);
+                Date fecha1 = new Date();
+                bitacora.setTFecha(fecha1);
+                bitacoraFacade.create(bitacora);
             }
         } catch (DocumentException | IOException e) {
             e.printStackTrace();

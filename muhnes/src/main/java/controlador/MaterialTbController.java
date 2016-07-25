@@ -14,7 +14,6 @@ import com.lowagie.text.pdf.PdfContentByte;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
-import com.lowagie.text.pdf.Barcode39;
 import modelo.MaterialTb;
 import controlador.util.JsfUtil;
 import controlador.util.JsfUtil.PersistAction;
@@ -109,7 +108,7 @@ public class MaterialTbController implements Serializable {
          * ************Guardar en bitacora*************
          */
         BitacoraTb bitacora = new BitacoraTb();
-        bitacora.setMDescripcion("Se agregó un nuevo material '" + selected.getCNombre() + "' en el modulo: Material");
+        bitacora.setMDescripcion("Creado material '" + selected.getCNombre() + "' en el módulo: Material");
         String nick = JsfUtil.getRequest().getUserPrincipal().getName();
         UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
         bitacora.setEIdusuario(usuario);
@@ -127,7 +126,7 @@ public class MaterialTbController implements Serializable {
          * ************Guardar en bitacora*************
          */
         BitacoraTb bitacora = new BitacoraTb();
-        bitacora.setMDescripcion("Se modificó el material '" + selected.getCNombre() + "' en el modulo: Material");
+        bitacora.setMDescripcion("Modificado material '" + selected.getCNombre() + "' en el módulo: Material");
         String nick = JsfUtil.getRequest().getUserPrincipal().getName();
         UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
         bitacora.setEIdusuario(usuario);
@@ -142,7 +141,7 @@ public class MaterialTbController implements Serializable {
          * ************Guardar en bitacora*************
          */
         BitacoraTb bitacora = new BitacoraTb();
-        bitacora.setMDescripcion("Se eliminó el material '" + selected.getCNombre() + "' en el modulo: Material");
+        bitacora.setMDescripcion("Eliminado material '" + selected.getCNombre() + "' en el módulo: Material");
         String nick = JsfUtil.getRequest().getUserPrincipal().getName();
         UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
         bitacora.setEIdusuario(usuario);
@@ -244,14 +243,14 @@ public class MaterialTbController implements Serializable {
 
     }
 
-    public String fueraStock(MaterialTb material){
-        String color="";
-        if(material.getDCantidad()<=material.getDCantidadmin()){
-        color = "color: #cc0000; font-weight: bold";
+    public String fueraStock(MaterialTb material) {
+        String color = "";
+        if (material.getDCantidad() <= material.getDCantidadmin()) {
+            color = "color: #cc0000; font-weight: bold";
         }
         return color;
     }
-    
+
     public String tipo(Integer tipo) {
         String Tipo = "";
         if (tipo == 1) {
@@ -343,7 +342,7 @@ public class MaterialTbController implements Serializable {
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 document.add(fecha);
-                
+
                 String nick = JsfUtil.getRequest().getUserPrincipal().getName();
                 UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
 
@@ -368,7 +367,7 @@ public class MaterialTbController implements Serializable {
                 mat.addCell(new Phrase("Nombre", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 mat.addCell(new Phrase("Tipo", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 mat.addCell(new Phrase("Cantidad", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-                mat.addCell(new Phrase("Cantidad Min", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                mat.addCell(new Phrase("Cantidad Mínima", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 mat.addCell(new Phrase("Descripción", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
 
                 List<MaterialTb> lista;
@@ -386,7 +385,7 @@ public class MaterialTbController implements Serializable {
                     cell0.setBorder(Rectangle.BOTTOM);
                     mat.addCell(cell0);
 
-                    PdfPCell cell = new PdfPCell(new Phrase("  "+l.getCNombre(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    PdfPCell cell = new PdfPCell(new Phrase("  " + l.getCNombre(), FontFactory.getFont(FontFactory.TIMES, 12)));
                     cell.setHorizontalAlignment(Element.ALIGN_LEFT);
                     cell.setBorder(Rectangle.BOTTOM);
                     mat.addCell(cell);
@@ -403,12 +402,12 @@ public class MaterialTbController implements Serializable {
                         mat.addCell(cell11);
                     }
 
-                    PdfPCell cell3 = new PdfPCell(new Phrase(String.valueOf(l.getDCantidad())+" "+l.getEIdunidad().getCAbreviatura(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    PdfPCell cell3 = new PdfPCell(new Phrase(String.valueOf(l.getDCantidad()) + " " + l.getEIdunidad().getCAbreviatura(), FontFactory.getFont(FontFactory.TIMES, 12)));
                     cell3.setHorizontalAlignment(Element.ALIGN_CENTER);
                     cell3.setBorder(Rectangle.BOTTOM);
                     mat.addCell(cell3);
 
-                    PdfPCell cell4 = new PdfPCell(new Phrase(String.valueOf(l.getDCantidadmin())+" "+l.getEIdunidad().getCAbreviatura(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    PdfPCell cell4 = new PdfPCell(new Phrase(String.valueOf(l.getDCantidadmin()) + " " + l.getEIdunidad().getCAbreviatura(), FontFactory.getFont(FontFactory.TIMES, 12)));
                     cell4.setHorizontalAlignment(Element.ALIGN_CENTER);
                     cell4.setBorder(Rectangle.BOTTOM);
                     mat.addCell(cell4);
@@ -433,6 +432,16 @@ public class MaterialTbController implements Serializable {
                 responseOutputStream.flush();
                 responseOutputStream.close();
                 context.responseComplete();
+                //Bitacora inicio
+                BitacoraTb bitacora = new BitacoraTb();
+                bitacora.setMDescripcion("Creado reporte general de materiales en el módulo: Materiales");
+                //String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+                //UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+                bitacora.setEIdusuario(usuario);
+                Date fecha1 = new Date();
+                bitacora.setTFecha(fecha1);
+                bitacoraFacade.create(bitacora);
+                //Bitacora fin
             }
         } catch (DocumentException | IOException e) {
             e.printStackTrace();

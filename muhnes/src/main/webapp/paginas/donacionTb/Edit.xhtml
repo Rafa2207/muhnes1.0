@@ -20,7 +20,7 @@
                             <p:outputLabel value="#{bundle.CreateDonacionTbLabel_EIdinstitucion}" />
                             <p:outputLabel value="#{donacionTbController.selected.EIdinstitucion.CNombre}"/>                        </p:panelGrid>
                     </p:fieldset>
-                    <p:commandButton actionListener="#{donacionTbController.update}" value="#{bundle.Save}" update="display,:DonacionTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DonacionTbEditDialog');"/>
+                    <p:commandButton actionListener="#{donacionTbController.update}" value="#{bundle.Save}" update="display,:DonacionTbListForm:,:growl" oncomplete="handleSubmit(args, 'DonacionTbEditDialog');"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

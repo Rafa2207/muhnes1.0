@@ -111,7 +111,7 @@ public class DisminuirEjemplarTbController implements Serializable {
         ejemplarVivoFacade.edit(selected.getEIdejemplarVivo());
         //Bitacora inicio
         BitacoraTb bitacora = new BitacoraTb();
-        bitacora.setMDescripcion("Dado de baja Ejemplar Vivo: '" + selected.getEIdejemplarVivo().getCNombre() + "' la cantidad de: '"+ cantidadBaja +"' unidades en el módulo: Ejemplar");
+        bitacora.setMDescripcion("Dado de baja ejemplar vivo: '" + selected.getEIdejemplarVivo().getCNombre() + "' la cantidad de: '"+ cantidadBaja +"' unidades en el módulo: Ejemplar");
         String nick = JsfUtil.getRequest().getUserPrincipal().getName();
         UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
         bitacora.setEIdusuario(usuario);
@@ -288,6 +288,15 @@ public class DisminuirEjemplarTbController implements Serializable {
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 fecha.setSpacingAfter(10);
                 document.add(fecha);
+                
+                String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+                    UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+
+                    Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() + " " + usuario.getCApellido(),
+                            FontFactory.getFont(FontFactory.TIMES, 10));
+                    usuarioSis.setAlignment(Element.ALIGN_CENTER);
+                    usuarioSis.setSpacingAfter(10);
+                    document.add(usuarioSis);
 
                 PdfPTable pedidos = new PdfPTable(5);
                 pedidos.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -348,9 +357,9 @@ public class DisminuirEjemplarTbController implements Serializable {
                 context.responseComplete();
                 //Bitacora inicio
                 BitacoraTb bitacora = new BitacoraTb();
-                bitacora.setMDescripcion("Creado Reporte general de ejemplares vivos en el módulo: Ejemplares");
-                String nick = JsfUtil.getRequest().getUserPrincipal().getName();
-                UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+                bitacora.setMDescripcion("Creado reporte general de ejemplares vivos dados de baja en el módulo: Ejemplar");
+                //String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+                //UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
                 bitacora.setEIdusuario(usuario);
                 Date fecha1 = new Date();
                 bitacora.setTFecha(fecha1);

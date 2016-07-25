@@ -47,7 +47,7 @@
                             </p:selectOneMenu>
                         </h:panelGroup>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{ejemplarVivoTbController.update}" value="#{bundleEjemplarVivo.Save}" update="display,:EjemplarVivoTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'EjemplarVivoTbEditDialog');"/>
+                    <p:commandButton actionListener="#{ejemplarVivoTbController.update}" value="#{bundleEjemplarVivo.Save}" update="display,:EjemplarVivoTbListForm:,:growl" oncomplete="handleSubmit(args, 'EjemplarVivoTbEditDialog');"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

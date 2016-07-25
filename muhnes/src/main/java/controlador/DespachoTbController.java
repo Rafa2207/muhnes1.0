@@ -187,7 +187,7 @@ public class DespachoTbController implements Serializable {
             selected.setEEstado(1); //cuando se realizo un despacho de materiales
             //Bitacora inicio
             BitacoraTb bitacora = new BitacoraTb();
-            bitacora.setMDescripcion("Creado Despacho '" + selected.getMDescripcion() + "' en el módulo: Materiales");
+            bitacora.setMDescripcion("Creado despacho '" + selected.getMDescripcion() + "' en el módulo: Materiales");
             String nick = JsfUtil.getRequest().getUserPrincipal().getName();
             UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
             bitacora.setEIdusuario(usuario);
@@ -214,7 +214,7 @@ public class DespachoTbController implements Serializable {
             }
             //Bitacora inicio
             BitacoraTb bitacora = new BitacoraTb();
-            bitacora.setMDescripcion("Modificado Despacho '" + selected.getMDescripcion() + "' en el módulo: Materiales");
+            bitacora.setMDescripcion("Modificado despacho '" + selected.getMDescripcion() + "' en el módulo: Materiales");
             String nick = JsfUtil.getRequest().getUserPrincipal().getName();
             UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
             bitacora.setEIdusuario(usuario);
@@ -229,7 +229,7 @@ public class DespachoTbController implements Serializable {
     public void destroy() {
         //Bitacora inicio
         BitacoraTb bitacora = new BitacoraTb();
-        bitacora.setMDescripcion("Eliminado Despacho '" + selected.getMDescripcion() + "' en el módulo: Materiales");
+        bitacora.setMDescripcion("Eliminado despacho '" + selected.getMDescripcion() + "' en el módulo: Materiales");
         String nick = JsfUtil.getRequest().getUserPrincipal().getName();
         UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
         bitacora.setEIdusuario(usuario);
@@ -428,7 +428,7 @@ public class DespachoTbController implements Serializable {
         selected.setEEstado(2); //cuando el se realizo el reingreso de material
         //Bitacora inicio
         BitacoraTb bitacora = new BitacoraTb();
-        bitacora.setMDescripcion("Reingreso de materiales en Despacho '" + selected.getMDescripcion() + "' en el módulo: Materiales");
+        bitacora.setMDescripcion("Reingreso de materiales en despacho '" + selected.getMDescripcion() + "' en el módulo: Materiales");
         String nick = JsfUtil.getRequest().getUserPrincipal().getName();
         UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
         bitacora.setEIdusuario(usuario);
@@ -486,7 +486,7 @@ public class DespachoTbController implements Serializable {
                 //Siguientes celdas no tengan borde
                 encabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                 //nueva celda con los datos del MUHNES
-                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de El Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de \nEl Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
 
                 encabezado.addCell("");
                 document.add(encabezado);
@@ -567,7 +567,7 @@ public class DespachoTbController implements Serializable {
                 context.responseComplete();
                 //Bitacora inicio
                 BitacoraTb bitacora = new BitacoraTb();
-                bitacora.setMDescripcion("Creado Reporte general de pedidos en el módulo: Materiales");
+                bitacora.setMDescripcion("Creado Reporte general de despachos en el módulo: Materiales");
                 //String nick = JsfUtil.getRequest().getUserPrincipal().getName();
                 //UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
                 bitacora.setEIdusuario(usuario);
@@ -627,7 +627,7 @@ public class DespachoTbController implements Serializable {
                 //Siguientes celdas no tengan borde
                 encabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                 //nueva celda con los datos del MUHNES
-                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de El Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de \nEl Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
 
                 encabezado.addCell("");
                 document.add(encabezado);
@@ -644,6 +644,15 @@ public class DespachoTbController implements Serializable {
                 fecha.setSpacingAfter(15);
                 document.add(fecha);
 
+                String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+                UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+
+                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() + " " + usuario.getCApellido(),
+                        FontFactory.getFont(FontFactory.TIMES, 10));
+                usuarioSis.setAlignment(Element.ALIGN_CENTER);
+                usuarioSis.setSpacingAfter(10);
+                document.add(usuarioSis);
+                
                 int columnas[] = {30, 70};
 
                 PdfPTable TablaNombre = new PdfPTable(2);
@@ -752,6 +761,15 @@ public class DespachoTbController implements Serializable {
                 responseOutputStream.flush();
                 responseOutputStream.close();
                 context.responseComplete();
+                //Bitacora inicio
+                BitacoraTb bitacora = new BitacoraTb();
+                bitacora.setMDescripcion("Creado reporte individual de despacho en el módulo: Materiales");
+                //String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+                //UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+                bitacora.setEIdusuario(usuario);
+                Date fecha1 = new Date();
+                bitacora.setTFecha(fecha1);
+                bitacoraFacade.create(bitacora);
             }
         } catch (DocumentException | IOException e) {
             e.printStackTrace();

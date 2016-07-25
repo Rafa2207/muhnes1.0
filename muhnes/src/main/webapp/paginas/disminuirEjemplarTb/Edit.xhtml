@@ -26,7 +26,7 @@
                                            itemValue="#{EIdejemplarVivoItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{disminuirEjemplarTbController.update}" value="#{bundleEjemplarVivo.Save}" update="display,:DisminuirEjemplarTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DisminuirEjemplarTbEditDialog');"/>
+                    <p:commandButton actionListener="#{disminuirEjemplarTbController.update}" value="#{bundleEjemplarVivo.Save}" update="display,:DisminuirEjemplarTbListForm:,:growl" oncomplete="handleSubmit(args, 'DisminuirEjemplarTbEditDialog');"/>
                     <p:commandButton value="#{bundleEjemplarVivo.Cancel}" onclick="DisminuirEjemplarTbEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
