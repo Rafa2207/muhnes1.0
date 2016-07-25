@@ -454,7 +454,7 @@ public class AgenteTbController implements Serializable {
 
                 agentes.setWidthPercentage(100);
                 agentes.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-                agentes.addCell(new Phrase("Iniciales", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                agentes.addCell(new Phrase("Nombre corto", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 agentes.addCell(new Phrase("Apellido", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 agentes.addCell(new Phrase("Nombre", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 agentes.addCell(new Phrase("Ocupación", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
@@ -523,6 +523,15 @@ public class AgenteTbController implements Serializable {
                 responseOutputStream.flush();
                 responseOutputStream.close();
                 context.responseComplete();
+                //Bitacora inicio
+                BitacoraTb bitacora = new BitacoraTb();
+                bitacora.setMDescripcion("Creado reporte general de agentes en el módulo: Agentes e Instituciones");
+                UsuarioTb user = usuarioFacade.BuscarUsuario(nick);
+                bitacora.setEIdusuario(user);
+                Date fecha1 = new Date();
+                bitacora.setTFecha(fecha1);
+                bitacoraFacade.create(bitacora);
+                //Bitacora fin
             }
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
@@ -648,7 +657,7 @@ public class AgenteTbController implements Serializable {
                         }
 
                         ag1.setWidthPercentage(100);
-                        ag1.addCell(new Phrase("Iniciales :", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                        ag1.addCell(new Phrase("Nombre corto :", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                         if (r.getAgenteTb().getCIniciales().equals("")) {
                             ag1.addCell(new Phrase("---------", FontFactory.getFont(FontFactory.TIMES, 12)));
                         } else {
@@ -919,6 +928,15 @@ public class AgenteTbController implements Serializable {
                 responseOutputStream.flush();
                 responseOutputStream.close();
                 context.responseComplete();
+                //Bitacora inicio
+                BitacoraTb bitacora = new BitacoraTb();
+                bitacora.setMDescripcion("Creado reporte individual del agente: "+selected.getCNombre()+" "+selected.getCApellido()+", en el módulo: Agentes e Instituciones");
+                UsuarioTb user = usuarioFacade.BuscarUsuario(nick);
+                bitacora.setEIdusuario(user);
+                Date fecha1 = new Date();
+                bitacora.setTFecha(fecha1);
+                bitacoraFacade.create(bitacora);
+                //Bitacora fin
             }
         } catch (DocumentException | IOException e) {
             e.printStackTrace();

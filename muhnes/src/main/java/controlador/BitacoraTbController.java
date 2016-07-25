@@ -349,7 +349,7 @@ public class BitacoraTbController implements Serializable {
                 encabezado.addCell("");
                 document.add(encabezado);
 
-                Paragraph titulo = new Paragraph("Reporte General de Bitacora", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                Paragraph titulo = new Paragraph("Reporte de Bitacora", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                 titulo.setAlignment(Element.ALIGN_CENTER);
 
                 titulo.setSpacingBefore(5);
@@ -460,7 +460,7 @@ public class BitacoraTbController implements Serializable {
                 context.responseComplete();
                 //Bitacora inicio
                 BitacoraTb bitacora = new BitacoraTb();
-                bitacora.setMDescripcion("Creado Reporte general de Bitacora en el módulo: Seguridad");
+                bitacora.setMDescripcion("Creado reporte de bitacora en el módulo: Seguridad");
                 String nick = JsfUtil.getRequest().getUserPrincipal().getName();
                 UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
                 bitacora.setEIdusuario(usuario);

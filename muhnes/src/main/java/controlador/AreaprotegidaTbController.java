@@ -438,6 +438,15 @@ public class AreaprotegidaTbController implements Serializable {
                 responseOutputStream.flush();
                 responseOutputStream.close();
                 context.responseComplete();
+                //Bitacora inicio
+                BitacoraTb bitacora = new BitacoraTb();
+                bitacora.setMDescripcion("Creado reporte general de área protegida el módulo: Localización");
+                UsuarioTb user = usuarioFacade.BuscarUsuario(nick);
+                bitacora.setEIdusuario(user);
+                Date fecha1 = new Date();
+                bitacora.setTFecha(fecha1);
+                bitacoraFacade.create(bitacora);
+                //Bitacora fin
             }
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
@@ -663,6 +672,15 @@ public class AreaprotegidaTbController implements Serializable {
                 responseOutputStream.flush();
                 responseOutputStream.close();
                 context.responseComplete();
+                //Bitacora inicio
+                BitacoraTb bitacora = new BitacoraTb();
+                bitacora.setMDescripcion("Creado reporte individual de la área protegida: "+selected.getCNombre()+", en el módulo: Localización");
+                UsuarioTb user = usuarioFacade.BuscarUsuario(nick);
+                bitacora.setEIdusuario(user);
+                Date fecha1 = new Date();
+                bitacora.setTFecha(fecha1);
+                bitacoraFacade.create(bitacora);
+                //Bitacora fin
             }
         } catch (DocumentException | IOException e) {
             e.printStackTrace();

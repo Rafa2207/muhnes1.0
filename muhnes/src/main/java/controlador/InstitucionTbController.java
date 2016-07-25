@@ -120,7 +120,7 @@ public class InstitucionTbController implements Serializable {
 
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("InstitucionTbUpdated"));
-        
+
         //Bitacora inicio
         BitacoraTb bitacora = new BitacoraTb();
         bitacora.setMDescripcion("Modificada institución: '" + selected.getCNombre() + "' en el módulo: Agentes e instituciones");
@@ -290,11 +290,11 @@ public class InstitucionTbController implements Serializable {
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 document.add(fecha);
-                
+
                 String nick = JsfUtil.getRequest().getUserPrincipal().getName();
                 UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
-                
-                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() +" "+usuario.getCApellido(),
+
+                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() + " " + usuario.getCApellido(),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 usuarioSis.setAlignment(Element.ALIGN_CENTER);
                 usuarioSis.setSpacingAfter(10);
@@ -322,8 +322,8 @@ public class InstitucionTbController implements Serializable {
                 ins.addCell(new Phrase("Dirección", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
 
                 List<InstitucionTb> lista;
-                
-                lista=getFacade().institucionGeneral();
+
+                lista = getFacade().institucionGeneral();
 
                 for (InstitucionTb l : lista) {
                     PdfPCell cell = new PdfPCell(new Phrase(l.getCAcronimo(), FontFactory.getFont(FontFactory.TIMES, 12)));
@@ -363,13 +363,13 @@ public class InstitucionTbController implements Serializable {
                     }
 
                     if (l.getCUrl().equals("")) {
-                    PdfPCell cell7 = new PdfPCell(new Phrase("Sin URL", FontFactory.getFont(FontFactory.TIMES, 12)));
-                    cell7.setHorizontalAlignment(Element.ALIGN_LEFT);
-                    ins.addCell(cell7);
+                        PdfPCell cell7 = new PdfPCell(new Phrase("Sin URL", FontFactory.getFont(FontFactory.TIMES, 12)));
+                        cell7.setHorizontalAlignment(Element.ALIGN_LEFT);
+                        ins.addCell(cell7);
                     } else {
-                    PdfPCell cell7 = new PdfPCell(new Phrase(l.getCUrl(), FontFactory.getFont(FontFactory.TIMES, 12)));
-                    cell7.setHorizontalAlignment(Element.ALIGN_LEFT);
-                    ins.addCell(cell7);
+                        PdfPCell cell7 = new PdfPCell(new Phrase(l.getCUrl(), FontFactory.getFont(FontFactory.TIMES, 12)));
+                        cell7.setHorizontalAlignment(Element.ALIGN_LEFT);
+                        ins.addCell(cell7);
                     }
 
                     PdfPCell cell8 = new PdfPCell(new Phrase(l.getMDireccion(), FontFactory.getFont(FontFactory.TIMES, 12)));
@@ -388,6 +388,16 @@ public class InstitucionTbController implements Serializable {
                 responseOutputStream.flush();
                 responseOutputStream.close();
                 context.responseComplete();
+                //Bitacora inicio
+                BitacoraTb bitacora = new BitacoraTb();
+                bitacora.setMDescripcion("Creado reporte general de instituciones en el módulo: Agentes e Instituciones");
+                UsuarioTb user = usuarioFacade.BuscarUsuario(nick);
+                bitacora.setEIdusuario(user);
+                Date fecha1 = new Date();
+                bitacora.setTFecha(fecha1);
+                bitacoraFacade.create(bitacora);
+                //Bitacora fin
+
             }
         } catch (DocumentException | IOException e) {
             e.printStackTrace();

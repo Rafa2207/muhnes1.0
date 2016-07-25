@@ -531,15 +531,27 @@ public class UsuarioTbController implements Serializable {
                 responseOutputStream.flush();
                 responseOutputStream.close();
                 context.responseComplete();
-                //Bitacora inicio
-                BitacoraTb bitacora = new BitacoraTb();
-                bitacora.setMDescripcion("Creado Reporte general de Usuarios en el módulo: Seguridad");
-                UsuarioTb user = usuarioFacade.BuscarUsuario(nick);
-                bitacora.setEIdusuario(user);
-                Date fecha1 = new Date();
-                bitacora.setTFecha(fecha1);
-                bitacoraFacade.create(bitacora);
+                if (n == 1) {
+                    //Bitacora inicio
+                    BitacoraTb bitacora = new BitacoraTb();
+                    bitacora.setMDescripcion("Creado reporte general de usuarios en el módulo: Seguridad");
+                    UsuarioTb user = usuarioFacade.BuscarUsuario(nick);
+                    bitacora.setEIdusuario(user);
+                    Date fecha1 = new Date();
+                    bitacora.setTFecha(fecha1);
+                    bitacoraFacade.create(bitacora);
                 //Bitacora fin
+                } else {
+                    //Bitacora inicio
+                    BitacoraTb bitacora = new BitacoraTb();
+                    bitacora.setMDescripcion("Creado reporte general de usuarios inactivos en el módulo: Seguridad");
+                    UsuarioTb user = usuarioFacade.BuscarUsuario(nick);
+                    bitacora.setEIdusuario(user);
+                    Date fecha1 = new Date();
+                    bitacora.setTFecha(fecha1);
+                    bitacoraFacade.create(bitacora);
+                //Bitacora fin
+                }
             }
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
