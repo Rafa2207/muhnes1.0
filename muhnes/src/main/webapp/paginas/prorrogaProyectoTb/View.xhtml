@@ -20,11 +20,11 @@
                         
                         <h:outputText value="#{bundleProrrogaProy.ViewProrrogaProyectoTbLabel_FFechaInicio}"/>
                         <h:outputText value="#{prorrogaProyectoTbController.selected.FFechaInicio}" title="#{bundleProrrogaProy.ViewProrrogaProyectoTbTitle_FFechaInicio}">
-                            <f:convertDateTime pattern="dd MMMM yyyy" />
+                            <f:convertDateTime pattern="dd MMMM yyyy" locale="es"/>
                         </h:outputText>
                         <h:outputText value="#{bundleProrrogaProy.ViewProrrogaProyectoTbLabel_FFechaFin}"/>
                         <h:outputText value="#{prorrogaProyectoTbController.selected.FFechaFin}" title="#{bundleProrrogaProy.ViewProrrogaProyectoTbTitle_FFechaFin}">
-                            <f:convertDateTime pattern="dd MMMM yyyy" />
+                            <f:convertDateTime pattern="dd MMMM yyyy" locale="es"/>
                         </h:outputText>
                         <h:outputText value="#{bundleProrrogaProy.ViewProrrogaProyectoTbLabel_EIdproyecto}"/>
                         <h:outputText value="#{prorrogaProyectoTbController.selected.EIdproyecto.MNombre}" title="#{bundleProrrogaProy.ViewProrrogaProyectoTbTitle_EIdproyecto}"/>

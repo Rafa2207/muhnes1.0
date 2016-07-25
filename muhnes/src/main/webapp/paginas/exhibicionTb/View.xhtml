@@ -33,20 +33,20 @@
                         <h:outputText value="Fecha de préstamo:"/>
                         <h:panelGroup>
                             <h:outputText value="#{exhibicionTbController.selected.FFechaPrestamo}">
-                                <f:convertDateTime pattern="dd MMMM yyyy  " />
+                                <f:convertDateTime pattern="dd MMMM yyyy  " locale="es"/>
                             </h:outputText>
                             <h:outputText value="#{exhibicionTbController.selected.HHoraPrestamo}">
-                                <f:convertDateTime pattern="hh:mm a" />
+                                <f:convertDateTime pattern="hh:mm a" locale="es"/>
                             </h:outputText>
                         </h:panelGroup>
 
                         <h:outputText value="Fecha de reingreso:"/>
                         <h:panelGroup>
                             <h:outputText value="#{exhibicionTbController.selected.FFechaRecibido}">
-                                <f:convertDateTime pattern="dd MMMM yyyy  " />
+                                <f:convertDateTime pattern="dd MMMM yyyy  " locale="es"/>
                             </h:outputText>
                             <h:outputText value="#{exhibicionTbController.selected.HHoraRecibido}">
-                                <f:convertDateTime pattern="hh:mm a" />
+                                <f:convertDateTime pattern="hh:mm a" locale="es"/>
                             </h:outputText>
                         </h:panelGroup>
                         

@@ -16,11 +16,11 @@
                         <h:outputText value="#{pedidoTbController.selected.MDescripcion}" title="#{bundle.ViewPedidoTbTitle_MDescripcion}"/>
                         <h:outputText value="Fecha de pedido: "/>
                         <h:outputText value="#{pedidoTbController.selected.FFecha}" title="#{bundle.ViewPedidoTbTitle_FFecha}">
-                            <f:convertDateTime pattern="dd MMMM yyyy" />
+                            <f:convertDateTime pattern="dd MMMM yyyy" locale="es"/>
                         </h:outputText>
                         <h:outputText value="Fecha posible a recibir: "/>
                         <h:outputText value="#{pedidoTbController.selected.FFechaPosibleRecibir}" title="#{bundle.ViewPedidoTbTitle_FFecha}">
-                            <f:convertDateTime pattern="dd MMMM yyyy" />
+                            <f:convertDateTime pattern="dd MMMM yyyy" locale="es"/>
                         </h:outputText>
                     </p:panelGrid>
                     <p:dataTable id="materiales"

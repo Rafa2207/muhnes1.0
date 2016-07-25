@@ -32,11 +32,11 @@
                         <h:outputText value="#{agenteTbController.selected.MDireccion}" title="#{bundle.ViewAgenteTbTitle_MDireccion}"/>
                         <h:outputText value="#{bundle.ViewAgenteTbLabel_FFechanac}"/>
                         <h:outputText value="#{agenteTbController.selected.FFechanac}" title="#{bundle.ViewAgenteTbTitle_FFechanac}">
-                            <f:convertDateTime pattern="dd MMMM yyyy" />
+                            <f:convertDateTime pattern="dd MMMM yyyy" locale="es"/>
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewAgenteTbLabel_FFecham}"/>
                         <h:outputText value="#{agenteTbController.selected.FFecham}" title="#{bundle.ViewAgenteTbTitle_FFecham}">
-                            <f:convertDateTime pattern="dd MMMM yyyy" />
+                            <f:convertDateTime pattern="dd MMMM yyyy" locale="es"/>
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewAgenteTbLabel_EIdinstitucion}"/>
                         <h:outputText value="#{agenteTbController.sininstitucion(agenteTbController.selected)}" title="#{bundle.ViewAgenteTbTitle_EIdinstitucion}"/>

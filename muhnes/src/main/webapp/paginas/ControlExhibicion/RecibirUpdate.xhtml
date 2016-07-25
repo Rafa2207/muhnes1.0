@@ -21,10 +21,10 @@
                         <p:outputLabel value="Fecha de recibido:"/>
                         <h:panelGroup>
                             <h:outputText value="#{exhibicionTbController.selected.FFechaRecibido}">
-                                <f:convertDateTime pattern="dd MMMM yyyy " />
+                                <f:convertDateTime pattern="dd MMMM yyyy " locale="es"/>
                             </h:outputText>
                             <h:outputText value="#{exhibicionTbController.selected.HHoraPrestamo}">
-                                <f:convertDateTime pattern="HH:mm a" />
+                                <f:convertDateTime pattern="HH:mm a" locale="es"/>
                             </h:outputText>
                         </h:panelGroup>
                     </p:panelGrid>

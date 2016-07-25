@@ -18,7 +18,7 @@
                         <h:outputText value="#{ejemplarVivoTbController.selected.MDescripcion}" title="#{bundleEjemplarVivo.ViewEjemplarVivoTbTitle_MDescripcion}"/>
                         <h:outputText value="#{bundleEjemplarVivo.ViewEjemplarVivoTbLabel_FFechaLlegada}"/>
                         <h:outputText value="#{ejemplarVivoTbController.selected.FFecha}" title="#{bundleEjemplarVivo.ViewEjemplarVivoTbTitle_FFechaLlegada}">
-                            <f:convertDateTime pattern="dd MMMM yyyy" />
+                            <f:convertDateTime pattern="dd MMMM yyyy" locale="es"/>
                         </h:outputText>
                         <h:outputText value="#{bundleEjemplarVivo.ViewEjemplarVivoTbLabel_ECantidad}"/>
                         <h:outputText value="#{ejemplarVivoTbController.selected.ECantidad}" title="#{bundleEjemplarVivo.ViewEjemplarVivoTbTitle_ECantidad}"/>

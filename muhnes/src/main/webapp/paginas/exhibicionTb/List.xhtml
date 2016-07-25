@@ -84,7 +84,7 @@
                                 <h:outputText value="Fecha préstamo"/>
                             </f:facet>
                             <h:outputText value="#{item.FFechaPrestamo}">
-                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                                <f:convertDateTime pattern="dd MMMM yyyy" locale="es"/>
                             </h:outputText>
                         </p:column>
                         <p:column width="15%" filterBy="#{item.FFechaRecibido}" filterStyle="display:none">
@@ -92,7 +92,7 @@
                                 <h:outputText value="Fecha reingreso"/>
                             </f:facet>
                             <h:outputText value="#{item.FFechaRecibido}">
-                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                                <f:convertDateTime pattern="dd MMMM yyyy" locale="es"/>
                             </h:outputText>
                         </p:column>
                         <p:column width="10%" filterBy="#{exhibicionTbController.EstadoList(item.EEstado)}" filterStyle="display:none">

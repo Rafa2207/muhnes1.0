@@ -27,11 +27,11 @@
                             <h:outputText value="#{ejemplarTbController.selected.CCalificativo}" title="#{bundle.ViewEjemplarTbTitle_CCalificativo}"/>
                             <h:outputText value="Fecha de recolección: "/>
                             <h:outputText value="#{ejemplarTbController.selected.FFechaInicioIdent}" title="#{bundle.ViewEjemplarTbTitle_FFechaInicioIdent}">
-                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                                <f:convertDateTime pattern="dd MMMM yyyy" locale="es"/>
                             </h:outputText>
                             <h:outputText value="Fecha de identificación: "/>
                             <h:outputText value="#{ejemplarTbController.selected.FFechaFinIdent}" title="#{bundle.ViewEjemplarTbTitle_FFechaFinIdent}">
-                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                                <f:convertDateTime pattern="dd MMMM yyyy" locale="es"/>
                             </h:outputText>
                             <h:outputText value="#{bundle.ViewEjemplarTbLabel_ECantDuplicado}"/>
                             <h:outputText value="#{ejemplarTbController.selected.ECantDuplicado}" title="#{bundle.ViewEjemplarTbTitle_ECantDuplicado}"/>

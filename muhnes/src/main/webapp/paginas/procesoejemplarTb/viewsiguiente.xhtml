@@ -27,12 +27,12 @@
 
                         <h:outputText value="Fecha de inicio:"/>
                         <h:outputText value="#{procesoejemplarTbController.selected.FFecha}" title="Fecha de inicio">
-                            <f:convertDateTime pattern="dd MMMM yyyy" />
+                            <f:convertDateTime pattern="dd MMMM yyyy" locale="es"/>
                         </h:outputText>
 
                         <h:outputText value="Fecha fin:"/>
                         <h:outputText value="#{procesoejemplarTbController.selected.FFechafin}" title="fecha fin:">
-                            <f:convertDateTime pattern="dd MMMM yyyy" />
+                            <f:convertDateTime pattern="dd MMMM yyyy" locale="es"/>
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewProcesoejemplarTbLabel_EIdproyecto}"/>
                         <h:outputText value="#{proyectoTbController.NombreNotificacion(procesoejemplarTbController.selected.EIdproyecto.MNombre, 100)}" title="#{bundle.ViewProcesoejemplarTbTitle_EIdproyecto}"/>
@@ -73,7 +73,7 @@
 
                         <p:outputLabel value="Fecha finalización:" rendered="#{procesoejemplarTbController.selected.EEstado==0}"/>
                         <p:outputLabel id="textfecha" value="#{procesoejemplarTbController.selected.FFechafin}" rendered="#{procesoejemplarTbController.selected.EEstado==0}">
-                            <f:convertDateTime pattern="dd MMMM yyyy" />
+                            <f:convertDateTime pattern="dd MMMM yyyy" locale="es"/>
                         </p:outputLabel>
 
                     </p:panelGrid>

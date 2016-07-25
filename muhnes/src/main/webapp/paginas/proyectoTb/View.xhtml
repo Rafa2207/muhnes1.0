@@ -25,11 +25,11 @@
 
                         <h:outputText value="#{bundle.ViewProyectoTbLabel_FFechaInicio}"/>
                         <h:outputText value="#{proyectoTbController.selected.FFechaInicio}" title="#{bundle.ViewProyectoTbTitle_FFechaInicio}">
-                            <f:convertDateTime pattern="dd MMMM yyyy" />
+                            <f:convertDateTime pattern="dd MMMM yyyy" locale="es"/>
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewProyectoTbLabel_FFechaFin}"/>
                         <h:outputText value="#{proyectoTbController.selected.FFechaFin}" title="#{bundle.ViewProyectoTbTitle_FFechaFin}">
-                            <f:convertDateTime pattern="dd MMMM yyyy" />
+                            <f:convertDateTime pattern="dd MMMM yyyy" locale="es"/>
                         </h:outputText>
                     </p:panelGrid>
                     <p:commandButton value="Reporte planificado" actionListener="#{proyectoTbController.reporteIndividual()}" ajax="false"

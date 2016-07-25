@@ -54,11 +54,11 @@
                                 <h:outputText value="Fecha"/>
                             </f:facet>
                             <h:outputText value="#{item.FFechaInicio}">
-                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                                <f:convertDateTime pattern="dd MMMM yyyy" locale="es" />
                             </h:outputText>
                             <h:outputText value=" - "/>
                             <h:outputText value="#{item.FFechaFin}">
-                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                                <f:convertDateTime pattern="dd MMMM yyyy" locale="es" />
                             </h:outputText>
                         </p:column>
 

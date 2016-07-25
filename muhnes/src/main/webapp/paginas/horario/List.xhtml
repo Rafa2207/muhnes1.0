@@ -50,12 +50,12 @@
 
                             <h:outputText value="Fecha Inicio:"/>
                             <h:outputText value="#{agenda.proyectoView.FFechaInicio}">
-                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                                <f:convertDateTime pattern="dd MMMM yyyy" locale="es"/>
                             </h:outputText>
 
                             <h:outputText value="Fecha Fin: "/>
                             <h:outputText value="#{agenda.proyectoView.FFechaFin}">
-                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                                <f:convertDateTime pattern="dd MMMM yyyy" locale="es"/>
                             </h:outputText>
 
                             <h:outputText value="Presupuesto ($): "/>
@@ -77,12 +77,12 @@
 
                             <h:outputText value="Fecha de inicio: "/>
                             <h:outputText value="#{agenda.actividadView.FFecha}" title="Fecha de inicio">
-                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                                <f:convertDateTime pattern="dd MMMM yyyy" locale="es"/>
                             </h:outputText>
 
                             <h:outputText value="Fecha finalización:"/>
                             <h:outputText value="#{agenda.actividadView.FFechafin}" title="Fecha de finalización">
-                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                                <f:convertDateTime pattern="dd MMMM yyyy" locale="es"/>
                             </h:outputText>
 
                             <h:outputText value="#{bundle.ViewActividadTbLabel_MDescripcion}"/>

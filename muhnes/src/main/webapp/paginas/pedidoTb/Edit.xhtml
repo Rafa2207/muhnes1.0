@@ -20,7 +20,7 @@
                                              />
                             <p:outputLabel value="Fecha de Pedido: " for="FechaActual"/>
                             <h:outputText id="FechaActual" value="#{pedidoTbController.selected.FFecha}">
-                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                                <f:convertDateTime pattern="dd MMMM yyyy" locale="es"/>
                             </h:outputText>
                             <p:outputLabel value="Fecha posible a recibir: " for="FFecha" />
                             <p:calendar id="FFecha" pattern="dd MMMM yyyy" value="#{pedidoTbController.selected.FFechaPosibleRecibir}" title="#{bundle.EditPedidoTbTitle_FFecha}"  showOn="button"

@@ -18,11 +18,11 @@
                             <h:outputText id="descrip" value="#{pedidoTbController.selected.MDescripcion}"  />
                             <p:outputLabel value="Fecha pedido: " for="fechap" />
                             <h:outputText id="fechap" value="#{pedidoTbController.selected.FFecha}">
-                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                                <f:convertDateTime pattern="dd MMMM yyyy" locale="es"/>
                             </h:outputText>
                             <p:outputLabel value="Fecha a recibir: " for="fechaf" />
                             <h:outputText id="fechaf" value="#{pedidoTbController.selected.FFechaPosibleRecibir}">
-                                <f:convertDateTime pattern="dd MMMM yyyy" />
+                                <f:convertDateTime pattern="dd MMMM yyyy" locale="es"/>
                             </h:outputText>
                             <p:outputLabel for="estado" value="Estado del pedido:" />
                             <p:selectOneRadio required="true" requiredMessage="Debe seleccionar un estado" id="estado" value="#{pedidoTbController.selected.EEstado}">

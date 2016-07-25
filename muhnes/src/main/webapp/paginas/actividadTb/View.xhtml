@@ -18,12 +18,12 @@
 
                         <h:outputText value="Fecha de inicio: "/>
                         <h:outputText value="#{actividadTbController.selected.FFecha}" title="Fecha de inicio">
-                            <f:convertDateTime pattern="dd MMMM yyyy" />
+                            <f:convertDateTime pattern="dd MMMM yyyy" locale="es"/>
                         </h:outputText>
 
                         <h:outputText value="Fecha finalización:"/>
                         <h:outputText value="#{actividadTbController.selected.FFechafin}" title="Fecha de finalización">
-                            <f:convertDateTime pattern="dd MMMM yyyy" />
+                            <f:convertDateTime pattern="dd MMMM yyyy" locale="es"/>
                         </h:outputText>
 
                         <h:outputText value="#{bundle.ViewActividadTbLabel_MDescripcion}"/>
