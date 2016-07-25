@@ -352,7 +352,7 @@ public class ExhibicionTbController implements Serializable {
                 if (ee.getEEstado() != 0 || ee.getEEstado() != 3) {
                     ee.getEjemplarTb().setEEstado(1);
                 }
-                if(ee.getEEstado()==3){
+                if (ee.getEEstado() == 3) {
                     ee.getEjemplarTb().setEEstado(0);
                 }
                 ejemplarFacade.edit(ee.getEjemplarTb());
@@ -608,7 +608,7 @@ public class ExhibicionTbController implements Serializable {
                 if (ee.getEEstado() != 0 || ee.getEEstado() != 3) {
                     ee.getEjemplarTb().setEEstado(1);
                 }
-                if(ee.getEEstado()==3){
+                if (ee.getEEstado() == 3) {
                     ee.getEjemplarTb().setEEstado(0);
                 }
                 ejemplarFacade.edit(ee.getEjemplarTb());
@@ -736,11 +736,11 @@ public class ExhibicionTbController implements Serializable {
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 document.add(fecha);
-                
+
                 String nick = JsfUtil.getRequest().getUserPrincipal().getName();
                 UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
-                
-                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() +" "+usuario.getCApellido(),
+
+                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() + " " + usuario.getCApellido(),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 usuarioSis.setAlignment(Element.ALIGN_CENTER);
                 usuarioSis.setSpacingAfter(10);
@@ -816,6 +816,16 @@ public class ExhibicionTbController implements Serializable {
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
         }
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Creado reporte general de exhibiciones en el módulo: Exhibición");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
     }
 
     public void reportePrestamo() {
@@ -878,11 +888,11 @@ public class ExhibicionTbController implements Serializable {
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 document.add(fecha);
-                
+
                 String nick = JsfUtil.getRequest().getUserPrincipal().getName();
                 UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
-                
-                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() +" "+usuario.getCApellido(),
+
+                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() + " " + usuario.getCApellido(),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 usuarioSis.setAlignment(Element.ALIGN_CENTER);
                 usuarioSis.setSpacingAfter(10);
@@ -1026,6 +1036,16 @@ public class ExhibicionTbController implements Serializable {
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
         }
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Creado reporte de prestamos de ejemplares de la exhibición: " + selected.getMNombre() + ", en el módulo: Exhibición");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
     }
 
     public void reporteReingreso() {
@@ -1088,11 +1108,11 @@ public class ExhibicionTbController implements Serializable {
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 document.add(fecha);
-                
+
                 String nick = JsfUtil.getRequest().getUserPrincipal().getName();
                 UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
-                
-                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() +" "+usuario.getCApellido(),
+
+                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() + " " + usuario.getCApellido(),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 usuarioSis.setAlignment(Element.ALIGN_CENTER);
                 usuarioSis.setSpacingAfter(10);
@@ -1361,6 +1381,16 @@ public class ExhibicionTbController implements Serializable {
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
         }
+        //Bitacora inicio
+        BitacoraTb bitacora = new BitacoraTb();
+        bitacora.setMDescripcion("Creado reporte de reingreso de ejemplares de la exhibición: " + selected.getMNombre() + ", en el módulo: Exhibición");
+        String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+        UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+        bitacora.setEIdusuario(usuario);
+        Date fecha = new Date();
+        bitacora.setTFecha(fecha);
+        bitacoraFacade.create(bitacora);
+        //Bitacora fin
     }
 
 }
