@@ -725,14 +725,14 @@ public class ExhibicionTbController implements Serializable {
                 document.add(titulo);
 
                 if (booleanoReporte == false) {
-                    Paragraph titulo2 = new Paragraph(new SimpleDateFormat("dd MMMM yyyy").format(f1) + " - " + new SimpleDateFormat("dd MMMM yyyy").format(f2), FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                    Paragraph titulo2 = new Paragraph(new SimpleDateFormat("dd/MM/yyyy").format(f1) + " - " + new SimpleDateFormat("dd/MM/yyyy").format(f2), FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                     titulo2.setAlignment(Element.ALIGN_CENTER);
                     titulo2.setSpacingAfter(5);
                     titulo2.setSpacingBefore(2);
                     document.add(titulo2);
                 }
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 document.add(fecha);
@@ -791,11 +791,11 @@ public class ExhibicionTbController implements Serializable {
                     c4.setHorizontalAlignment(Element.ALIGN_CENTER);
                     proyectos.addCell(c4);
 
-                    PdfPCell c5 = new PdfPCell(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(proy.getFFechaPrestamo()), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    PdfPCell c5 = new PdfPCell(new Phrase(new SimpleDateFormat("dd/MM/yyyy").format(proy.getFFechaPrestamo()), FontFactory.getFont(FontFactory.TIMES, 12)));
                     c5.setHorizontalAlignment(Element.ALIGN_CENTER);
                     proyectos.addCell(c5);
 
-                    PdfPCell c6 = new PdfPCell(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(proy.getFFechaRecibido()), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    PdfPCell c6 = new PdfPCell(new Phrase(new SimpleDateFormat("dd/MM/yyyy").format(proy.getFFechaRecibido()), FontFactory.getFont(FontFactory.TIMES, 12)));
                     c6.setHorizontalAlignment(Element.ALIGN_CENTER);
                     proyectos.addCell(c6);
 
@@ -884,7 +884,7 @@ public class ExhibicionTbController implements Serializable {
                 titulo.setSpacingBefore(5);
                 document.add(titulo);
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 document.add(fecha);
@@ -945,7 +945,7 @@ public class ExhibicionTbController implements Serializable {
                 Tablafecha.setSpacingAfter(5);
                 Tablafecha.setSpacingBefore(5);
                 Tablafecha.addCell(new Phrase("Fecha de préstamo: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-                Tablafecha.addCell(new Phrase(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(selected.getFFechaPrestamo()) + " " + new SimpleDateFormat("hh:mm a").format(selected.getHHoraPrestamo()), FontFactory.getFont(FontFactory.TIMES, 12))));
+                Tablafecha.addCell(new Phrase(new Phrase(new SimpleDateFormat("dd/MM/yyyy").format(selected.getFFechaPrestamo()) + " " + new SimpleDateFormat("hh:mm a").format(selected.getHHoraPrestamo()), FontFactory.getFont(FontFactory.TIMES, 12))));
                 document.add(Tablafecha);
 
                 PdfPTable Tablafechareingreso = new PdfPTable(2);
@@ -956,7 +956,7 @@ public class ExhibicionTbController implements Serializable {
                 Tablafechareingreso.setSpacingAfter(5);
                 Tablafechareingreso.setSpacingBefore(5);
                 Tablafechareingreso.addCell(new Phrase("Fecha de reingreso: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-                Tablafechareingreso.addCell(new Phrase(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(selected.getFFechaRecibido()) + " " + new SimpleDateFormat("hh:mm a").format(selected.getHHoraRecibido()), FontFactory.getFont(FontFactory.TIMES, 12))));
+                Tablafechareingreso.addCell(new Phrase(new Phrase(new SimpleDateFormat("dd/MM/yyyy").format(selected.getFFechaRecibido()) + " " + new SimpleDateFormat("hh:mm a").format(selected.getHHoraRecibido()), FontFactory.getFont(FontFactory.TIMES, 12))));
                 document.add(Tablafechareingreso);
 
                 PdfPTable Tablasolicitante = new PdfPTable(2);
@@ -1104,7 +1104,7 @@ public class ExhibicionTbController implements Serializable {
                 titulo.setSpacingBefore(5);
                 document.add(titulo);
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 document.add(fecha);
@@ -1176,7 +1176,7 @@ public class ExhibicionTbController implements Serializable {
                 Tablafecha.setSpacingAfter(5);
                 Tablafecha.setSpacingBefore(5);
                 Tablafecha.addCell(new Phrase("Fecha de préstamo: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-                Tablafecha.addCell(new Phrase(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(selected.getFFechaPrestamo()) + " " + new SimpleDateFormat("hh:mm a").format(selected.getHHoraPrestamo()), FontFactory.getFont(FontFactory.TIMES, 12))));
+                Tablafecha.addCell(new Phrase(new Phrase(new SimpleDateFormat("dd/MM/yyyy").format(selected.getFFechaPrestamo()) + " " + new SimpleDateFormat("hh:mm a").format(selected.getHHoraPrestamo()), FontFactory.getFont(FontFactory.TIMES, 12))));
                 document.add(Tablafecha);
 
                 PdfPTable Tablafechareingreso = new PdfPTable(2);
@@ -1187,7 +1187,7 @@ public class ExhibicionTbController implements Serializable {
                 Tablafechareingreso.setSpacingAfter(5);
                 Tablafechareingreso.setSpacingBefore(5);
                 Tablafechareingreso.addCell(new Phrase("Fecha de reingreso: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-                Tablafechareingreso.addCell(new Phrase(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(selected.getFFechaRecibido()) + " " + new SimpleDateFormat("hh:mm a").format(selected.getHHoraRecibido()), FontFactory.getFont(FontFactory.TIMES, 12))));
+                Tablafechareingreso.addCell(new Phrase(new Phrase(new SimpleDateFormat("dd/MM/yyyy").format(selected.getFFechaRecibido()) + " " + new SimpleDateFormat("hh:mm a").format(selected.getHHoraRecibido()), FontFactory.getFont(FontFactory.TIMES, 12))));
                 document.add(Tablafechareingreso);
 
                 PdfPTable Tablasolicitante = new PdfPTable(2);
@@ -1232,7 +1232,7 @@ public class ExhibicionTbController implements Serializable {
                     for (EjemplarParticipaExhibicionTb ep : selected.getEjemplarParticipaExhibicionTbList()) {
                         if (ep.getEEstado() != 0) {
                             verificadorRecibidos = true;
-                            PdfPCell cell0 = new PdfPCell(new Phrase("" + ep.getEjemplarTb().getCCodigoentrada() + ".  " + estadoEjemplar(ep.getEEstado()) + ". Fecha de recibido: " + new SimpleDateFormat("dd MMMM yyyy").format(ep.getFFecha()) + ".", FontFactory.getFont(FontFactory.TIMES, 12)));
+                            PdfPCell cell0 = new PdfPCell(new Phrase("" + ep.getEjemplarTb().getCCodigoentrada() + ".  " + estadoEjemplar(ep.getEEstado()) + ". Fecha de recibido: " + new SimpleDateFormat("dd/MM/yyyy").format(ep.getFFecha()) + ".", FontFactory.getFont(FontFactory.TIMES, 12)));
                             cell0.setBorder(Rectangle.ALIGN_LEFT | Rectangle.ALIGN_RIGHT);
                             cell0.setHorizontalAlignment(Element.ALIGN_LEFT);
                             per1.addCell(cell0);
@@ -1288,7 +1288,7 @@ public class ExhibicionTbController implements Serializable {
                     for (EjemplarParticipaExhibicionTb ep : selected.getEjemplarParticipaExhibicionTbList()) {
                         if (ep.getEEstado() == 1 || ep.getEEstado() == 2) {
                             verificadorRecibidos = true;
-                            PdfPCell cell0 = new PdfPCell(new Phrase("" + ep.getEjemplarTb().getCCodigoentrada() + ".  " + estadoEjemplar(ep.getEEstado()) + ". Fecha de recibido: " + new SimpleDateFormat("dd MMMM yyyy").format(ep.getFFecha()) + ".", FontFactory.getFont(FontFactory.TIMES, 12)));
+                            PdfPCell cell0 = new PdfPCell(new Phrase("" + ep.getEjemplarTb().getCCodigoentrada() + ".  " + estadoEjemplar(ep.getEEstado()) + ". Fecha de recibido: " + new SimpleDateFormat("dd/MM/yyyy").format(ep.getFFecha()) + ".", FontFactory.getFont(FontFactory.TIMES, 12)));
                             cell0.setBorder(Rectangle.ALIGN_LEFT | Rectangle.ALIGN_RIGHT);
                             cell0.setHorizontalAlignment(Element.ALIGN_LEFT);
                             per.addCell(cell0);
@@ -1299,7 +1299,7 @@ public class ExhibicionTbController implements Serializable {
                     for (EjemplarParticipaExhibicionTb ep : selected.getEjemplarParticipaExhibicionTbList()) {
                         if (ep.getEEstado() == 3) {
                             verificadorPerdidos = true;
-                            PdfPCell cell0 = new PdfPCell(new Phrase("" + ep.getEjemplarTb().getCCodigoentrada() + ".  " + estadoEjemplar(ep.getEEstado()) + ". Fecha de aviso de perdido: " + new SimpleDateFormat("dd MMMM yyyy").format(ep.getFFecha()) + ".", FontFactory.getFont(FontFactory.TIMES, 12)));
+                            PdfPCell cell0 = new PdfPCell(new Phrase("" + ep.getEjemplarTb().getCCodigoentrada() + ".  " + estadoEjemplar(ep.getEEstado()) + ". Fecha de aviso de perdido: " + new SimpleDateFormat("dd/MM/yyyy").format(ep.getFFecha()) + ".", FontFactory.getFont(FontFactory.TIMES, 12)));
                             cell0.setBorder(Rectangle.ALIGN_LEFT | Rectangle.ALIGN_RIGHT);
                             cell0.setHorizontalAlignment(Element.ALIGN_LEFT);
                             per1.addCell(cell0);

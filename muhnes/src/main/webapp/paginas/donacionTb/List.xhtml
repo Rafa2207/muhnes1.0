@@ -25,7 +25,7 @@
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{donacionTbController.prepareCreate}" update=":DonacionTbCreateForm" oncomplete="PF('DonacionTbCreateDialog').show()"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" actionListener="#{donacionTbController.prepareView}" update=":DonacionTbViewForm" oncomplete="PF('DonacionTbViewDialog').show()" disabled="#{empty donacionTbController.selected}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":DonacionTbEditForm" oncomplete="PF('DonacionTbEditDialog').show()" disabled="#{empty donacionTbController.selected}"/>
-                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{donacionTbController.destroy}" update=":growl,datalist" disabled="#{empty donacionTbController.selected}"/>
+                    <!--<p:commandButton id="deleteButton" icon="ui-icon-trash"  value="{bundle.Delete}" actionListener="{donacionTbController.destroy}" update=":growl,datalist" disabled="{empty donacionTbController.selected}"/>-->
 
                     <div style="float: right"> 
                         <p:commandLink title="Reporte de donaciones" target="_blank" ajax="false"
@@ -50,8 +50,8 @@
                                  emptyMessage="No se encontraron donaciones"
                                  >
 
-                        <p:ajax event="rowSelect"   update=":DonacionTbListForm:createButton :DonacionTbListForm:viewButton :DonacionTbListForm:editButton :DonacionTbListForm:deleteButton"/>
-                        <p:ajax event="rowUnselect" update=":DonacionTbListForm:createButton :DonacionTbListForm:viewButton :DonacionTbListForm:editButton :DonacionTbListForm:deleteButton"/>
+                        <p:ajax event="rowSelect"   update=":DonacionTbListForm:createButton :DonacionTbListForm:viewButton :DonacionTbListForm:editButton "/>
+                        <p:ajax event="rowUnselect" update=":DonacionTbListForm:createButton :DonacionTbListForm:viewButton :DonacionTbListForm:editButton "/>
 
                         <p:column filterBy="#{item.MDescripcion}" filterStyle="display:none">
                             <f:facet name="header">

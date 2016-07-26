@@ -302,7 +302,7 @@ public class EjemplarVivoTbController implements Serializable {
                 
                 //fecha de generacion entre los reportes
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 fecha.setSpacingAfter(10);
@@ -355,7 +355,7 @@ public class EjemplarVivoTbController implements Serializable {
                     c2.setHorizontalAlignment(Element.ALIGN_CENTER);
                     pedidos.addCell(c2);
 
-                    PdfPCell c3 = new PdfPCell(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(ejem.getFFecha()), FontFactory.getFont(FontFactory.TIMES, 11)));
+                    PdfPCell c3 = new PdfPCell(new Phrase(new SimpleDateFormat("dd/MM/yyyy").format(ejem.getFFecha()), FontFactory.getFont(FontFactory.TIMES, 11)));
                     c3.setHorizontalAlignment(Element.ALIGN_CENTER);
                     pedidos.addCell(c3);
 

@@ -32,6 +32,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
+import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -261,10 +262,21 @@ public class MaterialTbController implements Serializable {
         return Tipo;
     }
 
-    public void generarCodigo() {
-        String pre = stripAccents(selected.getCNombre()).trim().toUpperCase().substring(0, 3);
-        String correlativo = getFacade().obtenerCorrelativo(pre);
-        selected.setMCodigobarras(pre + correlativo);
+    public void generarCodigo(String c) {
+        if (!c.equals("")) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            for (MaterialTb m : items) {
+                if (m.getCNombre().equals(c)) {
+                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El nombre de usuario ya existe en el Sistema.", "advertencia"));
+                    selected.setCNombre("");
+                }
+            }
+            if (!selected.getCNombre().equals("")) {
+                String pre = stripAccents(selected.getCNombre()).trim().toUpperCase().substring(0, 3);
+                String correlativo = getFacade().obtenerCorrelativo(pre);
+                selected.setMCodigobarras(pre + correlativo);
+            }
+        }
     }
 
     public static String stripAccents(String str) {
@@ -338,7 +350,7 @@ public class MaterialTbController implements Serializable {
                 titulo.setSpacingBefore(10);
                 document.add(titulo);
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 document.add(fecha);

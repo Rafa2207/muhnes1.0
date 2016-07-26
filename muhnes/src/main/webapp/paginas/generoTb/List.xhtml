@@ -27,7 +27,7 @@
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":GeneroTbViewForm" oncomplete="PF('GeneroTbViewDialog').show()" disabled="#{empty taxonomiaTbController.selected}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":GeneroTbEditForm" oncomplete="PF('GeneroTbEditDialog').show()" disabled="#{empty taxonomiaTbController.selected}"
                                      rendered="#{request.isUserInRole('Administrador')}"/>
-                    <!--<p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{taxonomiaTbController.destroy}" update=":growl,datalist" disabled="#{empty taxonomiaTbController.selected}">
+                    <!--<p:commandButton id="deleteButton" icon="ui-icon-trash"  value="{bundle.Delete}" actionListener="{taxonomiaTbController.destroy}" update=":growl,datalist" disabled="{empty taxonomiaTbController.selected}">
                         <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
                     </p:commandButton>-->
                     <p:commandButton id="especieButton" icon="ui-icon-arrowthick-1-e"  value="Especie" action="/paginas/especieTb/List.xhtml" disabled="#{empty taxonomiaTbController.selected}">
@@ -58,8 +58,8 @@
                                  emptyMessage="No se encontro género"
                                  >
 
-                        <p:ajax event="rowSelect"   update=":GeneroTbListForm:createButton :GeneroTbListForm:viewButton :GeneroTbListForm:editButton :GeneroTbListForm:deleteButton :GeneroTbListForm:especieButton"/>
-                        <p:ajax event="rowUnselect" update=":GeneroTbListForm:createButton :GeneroTbListForm:viewButton :GeneroTbListForm:editButton :GeneroTbListForm:deleteButton :GeneroTbListForm:especieButton"/>
+                        <p:ajax event="rowSelect"   update=":GeneroTbListForm:createButton :GeneroTbListForm:viewButton :GeneroTbListForm:editButton  :GeneroTbListForm:especieButton"/>
+                        <p:ajax event="rowUnselect" update=":GeneroTbListForm:createButton :GeneroTbListForm:viewButton :GeneroTbListForm:editButton  :GeneroTbListForm:especieButton"/>
 
                         <p:column filterBy="#{item.CNombre}" filterStyle="display:none">
                             <f:facet name="header">

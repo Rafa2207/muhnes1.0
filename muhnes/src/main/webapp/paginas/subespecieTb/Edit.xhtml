@@ -203,8 +203,10 @@
                                 <p:column headerText="Imagen">
                                     <p:commandLink styleClass="ui-icon ui-icon-image" style="display: inline-block;" value="ver imagen" type="button" onclick="PF('#{img.CNombre}').show();"/>
                                     <p:outputLabel value="  Ver imagen"/>
-                                    <p:dialog header="Imagen" height="300" width="500" resizable="true" dynamic="true" showEffect="clip" widgetVar="#{img.CNombre}">
-                                        <p:graphicImage value="/images/#{img.CNombre}" />
+                                    <p:dialog header="Imagen" resizable="true" showEffect="clip" widgetVar="#{img.CNombre}">
+                                        <p:panelGrid columns="1"  style="text-align: center; height: 550px; width: 800px" layout="grid">
+                                            <p:graphicImage value="/images/#{img.EIdtaxonomia.EIdtaxonomia}/#{img.CNombre}" width="500" />
+                                        </p:panelGrid>
                                     </p:dialog>
                                 </p:column>
                                 <p:column headerText="Acciones">

@@ -246,7 +246,7 @@ public class DespachoTbController implements Serializable {
 
     public List<DespachoTb> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = getFacade().ordenarDespachoFecha();
         }
         return items;
     }
@@ -498,7 +498,7 @@ public class DespachoTbController implements Serializable {
                 document.add(titulo);
                 //fecha de generacion entre los reportes
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 //fecha.setSpacingAfter(10);
@@ -540,7 +540,7 @@ public class DespachoTbController implements Serializable {
                     c1.setHorizontalAlignment(Element.ALIGN_LEFT);
                     pedidos.addCell(c1);
 
-                    PdfPCell c2 = new PdfPCell(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(despacho.getFFecha()), FontFactory.getFont(FontFactory.TIMES, 11)));
+                    PdfPCell c2 = new PdfPCell(new Phrase(new SimpleDateFormat("dd/MM/yyyy").format(despacho.getFFecha()), FontFactory.getFont(FontFactory.TIMES, 11)));
                     c2.setHorizontalAlignment(Element.ALIGN_CENTER);
                     pedidos.addCell(c2);
 
@@ -638,7 +638,7 @@ public class DespachoTbController implements Serializable {
                 titulo.setSpacingBefore(10);
                 document.add(titulo);
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 fecha.setSpacingAfter(15);
@@ -674,7 +674,7 @@ public class DespachoTbController implements Serializable {
                 TablaDescripcion.setSpacingAfter(5);
                 TablaDescripcion.setSpacingBefore(5);
                 TablaDescripcion.addCell(new Phrase("Fecha de despacho: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-                TablaDescripcion.addCell(new Phrase(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(selected.getFFecha()), FontFactory.getFont(FontFactory.TIMES, 12))));
+                TablaDescripcion.addCell(new Phrase(new Phrase(new SimpleDateFormat("dd/MM/yyyy").format(selected.getFFecha()), FontFactory.getFont(FontFactory.TIMES, 12))));
                 document.add(TablaDescripcion);
 
                 PdfPTable TablaFecha = new PdfPTable(2);

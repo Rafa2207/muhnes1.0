@@ -28,7 +28,7 @@
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" actionListener="#{ejemplarTbController.prepareView(ejemplarTbController.selected)}" update=":EjemplarTbViewForm" oncomplete="PF('EjemplarTbViewDialog').show()" disabled="#{empty ejemplarTbController.selected}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" actionListener="#{ejemplarTbController.prepareEdit(ejemplarTbController.selected)}" update=":EjemplarTbEditForm" oncomplete="PF('EjemplarTbEditDialog').show()" disabled="#{empty ejemplarTbController.selected}"
                                      rendered="#{request.isUserInRole('Administrador')}"/>
-                    <!--<p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{ejemplarTbController.destroy}" update=":growl,datalist" disabled="#{empty ejemplarTbController.selected}"/>
+                    <!--<p:commandButton id="deleteButton" icon="ui-icon-trash"  value="{bundle.Delete}" actionListener="{ejemplarTbController.destroy}" update=":growl,datalist" disabled="{empty ejemplarTbController.selected}"/>
 -->
                     <div  style="float: right">
                         <p:commandLink title="Reporte de ejemplares" update=":EjemplarTbReporteAllForm" 
@@ -54,8 +54,8 @@
                                  emptyMessage="No se encontro ejemplar"
                                  >
 
-                        <p:ajax event="rowSelect"   update=":EjemplarTbListForm:createButton :EjemplarTbListForm:create2Button :EjemplarTbListForm:viewButton :EjemplarTbListForm:editButton :EjemplarTbListForm:deleteButton"/>
-                        <p:ajax event="rowUnselect" update=":EjemplarTbListForm:createButton :EjemplarTbListForm:create2Button :EjemplarTbListForm:viewButton :EjemplarTbListForm:editButton :EjemplarTbListForm:deleteButton"/>
+                        <p:ajax event="rowSelect"   update=":EjemplarTbListForm:createButton :EjemplarTbListForm:create2Button :EjemplarTbListForm:viewButton :EjemplarTbListForm:editButton "/>
+                        <p:ajax event="rowUnselect" update=":EjemplarTbListForm:createButton :EjemplarTbListForm:create2Button :EjemplarTbListForm:viewButton :EjemplarTbListForm:editButton "/>
 
                         <p:column filterBy="#{item.CCodigoentrada}" filterStyle="display:none" width="10%">
                             <f:facet name="header">

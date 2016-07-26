@@ -373,7 +373,7 @@ public class AreaprotegidaTbController implements Serializable {
                 titulo.setSpacingBefore(5);
                 document.add(titulo);
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 document.add(fecha);
@@ -509,7 +509,7 @@ public class AreaprotegidaTbController implements Serializable {
                 titulo.setSpacingBefore(5);
                 document.add(titulo);
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 document.add(fecha);
@@ -639,7 +639,7 @@ public class AreaprotegidaTbController implements Serializable {
                                 c5.setHorizontalAlignment(Element.ALIGN_LEFT);
                                 ejemplares.addCell(c5);
 
-                                PdfPCell c6 = new PdfPCell(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(ejemplar.getFFechaInicioIdent()), FontFactory.getFont(FontFactory.TIMES, 11)));
+                                PdfPCell c6 = new PdfPCell(new Phrase(new SimpleDateFormat("dd/MM/yyyy").format(ejemplar.getFFechaInicioIdent()), FontFactory.getFont(FontFactory.TIMES, 11)));
                                 c6.setHorizontalAlignment(Element.ALIGN_LEFT);
                                 ejemplares.addCell(c6);
                             }

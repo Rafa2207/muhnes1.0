@@ -996,13 +996,13 @@ public class EjemplarTbController implements Serializable {
                     document.add(titulo);
                     //fecha de generacion entre los reportes
                     if (booleanFecha == true && tipoReporte.equals("recoleccion")) {
-                        Paragraph titulo2 = new Paragraph("Fecha de Recolección: " + new SimpleDateFormat("dd MMMM yyyy").format(f1) + " - " + new SimpleDateFormat("dd MMMM yyyy").format(f2), FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                        Paragraph titulo2 = new Paragraph("Fecha de Recolección: " + new SimpleDateFormat("dd/MM/yyyy").format(f1) + " - " + new SimpleDateFormat("dd/MM/yyyy").format(f2), FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                         titulo2.setAlignment(Element.ALIGN_CENTER);
                         titulo2.setSpacingAfter(5);
                         titulo2.setSpacingBefore(2);
                         document.add(titulo2);
                     } else if (booleanFecha == true && tipoReporte.equals("identificacion")) {
-                        Paragraph titulo2 = new Paragraph("Fecha de Identificación: " + new SimpleDateFormat("dd MMMM yyyy").format(f1) + " - " + new SimpleDateFormat("dd MMMM yyyy").format(f2), FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                        Paragraph titulo2 = new Paragraph("Fecha de Identificación: " + new SimpleDateFormat("dd/MM/yyyy").format(f1) + " - " + new SimpleDateFormat("dd/MM/yyyy").format(f2), FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                         titulo2.setAlignment(Element.ALIGN_CENTER);
                         titulo2.setSpacingAfter(5);
                         titulo2.setSpacingBefore(2);
@@ -1033,7 +1033,7 @@ public class EjemplarTbController implements Serializable {
                         document.add(titulo2);
                     }
 
-                    Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
+                    Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
                             FontFactory.getFont(FontFactory.TIMES, 10));
                     fecha.setAlignment(Element.ALIGN_CENTER);
                     //fecha.setSpacingAfter(10);
@@ -1298,7 +1298,7 @@ public class EjemplarTbController implements Serializable {
                             ident.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                             ident.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                             ident.setWidthPercentage(100);
-                            PdfPCell ccc1 = new PdfPCell(new Phrase("Det. " + nombres + " " + new SimpleDateFormat("dd MMMM yyyy").format(ej.getFFechaFinIdent()), FontFactory.getFont(FontFactory.TIMES_ROMAN, 9)));
+                            PdfPCell ccc1 = new PdfPCell(new Phrase("Det. " + nombres + " " + new SimpleDateFormat("dd/MM/yyyy").format(ej.getFFechaFinIdent()), FontFactory.getFont(FontFactory.TIMES_ROMAN, 9)));
                             ccc1.setHorizontalAlignment(Element.ALIGN_LEFT);
                             ccc1.setBorder(Rectangle.NO_BORDER);
                             ident.addCell(ccc1);
@@ -1383,7 +1383,7 @@ public class EjemplarTbController implements Serializable {
                             cres1.setHorizontalAlignment(Element.ALIGN_LEFT);
                             cres1.setBorder(Rectangle.NO_BORDER);
                             respon.addCell(cres1);
-                            PdfPCell cres2 = new PdfPCell(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(ej.getFFechaInicioIdent()), FontFactory.getFont(FontFactory.TIMES_ROMAN, 9)));
+                            PdfPCell cres2 = new PdfPCell(new Phrase(new SimpleDateFormat("dd/MM/yyyy").format(ej.getFFechaInicioIdent()), FontFactory.getFont(FontFactory.TIMES_ROMAN, 9)));
                             cres2.setHorizontalAlignment(Element.ALIGN_RIGHT);
                             cres2.setBorder(Rectangle.NO_BORDER);
                             respon.addCell(cres2);

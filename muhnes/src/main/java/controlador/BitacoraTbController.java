@@ -364,14 +364,14 @@ public class BitacoraTbController implements Serializable {
                     document.add(titulo2);
                 }
                 if (booleanFecha == true) {
-                    Paragraph titulo3 = new Paragraph("Fecha : " + new SimpleDateFormat("dd MMMM yyyy").format(f1) + " - " + new SimpleDateFormat("dd MMMM yyyy").format(f2), FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                    Paragraph titulo3 = new Paragraph("Fecha : " + new SimpleDateFormat("dd/MM/yyyy").format(f1) + " - " + new SimpleDateFormat("dd/MM/yyyy").format(f2), FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                     titulo3.setAlignment(Element.ALIGN_CENTER);
                     titulo3.setSpacingAfter(5);
                     titulo3.setSpacingBefore(2);
                     document.add(titulo3);
                 }
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 fecha.setSpacingAfter(10);
@@ -425,7 +425,7 @@ public class BitacoraTbController implements Serializable {
                         c1.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
                         ejemplares.addCell(c1);
 
-                        PdfPCell c3 = new PdfPCell(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(bitacora.getTFecha()), FontFactory.getFont(FontFactory.TIMES, 11)));
+                        PdfPCell c3 = new PdfPCell(new Phrase(new SimpleDateFormat("dd/MM/yyyy").format(bitacora.getTFecha()), FontFactory.getFont(FontFactory.TIMES, 11)));
                         c3.setHorizontalAlignment(Element.ALIGN_CENTER);
                         ejemplares.addCell(c3);
 

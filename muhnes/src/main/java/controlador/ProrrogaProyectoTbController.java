@@ -434,7 +434,7 @@ public class ProrrogaProyectoTbController implements Serializable {
                 titulo.setSpacingBefore(10);
                 document.add(titulo);
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd /MM/ yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 document.add(fecha);
@@ -491,8 +491,8 @@ public class ProrrogaProyectoTbController implements Serializable {
                     TablaFecha.setSpacingAfter(5);
                     TablaFecha.setSpacingBefore(5);
                     TablaFecha.addCell(new Phrase("Tiempo de duración: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-                    TablaFecha.addCell(new Phrase(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(proyecto.getFFechaInicio()) + " - "
-                            + new SimpleDateFormat("dd MMMM yyyy").format(proyecto.getFFechaFin()), FontFactory.getFont(FontFactory.TIMES, 12))));
+                    TablaFecha.addCell(new Phrase(new Phrase(new SimpleDateFormat("dd /MM/ yyyy").format(proyecto.getFFechaInicio()) + " - "
+                            + new SimpleDateFormat("dd /MM/ yyyy").format(proyecto.getFFechaFin()), FontFactory.getFont(FontFactory.TIMES, 12))));
                     document.add(TablaFecha);
                 } else {
                     if (proyecto.getEEstado() == 3) {
@@ -504,9 +504,9 @@ public class ProrrogaProyectoTbController implements Serializable {
                         TablaFecha.setSpacingAfter(5);
                         TablaFecha.setSpacingBefore(5);
                         TablaFecha.addCell(new Phrase("Tiempo de duración: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-                        TablaFecha.addCell(new Phrase(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(proyecto.getFFechaInicio()) + " - "
-                                + new SimpleDateFormat("dd MMMM yyyy").format(proyecto.getFFechaFin()) + " (Cancelado: "
-                                + new SimpleDateFormat("dd MMMM yyyy").format(prorr.getFFechaInicio()) + ") ", FontFactory.getFont(FontFactory.TIMES, 12))));
+                        TablaFecha.addCell(new Phrase(new Phrase(new SimpleDateFormat("dd /MM/ yyyy").format(proyecto.getFFechaInicio()) + " - "
+                                + new SimpleDateFormat("dd /MM/ yyyy").format(proyecto.getFFechaFin()) + " (Cancelado: "
+                                + new SimpleDateFormat("dd /MM/ yyyy").format(prorr.getFFechaInicio()) + ") ", FontFactory.getFont(FontFactory.TIMES, 12))));
                         document.add(TablaFecha);
 
                     } else {
@@ -518,9 +518,9 @@ public class ProrrogaProyectoTbController implements Serializable {
                         TablaFecha.setSpacingAfter(5);
                         TablaFecha.setSpacingBefore(5);
                         TablaFecha.addCell(new Phrase("Tiempo de duración: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-                        TablaFecha.addCell(new Phrase(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(proyecto.getFFechaInicio()) + " - "
-                                + new SimpleDateFormat("dd MMMM yyyy").format(proyecto.getFFechaFin()) + " (con prórroga al "
-                                + new SimpleDateFormat("dd MMMM yyyy").format(prorr.getFFechaFin()) + ") ", FontFactory.getFont(FontFactory.TIMES, 12))));
+                        TablaFecha.addCell(new Phrase(new Phrase(new SimpleDateFormat("dd /MM/ yyyy").format(proyecto.getFFechaInicio()) + " - "
+                                + new SimpleDateFormat("dd /MM/ yyyy").format(proyecto.getFFechaFin()) + " (con prórroga al "
+                                + new SimpleDateFormat("dd /MM/ yyyy").format(prorr.getFFechaFin()) + ") ", FontFactory.getFont(FontFactory.TIMES, 12))));
                         document.add(TablaFecha);
                     }
                 }
@@ -587,8 +587,8 @@ public class ProrrogaProyectoTbController implements Serializable {
                             c1.setHorizontalAlignment(Element.ALIGN_LEFT);
                             TablaProrroga.addCell(c1);
 
-                            PdfPCell c2 = new PdfPCell(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(prorroga.getFFechaInicio()) + " - "
-                                    + new SimpleDateFormat("dd MMMM yyyy").format(prorroga.getFFechaFin()), FontFactory.getFont(FontFactory.TIMES, 12)));
+                            PdfPCell c2 = new PdfPCell(new Phrase(new SimpleDateFormat("dd /MM/ yyyy").format(prorroga.getFFechaInicio()) + " - "
+                                    + new SimpleDateFormat("dd /MM/ yyyy").format(prorroga.getFFechaFin()), FontFactory.getFont(FontFactory.TIMES, 12)));
                             c2.setHorizontalAlignment(Element.ALIGN_CENTER);
                             TablaProrroga.addCell(c2);
 

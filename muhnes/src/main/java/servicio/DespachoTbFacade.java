@@ -58,4 +58,9 @@ public class DespachoTbFacade extends AbstractFacade<DespachoTb> {
         TypedQuery<ProyectoTb> query = em.createQuery("SELECT p FROM ProyectoTb p WHERE p.eEstado=0 OR p.eEstado=1 ORDER BY p.mNombre ASC", ProyectoTb.class);
         return query.getResultList();
     }
+    
+    public List<DespachoTb> ordenarDespachoFecha(){
+        TypedQuery<DespachoTb> query = em.createQuery("SELECT d FROM DespachoTb d ORDER BY d.fFecha DESC", DespachoTb.class);
+        return query.getResultList();
+    }
 }

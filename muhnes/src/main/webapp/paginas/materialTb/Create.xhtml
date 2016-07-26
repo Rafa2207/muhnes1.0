@@ -17,8 +17,8 @@
                         <p:inputText id="CNombre" value="#{materialTbController.selected.CNombre}" title="#{bundle.CreateMaterialTbTitle_CNombre}"
                                      required="true"
                                      requiredMessage="Introduzca nombre del material" size="25" maxlength="50">
-                            <p:ajax event="change" update="Codigo"
-                                    listener="#{materialTbController.generarCodigo()}"/>
+                            <p:ajax event="change" update="Codigo CNombre :growl"
+                                    listener="#{materialTbController.generarCodigo(materialTbController.selected.CNombre)}"/>
                         </p:inputText>
 
                         <p:outputLabel value="Unidad:" for="unidad" />

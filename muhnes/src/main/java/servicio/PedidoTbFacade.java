@@ -54,4 +54,8 @@ public class PedidoTbFacade extends AbstractFacade<PedidoTb> {
         TypedQuery<PedidoTb> query = em.createQuery("SELECT p FROM PedidoTb p ORDER BY p.eEstado ASC", PedidoTb.class);
         return query.getResultList();
     }
+    public List<PedidoTb> ordenarPedidoFecha(){
+        TypedQuery<PedidoTb> query = em.createQuery("SELECT p FROM PedidoTb p ORDER BY p.fFecha DESC", PedidoTb.class);
+        return query.getResultList();
+    }
 }

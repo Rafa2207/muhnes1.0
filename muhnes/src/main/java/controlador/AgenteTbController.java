@@ -428,7 +428,7 @@ public class AgenteTbController implements Serializable {
                 titulo.setSpacingBefore(10);
                 document.add(titulo);
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 document.add(fecha);
@@ -595,7 +595,7 @@ public class AgenteTbController implements Serializable {
                 titulo.setSpacingBefore(10);
                 document.add(titulo);
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 document.add(fecha);
@@ -834,7 +834,7 @@ public class AgenteTbController implements Serializable {
                         ag8.setWidthPercentage(100);
                         ag8.addCell(new Phrase("Fecha de Nacimiento :", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                         if (r.getAgenteTb().getFFechanac() != null) {
-                            ag8.addCell(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(r.getAgenteTb().getFFechanac()), FontFactory.getFont(FontFactory.TIMES, 12)));
+                            ag8.addCell(new Phrase(new SimpleDateFormat("dd/MM/yyyy").format(r.getAgenteTb().getFFechanac()), FontFactory.getFont(FontFactory.TIMES, 12)));
                         } else {
                             ag8.addCell(new Phrase("---------", FontFactory.getFont(FontFactory.TIMES, 14)));
                         }
@@ -859,7 +859,7 @@ public class AgenteTbController implements Serializable {
                         ag9.setWidthPercentage(100);
                         ag9.addCell(new Phrase("Fecha de Muerte :", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                         if (r.getAgenteTb().getFFecham() != null) {
-                            ag9.addCell(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(r.getAgenteTb().getFFecham()), FontFactory.getFont(FontFactory.TIMES, 12)));
+                            ag9.addCell(new Phrase(new SimpleDateFormat("dd/MM/yyyy").format(r.getAgenteTb().getFFecham()), FontFactory.getFont(FontFactory.TIMES, 12)));
                         } else {
                             ag9.addCell(new Phrase("---------", FontFactory.getFont(FontFactory.TIMES, 12)));
                         }

@@ -567,7 +567,7 @@ public class ActividadTbController implements Serializable {
                 titulo.setSpacingBefore(5);
                 document.add(titulo);
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 document.add(fecha);
@@ -614,11 +614,11 @@ public class ActividadTbController implements Serializable {
                     c1.setHorizontalAlignment(Element.ALIGN_LEFT);
                     actividades.addCell(c1);
 
-                    PdfPCell c3 = new PdfPCell(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(act.getFFecha()), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    PdfPCell c3 = new PdfPCell(new Phrase(new SimpleDateFormat("dd/MM/yyyy").format(act.getFFecha()), FontFactory.getFont(FontFactory.TIMES, 12)));
                     c3.setHorizontalAlignment(Element.ALIGN_CENTER);
                     actividades.addCell(c3);
 
-                    PdfPCell c4 = new PdfPCell(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(act.getFFechafin()), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    PdfPCell c4 = new PdfPCell(new Phrase(new SimpleDateFormat("dd/MM/yyyy").format(act.getFFechafin()), FontFactory.getFont(FontFactory.TIMES, 12)));
                     c4.setHorizontalAlignment(Element.ALIGN_CENTER);
                     actividades.addCell(c4);
 
@@ -733,7 +733,7 @@ public class ActividadTbController implements Serializable {
                 titulo.setSpacingBefore(10);
                 document.add(titulo);
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd MMMM yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 document.add(fecha);
@@ -790,8 +790,8 @@ public class ActividadTbController implements Serializable {
                 FechaEjecucion.setSpacingAfter(5);
                 FechaEjecucion.setSpacingBefore(5);
                 FechaEjecucion.addCell(new Phrase("Fecha duración planificada: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-                FechaEjecucion.addCell(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(selected.getFFecha()) + " - "
-                        + new SimpleDateFormat("dd MMMM yyyy").format(selected.getFFechafin()), FontFactory.getFont(FontFactory.TIMES, 12)));
+                FechaEjecucion.addCell(new Phrase(new SimpleDateFormat("dd/MM/yyyy").format(selected.getFFecha()) + " - "
+                        + new SimpleDateFormat("dd/MM/yyyy").format(selected.getFFechafin()), FontFactory.getFont(FontFactory.TIMES, 12)));
                 document.add(FechaEjecucion);
 
                 if (selected.getEEstado() != 0 && selected.getEEstado() != 1) {
@@ -803,8 +803,8 @@ public class ActividadTbController implements Serializable {
                     FechaEjecucion1.setSpacingAfter(5);
                     FechaEjecucion1.setSpacingBefore(5);
                     FechaEjecucion1.addCell(new Phrase("Fecha de ejecución: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-                    FechaEjecucion1.addCell(new Phrase(new SimpleDateFormat("dd MMMM yyyy").format(selected.getFFechaInicioReal()) + " - "
-                            + new SimpleDateFormat("dd MMMM yyyy").format(selected.getFFechaFinReal()), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    FechaEjecucion1.addCell(new Phrase(new SimpleDateFormat("dd/MM/yyyy").format(selected.getFFechaInicioReal()) + " - "
+                            + new SimpleDateFormat("dd/MM/yyyy").format(selected.getFFechaFinReal()), FontFactory.getFont(FontFactory.TIMES, 12)));
                     document.add(FechaEjecucion1);
                 }
 

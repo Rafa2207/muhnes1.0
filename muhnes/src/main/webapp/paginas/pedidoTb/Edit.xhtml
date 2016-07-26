@@ -40,7 +40,7 @@
                                               itemValue=""/>
                                 <f:selectItems value="#{pedidoTbController.materialDisponible}"
                                                var="mt"
-                                               itemLabel="#{mt.CNombre}"
+                                               itemLabel="#{mt.CNombre} (#{mt.DCantidad} #{mt.EIdunidad.CAbreviatura})"
                                                itemValue="#{mt}"/>
                                 <p:ajax event="change" process="material" update="und"/>
                             </p:selectOneMenu>

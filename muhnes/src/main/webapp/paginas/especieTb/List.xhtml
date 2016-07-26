@@ -28,7 +28,7 @@
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":EspecieTbViewForm" oncomplete="PF('EspecieTbViewDialog').show()" disabled="#{empty taxonomiaTbController.selected}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" actionListener="#{taxonomiaTbController.prepareEdit(taxonomiaTbController.selected)}" update=":EspecieTbEditForm" oncomplete="PF('EspecieTbEditDialog').show()" disabled="#{empty taxonomiaTbController.selected}"
                                      rendered="#{request.isUserInRole('Administrador')}"/>
-                    <!--<p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{taxonomiaTbController.destroy}" update=":growl,datalist" disabled="#{empty taxonomiaTbController.selected}">
+                    <!--<p:commandButton id="deleteButton" icon="ui-icon-trash"  value="{bundle.Delete}" actionListener="{taxonomiaTbController.destroy}" update=":growl,datalist" disabled="{empty taxonomiaTbController.selected}">
                         <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar?" icon="ui-icon-alert" />
                     </p:commandButton>-->
                     <p:commandButton id="subespecieButton" icon="ui-icon-arrowthick-1-e"  value="SubEspecie" action="/paginas/subespecieTb/List.xhtml" disabled="#{empty taxonomiaTbController.selected}">
@@ -63,8 +63,8 @@
                                  emptyMessage="No se encontro especie"
                                  >
 
-                        <p:ajax event="rowSelect"   update=":EspecieTbListForm:createButton :EspecieTbListForm:viewButton :EspecieTbListForm:editButton :EspecieTbListForm:deleteButton :EspecieTbListForm:subespecieButton :EspecieTbListForm:variedadButton"/>
-                        <p:ajax event="rowUnselect" update=":EspecieTbListForm:createButton :EspecieTbListForm:viewButton :EspecieTbListForm:editButton :EspecieTbListForm:deleteButton :EspecieTbListForm:subespecieButton :EspecieTbListForm:variedadButton"/>
+                        <p:ajax event="rowSelect"   update=":EspecieTbListForm:createButton :EspecieTbListForm:viewButton :EspecieTbListForm:editButton  :EspecieTbListForm:subespecieButton :EspecieTbListForm:variedadButton"/>
+                        <p:ajax event="rowUnselect" update=":EspecieTbListForm:createButton :EspecieTbListForm:viewButton :EspecieTbListForm:editButton  :EspecieTbListForm:subespecieButton :EspecieTbListForm:variedadButton"/>
 
                         <p:column filterBy="#{item.CNombre}" filterStyle="display:none">
                             <f:facet name="header">
