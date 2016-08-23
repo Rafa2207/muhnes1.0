@@ -36,7 +36,7 @@
                                     </p:panelGrid>
                                 </p:carousel>
 
-                                <p:carousel class="notificacionesActividad" footerText="Existen #{actividadTbController.numeroDeNotificaciones} actividades a finalizar" 
+                                <p:carousel styleClass="notificacionesActividad" footerText="Existen #{actividadTbController.numeroDeNotificaciones} actividades a finalizar" 
                                             style="width: 500px; background: #000066"  value="#{actividadTbController.itemsNotificacion}" 
                                             circular="true" headerText="Actividades" numVisible="1" var="actividad"
                                             rendered="#{not actividadTbController.itemsNotificacion.isEmpty()}">
@@ -63,7 +63,7 @@
                                     </p:panelGrid>
                                 </p:carousel>
 
-                                <p:carousel class="notificacionesProceso" style="width: 500px;background: #660000" 
+                                <p:carousel styleClass="notificacionesProceso" style="width: 500px;background: #660000" 
                                             value="#{procesoejemplarTbController.itemsNotificacion}"
                                             circular="true" headerText="Proceso ejemplar" numVisible="1" var="proceso"
                                             footerText="Existen #{procesoejemplarTbController.numeroDeNotificaciones} procesos de ejemplar a finalizar"
@@ -88,7 +88,7 @@
                                     </p:panelGrid>
                                 </p:carousel>
 
-                                <p:carousel class="notificacionesExhibiciones" style="width: 500px;background: #003300"  
+                                <p:carousel styleClass="notificacionesExhibiciones" style="width: 500px;background: #003300"  
                                             value="#{exhibicionTbController.itemsNotificacion}" 
                                             footerText="Existen #{exhibicionTbController.numeroDeNotificaciones} exhibiciones a finalizar"
                                             circular="true" headerText="Exhibiciones" numVisible="1" var="exhibicion"

@@ -267,7 +267,7 @@ public class MaterialTbController implements Serializable {
             FacesContext context = FacesContext.getCurrentInstance();
             for (MaterialTb m : items) {
                 if (m.getCNombre().equals(c)) {
-                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El nombre de usuario ya existe en el Sistema.", "advertencia"));
+                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El nombre del material ya existe en los materiales.", "advertencia"));
                     selected.setCNombre("");
                 }
             }

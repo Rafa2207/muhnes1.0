@@ -24,7 +24,10 @@
                             </p:selectOneMenu>
 
                             <p:outputLabel value="#{bundle.CreateEjemplarTbLabel_ECorrelativo}" for="ECorrelativo" />
-                            <p:inputText id="ECorrelativo" value="#{ejemplarTbController.selected.ECorrelativo}" size="6" title="#{bundle.CreateEjemplarTbTitle_ECorrelativo}" />
+                            <p:inputText id="ECorrelativo" value="#{ejemplarTbController.selected.ECorrelativo}" size="6" title="#{bundle.CreateEjemplarTbTitle_ECorrelativo}" >
+                            <p:ajax event="change" process="ECorrelativo CResponsable" update="ECorrelativo :growl"
+                                listener="#{ejemplarTbController.comprobarCorrelativo(ejemplarTbController.selected.EResponsable, ejemplarTbController.selected.ECorrelativo)}"/>
+                        </p:inputText>
 
                             <p:outputLabel value="Información Taxonómica: " for="Taxon" />
                             <h:panelGroup>
@@ -53,7 +56,23 @@
                                 <f:selectItem itemLabel="-cf." itemValue="-cf."/>
                                 <f:selectItem itemLabel="ined." itemValue="ined."/>
                             </p:selectOneMenu>
-
+                            <p:outputLabel value="Proyecto: " for="proy" />
+                            <p:selectOneMenu id="proy" style="width: 260px" filter="true" value="#{ejemplarTbController.selected.EIdproyecto}" >
+                                <f:selectItem itemLabel="Sin Proyecto" itemValue=""/>
+                                <f:selectItems value="#{proyectoTbController.itemsAvailableSelectOne}"
+                                               var="proy"
+                                               itemLabel="#{proy.MNombre}"
+                                               itemValue="#{proy}"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Localidad: " for="localidad" />
+                            <p:selectOneMenu id="localidad" style="width: 150px" filter="true" 
+                                             value="#{ejemplarTbController.selected.EIdlocalidad}" required="true" requiredMessage="Seleccione Localidad">
+                                <f:selectItem itemLabel="Seleccione..." itemValue=""/>
+                                <f:selectItems value="#{localidadTbController.itemsAvailableSelectOne}"
+                                               var="local"
+                                               itemLabel="#{local.CNombre} (#{localidadTbController.latitudList(local)}'', #{localidadTbController.longitudList(local)}'')"
+                                               itemValue="#{local}"/>
+                            </p:selectOneMenu>
                             <p:outputLabel value="Fecha de Recolección: " for="FFechaInicioIdent" />
                             <p:calendar size="14" id="FFechaInicioIdent" pattern="dd MMMM yyyy" 
                                         value="#{ejemplarTbController.selected.FFechaInicioIdent}" 
@@ -77,23 +96,6 @@
                             <p:inputTextarea cols="38" rows="2" id="MDescripcion" value="#{ejemplarTbController.selected.MDescripcion}" title="#{bundle.CreateEjemplarTbTitle_MDescripcion}" required="true" />
                             <p:outputLabel value="#{bundle.CreateEjemplarTbLabel_ECantDuplicado}" for="ECantDuplicado" />
                             <p:inputText id="ECantDuplicado" value="#{ejemplarTbController.selected.ECantDuplicado}" size="5" title="#{bundle.CreateEjemplarTbTitle_ECantDuplicado}" required="true" />
-                            <p:outputLabel value="Proyecto: " for="proy" />
-                            <p:selectOneMenu id="proy" style="width: 260px" filter="true" value="#{ejemplarTbController.selected.EIdproyecto}" >
-                                <f:selectItem itemLabel="Seleccione..." itemValue=""/>
-                                <f:selectItems value="#{proyectoTbController.itemsAvailableSelectOne}"
-                                               var="proy"
-                                               itemLabel="#{proy.MNombre}"
-                                               itemValue="#{proy}"/>
-                            </p:selectOneMenu>
-                            <p:outputLabel value="Localidad: " for="localidad" />
-                            <p:selectOneMenu id="localidad" style="width: 150px" filter="true" 
-                                             value="#{ejemplarTbController.selected.EIdlocalidad}" required="true" requiredMessage="Seleccione Localidad">
-                                <f:selectItem itemLabel="Seleccione..." itemValue=""/>
-                                <f:selectItems value="#{localidadTbController.itemsAvailableSelectOne}"
-                                               var="local"
-                                               itemLabel="#{local.CNombre} (#{localidadTbController.latitudList(local)}'', #{localidadTbController.longitudList(local)}'')"
-                                               itemValue="#{local}"/>
-                            </p:selectOneMenu>
                             <p:outputLabel value="Código de entrada: " for="codEntrada" />
                             <p:selectOneMenu id="codEntrada" value="#{ejemplarTbController.cod}">
                                 <f:selectItem itemLabel="Seleccione..." itemValue=""/>

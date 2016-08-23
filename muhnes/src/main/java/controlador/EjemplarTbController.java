@@ -91,13 +91,21 @@ public class EjemplarTbController implements Serializable {
     private String tipoTaxon, tipoReporte, codigo1, codigo2;
     private String cod;
     private Integer responsable, identificador, recolector, columnas;
-    private boolean familia, booleanoReporte, booleanFecha, booleanEtiqueta, booleanCodigo, booleanResponsable, booleanIdentidicador, booleanRecolector;
+    private boolean familia, booleanoInstitucion, booleanoReporte, booleanFecha, booleanEtiqueta, booleanCodigo, booleanResponsable, booleanIdentidicador, booleanRecolector;
     private InstitucionTb ins;
     private Date f1, f2;
     @Inject
     LocalidadTbController localidadControl;
 
     public EjemplarTbController() {
+    }
+
+    public boolean isBooleanoInstitucion() {
+        return booleanoInstitucion;
+    }
+
+    public void setBooleanoInstitucion(boolean booleanoInstitucion) {
+        this.booleanoInstitucion = booleanoInstitucion;
     }
 
     public boolean isBooleanEtiqueta() {
@@ -384,6 +392,7 @@ public class EjemplarTbController implements Serializable {
         listaInstitucion = institucionFacade.findAll();
         listaAgenteR = agenteFacade.agentesRecolectores();
         listaAgenteI = agenteFacade.agentesIdentificadores();
+        booleanoInstitucion = false;
         return selected;
     }
 
@@ -396,6 +405,11 @@ public class EjemplarTbController implements Serializable {
     }
 
     public EjemplarTb prepareEdit(EjemplarTb ejemplar) {
+        if (selected.getEIdinstitucion() != null) {
+            booleanoInstitucion = true;
+        } else {
+            booleanoInstitucion = false;
+        }
         listaAgenteR = agenteFacade.agentesRecolectores();
         for (AgenteIdentificaEjemplarTb i : selected.getAgenteIdentificaEjemplarTbList()) {
             listaAgenteR.remove(i.getAgenteTb());
@@ -497,7 +511,7 @@ public class EjemplarTbController implements Serializable {
 
     public List<EjemplarTb> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = getFacade().EjemplarOrdenAsc();
         }
         return items;
     }
@@ -695,6 +709,36 @@ public class EjemplarTbController implements Serializable {
             sec++;
         }
 
+    }
+
+    public void comprobarCorrelativo(Integer a, Integer c) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        for (EjemplarTb e : getFacade().Correlativo(a)) {
+            if (e.getECorrelativo() == c) {
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El correlativo ya existe en los ejemplares.", "advertencia"));
+                selected.setECorrelativo(null);
+            }
+        }
+    }
+
+    public void comprobarCodigo(String c) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        int codigo = Integer.parseInt(c.trim().substring(0, 2));
+        int correlativo = Integer.parseInt(c.trim().substring(3));
+        if (codigo < 10 || codigo > 17) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El codigo de entrada esta fuera del rango.", "advertencia"));
+            selected.setCCodigoentrada("");
+        } else if (correlativo > 8000) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El codigo es mayor al limite.", "advertencia"));
+            selected.setCCodigoentrada("");
+        } else {
+            for (EjemplarTb e : getFacade().findAll()) {
+                if (e.getCCodigoentrada().equals(c)) {
+                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El correlativo ya existe en los ejemplares.", "advertencia"));
+                    selected.setCCodigoentrada("");
+                }
+            }
+        }
     }
 
     public void generarCodigoEntrada() {
@@ -1199,7 +1243,7 @@ public class EjemplarTbController implements Serializable {
                             //////////
                             PdfPTable etiqueta = new PdfPTable(1);
                             etiqueta.setWidthPercentage(80);
-                            etiqueta.getDefaultCell().setBorder( Rectangle.LEFT | Rectangle.RIGHT);
+                            etiqueta.getDefaultCell().setBorder(Rectangle.LEFT | Rectangle.RIGHT);
                             //PdfPTable Ejemplar = new PdfPTable(1);
                             ej.getAgenteIdentificaEjemplarTbIDList().clear();
                             ej.getAgenteIdentificaEjemplarTbList().clear();
@@ -1213,7 +1257,7 @@ public class EjemplarTbController implements Serializable {
                             PdfPTable cod = new PdfPTable(3);
                             cod.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                             cod.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-                            int headerwidths2[] = {38,24,38};
+                            int headerwidths2[] = {38, 24, 38};
                             try {
                                 cod.setWidths(headerwidths2);
                             } catch (Exception e) {

@@ -49,12 +49,28 @@ public class EjemplarTbFacade extends AbstractFacade<EjemplarTb> {
     }
 
     public String obtenerCorrelativo(String pre) {
-        Query query = em.createNativeQuery("SELECT COUNT(c_codigoentrada) "
+        Query query = em.createNativeQuery("SELECT max(c_codigoentrada) "
                 + "FROM ejemplar_tb "
                 + "WHERE SUBSTRING(c_codigoentrada,1,2)='" + pre + "'");
         query.setParameter("pre", pre);
-        Long count = (Long) query.getSingleResult();
-        return String.format("%d", count + 1);
+        int i = query.getResultList().size();
+        if (i == 0) {
+            return String.format("%d", 8000 + 1);
+        } else {
+            String valor = (String) query.getSingleResult();
+            if (valor == null) {
+                return String.format("%d", 8000 + 1);
+            } else {
+                String numero = query.getSingleResult().toString().trim().substring(3);
+                Integer count = Integer.parseInt(numero);
+
+                if (count > 8000) {
+                    return String.format("%d", count + 1);
+                } else {
+                    return String.format("%d", 8000 + 1);
+                }
+            }
+        }
     }
 
     public List<AgenteIdentificaEjemplarTb> ejemplarRecolector(Integer ejemplar, String recolector) {
@@ -64,7 +80,7 @@ public class EjemplarTbFacade extends AbstractFacade<EjemplarTb> {
         query.setParameter("recol", recolector);
         return query.getResultList();
     }
-    
+
     public List<AgenteIdentificaEjemplarTb> ejemplarIdentificador(Integer ejemplar, String identificador) {
 
         TypedQuery<AgenteIdentificaEjemplarTb> query = em.createQuery("SELECT p FROM AgenteIdentificaEjemplarTb p WHERE p.ejemplarTb.eIdejemplar=:h AND p.agenteIdentificaEjemplarTbPK.cTipo=:ident ORDER BY P.eSecuencia", AgenteIdentificaEjemplarTb.class);
@@ -72,7 +88,13 @@ public class EjemplarTbFacade extends AbstractFacade<EjemplarTb> {
         query.setParameter("ident", identificador);
         return query.getResultList();
     }
-    
+
+    public List<EjemplarTb> Correlativo(Integer res) {
+        TypedQuery<EjemplarTb> query = em.createQuery("SELECT p FROM EjemplarTb p WHERE p.eResponsable=:t ORDER BY p.cCodigoentrada ASC", EjemplarTb.class);
+        query.setParameter("t", res);
+        return query.getResultList();
+    }
+
     public List<EjemplarTb> EjemplarOrdenAsc() {
         TypedQuery<EjemplarTb> query = em.createQuery("SELECT p FROM EjemplarTb p ORDER BY p.cCodigoentrada ASC", EjemplarTb.class);
         return query.getResultList();

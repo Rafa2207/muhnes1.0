@@ -35,7 +35,17 @@
                     </p:fieldset>
                     <p:panelGrid rendered="#{despachoTbController.bandera}">
                         <p:fieldset legend="Materiales">
-                            <p:panelGrid columns="9" style="width: 750px">
+                            <p:panelGrid columns="4">
+                                <p:outputLabel value="Código de Barras:" for="codigo"/>
+                                <p:inputText id="codigo" size="5"
+                                             value="#{despachoTbController.codigoBarras}">
+                                    <p:ajax event="blur"
+                                            listener="#{despachoTbController.cargarMaterial()}"
+                                            process="codigo"
+                                            update="material cant cnd"/>
+                                </p:inputText>
+                            </p:panelGrid>
+                            <p:panelGrid columns="6" style="width: 750px">
                                 <p:outputLabel value="Material:" for="material" />
                                 <p:selectOneMenu id="material"
                                                  value="#{despachoTbController.material}" filter="true" filterMatchMode="contains">
@@ -60,7 +70,7 @@
                                                  value="Agregar"
                                                  actionListener="#{despachoTbController.agregarM()}"
                                                  process="cant material agregar"
-                                                 update="cant material materiales cnd :growl"
+                                                 update="cant material codigo materiales cnd :growl"
                                                  />
                             </p:panelGrid>
                             <p:dataTable id="materiales"

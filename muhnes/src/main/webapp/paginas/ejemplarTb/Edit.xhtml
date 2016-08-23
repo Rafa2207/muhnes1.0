@@ -27,7 +27,10 @@
                             <p:outputLabel value="#{bundle.EditEjemplarTbLabel_ECorrelativo}" for="ECorrelativo" />
                             <p:inputText id="ECorrelativo" value="#{ejemplarTbController.selected.ECorrelativo}" 
                                          required="true" requiredMessage="introduzca correlativo"
-                                         size="6" title="#{bundle.EditEjemplarTbTitle_ECorrelativo}" />
+                                         size="6" title="#{bundle.EditEjemplarTbTitle_ECorrelativo}" >
+                            <p:ajax event="change" process="ECorrelativo CResponsable" update="ECorrelativo :growl"
+                                listener="#{ejemplarTbController.comprobarCorrelativo(ejemplarTbController.selected.EResponsable, ejemplarTbController.selected.ECorrelativo)}"/>
+                        </p:inputText>
 
                             <p:outputLabel value="Información Taxonómica: " for="Taxon" />
                             <h:panelGroup>
@@ -41,14 +44,14 @@
                                     <p:ajax event="change" update="fTaxon" process="Taxon"/>
                                 </p:selectOneMenu>
                                 <p:outputLabel value="    "/>
-                                <p:selectOneMenu id="fTaxon" style="width: 150px" value="#{ejemplarTbController.selected.EIdtaxonomia}" filter="true" >
+                                <p:selectOneMenu id="fTaxon" style="width: 150px" value="#{ejemplarTbController.selected.EIdtaxonomia}" filter="true" filterMatchMode="contains" >
                                     <f:selectItem itemLabel="Seleccione..." itemValue=""/>
                                     <f:selectItems value="#{taxonomiaTbController.taxonomia(ejemplarTbController.tipoTaxon)}"
                                                    var="taxon"
                                                    itemLabel="#{ejemplarTbController.calcularTaxonomia(taxon, 1)}"
                                                    itemValue="#{taxon}"/>
                                     <p:ajax event="change" listener="#{ejemplarTbController.llenarNombreComun()}" 
-                                        process="fTaxon" update=":EjemplarTbEditForm:detalleEjemplar:nombreC" />
+                                        process="fTaxon :EjemplarTbEditForm:detalleEjemplar:nombreC" update=":EjemplarTbEditForm:detalleEjemplar:nombreC" />
                                 </p:selectOneMenu>
                             </h:panelGroup>
                             <p:outputLabel value="#{bundle.EditEjemplarTbLabel_CCalificativo}" for="CCalificativo" />
@@ -59,7 +62,24 @@
                                 <f:selectItem itemLabel="-cf." itemValue="-cf."/>
                                 <f:selectItem itemLabel="ined." itemValue="ined."/>
                             </p:selectOneMenu>
-
+                            <p:outputLabel value="Proyecto: " for="proy" />
+                            <p:selectOneMenu id="proy" style="width: 260px" filter="true" value="#{ejemplarTbController.selected.EIdproyecto}" >
+                                <f:selectItem itemLabel="Sin Proyecto" itemValue=""/>
+                                <f:selectItems value="#{proyectoTbController.itemsAvailableSelectOne}"
+                                               var="proy"
+                                               itemLabel="#{proy.MNombre}"
+                                               itemValue="#{proy}"/>
+                                <p:ajax event="change" update="FFechaInicioIdent"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Localidad: " for="localidad" />
+                            <p:selectOneMenu id="localidad" style="width: 150px" filter="true" 
+                                             value="#{ejemplarTbController.selected.EIdlocalidad}" required="true" requiredMessage="Seleccione Localidad">
+                                <f:selectItem itemLabel="Seleccione..." itemValue=""/>
+                                <f:selectItems value="#{localidadTbController.itemsAvailableSelectOne}"
+                                               var="local"
+                                               itemLabel="#{local.CNombre} (#{localidadTbController.latitudList(local)}'', #{localidadTbController.longitudList(local)}'')"
+                                               itemValue="#{local}"/>
+                            </p:selectOneMenu>
                             <p:outputLabel value="Fecha de Recolección: " for="FFechaInicioIdent" />
                             <p:calendar size="14" id="FFechaInicioIdent" pattern="dd MMM yyyy" 
                                         value="#{ejemplarTbController.selected.FFechaInicioIdent}" 
@@ -67,6 +87,7 @@
                                         showOn="button"
                                         required="true"
                                         requiredMessage="Introduzca fecha de recolección"
+                                        mindate="#{ejemplarTbController.selected.EIdproyecto.FFechaInicio}"
                                         locale="es" readonlyInput="true">
                                 <p:ajax event="dateSelect" update="FFechaFinIdent"/>
                             </p:calendar>
@@ -85,22 +106,25 @@
                             <p:outputLabel value="#{bundle.EditEjemplarTbLabel_ECantDuplicado}" for="ECantDuplicado" />
                             <p:inputText id="ECantDuplicado" value="#{ejemplarTbController.selected.ECantDuplicado}" size="5" title="#{bundle.EditEjemplarTbTitle_ECantDuplicado}" 
                                          required="true" requiredMessage="Introduzca cantidad de duplicados" />
-                            <p:outputLabel value="Proyecto: " for="proy" />
-                            <p:selectOneMenu id="proy" style="width: 260px" filter="true" value="#{ejemplarTbController.selected.EIdproyecto}" >
-                                <f:selectItem itemLabel="Seleccione..." itemValue=""/>
-                                <f:selectItems value="#{proyectoTbController.itemsAvailableSelectOne}"
-                                               var="proy"
-                                               itemLabel="#{proy.MNombre}"
-                                               itemValue="#{proy}"/>
-                            </p:selectOneMenu>
-                            <p:outputLabel value="Localidad: " for="localidad" />
-                            <p:selectOneMenu id="localidad" style="width: 150px" filter="true" 
-                                             value="#{ejemplarTbController.selected.EIdlocalidad}" required="true" requiredMessage="Seleccione Localidad">
-                                <f:selectItem itemLabel="Seleccione..." itemValue=""/>
-                                <f:selectItems value="#{localidadTbController.itemsAvailableSelectOne}"
-                                               var="local"
-                                               itemLabel="#{local.CNombre} (#{localidadTbController.latitudList(local)}'', #{localidadTbController.longitudList(local)}'')"
-                                               itemValue="#{local}"/>
+                            <p:outputLabel value="Donación: " for="donacion"/>
+                        <p:selectBooleanCheckbox id="donacion" value="#{ejemplarTbController.booleanoInstitucion}">
+                                <p:ajax event="change" update="institucion"/>
+                        </p:selectBooleanCheckbox>
+                        <p:outputLabel value="Institución: " for="institucion"/>
+                            <p:selectOneMenu id="institucion"
+                                             style="width: 150px"
+                                             required="true"
+                                             disabled="#{ejemplarTbController.booleanoInstitucion==false}"
+                                             requiredMessage="Seleccione Institución"
+                                             value="#{ejemplarTbController.selected.EIdinstitucion}" 
+                                             filter="true"
+                                             filterMatchMode="contains"
+                                             >
+                                <f:selectItem itemValue="" itemLabel="Seleccione..."/>
+                                <f:selectItems value="#{institucionTbController.itemsAvailableSelectOne}"
+                                               var="institucion"
+                                               itemValue="#{institucion.EIdinstitucion}"
+                                               itemLabel="#{institucion.CNombre}"/>
                             </p:selectOneMenu>
                             <p:outputLabel value="Código de entrada: " for="codigo" />
                             <p:selectOneMenu id="codEntrada" value="#{ejemplarTbController.cod}" requiredMessage="Seleccione rango taxonomico">

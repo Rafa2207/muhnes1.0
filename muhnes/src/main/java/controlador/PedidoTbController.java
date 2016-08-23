@@ -70,10 +70,18 @@ public class PedidoTbController implements Serializable {
     private MaterialPedidoTb materialEL;
     private Integer estado;
     private boolean bandera;
-    private String oncomplete;
+    private String oncomplete, codigoBarras;
 
     public boolean isBandera() {
         return bandera;
+    }
+
+    public String getCodigoBarras() {
+        return codigoBarras;
+    }
+
+    public void setCodigoBarras(String codigoBarras) {
+        this.codigoBarras = codigoBarras;
     }
 
     public String getOncomplete() {
@@ -354,6 +362,9 @@ public class PedidoTbController implements Serializable {
 
     }
 
+        public void cargarMaterial() {
+        material = materialFacade.obtenerPorCodigo(codigoBarras);
+    }
     public void agregar() {
         FacesContext context = FacesContext.getCurrentInstance();
         if (material == null || cantidad == 0) {
@@ -376,6 +387,7 @@ public class PedidoTbController implements Serializable {
             materialDisponible.remove(material);
 
             cantidad = 0.0;
+            codigoBarras="";
         }
 
     }
@@ -402,6 +414,7 @@ public class PedidoTbController implements Serializable {
             materialDisponible.remove(material);
 
             cantidad = 0.0;
+            codigoBarras="";
         }
 
     }

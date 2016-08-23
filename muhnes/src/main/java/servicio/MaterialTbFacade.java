@@ -8,6 +8,7 @@ package servicio;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -47,5 +48,15 @@ public class MaterialTbFacade extends AbstractFacade<MaterialTb> {
      public List<MaterialTb> ordenarMenosStock(){
         TypedQuery<MaterialTb> query = em.createQuery("SELECT p FROM MaterialTb p ORDER BY p.dCantidad ASC", MaterialTb.class);
         return query.getResultList();
+    }
+     public MaterialTb obtenerPorCodigo(String codigo){
+        TypedQuery<MaterialTb> query = em.createQuery("SELECT m FROM MaterialTb m WHERE m.mCodigobarras LIKE :codigo",MaterialTb.class);
+        query.setParameter("codigo", codigo);
+        try{
+            return query.getSingleResult();
+        }
+        catch(NoResultException nre){
+            return null;
+        }
     }
 }

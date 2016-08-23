@@ -68,9 +68,18 @@ public class DespachoTbController implements Serializable {
     private double cantidad, salida;
     private MaterialDespachoTb materialMD;
     private boolean bandera;
+    private String codigoBarras;
     private List<MaterialDespachoTb> eliminados = new ArrayList<MaterialDespachoTb>();
 
     public DespachoTbController() {
+    }
+
+    public String getCodigoBarras() {
+        return codigoBarras;
+    }
+
+    public void setCodigoBarras(String codigoBarras) {
+        this.codigoBarras = codigoBarras;
     }
 
     public boolean isBandera() {
@@ -346,6 +355,10 @@ public class DespachoTbController implements Serializable {
         return "";
     }
 
+    public void cargarMaterial() {
+        material = materialFacade.obtenerPorCodigo(codigoBarras);
+    }
+
     public void agregar() {
         FacesContext context = FacesContext.getCurrentInstance();
         if (material == null || cantidad == 0) {
@@ -372,6 +385,7 @@ public class DespachoTbController implements Serializable {
 
             cantidad = 0.0;
             material = null;
+            codigoBarras="";
         }
 
     }
@@ -402,6 +416,7 @@ public class DespachoTbController implements Serializable {
 
             cantidad = 0.0;
             material = null;
+            codigoBarras="";
         }
 
     }
@@ -512,7 +527,7 @@ public class DespachoTbController implements Serializable {
                 usuarioSis.setAlignment(Element.ALIGN_CENTER);
                 usuarioSis.setSpacingAfter(10);
                 document.add(usuarioSis);
-                
+
                 PdfPTable pedidos = new PdfPTable(4);
                 pedidos.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
 
@@ -652,7 +667,7 @@ public class DespachoTbController implements Serializable {
                 usuarioSis.setAlignment(Element.ALIGN_CENTER);
                 usuarioSis.setSpacingAfter(10);
                 document.add(usuarioSis);
-                
+
                 int columnas[] = {30, 70};
 
                 PdfPTable TablaNombre = new PdfPTable(2);

@@ -701,32 +701,44 @@ public class TaxonomiaTbController implements Serializable {
             }
             String pathDefinition = ruta + File.separator + file.getFileName();
             System.out.println("" + pathDefinition);
-            try {
-                FileInputStream in = (FileInputStream) file.getInputstream();
-                FileOutputStream out = new FileOutputStream(pathDefinition);
-
-                byte[] buffer = new byte[(int) file.getSize()];
-                int contador = 0;
-
-                while ((contador = in.read(buffer)) != -1) {
-                    out.write(buffer, 0, contador);
+            int repetido=0;
+            for(ImagenTb i: selected.getImagenTbList()){
+                if(i.getCRuta().equals(pathDefinition)){
+                    repetido++;
                 }
-                in.close();
-                out.close();
-
-            } catch (IOException ioe) {
-                ioe.printStackTrace();
-                FacesMessage error = new FacesMessage("No se puede subir la imagen");
-                FacesContext.getCurrentInstance().addMessage(null, error);
-
             }
-            ImagenTb nuevo = new ImagenTb();
-            nuevo.setCNombre(file.getFileName());
-            nuevo.setCRuta(pathDefinition);
-            nuevo.setEIdtaxonomia(selected);
-            selected.getImagenTbList().add(nuevo);
-            FacesMessage exito = new FacesMessage("imagen subida correctamente");
-            FacesContext.getCurrentInstance().addMessage(null, exito);
+            if (repetido > 0) {
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ya existe una imagen con ese nombre", "advertencia"));
+            } else {
+                try {
+                    FileInputStream in = (FileInputStream) file.getInputstream();
+                    FileOutputStream out = new FileOutputStream(pathDefinition);
+
+                    byte[] buffer = new byte[(int) file.getSize()];
+                    int contador = 0;
+
+                    while ((contador = in.read(buffer)) != -1) {
+                        out.write(buffer, 0, contador);
+                    }
+                    in.close();
+                    out.close();
+
+                } catch (IOException ioe) {
+                    ioe.printStackTrace();
+                    FacesMessage error = new FacesMessage("No se puede subir la imagen");
+                    FacesContext.getCurrentInstance().addMessage(null, error);
+
+                }
+
+                ImagenTb nuevo = new ImagenTb();
+                nuevo.setCNombre(file.getFileName());
+                nuevo.setCRuta(pathDefinition);
+                nuevo.setEIdtaxonomia(selected);
+                selected.getImagenTbList().add(nuevo);
+                FacesMessage exito = new FacesMessage("imagen subida correctamente");
+                FacesContext.getCurrentInstance().addMessage(null, exito);
+            }
         }
     }
 
@@ -1419,7 +1431,7 @@ public class TaxonomiaTbController implements Serializable {
                 context.responseComplete();
                 //Bitacora inicio
                 BitacoraTb bitacora = new BitacoraTb();
-                bitacora.setMDescripcion("Creado reporte individual de "+ selected.getCTipo() + " en el módulo: Información Taxonómica");
+                bitacora.setMDescripcion("Creado reporte individual de " + selected.getCTipo() + " en el módulo: Información Taxonómica");
                 //String nick = JsfUtil.getRequest().getUserPrincipal().getName();
                 //UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
                 bitacora.setEIdusuario(usuario);
