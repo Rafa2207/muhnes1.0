@@ -52,23 +52,27 @@ public class Correo implements Serializable{
         String to = this.correo;
         
         //remitente
-        String from = "botanica.muhnes@gmail.com";
-        
+        String from = "notificacionesherbario@cultura.gob.sv";
+
         //servidor
-        String host = "smtp.gmail.com";
-        
+        String host = "correo.cultura.gob.sv";
+
         //login
-        final String user = "botanica.muhnes";
-        final String pass = "Muhnes.2015";   
-        
+        final String user = "notificacionesherbario@cultura.gob.sv";
+        final String pass = "Sisherbar2016$";
+
         // Get system properties
         Properties properties = System.getProperties();
 
         // Setup mail server
         properties.put("mail.smtp.host", host);
+        properties.put("mail.transport.protocol", "smtp");
         properties.put("mail.smtp.auth", "true");
-        properties.put("mail.smtp.starttls.enable", "true");
-        properties.put("mail.smtp.port", "587");
+        properties.put("mail.smtp.port", "465");
+        properties.put("mail.smtp.socketFactory.port", "465");
+        properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        properties.put("mail.smtp.password", "Sisherbar2016$");
+        properties.setProperty("mail.user", "notificacionesherbario@cultura.gob.sv");
 
         // Get the default Session object.
         Session session = Session.getInstance(properties,
