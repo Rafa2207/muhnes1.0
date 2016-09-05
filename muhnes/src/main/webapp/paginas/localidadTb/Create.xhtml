@@ -18,7 +18,7 @@
                                      required="true" requiredMessage="Introduzca nombre de la localidad"/>
 
                         <p:outputLabel value="#{bundle.CreateLocalidadTbLabel_MDescripcion}" for="MDescripcion" />
-                        <p:inputTextarea cols="60" rows="2" autoResize="" id="MDescripcion" value="#{localidadTbController.selected.MDescripcion}" title="#{bundle.CreateLocalidadTbTitle_MDescripcion}" />
+                        <p:inputTextarea cols="58" rows="2" autoResize="" id="MDescripcion" value="#{localidadTbController.selected.MDescripcion}" title="#{bundle.CreateLocalidadTbTitle_MDescripcion}" />
                     </p:panelGrid >
 
                     <p:panelGrid columns="9" rendered="#{localidadTbController.selected != null}" >
@@ -34,7 +34,7 @@
                         </p:inputText>
 
                         <p:outputLabel value="Minutos:" for="Minutos" />
-                        <p:inputText  id="Minutos" value="#{localidadTbController.selected.ELatitudminutos}" maxlength="2" size="2"
+                        <p:inputText  id="Minutos" value="#{localidadTbController.selected.ELatitudminutos}" maxlength="2" size="4"
                                       title="Rangos válidos: 0 a 60" required="true" requiredMessage="Introduzca minutos de latitud" 
                                       >
                             <f:validateLongRange minimum="0" maximum="60"/>
@@ -45,7 +45,7 @@
                         </p:inputText>
 
                         <p:outputLabel value="Segundos:" for="Segundos" />
-                        <p:inputText id="Segundos" value="#{localidadTbController.selected.DLatitudsegundos}" maxlength="7" size="7" 
+                        <p:inputText id="Segundos" value="#{localidadTbController.selected.DLatitudsegundos}" maxlength="7" size="4" 
                                      title="Rangos válidos: 0 a 59.9999" required="true" requiredMessage="Introduzca segundos de latitud"
                                      >
                             <f:validateDoubleRange minimum="0" maximum="59.9999" />    
@@ -71,7 +71,7 @@
                         </p:inputText>
 
                         <p:outputLabel value="Minutos:" for="Minutos2" />
-                        <p:inputText id="Minutos2" value="#{localidadTbController.selected.ELongitudminutos}" maxlength="2" size="2" 
+                        <p:inputText id="Minutos2" value="#{localidadTbController.selected.ELongitudminutos}" maxlength="2" size="4" 
                                      title="Rangos válidos: 0 a 60" required="true" requiredMessage="Introduzca minutos de longitud"
                                      >
                             <f:validateLongRange minimum="0" maximum="60"/>    
@@ -82,7 +82,7 @@
                         </p:inputText>
 
                         <p:outputLabel value="Segundos:" for="Segundos2" />
-                        <p:inputText id="Segundos2" value="#{localidadTbController.selected.DLongitudsegundos}" maxlength="7" size="7" 
+                        <p:inputText id="Segundos2" value="#{localidadTbController.selected.DLongitudsegundos}" maxlength="7" size="4" 
                                      title="Rangos válidos: 0 a 59.9999" required="true" requiredMessage="Introduzca segundos de longitud"
                                      >
                             <f:validateDoubleRange minimum="0" maximum="59.9999"/>    

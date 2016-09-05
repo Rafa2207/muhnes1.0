@@ -28,7 +28,7 @@
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{proyectoTbController.prepareCreate}" update=":ProyectoTbCreateForm" oncomplete="PF('ProyectoTbCreateDialog').show()"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ProyectoTbViewForm" oncomplete="PF('ProyectoTbViewDialog').show()" disabled="#{empty proyectoTbController.selected}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" actionListener="#{proyectoTbController.prepareEdit}" update=":ProyectoTbEditForm" oncomplete="PF('ProyectoTbEditDialog').show()" disabled="#{empty proyectoTbController.selected}"/>
-                    
+
 
                     <p:commandButton id="ActividadButton" icon="ui-icon-calendar"  value="Actividad" action="/paginas/actividadTb/List.xhtml" disabled="#{empty proyectoTbController.selected}" >
                         <f:setPropertyActionListener target="#{controladorSesion.proyecto}" value="#{proyectoTbController.selected}"/>
@@ -110,7 +110,10 @@
                             <f:facet name="header">
                                 <h:outputText value="Presupuesto"/>
                             </f:facet>
-                            <h:outputText value="$#{proyectoTbController.presupuesto(item)}"/>
+                           
+                            <h:outputText value="$"/><h:outputText value="#{proyectoTbController.presupuesto(item)}">
+                                <f:convertNumber groupingUsed="true" minFractionDigits="2"/>
+                            </h:outputText>
                         </p:column>
 
                         <f:facet name="header">

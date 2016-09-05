@@ -24,6 +24,7 @@ import java.io.IOException;
 import servicio.ProyectoTbFacade;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -433,6 +434,7 @@ public class ProyectoTbController implements Serializable {
                 }
             }
         }
+        presupuesto=dosDecimales(presupuesto);
         return presupuesto;
     }
 
@@ -1044,7 +1046,7 @@ public class ProyectoTbController implements Serializable {
                             c2.setHorizontalAlignment(Element.ALIGN_RIGHT);
                             TablaInsumo.addCell(c2);
 
-                            PdfPCell c3 = new PdfPCell(new Phrase("$ " + String.valueOf(i.getDGasto() * i.getDCantidad()), FontFactory.getFont(FontFactory.TIMES, 12)));
+                            PdfPCell c3 = new PdfPCell(new Phrase("$ " + String.valueOf(subTotalReporte(i.getDGasto(), i.getDCantidad())), FontFactory.getFont(FontFactory.TIMES, 12)));
                             c3.setHorizontalAlignment(Element.ALIGN_RIGHT);
                             TablaInsumo.addCell(c3);
 
@@ -1513,7 +1515,7 @@ public class ProyectoTbController implements Serializable {
                             c2.setHorizontalAlignment(Element.ALIGN_RIGHT);
                             TablaInsumo.addCell(c2);
 
-                            PdfPCell c3 = new PdfPCell(new Phrase("$ " + String.valueOf(i.getDGasto() * i.getDCantidad()), FontFactory.getFont(FontFactory.TIMES, 12)));
+                            PdfPCell c3 = new PdfPCell(new Phrase("$ " + String.valueOf(subTotalReporte(i.getDGasto(), i.getDCantidad())), FontFactory.getFont(FontFactory.TIMES, 12)));
                             c3.setHorizontalAlignment(Element.ALIGN_RIGHT);
                             TablaInsumo.addCell(c3);
 
@@ -1835,5 +1837,16 @@ public class ProyectoTbController implements Serializable {
         bitacora.setTFecha(fecha);
         bitacoraFacade.create(bitacora);
         //Bitacora fin
+    }
+    public double dosDecimales(double a){
+            DecimalFormat df = new DecimalFormat("#.##");
+            a=Double.parseDouble(df.format(a));
+            return a;
+    }
+    public double subTotalReporte(double a, double b){
+        double subtotal=0.00;
+        subtotal=a*b;
+        subtotal=dosDecimales(subtotal);
+        return subtotal;
     }
 }

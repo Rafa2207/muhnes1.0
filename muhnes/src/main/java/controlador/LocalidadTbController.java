@@ -610,7 +610,7 @@ public class LocalidadTbController implements Serializable {
                     }
                     document.add(ejemplares);
                 } else {
-                    Paragraph tituloNo = new Paragraph("No se encontraron ejemplares encontrados a esta localidad.", FontFactory.getFont(FontFactory.TIMES, 12));
+                    Paragraph tituloNo = new Paragraph("No se encontraron ejemplares en esta localidad.", FontFactory.getFont(FontFactory.TIMES, 12));
                     tituloNo.setAlignment(Element.ALIGN_CENTER);
                     tituloNo.setSpacingAfter(5);
                     tituloNo.setSpacingBefore(5);

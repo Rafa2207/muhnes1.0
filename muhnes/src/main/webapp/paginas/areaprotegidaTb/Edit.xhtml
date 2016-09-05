@@ -34,7 +34,7 @@
                         </p:inputText>
 
                         <p:outputLabel value="Minutos:" for="Minutos" />
-                        <p:inputText  id="Minutos" value="#{areaprotegidaTbController.selected.ELatitudminutos}" title="Rangos válidos: 0 a 60"  maxlength="2" size="2" 
+                        <p:inputText  id="Minutos" value="#{areaprotegidaTbController.selected.ELatitudminutos}" title="Rangos válidos: 0 a 60"  maxlength="2" size="4" 
                                       required="true" requiredMessage="Introduzca minutos de latitud">
                             <f:validateLongRange minimum="0" maximum="60"/>
                             <p:ajax event="keyup" update="Latitud"
@@ -44,7 +44,7 @@
                         </p:inputText>
 
                         <p:outputLabel value="Segundos:" for="Segundos" />
-                        <p:inputText id="Segundos" value="#{areaprotegidaTbController.selected.DLatitudsegundos}" title="Rangos válidos: 0 a 59.9999" maxlength="7" size="7" 
+                        <p:inputText id="Segundos" value="#{areaprotegidaTbController.selected.DLatitudsegundos}" title="Rangos válidos: 0 a 59.9999" maxlength="7" size="4" 
                                      required="true" requiredMessage="Introduzca segundos de latitud">
                             <f:validateDoubleRange minimum="0" maximum="59.9999"/>    
                             <p:ajax event="keyup" update="Latitud" 
@@ -70,7 +70,7 @@
                         </p:inputText>
 
                         <p:outputLabel value="Minutos:" for="Minutos2" />
-                        <p:inputText id="Minutos2" value="#{areaprotegidaTbController.selected.ELongitudminutos}" title="Rangos válidos: 0 a 60" maxlength="2" size="2" 
+                        <p:inputText id="Minutos2" value="#{areaprotegidaTbController.selected.ELongitudminutos}" title="Rangos válidos: 0 a 60" maxlength="2" size="4" 
                                      required="true" requiredMessage="Introduzca minutos de longitud">
                             <f:validateLongRange minimum="0" maximum="60"/>    
                             <p:ajax event="keyup" update="Longitud" 
@@ -81,7 +81,7 @@
                         </p:inputText>
 
                         <p:outputLabel value="Segundos:" for="Segundos2" />
-                        <p:inputText id="Segundos2" value="#{areaprotegidaTbController.selected.DLongitudsegundos}" title="Rangos válidos: 0 a 59.9999" maxlength="7" size="7" 
+                        <p:inputText id="Segundos2" value="#{areaprotegidaTbController.selected.DLongitudsegundos}" title="Rangos válidos: 0 a 59.9999" maxlength="7" size="4" 
                                      required="true" requiredMessage="Introduzca segundos de longitud">
                             <f:validateDoubleRange minimum="0" maximum="59.9999"/>    
                             <p:ajax event="keyup" update="Longitud" 

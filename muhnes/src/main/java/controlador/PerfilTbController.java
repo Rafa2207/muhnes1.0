@@ -246,7 +246,7 @@ public class PerfilTbController implements Serializable {
                 ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
 
                 // Inicia reporte
-                Document document = new Document(PageSize.A4);
+                Document document = new Document(PageSize.LETTER);
                 PdfWriter writer = PdfWriter.getInstance(document, pdfOutputStream);
                 TableHeaderVertical event = new TableHeaderVertical();
                 writer.setPageEvent(event);
@@ -287,7 +287,7 @@ public class PerfilTbController implements Serializable {
                 encabezado.addCell("");
                 document.add(encabezado);
 
-                Paragraph titulo = new Paragraph("Reporte de Perfiles", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                Paragraph titulo = new Paragraph("Reporte Perfiles de Agente", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                 titulo.setAlignment(Element.ALIGN_CENTER);
                 titulo.setSpacingAfter(5);
                 titulo.setSpacingBefore(10);

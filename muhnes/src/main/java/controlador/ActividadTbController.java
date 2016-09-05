@@ -23,6 +23,7 @@ import java.io.IOException;
 import servicio.ActividadTbFacade;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -392,15 +393,15 @@ public class ActividadTbController implements Serializable {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Llene los campos insumo, cantidad, costo y el tipo de unidad.", "INFO"));
         } else {
             ins.setMNombre(nombre);
-            ins.setDCantidad(cantidad);
-            ins.setDGasto(costo);
+            ins.setDCantidad(dosDecimales(cantidad));
+            ins.setDGasto(dosDecimales(costo));
             ins.setMTiempo(tiempo);
             //presupuesto.setEIdpresupuesto();
             ins.setEIdactividad(selected);
             selected.getInsumoTbList().add(ins);
 
-            cantidad = 0;
-            costo = 0;
+            cantidad = 0.00;
+            costo = 0.00;
             nombre = "";
             tiempo = "";
             tActividad = true;
@@ -410,17 +411,18 @@ public class ActividadTbController implements Serializable {
     }
 
     public Double costoTotal() {
-        Double tot = 0.0;
+        Double tot = 0.00;
 
         for (InsumoTb i : selected.getInsumoTbList()) {
             tot = tot + (i.getDCantidad() * i.getDGasto());
         }
+        tot=dosDecimales(tot);
         selected.setDTotal(tot);
         return tot;
     }
 
     public double totalProyecto(ProyectoTb proy) {
-        double totalProy = 0.0;
+        double totalProy = 0.00;
 
         for (ActividadTb act : getItems()) {
             if (act.getEIdproyecto().getEIdproyecto() == proy.getEIdproyecto()) {
@@ -429,6 +431,7 @@ public class ActividadTbController implements Serializable {
                 }
             }
         }
+        totalProy=dosDecimales(totalProy);
         return totalProy;
     }
 
@@ -911,6 +914,11 @@ public class ActividadTbController implements Serializable {
                 break;
             }
         }
+    }
+    public double dosDecimales(double a){
+            DecimalFormat df = new DecimalFormat("#.##");
+            a=Double.parseDouble(df.format(a));
+            return a;
     }
     
 }

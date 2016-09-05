@@ -300,10 +300,10 @@ public class InstitucionTbController implements Serializable {
                 usuarioSis.setSpacingAfter(10);
                 document.add(usuarioSis);
 
-                PdfPTable ins = new PdfPTable(8);
+                PdfPTable ins = new PdfPTable(6);
                 ins.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
 
-                int headerwidths[] = {10, 20, 10, 10, 10, 8, 12, 20};
+                int headerwidths[] = {10, 20, 15, 10,  25, 20};
                 try {
                     ins.setWidths(headerwidths);
                 } catch (Exception e) {
@@ -316,8 +316,6 @@ public class InstitucionTbController implements Serializable {
                 ins.addCell(new Phrase("Nombre", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 ins.addCell(new Phrase("Pais", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 ins.addCell(new Phrase("Télefono", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-                ins.addCell(new Phrase("Fax", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-                ins.addCell(new Phrase("Postal", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 ins.addCell(new Phrase("URL", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 ins.addCell(new Phrase("Dirección", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
 
@@ -341,26 +339,6 @@ public class InstitucionTbController implements Serializable {
                     PdfPCell cell4 = new PdfPCell(new Phrase(l.getCTelefono(), FontFactory.getFont(FontFactory.TIMES, 12)));
                     cell4.setHorizontalAlignment(Element.ALIGN_CENTER);
                     ins.addCell(cell4);
-
-                    if (l.getCFax().equals("")) {
-                        PdfPCell cell5 = new PdfPCell(new Phrase("Sin Fax", FontFactory.getFont(FontFactory.TIMES, 12)));
-                        cell5.setHorizontalAlignment(Element.ALIGN_CENTER);
-                        ins.addCell(cell5);
-                    } else {
-                        PdfPCell cell5 = new PdfPCell(new Phrase(l.getCFax(), FontFactory.getFont(FontFactory.TIMES, 12)));
-                        cell5.setHorizontalAlignment(Element.ALIGN_CENTER);
-                        ins.addCell(cell5);
-                    }
-
-                    if (l.getEPostal() != null) {
-                        PdfPCell cell6 = new PdfPCell(new Phrase(String.valueOf(l.getEPostal()), FontFactory.getFont(FontFactory.TIMES, 12)));
-                        cell6.setHorizontalAlignment(Element.ALIGN_CENTER);
-                        ins.addCell(cell6);
-                    } else {
-                        PdfPCell cell6 = new PdfPCell(new Phrase("Sin Postal", FontFactory.getFont(FontFactory.TIMES, 12)));
-                        cell6.setHorizontalAlignment(Element.ALIGN_CENTER);
-                        ins.addCell(cell6);
-                    }
 
                     if (l.getCUrl().equals("")) {
                         PdfPCell cell7 = new PdfPCell(new Phrase("Sin URL", FontFactory.getFont(FontFactory.TIMES, 12)));
