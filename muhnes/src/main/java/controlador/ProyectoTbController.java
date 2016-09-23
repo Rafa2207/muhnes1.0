@@ -736,7 +736,7 @@ public class ProyectoTbController implements Serializable {
                     c5.setHorizontalAlignment(Element.ALIGN_CENTER);
                     proyectos.addCell(c5);
 
-                    PdfPCell c6 = new PdfPCell(new Phrase("$ " + String.valueOf(presupuesto(proy)), FontFactory.getFont(FontFactory.TIMES, 12)));
+                    PdfPCell c6 = new PdfPCell(new Phrase("$ " + dosDecimalesReporte(presupuesto(proy)), FontFactory.getFont(FontFactory.TIMES, 12)));
                     c6.setHorizontalAlignment(Element.ALIGN_RIGHT);
                     proyectos.addCell(c6);
 
@@ -1042,11 +1042,11 @@ public class ProyectoTbController implements Serializable {
                             c1.setHorizontalAlignment(Element.ALIGN_CENTER);
                             TablaInsumo.addCell(c1);
 
-                            PdfPCell c2 = new PdfPCell(new Phrase("$ " + String.valueOf(i.getDGasto()), FontFactory.getFont(FontFactory.TIMES, 12)));
+                            PdfPCell c2 = new PdfPCell(new Phrase("$ " + dosDecimalesReporte(i.getDGasto()), FontFactory.getFont(FontFactory.TIMES, 12)));
                             c2.setHorizontalAlignment(Element.ALIGN_RIGHT);
                             TablaInsumo.addCell(c2);
 
-                            PdfPCell c3 = new PdfPCell(new Phrase("$ " + String.valueOf(subTotalReporte(i.getDGasto(), i.getDCantidad())), FontFactory.getFont(FontFactory.TIMES, 12)));
+                            PdfPCell c3 = new PdfPCell(new Phrase("$ " + subTotalReporte(i.getDGasto(), i.getDCantidad()), FontFactory.getFont(FontFactory.TIMES, 12)));
                             c3.setHorizontalAlignment(Element.ALIGN_RIGHT);
                             TablaInsumo.addCell(c3);
 
@@ -1062,7 +1062,7 @@ public class ProyectoTbController implements Serializable {
                         TablaInsumo2.addCell(new Phrase("", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                         TablaInsumo2.addCell(new Phrase("Total", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
 
-                        PdfPCell c3 = new PdfPCell(new Phrase("$ " + String.valueOf(a.getDTotal()), FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                        PdfPCell c3 = new PdfPCell(new Phrase("$ " + dosDecimalesReporte(a.getDTotal()), FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                         c3.setHorizontalAlignment(Element.ALIGN_RIGHT);
                         TablaInsumo2.addCell(c3);
 
@@ -1110,7 +1110,7 @@ public class ProyectoTbController implements Serializable {
                         c0.setHorizontalAlignment(Element.ALIGN_LEFT);
                         TablaSubtotal.addCell(c0);
 
-                        PdfPCell c1 = new PdfPCell(new Phrase("$ " + String.valueOf(a.getDTotal() + a.getDGastoAdicional()), FontFactory.getFont(FontFactory.TIMES, 12)));
+                        PdfPCell c1 = new PdfPCell(new Phrase("$ " + dosDecimalesReporte(a.getDTotal() + a.getDGastoAdicional()), FontFactory.getFont(FontFactory.TIMES, 12)));
                         c1.setHorizontalAlignment(Element.ALIGN_RIGHT);
                         TablaSubtotal.addCell(c1);
 
@@ -1128,7 +1128,7 @@ public class ProyectoTbController implements Serializable {
                     c0.setHorizontalAlignment(Element.ALIGN_LEFT);
                     TablaTotal.addCell(c0);
 
-                    PdfPCell c1 = new PdfPCell(new Phrase("$ " + String.valueOf(total), FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                    PdfPCell c1 = new PdfPCell(new Phrase("$ " + dosDecimalesReporte(total), FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                     c1.setHorizontalAlignment(Element.ALIGN_RIGHT);
                     TablaTotal.addCell(c1);
 
@@ -1511,11 +1511,11 @@ public class ProyectoTbController implements Serializable {
                             c1.setHorizontalAlignment(Element.ALIGN_CENTER);
                             TablaInsumo.addCell(c1);
 
-                            PdfPCell c2 = new PdfPCell(new Phrase("$ " + String.valueOf(i.getDGasto()), FontFactory.getFont(FontFactory.TIMES, 12)));
+                            PdfPCell c2 = new PdfPCell(new Phrase("$ " + dosDecimalesReporte(i.getDGasto()), FontFactory.getFont(FontFactory.TIMES, 12)));
                             c2.setHorizontalAlignment(Element.ALIGN_RIGHT);
                             TablaInsumo.addCell(c2);
 
-                            PdfPCell c3 = new PdfPCell(new Phrase("$ " + String.valueOf(subTotalReporte(i.getDGasto(), i.getDCantidad())), FontFactory.getFont(FontFactory.TIMES, 12)));
+                            PdfPCell c3 = new PdfPCell(new Phrase("$ " + subTotalReporte(i.getDGasto(), i.getDCantidad()), FontFactory.getFont(FontFactory.TIMES, 12)));
                             c3.setHorizontalAlignment(Element.ALIGN_RIGHT);
                             TablaInsumo.addCell(c3);
 
@@ -1531,7 +1531,7 @@ public class ProyectoTbController implements Serializable {
                             TablaJustificacion.addCell(new Phrase("", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                             TablaJustificacion.addCell(new Phrase("Gasto Adicional", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
 
-                            PdfPCell c3 = new PdfPCell(new Phrase("$ " + String.valueOf(a.getDGastoAdicional()), FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                            PdfPCell c3 = new PdfPCell(new Phrase("$ " + dosDecimalesReporte(a.getDGastoAdicional()), FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                             c3.setHorizontalAlignment(Element.ALIGN_RIGHT);
                             TablaJustificacion.addCell(c3);
 
@@ -1548,7 +1548,7 @@ public class ProyectoTbController implements Serializable {
                         TablaInsumo2.addCell(new Phrase("", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                         TablaInsumo2.addCell(new Phrase("Total", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
 
-                        PdfPCell c3 = new PdfPCell(new Phrase("$ " + String.valueOf(a.getDTotal() + a.getDGastoAdicional()), FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                        PdfPCell c3 = new PdfPCell(new Phrase("$ " + dosDecimalesReporte(a.getDTotal() + a.getDGastoAdicional()), FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                         c3.setHorizontalAlignment(Element.ALIGN_RIGHT);
                         TablaInsumo2.addCell(c3);
 
@@ -1611,7 +1611,7 @@ public class ProyectoTbController implements Serializable {
                             c0.setHorizontalAlignment(Element.ALIGN_LEFT);
                             TablaSubtotal.addCell(c0);
 
-                            PdfPCell c1 = new PdfPCell(new Phrase("$ " + String.valueOf(a.getDTotal() + a.getDGastoAdicional()), FontFactory.getFont(FontFactory.TIMES, 12)));
+                            PdfPCell c1 = new PdfPCell(new Phrase("$ " + dosDecimalesReporte(a.getDTotal() + a.getDGastoAdicional()), FontFactory.getFont(FontFactory.TIMES, 12)));
                             c1.setHorizontalAlignment(Element.ALIGN_RIGHT);
                             TablaSubtotal.addCell(c1);
 
@@ -1631,7 +1631,7 @@ public class ProyectoTbController implements Serializable {
                     c0.setHorizontalAlignment(Element.ALIGN_LEFT);
                     TablaTotal.addCell(c0);
 
-                    PdfPCell c1 = new PdfPCell(new Phrase("$ " + total, FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                    PdfPCell c1 = new PdfPCell(new Phrase("$ " + dosDecimalesReporte(total), FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                     c1.setHorizontalAlignment(Element.ALIGN_RIGHT);
                     TablaTotal.addCell(c1);
 
@@ -1839,14 +1839,24 @@ public class ProyectoTbController implements Serializable {
         //Bitacora fin
     }
     public double dosDecimales(double a){
-            DecimalFormat df = new DecimalFormat("#.##");
+            DecimalFormat df = new DecimalFormat("0.00");
             a=Double.parseDouble(df.format(a));
             return a;
     }
-    public double subTotalReporte(double a, double b){
-        double subtotal=0.00;
-        subtotal=a*b;
-        subtotal=dosDecimales(subtotal);
-        return subtotal;
+    
+    public String dosDecimalesReporte(double a) {
+        String b;
+        DecimalFormat df = new DecimalFormat("0.00");
+        b = df.format(a);      
+        return b;
     }
+
+    public String subTotalReporte(double a, double b) {
+        double subtotal = 0.00;
+        String subtotalReporte;
+        subtotal = a * b;
+        subtotalReporte = dosDecimalesReporte(subtotal);
+        return subtotalReporte;
+    }
+
 }

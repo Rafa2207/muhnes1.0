@@ -19,7 +19,8 @@
                                                  required="true" requiredMessage="Introduzca el nombre del proyecto"/>
 
                                 <p:outputLabel value="#{bundle.CreateProyectoTbLabel_MDescripcion}" for="MDescripcion" />
-                                <p:inputTextarea rows="4" cols="40" autoResize="" id="MDescripcion" value="#{proyectoTbController.selected.MDescripcion}" title="#{bundle.CreateProyectoTbTitle_MDescripcion}" />
+                                <p:inputTextarea rows="4" cols="40" autoResize="" id="MDescripcion" value="#{proyectoTbController.selected.MDescripcion}" title="#{bundle.CreateProyectoTbTitle_MDescripcion}" 
+                                                 maxlength="500"/>
 
                                 <p:outputLabel rendered="#{proyectoTbController.selected.EEstado  == 0}" value="#{bundle.EditProyectoTbLabel_FFechaInicio}" for="FFechaInicio" />
                                 <p:calendar rendered="#{proyectoTbController.selected.EEstado == 0}" id="FFechaInicio" pattern="dd MMMM yyyy" size="20" 
