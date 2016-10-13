@@ -26,7 +26,7 @@
 
                             <p:outputLabel value="Solicitante:" for="MSolicitante" />
                             <p:inputText  id="MSolicitante" value="#{exhibicionTbController.selected.MSolicitante}" title="Solicitante"
-                                           required="true" requiredMessage="Escriba el nombre de la persona solicitante"/>
+                                          required="true" requiredMessage="Escriba el nombre de la persona solicitante"/>
 
                             <p:outputLabel value="#{bundle.CreateExhibicionTbLabel_CTipo}" for="CTipo" />
                             <p:selectOneMenu id="CTipo" value="#{exhibicionTbController.selected.CTipo}" style="width: 150px" >
@@ -57,7 +57,7 @@
                                         value="#{exhibicionTbController.selected.HHoraPrestamo}" size="8" timeOnly="true"
                                         title="Hora de préstamo" required="true" requiredMessage="Seleccione hora de préstamo">
                             </p:calendar>
-                            
+
 
                             <p:outputLabel value="Fecha de reingreso:" for="FFechaReingreso" />
                             <p:calendar id="FFechaReingreso" pattern="dd MMMM yyyy" locale="es" readonlyInput="true"
@@ -128,11 +128,11 @@
                             <p:column headerText="Ejemplar" >
                                 <p:cellEditor>
                                     <f:facet name="output">
-                                        #{ejem.ejemplarTb.CCodigoentrada}
+                                        #{ejem.ejemplarTb.CCodigoentrada} #{ejemplarTbController.calcularTaxonomia(ejem.ejemplarTb.EIdtaxonomia)}
                                     </f:facet>
                                     <f:facet name="input">
-                                        <p:inputText value="#{ejem.ejemplarTb.CCodigoentrada}"/>
-                                </f:facet>
+                                        <p:inputText value="#{ejem.ejemplarTb.CCodigoentrada} "/>
+                                    </f:facet>
                                 </p:cellEditor>
                             </p:column>
 
@@ -144,16 +144,16 @@
                                                update=":ExhibicionTbEditForm:ejemplar :ExhibicionTbEditForm:tablaEjemplares">
                                     <f:setPropertyActionListener value="#{ejem}" 
                                                                  target="#{exhibicionTbController.ejemplarExhibicion}"/>
-                                    
+
                                     <p:confirm header="Confirmación" message="¿Desea quitar el ejemplar?" icon="ui-icon-alert" />
                                 </p:commandLink>
                             </p:column>
 
                         </p:dataTable>
                     </p:panelGrid>
-                    
+
                     <p:commandButton actionListener="#{exhibicionTbController.update}" value="#{bundle.Save}" update="display,:ExhibicionTbListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ExhibicionTbEditDialog');"/>
-                    
+
                 </h:panelGroup>
             </h:form>
         </p:dialog>

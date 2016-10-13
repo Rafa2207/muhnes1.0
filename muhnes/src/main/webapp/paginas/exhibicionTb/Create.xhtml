@@ -133,10 +133,10 @@
                             <p:column headerText="Ejemplar" >
                                 <p:cellEditor>
                                     <f:facet name="output">
-                                        #{ejem.ejemplarTb.CCodigoentrada}
+                                        #{ejem.ejemplarTb.CCodigoentrada} #{ejemplarTbController.calcularTaxonomia(ejem.ejemplarTb.EIdtaxonomia)} 
                                     </f:facet>
                                     <f:facet name="input">
-                                        <p:inputText value="#{ejem.ejemplarTb.CCodigoentrada}"/>
+                                        <p:inputText value="#{ejem.ejemplarTb.CCodigoentrada} "/>
                                     </f:facet>
                                 </p:cellEditor>
                             </p:column>
