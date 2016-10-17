@@ -1210,29 +1210,10 @@ public class EjemplarTbController implements Serializable {
                     ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
 
                     // Inicia reporte
-                    Document document = new Document(PageSize.LETTER);
+                    Document document = new Document(PageSize.LEGAL);
                     PdfWriter writer = PdfWriter.getInstance(document, pdfOutputStream);
                     document.setMargins(57, 57, 15, 15);
                     document.open();
-                    //agregar nueva fuente de letra
-                    ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-                    String realPath = UtilPath.getPathDefinida(ec.getRealPath("/"));
-                    String pathDefinition = realPath + File.separator + "src" + File.separator + "main" + File.separator + "webapp" + File.separator + "resources" + File.separator + "images" + File.separator;
-                    BaseFont baseFont = BaseFont.createFont(pathDefinition + "arial.ttf", BaseFont.WINANSI, BaseFont.EMBEDDED);
-                    Font fuente = new Font(baseFont);
-                    fuente.setSize(12);
-                    fuente.setStyle(Font.BOLD);
-                    Font fuente2 = new Font(baseFont);
-                    fuente2.setSize(10);
-                    fuente2.setStyle(Font.BOLD);
-                    Font fuente3 = new Font(baseFont);
-                    fuente3.setSize(10);
-                    fuente3.setStyle(Font.BOLDITALIC);
-                    Font fuente4 = new Font(baseFont);
-                    fuente4.setStyle(Font.BOLD);
-                    fuente4.setSize(10);
-                    //fuente4.setStyle(Font.BOLDITALIC);
-                    //Paragraph titulo = new Paragraph("FLORA DE EL SALVADOR\n\n", fuente);
                     //inicio de etiquetas
                     List<EjemplarTb> ejemplarListaEtiqueta = new ArrayList<EjemplarTb>();
                     ejemplarListaEtiqueta = getFacade().ejemplarGeneralEntrada(codigo1, codigo2);
@@ -1270,13 +1251,13 @@ public class EjemplarTbController implements Serializable {
                             cod.addCell(new Paragraph(" ", FontFactory.getFont(FontFactory.TIMES_BOLD, 10)));
                             PdfContentByte cb = writer.getDirectContent();
                             Barcode128 codigo = new Barcode128();
-                            codigo.setBarHeight(20f); // great! but what about width???
-                            codigo.setX(1f);
+                            codigo.setBarHeight(22f); // great! but what about width???
+                            codigo.setX(0.9f);
                             //codigo.setX(0.1f);
                             //codigo.setN(0.30f);
-                            codigo.setSize(7f);
+                            codigo.setSize(10f);
                             //codigo.setTextAlignment(Element.ALIGN_CENTER);
-                            codigo.setBaseline(6f);
+                            codigo.setBaseline(8f);
                             //codigo.setBarHeight(4f);
                             codigo.setCode(ej.getCCodigoentrada());
                             PdfPCell cell0 = new PdfPCell();
@@ -1284,10 +1265,10 @@ public class EjemplarTbController implements Serializable {
                             cell0.setBorder(Rectangle.NO_BORDER);
                             //cell0.setMinimumHeight(20f);
                             cod.addCell(cell0);
-                            cod.addCell(new Paragraph(" ", FontFactory.getFont(FontFactory.TIMES_BOLD, 10)));
+                            cod.addCell(new Paragraph(" ", FontFactory.getFont(FontFactory.TIMES_BOLD, 5)));
                             etiqueta.addCell(cod);
                             /////////////////////////
-                            PdfPCell titulo1 = new PdfPCell(new Paragraph("FLORA DE EL SALVADOR", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                            PdfPCell titulo1 = new PdfPCell(new Paragraph("FLORA DE EL SALVADOR", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                             titulo1.setBorder(Rectangle.LEFT | Rectangle.RIGHT);
                             titulo1.setHorizontalAlignment(Element.ALIGN_CENTER);
                             //titulo1.setSpacingBefore(5);
@@ -1305,7 +1286,7 @@ public class EjemplarTbController implements Serializable {
                             }
 
                             familia1.setWidthPercentage(100);
-                            PdfPCell c1 = new PdfPCell(new Phrase(calcularFamilia(ej.getEIdtaxonomia()).toUpperCase(), FontFactory.getFont(FontFactory.TIMES_BOLD, 9)));
+                            PdfPCell c1 = new PdfPCell(new Phrase(calcularFamilia(ej.getEIdtaxonomia()).toUpperCase(), FontFactory.getFont(FontFactory.TIMES_BOLD, 10)));
                             c1.setHorizontalAlignment(Element.ALIGN_LEFT);
                             c1.setBorder(Rectangle.NO_BORDER);
                             familia1.addCell(c1);
@@ -1321,7 +1302,7 @@ public class EjemplarTbController implements Serializable {
                             taxonomia1.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                             taxonomia1.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                             taxonomia1.setWidthPercentage(100);
-                            PdfPCell cc1 = new PdfPCell(new Phrase(calcularTaxonomia(ej.getEIdtaxonomia()), FontFactory.getFont(FontFactory.TIMES_BOLDITALIC, 9)));
+                            PdfPCell cc1 = new PdfPCell(new Phrase(calcularTaxonomia(ej.getEIdtaxonomia()), FontFactory.getFont(FontFactory.TIMES_BOLDITALIC, 10)));
                             cc1.setHorizontalAlignment(Element.ALIGN_LEFT);
                             cc1.setBorder(Rectangle.NO_BORDER);
                             taxonomia1.addCell(cc1);
@@ -1342,7 +1323,7 @@ public class EjemplarTbController implements Serializable {
                             ident.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                             ident.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                             ident.setWidthPercentage(100);
-                            PdfPCell ccc1 = new PdfPCell(new Phrase("Det. " + nombres + " " + new SimpleDateFormat("dd/MM/yyyy").format(ej.getFFechaFinIdent()), FontFactory.getFont(FontFactory.TIMES_ROMAN, 9)));
+                            PdfPCell ccc1 = new PdfPCell(new Phrase("Det. " + nombres + " " + new SimpleDateFormat("dd/MM/yyyy").format(ej.getFFechaFinIdent()), FontFactory.getFont(FontFactory.TIMES_ROMAN, 10)));
                             ccc1.setHorizontalAlignment(Element.ALIGN_LEFT);
                             ccc1.setBorder(Rectangle.NO_BORDER);
                             ident.addCell(ccc1);
@@ -1359,7 +1340,7 @@ public class EjemplarTbController implements Serializable {
                             localidad.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                             localidad.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                             localidad.setWidthPercentage(100);
-                            PdfPCell cccc1 = new PdfPCell(new Phrase(ej.getEIdlocalidad().getCNombre() + ", " + ej.getEIdlocalidad().getMDescripcion() + ". " + area, FontFactory.getFont(FontFactory.TIMES_ROMAN, 9)));
+                            PdfPCell cccc1 = new PdfPCell(new Phrase(ej.getEIdlocalidad().getCNombre() + ", " + ej.getEIdlocalidad().getMDescripcion() + ". " + area, FontFactory.getFont(FontFactory.TIMES_ROMAN, 10)));
                             cccc1.setHorizontalAlignment(Element.ALIGN_LEFT);
                             cccc1.setBorder(Rectangle.NO_BORDER);
                             localidad.addCell(cccc1);
@@ -1370,12 +1351,22 @@ public class EjemplarTbController implements Serializable {
                             coordenadas.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                             coordenadas.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                             coordenadas.setWidthPercentage(100);
-                            PdfPCell ccor1 = new PdfPCell(new Phrase(localidadControl.latitudList(ej.getEIdlocalidad()) + " " + localidadControl.longitudList(ej.getEIdlocalidad()) + ". " + ej.getEIdlocalidad().getEAltitudMax() + " m.s.n.m.\n", FontFactory.getFont(FontFactory.TIMES_ROMAN, 9)));
+                            PdfPCell ccor1 = new PdfPCell(new Phrase(localidadControl.latitudList(ej.getEIdlocalidad()) + " " + localidadControl.longitudList(ej.getEIdlocalidad()) + ". " + ej.getEIdlocalidad().getEAltitudMax() + " m.s.n.m.\n\n", FontFactory.getFont(FontFactory.TIMES_ROMAN, 10)));
                             ccor1.setHorizontalAlignment(Element.ALIGN_LEFT);
                             ccor1.setBorder(Rectangle.NO_BORDER);
                             coordenadas.addCell(ccor1);
                             etiqueta.addCell(coordenadas);
                             //document.add(coordenadas);
+                            ///////////////////////////////////////
+                            PdfPTable descripcion = new PdfPTable(1);
+                            descripcion.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                            descripcion.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                            descripcion.setWidthPercentage(100);
+                            PdfPCell desc1 = new PdfPCell(new Phrase(ej.getMDescripcion(), FontFactory.getFont(FontFactory.TIMES_ROMAN, 10)));
+                            desc1.setHorizontalAlignment(Element.ALIGN_LEFT);
+                            desc1.setBorder(Rectangle.NO_BORDER);
+                            coordenadas.addCell(desc1);
+                            etiqueta.addCell(descripcion);
                             ///////////////////////////////////////
                             String nombres2 = "", coma2 = "";
                             if (!ej.getEjemplarNombrecomunTbList().isEmpty()) {
@@ -1391,7 +1382,7 @@ public class EjemplarTbController implements Serializable {
                             nombresc.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                             nombresc.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                             nombresc.setWidthPercentage(100);
-                            PdfPCell cnom1 = new PdfPCell(new Phrase(nombres2, FontFactory.getFont(FontFactory.TIMES_ROMAN, 9)));
+                            PdfPCell cnom1 = new PdfPCell(new Phrase(nombres2, FontFactory.getFont(FontFactory.TIMES_ROMAN, 10)));
                             cnom1.setHorizontalAlignment(Element.ALIGN_LEFT);
                             cnom1.setBorder(Rectangle.NO_BORDER);
                             nombresc.addCell(cnom1);
@@ -1412,7 +1403,7 @@ public class EjemplarTbController implements Serializable {
                             donacion.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                             donacion.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                             donacion.setWidthPercentage(100);
-                            PdfPCell cdon1 = new PdfPCell(new Phrase(nombres3, FontFactory.getFont(FontFactory.TIMES_ROMAN, 9)));
+                            PdfPCell cdon1 = new PdfPCell(new Phrase(nombres3, FontFactory.getFont(FontFactory.TIMES_ROMAN, 10)));
                             cdon1.setHorizontalAlignment(Element.ALIGN_LEFT);
                             cdon1.setBorder(Rectangle.NO_BORDER);
                             donacion.addCell(cdon1);
@@ -1423,7 +1414,7 @@ public class EjemplarTbController implements Serializable {
                             respon.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                             respon.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                             respon.setWidthPercentage(100);
-                            PdfPCell cres1 = new PdfPCell(new Phrase(agenteFacade.agentePorId(ej.getEResponsable()).getCIniciales() + " " + ej.getECorrelativo(), FontFactory.getFont(FontFactory.TIMES_ROMAN, 9)));
+                            PdfPCell cres1 = new PdfPCell(new Phrase(agenteFacade.agentePorId(ej.getEResponsable()).getCIniciales() + " " + ej.getECorrelativo(), FontFactory.getFont(FontFactory.TIMES_ROMAN, 10)));
                             cres1.setHorizontalAlignment(Element.ALIGN_LEFT);
                             cres1.setBorder(Rectangle.NO_BORDER);
                             respon.addCell(cres1);
@@ -1459,7 +1450,7 @@ public class EjemplarTbController implements Serializable {
                             info.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                             info.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                             info.setWidthPercentage(100);
-                            PdfPCell cinfo1 = new PdfPCell(new Phrase("Herbario del Museo de Historia Natural de El Salvador \n MHES", FontFactory.getFont(FontFactory.TIMES_BOLD, 9)));
+                            PdfPCell cinfo1 = new PdfPCell(new Phrase("Herbario del Museo de Historia Natural de El Salvador \n MHES", FontFactory.getFont(FontFactory.TIMES_BOLD, 10)));
                             cinfo1.setHorizontalAlignment(Element.ALIGN_CENTER);
                             cinfo1.setBorder(Rectangle.NO_BORDER);
                             info.addCell(cinfo1);

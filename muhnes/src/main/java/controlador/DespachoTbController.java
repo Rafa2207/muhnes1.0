@@ -345,6 +345,16 @@ public class DespachoTbController implements Serializable {
 
     }
 
+    public String sinDespacho (DespachoTb sin){
+        String nombre= "";
+        if(sin.getEIdproyecto()!=null){
+           nombre=sin.getEIdproyecto().getMNombre();
+        } else {
+            nombre="Sin Proyecto";
+        }
+        return nombre;
+    }
+    
     public String estadoDespacho(Integer estado) {
         if (estado == 1) {
             return "No";

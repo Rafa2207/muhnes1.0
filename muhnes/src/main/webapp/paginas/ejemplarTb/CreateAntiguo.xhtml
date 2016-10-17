@@ -43,20 +43,20 @@
                                 <p:ajax event="change" update="fTaxon" process="Taxon"/>
                             </p:selectOneMenu>
                             <p:outputLabel value="    "/>
-                            <p:selectOneMenu id="fTaxon" style="width: 150px" value="#{ejemplarTbController.selected.EIdtaxonomia}" filter="true" >
+                            <p:selectOneMenu id="fTaxon" style="width: 150px" value="#{ejemplarTbController.selected.EIdtaxonomia}" 
+                                             filter="true" filterMatchMode="contains">
                                 <f:selectItem itemLabel="Seleccione..." itemValue=""/>
                                 <f:selectItems value="#{taxonomiaTbController.taxonomia(ejemplarTbController.tipoTaxon)}"
                                                var="taxon"
                                                itemLabel="#{ejemplarTbController.calcularTaxonomia(taxon, 1)}"
                                                itemValue="#{taxon}"/>
                                 <p:ajax event="change" listener="#{ejemplarTbController.llenarNombreComun()}" 
-                                        process="fTaxon :EjemplarTbCreateForm:detalleEjemplar:nombreC" update=":EjemplarTbCreateForm:detalleEjemplar:nombreC" /> 
+                                        process="fTaxon :EjemplarTbCreate3Form:detalleEjemplar:nombreC" update=":EjemplarTbCreate3Form:detalleEjemplar:nombreC" /> 
                             </p:selectOneMenu>
                         </h:panelGroup>
                         <p:outputLabel value="#{bundle.CreateEjemplarTbLabel_CCalificativo}" for="CCalificativo" />
-                        <p:selectOneMenu id="CCalificativo" value="#{ejemplarTbController.selected.CCalificativo}" 
-                                         required="true" requiredMessage="seleccione calificativo" >
-                            <f:selectItem itemLabel="Seleccione..." itemValue=""/>
+                        <p:selectOneMenu id="CCalificativo" value="#{ejemplarTbController.selected.CCalificativo}" >
+                            <f:selectItem itemLabel="Sin calificativo" itemValue=""/>
                             <f:selectItem itemLabel="aff." itemValue="aff."/>
                             <f:selectItem itemLabel="-cf." itemValue="-cf."/>
                             <f:selectItem itemLabel="ined." itemValue="ined."/>
@@ -242,7 +242,7 @@
                                     <p:commandLink styleClass="ui-icon ui-icon-trash"
                                                    action="#{ejemplarTbController.removerNombrecomun()}"
                                                    process="ejemplarNombreComun"
-                                                   update="ejemplarNombreComun :EjemplarTbCreateForm:detalleEjemplar:nombreC">
+                                                   update="ejemplarNombreComun :EjemplarTbCreate3Form:detalleEjemplar:nombreC">
                                         <f:setPropertyActionListener value="#{nc}" 
                                                                      target="#{ejemplarTbController.ejemplarnc}"/>
                                         <p:confirm header="Confirmación" message="¿Desea eliminar nombre común?" icon="ui-icon-alert" />
@@ -289,7 +289,7 @@
                             </p:dataTable>
                         </p:tab>
                     </p:tabView>
-                    <p:commandButton actionListener="#{ejemplarTbController.create}" value="#{bundle.Save}" update="display,:EjemplarTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'EjemplarTbCreateDialog');"/>
+                    <p:commandButton actionListener="#{ejemplarTbController.create}" value="#{bundle.Save}" update="display,:EjemplarTbListForm:datalist,:growl" oncomplete="handleSubmit(args,'EjemplarTbCreate3Dialog');"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

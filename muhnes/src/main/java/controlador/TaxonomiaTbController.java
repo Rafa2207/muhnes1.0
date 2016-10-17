@@ -701,9 +701,9 @@ public class TaxonomiaTbController implements Serializable {
             }
             String pathDefinition = ruta + File.separator + file.getFileName();
             System.out.println("" + pathDefinition);
-            int repetido=0;
-            for(ImagenTb i: selected.getImagenTbList()){
-                if(i.getCRuta().equals(pathDefinition)){
+            int repetido = 0;
+            for (ImagenTb i : selected.getImagenTbList()) {
+                if (i.getCRuta().equals(pathDefinition)) {
                     repetido++;
                 }
             }
@@ -1381,35 +1381,35 @@ public class TaxonomiaTbController implements Serializable {
                 }
 
                 //Mostrar imagenes
-                document.add(new Paragraph(" ", FontFactory.getFont(FontFactory.TIMES, 10)));
+                //document.add(new Paragraph(" ", FontFactory.getFont(FontFactory.TIMES, 10)));
                 FacesContext ctx = FacesContext.getCurrentInstance();
                 String ruta = ctx.getExternalContext().getInitParameter("pictures_directory_path");
                 String carpeta = selected.getEIdtaxonomia() + "/";
                 if (!selected.getImagenTbList().isEmpty()) {
+                    document.newPage();
+                    Paragraph tituloImagen = new Paragraph("Imágenes", FontFactory.getFont(FontFactory.TIMES_BOLD, 16));
+                    tituloImagen.setAlignment(Element.ALIGN_CENTER);
+                    tituloImagen.setSpacingAfter(5);
+                    tituloImagen.setSpacingBefore(5);
+                    document.add(tituloImagen);
+                    //float documentWidth = document.getPageSize().getWidth() - document.leftMargin() - document.rightMargin();
+                    //float documentHeight = document.getPageSize().getHeight() - document.topMargin() - document.bottomMargin();
                     for (ImagenTb i : selected.getImagenTbList()) {
                         String Img = ruta + carpeta + i.getCNombre();
-
                         //Tabla para  las imagenes
                         PdfPTable tablaImg1 = new PdfPTable(1);
                         //Ancho de la tabla
-                        tablaImg1.setWidthPercentage(100);
+                      //  tablaImg1.setWidthPercentage(100);
                         Image imagenes = Image.getInstance(Img);
-                        //Indico tamaÃƒÂ±o del logo
-                        float documentWidth = (document.getPageSize().getWidth() - document.leftMargin() - document.rightMargin()) / 2;
-                        float documentHeight = (document.getPageSize().getHeight() - document.topMargin() - document.bottomMargin()) / 2;
-                        imagenes.scaleToFit(documentWidth, documentHeight);
-                        System.out.println("" + imagenes.getWidth() + "x" + imagenes.getHeight());
+                        imagenes.scaleAbsolute(250, 220);
+                        imagenes.setAlignment(Image.ALIGN_MIDDLE);
+                        //System.out.println("" + documentWidth + "x" + documentWidth);
+                        //System.out.println("" + imagenes.getWidth() + "x" + imagenes.getHeight());
                         //aÃ±adiendo la imagen a la tabla
                         tablaImg1.addCell(imagenes);
                         //aÃ±adiendo la tabla al documento
-                        document.add(tablaImg1);
+                        document.add(imagenes);
                         //tabla para espacio entre las imagenes
-                        PdfPTable tablaImg2 = new PdfPTable(1);
-                        PdfPCell celda2 = new PdfPCell();
-                        celda2.addElement(new Paragraph(" ", FontFactory.getFont(FontFactory.TIMES_BOLD, 20)));
-                        celda2.setBorder(Rectangle.NO_BORDER);
-                        tablaImg2.addCell(celda2);
-                        document.add(tablaImg2);
                     }
                 } else {
                     Paragraph tituloNoImagenes = new Paragraph("No se encontraron imágenes", FontFactory.getFont(FontFactory.TIMES, 12));

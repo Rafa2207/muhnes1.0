@@ -24,8 +24,8 @@
                                              filter="true"
                                              style="width: 300px"
                                              value="#{despachoTbController.selected.EIdproyecto}" 
-                                             required="true" requiredMessage="Seleccione un proyecto">
-                                <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                             >
+                                <f:selectItem itemLabel="Sin Proyecto" itemValue="" />
                                 <f:selectItems value="#{despachoTbController.proyectosDisponibles()}"
                                                var="EIdproyectoItem"
                                                itemValue="#{EIdproyectoItem}"

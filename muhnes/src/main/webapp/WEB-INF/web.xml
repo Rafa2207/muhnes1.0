@@ -43,15 +43,15 @@
         <description>Path where pictures will be stored</description>
         <param-name>pictures_directory_path</param-name>
         <!--<param-value>/home/rafa2207/images/</param-value>-->
-        <!--<param-value>/home/sic-sv/images/</param-value>-->
-        <param-value>C:\images\</param-value>
+        <param-value>/home/sic-sv/images/</param-value>
+        <!--<param-value>C:\images\</param-value>-->
     </context-param>
     <context-param>
         <description>Path where pictures will be stored</description>
         <param-name>backup_directory_path</param-name>
         <!--<param-value>/home/rafa2207/images/</param-value>-->
-        <!--<param-value>/home/sic-sv/backup/</param-value>-->
-        <param-value>C:\images\</param-value>
+        <param-value>/home/sic-sv/backup/</param-value>
+        <!--<param-value>C:\images\</param-value>-->
     </context-param>
     <security-constraint>
         <display-name>admin1</display-name>
