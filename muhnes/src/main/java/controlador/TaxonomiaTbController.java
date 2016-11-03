@@ -876,24 +876,24 @@ public class TaxonomiaTbController implements Serializable {
                 //Siguientes celdas no tengan borde
                 encabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                 //nueva celda con los datos del MUHNES
-                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de \nEl Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de El Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
 
                 encabezado.addCell("");
                 document.add(encabezado);
 
-                Paragraph titulo = new Paragraph("Reporte General de Información Taxonómica", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                Paragraph titulo = new Paragraph("REPORTE GENERAL DE INFORMACIÓN TAXONÓMICA", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                 titulo.setAlignment(Element.ALIGN_CENTER);
 
                 titulo.setSpacingBefore(5);
                 document.add(titulo);
 
-                Paragraph titulo2 = new Paragraph(new Phrase("Reporte de Familias", FontFactory.getFont(FontFactory.TIMES_BOLD, 13)));
+                Paragraph titulo2 = new Paragraph(new Phrase("REPORTE DE FAMILIAS", FontFactory.getFont(FontFactory.TIMES_BOLD, 13)));
                 titulo2.setAlignment(Element.ALIGN_CENTER);
                 titulo2.setSpacingAfter(5);
                 titulo2.setSpacingBefore(2);
                 document.add(titulo2);
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha y hora: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 document.add(fecha);
@@ -1020,46 +1020,45 @@ public class TaxonomiaTbController implements Serializable {
                 //Siguientes celdas no tengan borde
                 encabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                 //nueva celda con los datos del MUHNES
-                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de \nEl Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de El Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
 
                 encabezado.addCell("");
                 document.add(encabezado);
 
-                Paragraph titulo = new Paragraph("Reporte General de Información Taxonómica", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                Paragraph titulo = new Paragraph("REPORTE GENERAL DE INFORMACIÓN TAXONÓMICA", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                 titulo.setAlignment(Element.ALIGN_CENTER);
 
                 titulo.setSpacingBefore(5);
                 document.add(titulo);
 
                 if (tax.getCTipo().equals("Familia")) {
-                    Paragraph titulo2 = new Paragraph(new Phrase("Reporte de Género \n Familia: " + tax.getCNombre() + "", FontFactory.getFont(FontFactory.TIMES_BOLD, 13)));
+                    Paragraph titulo2 = new Paragraph(new Phrase("REPORTE DE GÉNEROS \n Familia: " + tax.getCNombre() + "", FontFactory.getFont(FontFactory.TIMES_BOLD, 13)));
                     titulo2.setAlignment(Element.ALIGN_CENTER);
                     titulo2.setSpacingAfter(5);
                     titulo2.setSpacingBefore(2);
                     document.add(titulo2);
                 } else if (tax.getCTipo().equals("Genero")) {
-                    Paragraph titulo2 = new Paragraph(new Phrase("Reporte de Especies \n Género: " + tax.getCNombre() + "", FontFactory.getFont(FontFactory.TIMES_BOLD, 13)));
+                    Paragraph titulo2 = new Paragraph(new Phrase("REPORTE DE ESPECIES \n Género: " + tax.getCNombre() + "", FontFactory.getFont(FontFactory.TIMES_BOLD, 13)));
                     titulo2.setAlignment(Element.ALIGN_CENTER);
                     titulo2.setSpacingAfter(5);
                     titulo2.setSpacingBefore(2);
                     document.add(titulo2);
                 } else if (tax.getCTipo().equals("Especie") && n == 1) {
-                    Paragraph titulo2 = new Paragraph(new Phrase("Reporte de Subespecies \n Especie: " + tax.getCNombre() + "", FontFactory.getFont(FontFactory.TIMES_BOLD, 13)));
+                    Paragraph titulo2 = new Paragraph(new Phrase("REPORTE DE SUBESPECIES \n Especie: " + tax.getCNombre() + "", FontFactory.getFont(FontFactory.TIMES_BOLD, 13)));
                     titulo2.setAlignment(Element.ALIGN_CENTER);
                     titulo2.setSpacingAfter(5);
                     titulo2.setSpacingBefore(2);
                     document.add(titulo2);
                 } else if (tax.getCTipo().equals("Especie") && n == 2) {
-                    Paragraph titulo2 = new Paragraph(new Phrase("Reporte de Variedades \n Especie: " + tax.getCNombre() + "", FontFactory.getFont(FontFactory.TIMES_BOLD, 13)));
+                    Paragraph titulo2 = new Paragraph(new Phrase("REPORTE DE VARIEDADES \n Especie: " + tax.getCNombre() + "", FontFactory.getFont(FontFactory.TIMES_BOLD, 13)));
                     titulo2.setAlignment(Element.ALIGN_CENTER);
                     titulo2.setSpacingAfter(5);
                     titulo2.setSpacingBefore(2);
                     document.add(titulo2);
                 }
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()), FontFactory.getFont(FontFactory.TIMES, 10));
+                Paragraph fecha = new Paragraph("Fecha y hora: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()), FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
-                fecha.setSpacingAfter(10);
                 document.add(fecha);
 
                 String nick = JsfUtil.getRequest().getUserPrincipal().getName();
@@ -1229,21 +1228,20 @@ public class TaxonomiaTbController implements Serializable {
                 //Siguientes celdas no tengan borde
                 encabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                 //nueva celda con los datos del MUHNES
-                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de \nEl Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                encabezado.addCell(new Paragraph("\nMuseo de Historia Natural de El Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
 
                 encabezado.addCell("");
                 document.add(encabezado);
 
-                Paragraph titulo = new Paragraph("Reporte de " + selected.getCTipo(), FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                Paragraph titulo = new Paragraph("REPORTE DE " + selected.getCTipo().toUpperCase(), FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                 titulo.setAlignment(Element.ALIGN_CENTER);
                 titulo.setSpacingAfter(5);
                 titulo.setSpacingBefore(10);
                 document.add(titulo);
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha y hora: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
-                fecha.setSpacingAfter(15);
                 document.add(fecha);
 
                 String nick = JsfUtil.getRequest().getUserPrincipal().getName();

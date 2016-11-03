@@ -511,19 +511,19 @@ public class DespachoTbController implements Serializable {
                 //Siguientes celdas no tengan borde
                 encabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                 //nueva celda con los datos del MUHNES
-                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de \nEl Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de El Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
 
                 encabezado.addCell("");
                 document.add(encabezado);
 
-                Paragraph titulo = new Paragraph("Reporte General de Despachos", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                Paragraph titulo = new Paragraph("REPORTE GENERAL DE DESPACHOS", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                 titulo.setAlignment(Element.ALIGN_CENTER);
 
                 titulo.setSpacingBefore(5);
                 document.add(titulo);
                 //fecha de generacion entre los reportes
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha y hora: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 //fecha.setSpacingAfter(10);
@@ -541,7 +541,7 @@ public class DespachoTbController implements Serializable {
                 PdfPTable pedidos = new PdfPTable(4);
                 pedidos.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
 
-                int headerwidths[] = {35, 18, 20, 27};
+                int headerwidths[] = {35, 18, 30, 17};
                 try {
                     pedidos.setWidths(headerwidths);
                 } catch (Exception e) {
@@ -569,8 +569,8 @@ public class DespachoTbController implements Serializable {
                     c2.setHorizontalAlignment(Element.ALIGN_CENTER);
                     pedidos.addCell(c2);
 
-                    PdfPCell c3 = new PdfPCell(new Phrase(despacho.getEIdproyecto().getMNombre(), FontFactory.getFont(FontFactory.TIMES, 11)));
-                    c3.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    PdfPCell c3 = new PdfPCell(new Phrase(sinDespacho(despacho), FontFactory.getFont(FontFactory.TIMES, 11)));
+                    c3.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
                     pedidos.addCell(c3);
 
                     PdfPCell c4 = new PdfPCell(new Phrase(estadoDespacho(despacho.getEEstado()), FontFactory.getFont(FontFactory.TIMES, 11)));
@@ -652,18 +652,18 @@ public class DespachoTbController implements Serializable {
                 //Siguientes celdas no tengan borde
                 encabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                 //nueva celda con los datos del MUHNES
-                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de \nEl Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de El Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
 
                 encabezado.addCell("");
                 document.add(encabezado);
 
-                Paragraph titulo = new Paragraph("Reporte de Despacho", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                Paragraph titulo = new Paragraph("REPORTE DE DESPACHO", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                 titulo.setAlignment(Element.ALIGN_CENTER);
                 titulo.setSpacingAfter(5);
                 titulo.setSpacingBefore(10);
                 document.add(titulo);
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha y hora: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 fecha.setSpacingAfter(15);
@@ -710,7 +710,7 @@ public class DespachoTbController implements Serializable {
                 TablaFecha.setSpacingAfter(5);
                 TablaFecha.setSpacingBefore(5);
                 TablaFecha.addCell(new Phrase("Proyecto: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-                TablaFecha.addCell(new Phrase(new Phrase(selected.getEIdproyecto().getMNombre(), FontFactory.getFont(FontFactory.TIMES, 12))));
+                TablaFecha.addCell(new Phrase(new Phrase(sinDespacho(selected), FontFactory.getFont(FontFactory.TIMES, 12))));
                 document.add(TablaFecha);
 
                 PdfPTable TablaResponsable = new PdfPTable(2);
@@ -739,7 +739,7 @@ public class DespachoTbController implements Serializable {
                     TablaInsumo1.setWidthPercentage(90);
                     TablaInsumo1.addCell(new Phrase("Material", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                     TablaInsumo1.addCell(new Phrase("Marca", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
-                    TablaInsumo1.addCell(new Phrase("Cantidad Solicitda", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                    TablaInsumo1.addCell(new Phrase("Cantidad Solicitada", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                     TablaInsumo1.addCell(new Phrase("Cantidad Reingresada", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                     document.add(TablaInsumo1);
 

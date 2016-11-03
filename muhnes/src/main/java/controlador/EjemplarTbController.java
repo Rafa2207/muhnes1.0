@@ -1033,7 +1033,7 @@ public class EjemplarTbController implements Serializable {
                     encabezado.addCell("");
                     document.add(encabezado);
 
-                    Paragraph titulo = new Paragraph("Reporte General de Ejemplares", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                    Paragraph titulo = new Paragraph("REPORTE GENERAL DE EJEMPLARES", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                     titulo.setAlignment(Element.ALIGN_CENTER);
 
                     titulo.setSpacingBefore(5);
@@ -1077,7 +1077,7 @@ public class EjemplarTbController implements Serializable {
                         document.add(titulo2);
                     }
 
-                    Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
+                    Paragraph fecha = new Paragraph("Fecha y hora: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
                             FontFactory.getFont(FontFactory.TIMES, 10));
                     fecha.setAlignment(Element.ALIGN_CENTER);
                     //fecha.setSpacingAfter(10);
@@ -1115,7 +1115,7 @@ public class EjemplarTbController implements Serializable {
                     }
                     ejemplares.addCell(new Phrase("Correlativo", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                     ejemplares.addCell(new Phrase("Familia", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
-                    ejemplares.addCell(new Phrase("Informacón Taxonómica", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                    ejemplares.addCell(new Phrase("Información Taxonómica", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                     //ejemplares.addCell(new Phrase("Calificativo", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                     ejemplares.addCell(new Phrase("Descripción", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
                     //ejemplares.addCell(new Phrase("Duplicados", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
@@ -1332,9 +1332,9 @@ public class EjemplarTbController implements Serializable {
                             /////////////////////////////////////////
                             String area = "";
                             if (ej.getEIdlocalidad().getEIdarea() == null) {
-                                area = "Sin area protegida, " + ej.getEIdlocalidad().getEIdcanton().getCNombre() + ", " + ej.getEIdlocalidad().getEIdcanton().getEIdmunicipio().getCNombre() + ", " + ej.getEIdlocalidad().getEIdcanton().getEIdmunicipio().getEIddepto().getCNombre() + ".";
+                                area = "Sin área protegida, " + ej.getEIdlocalidad().getEIdcanton().getCNombre() + ", " + ej.getEIdlocalidad().getEIdcanton().getEIdmunicipio().getCNombre() + ", " + ej.getEIdlocalidad().getEIdcanton().getEIdmunicipio().getEIddepto().getCNombre() + ".";
                             } else {
-                                area = "Area Protegida: " + ej.getEIdlocalidad().getEIdarea().getCNombre() + ", " + ej.getEIdlocalidad().getEIdarea().getEIdmunicipio().getCNombre() + ", " + ej.getEIdlocalidad().getEIdarea().getEIdmunicipio().getEIddepto().getCNombre() + ".";
+                                area = "Área Protegida: " + ej.getEIdlocalidad().getEIdarea().getCNombre() + ", " + ej.getEIdlocalidad().getEIdarea().getEIdmunicipio().getCNombre() + ", " + ej.getEIdlocalidad().getEIdarea().getEIdmunicipio().getEIddepto().getCNombre() + ".";
                             }
                             PdfPTable localidad = new PdfPTable(1);
                             localidad.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);

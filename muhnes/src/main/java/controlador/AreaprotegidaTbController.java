@@ -368,12 +368,12 @@ public class AreaprotegidaTbController implements Serializable {
                 encabezado.addCell("");
                 document.add(encabezado);
 
-                Paragraph titulo = new Paragraph("Reporte general de Áreas Protegidas", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                Paragraph titulo = new Paragraph("REPORTE GENERAL DE ÁREAS PROTEGIDAS", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                 titulo.setAlignment(Element.ALIGN_CENTER);
                 titulo.setSpacingBefore(5);
                 document.add(titulo);
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha y hora: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 document.add(fecha);
@@ -405,11 +405,11 @@ public class AreaprotegidaTbController implements Serializable {
                 for (AreaprotegidaTb l : AreaListaReporte) {
 
                     PdfPCell c1 = new PdfPCell(new Phrase(l.getCNombre(), FontFactory.getFont(FontFactory.TIMES, 12)));
-                    c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    c1.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
                     Tabla.addCell(c1);
 
                     PdfPCell c2 = new PdfPCell(new Phrase(l.getMDescripcion(), FontFactory.getFont(FontFactory.TIMES, 12)));
-                    c2.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    c2.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
                     Tabla.addCell(c2);
 
                     PdfPCell c3 = new PdfPCell(new Phrase(latitudList(l), FontFactory.getFont(FontFactory.TIMES, 12)));
@@ -504,12 +504,12 @@ public class AreaprotegidaTbController implements Serializable {
                 encabezado.addCell("");
                 document.add(encabezado);
 
-                Paragraph titulo = new Paragraph("Reporte de área protegida", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                Paragraph titulo = new Paragraph("REPORTE DE ÁREA PROTEGIDA", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                 titulo.setAlignment(Element.ALIGN_CENTER);
                 titulo.setSpacingBefore(5);
                 document.add(titulo);
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha y hora: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 document.add(fecha);
@@ -558,7 +558,7 @@ public class AreaprotegidaTbController implements Serializable {
                 Tablacanton.setWidthPercentage(100);
                 Tablacanton.setSpacingAfter(5);
                 Tablacanton.setSpacingBefore(5);
-                Tablacanton.addCell(new Phrase("Unidad política-adiministrativa:", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                Tablacanton.addCell(new Phrase("Unidad política-administrativa:", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 Tablacanton.addCell(new Phrase(new Phrase(selected.getEIdmunicipio().getEIddepto().getEIdpais().getCNombre()
                         + ", " + selected.getEIdmunicipio().getEIddepto().getCNombre()
                         + ", " + selected.getEIdmunicipio().getCNombre() + ".", FontFactory.getFont(FontFactory.TIMES, 12))));

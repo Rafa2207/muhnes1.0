@@ -659,7 +659,7 @@ public class ProyectoTbController implements Serializable {
                 encabezado.addCell("");
                 document.add(encabezado);
 
-                Paragraph titulo = new Paragraph("Reporte General de Proyectos", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                Paragraph titulo = new Paragraph("REPORTE GENERAL DE PROYECTOS", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                 titulo.setAlignment(Element.ALIGN_CENTER);
 
                 titulo.setSpacingBefore(5);
@@ -673,7 +673,7 @@ public class ProyectoTbController implements Serializable {
                     document.add(titulo2);
                 }
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd /MM/ yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha y hora: " + new SimpleDateFormat("dd /MM/ yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 document.add(fecha);
@@ -717,7 +717,7 @@ public class ProyectoTbController implements Serializable {
                 for (ProyectoTb proy : proyectoListaReporte) {
 
                     PdfPCell c1 = new PdfPCell(new Phrase(proy.getMNombre(), FontFactory.getFont(FontFactory.TIMES, 12)));
-                    c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    c1.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
                     proyectos.addCell(c1);
 
                     PdfPCell c2 = new PdfPCell(new Phrase(calculaAgenteReporte(proy.getEResponsable()), FontFactory.getFont(FontFactory.TIMES, 12)));
@@ -725,15 +725,15 @@ public class ProyectoTbController implements Serializable {
                     proyectos.addCell(c2);
 
                     PdfPCell c3 = new PdfPCell(new Phrase(new SimpleDateFormat("dd /MM/ yyyy").format(proy.getFFechaInicio()), FontFactory.getFont(FontFactory.TIMES, 12)));
-                    c3.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    c3.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
                     proyectos.addCell(c3);
 
                     PdfPCell c4 = new PdfPCell(new Phrase(new SimpleDateFormat("dd /MM/ yyyy").format(proy.getFFechaFin()), FontFactory.getFont(FontFactory.TIMES, 12)));
-                    c4.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    c4.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
                     proyectos.addCell(c4);
 
                     PdfPCell c5 = new PdfPCell(new Phrase(EstadoProyecto(proy), FontFactory.getFont(FontFactory.TIMES, 12)));
-                    c5.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    c5.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
                     proyectos.addCell(c5);
 
                     PdfPCell c6 = new PdfPCell(new Phrase("$ " + dosDecimalesReporte(presupuesto(proy)), FontFactory.getFont(FontFactory.TIMES, 12)));
@@ -823,13 +823,13 @@ public class ProyectoTbController implements Serializable {
                 encabezado.addCell("");
                 document.add(encabezado);
 
-                Paragraph titulo = new Paragraph("Reporte de Proyecto", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                Paragraph titulo = new Paragraph("REPORTE DE PROYECTO", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                 titulo.setAlignment(Element.ALIGN_CENTER);
                 titulo.setSpacingAfter(5);
                 titulo.setSpacingBefore(10);
                 document.add(titulo);
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd /MM/ yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha y hora: " + new SimpleDateFormat("dd /MM/ yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 document.add(fecha);
@@ -861,7 +861,7 @@ public class ProyectoTbController implements Serializable {
                  document.add(Descripcion);*/
                 Paragraph descripcion = new Paragraph(selected.getMDescripcion(),
                         FontFactory.getFont(FontFactory.TIMES, 12));
-                descripcion.setAlignment(Element.ALIGN_CENTER);
+                descripcion.setAlignment(Element.ALIGN_JUSTIFIED);
                 descripcion.setExtraParagraphSpace(5);
                 descripcion.setSpacingAfter(30);
                 document.add(descripcion);
@@ -954,7 +954,7 @@ public class ProyectoTbController implements Serializable {
 
                 Paragraph Objetivog1 = new Paragraph(selected.getMObjetivoGeneral(),
                         FontFactory.getFont(FontFactory.TIMES, 12));
-                Objetivog1.setAlignment(Element.ALIGN_CENTER);
+                Objetivog1.setAlignment(Element.ALIGN_JUSTIFIED);
                 Objetivog1.setSpacingAfter(30);
                 Objetivog1.setExtraParagraphSpace(5);
                 document.add(Objetivog1);
@@ -968,7 +968,7 @@ public class ProyectoTbController implements Serializable {
 
                 Paragraph Objetivoe1 = new Paragraph(selected.getMObjetivoEspecifico(),
                         FontFactory.getFont(FontFactory.TIMES, 12));
-                Objetivoe1.setAlignment(Element.ALIGN_CENTER);
+                Objetivoe1.setAlignment(Element.ALIGN_JUSTIFIED);
                 Objetivoe1.setSpacingAfter(10);
                 Objetivoe1.setExtraParagraphSpace(5);
                 document.add(Objetivoe1);
@@ -1223,13 +1223,13 @@ public class ProyectoTbController implements Serializable {
                 encabezado.addCell("");
                 document.add(encabezado);
 
-                Paragraph titulo = new Paragraph("Reporte de Proyecto", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                Paragraph titulo = new Paragraph("REPORTE DE PROYECTO", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                 titulo.setAlignment(Element.ALIGN_CENTER);
                 titulo.setSpacingAfter(5);
                 titulo.setSpacingBefore(10);
                 document.add(titulo);
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd /MM/ yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha y hora: " + new SimpleDateFormat("dd /MM/ yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 document.add(fecha);
@@ -1261,7 +1261,7 @@ public class ProyectoTbController implements Serializable {
                  document.add(Descripcion);*/
                 Paragraph descripcion = new Paragraph(selected.getMDescripcion(),
                         FontFactory.getFont(FontFactory.TIMES, 12));
-                descripcion.setAlignment(Element.ALIGN_CENTER);
+                descripcion.setAlignment(Element.ALIGN_JUSTIFIED);
                 descripcion.setExtraParagraphSpace(5);
                 descripcion.setSpacingAfter(30);
                 document.add(descripcion);
@@ -1397,7 +1397,7 @@ public class ProyectoTbController implements Serializable {
 
                 Paragraph Objetivog1 = new Paragraph(selected.getMObjetivoGeneral(),
                         FontFactory.getFont(FontFactory.TIMES, 12));
-                Objetivog1.setAlignment(Element.ALIGN_CENTER);
+                Objetivog1.setAlignment(Element.ALIGN_JUSTIFIED);
                 Objetivog1.setSpacingAfter(30);
                 Objetivog1.setExtraParagraphSpace(5);
                 document.add(Objetivog1);
@@ -1411,7 +1411,7 @@ public class ProyectoTbController implements Serializable {
 
                 Paragraph Objetivoe1 = new Paragraph(selected.getMObjetivoEspecifico(),
                         FontFactory.getFont(FontFactory.TIMES, 12));
-                Objetivoe1.setAlignment(Element.ALIGN_CENTER);
+                Objetivoe1.setAlignment(Element.ALIGN_JUSTIFIED);
                 Objetivoe1.setSpacingAfter(10);
                 Objetivoe1.setExtraParagraphSpace(5);
                 document.add(Objetivoe1);

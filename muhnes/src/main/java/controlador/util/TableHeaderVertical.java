@@ -8,6 +8,7 @@ import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
 import com.lowagie.text.ExceptionConverter;
+import com.lowagie.text.FontFactory;
 import com.lowagie.text.Image;
 import com.lowagie.text.Phrase;
 import com.lowagie.text.Rectangle;
@@ -60,7 +61,7 @@ public class TableHeaderVertical extends PdfPageEventHelper {
                 table.getDefaultCell().setBorder(Rectangle.TOP);
                 table.addCell(header);
                 table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_RIGHT);
-                table.addCell(String.format("Página %d de", writer.getPageNumber()));
+                table.addCell(String.format("Página %d de", writer.getPageNumber(),FontFactory.getFont(FontFactory.TIMES, 8)));
                 PdfPCell cell = new PdfPCell(Image.getInstance(total));
                 cell.setBorder(Rectangle.TOP);
                 table.addCell(cell);

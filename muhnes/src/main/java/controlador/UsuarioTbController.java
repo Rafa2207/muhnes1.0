@@ -427,18 +427,18 @@ public class UsuarioTbController implements Serializable {
                 encabezado.addCell("");
                 document.add(encabezado);
                 if (n == 1) {
-                    Paragraph titulo = new Paragraph("Reporte General de Usuarios", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                    Paragraph titulo = new Paragraph("REPORTE GENERAL DE USUARIOS", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                     titulo.setAlignment(Element.ALIGN_CENTER);
                     titulo.setSpacingBefore(5);
                     document.add(titulo);
                 }
                 if (n == 2) {
-                    Paragraph titulo = new Paragraph("Reporte General de Usuarios Inactivos", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                    Paragraph titulo = new Paragraph("REPORTE GENERAL DE USUARIOS INACTIVOS", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                     titulo.setAlignment(Element.ALIGN_CENTER);
                     titulo.setSpacingBefore(5);
                     document.add(titulo);
                 }
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd /MM/ yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha y hora: " + new SimpleDateFormat("dd /MM/ yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 document.add(fecha);
@@ -499,16 +499,16 @@ public class UsuarioTbController implements Serializable {
 
                         if (u.getCDui().equals("")) {
                             PdfPCell cell3 = new PdfPCell(new Phrase("Sin DUI", FontFactory.getFont(FontFactory.TIMES, 12)));
-                            cell3.setHorizontalAlignment(Element.ALIGN_CENTER);
+                            cell3.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
                             usuarios.addCell(cell3);
                         } else {
                             PdfPCell c5 = new PdfPCell(new Phrase(u.getCDui(), FontFactory.getFont(FontFactory.TIMES, 12)));
-                            c5.setHorizontalAlignment(Element.ALIGN_CENTER);
+                            c5.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
                             usuarios.addCell(c5);
                         }
 
                         PdfPCell c6 = new PdfPCell(new Phrase(u.getCTipo(), FontFactory.getFont(FontFactory.TIMES, 12)));
-                        c6.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        c6.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
                         usuarios.addCell(c6);
 
                     }

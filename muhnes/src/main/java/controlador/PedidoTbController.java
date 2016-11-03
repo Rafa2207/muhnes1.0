@@ -558,19 +558,19 @@ public class PedidoTbController implements Serializable {
                 //Siguientes celdas no tengan borde
                 encabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                 //nueva celda con los datos del MUHNES
-                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de \nEl Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de El Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
 
                 encabezado.addCell("");
                 document.add(encabezado);
 
-                Paragraph titulo = new Paragraph("Reporte General de Pedidos", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                Paragraph titulo = new Paragraph("REPORTE GENERAL DE PEDIDOS", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                 titulo.setAlignment(Element.ALIGN_CENTER);
 
                 titulo.setSpacingBefore(5);
                 document.add(titulo);
                 //fecha de generacion entre los reportes
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha y hora: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 //fecha.setSpacingAfter(10);
@@ -582,7 +582,7 @@ public class PedidoTbController implements Serializable {
                 Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() + " " + usuario.getCApellido(),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 usuarioSis.setAlignment(Element.ALIGN_CENTER);
-                usuarioSis.setSpacingAfter(10);
+                usuarioSis.setSpacingAfter(15);
                 document.add(usuarioSis);
 
                 PdfPTable pedidos = new PdfPTable(4);
@@ -699,18 +699,18 @@ public class PedidoTbController implements Serializable {
                 //Siguientes celdas no tengan borde
                 encabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                 //nueva celda con los datos del MUHNES
-                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de \nEl Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de El Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
 
                 encabezado.addCell("");
                 document.add(encabezado);
 
-                Paragraph titulo = new Paragraph("Reporte de Pedido", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                Paragraph titulo = new Paragraph("REPORTE DE PEDIDO", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                 titulo.setAlignment(Element.ALIGN_CENTER);
                 titulo.setSpacingAfter(5);
                 titulo.setSpacingBefore(10);
                 document.add(titulo);
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha y hora: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 //fecha.setSpacingAfter(15);
@@ -745,7 +745,7 @@ public class PedidoTbController implements Serializable {
                 TablaDescripcion.setWidthPercentage(100);
                 TablaDescripcion.setSpacingAfter(5);
                 TablaDescripcion.setSpacingBefore(5);
-                TablaDescripcion.addCell(new Phrase("Fecha de Pedido: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                TablaDescripcion.addCell(new Phrase("Fecha de pedido: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                 TablaDescripcion.addCell(new Phrase(new Phrase(new SimpleDateFormat("dd /MM/ yyyy").format(selected.getFFecha()), FontFactory.getFont(FontFactory.TIMES, 12))));
                 document.add(TablaDescripcion);
 
@@ -897,21 +897,20 @@ public class PedidoTbController implements Serializable {
                 //Siguientes celdas no tengan borde
                 encabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                 //nueva celda con los datos del MUHNES
-                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de \nEl Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                encabezado.addCell(new Paragraph("\n Museo de Historia Natural de El Salvador" + "\n \n Plantas de El Salvador", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
 
                 encabezado.addCell("");
                 document.add(encabezado);
 
-                Paragraph titulo = new Paragraph("Reporte de Pedido", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                Paragraph titulo = new Paragraph("REPORTE DE PEDIDO", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                 titulo.setAlignment(Element.ALIGN_CENTER);
                 titulo.setSpacingAfter(5);
                 titulo.setSpacingBefore(10);
                 document.add(titulo);
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd /MM/ yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha y hora: " + new SimpleDateFormat("dd /MM/ yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
-                fecha.setSpacingAfter(15);
                 document.add(fecha);
 
                 String nick = JsfUtil.getRequest().getUserPrincipal().getName();

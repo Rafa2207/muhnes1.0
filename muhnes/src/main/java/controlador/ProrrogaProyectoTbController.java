@@ -428,13 +428,13 @@ public class ProrrogaProyectoTbController implements Serializable {
                 encabezado.addCell("");
                 document.add(encabezado);
 
-                Paragraph titulo = new Paragraph("Reporte de prórrogas de proyecto", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                Paragraph titulo = new Paragraph("REPORTE DE PRÓRROGAS DE PROYECTOS", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                 titulo.setAlignment(Element.ALIGN_CENTER);
                 titulo.setSpacingAfter(5);
                 titulo.setSpacingBefore(10);
                 document.add(titulo);
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd /MM/ yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha y hora: " + new SimpleDateFormat("dd /MM/ yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 document.add(fecha);
@@ -451,7 +451,7 @@ public class ProrrogaProyectoTbController implements Serializable {
                 int columnas[] = {25, 75};
 
                 PdfPTable TablaNombre = new PdfPTable(2);
-                TablaNombre.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
+                TablaNombre.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
                 TablaNombre.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                 TablaNombre.setWidths(columnas);
                 TablaNombre.setWidthPercentage(100);
@@ -462,7 +462,7 @@ public class ProrrogaProyectoTbController implements Serializable {
                 document.add(TablaNombre);
 
                 PdfPTable TablaDescripcion = new PdfPTable(2);
-                TablaDescripcion.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
+                TablaDescripcion.getDefaultCell().setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
                 TablaDescripcion.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                 TablaDescripcion.setWidths(columnas);
                 TablaDescripcion.setWidthPercentage(100);

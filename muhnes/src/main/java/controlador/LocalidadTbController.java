@@ -345,12 +345,12 @@ public class LocalidadTbController implements Serializable {
                 encabezado.addCell("");
                 document.add(encabezado);
 
-                Paragraph titulo = new Paragraph("Reporte general de localidades", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                Paragraph titulo = new Paragraph("REPORTE GENERAL DE LOCALIDADES", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                 titulo.setAlignment(Element.ALIGN_CENTER);
                 titulo.setSpacingBefore(5);
                 document.add(titulo);
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha y hora: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 document.add(fecha);
@@ -382,11 +382,11 @@ public class LocalidadTbController implements Serializable {
                 for (LocalidadTb l : localidadListaReporte) {
 
                     PdfPCell c1 = new PdfPCell(new Phrase(l.getCNombre(), FontFactory.getFont(FontFactory.TIMES, 12)));
-                    c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    c1.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
                     Tabla.addCell(c1);
 
                     PdfPCell c2 = new PdfPCell(new Phrase(l.getMDescripcion(), FontFactory.getFont(FontFactory.TIMES, 12)));
-                    c2.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    c2.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
                     Tabla.addCell(c2);
 
                     PdfPCell c3 = new PdfPCell(new Phrase(latitudList(l), FontFactory.getFont(FontFactory.TIMES, 12)));
@@ -481,12 +481,12 @@ public class LocalidadTbController implements Serializable {
                 encabezado.addCell("");
                 document.add(encabezado);
 
-                Paragraph titulo = new Paragraph("Reporte de localidad", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                Paragraph titulo = new Paragraph("REPORTE DE LOCALIDAD", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                 titulo.setAlignment(Element.ALIGN_CENTER);
                 titulo.setSpacingBefore(5);
                 document.add(titulo);
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha y hora: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
                 document.add(fecha);
@@ -593,19 +593,19 @@ public class LocalidadTbController implements Serializable {
                         ejemplares.addCell(c3);
 
                         PdfPCell c4 = new PdfPCell(new Phrase(controladorEjemplarTb.calcularFamilia(ejemplar.getEIdtaxonomia()), FontFactory.getFont(FontFactory.TIMES, 11)));
-                        c4.setHorizontalAlignment(Element.ALIGN_LEFT);
+                        c4.setHorizontalAlignment(Element.ALIGN_CENTER);
                         ejemplares.addCell(c4);
 
                         PdfPCell c5 = new PdfPCell(new Phrase(controladorEjemplarTb.calcularTaxonomia(ejemplar.getEIdtaxonomia()), FontFactory.getFont(FontFactory.TIMES, 11)));
-                        c5.setHorizontalAlignment(Element.ALIGN_LEFT);
+                        c5.setHorizontalAlignment(Element.ALIGN_CENTER);
                         ejemplares.addCell(c5);
 
                         PdfPCell c6 = new PdfPCell(new Phrase(ejemplar.getMDescripcion(), FontFactory.getFont(FontFactory.TIMES, 11)));
-                        c6.setHorizontalAlignment(Element.ALIGN_LEFT);
+                        c6.setHorizontalAlignment(Element.ALIGN_CENTER);
                         ejemplares.addCell(c6);
                         
                         PdfPCell c7 = new PdfPCell(new Phrase(new SimpleDateFormat("dd/MM/yyyy").format(ejemplar.getFFechaInicioIdent()), FontFactory.getFont(FontFactory.TIMES, 11)));
-                        c7.setHorizontalAlignment(Element.ALIGN_LEFT);
+                        c7.setHorizontalAlignment(Element.ALIGN_CENTER);
                         ejemplares.addCell(c7);
                     }
                     document.add(ejemplares);

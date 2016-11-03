@@ -289,12 +289,12 @@ public class EjemplarVivoTbController implements Serializable {
                 encabezado.addCell("");
                 document.add(encabezado);
                 if(n==1){
-                Paragraph titulo = new Paragraph("Reporte General de Ejemplares Vivos", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                Paragraph titulo = new Paragraph("REPORTE GENERAL DE EJEMPLARES VIVOS", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                 titulo.setAlignment(Element.ALIGN_CENTER);
                 titulo.setSpacingBefore(5);
                 document.add(titulo);
                 } if(n==2){
-                Paragraph titulo = new Paragraph("Reporte General de Ejemplares Vivos sin Existencias", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                Paragraph titulo = new Paragraph("REPORTE GENERAL DE EJEMPLARES VIVOS SIN EXISTENCIAS", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                 titulo.setAlignment(Element.ALIGN_CENTER);
                 titulo.setSpacingBefore(5);
                 document.add(titulo);
@@ -302,10 +302,9 @@ public class EjemplarVivoTbController implements Serializable {
                 
                 //fecha de generacion entre los reportes
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha y hora: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
-                fecha.setSpacingAfter(10);
                 document.add(fecha);
                 
                 String nick = JsfUtil.getRequest().getUserPrincipal().getName();

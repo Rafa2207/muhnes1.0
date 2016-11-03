@@ -486,17 +486,16 @@ public class DonacionTbController implements Serializable {
                 encabezado.addCell("");
                 document.add(encabezado);
 
-                Paragraph titulo = new Paragraph("Reporte General de Donaciones", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                Paragraph titulo = new Paragraph("REPORTE GENERAL DE DONACIONES", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                 titulo.setAlignment(Element.ALIGN_CENTER);
 
                 titulo.setSpacingBefore(5);
                 document.add(titulo);
                 //fecha de generacion entre los reportes
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha y hora: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
-                fecha.setSpacingAfter(10);
                 document.add(fecha);
 
                 String nick = JsfUtil.getRequest().getUserPrincipal().getName();
@@ -508,42 +507,49 @@ public class DonacionTbController implements Serializable {
                 usuarioSis.setSpacingAfter(10);
                 document.add(usuarioSis);
 
-                PdfPTable donaciones = new PdfPTable(3);
-                donaciones.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-
-                int headerwidths[] = {40, 25, 35};
-                try {
-                    donaciones.setWidths(headerwidths);
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                }
-
-                donaciones.setWidthPercentage(80);
-                donaciones.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-                donaciones.addCell(new Phrase("Descrpción", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
-                donaciones.addCell(new Phrase("Fecha", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
-                donaciones.addCell(new Phrase("Institución", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
-
                 List<DonacionTb> donacionListaReporte = new ArrayList<DonacionTb>();
-
                 donacionListaReporte = getFacade().donacionesPorFecha();
+                if (!donacionListaReporte.isEmpty()) {
+                    PdfPTable donaciones = new PdfPTable(3);
+                    donaciones.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
 
-                for (DonacionTb donacion : donacionListaReporte) {
+                    int headerwidths[] = {40, 25, 35};
+                    try {
+                        donaciones.setWidths(headerwidths);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
 
-                    PdfPCell c1 = new PdfPCell(new Phrase(donacion.getMDescripcion(), FontFactory.getFont(FontFactory.TIMES, 11)));
-                    c1.setHorizontalAlignment(Element.ALIGN_LEFT);
-                    donaciones.addCell(c1);
+                    donaciones.setWidthPercentage(80);
+                    donaciones.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                    donaciones.addCell(new Phrase("Descrpción", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                    donaciones.addCell(new Phrase("Fecha", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
+                    donaciones.addCell(new Phrase("Institución", FontFactory.getFont(FontFactory.TIMES_BOLD, 11)));
 
-                    PdfPCell c2 = new PdfPCell(new Phrase(new SimpleDateFormat("dd/MM/yyyy").format(donacion.getFFecha()), FontFactory.getFont(FontFactory.TIMES, 11)));
-                    c2.setHorizontalAlignment(Element.ALIGN_CENTER);
-                    donaciones.addCell(c2);
+                    for (DonacionTb donacion : donacionListaReporte) {
 
-                    PdfPCell c3 = new PdfPCell(new Phrase(donacion.getEIdinstitucion().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 11)));
-                    c3.setHorizontalAlignment(Element.ALIGN_CENTER);
-                    donaciones.addCell(c3);
+                        PdfPCell c1 = new PdfPCell(new Phrase(donacion.getMDescripcion(), FontFactory.getFont(FontFactory.TIMES, 11)));
+                        c1.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+                        donaciones.addCell(c1);
 
+                        PdfPCell c2 = new PdfPCell(new Phrase(new SimpleDateFormat("dd/MM/yyyy").format(donacion.getFFecha()), FontFactory.getFont(FontFactory.TIMES, 11)));
+                        c2.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        donaciones.addCell(c2);
+
+                        PdfPCell c3 = new PdfPCell(new Phrase(donacion.getEIdinstitucion().getCNombre(), FontFactory.getFont(FontFactory.TIMES, 11)));
+                        c3.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+                        donaciones.addCell(c3);
+
+                    }
+                    document.add(donaciones);
+                } else {
+                    Paragraph tituloNo = new Paragraph("No se encontraron donaciones.", FontFactory.getFont(FontFactory.TIMES, 12));
+                    tituloNo.setAlignment(Element.ALIGN_CENTER);
+                    tituloNo.setSpacingAfter(5);
+                    tituloNo.setSpacingBefore(5);
+                    document.add(tituloNo);
                 }
-                document.add(donaciones);
+
                 document.close();
                 //Termina reporte
 
@@ -622,22 +628,21 @@ public class DonacionTbController implements Serializable {
                 encabezado.addCell("");
                 document.add(encabezado);
 
-                Paragraph titulo = new Paragraph("Reporte de Donación", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                Paragraph titulo = new Paragraph("REPORTE DE DONACIÓN", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                 titulo.setAlignment(Element.ALIGN_CENTER);
                 titulo.setSpacingAfter(5);
                 titulo.setSpacingBefore(10);
                 document.add(titulo);
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha y hora: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
-                fecha.setSpacingAfter(15);
                 document.add(fecha);
-                
+
                 String nick = JsfUtil.getRequest().getUserPrincipal().getName();
                 UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
-                
-                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() +" "+usuario.getCApellido(),
+
+                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() + " " + usuario.getCApellido(),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 usuarioSis.setAlignment(Element.ALIGN_CENTER);
                 usuarioSis.setSpacingAfter(10);
@@ -701,7 +706,7 @@ public class DonacionTbController implements Serializable {
                     TablaInsumo1.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                     TablaInsumo1.setWidths(numero);
                     TablaInsumo1.setWidthPercentage(70);
-                    TablaInsumo1.addCell(new Phrase("Taxonómia", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+                    TablaInsumo1.addCell(new Phrase("Taxonomía", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                     TablaInsumo1.addCell(new Phrase("Ejemplar", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                     //TablaInsumo1.addCell(new Phrase("Cantidad Solicitada", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
                     //TablaInsumo1.addCell(new Phrase("Cantidad Recibida", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
@@ -818,9 +823,9 @@ public class DonacionTbController implements Serializable {
                         /////////////////////////////////////////
                         String area = "";
                         if (ej.getEIdejemplar().getEIdlocalidad().getEIdarea() == null) {
-                            area = "Sin area protegida, " + ej.getEIdejemplar().getEIdlocalidad().getEIdcanton().getCNombre() + ", " + ej.getEIdejemplar().getEIdlocalidad().getEIdcanton().getEIdmunicipio().getCNombre() + ", " + ej.getEIdejemplar().getEIdlocalidad().getEIdcanton().getEIdmunicipio().getEIddepto().getCNombre() + ".";
+                            area = "Sin área protegida, " + ej.getEIdejemplar().getEIdlocalidad().getEIdcanton().getCNombre() + ", " + ej.getEIdejemplar().getEIdlocalidad().getEIdcanton().getEIdmunicipio().getCNombre() + ", " + ej.getEIdejemplar().getEIdlocalidad().getEIdcanton().getEIdmunicipio().getEIddepto().getCNombre() + ".";
                         } else {
-                            area = "Area Protegida: " + ej.getEIdejemplar().getEIdlocalidad().getEIdarea().getCNombre() + ", " + ej.getEIdejemplar().getEIdlocalidad().getEIdarea().getEIdmunicipio().getCNombre() + ", " + ej.getEIdejemplar().getEIdlocalidad().getEIdarea().getEIdmunicipio().getEIddepto().getCNombre() + ".";
+                            area = "Área Protegida: " + ej.getEIdejemplar().getEIdlocalidad().getEIdarea().getCNombre() + ", " + ej.getEIdejemplar().getEIdlocalidad().getEIdarea().getEIdmunicipio().getCNombre() + ", " + ej.getEIdejemplar().getEIdlocalidad().getEIdarea().getEIdmunicipio().getEIddepto().getCNombre() + ".";
                         }
                         PdfPTable localidad = new PdfPTable(1);
                         localidad.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);

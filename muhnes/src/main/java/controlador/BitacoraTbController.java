@@ -349,7 +349,7 @@ public class BitacoraTbController implements Serializable {
                 encabezado.addCell("");
                 document.add(encabezado);
 
-                Paragraph titulo = new Paragraph("Reporte de Bitacora", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
+                Paragraph titulo = new Paragraph("REPORTE DE BITACORA", FontFactory.getFont(FontFactory.TIMES_BOLD, 13));
                 titulo.setAlignment(Element.ALIGN_CENTER);
 
                 titulo.setSpacingBefore(5);
@@ -371,11 +371,19 @@ public class BitacoraTbController implements Serializable {
                     document.add(titulo3);
                 }
 
-                Paragraph fecha = new Paragraph("Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
+                Paragraph fecha = new Paragraph("Fecha y hora: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(new Date()),
                         FontFactory.getFont(FontFactory.TIMES, 10));
                 fecha.setAlignment(Element.ALIGN_CENTER);
-                fecha.setSpacingAfter(10);
                 document.add(fecha);
+                
+                String nick = JsfUtil.getRequest().getUserPrincipal().getName();
+                UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
+
+                Paragraph usuarioSis = new Paragraph("Generado por: " + usuario.getCNombre() + " " + usuario.getCApellido(),
+                        FontFactory.getFont(FontFactory.TIMES, 10));
+                usuarioSis.setAlignment(Element.ALIGN_CENTER);
+                usuarioSis.setSpacingAfter(10);
+                document.add(usuarioSis);
                 //incializando tabla donde estara el contenido
                 if (booleanUsuario == true) columnas = 3;
                 else columnas =4;
@@ -461,8 +469,6 @@ public class BitacoraTbController implements Serializable {
                 //Bitacora inicio
                 BitacoraTb bitacora = new BitacoraTb();
                 bitacora.setMDescripcion("Creado reporte de bitacora en el módulo: Seguridad");
-                String nick = JsfUtil.getRequest().getUserPrincipal().getName();
-                UsuarioTb usuario = usuarioFacade.BuscarUsuario(nick);
                 bitacora.setEIdusuario(usuario);
                 Date fecha1 = new Date();
                 bitacora.setTFecha(fecha1);
